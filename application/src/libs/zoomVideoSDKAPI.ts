@@ -1,6 +1,6 @@
 import "server-only";
 import axios from "axios";
-import {
+import type {
    SessionMetrics,
    SessionMetricsListObject,
 } from "@/types/zoomVideoSDKTypes";

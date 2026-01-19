@@ -1,12 +1,12 @@
 import { date } from "@formkit/tempo";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import {
-   ConferenceWithSpeakerNamesAndPhones,
+   type ConferenceWithSpeakerNamesAndPhones,
    getAllCongressConferencesByDate,
 } from "@/features/conferences/services/conferenceServices";
 import { getConferenceRecordings } from "@/services/recordingServices";
-import { ConferenceRecording } from "@/types/congress";
+import type { ConferenceRecording } from "@/types/congress";
 import ConferenceList from "./ConferenceList";
 
 async function CalendarSection({ conferenceDate }: { conferenceDate: Date }) {

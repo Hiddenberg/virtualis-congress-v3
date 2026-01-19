@@ -2,9 +2,9 @@ import { addSecond } from "@formkit/tempo";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
-import { SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerDataRecord } from "@/types/congress";
 import { getAllProgramConferences } from "../services/conferenceServices";
-import { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
+import type { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
 
 export interface ConferenceWithSpeakers {
    conference: CongressConferenceRecord;
@@ -164,8 +164,7 @@ export async function getAllProgramConferencesWithSpeakersAndDurations(): Promis
          (conferenceSpeaker) => conferenceSpeaker.conference === conference.id,
       );
 
-      let preRecordedData: ConferenceWithSpeakersAndDurations["preRecordedData"] =
-         undefined;
+      let preRecordedData: ConferenceWithSpeakersAndDurations["preRecordedData"];
       if (
          conference.conferenceType === "simulated_livestream" ||
          conference.conferenceType === "pre-recorded"

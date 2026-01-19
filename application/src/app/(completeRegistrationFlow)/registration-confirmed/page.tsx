@@ -4,7 +4,7 @@ import {
    Calendar1Icon,
    CheckCircle,
    CreditCard,
-   LucideIcon,
+   type LucideIcon,
    User,
 } from "lucide-react";
 import Link from "next/link";

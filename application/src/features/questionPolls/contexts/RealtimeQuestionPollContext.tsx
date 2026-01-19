@@ -1,9 +1,9 @@
 "use client";
 
-import { UnsubscribeFunc } from "pocketbase";
+import type { UnsubscribeFunc } from "pocketbase";
 import {
    createContext,
-   ReactNode,
+   type ReactNode,
    useContext,
    useEffect,
    useState,

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
-import { SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerDataRecord } from "@/types/congress";
 
 export async function GET(
    _request: Request,

@@ -19,7 +19,7 @@ export default function LivestreamVideoAndPresentationPlayer({
          <UnmuteOverlay isMuted={isMuted} onClick={() => setIsMuted(false)} />
          <div className="items-center gap-2 grid grid-cols-12 h-full">
             <div
-               className={`transition-all duration-300 ${state?.isHidden ? "col-span-[0] w-0 overflow-hidden" : "col-span-10"}`}
+               className={`transition-all duration-300 ${state?.isHidden ? "col-span-0 w-0 overflow-hidden" : "col-span-10"}`}
             >
                <RealtimePresentationViewer
                   presentationId={presentationId}
@@ -33,11 +33,9 @@ export default function LivestreamVideoAndPresentationPlayer({
                autoPlay="any"
                muted={isMuted}
                className={`w-full aspect-video transition-all duration-300 ${state?.isHidden ? "col-span-12" : "col-span-2"}`}
-               style={
-                  {
-                     "--controls": "none",
-                  } as React.CSSProperties
-               }
+               style={{
+                  "--controls": "none",
+               }}
             />
          </div>
       </div>

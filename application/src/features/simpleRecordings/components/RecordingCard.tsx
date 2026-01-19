@@ -8,7 +8,7 @@ import {
    UserIcon,
 } from "lucide-react";
 import { CopyButton, LinkButton } from "@/components/global/Buttons";
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import PresentationAndVideoPlayer from "@/features/pptPresentations/components/PresentationAndVideoPlayer";
 import { getPresentationRecordingByPresentationId } from "@/features/pptPresentations/services/presentationRecordingServices";
 import { getPresentationSlidesById } from "@/features/pptPresentations/services/presentationServices";
@@ -17,7 +17,7 @@ import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import { getRecordingPresentationByRecordingId } from "../services/recordingPresentationsServices";
 import {
    getRecordingTrackedEmails,
-   RecordingTrackedEmailWithType,
+   type RecordingTrackedEmailWithType,
 } from "../services/recordingTrackedEmailsServices";
 import { getRecordingLink } from "../utils/recordingUtils";
 import EmailStatusItem from "./EmailStatusItem";

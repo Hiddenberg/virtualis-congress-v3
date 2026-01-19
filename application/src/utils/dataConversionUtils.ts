@@ -1,5 +1,5 @@
 import { addDay, diffDays, format } from "@formkit/tempo";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 
 export function getAccumulatedGainsPerDay(
    allPayments: (UserPayment & RecordModel)[],
@@ -121,7 +121,7 @@ export function getPaymentsCollected(
          }
 
          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-         //@ts-ignore
+         //@ts-expect-error
          const additionalData: ACPAdditionalData = attendantData.additionalData;
 
          return {

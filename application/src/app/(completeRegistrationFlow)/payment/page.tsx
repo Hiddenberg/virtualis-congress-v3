@@ -8,9 +8,9 @@ import { confirmUserCongressPayment } from "@/features/organizationPayments/serv
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import ACPDiabetesDataForm from "@/features/users/attendants/components/attendantDataForms/ACPDiabetesDataForm";
-import { CMIMCCMedicalRoleType } from "@/features/users/attendants/components/attendantDataForms/CMIMCCAttendantDataForm";
+import type { CMIMCCMedicalRoleType } from "@/features/users/attendants/components/attendantDataForms/CMIMCCAttendantDataForm";
 import { getAttendantData } from "@/features/users/attendants/services/attendantServices";
-import { CMIMCCAdditionalAttendantData } from "@/features/users/attendants/types/CMIMCCAdditionalAttendantDataTypes";
+import type { CMIMCCAdditionalAttendantData } from "@/features/users/attendants/types/CMIMCCAdditionalAttendantDataTypes";
 
 export default async function PaymentPage() {
    const userId = await getLoggedInUserId();

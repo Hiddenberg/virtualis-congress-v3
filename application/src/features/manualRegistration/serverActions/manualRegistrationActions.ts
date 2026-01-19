@@ -5,7 +5,7 @@ import { registerUserToLatestCongress } from "@/features/congresses/services/con
 import {
    checkIfUserExists,
    createUser,
-   NewUserData,
+   type NewUserData,
 } from "@/features/users/services/userServices";
 import {
    fulfillManualCongressRegistration,

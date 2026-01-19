@@ -3,10 +3,10 @@ import { format } from "@formkit/tempo";
 import { Save, Tag } from "lucide-react";
 // import ClientSpeakerSelector from "@/app/congress-admin/conferences/[conferenceId]/edit/client-speaker-selector";
 import { useRouter } from "next/navigation";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { useState } from "react";
 import { updateConferenceAction } from "@/features/conferences/actions/conferenceActions";
-import { NewConferenceData } from "@/features/conferences/services/conferenceServices";
+import type { NewConferenceData } from "@/features/conferences/services/conferenceServices";
 
 export default function EditConferenceForm({
    initialConference,

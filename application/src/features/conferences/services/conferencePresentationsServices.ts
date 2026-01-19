@@ -8,7 +8,7 @@ import {
    pbFilter,
 } from "@/libs/pbServerClientNew";
 import "server-only";
-import { ConferencePresentation } from "../types/conferencePresentations";
+import type { ConferencePresentation } from "../types/conferencePresentations";
 
 export async function getAllConferencePresentations() {
    const organization = await getOrganizationFromSubdomain();

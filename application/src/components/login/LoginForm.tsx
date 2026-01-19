@@ -3,7 +3,8 @@
 import { LoaderCircle } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import validator from "validator";
 import { checkExistingUserAction } from "@/actions/userActions";
 import emailExplanationImage from "@/assets/email-explanation.png";

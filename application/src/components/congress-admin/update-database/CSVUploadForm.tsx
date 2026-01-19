@@ -1,10 +1,10 @@
 "use client";
 import papaparse from "papaparse";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { useState } from "react";
 import { Button } from "@/components/global/Buttons";
 import pbClient from "@/libs/pbClient";
-import { ACPMemberData } from "@/types/congress";
+import type { ACPMemberData } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 export default function CSVUploadForm() {
@@ -162,7 +162,7 @@ export default function CSVUploadForm() {
                <h2>{membersAdded.length} Members added</h2>
                <ul>
                   {membersAdded.map((member, index) => (
-                     <li key={index}>
+                     <li key={`${member.acpId}-${index}`}>
                         ACPID: {member.acpId} - {member.name}
                      </li>
                   ))}

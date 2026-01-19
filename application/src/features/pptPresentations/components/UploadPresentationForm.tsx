@@ -8,9 +8,9 @@ import {
    TrashIcon,
    Upload,
 } from "lucide-react";
-import { DragEvent, useRef, useState, useTransition } from "react";
+import { type DragEvent, useRef, useState, useTransition } from "react";
 import { Button } from "@/components/global/Buttons";
-import { SlideImage } from "../services/convertapiServices";
+import type { SlideImage } from "../services/convertapiServices";
 import SlidesShower from "./SlidesShower";
 
 export default function UploadPresentationForm({
@@ -200,7 +200,7 @@ export default function UploadPresentationForm({
       const k = 1024;
       const sizes = ["Bytes", "KB", "MB", "GB"];
       const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+      return parseFloat((bytes / k ** i).toFixed(2)) + " " + sizes[i];
    };
 
    if (slideImages) {

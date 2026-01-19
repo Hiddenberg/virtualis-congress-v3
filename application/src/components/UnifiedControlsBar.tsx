@@ -1,7 +1,8 @@
 "use client";
 
 import { Maximize2, Minimize2, Pause, Play } from "lucide-react";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import type React from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { formatVideoTime } from "@/utils/recorderUtils";
 
 type UnifiedControlsBarProps = {

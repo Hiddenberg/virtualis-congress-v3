@@ -1,5 +1,5 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import ACPDiabetesDataForm from "./ACPDiabetesDataForm";
 import CMIMCCAttendantDataForm from "./CMIMCCAttendantDataForm";
 

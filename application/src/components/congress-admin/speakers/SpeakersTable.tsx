@@ -9,7 +9,7 @@ import {
    Search,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { AcademicTitle } from "@/data/utils";
+import type { AcademicTitle } from "@/data/utils";
 
 export interface Speaker {
    name: string;

@@ -91,7 +91,7 @@ export default function PresentationAndVideoPlayer({
    return (
       <div
          ref={containerRef}
-         className="bg-white shadow-xl border border-gray-200 rounded-2xl overflow-hidden flex flex-col justify-between"
+         className="flex flex-col justify-between bg-white shadow-xl border border-gray-200 rounded-2xl overflow-hidden"
       >
          {/* Media area */}
          <div className="bg-black">
@@ -139,11 +139,9 @@ export default function PresentationAndVideoPlayer({
                         primary-color="#ffffff"
                         secondary-color="#000000"
                         accent-color="#fa50b5"
-                        style={
-                           {
-                              "--controls": "none",
-                           } as React.CSSProperties
-                        }
+                        style={{
+                           "--controls": "none",
+                        }}
                      />
                   </div>
                </div>

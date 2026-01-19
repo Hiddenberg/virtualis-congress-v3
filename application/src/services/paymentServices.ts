@@ -1,5 +1,5 @@
 import "server-only";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
 // import Stripe from "stripe";
 // import {

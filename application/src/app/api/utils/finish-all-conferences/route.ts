@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import pbServerClient from "@/libs/pbServerClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";

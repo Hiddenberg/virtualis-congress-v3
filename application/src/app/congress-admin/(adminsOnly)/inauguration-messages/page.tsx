@@ -1,9 +1,9 @@
 import { tzDate } from "@formkit/tempo";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import AdminConfernceCard from "@/components/conference-calendar/AdminConfernceCard";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import {
-   ConferenceWithSpeakerNamesAndPhones,
+   type ConferenceWithSpeakerNamesAndPhones,
    getAllCongressConferencesByDate,
 } from "@/features/conferences/services/conferenceServices";
 import { getConferenceRecordings } from "@/services/recordingServices";

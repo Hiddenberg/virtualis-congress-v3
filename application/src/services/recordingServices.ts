@@ -1,10 +1,10 @@
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import pbServerClient from "@/libs/pbServerClient";
-import { ConferenceRecording } from "@/types/congress";
+import type { ConferenceRecording } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
-import { PerformanceMetrics } from "@/utils/performanceMetrics";
+import type { PerformanceMetrics } from "@/utils/performanceMetrics";
 import { getAllCongressConferences } from "../features/conferences/services/conferenceServices";
 import { getMuxAssetById } from "./muxServices";
 import { getVideoAssetsForRecording } from "./videoAssetsServices";

@@ -7,7 +7,7 @@ import {
    pbFilter,
    updateDBRecord,
 } from "@/libs/pbServerClientNew";
-import { CongressRegistration } from "../types/congressRegistrationTypes";
+import type { CongressRegistration } from "../types/congressRegistrationTypes";
 import { getLatestCongress } from "./congressServices";
 
 export async function getAllCongressRegistrations() {

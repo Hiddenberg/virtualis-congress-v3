@@ -17,7 +17,7 @@ import {
 import ConferenceTypeSelector from "@/features/conferences/components/form/ConferenceTypeSelector";
 import FormField from "@/features/conferences/components/form/FormField";
 import SpeakersMultiSelect from "@/features/conferences/components/form/SpeakersMultiSelect";
-import { SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerDataRecord } from "@/types/congress";
 
 interface ConferenceFormProps {
    speakersAvailable: { id: string; name: string }[];

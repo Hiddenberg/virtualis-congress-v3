@@ -2,7 +2,7 @@
 
 import { ArrowUp, HelpCircle, MessageCircle } from "lucide-react";
 import { useParams } from "next/navigation";
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
 import { useStaggeredAuthContext } from "@/features/staggeredAuth/context/StaggeredAuthContext";
@@ -141,23 +141,25 @@ function useRealtimeMessages() {
                (event) => {
                   // Handle different event types
                   switch (event.action) {
-                     case "create":
+                     case "create": {
                         // Add new message
                         const newMessage = formatMessage(event.record);
                         addUniqueMessage(newMessage);
                         break;
+                     }
 
                      case "delete":
                         // Remove deleted message
                         removeMessage(event.record.id);
                         break;
 
-                     case "update":
+                     case "update": {
                         // Handle message updates (e.g., edited messages)
                         removeMessage(event.record.id); // Remove old version
                         const updatedMessage = formatMessage(event.record);
                         addUniqueMessage(updatedMessage); // Add updated version
                         break;
+                     }
                   }
                },
                {

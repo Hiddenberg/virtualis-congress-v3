@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import {
-   ScheduleAllConferenceRecordingsResult,
+   type ScheduleAllConferenceRecordingsResult,
    scheduleAllConferenceRecordingsAction,
 } from "../serverActions/recordingsSyncActions";
 

@@ -10,7 +10,7 @@ import {
    getAllOrganizationUsers,
    getUserByEmail,
    getUserById,
-   NewUserData,
+   type NewUserData,
    updateUser,
 } from "@/features/users/services/userServices";
 

@@ -1,9 +1,9 @@
 "use client";
 
 import MuxPlayer from "@mux/mux-player-react";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { useEffect, useRef } from "react";
-import { ConferenceVideoAsset } from "@/types/congress";
+import type { ConferenceVideoAsset } from "@/types/congress";
 import { UnifiedControlsBar } from "./UnifiedControlsBar";
 
 type SynchronizedMuxPlayersProps = {
@@ -176,11 +176,9 @@ export function SynchronizedMuxPlayers({
                            accent-color="#fa50b5"
                            className="w-full h-full"
                            stream-type="on-demand"
-                           style={
-                              {
-                                 "--controls": "none",
-                              } as React.CSSProperties
-                           }
+                           style={{
+                              "--controls": "none",
+                           }}
                            muted={shouldMute}
                         />
                      </div>

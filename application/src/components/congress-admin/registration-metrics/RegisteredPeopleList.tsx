@@ -1,6 +1,6 @@
 import { format } from "@formkit/tempo";
 import { CheckCircle2, Users, XCircle } from "lucide-react";
-import { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
 
 interface RegisteredPeopleListProps {
    registrations: CongressRegistrationRecord[];

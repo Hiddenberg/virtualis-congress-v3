@@ -8,14 +8,14 @@ import {
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { sendSpeakerRegistrationConfirmationEmail } from "@/features/emails/services/emailSendingServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { NewUserFormData } from "@/features/staggeredAuth/components/signup/StaggeredAuthSignupForm";
+import type { NewUserFormData } from "@/features/staggeredAuth/components/signup/StaggeredAuthSignupForm";
 import {
    createUserAuthData,
    setAuthTokenCookie,
    setRefreshTokenCookie,
 } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
-import { SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerDataRecord } from "@/types/congress";
 import { updateUserRole } from "../../services/userRoleServices";
 import {
    checkIfUserExists,
@@ -26,7 +26,7 @@ import {
    createSpeakerDataRecord,
    getSpeakerDataByUserId,
    linkSpeakerAccount,
-   NewSpeakerData,
+   type NewSpeakerData,
 } from "../services/speakerServices";
 
 export async function registerSpeakerFromAdminFormAction(

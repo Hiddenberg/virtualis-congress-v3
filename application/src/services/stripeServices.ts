@@ -1,4 +1,4 @@
-import Stripe from "stripe";
+import type Stripe from "stripe";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import stripe from "@/libs/stripe";
 
@@ -118,8 +118,11 @@ export async function createStripePromotionCode(
 ) {
    const stripe = await getOrganizationStripeInstance();
    const newPromotionCodeObject = await stripe.promotionCodes.create({
-      coupon: stripeCuponId,
       max_redemptions: maxRedemptions,
+      promotion: {
+         coupon: stripeCuponId,
+         type: "coupon",
+      },
    });
 
    return newPromotionCodeObject.code;

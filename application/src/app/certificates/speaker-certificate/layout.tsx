@@ -6,7 +6,7 @@ import {
    SquareArrowOutUpRight,
 } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import type React from "react";
 import GoBackButton from "@/components/global/GoBackButton";
 import MobileMenuToggle from "../(withAccount)/MobileMenuToggle";
 

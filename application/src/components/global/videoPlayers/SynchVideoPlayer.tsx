@@ -2,9 +2,9 @@
 
 import MuxPlayer from "@mux/mux-player-react";
 import { Pause, Play, SkipBack, SkipForward } from "lucide-react";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ConferenceVideoAsset } from "@/types/congress";
+import type { ConferenceVideoAsset } from "@/types/congress";
 import { formatVideoTime } from "@/utils/recorderUtils";
 
 interface SynchVideoPlayerProps {
@@ -57,11 +57,9 @@ export default function SynchVideoPlayer({
                      muted={asset.videoType !== "camera"}
                      className="w-full h-full"
                      playbackId={asset.muxPlaybackId}
-                     style={
-                        {
-                           "--controls": "none",
-                        } as React.CSSProperties
-                     }
+                     style={{
+                        "--controls": "none",
+                     }}
                   />
                </div>
             ))}

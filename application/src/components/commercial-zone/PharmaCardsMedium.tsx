@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import jandjLogo from "@/assets/jandj-logo.png";
 import merckLogo from "@/assets/merck-logo.png";

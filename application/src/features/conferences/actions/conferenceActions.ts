@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import {
    createConference,
    deleteConferenceRecord,
-   NewConferenceData,
+   type NewConferenceData,
    updateConference,
 } from "@/features/conferences/services/conferenceServices";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";

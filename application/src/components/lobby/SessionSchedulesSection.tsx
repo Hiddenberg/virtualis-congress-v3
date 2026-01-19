@@ -4,7 +4,7 @@ import { format, isAfter, isBefore } from "@formkit/tempo";
 import { ChevronDown, Clock, Mic } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { LobbyConference } from "@/services/serverAggregators/conferenceAggregators";
+import type { LobbyConference } from "@/services/serverAggregators/conferenceAggregators";
 
 interface DayConferences {
    date: Date;

@@ -1,4 +1,4 @@
-import TutorialSlider, { TutorialStep } from "./TutorialSlider";
+import TutorialSlider, { type TutorialStep } from "./TutorialSlider";
 
 const steps: TutorialStep[] = [
    {

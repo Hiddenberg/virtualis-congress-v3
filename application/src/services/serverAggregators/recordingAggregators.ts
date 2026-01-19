@@ -1,6 +1,9 @@
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
-import { ConferenceRecording, ConferenceVideoAsset } from "@/types/congress";
+import type {
+   ConferenceRecording,
+   ConferenceVideoAsset,
+} from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
 

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import type React from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 // Minimal WebHID typings to avoid using any
 interface NavigatorWithHID extends Navigator {

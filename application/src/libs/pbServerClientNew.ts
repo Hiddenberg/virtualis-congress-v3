@@ -1,8 +1,8 @@
 import Pocketbase, {
    ClientResponseError,
-   ListResult,
-   RecordListOptions,
-   RecordOptions,
+   type ListResult,
+   type RecordListOptions,
+   type RecordOptions,
 } from "pocketbase";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 

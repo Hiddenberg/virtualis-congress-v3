@@ -1,4 +1,4 @@
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { getAllCoordinatorUsers } from "@/features/users/coordinators/services/coordinatorUserServices";
 import { AddCoordinatorForm } from "./AddCoordinatorForm";
 

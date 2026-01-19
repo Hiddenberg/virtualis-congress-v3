@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { savePresentationAndSlides } from "@/features/pptPresentations/services/presentationServices";
 export const maxDuration = 300;
 

@@ -1,4 +1,4 @@
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 
 export interface ConferenceSpeakerPresentationRecording {
    organization: OrganizationRecord["id"];

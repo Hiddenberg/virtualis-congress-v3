@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
 import type React from "react";
-import { GlobalPopUpOptions } from "../context/GlobalPopUpContext";
+import type { GlobalPopUpOptions } from "../context/GlobalPopUpContext";
 
 interface PopUpProps {
    children: React.ReactNode;

@@ -1,11 +1,11 @@
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
 import { getRecordingById } from "@/services/recordingServices";
-import { ConferenceRecording } from "@/types/congress";
+import type { ConferenceRecording } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 export async function GET(
-   request: Request,
+   _request: Request,
    { params }: { params: Promise<{ recordingId: string }> },
 ) {
    const { recordingId } = await params;

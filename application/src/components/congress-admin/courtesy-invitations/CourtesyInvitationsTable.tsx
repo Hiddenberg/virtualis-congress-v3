@@ -1,10 +1,10 @@
 "use client";
 
 import { CheckCircle, Clock, Copy, Download, Search } from "lucide-react";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import type React from "react";
 import { useMemo, useState } from "react";
-import { CourtesyInvitation } from "@/types/congress";
+import type { CourtesyInvitation } from "@/types/congress";
 
 const CourtesyInvitationsTable = ({
    invitations,

@@ -1,9 +1,9 @@
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
-import { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
 import { getUserById } from "@/features/users/services/userServices";
 
 async function getCongressRegistration(userId: string, congressId: string) {

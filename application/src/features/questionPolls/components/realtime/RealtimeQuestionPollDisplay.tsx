@@ -70,7 +70,7 @@ export default function RealtimeQuestionPollDisplay() {
             (Date.now() - animationStartTimestamp) / animationDurationMs,
             1,
          );
-         const easedProgress = 1 - Math.pow(1 - progress, 3);
+         const easedProgress = 1 - (1 - progress) ** 3;
 
          const nextCountsByOptionId: Record<string, number> = {};
          Object.keys(targetCountsByOptionId).forEach((optionId) => {

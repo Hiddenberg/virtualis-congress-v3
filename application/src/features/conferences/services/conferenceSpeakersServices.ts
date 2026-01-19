@@ -7,7 +7,7 @@ import {
    getSingleDBRecord,
    pbFilter,
 } from "@/libs/pbServerClientNew";
-import { SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerDataRecord } from "@/types/congress";
 import "server-only";
 
 export async function linkSpeakerToConference({

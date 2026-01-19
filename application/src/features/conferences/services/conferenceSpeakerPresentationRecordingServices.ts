@@ -6,7 +6,7 @@ import {
    getSingleDBRecord,
    pbFilter,
 } from "@/libs/pbServerClientNew";
-import { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
+import type { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
 
 export async function linkSpeakerPresentationRecordingToConference({
    conferenceId,

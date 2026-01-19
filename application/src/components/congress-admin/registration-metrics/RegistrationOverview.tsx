@@ -1,5 +1,5 @@
 import { Calendar, DollarSign, UserCheck, Users } from "lucide-react";
-import { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
 
 interface UserPayment {
    organization: string;

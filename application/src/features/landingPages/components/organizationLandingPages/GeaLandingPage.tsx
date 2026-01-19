@@ -1,6 +1,6 @@
 import { getAllProgramConferencesWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import HeroSection from "./GeaLanding/HeroSection";
 import PricingInfo from "./GeaLanding/PricingInfo";

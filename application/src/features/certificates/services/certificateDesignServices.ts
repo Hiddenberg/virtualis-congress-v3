@@ -1,7 +1,7 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
-import {
+import type {
    CertificateDesign,
    CongressCertificate,
 } from "../types/certificatesTypes";

@@ -52,7 +52,7 @@ export default function FixedScaleStage(props: FixedScaleStageProps) {
       return contain ? Math.min(sx, sy) : Math.max(sx, sy);
    }, [size, baseWidth, baseHeight, contain]);
 
-   const stageStyle: React.CSSProperties = useMemo(
+   const stageStyle = useMemo(
       () => ({
          width: baseWidth,
          height: baseHeight,
@@ -63,7 +63,7 @@ export default function FixedScaleStage(props: FixedScaleStageProps) {
    );
 
    // Center stage inside container
-   const offsetStyle: React.CSSProperties = useMemo(
+   const offsetStyle = useMemo(
       () => ({
          width: Math.round(baseWidth * scale),
          height: Math.round(baseHeight * scale),
@@ -77,7 +77,7 @@ export default function FixedScaleStage(props: FixedScaleStageProps) {
          className={`relative w-full min-h-dvh overflow-hidden ${className}`}
       >
          <div
-            className="!top-1/2 !left-1/2 !absolute !-translate-x-1/2 !-translate-y-1/2"
+            className="top-1/2! left-1/2! -translate-x-1/2! -translate-y-1/2! absolute!"
             style={offsetStyle}
          >
             <div style={stageStyle}>{children}</div>

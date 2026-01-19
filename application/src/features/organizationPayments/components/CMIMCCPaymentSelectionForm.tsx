@@ -6,7 +6,7 @@ import {
    CheckIcon,
    DollarSignIcon,
    LockIcon,
-   LucideIcon,
+   type LucideIcon,
    MapPinIcon,
    MonitorIcon,
    PlayCircleIcon,
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
-import { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
+import type { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
 import HelpButton from "@/features/userSupport/components/HelpButton";
 import { getCMIMCCCheckoutLinkAction } from "../serverActions/organizationPaymentActions";
 

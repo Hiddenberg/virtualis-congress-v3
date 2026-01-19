@@ -1,9 +1,9 @@
 import { format } from "@formkit/tempo";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import transporter from "@/libs/nodeMailer";
 import pbServerClient from "@/libs/pbServerClient";
-import { ConferenceRecording, SpeakerData } from "@/types/congress";
+import type { ConferenceRecording, SpeakerData } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import SENDER_EMAILS from "@/types/constants/senderEmails";
 import "server-only";

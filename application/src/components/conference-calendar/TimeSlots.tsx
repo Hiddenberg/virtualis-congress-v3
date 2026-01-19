@@ -1,7 +1,7 @@
 "use client";
 
 import { format } from "@formkit/tempo";
-import { generateTimeSlots } from "@/utils/timeUtils";
+import type { generateTimeSlots } from "@/utils/timeUtils";
 
 export default function TimeSlots({
    timeSlots,

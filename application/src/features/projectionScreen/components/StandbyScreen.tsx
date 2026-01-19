@@ -4,7 +4,7 @@ import { format } from "@formkit/tempo";
 import { Calendar, Clock, QrCode, Users } from "lucide-react";
 import Image from "next/image";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import FixedScaleStage from "./FixedScaleStage";
 
 export default async function StandbyScreen({

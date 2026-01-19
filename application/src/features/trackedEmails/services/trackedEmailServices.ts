@@ -5,7 +5,10 @@ import {
    getDBRecordById,
    updateDBRecord,
 } from "@/libs/pbServerClientNew";
-import { BaseTrackedEmail, TrackedEmail } from "../types/trackedEmailTypes";
+import type {
+   BaseTrackedEmail,
+   TrackedEmail,
+} from "../types/trackedEmailTypes";
 
 type NewTrackedEmailData = {
    sentTo: string;

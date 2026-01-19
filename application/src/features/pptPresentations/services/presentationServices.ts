@@ -6,7 +6,7 @@ import {
    getFullDBRecordsList,
    pbFilter,
 } from "@/libs/pbServerClientNew";
-import { SlideImage } from "./convertapiServices";
+import type { SlideImage } from "./convertapiServices";
 
 export async function createPresentationRecord(presentation: Presentation) {
    const createdPresentation = await createDBRecord<Presentation>(

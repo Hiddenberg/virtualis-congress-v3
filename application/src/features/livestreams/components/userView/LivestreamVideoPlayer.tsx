@@ -20,11 +20,9 @@ export default function LivestreamVideoPlayer({
             autoPlay="any"
             muted={isMuted}
             className="w-full aspect-video"
-            style={
-               {
-                  "--controls": "none",
-               } as React.CSSProperties
-            }
+            style={{
+               "--controls": "none",
+            }}
          />
       </div>
    );

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { convertPPTToImages } from "@/features/pptPresentations/services/convertapiServices";
 
 export const maxDuration = 300;

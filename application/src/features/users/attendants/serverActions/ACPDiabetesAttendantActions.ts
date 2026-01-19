@@ -1,7 +1,7 @@
 "use server";
 
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
-import { ACPMemberData } from "@/types/congress";
+import type { ACPMemberData } from "@/types/congress";
 
 export async function validateACPIDAction({
    acpID,

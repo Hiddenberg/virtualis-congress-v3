@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import {
    generateUserAuthToken,
    getUserIdFromRefreshToken,
@@ -6,7 +6,7 @@ import {
    verifyUserAuthToken,
 } from "@/features/staggeredAuth/services/jwtServices";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
    // const { pathname } = request.nextUrl;
 
    // const publicRoutes = [

@@ -8,7 +8,7 @@ import {
    // Grid3X3
 } from "lucide-react";
 import { useCallback, useState } from "react";
-import { SlideImage } from "../services/convertapiServices";
+import type { SlideImage } from "../services/convertapiServices";
 
 interface SlidesShowerProps {
    slideImages: SlideImage[];

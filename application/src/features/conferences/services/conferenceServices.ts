@@ -1,5 +1,5 @@
 import { dayEnd, dayStart } from "@formkit/tempo";
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";

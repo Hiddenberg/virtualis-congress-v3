@@ -1,7 +1,7 @@
 "use client";
 
 import { HelpCircle, MessageCircle } from "lucide-react";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
 import pbClient from "@/libs/pbClient";

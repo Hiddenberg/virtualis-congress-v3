@@ -44,7 +44,7 @@ export default function RealtimeQuestionPollCompactDisplay() {
       const dur = 400;
       const frame = () => {
          const p = Math.min((Date.now() - t0) / dur, 1);
-         const ease = 1 - Math.pow(1 - p, 3);
+         const ease = 1 - (1 - p) ** 3;
          const next: Record<string, number> = {};
          Object.keys(targets).forEach((id) => {
             const s = start[id] ?? 0;

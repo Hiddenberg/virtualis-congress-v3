@@ -2,7 +2,7 @@
 
 import {
    createContext,
-   ReactNode,
+   type ReactNode,
    useCallback,
    useContext,
    useEffect,
@@ -11,7 +11,7 @@ import {
 
 import toast from "react-hot-toast";
 import GlobalLoadingPage from "@/components/global/GlobalLoadingPage";
-import { NewUserData } from "@/features/users/services/userServices";
+import type { NewUserData } from "@/features/users/services/userServices";
 import {
    authenticateWithBirthDateAction,
    authenticateWithOTPCodeAction,

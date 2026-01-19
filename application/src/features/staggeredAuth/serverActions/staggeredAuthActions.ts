@@ -8,7 +8,7 @@ import {
    createUser,
    getUserByEmail,
    getUserById,
-   NewUserData,
+   type NewUserData,
 } from "@/features/users/services/userServices";
 import {
    AUTH_COOKIE_KEY,

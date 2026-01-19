@@ -1,4 +1,4 @@
-import ConferenceCard, { ConferenceInfo } from "./ConferenceCard";
+import ConferenceCard, { type ConferenceInfo } from "./ConferenceCard";
 
 interface ConferenceGridProps {
    items: ConferenceInfo[];

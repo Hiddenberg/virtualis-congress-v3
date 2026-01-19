@@ -1,10 +1,10 @@
 "use client";
 
 import { format } from "@formkit/tempo";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import { useState } from "react";
-import { ConferenceWithSpeakerNamesAndPhones } from "@/features/conferences/services/conferenceServices";
-import { ConferenceRecording } from "@/types/congress";
+import type { ConferenceWithSpeakerNamesAndPhones } from "@/features/conferences/services/conferenceServices";
+import type { ConferenceRecording } from "@/types/congress";
 import AdminConferenceCard from "./AdminConfernceCard";
 
 // Recording status options for filtering

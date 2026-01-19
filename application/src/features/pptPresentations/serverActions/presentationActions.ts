@@ -1,6 +1,6 @@
 "use server";
 
-import { SlideImage } from "../services/convertapiServices";
+import type { SlideImage } from "../services/convertapiServices";
 import { savePresentationAndSlides } from "../services/presentationServices";
 
 export async function savePresentationWithSlidesAction({

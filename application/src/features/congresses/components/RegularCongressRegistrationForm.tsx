@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import StaggeredAuthSignupForm, {
-   NewUserFormData,
+   type NewUserFormData,
 } from "@/features/staggeredAuth/components/signup/StaggeredAuthSignupForm";
 import { signupAction } from "@/features/staggeredAuth/serverActions/staggeredAuthActions";
 import { confirmCongressRegistrationAction } from "../serverActions/congressRegistrationActions";

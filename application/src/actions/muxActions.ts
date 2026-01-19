@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { RecordModel } from "pocketbase";
+import type { RecordModel } from "pocketbase";
 import mux from "@/libs/mux";
 import { getMuxAssetById } from "@/services/muxServices";
 import {
@@ -9,7 +9,7 @@ import {
    updateRecordingDate,
 } from "@/services/recordingServices";
 import { updateVideoAsset } from "@/services/videoAssetsServices";
-import { ConferenceRecording } from "@/types/congress";
+import type { ConferenceRecording } from "@/types/congress";
 
 export async function createMuxUploadUrlAction(
    recordingId: (ConferenceRecording & RecordModel)["id"],

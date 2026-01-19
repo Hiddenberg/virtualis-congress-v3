@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Mic2, Users } from "lucide-react";
 import backendFetcher from "@/features/backendFetcher/utils/backendFetcher";
-import { SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerDataRecord } from "@/types/congress";
 
 function ConferenceSpeakersSection({ conferenceId }: { conferenceId: string }) {
    const { data, isLoading } = useQuery({

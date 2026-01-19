@@ -2,7 +2,8 @@
 
 import { AlertCircle, ArrowLeft, LoaderCircle, Mail } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 // import validator from "validator"
 import { z } from "zod";

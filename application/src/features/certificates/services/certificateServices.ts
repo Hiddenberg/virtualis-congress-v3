@@ -8,8 +8,8 @@ import {
    getSingleDBRecord,
    pbFilter,
 } from "@/libs/pbServerClientNew";
-import { SpeakerData } from "@/types/congress";
-import { CongressCertificate } from "../types/certificatesTypes";
+import type { SpeakerData } from "@/types/congress";
+import type { CongressCertificate } from "../types/certificatesTypes";
 
 export async function createCongressCertificate(
    userId: string,

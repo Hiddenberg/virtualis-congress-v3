@@ -1,4 +1,4 @@
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 
 export interface BaseTrackedEmail {
    organization: OrganizationRecord["id"];

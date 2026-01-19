@@ -1,4 +1,4 @@
-import PartnerCard, { Partner } from "./PartnerCard";
+import PartnerCard, { type Partner } from "./PartnerCard";
 
 interface PartnersGridProps {
    partners: Partner[];

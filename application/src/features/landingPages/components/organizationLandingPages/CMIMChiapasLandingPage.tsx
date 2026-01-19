@@ -2,7 +2,7 @@ import {
    CMIM_CONFERENCES_DAY_1,
    CMIM_CONFERENCES_DAY_2,
 } from "@/data/tempConstants";
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import FooterSection from "./CMIMChiapasLanding/FooterSection";
 import HeroSection from "./CMIMChiapasLanding/HeroSection";

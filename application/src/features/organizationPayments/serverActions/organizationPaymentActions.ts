@@ -1,10 +1,10 @@
 "use server";
 
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
+import type { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getAttendantData } from "@/features/users/attendants/services/attendantServices";
-import { CMIMCCAdditionalAttendantData } from "@/features/users/attendants/types/CMIMCCAdditionalAttendantDataTypes";
+import type { CMIMCCAdditionalAttendantData } from "@/features/users/attendants/types/CMIMCCAdditionalAttendantDataTypes";
 import { getUserById } from "@/features/users/services/userServices";
 import { getOrganizationStripeInstance } from "../lib/stripe";
 import { getCMIMCCStripeProducts } from "../services/CMIMCCPaymentServices";

@@ -1,10 +1,10 @@
 "use client";
 import { CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import { useEffect } from "react";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
 import pbClient from "@/libs/pbClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 

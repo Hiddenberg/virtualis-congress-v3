@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import DynamedexLogo from "@/assets/sponsorLogos/Dynamedex.jpg";
 import VirtualisLogo from "@/assets/sponsorLogos/VirtualisLogo.png";

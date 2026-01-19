@@ -1,4 +1,4 @@
-import { GroupRecorder } from "@/types/groupRecorder";
+import type { GroupRecorder } from "@/types/groupRecorder";
 
 export const users: GroupRecorder.Participant[] = [
    {

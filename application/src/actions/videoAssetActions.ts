@@ -2,7 +2,7 @@
 
 import { getRecordingById } from "@/services/recordingServices";
 import { createNewVideoAsset } from "@/services/videoAssetsServices";
-import { ConferenceVideoAsset } from "@/types/congress";
+import type { ConferenceVideoAsset } from "@/types/congress";
 
 export async function createVideoAssetAction(
    recordingId: string,

@@ -2,7 +2,8 @@
 
 import { CheckCircle2, Loader2, Save } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 import { LinkButton } from "@/components/global/Buttons";
 import { useStaggeredAuthContext } from "@/features/staggeredAuth/context/StaggeredAuthContext";
 import { capitalizeText } from "@/utils/textUtils";

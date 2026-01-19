@@ -8,7 +8,7 @@ import pbClient from "@/libs/pbClient";
 // import { isAfter, isBefore } from "@formkit/tempo"
 import {
    getSimuliveVariables,
-   SimuliveData,
+   type SimuliveData,
 } from "../utils/simulivePlayerUtils";
 import UnmuteOverlay from "./UnmuteOverlay";
 
@@ -220,11 +220,9 @@ export default function PresentationAndVideoSimulivePlayer({
                         accent-color="#fa50b5"
                         autoPlay="any"
                         muted={isMuted}
-                        style={
-                           {
-                              "--controls": "none",
-                           } as React.CSSProperties
-                        }
+                        style={{
+                           "--controls": "none",
+                        }}
                      />
                   </div>
                </div>

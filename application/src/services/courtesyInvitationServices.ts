@@ -1,10 +1,10 @@
 import "server-only";
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import pbServerClient from "@/libs/pbServerClient";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
-import { CourtesyInvitation } from "@/types/congress";
+import type { CourtesyInvitation } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import { createStripePromotionCode } from "./stripeServices";
 import { setRegistrationAsCourtesyGuest } from "./userRegistrationServices";

@@ -167,7 +167,6 @@ export async function migrateAllRecordingEmailsAction(): Promise<
                   errorMessage: error.message,
                });
             }
-            continue;
          }
       }
 
@@ -267,7 +266,6 @@ export async function sendCongressInvitationEmailsToNonPayersAction(): Promise<
                   errorMessage: "An unknown error occurred",
                });
             }
-            continue;
          }
       }
 
@@ -362,7 +360,6 @@ export async function sendAboutToStartEventEmailToAllUsersAction(): Promise<
                   errorMessage: "An unknown error occurred",
                });
             }
-            continue;
          }
       }
 
@@ -416,13 +413,11 @@ export async function sendIphoneIssueSolvedEmailToAllUsersAction(): Promise<
                   user: user.user,
                   errorMessage: error.message,
                });
-               continue;
             } else {
                emailsErroredArray.push({
                   user: user.user,
                   errorMessage: "An unknown error occurred",
                });
-               continue;
             }
          }
       }
@@ -502,7 +497,6 @@ export async function sendNewEventDayAboutToStartEmailToAllUsersAction(
                   errorMessage: "An unknown error occurred",
                });
             }
-            continue;
          }
       }
 
@@ -556,7 +550,6 @@ export async function sendEventFinishedEmailToAllUsersAction(): Promise<
                   errorMessage: "An unknown error occurred",
                });
             }
-            continue;
          }
       }
 
@@ -618,7 +611,6 @@ export async function sendSpeakerCertificateEmailToAllSpeakersAction(): Promise<
                      ? error.message
                      : "An unknown error occurred",
             });
-            continue;
          }
       }
 

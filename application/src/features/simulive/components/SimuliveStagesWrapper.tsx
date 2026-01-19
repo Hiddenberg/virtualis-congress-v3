@@ -7,7 +7,7 @@ import ConferenceFinishedScreen from "@/components/conferenceStageScreens/Confer
 import WaitingToStartScreen from "@/components/conferenceStageScreens/WaitingToStartScreen";
 import {
    getSimuliveVariables,
-   SimuliveData,
+   type SimuliveData,
 } from "../utils/simulivePlayerUtils";
 import PresentationAndVideoSimulivePlayer from "./PresentationAndVideoSimulivePlayer";
 import VideoSimulivePlayer from "./VideoSimulivePlayer";

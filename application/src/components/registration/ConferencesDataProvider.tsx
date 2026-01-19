@@ -1,7 +1,7 @@
 import { format } from "@formkit/tempo";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import {
-   ConferenceWithSpeakerNamesAndPhones,
+   type ConferenceWithSpeakerNamesAndPhones,
    getAllCongressConferencesByDate,
 } from "@/features/conferences/services/conferenceServices";
 import { getCongressDates } from "@/features/congresses/services/congressServices";

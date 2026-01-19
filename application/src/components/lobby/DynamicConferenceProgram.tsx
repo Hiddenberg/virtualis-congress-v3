@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LinkButton } from "@/components/global/Buttons";
-import { ConferenceWithSpeakersAndDurations } from "@/features/conferences/aggregators/conferenceAggregators";
+import type { ConferenceWithSpeakersAndDurations } from "@/features/conferences/aggregators/conferenceAggregators";
 
 // Types for conference types
 

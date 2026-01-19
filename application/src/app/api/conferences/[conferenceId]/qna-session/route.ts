@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getConferenceQnASession } from "@/features/conferences/services/conferenceQnASessionsServices";
 
 export async function GET(

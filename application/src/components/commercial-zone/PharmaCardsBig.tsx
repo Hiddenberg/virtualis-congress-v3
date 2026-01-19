@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import bayerLogo from "@/assets/bayer-logo.png";
 import pfizerLogo from "@/assets/pfizer-logo.png";

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { OrganizationRecord } from "../types/organizationTypes";
+import type { OrganizationRecord } from "../types/organizationTypes";
 
 interface OrganizationContextType {
    organizationShortID: string;

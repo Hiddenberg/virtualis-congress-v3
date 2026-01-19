@@ -1,8 +1,8 @@
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import pbServerClient from "@/libs/pbServerClient";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
-import { SpeakerData } from "@/types/congress";
+import type { SpeakerData } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 interface ExpandedLobbyConference extends CongressConference, RecordModel {

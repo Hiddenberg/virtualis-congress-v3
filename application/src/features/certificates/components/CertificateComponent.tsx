@@ -5,7 +5,7 @@ import { jsPDF } from "jspdf";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/global/Buttons";
-import { CertificateDesign } from "../types/certificatesTypes";
+import type { CertificateDesign } from "../types/certificatesTypes";
 
 // Custom hook to maintain aspect ratio
 const useAspectRatio = (aspectRatio: number) => {

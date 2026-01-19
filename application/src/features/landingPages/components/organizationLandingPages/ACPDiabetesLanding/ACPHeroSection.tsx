@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { CalendarDays, DoorOpenIcon, Monitor, Play } from "lucide-react";
 import Link from "next/link";
-import { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import ACPConferencesPreview from "./ACPConferencesPreview";
 
 interface HeroSectionProps {

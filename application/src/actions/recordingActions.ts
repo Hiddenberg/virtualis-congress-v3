@@ -2,9 +2,9 @@
 
 import pbServerClient from "@/libs/pbServerClient";
 import { updateRecordingStatus } from "@/services/recordingServices";
-import { ConferenceRecording } from "@/types/congress";
+import type { ConferenceRecording } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
-import { PerformanceMetrics } from "@/utils/performanceMetrics";
+import type { PerformanceMetrics } from "@/utils/performanceMetrics";
 
 export async function addPerformanceMetricsToRecordingAction(
    recordingId: string,

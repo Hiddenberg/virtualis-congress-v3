@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateRecordingDurationFromMuxData } from "@/services/recordingServices";
 import { getRecordingsWithVideoAssets } from "@/services/serverAggregators/recordingAggregators";
 

@@ -1,7 +1,7 @@
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import pbServerClient from "@/libs/pbServerClient";
-import { ConferenceVideoAsset } from "@/types/congress";
+import type { ConferenceVideoAsset } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
 

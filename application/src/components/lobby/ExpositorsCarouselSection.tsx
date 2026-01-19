@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
 import expositorImage1 from "@/assets/expositor1.png";
 import expositorImage2 from "@/assets/expositor2.jpeg";

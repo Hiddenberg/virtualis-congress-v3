@@ -64,7 +64,7 @@ export default function CreateRecordingForm({
 
       if (!result.success) {
          const newErrors: Record<string, string> = {};
-         result.error.errors.forEach((error) => {
+         result.error.issues.forEach((error) => {
             if (error.path[0]) {
                newErrors[error.path[0] as string] = error.message;
             }
@@ -196,7 +196,10 @@ export default function CreateRecordingForm({
 
                {/* Recording Type Field */}
                <fieldset className="space-y-2">
-                  <label className="flex items-center gap-2 font-medium text-gray-700 text-sm">
+                  <label
+                     htmlFor="recordingType"
+                     className="flex items-center gap-2 font-medium text-gray-700 text-sm"
+                  >
                      <VideoIcon className="size-4" />
                      Tipo de grabación
                   </label>
@@ -258,7 +261,7 @@ export default function CreateRecordingForm({
                   {recordingForm.recordingType === "only_camera" && (
                      <div className="bg-blue-50 p-4 border border-blue-200 rounded-lg">
                         <div className="flex items-start gap-3">
-                           <InfoIcon className="flex-shrink-0 mt-0.5 size-4 text-blue-600" />
+                           <InfoIcon className="mt-0.5 size-4 text-blue-600 shrink-0" />
                            <div>
                               <p className="font-medium text-blue-800 text-sm">
                                  Perfecto para contenido personal

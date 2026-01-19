@@ -7,7 +7,7 @@ import {
    FileTextIcon,
    FilmIcon,
    LinkIcon,
-   LucideIcon,
+   type LucideIcon,
    MessageCircleQuestionIcon,
    MessageSquareIcon,
    PencilIcon,

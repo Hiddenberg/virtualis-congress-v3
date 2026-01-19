@@ -1,9 +1,9 @@
 "use client";
 
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import {
    createContext,
-   ReactNode,
+   type ReactNode,
    useCallback,
    useContext,
    useEffect,

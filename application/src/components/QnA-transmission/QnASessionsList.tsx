@@ -3,7 +3,7 @@
 import { format } from "@formkit/tempo";
 import { Clock, User, Users } from "lucide-react";
 import { useState } from "react";
-import { QnALiveWithDetails } from "@/services/serverAggregators/livestreamAggregators";
+import type { QnALiveWithDetails } from "@/services/serverAggregators/livestreamAggregators";
 import { Button, CopyButton, LinkButton } from "../global/Buttons";
 
 // Extending the interface to include potentially missing properties

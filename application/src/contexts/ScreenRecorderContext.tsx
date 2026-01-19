@@ -30,7 +30,7 @@ import {
    checkBrowserCompatibility,
    initializePerformanceMetrics,
    logPerformanceEvent,
-   PerformanceMetrics,
+   type PerformanceMetrics,
 } from "@/utils/performanceMetrics";
 
 type RecorderState =

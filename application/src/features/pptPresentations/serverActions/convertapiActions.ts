@@ -1,6 +1,9 @@
 "use server";
 
-import { convertPPTToImages, SlideImage } from "../services/convertapiServices";
+import {
+   convertPPTToImages,
+   type SlideImage,
+} from "../services/convertapiServices";
 
 export async function convertPPTToImageAction(
    file: File,

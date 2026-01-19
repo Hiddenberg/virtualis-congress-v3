@@ -1,6 +1,6 @@
 import "server-only";
 import { tzDate } from "@formkit/tempo";
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 

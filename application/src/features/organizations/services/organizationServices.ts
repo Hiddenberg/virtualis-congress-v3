@@ -2,7 +2,7 @@ import "server-only";
 import { headers } from "next/headers";
 import { cache } from "react";
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
-import { Organization } from "../types/organizationTypes";
+import type { Organization } from "../types/organizationTypes";
 
 const isDevEnvironment = process.env.NODE_ENV === "development";
 

@@ -1,5 +1,5 @@
 import { CheckCircle, Monitor, Users, Video } from "lucide-react";
-import { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
 
 interface AttendanceBreakdownProps {
    registrations: CongressRegistrationRecord[];

@@ -1,5 +1,5 @@
 import SponsorCarousel, {
-   CarouselSponsor,
+   type CarouselSponsor,
 } from "@/components/conference-zone/SponsorCarousel";
 import ConferenceGrid from "@/components/partners-demo/lobby/ConferenceGrid";
 import Hero from "@/components/partners-demo/lobby/Hero";

@@ -1,6 +1,6 @@
 import "server-only";
 import { headers } from "next/headers";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import ipInfo from "@/libs/ipInfo";
 
 export async function getCountryCodeFromRequest(request: NextRequest) {

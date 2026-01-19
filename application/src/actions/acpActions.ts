@@ -1,8 +1,8 @@
 "use server";
 
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
-import { ACPMemberData } from "@/types/congress";
+import type { ACPMemberData } from "@/types/congress";
 
 export async function getACPMemberDataAction(acpID: string) {
    console.log("getACPMemberDataAction", acpID);

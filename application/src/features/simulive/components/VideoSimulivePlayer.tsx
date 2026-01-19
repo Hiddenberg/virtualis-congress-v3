@@ -4,7 +4,7 @@ import MuxPlayer from "@mux/mux-player-react";
 import { useEffect, useMemo, useState } from "react";
 import {
    getSimuliveVariables,
-   SimuliveData,
+   type SimuliveData,
 } from "../utils/simulivePlayerUtils";
 import UnmuteOverlay from "./UnmuteOverlay";
 
@@ -64,11 +64,9 @@ export default function VideoSimulivePlayer({
             }
             muted={isMuted}
             className="w-full h-full aspect-video pointer-events-none"
-            style={
-               {
-                  "--controls": "none",
-               } as React.CSSProperties
-            }
+            style={{
+               "--controls": "none",
+            }}
             autoPlay="any"
          />
       </div>

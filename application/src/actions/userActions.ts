@@ -2,8 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { ClientResponseError, RecordModel } from "pocketbase";
-import { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
+import { ClientResponseError, type RecordModel } from "pocketbase";
+import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import {
    createUser,

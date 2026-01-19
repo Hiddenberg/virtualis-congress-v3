@@ -3,9 +3,9 @@
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import StaggeredAuthSignupForm, {
-   NewUserFormData,
+   type NewUserFormData,
 } from "@/features/staggeredAuth/components/signup/StaggeredAuthSignupForm";
-import { SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerDataRecord } from "@/types/congress";
 import { registerSpeakerUserAction } from "../serverActions/speakerActions";
 
 export default function SpeakerSelfRegistrationForm({

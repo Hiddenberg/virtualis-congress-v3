@@ -17,7 +17,7 @@ import { getACPDiabetesCheckoutLinkAction } from "@/features/organizationPayment
 import { validateACPIDAction } from "../../serverActions/ACPDiabetesAttendantActions";
 import { createAttendantAdditionalDataAction } from "../../serverActions/attendantAdditionalDataActions";
 import { uploadAttendantCredentialFileAction } from "../../serverActions/attendatCredentialFileActions";
-import { ACPDiabetesAdditionalAttendantData } from "../../types/ACPDiabetesAdditionalAttendantDataTypes";
+import type { ACPDiabetesAdditionalAttendantData } from "../../types/ACPDiabetesAdditionalAttendantDataTypes";
 
 function BackButton({ onClick }: { onClick: () => void }) {
    return (

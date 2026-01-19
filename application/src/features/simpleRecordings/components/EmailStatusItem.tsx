@@ -9,7 +9,7 @@ import {
    SendIcon,
 } from "lucide-react";
 import { useState } from "react";
-import { RecordingTrackedEmailWithType } from "../services/recordingTrackedEmailsServices";
+import type { RecordingTrackedEmailWithType } from "../services/recordingTrackedEmailsServices";
 
 interface EmailStatusItemProps {
    trackedEmail: RecordingTrackedEmailWithType;

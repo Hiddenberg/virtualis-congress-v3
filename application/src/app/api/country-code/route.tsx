@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import ipInfo from "@/libs/ipInfo";
 
 export async function GET(request: NextRequest) {

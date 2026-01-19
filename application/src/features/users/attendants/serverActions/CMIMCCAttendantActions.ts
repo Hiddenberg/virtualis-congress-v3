@@ -1,7 +1,7 @@
 "use server";
 
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
-import { MedicalRole } from "../components/attendantDataForms/CMIMCCAttendantDataForm";
+import type { MedicalRole } from "../components/attendantDataForms/CMIMCCAttendantDataForm";
 import { createAttendantData } from "../services/attendantServices";
 
 interface CMIMCCAttendantData {

@@ -3,7 +3,7 @@
 import { format } from "@formkit/tempo";
 import { Calendar, Clock, Mic2Icon } from "lucide-react";
 import { useMemo, useState } from "react";
-import { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
+import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
 
 export default function ACPConferencesPreview({
    conferences,

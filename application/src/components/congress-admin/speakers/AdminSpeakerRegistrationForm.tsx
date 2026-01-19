@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import { Button } from "@/components/global/Buttons";
 import { registerSpeakerFromAdminFormAction } from "@/features/users/speakers/serverActions/speakerActions";
-import { NewSpeakerData } from "@/features/users/speakers/services/speakerServices";
+import type { NewSpeakerData } from "@/features/users/speakers/services/speakerServices";
 
 // Academic titles available in the UI
 const academicTitles = [

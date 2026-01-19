@@ -1,4 +1,4 @@
-import { TrackedEmailRecord } from "@/features/trackedEmails/types/trackedEmailTypes";
+import type { TrackedEmailRecord } from "@/features/trackedEmails/types/trackedEmailTypes";
 import {
    createDBRecord,
    getFullDBRecordsList,
@@ -6,7 +6,7 @@ import {
 } from "@/libs/pbServerClientNew";
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { RecordingTrackedEmail } from "../types/recordingTrackedEmailTypes";
+import type { RecordingTrackedEmail } from "../types/recordingTrackedEmailTypes";
 
 export async function createRecordingTrackedEmailRecord({
    recordingId,

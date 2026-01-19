@@ -4,7 +4,7 @@ import { CheckIcon, PencilIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/global/Buttons";
 import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
-import { CertificateDesignRecord } from "../types/certificatesTypes";
+import type { CertificateDesignRecord } from "../types/certificatesTypes";
 import CertificateComponent from "./CertificateComponent";
 
 function EditDisplayNamePopUp({

@@ -7,7 +7,7 @@ import {
    GraduationCap,
    Heart,
    Info,
-   LucideIcon,
+   type LucideIcon,
    Monitor,
    Stethoscope,
    Upload,

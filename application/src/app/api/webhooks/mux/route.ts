@@ -1,6 +1,6 @@
-import { Asset } from "@mux/mux-node/resources/video/assets.mjs";
-import { UnwrapWebhookEvent } from "@mux/mux-node/resources/webhooks.mjs";
-import { NextRequest, NextResponse } from "next/server";
+import type { Asset } from "@mux/mux-node/resources/video/assets.mjs";
+import type { UnwrapWebhookEvent } from "@mux/mux-node/resources/webhooks.mjs";
+import { type NextRequest, NextResponse } from "next/server";
 import {
    getGlobalLivestreamSessionByMuxLivestreamId,
    updateLivestreamSessionAttendantStatus,

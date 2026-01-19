@@ -4,7 +4,7 @@ import { LinkButton } from "@/components/global/Buttons";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
 import {
    ORGANIZATION_CONSTANTS,
-   OrganizationShortId,
+   type OrganizationShortId,
 } from "@/features/organizations/data/organizationConstants";
 
 function getWhatsappLink(organizationShortID: string, message?: string) {

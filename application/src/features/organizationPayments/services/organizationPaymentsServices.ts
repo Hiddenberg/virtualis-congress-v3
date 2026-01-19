@@ -14,7 +14,7 @@ import {
    pbFilter,
    updateDBRecord,
 } from "@/libs/pbServerClientNew";
-import { UserStripeData } from "@/types/congress";
+import type { UserStripeData } from "@/types/congress";
 import { getOrganizationStripeInstance } from "../lib/stripe";
 import { getCMIMCCStripeProducts } from "./CMIMCCPaymentServices";
 import { getHGEAStripeProducts } from "./HGEAPaymentServices";

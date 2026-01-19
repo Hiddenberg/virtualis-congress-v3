@@ -1,6 +1,6 @@
-import { ClientResponseError, RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
-import { SpeakerData, SpeakerDataRecord } from "@/types/congress";
+import type { SpeakerData, SpeakerDataRecord } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";

@@ -3,8 +3,8 @@
 import { tzDate } from "@formkit/tempo";
 import { CalendarDays, DoorOpenIcon, Monitor, Play } from "lucide-react";
 import Link from "next/link";
-import { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import ConferencesPreview from "./ConferencesPreview";
 
 interface HeroSectionProps {
