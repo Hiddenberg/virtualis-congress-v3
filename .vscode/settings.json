@@ -1,0 +1,19 @@
+{
+   "eslint.enable": false,
+   "biome.configurationPath": "application/biome.json",
+   "biome.lsp.bin": "application/node_modules/.bin/biome",
+   "biome.requireConfiguration": true,
+   "editor.codeActionsOnSave": {
+      "source.fixAll.biome": "explicit",
+      "source.organizeImports.biome": "explicit"
+   },
+   "biome.enabled": true,
+   "editor.defaultFormatter": "biomejs.biome",
+   "editor.formatOnSave": true,
+   "[json]": {
+      "editor.defaultFormatter": "biomejs.biome"
+   },
+   "[typescript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+   }
+}
