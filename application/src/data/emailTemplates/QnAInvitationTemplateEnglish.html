@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Invitation to Join Your Live Q&A Session</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    ul {
+      color: #555555;
+      line-height: 1.6;
+      list-style: disc inside;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: white !important;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .logo {
+      width: 20rem;
+      height: 5rem;
+      object-fit: cover;
+    }
+    .logo-footer {
+      width: 12rem;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="">
+    </div>
+    
+    <h1>Join Your Live Q&A Session</h1>
+    
+    <p>Hello <strong>${academicTitle} ${speakerName}</strong>,</p>
+    
+    <p>
+      We would like to remind you that after your presentation <strong>"${conferenceTitle}"</strong>, a live Q&amp;A session will be held. This is the perfect opportunity to engage with the audience and share your ideas directly.
+    </p>
+
+    <p>
+      We kindly ask you to join at the same time your presentation is being played so that we can confirm everything is working correctly.
+    </p>
+    
+    <p><strong>Session Details – Please join at:</strong></p>
+    <ul>
+      <li><strong>Date:</strong> ${qaDate}</li>
+      <li><strong>Time:</strong> ${qaTime}</li>
+    </ul>
+    
+    <p>To join the session, please click on the following link:</p>
+    
+    <a href="${liveSessionUrl}" class="button">Join the Session</a>
+    
+    <p>
+      If the button above does not work, copy and paste the following link into your browser:
+    </p>
+    
+    <p>${liveSessionUrl}</p>
+    
+    <p>
+      If you have any questions or encounter any issues, please don’t hesitate to contact us.
+    </p>
+    
+    <p>
+      Sincerely,<br>
+      Meeting Program Committee<br>
+      <strong>ACP México Chapter</strong>
+    </p>
+    
+    <div class="footer">
+      <div style="margin-bottom: 1rem;">
+        <p style="margin: 0;">Powered by</p>
+        <img class="logo-footer" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="">
+      </div>
+      <p style="margin: 0;">This email was sent automatically. Please do not reply to this message.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Segundo Día del 1er Congreso Internacional de Medicina Interna</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+      text-align: center;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 20px 0;
+      font-size: 16px;
+      color: white !important;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .email-field {
+      background-color: #eeeeee;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+    }
+    /* Clase para resaltar la sección */
+    .highlight {
+      color: #ffffff;
+      font-weight: bold;
+      background-color: #3681d1;
+      padding: 10px;
+      border-radius: 4px;
+      width: 80%;
+      text-align: center;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="Logo">
+    </div>
+    
+    <h1>¡Bienvenidos al Segundo Día!</h1>
+    
+    <p>Hola <strong>${attendeeName}</strong>,</p>
+    
+    <p>
+      Queremos felicitarte y agradecerte por haber asistido al 1er Congreso Internacional de Medicina Interna. Tu participación ha sido fundamental para el éxito de este evento.
+    </p>
+    
+    <p>
+      Lamentamos sinceramente los inconvenientes técnicos que se presentaron el primer día. ¡Pero ya estamos trabajando arduamente en mejorar nuestra plataforma!
+      <br>
+   </p>
+   <div class="highlight">
+      <span>Ahora podrás acceder desde tu tablet, computadora o dispositivo móvil.</span>
+   </div>
+    
+    <p>
+      Te recomendamos encarecidamente ingresar usando una versión <strong>actualizada</strong> del navegador <strong>Google Chrome</strong> para una experiencia óptima.
+    </p>
+    
+    <p>
+      Al momento de ingresar, si te pide que escribas tu correo para iniciar sesión, por favor copia tu correo electrónico en el campo asignado.
+      <br>
+      Tu correo es:
+    </p>
+    
+    <div class="email-field">
+      ${attendeeEmail}
+    </div>
+    
+    <p>
+      Haz clic en el siguiente enlace para continuar y disfrutar del segundo día del congreso:
+    </p>
+    
+    <a href="${joinUrl}" class="button">Ingresar al Congreso</a>
+    
+    <p>
+      Si el botón anterior no funciona, copia y pega el siguiente enlace en tu navegador:
+    </p>
+    
+    <p>${joinUrl}</p>
+    
+    <p>
+      ¡Gracias por seguir con nosotros y por ser parte de esta experiencia transformadora!
+    </p>
+    
+    <p>
+      Atentamente,<br>
+      Comité Organizador<br>
+      <strong>ACP México Chapter</strong>
+    </p>
+    
+    <div class="footer">
+      <p style="margin: 0; font-size: 12px;">Impulsado por</p>
+      <img src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="Logo Virtualis Congress">
+      <p>Este correo fue enviado de forma automática. Por favor, no responda a este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>

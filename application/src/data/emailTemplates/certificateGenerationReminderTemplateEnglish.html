@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reminder: Generate Your Participation Certificate</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f0f8fc, #ffffff);
+      font-family: Arial, sans-serif;
+    }
+    .wrapper {
+      width: 100%;
+      padding: 30px 0;
+    }
+    .container {
+      background-color: #fff;
+      margin: 0 auto;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      border: 2px solid #cce4f7;
+    }
+    /* Header */
+    .header {
+      background-color: #50a49d;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+    .header .logo {
+      margin-bottom: 10px;
+      width: 200px;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Content */
+    .content {
+      padding: 20px 30px;
+      color: #333;
+    }
+    .content p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .content .highlight {
+      background-color: #fffae6;
+      border-left: 4px solid #ffc107;
+      padding: 10px 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+      color: #856404;
+      font-weight: bold;
+    }
+    /* Email Field */
+    .email-field {
+      background-color: #eeeeee;
+      padding: 10px;
+      margin: 15px 0;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    /* Button */
+    .button {
+      display: inline-block;
+      padding: 12px 25px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    /* Footer */
+    .footer {
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+    }
+    .footer .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="ACP México Chapter Logo">
+        <h1>Reminder: Generate Your Certificate</h1>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="content">
+        <p>Hello <strong>${attendeeName}</strong>,</p>
+        <p>
+          We noticed you haven’t yet generated your <strong>participation certificate</strong> for the 1st International Congress of Internal Medicine. Don’t miss out on this recognition of your dedication!
+        </p>
+        <div class="highlight">
+          Still haven’t downloaded your certificate? Get it in just a few clicks.
+        </div>
+        <p>
+          Log in to our platform with your <strong>email address</strong> and download your attendance certificate, which reflects your commitment to excellence in medicine.
+        </p>
+        <p>
+          When logging in, if prompted to enter your email to sign in, please copy your email in the designated field:<br>
+        </p>
+        <div class="email-field">
+          ${attendeeEmail}
+        </div>
+        <a href="${certificateUrl}" class="button">Generate My Certificate</a>
+        <p>If the button doesn’t work, copy and paste this URL into your browser:</p>
+        <p class="highlight">${certificateUrl}</p>
+        <p>
+          If you have already downloaded your certificate, please ignore this message. Thank you for being part of our congress!
+        </p>
+      </div>
+      
+      <!-- Footer -->
+      <div class="footer">
+        <p>Powered by</p>
+        <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="Virtualis Congress Logo">
+        <p>This email was sent automatically. Please do not reply to this message.</p>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Invitación a Grabación de Conferencia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #ffffff;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Invitación a Grabación de Conferencia</h1>
+    <p>Estimado(a) <strong>{{speakerName}}</strong>,</p>
+    <p>
+      Es un placer invitarte a grabar tu conferencia titulada <strong>{{conferenceTitle}}</strong>.
+      Estamos convencidos de que tu presentación aportará un gran valor a nuestra audiencia.
+    </p>
+    <p>Para iniciar el proceso de grabación, por favor haz clic en el siguiente enlace:</p>
+    <p>
+      <a href="{{recordingUrl}}" class="button">Iniciar Grabación</a>
+    </p>
+
+    <p>O copia el siguiente enlace y pegalo en tu navegador:</p>
+    <p>
+      {{recordingUrl}}
+    </p>
+
+    <p><strong>
+      Nota: Te recomendamos encarecidamente usar el navegador Google Chrome
+    </strong></p>
+    <p>
+      Si tienes alguna duda o requieres asistencia, no dudes en ponerte en contacto con nosotros.
+    </p>
+    <p>¡Esperamos contar con tu participación!</p>
+    <p>Saludos cordiales,</p>
+    <p>ACP México / Virtualis Congress</p>
+    <div class="footer">
+      <p>Este correo fue enviado de forma automática. Por favor, no responda a este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>

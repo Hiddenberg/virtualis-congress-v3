@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Invitación para Asistir al Evento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: white !important;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .logo {
+      width: 200px;
+      height: auto;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <!-- Puedes reemplazar "logoUrl" con la URL del logo de tu organización -->
+      <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="Logo">
+    </div>
+    
+    <h1>¡Te invitamos al 1er Congreso Internacional de Medicina Interna de ACP México Chapter!</h1>
+    
+    <p>Hola <strong>${attendeeName}</strong>,</p>
+    
+    <p>
+      Nos complace invitarte a nuestro <strong>${eventTitle}</strong>. El evento se llevará a cabo el <strong>${eventDate}</strong> a las <strong>${eventTime}</strong> y contará con la participación de destacados expertos.
+    </p>
+    
+    <p>
+      Para ingresar al evento, por favor haz clic en el siguiente enlace:
+    </p>
+    
+    <a href="${joinUrl}" class="button">Ingresar al Evento</a>
+    
+    <p>
+      Si el botón anterior no funciona, copia y pega el siguiente enlace en tu navegador:
+    </p>
+    
+    <p>${joinUrl}</p>
+    
+    <p>
+      Esperamos contar con tu presencia y compartir una experiencia única.
+    </p>
+    
+    <p>
+      Atentamente,<br>
+      Comité Organizador<br>
+      <strong>ACP México Chapter</strong>
+    </p>
+    
+    <div class="footer">
+      <p>Este correo fue enviado de forma automática. Por favor, no responda a este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>

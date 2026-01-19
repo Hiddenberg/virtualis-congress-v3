@@ -1,0 +1,210 @@
+export const TEMP_CONSTANTS = {
+   CONGRESS_ID: "0497i1bu47b2daj",
+   ORGANIZATION_ID: "hl517688umnh3wg",
+   WHATSAPP_LINK: "https://wa.me/5619920940",
+   MUX_RTMP_URL: "rtmp://global-live.mux.com:5222/app",
+   ZOOM_BROADCAST_URL: "https://zoom.us",
+} as const;
+
+export const CMIM_CONFERENCES_DAY_1 = [
+   {
+      title: "Inauguración",
+      description:
+         "Evento Inaugural del XXIX Congreso Anual de Medicina Interna Costa de Chiapas.",
+      speakerName: "",
+      startTime: "08:00",
+      endTime: "08:30",
+   },
+   {
+      title: "Abordaje para la prevención de cáncer en medicina interna",
+      description: "El papel estratégico del médico internista",
+      speakerName: "Dr. Ramón Jesús Barrera Cruz",
+      startTime: "08:30",
+      endTime: "09:00",
+   },
+   {
+      title: "Evaluación del estado inmunológico en el anciano",
+      description: "La inmunosenescencia",
+      speakerName: "Dr. Carlos Lenin Pliego Reyes",
+      startTime: "09:00",
+      endTime: "09:30",
+   },
+   {
+      title: "La microbiota intestinal y su relación con el síndrome metabólico",
+      description: "",
+      speakerName: "LN. Bertha Martínez Burguete",
+      startTime: "09:30",
+      endTime: "10:00",
+   },
+   {
+      title: "Nuevas directrices en el manejo de la diabetes mellitus tipo 2",
+      description: "Tratamiento moderno, decisiones precisas.",
+      speakerName: "Dr. Pedro Mendoza Chávez",
+      startTime: "10:00",
+      endTime: "10:30",
+   },
+   {
+      title: "Coffee Break",
+      description: "",
+      speakerName: "",
+      startTime: "10:30",
+      endTime: "11:00",
+   },
+   {
+      title: "Triple terapia en el EPOC",
+      description: "Una estrategia para la reducción del riesgo cardiopulmonar",
+      speakerName: "Dr. Marco Antonio Fernández Corzo",
+      startTime: "11:00",
+      endTime: "11:30",
+   },
+   {
+      title: "Sesión: Pregúntale al Experto",
+      description: "",
+      speakerName: "",
+      startTime: "11:30",
+      endTime: "12:00",
+   },
+   {
+      title: "Evaluación clínica de la migraña, diagnóstico diferencial",
+      description: "Introducción a una nueva vía de tratamiento",
+      speakerName: "Dr. Adolfo Leyva Rendón",
+      startTime: "12:00",
+      endTime: "12:30",
+   },
+   {
+      title: "Rompiendo paradigmas en el tratamiento de ansiedad",
+      description: "eficacia y seguridad de silexan.",
+      speakerName: "Dr. David Eduardo Saucedo Martínez",
+      startTime: "12:30",
+      endTime: "13:00",
+   },
+   {
+      title: "Insuficiencia Venosa",
+      description: "Piernas que pesan, salud que alerta.",
+      speakerName: "Dr. Gabriel Ulises Hernández de Rubí",
+      startTime: "13:00",
+      endTime: "13:30",
+   },
+   {
+      title: "ACP-Actualidades en Nefrología",
+      description:
+         "Del glomérulo a la clínica: Avances que marcan la diferencia.",
+      speakerName: "Dr. Diego Luis Carrillo Pérez",
+      startTime: "13:30",
+      endTime: "14:00",
+   },
+   {
+      title: "Diagnóstico sindrómico molecular",
+      description: "Una lucha actual contra las infecciones",
+      speakerName: "Dr. Eduardo Moisés Alemán Garay",
+      startTime: "14:00",
+      endTime: "14:30",
+   },
+   {
+      title: "Manejo del riesgo cardiovascular",
+      description: "De las guías a la práctica en la vida real.",
+      speakerName: "Dr. Gerardo Payró Ramírez",
+      startTime: "14:30",
+      endTime: "15:00",
+   },
+] as const;
+
+export const CMIM_CONFERENCES_DAY_2 = [
+   {
+      title: "Trasplante Hepático",
+      description: "Indicaciones y protocolo",
+      speakerName: "Dr. Victor Manuel Páez Sayaz",
+      startTime: "08:00",
+      endTime: "08:30",
+   },
+   {
+      title: "Trasplante Hepático",
+      description: "Situación actual en México",
+      speakerName: "Dra. Erika Faride Rodríguez Aguilar",
+      startTime: "08:30",
+      endTime: "09:00",
+   },
+   {
+      title: "Actualidades en Hígado Graso",
+      description:
+         "Nuevas rutas en el abordaje del hígado graso: más allá de la esteatosis.",
+      speakerName: "Dra. María de Fátima Higuera de la Tijera",
+      startTime: "09:00",
+      endTime: "09:30",
+   },
+   {
+      title: "Diagnóstico de Fibrosis e Hipertensión Portal",
+      description: "En la era de los métodos no invasivos.",
+      speakerName: "Dra. Eira Cerda Reyes",
+      startTime: "09:30",
+      endTime: "10:00",
+   },
+   {
+      title: "Carcinoma Hepatocelular y MASLD",
+      description: "Conociendo el riesgo Oncológico.",
+      speakerName: "Dra. Graciela Castro Narro",
+      startTime: "10:00",
+      endTime: "10:30",
+   },
+   {
+      title: "Coffee Break",
+      description: "",
+      speakerName: "",
+      startTime: "10:30",
+      endTime: "11:00",
+   },
+   {
+      title: "Sesión: Pregúntale al Experto",
+      description: "",
+      speakerName: "",
+      startTime: "11:00",
+      endTime: "11:30",
+   },
+   {
+      title: "Actualidades en enfermedad por reflujo gastroesofágico",
+      description: "Reflujo bajo la lupa: lo que todo clínico debe saber",
+      speakerName: "Dr. Jose Antonio Canseco Bosch",
+      startTime: "11:30",
+      endTime: "12:00",
+   },
+   {
+      title: "Manejo nutricional de pacientes con polimorbilidad",
+      description: "Nutrición integral para la complejidad clínica.",
+      speakerName: "Dra. Claudia Maza González",
+      startTime: "12:00",
+      endTime: "12:30",
+   },
+   {
+      title: "Actualidades en el manejo de la resistencia bacteriana",
+      description: "Antibióticos hoy, ¿cura mañana?",
+      speakerName: "Dr. Luis Demetrio González Patzan",
+      startTime: "12:30",
+      endTime: "13:00",
+   },
+   {
+      title: "Beneficios extraglucémicos del uso de la metformina",
+      description: "",
+      speakerName: "Dra. Elvira Graciela Alexanderson Rosas",
+      startTime: "13:00",
+      endTime: "13:30",
+   },
+   {
+      title: "Trasplante de Células Hematopoyéticas",
+      description: "Renovando la vida desde la médula.",
+      speakerName: "Dr. Guillermo José Ruíz Delgado",
+      startTime: "13:30",
+      endTime: "14:30",
+   },
+   {
+      title: "Clausura",
+      description:
+         "Clausura del XXIX Congreso Anual de Medicina Interna Costa de Chiapas.",
+      speakerName: "",
+      startTime: "14:30",
+      endTime: "15:00",
+   },
+] as const;
+
+export function getWhatsappLink(message?: string) {
+   return TEMP_CONSTANTS.WHATSAPP_LINK + (message ? `?text=${message}` : "");
+}

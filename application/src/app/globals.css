@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root {
+   font-family: "Poppins", sans-serif;
+   scroll-behavior: smooth;
+}
+
+button {
+   cursor: pointer;
+}
+
+@theme {
+   --animate-appear: appear 0.5s ease-in-out;
+   @keyframes appear {
+      from {
+         opacity: 0;
+      }
+      to {
+         opacity: 1;
+      }
+   }
+}

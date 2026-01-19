@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmación de Pago y Acceso a Virtualis Congress</title>
+  <style>
+    /* Reset básico */
+    body, h1, h2, p, ul, li, a {
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      list-style: none;
+    }
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      background-color: #fff;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header img {
+      max-width: 200px;
+      height: auto;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #007BFF;
+      text-align: center;
+    }
+    p {
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    a.button {
+      display: inline-block;
+      background-color: #007BFF;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+    a.button:hover {
+      background-color: #0056b3;
+    }
+    .highlight {
+      background-color: #e9f5ff;
+      border-left: 5px solid #007BFF;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .highlight h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #007BFF;
+    }
+    .highlight p {
+      font-size: 16px;
+      margin: 0;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999;
+      border-top: 1px solid #eaeaea;
+      padding-top: 20px;
+    }
+    .footer img {
+      max-width: 12rem;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 22px;
+      }
+      p, a.button, .highlight h2, .highlight p {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="Logo Virtualis Congress">
+    </div>
+    
+    <h1>Confirmación de Pago y Bienvenida</h1>
+    
+    <p>Hola <strong>${userName}</strong>,</p>
+    
+    <p>
+      Nos complace informarte que el pago de tu inscripción al congreso <strong>${congressName}</strong> ha sido confirmado exitosamente. 
+      <br>
+      Ahora cuentas con acceso a la plataforma de congresos virtuales donde podrás disfrutar de múltiples conferencias el día del evento.
+    </p>
+    
+    <p>
+      El congreso se llevará a cabo del <strong>${congressStartDate}</strong> al <strong>${congressEndDate}</strong> (Horario de Ciudad de México). 
+      <br>
+      Durante estas fechas, tendrás acceso exclusivo para ver todas las sesiones y contenidos en vivo.
+    </p>
+    
+    <div class="highlight">
+      <h2>¿Te perdiste alguna conferencia o quieres volver a verla?</h2>
+      <p>No te preocupes, podrás ver las conferencias grabadas una vez que termine el evento durante algunos días después del evento.</p>
+    </div>
+    
+    <p>
+      Para comenzar, haz clic en el siguiente botón y accede a tu cuenta:
+    </p>
+    
+    <p style="text-align: center;">
+      <a href="${platformLink}" class="button">Acceder a la plataforma</a>
+    </p>
+    
+    <p>
+      Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:
+    </p>
+    
+    <p style="word-break: break-all;">${platformLink}</p>
+    
+    <p>
+      Si tienes alguna duda o necesitas asistencia, no dudes en contactarnos. Estamos aquí para ayudarte.
+    </p>
+    
+    <p>Saludos cordiales,</p>
+    <p>
+      Equipo de Soporte<br>
+      <strong>ACP México</strong>
+    </p>
+    
+    <div class="footer">
+      <p style="margin: 0; font-size: 12px;">Impulsado por</p>
+      <img src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="Logo Virtualis Congress">
+      <p>Este correo fue enviado de forma automática. Por favor, no responda a este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>

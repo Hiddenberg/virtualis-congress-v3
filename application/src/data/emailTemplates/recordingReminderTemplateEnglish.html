@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reminder: Pending Recording</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white !important;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    .button__help {
+      background-color: #facc15;
+      color: #000 !important;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .logo {
+      width: 20rem;
+      height: 5rem;
+      object-fit: cover;
+    }
+    .logo-footer {
+      width: 12rem;
+      object-fit: cover;
+    }
+  </style>
+</head>  
+<body>
+  <div class="container">
+    <div>
+      <img src="${trackingUrl}" alt="">
+      <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="">
+    </div>
+
+    <div>
+      <h1>Reminder: Pending Recording</h1>
+      <h2 style="margin: 0;">${conferenceTitle}</h2>
+    </div>
+
+    <p>Hello <strong>${personName}</strong>,</p>
+
+    <p>
+      We hope you are well. We would like to remind you that we have not yet received the recording of your session for <strong>${conferenceTitle}</strong>.
+    </p>
+    
+    <p>
+      Since the conference is entirely virtual, your recording is essential to ensure an enriching experience for all attendees.
+    </p>
+    
+    <p>
+      We invite you to complete the recording process as soon as possible. Please use the following link:
+    </p>
+    
+    <a href="${recordingUrl}?showTutorial=true" class="button">Complete Recording</a>
+    
+    <p>
+      You can also copy and paste the following link into your browser:
+    </p>
+    
+    <p>${recordingUrl}?showTutorial=true</p>
+    
+    <p>
+      If you have any questions or need assistance, please click the following button:
+    </p>
+
+    <a href="https://wa.me/5619920940?text=Hola, necesito ayuda para completar la grabación de mi sesión para el congreso ${conferenceTitle}" class="button button__help">I Need Help</a>
+    
+    <p>
+      We appreciate your collaboration and commitment.
+    </p>
+    
+    <p>
+      Sincerely,
+      <br>
+      Meeting Program Committee
+      <br>
+      <strong>ACP México Chapter</strong>
+    </p>
+    
+    <div class="footer">
+      <div style="margin-bottom: 1rem;">
+        <p style="margin: 0;">Powered by</p>
+        <img class="logo-footer" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="">
+      </div>
+      <p style="margin: 0;">This email was sent automatically. Please do not reply to this message.</p>
+    </div>
+  </div>
+</body>
+</html>

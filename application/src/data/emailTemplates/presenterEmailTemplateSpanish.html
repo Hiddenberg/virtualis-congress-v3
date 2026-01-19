@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Invitación a Grabación y Participación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    ul {
+      color: #555555;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: white !important;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .logo {
+      width: 20rem;
+      height: 5rem;
+      object-fit: cover;
+    }
+
+    .logo-footer {
+      width: 12rem;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+   <div>
+      <img src="${trackingUrl}" alt="">
+      <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="">
+   </div>
+
+   <div>
+      <h1>Invitación como presentador para la conferencia:</h1>
+      <h2 style="margin: 0;">${conferenceTitle}</h2>
+      <p style="margin-top: 0; font-size: 1.2rem;">${conferenceDescription}</p>
+   </div>
+
+    <p>Hola <strong>${presenterName}</strong>,</p>
+    
+    <p>
+      En nombre del <strong>American College of Physicians (ACP) Chapter México</strong>, es un honor invitarle a participar como presentador en el <strong>1er Congreso Internacional de Medicina Interna del ACP México Chapter</strong>, un
+      evento académico de alto impacto que reunirá a internistas y especialistas de diversas partes
+      del mundo con el propósito de <strong>compartir conocimientos de vanguardia y fortalecer la
+      excelencia en nuestra especialidad.</strong>
+    </p>
+    
+    <p>
+      Nos entusiasma contar con su valiosa experiencia en esta edición, donde nos gustaría que
+      realice la presentación para la siguiente sesión:
+    </p>
+    
+    <ul>
+      <li><strong>Título de la conferencia a presentar:</strong> ${conferenceTitle}</li>
+      <li><strong>Conferencista al que presentará:</strong> ${speakerAcademicTitle} ${speakerName}</li>
+    </ul>
+
+    <p>
+      Dado que el congreso será <strong>completamente virtual</strong>, hemos desarrollado una plataforma digital
+      para facilitar la grabación de su sesión en el momento y horario que mejor le acomode,
+      garantizando una experiencia óptima tanto para usted como para los asistentes. 
+    </p>
+    
+    <p>
+      Para iniciar el proceso de grabación, haga clic en el siguiente enlace:
+    </p>
+    
+    <a href="${recordingUrl}?showTutorial=true" class="button">Iniciar Grabación</a>
+    
+    <p>
+      También puede copiar y pegar el siguiente enlace en su navegador:
+    </p>
+    
+    <p>${recordingUrl}?showTutorial=true</p>
+    
+    <p>
+      <strong>Nota:</strong> Se recomienda utilizar el navegador Google Chrome para una experiencia óptima.
+    </p>
+    
+    <p>
+      Quedamos atentos a cualquier duda o asistencia que requiera.
+      <br>
+      ¡Esperamos contar con su participación!
+    </p>
+    
+    <p>
+      Atentamente,
+      <br>
+      Meeting Program Committee
+      <br>
+      <strong>ACP México Chapter</strong>
+    </p>
+
+    
+    <div class="footer">
+       <div style="margin-bottom: 1rem;">
+          <p style="margin: 0;">Impulsado por</p>
+          <img class="logo-footer" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="">
+       </div>
+      <p style="margin: 0;">Este correo fue enviado de forma automática. Por favor, no responda a este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>

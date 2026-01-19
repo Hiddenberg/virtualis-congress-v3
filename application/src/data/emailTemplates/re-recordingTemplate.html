@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Importante: Regrabación de su sesión</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    ul {
+      color: #555555;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: white !important;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      padding: 2rem 0;
+    }
+    .logo {
+      width: 20rem;
+      height: 5rem;
+      object-fit: cover;
+    }
+    .logo-footer {
+      width: 12rem;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div>
+      <img src="${trackingUrl}" alt="">
+      <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="">
+    </div>
+    
+    <h1>Importante: Regrabación de su sesión</h1>
+    <p>Hola <strong>${academicTitle} ${speakerName}</strong>,</p>
+    
+    <p>
+      Esperamos que se encuentre bien. Lamentamos informarle que, debido a un inconveniente técnico, hemos detectado que la grabación de su sesión <strong>no se realizó correctamente</strong> ya que no se registró la conexión de su cámara ni el audio de su micrófono.
+    </p>
+    
+    <p>
+      Sabemos lo valiosa que es su ponencia y entendemos que esta situación puede ser frustrante. Por ello, le solicitamos amablemente que realice una nueva grabación para asegurar que su presentación se comparta en las mejores condiciones.
+    </p>
+    
+    <p>A continuación, le recordamos los detalles de la sesión:</p>
+    
+    <ul>
+      <li><strong>Título de la ponencia:</strong> ${conferenceTitle}</li>
+    </ul>
+    
+    <p>
+      Por favor, utilice el siguiente enlace para acceder a la plataforma y proceder con la regrabación:
+    </p>
+    
+    <a href="${recordingUrl}?showTutorial=true" class="button">Regrabar sesión</a>
+    
+    <p>
+      También puede copiar y pegar el siguiente enlace en su navegador:
+    </p>
+    
+    <p>${recordingUrl}?showTutorial=true</p>
+    
+    <p>
+      <strong>Nota:</strong> Le recomendamos utilizar el navegador Google Chrome para una experiencia óptima.
+    </p>
+    
+    <p>
+      Agradecemos mucho su comprensión y colaboración. Si tiene alguna duda o necesita asistencia adicional, por favor no dude en contactarnos. Estamos aquí para ayudarle.
+    </p>
+    
+    <p>
+      Atentamente,
+      <br>
+      Meeting Program Committee
+      <br>
+      <strong>ACP México Chapter</strong>
+    </p>
+    
+    <div class="footer">
+      <div style="margin-bottom: 1rem;">
+        <p style="margin: 0;">Impulsado por</p>
+        <img class="logo-footer" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="">
+      </div>
+      <p style="margin: 0;">Este correo fue enviado de forma automática. Por favor, no responda a este mensaje.</p>
+    </div>
+  </div>
+</body>
+</html>

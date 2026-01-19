@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Thank You for Making the Congress a Success!</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #eef6fc, #ffffff);
+      font-family: Arial, sans-serif;
+    }
+    .wrapper {
+      width: 100%;
+      padding: 30px 0;
+    }
+    .container {
+      background-color: #fff;
+      margin: 0 auto;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      border: 2px solid #cce4f7;
+    }
+    /* Header */
+    .header {
+      background-color: #50a49d;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .header .logo {
+      margin-bottom: 10px;
+      width: 250px;
+      height: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Content */
+    .content {
+      padding: 20px 30px;
+      color: #333;
+    }
+    .content p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .content .highlight {
+      color: #007BFF;
+      font-weight: bold;
+    }
+    /* Certificate Section */
+    .certificate {
+      background-color: #eef9ed;
+      border: 2px dashed #28a745;
+      padding: 20px;
+      text-align: center;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .certificate p {
+      font-weight: bold;
+      font-size: 18px;
+      color: #28a745;
+      margin: 0;
+    }
+    /* Button */
+    .button {
+      display: inline-block;
+      padding: 12px 25px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #28a745;
+      text-decoration: none;
+      border-radius: 4px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    /* Footer */
+    .footer {
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+    }
+    .footer .logo {
+      width: 300px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <!-- Header -->
+      <div class="header">
+        <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="ACP México Chapter Logo">
+        <h1>Thank You for Making the Congress a Success!</h1>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="content">
+        <p>Hello <strong>${attendeeName}</strong>,</p>
+        <p>
+          We wholeheartedly thank you for participating in the 1st International Congress of Internal Medicine. Your energy, dedication, and enthusiasm have made this event a transformative experience.
+        </p>
+        <p>
+          It was a privilege to host such a distinguished gathering of medical professionals, and we hope the congress was as inspiring and enriching for you as it was for us.
+        </p>
+        <div class="certificate">
+          <p>Your Certificate of Participation is Now Available!</p>
+        </div>
+        <p>
+          You can generate and download your certificate directly from our <strong>Virtualis Congress</strong> platform, where you experienced the congress for 3 days and over 24 hours of learning!
+        </p>
+        <p>
+          This certificate reflects your commitment to excellence in medicine and recognizes your invaluable contribution to the congress.
+        </p>
+        <a href="${certificateUrl}" class="button">Generate My Certificate</a>
+        <p>If the button doesn’t work, please copy and paste the following URL into your browser:</p>
+        <p class="highlight">${certificateUrl}</p>
+        <p>
+          Once again, thank you so much for being part of this transformative experience and for contributing to the success of our congress! We look forward to having you with us in future editions.
+        </p>
+        <p>Sincerely,<br>
+           Organizing Committee<br>
+           <strong>ACP México Chapter</strong>
+        </p>
+      </div>
+      
+      <!-- Footer -->
+      <div class="footer">
+        <p>Powered by</p>
+        <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="Virtualis Congress Logo">
+        <p>This email was sent automatically. Please do not reply to this message.</p>
+      </div>
+      
+    </div>
+  </div>
+</body>
+</html>

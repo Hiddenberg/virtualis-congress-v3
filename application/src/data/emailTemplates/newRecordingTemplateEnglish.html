@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Invitation to Record and Participate</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      margin: 50px auto;
+      padding: 20px;
+      max-width: 600px;
+      border: 1px solid #dddddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #333333;
+    }
+    p {
+      color: #555555;
+      line-height: 1.6;
+    }
+    ul {
+      color: #555555;
+      line-height: 1.6;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: white !important;
+      background-color: #007BFF;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .logo {
+      width: 20rem;
+      height: 5rem;
+      object-fit: cover;
+    }
+
+    .logo-footer {
+      width: 12rem;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+   <div>
+      <img src="${trackingUrl}" alt="">
+      <img class="logo" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741918846/Disen%CC%83o_sin_ti%CC%81tuloacofondo_clipped_rev_1_jzmcwt.png" alt="">
+   </div>
+
+    <h1>Invitation as a Speaker at the International ACP México Chapter Congress</h1>
+    <p>Hello <strong>${academicTitle} ${speakerName}</strong>,</p>
+    
+    <p>
+      On behalf of the <strong>American College of Physicians (ACP) Chapter México</strong>, it is an honor to invite you to participate as a speaker at the <strong>1st International Congress of Internal Medicine of the ACP México Chapter</strong>, an
+      impactful academic event that will bring together internists and specialists from various parts of the world with the purpose of <strong>sharing cutting-edge knowledge and strengthening excellence in our specialty.</strong>
+    </p>
+    
+    <p>
+      We are excited to have your valuable expertise in this edition, where we would like you to deliver the following session:
+    </p>
+    
+    <ul>
+      <li><strong>Presentation Title:</strong> ${conferenceTitle}</li>
+      <li><strong>Presentation Date:</strong> ${conferenceDate}</li>
+      <li><strong>Time:</strong> ${conferenceTime}</li>
+    </ul>
+
+    <p>
+      Since the congress will be <strong>completely virtual</strong>, we have developed a digital platform to facilitate the recording of your session at the time that best suits you, ensuring an optimal experience for both you and the attendees.
+      <br>
+      Additionally, you will have the option to participate in a live session for the Q&amp;A round, if you prefer.
+    </p>
+    
+    <p>
+      To start the recording process, please click the following link:
+    </p>
+    
+    <a href="${recordingUrl}?showTutorial=true" class="button">Start Recording</a>
+    
+    <p>
+      You can also copy and paste the following link into your browser:
+    </p>
+    
+    <p>${recordingUrl}?showTutorial=true</p>
+    
+    <p>
+      <strong>Note:</strong> It is recommended to use the Google Chrome browser for an optimal experience.
+    </p>
+    
+    <p>
+      We remain at your disposal for any questions or assistance you may require.
+      <br>
+      We look forward to your participation!
+    </p>
+    
+    <p>
+      Sincerely,
+      <br>
+      Meeting Program Committee
+      <br>
+      <strong>ACP México Chapter</strong>
+    </p>
+
+    
+    <div class="footer">
+       <div style="margin-bottom: 1rem;">
+          <p style="margin: 0;">Powered by</p>
+          <img class="logo-footer" src="https://res.cloudinary.com/dnx2lg7vb/image/upload/t_300px/v1741919524/virtualis_congress_logo_qlmh6h.png" alt="">
+       </div>
+      <p style="margin: 0;">This email was sent automatically. Please do not reply to this message.</p>
+    </div>
+  </div>
+</body>
+</html>
