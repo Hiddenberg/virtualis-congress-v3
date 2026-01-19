@@ -1,20 +1,10 @@
 services:
-  # llmed-ehr-db:
-  #   image: postgres:alpine
-  #   ports:
-  #     - 5432:5432
-  #   networks:
-  #     - proxynetwork
-  #   env_file: ./database/.env
-  #   shm_size: 128mb
-  #   volumes:
-  #     - llmed-ehr-db-data:/var/lib/postgresql/18/docker
-  #   healthcheck:
-  #     test: >
-  #       bash -c "pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB""
-  #     interval: 1s
-  #     timeout: 5s
-  #     retries: 20
+  virtualis-congress-v3-db:
+    build: ./database
+    ports:
+      - 8080:8080
+    volumes:
+      - ./database/:/db/
 
   virtualis-congress-v3-dev:
     image: oven/bun:alpine
