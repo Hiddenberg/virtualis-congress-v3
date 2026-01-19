@@ -27,7 +27,7 @@ export default function SecondDayBanner({
    return (
       <div className="flex justify-center mb-6 px-4">
          <div className="w-full max-w-3xl">
-            <div className="relative bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 shadow-sm p-6 md:p-8 border border-amber-100 rounded-2xl overflow-hidden">
+            <div className="relative bg-linear-to-br from-amber-50 via-orange-50 to-yellow-50 shadow-sm p-6 md:p-8 border border-amber-100 rounded-2xl overflow-hidden">
                {/* Decorative elements */}
                <div className="top-0 right-0 absolute opacity-10">
                   <Zap className="w-32 h-32 text-amber-600" />
@@ -36,7 +36,7 @@ export default function SecondDayBanner({
                <div className="relative">
                   {/* Icon */}
                   <div className="flex justify-center mb-4">
-                     <div className="flex justify-center items-center bg-gradient-to-br from-amber-100 to-orange-100 shadow-sm rounded-full w-14 h-14">
+                     <div className="flex justify-center items-center bg-linear-to-br from-amber-100 to-orange-100 shadow-sm rounded-full w-14 h-14">
                         <Sunrise className="w-7 h-7 text-amber-600" />
                      </div>
                   </div>
