@@ -5,6 +5,8 @@ services:
       - 8080:8080
     volumes:
       - ./database/:/db/
+    networks:
+      - proxynetwork
 
   virtualis-congress-v3-dev:
     image: oven/bun:alpine
@@ -16,14 +18,8 @@ services:
       - proxynetwork
     ports:
      - 3000:3000
-    depends_on:
-      llmed-ehr-db:
-        condition: service_healthy
 
 
 networks:
   proxynetwork:
     external: true
-
-volumes:
-  llmed-ehr-db-data:
