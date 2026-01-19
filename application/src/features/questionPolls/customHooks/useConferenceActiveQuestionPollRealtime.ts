@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
 import pbClient from "@/libs/pbClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
@@ -26,7 +26,7 @@ export function useConferenceActiveQuestionPollRealtime(
 
    const isReloadingRef = useRef<boolean>(false);
 
-   const reloadActive = async () => {
+   const reloadActive = useCallback(async () => {
       if (!canRun || !conferenceId) return;
       if (isReloadingRef.current) return;
       isReloadingRef.current = true;
@@ -78,7 +78,7 @@ export function useConferenceActiveQuestionPollRealtime(
          isReloadingRef.current = false;
          setIsLoading(false);
       }
-   };
+   }, [canRun, conferenceId]);
 
    useEffect(() => {
       if (!canRun) return;
@@ -126,7 +126,7 @@ export function useConferenceActiveQuestionPollRealtime(
          if (unsubLink) unsubLink();
          if (unsubPolls) unsubPolls();
       };
-   }, [canRun, conferenceId, orgId]);
+   }, [canRun, conferenceId, orgId, reloadActive]);
 
    return {
       data,

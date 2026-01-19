@@ -118,7 +118,7 @@ function useRealtimeMessages() {
       setMessages([]);
       processedMessageIds.current.clear();
       initialMessagesLoaded.current = false;
-   }, [conferenceId, organization.id]);
+   }, []);
 
    useEffect(() => {
       let unsubscribe: (() => void) | null = null;
@@ -250,12 +250,12 @@ export default function ChatComponent() {
          messagesContainerRef.current.scrollTop =
             messagesContainerRef.current.scrollHeight;
       }
-   }, [messages]);
+   }, []);
 
    return (
       <div>
          {/* Messages Container */}
-         <div className="bg-gradient-to-b from-stone-50 to-white mb-4 p-4 border border-stone-200 rounded-xl">
+         <div className="bg-linear-to-b from-stone-50 to-white mb-4 p-4 border border-stone-200 rounded-xl">
             <div
                ref={messagesContainerRef}
                className="space-y-3 pr-2 h-80 overflow-y-auto"
@@ -282,9 +282,9 @@ export default function ChatComponent() {
                         <div
                            className={`max-w-xs p-3 rounded-xl shadow-sm ${
                               message.isQuestion
-                                 ? "bg-gradient-to-r from-amber-100 to-amber-200 border border-amber-300"
+                                 ? "bg-linear-to-r from-amber-100 to-amber-200 border border-amber-300"
                                  : message.isCurrentUser
-                                   ? "bg-gradient-to-r from-stone-700 to-stone-800 text-white"
+                                   ? "bg-linear-to-r from-stone-700 to-stone-800 text-white"
                                    : "bg-white border border-stone-200"
                            }`}
                         >
@@ -341,7 +341,7 @@ export default function ChatComponent() {
                <button
                   type="submit"
                   disabled={!newMessage.trim()}
-                  className="bg-gradient-to-r from-stone-700 hover:from-stone-800 disabled:from-stone-300 to-stone-800 hover:to-stone-900 disabled:to-stone-400 p-3 px-8 rounded-xl text-white transition-all duration-200 disabled:cursor-not-allowed"
+                  className="bg-linear-to-r from-stone-700 hover:from-stone-800 disabled:from-stone-300 to-stone-800 hover:to-stone-900 disabled:to-stone-400 p-3 px-8 rounded-xl text-white transition-all duration-200 disabled:cursor-not-allowed"
                >
                   <ArrowUp className="w-5 h-5" />
                </button>

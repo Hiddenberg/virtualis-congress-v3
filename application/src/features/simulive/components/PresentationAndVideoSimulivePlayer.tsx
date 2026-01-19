@@ -143,12 +143,7 @@ export default function PresentationAndVideoSimulivePlayer({
          playerEl.removeEventListener("loadedmetadata", updateFromPlayerTime);
          playerEl.removeEventListener("ended", onEnded);
       };
-   }, [
-      sortedSlideChanges,
-      presentationSlides.length,
-      getSlideIndexForTime,
-      onVideoFinished,
-   ]);
+   }, [getSlideIndexForTime, onVideoFinished]);
 
    const currentSlide = presentationSlides[currentSlideIndex];
 

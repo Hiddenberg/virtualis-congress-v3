@@ -129,7 +129,14 @@ export function PresentationDrawingProvider({
          clearLines,
          saveDrawingEvents,
       }),
-      [isDrawingMode, lines, addLine, clearLines, saveDrawingEvents],
+      [
+         isDrawingMode,
+         lines,
+         addLine,
+         clearLines,
+         saveDrawingEvents,
+         setDrawingMode,
+      ],
    );
 
    return (

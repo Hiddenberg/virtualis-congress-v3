@@ -56,7 +56,7 @@ function useConferenceMessages(conferenceId: string | null) {
       setMessages([]);
       processedIds.current.clear();
       loadedRef.current = false;
-   }, [conferenceId, organization?.id]);
+   }, []);
 
    useEffect(() => {
       if (!conferenceId || !organization) return;
@@ -125,7 +125,7 @@ export default function SelfContainedRealtimeChatViewer({
       if (containerRef.current) {
          containerRef.current.scrollTop = containerRef.current.scrollHeight;
       }
-   }, [messages]);
+   }, []);
 
    const grouped = useMemo(() => messages, [messages]);
 

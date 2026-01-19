@@ -13,7 +13,7 @@
          "!.next",
          "!dist",
          "!build",
-         "!*.d.ts"
+         "!**/*.d.ts"
       ]
    },
    "formatter": {
@@ -54,6 +54,11 @@
       "domains": {
          "next": "recommended",
          "react": "recommended"
+      }
+   },
+   "javascript": {
+      "formatter": {
+         "semicolons": "always"
       }
    },
    "assist": {

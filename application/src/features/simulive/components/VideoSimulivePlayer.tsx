@@ -20,7 +20,6 @@ export default function VideoSimulivePlayer({
    isSpeakerPresentationRecording?: boolean;
 }) {
    const [isMuted, setIsMuted] = useState(true);
-   const [hasFinished, setHasFinished] = useState(false);
 
    useEffect(() => {
       const playerEl = document.querySelector("mux-player") as
@@ -29,7 +28,6 @@ export default function VideoSimulivePlayer({
       if (!playerEl) return;
 
       const onEnded = () => {
-         setHasFinished(true);
          onVideoFinished?.();
       };
 
@@ -37,7 +35,7 @@ export default function VideoSimulivePlayer({
       return () => {
          playerEl.removeEventListener("ended", onEnded);
       };
-   }, [hasFinished, onVideoFinished]);
+   }, [onVideoFinished]);
 
    const { timeVideoShouldStart, timeSpeakerPresentationShouldStart } = useMemo(
       () => getSimuliveVariables(simuliveData),

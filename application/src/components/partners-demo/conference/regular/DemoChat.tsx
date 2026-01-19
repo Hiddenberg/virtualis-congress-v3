@@ -40,7 +40,7 @@ export default function DemoChat() {
       endRef.current?.scrollIntoView({
          behavior: "smooth",
       });
-   }, [messages.length]);
+   }, []);
 
    const handleSend = (e: FormEvent) => {
       e.preventDefault();

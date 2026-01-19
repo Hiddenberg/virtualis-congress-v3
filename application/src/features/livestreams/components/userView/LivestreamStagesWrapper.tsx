@@ -77,13 +77,7 @@ export default function LivestreamStagesWrapper({
 
    useEffect(() => {
       setCurrentStage(selectStatus());
-   }, [
-      attendantStatus,
-      serverTime,
-      conference.startTime,
-      conference.endTime,
-      selectStatus,
-   ]);
+   }, [selectStatus]);
 
    if (livestreamMuxAssetLoading) {
       return <div>Loading...</div>;

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function BreakBanner() {
    const [isBreakTime, setIsBreakTime] = useState(false);
 
-   const checkBreakTime = () => {
+   const checkBreakTime = useCallback(() => {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes();
@@ -15,7 +15,7 @@ function BreakBanner() {
          (hours === 11 && minutes >= 30) || (hours === 12 && minutes === 0);
 
       setIsBreakTime(isInBreakTimeRange);
-   };
+   }, []);
 
    useEffect(() => {
       // Check immediately on mount
@@ -26,7 +26,7 @@ function BreakBanner() {
 
       // Cleanup interval on unmount
       return () => clearInterval(interval);
-   }, []);
+   }, [checkBreakTime]);
 
    if (!isBreakTime) return null;
 

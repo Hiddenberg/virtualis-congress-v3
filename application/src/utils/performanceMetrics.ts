@@ -261,7 +261,7 @@ export function initializePerformanceMetrics(): PerformanceMetrics {
 }
 
 // Types for log data
-type LogData = {
+export type LogData = {
    error?: string;
    [key: string]: unknown;
 };

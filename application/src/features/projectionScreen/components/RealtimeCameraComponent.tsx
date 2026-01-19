@@ -1,7 +1,7 @@
 "use client";
 
 import { CameraIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface RealtimeCameraProps {
    deviceId?: string;
@@ -41,14 +41,14 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
    );
    const [isDeviceMenuOpen, setIsDeviceMenuOpen] = useState(false);
 
-   const stopStream = () => {
+   const stopStream = useCallback(() => {
       const activeStream = streamRef.current;
       if (!activeStream) return;
       activeStream.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
-   };
+   }, []);
 
-   const startStream = async () => {
+   const startStream = useCallback(async () => {
       if (
          typeof navigator === "undefined" ||
          !navigator.mediaDevices?.getUserMedia
@@ -119,7 +119,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
          setErrorMessage(error.message);
          onError?.(error);
       }
-   };
+   }, [width, height, selectedDeviceId, onError, onReady]);
 
    // Initialize selected device from prop or localStorage
    useEffect(() => {
@@ -142,8 +142,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
       return () => {
          stopStream();
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [selectedDeviceId, width, height]);
+   }, [startStream, stopStream]);
 
    // Keep camera list up to date and handle device removal
    useEffect(() => {

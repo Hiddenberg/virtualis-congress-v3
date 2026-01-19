@@ -47,7 +47,7 @@ export default function CameraAndPresentationRecorderInterface({
       "no_videos" | "si_videos" | "no_ppt" | "zoom_video" | null
    >(null);
    const [username, setUsername] = useState<string>("");
-   const [linkingPresentation, startTransition] = useTransition();
+   const [_linkingPresentation, startTransition] = useTransition();
    const [recordingPresentation, setRecordingPresentation] =
       useState<PresentationRecord | null>(() => {
          if (!initialPresentation) return null;

@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 // Minimal WebHID typings to avoid using any
 interface NavigatorWithHID extends Navigator {
@@ -60,22 +60,23 @@ export default function ButtonsDetector(): React.ReactElement {
    const rafRef = useRef<number | null>(null);
    const prevGamepadButtonsRef = useRef<Record<string, boolean[]>>({});
 
-   const addEvent = (
-      partial: Omit<InputEventRecord, "id" | "timestampMs">,
-   ): void => {
-      setEvents((prev) => {
-         const next: InputEventRecord = {
-            id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-            timestampMs: Date.now(),
-            ...partial,
-         };
-         const result = [next, ...prev];
-         if (result.length > MAX_EVENTS) {
-            return result.slice(0, MAX_EVENTS);
-         }
-         return result;
-      });
-   };
+   const addEvent = useCallback(
+      (partial: Omit<InputEventRecord, "id" | "timestampMs">): void => {
+         setEvents((prev) => {
+            const next: InputEventRecord = {
+               id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+               timestampMs: Date.now(),
+               ...partial,
+            };
+            const result = [next, ...prev];
+            if (result.length > MAX_EVENTS) {
+               return result.slice(0, MAX_EVENTS);
+            }
+            return result;
+         });
+      },
+      [],
+   );
 
    const mouseButtonLabelByCode = useMemo(
       () =>
@@ -140,7 +141,7 @@ export default function ButtonsDetector(): React.ReactElement {
          window.removeEventListener("mouseup", onMouseUp);
          window.removeEventListener("auxclick", onAuxClick);
       };
-   }, [mouseButtonLabelByCode]);
+   }, [addEvent, mouseButtonLabelByCode]);
 
    useEffect(() => {
       if (!gamepadPolling) {
@@ -188,7 +189,7 @@ export default function ButtonsDetector(): React.ReactElement {
             rafRef.current = null;
          }
       };
-   }, [gamepadPolling]);
+   }, [addEvent, gamepadPolling]);
 
    useEffect(() => {
       const hid = (navigator as NavigatorWithHID).hid;

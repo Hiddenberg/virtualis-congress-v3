@@ -86,7 +86,7 @@ export function UnifiedControlsBar({
          masterPlayer.removeEventListener("play", handlePlay);
          masterPlayer.removeEventListener("pause", handlePause);
       };
-   }, [playerRefs, getPlayerElements]);
+   }, [getPlayerElements]);
 
    // Track fullscreen changes
    useEffect(() => {

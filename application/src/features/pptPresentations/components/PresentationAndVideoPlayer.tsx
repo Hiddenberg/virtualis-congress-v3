@@ -84,7 +84,7 @@ export default function PresentationAndVideoPlayer({
          playerEl.removeEventListener("seeked", updateFromPlayerTime);
          playerEl.removeEventListener("loadedmetadata", updateFromPlayerTime);
       };
-   }, [sortedSlideChanges, presentationSlides.length, getSlideIndexForTime]);
+   }, [getSlideIndexForTime]);
 
    const currentSlide = presentationSlides[currentSlideIndex];
 

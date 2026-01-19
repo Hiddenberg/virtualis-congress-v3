@@ -74,13 +74,7 @@ export default function CertificatesNameForm() {
       return () => {
          if (interval) clearInterval(interval);
       };
-   }, [
-      loading,
-      loadingComplete,
-      randomDuration,
-      loadingMessages.length,
-      submitCompleted,
-   ]);
+   }, [loading, loadingComplete, randomDuration, submitCompleted]);
 
    const router = useRouter();
    const { user } = useStaggeredAuthContext();
@@ -305,7 +299,7 @@ export default function CertificatesNameForm() {
                         </label>
                      </div>
 
-                     <div className="bg-gradient-to-r from-indigo-50 to-purple-50 mt-8 p-6 rounded-lg">
+                     <div className="bg-linear-to-r from-indigo-50 to-purple-50 mt-8 p-6 rounded-lg">
                         <h3 className="mb-2 font-semibold text-indigo-700 text-sm uppercase">
                            Vista previa
                         </h3>

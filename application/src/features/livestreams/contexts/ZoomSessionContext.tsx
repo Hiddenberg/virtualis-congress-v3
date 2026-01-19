@@ -39,7 +39,7 @@ export function ZoomSessionProvider({
          sessionKey,
          setSessionId,
       };
-   }, [sessionId, sessionName, sessionKey, setSessionId]);
+   }, [sessionId, sessionName, sessionKey]);
 
    return (
       <ZoomSessionContext.Provider value={value}>

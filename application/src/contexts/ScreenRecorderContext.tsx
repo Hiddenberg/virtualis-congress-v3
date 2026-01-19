@@ -29,6 +29,7 @@ import {
 import {
    checkBrowserCompatibility,
    initializePerformanceMetrics,
+   type LogData,
    logPerformanceEvent,
    type PerformanceMetrics,
 } from "@/utils/performanceMetrics";
@@ -122,19 +123,94 @@ function useScreenRecorderContext({
       useState<PerformanceMetrics>(initializePerformanceMetrics());
 
    // Function to log performance metrics
-   function logPerformanceMetrics(action: string, data?: any) {
-      logPerformanceEvent(
-         action,
-         new Date(performanceMetrics.initTime).getTime(),
-         data,
-         (updatedMetrics: Partial<PerformanceMetrics>) => {
-            setPerformanceMetrics((prev) => ({
-               ...prev,
-               ...updatedMetrics,
-            }));
+   const logPerformanceMetrics = useCallback(
+      (action: string, data?: LogData) => {
+         logPerformanceEvent(
+            action,
+            new Date(performanceMetrics.initTime).getTime(),
+            data,
+            (updatedMetrics: Partial<PerformanceMetrics>) => {
+               setPerformanceMetrics((prev) => ({
+                  ...prev,
+                  ...updatedMetrics,
+               }));
+            },
+         );
+      },
+      [performanceMetrics.initTime],
+   );
+
+   const getVideoConstraintsForDevice = useCallback(() => {
+      // Always use high quality video settings as required
+      return {
+         width: {
+            ideal: 1280,
          },
-      );
-   }
+         height: {
+            ideal: 720,
+         },
+         frameRate: {
+            ideal: 30,
+         },
+      };
+   }, []);
+
+   // Add a helper function for getUserMedia with timeout and retry
+   const getUserMediaWithTimeout = useCallback(
+      async (
+         constraints: MediaStreamConstraints,
+         timeoutMs = 10000,
+         retries = 3,
+      ): Promise<MediaStream> => {
+         // Apply device-appropriate video constraints if not specified
+         if (constraints.video === true) {
+            constraints.video = getVideoConstraintsForDevice();
+         }
+
+         let lastError: unknown;
+
+         for (let attempt = 0; attempt <= retries; attempt++) {
+            try {
+               // Create a promise that rejects after timeoutMs
+               const timeoutPromise = new Promise<MediaStream>((_, reject) => {
+                  setTimeout(() => {
+                     reject(
+                        new Error(
+                           language === "en-US"
+                              ? "Timeout starting video source. Your device might be too slow or the camera is busy."
+                              : "Se agotó el tiempo de espera al iniciar la fuente de video. Su dispositivo podría estar funcionando lentamente o la cámara podría estar siendo utilizada por otra aplicación.",
+                        ),
+                     );
+                  }, timeoutMs);
+               });
+
+               // Race between the media request and the timeout
+               return await Promise.race([
+                  navigator.mediaDevices.getUserMedia(constraints),
+                  timeoutPromise,
+               ]);
+            } catch (error: unknown) {
+               console.error(
+                  `getUserMedia attempt ${attempt + 1} failed:`,
+                  error,
+               );
+               lastError = error;
+
+               // If this wasn't the last attempt, wait before retrying
+               if (attempt < retries) {
+                  await new Promise((resolve) => setTimeout(resolve, 1000));
+                  console.log(
+                     `Retrying getUserMedia, attempt ${attempt + 2}...`,
+                  );
+               }
+            }
+         }
+
+         // If we got here, all attempts failed
+         throw lastError;
+      },
+      [language, getVideoConstraintsForDevice],
+   );
 
    const isSharingScreen = screenStream !== null;
    const isRecording = recorderState === "recording";
@@ -216,19 +292,23 @@ function useScreenRecorderContext({
             setPermissionError(null);
             setRecorderState("readyToRecord");
             logPerformanceMetrics("Setup complete");
-         } catch (error: any) {
+         } catch (error: unknown) {
+            const err = error as {
+               name?: string;
+               message?: string;
+            };
             console.error(error);
             // Handle permission errors specifically
             if (
-               error.name === "NotAllowedError" ||
-               error.name === "PermissionDeniedError"
+               err.name === "NotAllowedError" ||
+               err.name === "PermissionDeniedError"
             ) {
                setPermissionError(
                   language === "en-US"
                      ? "Permission to access microphone and camera was denied. Please allow access in your browser settings and refresh the page."
                      : "El permiso para acceder al micrófono y la cámara fue denegado. Por favor, permita el acceso en la configuración de su navegador y actualice la página.",
                );
-            } else if (error.message && error.message.includes("Timeout")) {
+            } else if (err.message && err.message.includes("Timeout")) {
                // Special handling for timeout errors
                setPermissionError(
                   language === "en-US"
@@ -238,8 +318,8 @@ function useScreenRecorderContext({
             } else {
                setPermissionError(
                   language === "en-US"
-                     ? `Error accessing media devices: ${error.message}`
-                     : `Error al acceder a los dispositivos multimedia: ${error.message}`,
+                     ? `Error accessing media devices: ${err.message}`
+                     : `Error al acceder a los dispositivos multimedia: ${err.message}`,
                );
             }
             // Set permissions to denied if there was an error
@@ -249,7 +329,12 @@ function useScreenRecorderContext({
          }
       }
       getDevices();
-   }, [language]);
+   }, [
+      language,
+      getUserMediaWithTimeout,
+      isUploadingToMux,
+      logPerformanceMetrics,
+   ]);
 
    const [isInitialTestCompleted, setIsInitialTestCompleted] = useState(false);
 
@@ -336,12 +421,17 @@ function useScreenRecorderContext({
                video: true,
                audio: false,
             });
-         } catch (error: any) {
+         } catch (error: unknown) {
+            const err = error as {
+               message?: string;
+               name?: string;
+               attemptsMade?: number;
+            };
             console.error("Screen sharing error:", error);
             logPerformanceMetrics("Screen share error", {
-               error: error.message,
-               name: error.name,
-               attemptsMade: error.attemptsMade,
+               error: err.message,
+               name: err.name,
+               attemptsMade: err.attemptsMade,
             });
 
             return;
@@ -415,21 +505,27 @@ function useScreenRecorderContext({
                return;
             }
          };
-      } catch (error: any) {
+      } catch (error: unknown) {
+         const err = error as {
+            message?: string;
+            name?: string;
+            attemptsMade?: number;
+            userCanceled?: boolean;
+         };
          console.error("Screen sharing error:", error);
          logPerformanceMetrics("Screen share error", {
-            error: error.message,
-            name: error.name,
-            attemptsMade: error.attemptsMade,
+            error: err.message,
+            name: err.name,
+            attemptsMade: err.attemptsMade,
          });
 
          // Don't play error sound for explicit user cancellations
-         if (error.name !== "UserCanceledError") {
+         if (err.name !== "UserCanceledError") {
             playErrorAlertSound();
          }
 
          // If the user explicitly canceled, don't show error alerts
-         if (error.name === "UserCanceledError" || error.userCanceled) {
+         if (err.name === "UserCanceledError" || err.userCanceled) {
             console.log("User canceled screen sharing, not showing error");
             return;
          }
@@ -441,26 +537,26 @@ function useScreenRecorderContext({
                : "No se puede compartir la pantalla. ";
 
          if (
-            error.name === "NotSupportedError" ||
+            err.name === "NotSupportedError" ||
             !navigator.mediaDevices.getDisplayMedia
          ) {
             errorMessage +=
                language === "en-US"
                   ? "Your browser or operating system may be too old to support screen sharing. Try updating your browser or using Chrome."
                   : "Es posible que su navegador o sistema operativo sea demasiado antiguo para admitir el compartir pantalla. Intente actualizar su navegador o usar Chrome.";
-         } else if (error.name === "NotAllowedError") {
+         } else if (err.name === "NotAllowedError") {
             errorMessage +=
                language === "en-US"
                   ? "Permission to share screen was denied."
                   : "Se denegó el permiso para compartir la pantalla.";
-         } else if (error.message && error.message.includes("Timeout")) {
+         } else if (err.message && err.message.includes("Timeout")) {
             // Special handling for timeout errors
             errorMessage +=
                language === "en-US"
                   ? "Your device took too long to start screen sharing. This is common on older computers. Try closing other applications and refresh the page."
                   : "Su dispositivo tardó demasiado en iniciar el uso compartido de pantalla. Esto es común en computadoras más antiguas. Intente cerrar otras aplicaciones y actualice la página.";
          } else {
-            errorMessage += error.message;
+            errorMessage += err.message;
          }
 
          alert(errorMessage);
@@ -494,25 +590,27 @@ function useScreenRecorderContext({
             });
 
             setCameraStream(newCameraStream);
-         } catch (error: any) {
-            console.error("Error changing audio device:", error);
-            playErrorAlertSound();
+         } catch (error) {
+            if (error instanceof Error) {
+               console.error("Error changing audio device:", error);
+               playErrorAlertSound();
 
-            let errorMessage =
-               language === "en-US"
-                  ? "Failed to switch audio device. "
-                  : "No se pudo cambiar el dispositivo de audio. ";
-
-            if (error.message && error.message.includes("Timeout")) {
-               errorMessage +=
+               let errorMessage =
                   language === "en-US"
-                     ? "Your device took too long to respond. Try closing other applications."
-                     : "Su dispositivo tardó demasiado en responder. Intente cerrar otras aplicaciones.";
-            } else {
-               errorMessage += error.message;
-            }
+                     ? "Failed to switch audio device. "
+                     : "No se pudo cambiar el dispositivo de audio. ";
 
-            alert(errorMessage);
+               if (error.message && error.message.includes("Timeout")) {
+                  errorMessage +=
+                     language === "en-US"
+                        ? "Your device took too long to respond. Try closing other applications."
+                        : "Su dispositivo tardó demasiado en responder. Intente cerrar otras aplicaciones.";
+               } else {
+                  errorMessage += error.message;
+               }
+
+               alert(errorMessage);
+            }
          }
       }
    }
@@ -543,25 +641,27 @@ function useScreenRecorderContext({
             });
 
             setCameraStream(newCameraStream);
-         } catch (error: any) {
-            console.error("Error changing video device:", error);
-            playErrorAlertSound();
+         } catch (error) {
+            if (error instanceof Error) {
+               console.error("Error changing video device:", error);
+               playErrorAlertSound();
 
-            let errorMessage =
-               language === "en-US"
-                  ? "Failed to switch video device. "
-                  : "No se pudo cambiar el dispositivo de video. ";
-
-            if (error.message && error.message.includes("Timeout")) {
-               errorMessage +=
+               let errorMessage =
                   language === "en-US"
-                     ? "Your device took too long to respond. Try closing other applications."
-                     : "Su dispositivo tardó demasiado en responder. Intente cerrar otras aplicaciones.";
-            } else {
-               errorMessage += error.message;
-            }
+                     ? "Failed to switch video device. "
+                     : "No se pudo cambiar el dispositivo de video. ";
 
-            alert(errorMessage);
+               if (error.message && error.message.includes("Timeout")) {
+                  errorMessage +=
+                     language === "en-US"
+                        ? "Your device took too long to respond. Try closing other applications."
+                        : "Su dispositivo tardó demasiado en responder. Intente cerrar otras aplicaciones.";
+               } else {
+                  errorMessage += error.message;
+               }
+
+               alert(errorMessage);
+            }
          }
       }
    }
@@ -612,7 +712,8 @@ function useScreenRecorderContext({
          recordingDuration: 0,
       }));
 
-      let options: any = {};
+      // Use a stricter type for MediaRecorder options
+      let options: MediaRecorderOptions = {};
 
       // Prioritize more widely supported formats for better compatibility with older systems
       if (MediaRecorder.isTypeSupported("video/webm; codecs=vp9")) {
@@ -655,7 +756,7 @@ function useScreenRecorderContext({
 
       cameraRecorderRef.current.onstop = () => {
          const cameraBlob = new Blob(cameraChunksRef.current, {
-            type: options.mimeType.split(";")[0],
+            type: options.mimeType?.split(";")[0] ?? "video/webm",
          });
          const blobUrl = URL.createObjectURL(cameraBlob);
          setCameraBlob(cameraBlob);
@@ -679,7 +780,7 @@ function useScreenRecorderContext({
 
          screenRecorderRef.current.onstop = () => {
             const screenBlob = new Blob(screenChunksRef.current, {
-               type: options.mimeType.split(";")[0],
+               type: options.mimeType?.split(";")[0] ?? "video/webm",
             });
             setScreenBlob(screenBlob);
             setScreenVideoUrl(URL.createObjectURL(screenBlob));
@@ -707,8 +808,6 @@ function useScreenRecorderContext({
       micPermission,
       isSharingScreen,
       cameraPermission,
-      cameraRecorderRef,
-      screenRecorderRef,
       isSimpleRecording,
       playErrorAlertSound,
       playTimeReminderSounds,
@@ -749,10 +848,8 @@ function useScreenRecorderContext({
       clearInterval(timeNotificationIntervalRef.current!);
       playStoppedRecorderSounds();
    }, [
-      cameraRecorderRef,
       cameraStream,
       isSharingScreen,
-      screenRecorderRef,
       screenStream,
       playStoppedRecorderSounds,
       secondsRecorded,
@@ -831,7 +928,6 @@ function useScreenRecorderContext({
             // upload the video to the server
             const cameraMuxUploadUrl = await createMuxUploadUrlAction(
                recordingId as string,
-               isSimpleRecording,
             );
 
             if (cameraMuxUploadUrl.error) {
@@ -1079,6 +1175,7 @@ function useScreenRecorderContext({
    }, [
       recordingId,
       cameraBlob,
+      isSimpleRecording,
       screenBlob,
       isSharingScreen,
       language,
@@ -1114,18 +1211,22 @@ function useScreenRecorderContext({
          setMicPermission("granted");
          setCameraPermission("granted");
          setRecorderState("readyToRecord");
-      } catch (error: any) {
+      } catch (error: unknown) {
+         const err = error as {
+            name?: string;
+            message?: string;
+         };
          console.error(error);
          if (
-            error.name === "NotAllowedError" ||
-            error.name === "PermissionDeniedError"
+            err.name === "NotAllowedError" ||
+            err.name === "PermissionDeniedError"
          ) {
             setPermissionError(
                language === "en-US"
                   ? "Permission to access microphone and camera was denied. Please allow access in your browser settings and refresh the page."
                   : "El permiso para acceder al micrófono y la cámara fue denegado. Por favor, permita el acceso en la configuración de su navegador y actualice la página.",
             );
-         } else if (error.message && error.message.includes("Timeout")) {
+         } else if (err.message && err.message.includes("Timeout")) {
             // Special handling for timeout errors
             setPermissionError(
                language === "en-US"
@@ -1135,75 +1236,11 @@ function useScreenRecorderContext({
          } else {
             setPermissionError(
                language === "en-US"
-                  ? `Error accessing media devices: ${error.message}`
-                  : `Error al acceder a los dispositivos multimedia: ${error.message}`,
+                  ? `Error accessing media devices: ${err.message}`
+                  : `Error al acceder a los dispositivos multimedia: ${err.message}`,
             );
          }
       }
-   }
-
-   function getVideoConstraintsForDevice() {
-      // Always use high quality video settings as required
-      return {
-         width: {
-            ideal: 1280,
-         },
-         height: {
-            ideal: 720,
-         },
-         frameRate: {
-            ideal: 30,
-         },
-      };
-   }
-
-   // Add a helper function for getUserMedia with timeout and retry
-   async function getUserMediaWithTimeout(
-      constraints: MediaStreamConstraints,
-      timeoutMs = 10000,
-      retries = 3,
-   ): Promise<MediaStream> {
-      // Apply device-appropriate video constraints if not specified
-      if (constraints.video === true) {
-         constraints.video = getVideoConstraintsForDevice();
-      }
-
-      let lastError;
-
-      for (let attempt = 0; attempt <= retries; attempt++) {
-         try {
-            // Create a promise that rejects after timeoutMs
-            const timeoutPromise = new Promise<MediaStream>((_, reject) => {
-               setTimeout(() => {
-                  reject(
-                     new Error(
-                        language === "en-US"
-                           ? "Timeout starting video source. Your device might be too slow or the camera is busy."
-                           : "Se agotó el tiempo de espera al iniciar la fuente de video. Su dispositivo podría estar funcionando lentamente o la cámara podría estar siendo utilizada por otra aplicación.",
-                     ),
-                  );
-               }, timeoutMs);
-            });
-
-            // Race between the media request and the timeout
-            return await Promise.race([
-               navigator.mediaDevices.getUserMedia(constraints),
-               timeoutPromise,
-            ]);
-         } catch (error: any) {
-            console.error(`getUserMedia attempt ${attempt + 1} failed:`, error);
-            lastError = error;
-
-            // If this wasn't the last attempt, wait before retrying
-            if (attempt < retries) {
-               await new Promise((resolve) => setTimeout(resolve, 1000));
-               console.log(`Retrying getUserMedia, attempt ${attempt + 2}...`);
-            }
-         }
-      }
-
-      // If we got here, all attempts failed
-      throw lastError;
    }
 
    const startTestRecording = useCallback(() => {

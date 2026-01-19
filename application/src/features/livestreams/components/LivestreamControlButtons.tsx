@@ -53,7 +53,7 @@ export function StartLiveStreamButton({
 
    return (
       <Button
-         className={`!p-2 !border !border-green-600 !bg-green-600 hover:!bg-green-700 !text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-3 ${isLoading ? "opacity-50 cursor-not-allowed animate-pulse" : ""}`}
+         className={`p-2! border! border-green-600! bg-green-600! hover:bg-green-700! text-white! font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-3 ${isLoading ? "opacity-50 cursor-not-allowed animate-pulse" : ""}`}
          disabled={!zoomSessionId || isLoading}
          onClick={handleStartLiveStream}
       >

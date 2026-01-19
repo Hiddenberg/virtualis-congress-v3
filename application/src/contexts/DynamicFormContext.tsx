@@ -34,29 +34,32 @@ function useDynamicFormState(formSteps: FormSection[]) {
    );
    const currentSectionTitle = formSteps[currentFormSection].title;
 
-   function updateInputValue<TName extends DynamicFormInput["name"]>(
-      name: TName,
-      newValue: Extract<DynamicFormInput, { name: TName }>["value"],
-   ) {
-      setInputValues((prevInputValues) =>
-         prevInputValues.map((input) => {
-            if (input.name !== name) {
-               return input;
-            }
+   const updateInputValue = useCallback(
+      <TName extends DynamicFormInput["name"]>(
+         name: TName,
+         newValue: Extract<DynamicFormInput, { name: TName }>["value"],
+      ) => {
+         setInputValues((prevInputValues) =>
+            prevInputValues.map((input) => {
+               if (input.name !== name) {
+                  return input;
+               }
 
-            // Now that we know `input.name === name`,
-            // cast `input` to the more specific type for that `name`.
-            const typedInput = input as Extract<
-               DynamicFormInput,
-               { name: TName }
-            >;
-            return {
-               ...typedInput,
-               value: newValue,
-            };
-         }),
-      );
-   }
+               // Now that we know `input.name === name`,
+               // cast `input` to the more specific type for that `name`.
+               const typedInput = input as Extract<
+                  DynamicFormInput,
+                  { name: TName }
+               >;
+               return {
+                  ...typedInput,
+                  value: newValue,
+               };
+            }),
+         );
+      },
+      [],
+   );
 
    const getInputValuesObject = useCallback(() => {
       const inputValuesObject: Record<string, InputValueType> =
@@ -204,7 +207,7 @@ function useDynamicFormState(formSteps: FormSection[]) {
    const skipCmimSection = useCallback(() => {
       updateInputValue("isCMIMAffiliated", false as never);
       setCurrentFormSection(2);
-   }, []);
+   }, [updateInputValue]);
 
    const submitDynamicForm = useCallback(async () => {
       startTransition(async () => {

@@ -18,7 +18,7 @@ function StepsSlider({
 
    useEffect(() => {
       setCurrentStep(0);
-   }, [type]);
+   }, []);
 
    const stepsData = {
       macUpdate: {

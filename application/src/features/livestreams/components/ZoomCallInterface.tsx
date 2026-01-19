@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/complexity/noUselessLoneBlockStatements: <explanation> */
 "use client";
 
 import uiToolkit, { type SuspensionViewValue } from "@zoom/videosdk-ui-toolkit";
@@ -17,12 +16,12 @@ function UsernameInput({
 }: {
    onUserNameSubmit: (username: string) => void;
 }) {
-   const [username, setUsername] = useState<string>("");
-   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+   const [username, _setUsername] = useState<string>("");
+   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
    const { closePopUp } = useGlobalPopUpContext();
 
-   const handleUserNameSubmit = (event?: React.FormEvent) => {
+   const _handleUserNameSubmit = (event?: React.FormEvent) => {
       event?.preventDefault();
       const trimmedUserName = username.trim();
       if (trimmedUserName.length < 2) {
@@ -33,7 +32,7 @@ function UsernameInput({
       closePopUp();
    };
 
-   const isDisabled = username.trim().length < 2;
+   const _isDisabled = username.trim().length < 2;
 
    return <div>test</div>;
 }
@@ -212,7 +211,7 @@ export default function ZoomCallInterface({
       <div
          ref={containerRef}
          id="sessionContainer"
-         className={`!rounded-3xl !aspect-video $className`}
+         className={`rounded-3xl! aspect-video! ${className}`}
       />
    );
 }

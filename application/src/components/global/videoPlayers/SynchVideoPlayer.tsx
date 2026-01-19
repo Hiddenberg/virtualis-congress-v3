@@ -134,7 +134,7 @@ function UnifiedControlsBar({
          masterPlayer.removeEventListener("play", handlePlay);
          masterPlayer.removeEventListener("pause", handlePause);
       };
-   }, [playerRefs, getPlayerElements]);
+   }, [getPlayerElements]);
 
    // Syncs all players with the given action
    const syncPlayers = (

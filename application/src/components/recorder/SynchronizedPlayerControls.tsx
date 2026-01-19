@@ -99,7 +99,7 @@ function SynchronizedPlayerControls({
       return () => {
          cameraVideo.removeEventListener("timeupdate", handleTimeUpdate);
       };
-   }, [cameraVideoRef, screenVideoRef]);
+   }, [cameraVideoRef.current]);
 
    const handlePlay = () => {
       if (!userCheckedTheRecording) {
