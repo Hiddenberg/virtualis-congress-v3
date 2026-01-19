@@ -1,7 +1,6 @@
 // "use client"
 
 // import { getZoomTokenAction } from "@/serverActions/getZoomTokenAction";
-// import { getParticipant } from "@/services/groupRecordingServices";
 // import { getGroupRecordingSession } from "@/services/groupRecordingSessionService";
 // import { GroupRecorder } from "@/types/groupRecorder";
 // import ZoomVideo from "@zoom/videosdk";

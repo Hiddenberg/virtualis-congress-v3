@@ -24,10 +24,32 @@
    "linter": {
       "enabled": true,
       "rules": {
-         "recommended": true,
+         "recommended": false,
          "suspicious": {
-            "noUnknownAtRules": "off"
-         }
+            "noUnknownAtRules": "off",
+            "noDocumentImportInPage": "error",
+            "noExplicitAny": "error",
+            "noExtraNonNullAssertion": "error",
+            "noHeadImportInDocument": "error",
+            "noMisleadingInstantiator": "error",
+            "noUnsafeDeclarationMerging": "error",
+            "useGoogleFontDisplay": "warn",
+            "useNamespaceKeyword": "error"
+         },
+         "style": {
+            "noCommonJs": "error",
+            "noHeadElement": "warn",
+            "noNamespace": "error",
+            "useArrayLiterals": "error",
+            "useAsConstAssertion": "error"
+         },
+         "performance": {
+            "noImgElement": "off",
+            "noUnwantedPolyfillio": "warn",
+            "useGoogleFontPreconnect": "warn"
+         },
+         "complexity": { "noUselessTypeConstraint": "error" },
+         "correctness": { "noUnusedVariables": "warn" }
       },
       "domains": {
          "next": "recommended",
