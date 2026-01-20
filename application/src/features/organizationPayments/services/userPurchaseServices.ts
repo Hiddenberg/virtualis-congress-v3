@@ -111,8 +111,6 @@ export async function checkIfUserHasAccessToRecordings(
    );
 
    const hasAccessToRecordings = recordingsPurchase !== null;
-   console.log("recordingsPurchase", recordingsPurchase);
-   console.log("hasAccessToRecordings", hasAccessToRecordings);
 
    return hasAccessToRecordings;
 }
