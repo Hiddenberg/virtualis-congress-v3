@@ -6,6 +6,7 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import pbServerClient from "@/libs/pbServerClient";
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
+import { Congress } from "../types/congressTypes";
 
 export async function getCongressById(congressId: string) {
    try {
