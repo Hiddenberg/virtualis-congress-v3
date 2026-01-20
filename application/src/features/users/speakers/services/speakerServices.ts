@@ -64,8 +64,6 @@ export async function getAllSpeakersDetails() {
       expand: "user",
    });
 
-   console.log(expandedSpeakers);
-
    const pbUrl = process.env.NEXT_PUBLIC_POCKETBASE_URL;
    const speakerDetails = expandedSpeakers.map((expandedSpeaker) => ({
       name: expandedSpeaker.displayName,
