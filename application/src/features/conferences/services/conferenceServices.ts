@@ -1,6 +1,5 @@
 import { dayEnd, dayStart } from "@formkit/tempo";
 import { ClientResponseError, type RecordModel } from "pocketbase";
-import { TEMP_CONSTANTS } from "@/data/tempConstants";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import pbServerClient from "@/libs/pbServerClient";
@@ -13,7 +12,6 @@ import {
    updateDBRecord,
 } from "@/libs/pbServerClientNew";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
-import { getAllCongressRecordings } from "../../../services/recordingServices";
 import { getAllSpeakerPhoneNumbers } from "../../users/speakers/services/speakerServices";
 
 export type NewConferenceData = Omit<
@@ -254,47 +252,4 @@ export async function deleteConferenceRecord(conferenceId: string) {
 
    await deleteDBRecord("CONGRESS_CONFERENCES", conferenceId);
    console.log(`${conference.title}, id: ${conferenceId} deleted`);
-}
-
-export async function getConferencesStatus() {
-   const allRecordings = await getAllCongressRecordings(
-      TEMP_CONSTANTS.CONGRESS_ID,
-   );
-
-   const allConferenceRecordings = allRecordings.filter(
-      (recording) =>
-         recording.recordingType === "conference" ||
-         recording.recordingType === "group_conference",
-   );
-   const allPresentationRecordings = allRecordings.filter(
-      (recording) => recording.recordingType === "presentation",
-   );
-
-   const totalConferences = allConferenceRecordings.length;
-   const totalPresentations = allPresentationRecordings.length;
-
-   const pendingConferences = allConferenceRecordings.filter(
-      (recording) => recording.status === "pending",
-   ).length;
-   const pendingPresentations = allPresentationRecordings.filter(
-      (recording) => recording.status === "pending",
-   ).length;
-
-   const recordedConferences = allConferenceRecordings.filter(
-      (recording) => recording.status === "available",
-   ).length;
-   const recordedPresentations = allPresentationRecordings.filter(
-      (recording) => recording.status === "available",
-   ).length;
-
-   const results = {
-      pendingConferences,
-      pendingPresentations,
-      totalConferences,
-      totalPresentations,
-      recordedConferences,
-      recordedPresentations,
-   };
-
-   return results;
 }

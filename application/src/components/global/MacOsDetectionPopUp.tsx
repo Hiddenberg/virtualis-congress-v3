@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "./Buttons";
 import PopUp from "./PopUp";
-import UploadVideoManuallyButton from "./UploadVideoManuallyButton";
 
 function StepsSlider({
    language = "es-MX",
@@ -228,10 +227,6 @@ export default function MacOsDetectionPopUp({
                </p>
 
                <StepsSlider language={language} type="zoom" />
-
-               <div className="flex justify-center mt-6">
-                  <UploadVideoManuallyButton language={language} />
-               </div>
             </div>
          </PopUp>
       );
@@ -269,7 +264,7 @@ export default function MacOsDetectionPopUp({
                   onClick={() => {
                      setShowZoomInstructions(true);
                   }}
-                  className="!bg-gray-600"
+                  className="bg-gray-600!"
                >
                   {texts[language].dontUpdate}
                </Button>

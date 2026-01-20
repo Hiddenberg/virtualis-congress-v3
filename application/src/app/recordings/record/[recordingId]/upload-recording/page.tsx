@@ -7,7 +7,6 @@ import {
    VideoIcon,
 } from "lucide-react";
 import GoBackButton from "@/components/global/GoBackButton";
-import HowToRecordOnZoomPopUp from "@/components/speakers/recording/HowToRecordOnZoomPopUp";
 import UploadRecordingVideoSection from "@/features/simpleRecordings/components/UploadRecordingVideoSection";
 import { getSimpleRecordingById } from "@/features/simpleRecordings/services/recordingsServices";
 
@@ -44,7 +43,6 @@ export default async function UploadRecordingPage({
    return (
       <div className="bg-gray-50 px-4 py-8 min-h-screen">
          <GoBackButton />
-         <HowToRecordOnZoomPopUp />
          <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
             {/* Header Section */}
             <div className="mb-8 text-center">
@@ -65,7 +63,7 @@ export default async function UploadRecordingPage({
             {/* Simple Instructions */}
             <div className="bg-white shadow-sm mb-6 p-6 border border-gray-200 rounded-xl">
                <div className="flex items-start gap-3 mb-4">
-                  <InfoIcon className="flex-shrink-0 mt-0.5 w-5 h-5 text-blue-600" />
+                  <InfoIcon className="mt-0.5 w-5 h-5 text-blue-600 shrink-0" />
                   <div>
                      <h2 className="mb-2 font-semibold text-gray-900 text-lg">
                         ¿Cómo funciona?

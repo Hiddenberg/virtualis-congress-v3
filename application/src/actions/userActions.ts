@@ -13,7 +13,6 @@ import {
 import pbServerClient from "@/libs/pbServerClient";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import { getIpInfoFromHeaders } from "@/services/ipServices";
-import { getExpandedRecordingById } from "@/services/recordingServices";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 export async function getUserIpInfoAction() {
@@ -157,17 +156,4 @@ export async function checkExistingUserAction(email: string) {
    }
 
    return false;
-}
-
-export async function getSpeakerEmailByRecordingIdAction(recordingId: string) {
-   const expandedRecording = await getExpandedRecordingById(recordingId);
-
-   if (!expandedRecording) {
-      return "";
-   }
-
-   const speakerEmail =
-      expandedRecording.expand.usersWhoWillRecord?.[0].email || "";
-
-   return speakerEmail;
 }
