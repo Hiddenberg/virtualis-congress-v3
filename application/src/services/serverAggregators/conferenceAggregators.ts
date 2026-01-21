@@ -27,14 +27,10 @@ export async function getAllConferencesForLobby() {
             organizationId: organization.id,
          },
       );
-      const allExpandedConferences =
-         await getFullDBRecordsList<ExpandedLobbyConference>(
-            "CONGRESS_CONFERENCES",
-            {
-               filter,
-               expand: "speakers, speakers.speakers_data_via_user",
-            },
-         );
+      const allExpandedConferences = await getFullDBRecordsList<ExpandedLobbyConference>("CONGRESS_CONFERENCES", {
+         filter,
+         expand: "speakers, speakers.speakers_data_via_user",
+      });
 
       const lobbyConferences = allExpandedConferences.map((expConference) => ({
          id: expConference.id,
@@ -55,17 +51,13 @@ export async function getAllConferencesForLobby() {
       return [];
    }
 }
-export type LobbyConference = Awaited<
-   ReturnType<typeof getAllConferencesForLobby>
->[number];
+export type LobbyConference = Awaited<ReturnType<typeof getAllConferencesForLobby>>[number];
 
 export async function getClosingConference() {
    try {
       const closingConference = await pbServerClient
          .collection(PB_COLLECTIONS.CONGRESS_CONFERENCES)
-         .getFirstListItem<CongressConference & RecordModel>(
-            `conferenceType = "closing_conference"`,
-         );
+         .getFirstListItem<CongressConference & RecordModel>(`conferenceType = "closing_conference"`);
 
       return closingConference;
    } catch (error) {

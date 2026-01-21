@@ -20,10 +20,7 @@ export default function CreateRecordingCampaignForm() {
       }
 
       startTransition(async () => {
-         const response = await createRecordingCampaignAction(
-            title,
-            description,
-         );
+         const response = await createRecordingCampaignAction(title, description);
 
          if (response.success) {
             toast.success("Campaña creada correctamente");
@@ -41,14 +38,10 @@ export default function CreateRecordingCampaignForm() {
                   <InfoIcon className="size-5 text-blue-600" />
                </div>
                <div>
-                  <h3 className="mb-1 font-semibold text-blue-900">
-                     ¿Qué es una campaña de grabación?
-                  </h3>
+                  <h3 className="mb-1 font-semibold text-blue-900">¿Qué es una campaña de grabación?</h3>
                   <p className="text-blue-700 text-sm leading-relaxed">
-                     Las campañas te permiten organizar y gestionar múltiples
-                     grabaciones de manera eficiente. Puedes agrupar grabaciones
-                     relacionadas bajo un mismo tema o proyecto para mejor
-                     organización.
+                     Las campañas te permiten organizar y gestionar múltiples grabaciones de manera eficiente. Puedes agrupar
+                     grabaciones relacionadas bajo un mismo tema o proyecto para mejor organización.
                   </p>
                </div>
             </div>
@@ -61,24 +54,16 @@ export default function CreateRecordingCampaignForm() {
                   <FolderIcon className="size-6 text-yellow-600" />
                </div>
                <div>
-                  <h2 className="font-semibold text-gray-900 text-xl">
-                     Crear nueva campaña
-                  </h2>
-                  <p className="text-gray-500 text-sm">
-                     Completa la información básica para tu campaña de grabación
-                  </p>
+                  <h2 className="font-semibold text-gray-900 text-xl">Crear nueva campaña</h2>
+                  <p className="text-gray-500 text-sm">Completa la información básica para tu campaña de grabación</p>
                </div>
             </div>
 
             <form className="space-y-6">
                {/* Title Field */}
                <fieldset className="space-y-2">
-                  <label
-                     htmlFor="campaign-title"
-                     className="block font-medium text-gray-700 text-sm"
-                  >
-                     Nombre de la campaña{" "}
-                     <span className="text-red-500">*</span>
+                  <label htmlFor="campaign-title" className="block font-medium text-gray-700 text-sm">
+                     Nombre de la campaña <span className="text-red-500">*</span>
                   </label>
                   <input
                      id="campaign-title"
@@ -90,17 +75,13 @@ export default function CreateRecordingCampaignForm() {
                      required
                   />
                   <p className="text-gray-500 text-xs">
-                     Escoge un nombre descriptivo que te ayude a identificar
-                     fácilmente esta campaña
+                     Escoge un nombre descriptivo que te ayude a identificar fácilmente esta campaña
                   </p>
                </fieldset>
 
                {/* Description Field */}
                <fieldset className="space-y-2">
-                  <label
-                     htmlFor="campaign-description"
-                     className="flex items-center gap-2 font-medium text-gray-700 text-sm"
-                  >
+                  <label htmlFor="campaign-description" className="flex items-center gap-2 font-medium text-gray-700 text-sm">
                      <FileTextIcon className="size-4" />
                      Descripción (opcional)
                   </label>
@@ -113,20 +94,14 @@ export default function CreateRecordingCampaignForm() {
                      rows={4}
                   />
                   <p className="text-gray-500 text-xs">
-                     Una descripción opcional para proporcionar más contexto
-                     sobre esta campaña
+                     Una descripción opcional para proporcionar más contexto sobre esta campaña
                   </p>
                </fieldset>
 
                {/* Action Buttons */}
                <div className="pt-4 border-gray-100 border-t">
                   <div className="flex justify-end gap-3">
-                     <Button
-                        variant="secondary"
-                        type="button"
-                        disabled={creating}
-                        onClick={() => window.history.back()}
-                     >
+                     <Button variant="secondary" type="button" disabled={creating} onClick={() => window.history.back()}>
                         Cancelar
                      </Button>
                      <Button

@@ -1,10 +1,6 @@
 import Link from "next/link";
 
-export default async function PresentationVideo({
-   params,
-}: {
-   params: Promise<{ language: string }>;
-}) {
+export default async function PresentationVideo({ params }: { params: Promise<{ language: string }> }) {
    const { language } = await params;
 
    if (language !== "es-MX" && language !== "en-US" && language !== "pt-BR") {
@@ -12,11 +8,9 @@ export default async function PresentationVideo({
    }
 
    const mainTexts = {
-      "es-MX":
-         "Congreso Internacional de Medicina Interna: Conéctate con el futuro de la salud",
+      "es-MX": "Congreso Internacional de Medicina Interna: Conéctate con el futuro de la salud",
       "en-US": "Virtualis Congress: Connect with the future of health",
-      "pt-BR":
-         "Congreso Internacional de Medicina Interna: Conecte-se com o futuro da saúde",
+      "pt-BR": "Congreso Internacional de Medicina Interna: Conecte-se com o futuro da saúde",
    };
 
    const videoUrls = {
@@ -40,10 +34,7 @@ export default async function PresentationVideo({
             {mainTexts[language]}
          </h2>
 
-         <Link
-            href="/registro"
-            className="block bg-white mx-auto my-6 px-4 py-2 border rounded-full w-max text-black text-xl"
-         >
+         <Link href="/registro" className="block bg-white mx-auto my-6 px-4 py-2 border rounded-full w-max text-black text-xl">
             {buttonTexts[language]}
          </Link>
 

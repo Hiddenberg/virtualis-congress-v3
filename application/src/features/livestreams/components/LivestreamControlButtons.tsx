@@ -1,23 +1,13 @@
 "use client";
 
-import {
-   PauseIcon,
-   PlayIcon,
-   RadioTowerIcon,
-   SignalIcon,
-   StopCircle,
-} from "lucide-react";
+import { PauseIcon, PlayIcon, RadioTowerIcon, SignalIcon, StopCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { useRealtimeLivestreamStatusContext } from "../contexts/RealtimeLivestreamStatusProvider";
 import { useZoomSession } from "../contexts/ZoomSessionContext";
-import {
-   resumeLivestreamAction,
-   startLivestreamAction,
-   stopLivestreamAction,
-} from "../serverActions/livestreamSessionActions";
+import { resumeLivestreamAction, startLivestreamAction, stopLivestreamAction } from "../serverActions/livestreamSessionActions";
 
 export function StartLiveStreamButton({
    zoomSessionId,
@@ -117,17 +107,13 @@ export function StopLiveStreamButton({
    }
 
    const handleStopLiveStream = () => {
-      const confirmation = confirm(
-         "¿Estás seguro de querer detener la transmisión?, esta acción es irreversible",
-      );
+      const confirmation = confirm("¿Estás seguro de querer detener la transmisión?, esta acción es irreversible");
 
       if (!confirmation) {
          return;
       }
 
-      toast.loading(
-         "Deteniendo transmisión, esto puede tardar unos segundos...",
-      );
+      toast.loading("Deteniendo transmisión, esto puede tardar unos segundos...");
       startTransition(async () => {
          await new Promise((resolve) => setTimeout(resolve, 10000));
 
@@ -148,12 +134,7 @@ export function StopLiveStreamButton({
    };
 
    return (
-      <Button
-         variant="destructive"
-         loading={isLoading}
-         disabled={!zoomSessionId || isLoading}
-         onClick={handleStopLiveStream}
-      >
+      <Button variant="destructive" loading={isLoading} disabled={!zoomSessionId || isLoading} onClick={handleStopLiveStream}>
          <StopCircle className="w-5 h-5" />
          {isLoading ? "Deteniendo..." : "Detener Transmisión"}
       </Button>
@@ -171,9 +152,7 @@ export function LivestreamControlButtons({
 
    const { livestreamStatus } = useRealtimeLivestreamStatusContext();
    const searchParams = useSearchParams();
-   const isHost =
-      searchParams.get("ishost") === "true" ||
-      searchParams.get("isHost") === "true";
+   const isHost = searchParams.get("ishost") === "true" || searchParams.get("isHost") === "true";
 
    const statusMap: Record<LivestreamSessionStatus, string> = {
       ended: "Transmisión finalizada",
@@ -209,9 +188,7 @@ export function LivestreamControlButtons({
          <div className="flex items-center gap-4">
             {isHost ? (
                <div>
-                  {(livestreamStatus === "preparing" ||
-                     livestreamStatus === "scheduled" ||
-                     livestreamStatus === "ended") && (
+                  {(livestreamStatus === "preparing" || livestreamStatus === "scheduled" || livestreamStatus === "ended") && (
                      <StartLiveStreamButton
                         zoomSessionId={zoomSessionId}
                         livestreamSessionId={livestreamSessionId}
@@ -228,35 +205,22 @@ export function LivestreamControlButtons({
                   )}
 
                   {livestreamStatus === "streaming" && (
-                     <StopLiveStreamButton
-                        zoomSessionId={zoomSessionId}
-                        livestreamSessionId={livestreamSessionId}
-                     />
+                     <StopLiveStreamButton zoomSessionId={zoomSessionId} livestreamSessionId={livestreamSessionId} />
                   )}
                </div>
             ) : (
-               <div className="text-stone-500 text-sm">
-                  Solo el administrador puede controlar la transmisión
-               </div>
+               <div className="text-stone-500 text-sm">Solo el administrador puede controlar la transmisión</div>
             )}
          </div>
 
          {/* Status Display */}
          <div className="flex items-center self-center gap-3">
             <div className="bg-stone-100 p-2 rounded-lg">
-               <div className={statusColorMap[livestreamStatus]}>
-                  {statusIconMap[livestreamStatus]}
-               </div>
+               <div className={statusColorMap[livestreamStatus]}>{statusIconMap[livestreamStatus]}</div>
             </div>
             <div>
-               <p
-                  className={`font-semibold ${statusColorMap[livestreamStatus]}`}
-               >
-                  {statusMap[livestreamStatus]}
-               </p>
-               <p className="text-stone-500 text-sm">
-                  Estado de la transmisión
-               </p>
+               <p className={`font-semibold ${statusColorMap[livestreamStatus]}`}>{statusMap[livestreamStatus]}</p>
+               <p className="text-stone-500 text-sm">Estado de la transmisión</p>
             </div>
          </div>
 

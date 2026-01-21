@@ -11,12 +11,7 @@ import { useRealtimeLivestreamStatusContext } from "../../contexts/RealtimeLives
 import LivestreamVideoAndPresentationPlayer from "./LivestreamVideoAndPresentationPlayer";
 import LivestreamVideoPlayer from "./LivestreamVideoPlayer";
 
-type LivestreamStage =
-   | "waiting_to_start"
-   | "started"
-   | "finished"
-   | "paused"
-   | "preparing_livestream";
+type LivestreamStage = "waiting_to_start" | "started" | "finished" | "paused" | "preparing_livestream";
 
 export default function LivestreamStagesWrapper({
    conference,
@@ -29,18 +24,13 @@ export default function LivestreamStagesWrapper({
    serverTime: string;
    isQna?: boolean;
 }) {
-   const { attendantStatus, livestreamSession } =
-      useRealtimeLivestreamStatusContext();
-   const { data: livestreamMuxAsset, isLoading: livestreamMuxAssetLoading } =
-      useQuery<{
-         data: LivestreamMuxAssetRecord | null;
-      }>({
-         queryKey: ["livestream-mux-asset"],
-         queryFn: () =>
-            fetch(
-               `/api/livestreams/${livestreamSession.id}/livestreamMuxAsset`,
-            ).then((res) => res.json()),
-      });
+   const { attendantStatus, livestreamSession } = useRealtimeLivestreamStatusContext();
+   const { data: livestreamMuxAsset, isLoading: livestreamMuxAssetLoading } = useQuery<{
+      data: LivestreamMuxAssetRecord | null;
+   }>({
+      queryKey: ["livestream-mux-asset"],
+      queryFn: () => fetch(`/api/livestreams/${livestreamSession.id}/livestreamMuxAsset`).then((res) => res.json()),
+   });
    const selectStatus = useCallback((): LivestreamStage => {
       // Check the livestream status first
       if (attendantStatus === "scheduled") {
@@ -92,12 +82,7 @@ export default function LivestreamStagesWrapper({
    }
 
    if (currentStage === "preparing_livestream") {
-      return (
-         <AboutToStartLiveScreen
-            conferenceTitle={conference.title}
-            startTime={conference.startTime}
-         />
-      );
+      return <AboutToStartLiveScreen conferenceTitle={conference.title} startTime={conference.startTime} />;
    }
 
    if (currentStage === "waiting_to_start") {
@@ -122,25 +107,15 @@ export default function LivestreamStagesWrapper({
    }
 
    if (currentStage === "started") {
-      if (
-         conferencePresentation &&
-         !conferencePresentation.hasVideo &&
-         !isQna
-      ) {
+      if (conferencePresentation && !conferencePresentation.hasVideo && !isQna) {
          return (
             <LivestreamVideoAndPresentationPlayer
-               livestreamPlaybackId={
-                  livestreamMuxAsset.data.livestreamPlaybackId
-               }
+               livestreamPlaybackId={livestreamMuxAsset.data.livestreamPlaybackId}
                presentationId={conferencePresentation.id}
             />
          );
       }
 
-      return (
-         <LivestreamVideoPlayer
-            livestreamPlaybackId={livestreamMuxAsset.data.livestreamPlaybackId}
-         />
-      );
+      return <LivestreamVideoPlayer livestreamPlaybackId={livestreamMuxAsset.data.livestreamPlaybackId} />;
    }
 }

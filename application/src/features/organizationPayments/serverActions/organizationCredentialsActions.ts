@@ -25,8 +25,7 @@ export async function createOrganizationCredentialsAction(
       if (user.role !== "super_admin") {
          return {
             success: false,
-            errorMessage:
-               "You are not authorized to create organization credentials",
+            errorMessage: "You are not authorized to create organization credentials",
          };
       }
 
@@ -54,9 +53,7 @@ export async function createOrganizationCredentialsAction(
    }
 }
 
-export async function deleteOrganizationCredentialsAction(
-   credentialsId: string,
-): Promise<BackendResponse<null>> {
+export async function deleteOrganizationCredentialsAction(credentialsId: string): Promise<BackendResponse<null>> {
    try {
       await deleteOrganizationStripeCredentials(credentialsId);
       revalidatePath("/congress-admin/stripe-credentials");

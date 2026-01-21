@@ -4,13 +4,8 @@ import { RealtimeQuestionPollContextProvider } from "../../contexts/RealtimeQues
 import { useConferenceActiveQuestionPollRealtime } from "../../customHooks/useConferenceActiveQuestionPollRealtime";
 import RealtimeQuestionPollDisplay from "./RealtimeQuestionPollDisplay";
 
-export default function SelfContainedRealtimeQuestionPollDisplay({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
-   const { data, isLoading } =
-      useConferenceActiveQuestionPollRealtime(conferenceId);
+export default function SelfContainedRealtimeQuestionPollDisplay({ conferenceId }: { conferenceId: string }) {
+   const { data, isLoading } = useConferenceActiveQuestionPollRealtime(conferenceId);
 
    if (isLoading) {
       return <div>Cargando encuesta...</div>;

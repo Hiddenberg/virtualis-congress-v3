@@ -64,11 +64,7 @@ function ParticipantCard({
         ${isActive ? "scale-105 z-10" : "scale-90 opacity-70"}`}
          onClick={onClick}
       >
-         <Image
-            src={participant.image}
-            alt={participant.name}
-            className="w-full h-full object-cover rounded-lg shadow-lg"
-         />
+         <Image src={participant.image} alt={participant.name} className="w-full h-full object-cover rounded-lg shadow-lg" />
          {isActive && (
             <button className="absolute bg-white text-green-800 bottom-4 left-4 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors">
                Ver CV
@@ -86,10 +82,7 @@ export default function ExpositorsCarouselSection() {
    };
 
    const prevSlide = () => {
-      setActiveIndex(
-         (prevIndex) =>
-            (prevIndex - 1 + participants.length) % participants.length,
-      );
+      setActiveIndex((prevIndex) => (prevIndex - 1 + participants.length) % participants.length);
    };
 
    return (
@@ -119,20 +112,11 @@ export default function ExpositorsCarouselSection() {
             </button>
          </div>
          <div className="text-center mt-6">
-            <h2 className="text-2xl font-bold">
-               {participants[activeIndex].name}
-            </h2>
-            <p className="text-muted-foreground">
-               {participants[activeIndex].title}
-            </p>
+            <h2 className="text-2xl font-bold">{participants[activeIndex].name}</h2>
+            <p className="text-muted-foreground">{participants[activeIndex].title}</p>
             <div className="flex justify-center space-x-2 mt-2">
                {participants.map((_, index) => (
-                  <div
-                     key={index}
-                     className={`w-2 h-2 rounded-full ${
-                        index === activeIndex ? "bg-primary" : "bg-gray-300"
-                     }`}
-                  />
+                  <div key={index} className={`w-2 h-2 rounded-full ${index === activeIndex ? "bg-primary" : "bg-gray-300"}`} />
                ))}
             </div>
          </div>

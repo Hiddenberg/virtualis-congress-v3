@@ -1,13 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
-import {
-   getTrackedEmailById,
-   updateTrackedEmailRecord,
-} from "../services/trackedEmailServices";
+import { getTrackedEmailById, updateTrackedEmailRecord } from "../services/trackedEmailServices";
 
-export async function trackedEmailEndpoint(
-   req: NextRequest,
-   { params }: { params: Promise<{ trackedEmailId: string }> },
-) {
+export async function trackedEmailEndpoint(req: NextRequest, { params }: { params: Promise<{ trackedEmailId: string }> }) {
    const { trackedEmailId } = await params;
 
    const trackedEmail = await getTrackedEmailById(trackedEmailId);
@@ -20,24 +14,19 @@ export async function trackedEmailEndpoint(
    const pixelResponse = new NextResponse(pixel, {
       headers: {
          "Content-Type": "image/gif",
-         "Cache-Control":
-            "no-store, no-cache, must-revalidate, proxy-revalidate",
+         "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
          Pragma: "no-cache",
          Expires: "0",
       },
    });
 
    if (!trackedEmail) {
-      console.error(
-         `[trackedEmailEndpoint] The email with id ${trackedEmailId} was not found`,
-      );
+      console.error(`[trackedEmailEndpoint] The email with id ${trackedEmailId} was not found`);
       return pixelResponse;
    }
 
    if (trackedEmail.status === "opened") {
-      console.log(
-         `[trackedEmailEndpoint] Tracked email ${trackedEmailId} was opened again at ${new Date().toISOString()}`,
-      );
+      console.log(`[trackedEmailEndpoint] Tracked email ${trackedEmailId} was opened again at ${new Date().toISOString()}`);
       return pixelResponse;
    }
 
@@ -49,9 +38,7 @@ export async function trackedEmailEndpoint(
             openedAt: new Date().toISOString(),
          },
       });
-      console.log(
-         `[trackedEmailEndpoint] Tracked email ${trackedEmailId} was opened`,
-      );
+      console.log(`[trackedEmailEndpoint] Tracked email ${trackedEmailId} was opened`);
    }
 
    return pixelResponse;

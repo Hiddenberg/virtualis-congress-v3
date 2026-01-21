@@ -10,11 +10,7 @@ export default function GoToAttendantViewButton() {
    if (!conferenceId) return null;
 
    return (
-      <LinkButton
-         href={`/QnA-transmission/${conferenceId}/attendant-view/QnA`}
-         target="_blank"
-         variant="dark"
-      >
+      <LinkButton href={`/QnA-transmission/${conferenceId}/attendant-view/QnA`} target="_blank" variant="dark">
          <LinkIcon className="size-4" />
          Ver Transmisión en vivo
       </LinkButton>

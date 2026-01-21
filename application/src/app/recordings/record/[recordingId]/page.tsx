@@ -10,16 +10,11 @@ import { getSimpleRecordingById } from "@/features/simpleRecordings/services/rec
 
 export const dynamic = "force-dynamic";
 
-export default async function RecordingPage({
-   params,
-}: {
-   params: Promise<{ recordingId: string }>;
-}) {
+export default async function RecordingPage({ params }: { params: Promise<{ recordingId: string }> }) {
    const { recordingId } = await params;
 
    const recording = await getSimpleRecordingById(recordingId);
-   const livestreamSession =
-      await getRecordingLivestreamSessionByRecordingId(recordingId);
+   const livestreamSession = await getRecordingLivestreamSessionByRecordingId(recordingId);
 
    if (!recording) {
       return (
@@ -45,24 +40,14 @@ export default async function RecordingPage({
       );
    }
 
-   const recordingPresentation =
-      await getRecordingPresentationByRecordingId(recordingId);
-   const recordingPresentationSlides = await getPresentationSlidesById(
-      recordingPresentation?.id ?? "",
-   );
+   const recordingPresentation = await getRecordingPresentationByRecordingId(recordingId);
+   const recordingPresentationSlides = await getPresentationSlidesById(recordingPresentation?.id ?? "");
 
    return (
       <div>
-         <ZoomSessionProvider
-            sessionName={recording.title}
-            sessionKey={recording.id}
-         >
-            <RealtimeLivestreamStatusProvider
-               livestreamSession={livestreamSession}
-            >
-               {recording.recordingType === "only_camera" && (
-                  <CameraOnlyRecorderInterface sessionTitle={recording.title} />
-               )}
+         <ZoomSessionProvider sessionName={recording.title} sessionKey={recording.id}>
+            <RealtimeLivestreamStatusProvider livestreamSession={livestreamSession}>
+               {recording.recordingType === "only_camera" && <CameraOnlyRecorderInterface sessionTitle={recording.title} />}
 
                {recording.recordingType === "camera_and_presentation" && (
                   <CameraAndPresentationRecorderInterface

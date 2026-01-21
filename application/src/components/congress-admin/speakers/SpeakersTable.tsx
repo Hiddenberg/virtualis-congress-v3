@@ -1,13 +1,6 @@
 "use client";
 
-import {
-   ChevronDown,
-   ChevronUp,
-   Download,
-   Mail,
-   Phone,
-   Search,
-} from "lucide-react";
+import { ChevronDown, ChevronUp, Download, Mail, Phone, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { AcademicTitle } from "@/data/utils";
 
@@ -32,15 +25,7 @@ type SortField = "name" | "email" | "academicTitle" | "specialityDetails";
 type SortDirection = "asc" | "desc";
 
 // Avatar component with fallback
-function Avatar({
-   src,
-   name,
-   size = "md",
-}: {
-   src?: string;
-   name: string;
-   size?: "sm" | "md" | "lg";
-}) {
+function Avatar({ src, name, size = "md" }: { src?: string; name: string; size?: "sm" | "md" | "lg" }) {
    const initials = name
       .split(" ")
       .map((part) => part[0])
@@ -55,9 +40,7 @@ function Avatar({
    };
 
    return (
-      <div
-         className={`relative flex-shrink-0 rounded-full overflow-hidden bg-gray-100 ${sizeClasses[size]}`}
-      >
+      <div className={`relative flex-shrink-0 rounded-full overflow-hidden bg-gray-100 ${sizeClasses[size]}`}>
          {src ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -66,10 +49,7 @@ function Avatar({
                className="w-full h-full object-cover"
                onError={(e) => {
                   e.currentTarget.style.display = "none";
-                  e.currentTarget.parentElement!.setAttribute(
-                     "data-error",
-                     "true",
-                  );
+                  e.currentTarget.parentElement!.setAttribute("data-error", "true");
                }}
             />
          ) : null}
@@ -88,20 +68,12 @@ function AcademicBadge({ title }: { title?: AcademicTitle }) {
    if (!title || title === "Ninguno") return null;
 
    return (
-      <span className="inline-flex items-center bg-blue-100 px-2 py-0.5 rounded font-medium text-blue-800 text-xs">
-         {title}
-      </span>
+      <span className="inline-flex items-center bg-blue-100 px-2 py-0.5 rounded font-medium text-blue-800 text-xs">{title}</span>
    );
 }
 
 // Search component
-function SearchBar({
-   value,
-   onChange,
-}: {
-   value: string;
-   onChange: (value: string) => void;
-}) {
+function SearchBar({ value, onChange }: { value: string; onChange: (value: string) => void }) {
    return (
       <div className="relative">
          <div className="left-0 absolute inset-y-0 flex items-center pl-3 pointer-events-none">
@@ -180,12 +152,9 @@ function EmptyState() {
                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                </svg>
-               <h3 className="font-medium text-gray-900 text-lg">
-                  No hay ponentes registrados aún
-               </h3>
+               <h3 className="font-medium text-gray-900 text-lg">No hay ponentes registrados aún</h3>
                <p className="mt-1 text-gray-500 text-sm">
-                  Agrega un nuevo ponente para que pueda ser seleccionado en las
-                  conferencias
+                  Agrega un nuevo ponente para que pueda ser seleccionado en las conferencias
                </p>
             </div>
          </td>
@@ -195,14 +164,7 @@ function EmptyState() {
 
 // Export function
 function exportToCSV(speakers: Speaker[]) {
-   const headers = [
-      "Name",
-      "Email",
-      "Phone",
-      "Academic Title",
-      "Specialty",
-      "Bio",
-   ];
+   const headers = ["Name", "Email", "Phone", "Academic Title", "Specialty", "Bio"];
 
    const rows = speakers.map((speaker) => [
       speaker.name,
@@ -215,9 +177,7 @@ function exportToCSV(speakers: Speaker[]) {
 
    const csvContent = [
       headers.join(","),
-      ...rows.map((row) =>
-         row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(","),
-      ),
+      ...rows.map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")),
    ].join("\n");
 
    const blob = new Blob([csvContent], {
@@ -234,12 +194,7 @@ function exportToCSV(speakers: Speaker[]) {
 }
 
 // Main SpeakersTable component
-export function SpeakersTable({
-   speakers,
-   onSpeakerSelect,
-   searchable = false,
-   exportable = false,
-}: SpeakersTableProps) {
+export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, exportable = false }: SpeakersTableProps) {
    const [searchQuery, setSearchQuery] = useState("");
    const [sortField, setSortField] = useState<SortField>("name");
    const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
@@ -267,8 +222,7 @@ export function SpeakersTable({
             (speaker) =>
                speaker.name.toLowerCase().includes(query) ||
                speaker.email?.toLowerCase().includes(query) ||
-               (speaker.specialityDetails &&
-                  speaker.specialityDetails.toLowerCase().includes(query)) ||
+               (speaker.specialityDetails && speaker.specialityDetails.toLowerCase().includes(query)) ||
                (speaker.phoneNumber && speaker.phoneNumber.includes(query)) ||
                (speaker.bio && speaker.bio.toLowerCase().includes(query)),
          );
@@ -385,28 +339,17 @@ export function SpeakersTable({
                            onClick={() => onSpeakerSelect?.(speaker)}
                         >
                            <td className="px-4 py-4 whitespace-nowrap">
-                              <Avatar
-                                 src={speaker.presentationPhotoUrl}
-                                 name={speaker.name}
-                              />
+                              <Avatar src={speaker.presentationPhotoUrl} name={speaker.name} />
                            </td>
                            <td className="px-4 py-4">
-                              <div className="font-medium text-gray-900 text-sm">
-                                 {speaker.name}
-                              </div>
-                              {speaker.bio && (
-                                 <div className="max-w-xs text-gray-500 text-sm truncate">
-                                    {speaker.bio}
-                                 </div>
-                              )}
+                              <div className="font-medium text-gray-900 text-sm">{speaker.name}</div>
+                              {speaker.bio && <div className="max-w-xs text-gray-500 text-sm truncate">{speaker.bio}</div>}
                            </td>
                            <td className="px-4 py-4 whitespace-nowrap">
                               {speaker.academicTitle ? (
                                  <AcademicBadge title={speaker.academicTitle} />
                               ) : (
-                                 <span className="text-gray-400 text-sm">
-                                    —
-                                 </span>
+                                 <span className="text-gray-400 text-sm">—</span>
                               )}
                            </td>
                            <td className="px-4 py-4">
@@ -416,30 +359,21 @@ export function SpeakersTable({
                                     className={`flex-shrink-0 mr-1 ${speaker.email ? "text-gray-500" : "text-gray-300"}`}
                                  />
                                  {speaker.email ? (
-                                    <span className="max-w-[200px] text-gray-500 truncate">
-                                       {speaker.email}
-                                    </span>
+                                    <span className="max-w-[200px] text-gray-500 truncate">{speaker.email}</span>
                                  ) : (
-                                    <span className="text-gray-400 italic">
-                                       cuenta no vinculada
-                                    </span>
+                                    <span className="text-gray-400 italic">cuenta no vinculada</span>
                                  )}
                               </div>
                               {speaker.phoneNumber && (
                                  <div className="flex items-center mt-1 text-gray-500 text-sm">
-                                    <Phone
-                                       size={14}
-                                       className="flex-shrink-0 mr-1"
-                                    />
+                                    <Phone size={14} className="flex-shrink-0 mr-1" />
                                     <span>{speaker.phoneNumber}</span>
                                  </div>
                               )}
                            </td>
                            <td className="px-4 py-4">
                               <div className="max-w-xs text-gray-500 text-sm truncate">
-                                 {speaker.specialityDetails || (
-                                    <span className="text-gray-400">—</span>
-                                 )}
+                                 {speaker.specialityDetails || <span className="text-gray-400">—</span>}
                               </div>
                            </td>
                         </tr>

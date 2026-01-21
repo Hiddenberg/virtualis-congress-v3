@@ -20,9 +20,7 @@ export default function DayCompletedBanner() {
 
                   {/* Message */}
                   <div className="text-center">
-                     <h2 className="mb-3 font-bold text-slate-800 text-2xl md:text-3xl leading-tight">
-                        ¡Ha sido un gran día!
-                     </h2>
+                     <h2 className="mb-3 font-bold text-slate-800 text-2xl md:text-3xl leading-tight">¡Ha sido un gran día!</h2>
                      <p className="mx-auto mb-2 max-w-2xl font-medium text-indigo-700 text-lg md:text-xl leading-relaxed">
                         Todas las conferencias del día han finalizado.
                         <br />

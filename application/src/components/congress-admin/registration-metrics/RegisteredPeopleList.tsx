@@ -6,9 +6,7 @@ interface RegisteredPeopleListProps {
    registrations: CongressRegistrationRecord[];
 }
 
-export default function RegisteredPeopleList({
-   registrations,
-}: RegisteredPeopleListProps) {
+export default function RegisteredPeopleList({ registrations }: RegisteredPeopleListProps) {
    const hasAny = registrations.length > 0;
 
    const sorted = [...registrations].sort((a, b) => {
@@ -22,18 +20,11 @@ export default function RegisteredPeopleList({
          <div className="p-6 border-gray-200 border-b">
             <div className="flex justify-between items-center">
                <div>
-                  <h2 className="font-semibold text-gray-900 text-xl">
-                     Personas Registradas
-                  </h2>
-                  <p className="mt-1 text-gray-600">
-                     Listado de asistentes al congreso
-                  </p>
+                  <h2 className="font-semibold text-gray-900 text-xl">Personas Registradas</h2>
+                  <p className="mt-1 text-gray-600">Listado de asistentes al congreso</p>
                </div>
                <div className="text-gray-600 text-sm">
-                  Total:{" "}
-                  <span className="font-semibold text-gray-900">
-                     {registrations.length}
-                  </span>
+                  Total: <span className="font-semibold text-gray-900">{registrations.length}</span>
                </div>
             </div>
          </div>
@@ -43,12 +34,8 @@ export default function RegisteredPeopleList({
                <div className="flex justify-center items-center bg-gray-100 rounded-full w-14 h-14">
                   <Users className="w-7 h-7 text-gray-500" />
                </div>
-               <p className="mt-4 font-medium text-gray-900">
-                  No hay registros aún
-               </p>
-               <p className="text-gray-600 text-sm">
-                  Aparecerán aquí las personas registradas al congreso
-               </p>
+               <p className="mt-4 font-medium text-gray-900">No hay registros aún</p>
+               <p className="text-gray-600 text-sm">Aparecerán aquí las personas registradas al congreso</p>
             </div>
          )}
 
@@ -91,9 +78,7 @@ export default function RegisteredPeopleList({
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-100">
                      {sorted.map((reg) => {
-                        const user = (
-                           reg as unknown as { expand?: { user?: UserRecord } }
-                        )?.expand?.user;
+                        const user = (reg as unknown as { expand?: { user?: UserRecord } })?.expand?.user;
                         const name = user?.name ?? "—";
                         const email = user?.email ?? "—";
                         const isPaid = !!reg.paymentConfirmed;
@@ -114,43 +99,31 @@ export default function RegisteredPeopleList({
                         return (
                            <tr key={reg.id} className="hover:bg-gray-50">
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <div className="font-medium text-gray-900 text-sm">
-                                    {name}
-                                 </div>
+                                 <div className="font-medium text-gray-900 text-sm">{name}</div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <div className="text-gray-700 text-sm">
-                                    {email}
-                                 </div>
+                                 <div className="text-gray-700 text-sm">{email}</div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
                                  <div className="flex items-center gap-2">
                                     {isPaid ? (
                                        <>
                                           <CheckCircle2 className="w-4 h-4 text-green-600" />
-                                          <span className="text-green-700 text-sm">
-                                             Pagado
-                                          </span>
+                                          <span className="text-green-700 text-sm">Pagado</span>
                                        </>
                                     ) : (
                                        <>
                                           <XCircle className="w-4 h-4 text-gray-400" />
-                                          <span className="text-gray-600 text-sm">
-                                             Pendiente
-                                          </span>
+                                          <span className="text-gray-600 text-sm">Pendiente</span>
                                        </>
                                     )}
                                  </div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <span className="text-gray-700 text-sm">
-                                    {modality}
-                                 </span>
+                                 <span className="text-gray-700 text-sm">{modality}</span>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <span className="text-gray-700 text-sm">
-                                    {createdLabel}
-                                 </span>
+                                 <span className="text-gray-700 text-sm">{createdLabel}</span>
                               </td>
                            </tr>
                         );

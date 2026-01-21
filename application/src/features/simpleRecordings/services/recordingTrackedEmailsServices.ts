@@ -1,9 +1,5 @@
 import type { TrackedEmailRecord } from "@/features/trackedEmails/types/trackedEmailTypes";
-import {
-   createDBRecord,
-   getFullDBRecordsList,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import type { RecordingTrackedEmail } from "../types/recordingTrackedEmailTypes";
@@ -19,15 +15,12 @@ export async function createRecordingTrackedEmailRecord({
 }) {
    const organization = await getOrganizationFromSubdomain();
 
-   const recordingTrackedEmail = await createDBRecord<RecordingTrackedEmail>(
-      "SIMPLE_RECORDING_TRACKED_EMAILS",
-      {
-         organization: organization.id,
-         recording: recordingId,
-         trackedEmail: trackedEmailId,
-         type,
-      },
-   );
+   const recordingTrackedEmail = await createDBRecord<RecordingTrackedEmail>("SIMPLE_RECORDING_TRACKED_EMAILS", {
+      organization: organization.id,
+      recording: recordingId,
+      trackedEmail: trackedEmailId,
+      type,
+   });
 
    return recordingTrackedEmail;
 }

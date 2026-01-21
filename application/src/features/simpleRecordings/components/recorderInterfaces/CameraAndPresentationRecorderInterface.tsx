@@ -1,14 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import {
-   ArrowLeftIcon,
-   ArrowRight,
-   CheckCircle2,
-   FileText,
-   User,
-   Video,
-} from "lucide-react";
+import { ArrowLeftIcon, ArrowRight, CheckCircle2, FileText, User, Video } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
@@ -40,24 +33,20 @@ export default function CameraAndPresentationRecorderInterface({
       | "presentation_recorder"
       | "screen_share_recorder"
    >("join_session");
-   const [presentationHasVideo, setPresentationHasVideo] = useState<
-      boolean | null
-   >(null);
+   const [presentationHasVideo, setPresentationHasVideo] = useState<boolean | null>(null);
    const [selectedPresentationOption, setSelectedPresentationOption] = useState<
       "no_videos" | "si_videos" | "no_ppt" | "zoom_video" | null
    >(null);
    const [username, setUsername] = useState<string>("");
    const [_linkingPresentation, startTransition] = useTransition();
-   const [recordingPresentation, setRecordingPresentation] =
-      useState<PresentationRecord | null>(() => {
-         if (!initialPresentation) return null;
-         return initialPresentation;
-      });
-   const [recordingPresentationSlides, setRecordingPresentationSlides] =
-      useState<PresentationSlideRecord[]>(() => {
-         if (!initialPresentationSlides) return [];
-         return initialPresentationSlides;
-      });
+   const [recordingPresentation, setRecordingPresentation] = useState<PresentationRecord | null>(() => {
+      if (!initialPresentation) return null;
+      return initialPresentation;
+   });
+   const [recordingPresentationSlides, setRecordingPresentationSlides] = useState<PresentationSlideRecord[]>(() => {
+      if (!initialPresentationSlides) return [];
+      return initialPresentationSlides;
+   });
 
    const handleJoinSessionContinue = () => {
       if (initialPresentation && initialPresentationSlides.length > 0) {
@@ -100,8 +89,7 @@ export default function CameraAndPresentationRecorderInterface({
       });
    };
 
-   const zoomLogoURL =
-      "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757811385/d151a6d1-ea9a-40de-92e6-f1da028a5e43.webp";
+   const zoomLogoURL = "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757811385/d151a6d1-ea9a-40de-92e6-f1da028a5e43.webp";
 
    if (recorderStage === "join_session") {
       return (
@@ -112,12 +100,8 @@ export default function CameraAndPresentationRecorderInterface({
                      <div className="!bg-blue-100 !mx-auto !mb-4 !p-3 !rounded-full !w-16 !h-16">
                         <User className="!mx-auto !size-10 !text-blue-600" />
                      </div>
-                     <h3 className="!mb-2 !font-bold !text-gray-900 !text-2xl">
-                        ¡Bienvenido!
-                     </h3>
-                     <p className="!text-gray-600 !leading-relaxed">
-                        Ingresa tu nombre para mostrarlo en la grabación
-                     </p>
+                     <h3 className="!mb-2 !font-bold !text-gray-900 !text-2xl">¡Bienvenido!</h3>
+                     <p className="!text-gray-600 !leading-relaxed">Ingresa tu nombre para mostrarlo en la grabación</p>
                   </div>
 
                   <div className="!relative !flex !items-center">
@@ -161,12 +145,9 @@ export default function CameraAndPresentationRecorderInterface({
                      <div className="!bg-purple-100 !mx-auto !mb-4 !p-3 !rounded-full !w-16 !h-16">
                         <FileText className="!mx-auto !size-10 !text-purple-600" />
                      </div>
-                     <h3 className="!mb-2 !font-bold !text-gray-900 !text-2xl">
-                        Sobre tus diapositivas
-                     </h3>
+                     <h3 className="!mb-2 !font-bold !text-gray-900 !text-2xl">Sobre tus diapositivas</h3>
                      <p className="!text-gray-600 !leading-relaxed">
-                        Necesitamos como subirás tus diapositivas para poder
-                        grabar la sesión
+                        Necesitamos como subirás tus diapositivas para poder grabar la sesión
                      </p>
                   </div>
 
@@ -187,28 +168,21 @@ export default function CameraAndPresentationRecorderInterface({
                         >
                            <div
                               className={`!rounded-full !p-2 ${
-                                 selectedPresentationOption === "no_videos"
-                                    ? "!bg-blue-500"
-                                    : "!bg-gray-200"
+                                 selectedPresentationOption === "no_videos" ? "!bg-blue-500" : "!bg-gray-200"
                               }`}
                            >
                               <FileText
                                  className={`!size-5 ${
-                                    selectedPresentationOption === "no_videos"
-                                       ? "!text-white"
-                                       : "!text-gray-500"
+                                    selectedPresentationOption === "no_videos" ? "!text-white" : "!text-gray-500"
                                  }`}
                               />
                            </div>
                            <div className="!flex-1 !text-left">
                               <h5 className="!font-semibold !text-gray-900">
-                                 Mis diapositivas NO Contienen videos o
-                                 animaciones que se muevan
+                                 Mis diapositivas NO Contienen videos o animaciones que se muevan
                               </h5>
                            </div>
-                           {selectedPresentationOption === "no_videos" && (
-                              <CheckCircle2 className="!size-6 !text-blue-500" />
-                           )}
+                           {selectedPresentationOption === "no_videos" && <CheckCircle2 className="!size-6 !text-blue-500" />}
                         </button>
 
                         <button
@@ -224,28 +198,21 @@ export default function CameraAndPresentationRecorderInterface({
                         >
                            <div
                               className={`!rounded-full !p-2 ${
-                                 selectedPresentationOption === "si_videos"
-                                    ? "!bg-green-500"
-                                    : "!bg-gray-200"
+                                 selectedPresentationOption === "si_videos" ? "!bg-green-500" : "!bg-gray-200"
                               }`}
                            >
                               <Video
                                  className={`!size-5 ${
-                                    selectedPresentationOption === "si_videos"
-                                       ? "!text-white"
-                                       : "!text-gray-500"
+                                    selectedPresentationOption === "si_videos" ? "!text-white" : "!text-gray-500"
                                  }`}
                               />
                            </div>
                            <div className="!flex-1 !text-left">
                               <h5 className="!font-semibold !text-gray-900">
-                                 Mis diapositivas SI tienen videos o animaciones
-                                 que se mueven
+                                 Mis diapositivas SI tienen videos o animaciones que se mueven
                               </h5>
                            </div>
-                           {selectedPresentationOption === "si_videos" && (
-                              <CheckCircle2 className="!size-6 !text-green-500" />
-                           )}
+                           {selectedPresentationOption === "si_videos" && <CheckCircle2 className="!size-6 !text-green-500" />}
                         </button>
 
                         <button
@@ -261,29 +228,21 @@ export default function CameraAndPresentationRecorderInterface({
                         >
                            <div
                               className={`!rounded-full !p-2 ${
-                                 selectedPresentationOption === "no_ppt"
-                                    ? "!bg-purple-500"
-                                    : "!bg-gray-200"
+                                 selectedPresentationOption === "no_ppt" ? "!bg-purple-500" : "!bg-gray-200"
                               }`}
                            >
                               <FileText
                                  className={`!size-5 ${
-                                    selectedPresentationOption === "no_ppt"
-                                       ? "!text-white"
-                                       : "!text-gray-500"
+                                    selectedPresentationOption === "no_ppt" ? "!text-white" : "!text-gray-500"
                                  }`}
                               />
                            </div>
                            <div className="!flex-1 !text-left">
                               <h5 className="!font-semibold !text-gray-900">
-                                 Mi diapositiva está hecha en keynote,
-                                 prezi-online u otro formato que no es de
-                                 Powerpoint
+                                 Mi diapositiva está hecha en keynote, prezi-online u otro formato que no es de Powerpoint
                               </h5>
                            </div>
-                           {selectedPresentationOption === "no_ppt" && (
-                              <CheckCircle2 className="!size-6 !text-purple-500" />
-                           )}
+                           {selectedPresentationOption === "no_ppt" && <CheckCircle2 className="!size-6 !text-purple-500" />}
                         </button>
 
                         <button
@@ -299,25 +258,15 @@ export default function CameraAndPresentationRecorderInterface({
                         >
                            <div
                               className={`!rounded-full !p-2 ${
-                                 selectedPresentationOption === "zoom_video"
-                                    ? "!bg-sky-500"
-                                    : "!bg-gray-200"
+                                 selectedPresentationOption === "zoom_video" ? "!bg-sky-500" : "!bg-gray-200"
                               }`}
                            >
-                              <img
-                                 src={zoomLogoURL}
-                                 alt="Zoom"
-                                 className="!w-5 !h-5"
-                              />
+                              <img src={zoomLogoURL} alt="Zoom" className="!w-5 !h-5" />
                            </div>
                            <div className="!flex-1 !text-left">
-                              <h5 className="!font-semibold !text-gray-900">
-                                 Voy a subir un video que grabé en zoom
-                              </h5>
+                              <h5 className="!font-semibold !text-gray-900">Voy a subir un video que grabé en zoom</h5>
                            </div>
-                           {selectedPresentationOption === "zoom_video" && (
-                              <CheckCircle2 className="!size-6 !text-sky-500" />
-                           )}
+                           {selectedPresentationOption === "zoom_video" && <CheckCircle2 className="!size-6 !text-sky-500" />}
                         </button>
                      </div>
 
@@ -328,9 +277,7 @@ export default function CameraAndPresentationRecorderInterface({
                                  <Video className="!size-4 !text-amber-700" />
                               </div>
                               <div>
-                                 <h6 className="!font-semibold !text-amber-900 !text-sm">
-                                    Información importante
-                                 </h6>
+                                 <h6 className="!font-semibold !text-amber-900 !text-sm">Información importante</h6>
                                  <p className="!mt-1 !text-amber-800 !text-xs !leading-relaxed">
                                     {presentationHasVideo
                                        ? "Para diapositivas con video. Deberás grabar tu video y subirlo al sistema."
@@ -369,16 +316,11 @@ export default function CameraAndPresentationRecorderInterface({
    if (recorderStage === "upload_presentation_tutorial") {
       return (
          <div>
-            <Button
-               variant="primary"
-               onClick={() => setRecorderStage("presentation_info")}
-            >
+            <Button variant="primary" onClick={() => setRecorderStage("presentation_info")}>
                <ArrowLeftIcon className="size-5" />
                Regresar
             </Button>
-            <HowToUploadPresentationTutorial
-               onFinish={() => setRecorderStage("upload_presentation")}
-            />
+            <HowToUploadPresentationTutorial onFinish={() => setRecorderStage("upload_presentation")} />
          </div>
       );
    }
@@ -386,16 +328,11 @@ export default function CameraAndPresentationRecorderInterface({
    if (recorderStage === "upload_presentation") {
       return (
          <div className="!px-4">
-            <Button
-               variant="primary"
-               onClick={() => setRecorderStage("presentation_info")}
-            >
+            <Button variant="primary" onClick={() => setRecorderStage("presentation_info")}>
                <ArrowLeftIcon className="size-5" />
                Regresar
             </Button>
-            <UploadPresentationForm
-               onPresentationSaved={handleSavePresentation}
-            />
+            <UploadPresentationForm onPresentationSaved={handleSavePresentation} />
          </div>
       );
    }
@@ -403,9 +340,7 @@ export default function CameraAndPresentationRecorderInterface({
    if (recorderStage === "presentation_recorder_tutorial") {
       return (
          <div>
-            <HowToRecordTutorial
-               onFinish={() => setRecorderStage("presentation_recorder")}
-            />
+            <HowToRecordTutorial onFinish={() => setRecorderStage("presentation_recorder")} />
          </div>
       );
    }
@@ -428,9 +363,7 @@ export default function CameraAndPresentationRecorderInterface({
          <div className="!bg-gray-100 !min-h-screen">
             <div className="!bg-white !shadow-lg !mb-6 !p-4 !rounded-2xl">
                <div className="!flex !justify-center !mt-6">
-                  <RecordingLivestreamControlButtons
-                     sessionTitle={sessionTitle}
-                  />
+                  <RecordingLivestreamControlButtons sessionTitle={sessionTitle} />
                </div>
                <ZoomCallInterface
                   initialUsername={username}

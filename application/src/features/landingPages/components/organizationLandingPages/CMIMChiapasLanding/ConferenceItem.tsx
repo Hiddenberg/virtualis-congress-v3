@@ -30,9 +30,7 @@ export default function ConferenceItem({
                {/* Time Badge */}
                <div
                   className={`flex-shrink-0 rounded-lg px-3 py-2 text-sm font-semibold ${
-                     isBreak
-                        ? "bg-amber-100 text-amber-800"
-                        : "bg-blue-100 text-blue-800"
+                     isBreak ? "bg-amber-100 text-amber-800" : "bg-blue-100 text-blue-800"
                   }`}
                >
                   <div className="flex items-center gap-1">
@@ -45,22 +43,14 @@ export default function ConferenceItem({
 
                <div className="flex-1 w-full min-w-0">
                   {/* Conference Title */}
-                  <h3
-                     className={`text-lg font-bold mb-2 ${
-                        isBreak ? "text-amber-900" : "text-gray-900"
-                     }`}
-                  >
+                  <h3 className={`text-lg font-bold mb-2 ${isBreak ? "text-amber-900" : "text-gray-900"}`}>
                      {isBreak && <Coffee className="inline mr-2 w-5 h-5" />}
                      {title}
                   </h3>
 
                   {/* Description */}
                   {description && (
-                     <p
-                        className={`text-sm mb-3 leading-relaxed ${
-                           isBreak ? "text-amber-700" : "text-gray-700"
-                        }`}
-                     >
+                     <p className={`text-sm mb-3 leading-relaxed ${isBreak ? "text-amber-700" : "text-gray-700"}`}>
                         {description}
                      </p>
                   )}
@@ -82,9 +72,7 @@ export default function ConferenceItem({
                                  PONENTE
                               </span>
                            </div>
-                           <p className="font-semibold text-gray-900 text-sm truncate">
-                              {speakerName}
-                           </p>
+                           <p className="font-semibold text-gray-900 text-sm truncate">{speakerName}</p>
                         </div>
                      </div>
                   )}
@@ -93,9 +81,7 @@ export default function ConferenceItem({
                   {!speakerName && !isBreak && (
                      <div className="flex items-center gap-2 bg-gradient-to-r from-purple-50 to-indigo-50 p-3 border border-purple-100 rounded-lg">
                         <div className="bg-purple-400 rounded-full w-3 h-3" />
-                        <span className="font-medium text-purple-700 text-sm">
-                           Sesión Especial
-                        </span>
+                        <span className="font-medium text-purple-700 text-sm">Sesión Especial</span>
                      </div>
                   )}
                </div>
@@ -103,9 +89,7 @@ export default function ConferenceItem({
          </div>
 
          {/* Bottom Accent Line */}
-         {!isBreak && (
-            <div className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 h-1" />
-         )}
+         {!isBreak && <div className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 h-1" />}
       </div>
    );
 }

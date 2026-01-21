@@ -3,12 +3,7 @@
 import { BarChart2 } from "lucide-react";
 import { useState } from "react";
 
-const surveyOptions = [
-   "Regulaciones",
-   "Costos de producción",
-   "Investigación clínica limitada",
-   "Complejidad de fabricación",
-];
+const surveyOptions = ["Regulaciones", "Costos de producción", "Investigación clínica limitada", "Complejidad de fabricación"];
 
 export default function SurveyComponent() {
    const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -21,8 +16,7 @@ export default function SurveyComponent() {
          </div>
          <div className="mb-4">
             <h3 className="text-lg font-medium">
-               ¿Cuál es el mayor desafío en la implementación de la
-               nanotecnología en medicamentos?
+               ¿Cuál es el mayor desafío en la implementación de la nanotecnología en medicamentos?
             </h3>
          </div>
          <form>

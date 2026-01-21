@@ -12,26 +12,14 @@ export function getSimuliveVariables(simuliveData: SimuliveData) {
    const startDateTimeDate = new Date(simuliveData.startDateTime);
 
    // Add the duration of the speaker presentation recording to the total duration if it exists
-   const speakerPresentationDurationSeconds =
-      simuliveData.speakerPresentationRecording?.durationSeconds ?? 0;
-   const totalDurationSeconds =
-      speakerPresentationDurationSeconds + simuliveData.durationSeconds;
-   const speakerPresentationEndDate = addSecond(
-      simuliveData.startDateTime,
-      speakerPresentationDurationSeconds,
-   );
-   const endDateTimeDate = addSecond(
-      simuliveData.startDateTime,
-      totalDurationSeconds,
-   );
+   const speakerPresentationDurationSeconds = simuliveData.speakerPresentationRecording?.durationSeconds ?? 0;
+   const totalDurationSeconds = speakerPresentationDurationSeconds + simuliveData.durationSeconds;
+   const speakerPresentationEndDate = addSecond(simuliveData.startDateTime, speakerPresentationDurationSeconds);
+   const endDateTimeDate = addSecond(simuliveData.startDateTime, totalDurationSeconds);
    const timeVideoShouldStart =
-      (serverTimeDate.getTime() -
-         (startDateTimeDate.getTime() +
-            speakerPresentationDurationSeconds * 1000)) /
-      1000;
+      (serverTimeDate.getTime() - (startDateTimeDate.getTime() + speakerPresentationDurationSeconds * 1000)) / 1000;
 
-   const timeSpeakerPresentationShouldStart =
-      (serverTimeDate.getTime() - startDateTimeDate.getTime()) / 1000;
+   const timeSpeakerPresentationShouldStart = (serverTimeDate.getTime() - startDateTimeDate.getTime()) / 1000;
 
    return {
       serverTimeDate,

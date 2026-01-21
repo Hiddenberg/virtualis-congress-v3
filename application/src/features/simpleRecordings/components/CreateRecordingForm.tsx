@@ -1,14 +1,6 @@
 "use client";
 
-import {
-   FileTextIcon,
-   InfoIcon,
-   MailIcon,
-   MonitorIcon,
-   SendIcon,
-   UserIcon,
-   VideoIcon,
-} from "lucide-react";
+import { FileTextIcon, InfoIcon, MailIcon, MonitorIcon, SendIcon, UserIcon, VideoIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
@@ -28,9 +20,7 @@ interface CreateRecordingFormProps {
    campaignId: string;
 }
 
-export default function CreateRecordingForm({
-   campaignId,
-}: CreateRecordingFormProps) {
+export default function CreateRecordingForm({ campaignId }: CreateRecordingFormProps) {
    const [recordingForm, setRecordingForm] = useState<RecordingForm>({
       title: "",
       personName: "",
@@ -99,13 +89,9 @@ export default function CreateRecordingForm({
             <form className="space-y-6" onSubmit={handleSubmit}>
                {/* Title Field */}
                <fieldset className="space-y-2">
-                  <label
-                     htmlFor="title"
-                     className="flex items-center gap-2 font-medium text-gray-700 text-sm"
-                  >
+                  <label htmlFor="title" className="flex items-center gap-2 font-medium text-gray-700 text-sm">
                      <FileTextIcon className="size-4" />
-                     Título de la grabación{" "}
-                     <span className="text-red-500">*</span>
+                     Título de la grabación <span className="text-red-500">*</span>
                   </label>
                   <input
                      id="title"
@@ -121,24 +107,15 @@ export default function CreateRecordingForm({
                         })
                      }
                   />
-                  {errors.title && (
-                     <p className="text-red-600 text-sm">{errors.title}</p>
-                  )}
-                  <p className="text-gray-500 text-xs">
-                     Describe brevemente el contenido o propósito de esta
-                     grabación
-                  </p>
+                  {errors.title && <p className="text-red-600 text-sm">{errors.title}</p>}
+                  <p className="text-gray-500 text-xs">Describe brevemente el contenido o propósito de esta grabación</p>
                </fieldset>
 
                {/* Person Name Field */}
                <fieldset className="space-y-2">
-                  <label
-                     htmlFor="personName"
-                     className="flex items-center gap-2 font-medium text-gray-700 text-sm"
-                  >
+                  <label htmlFor="personName" className="flex items-center gap-2 font-medium text-gray-700 text-sm">
                      <UserIcon className="size-4" />
-                     Nombre de la persona que grabará{" "}
-                     <span className="text-red-500">*</span>
+                     Nombre de la persona que grabará <span className="text-red-500">*</span>
                   </label>
                   <input
                      id="personName"
@@ -154,20 +131,13 @@ export default function CreateRecordingForm({
                         })
                      }
                   />
-                  {errors.personName && (
-                     <p className="text-red-600 text-sm">{errors.personName}</p>
-                  )}
-                  <p className="text-gray-500 text-xs">
-                     Nombre completo de la persona que realizará la grabación
-                  </p>
+                  {errors.personName && <p className="text-red-600 text-sm">{errors.personName}</p>}
+                  <p className="text-gray-500 text-xs">Nombre completo de la persona que realizará la grabación</p>
                </fieldset>
 
                {/* Person Email Field */}
                <fieldset className="space-y-2">
-                  <label
-                     htmlFor="personEmail"
-                     className="flex items-center gap-2 font-medium text-gray-700 text-sm"
-                  >
+                  <label htmlFor="personEmail" className="flex items-center gap-2 font-medium text-gray-700 text-sm">
                      <MailIcon className="size-4" />
                      Correo electrónico <span className="text-red-500">*</span>
                   </label>
@@ -184,22 +154,13 @@ export default function CreateRecordingForm({
                         })
                      }
                   />
-                  {errors.personEmail && (
-                     <p className="text-red-600 text-sm">
-                        {errors.personEmail}
-                     </p>
-                  )}
-                  <p className="text-gray-500 text-xs">
-                     Se enviará una invitación con instrucciones a este correo
-                  </p>
+                  {errors.personEmail && <p className="text-red-600 text-sm">{errors.personEmail}</p>}
+                  <p className="text-gray-500 text-xs">Se enviará una invitación con instrucciones a este correo</p>
                </fieldset>
 
                {/* Recording Type Field */}
                <fieldset className="space-y-2">
-                  <label
-                     htmlFor="recordingType"
-                     className="flex items-center gap-2 font-medium text-gray-700 text-sm"
-                  >
+                  <label htmlFor="recordingType" className="flex items-center gap-2 font-medium text-gray-700 text-sm">
                      <VideoIcon className="size-4" />
                      Tipo de grabación
                   </label>
@@ -210,15 +171,11 @@ export default function CreateRecordingForm({
                            name="recordingType"
                            type="radio"
                            value="camera_and_presentation"
-                           checked={
-                              recordingForm.recordingType ===
-                              "camera_and_presentation"
-                           }
+                           checked={recordingForm.recordingType === "camera_and_presentation"}
                            onChange={(e) =>
                               setRecordingForm({
                                  ...recordingForm,
-                                 recordingType: e.target
-                                    .value as SimpleRecording["recordingType"],
+                                 recordingType: e.target.value as SimpleRecording["recordingType"],
                               })
                            }
                            className="border-gray-300 focus:ring-blue-500 size-4 text-blue-600"
@@ -237,22 +194,16 @@ export default function CreateRecordingForm({
                            name="recordingType"
                            type="radio"
                            value="only_camera"
-                           checked={
-                              recordingForm.recordingType === "only_camera"
-                           }
+                           checked={recordingForm.recordingType === "only_camera"}
                            onChange={(e) =>
                               setRecordingForm({
                                  ...recordingForm,
-                                 recordingType: e.target
-                                    .value as SimpleRecording["recordingType"],
+                                 recordingType: e.target.value as SimpleRecording["recordingType"],
                               })
                            }
                            className="border-gray-300 focus:ring-blue-500 size-4 text-blue-600"
                         />
-                        <label
-                           htmlFor="only_camera"
-                           className="flex items-center gap-2 text-gray-700 text-sm cursor-pointer"
-                        >
+                        <label htmlFor="only_camera" className="flex items-center gap-2 text-gray-700 text-sm cursor-pointer">
                            <VideoIcon className="size-4" />
                            Solo cámara
                         </label>
@@ -263,23 +214,18 @@ export default function CreateRecordingForm({
                         <div className="flex items-start gap-3">
                            <InfoIcon className="mt-0.5 size-4 text-blue-600 shrink-0" />
                            <div>
-                              <p className="font-medium text-blue-800 text-sm">
-                                 Perfecto para contenido personal
-                              </p>
+                              <p className="font-medium text-blue-800 text-sm">Perfecto para contenido personal</p>
                               <p className="mt-1 text-blue-700 text-xs">
-                                 Esta opción es ideal para presentaciones
-                                 directas a cámara, videos testimoniales,
-                                 entrevistas personales, o cualquier contenido
-                                 donde el foco principal sea el presentador sin
-                                 necesidad de mostrar pantallas o diapositivas.
+                                 Esta opción es ideal para presentaciones directas a cámara, videos testimoniales, entrevistas
+                                 personales, o cualquier contenido donde el foco principal sea el presentador sin necesidad de
+                                 mostrar pantallas o diapositivas.
                               </p>
                            </div>
                         </div>
                      </div>
                   )}
                   <p className="text-gray-500 text-xs">
-                     Selecciona el tipo de grabación que mejor se adapte a las
-                     necesidades del contenido
+                     Selecciona el tipo de grabación que mejor se adapte a las necesidades del contenido
                   </p>
                </fieldset>
 
@@ -309,8 +255,7 @@ export default function CreateRecordingForm({
                               Enviar invitación por correo electrónico
                            </label>
                            <p className="mt-1 text-yellow-700 text-xs">
-                              Si está marcado, se enviará automáticamente un
-                              correo con las instrucciones de grabación. Si no,
+                              Si está marcado, se enviará automáticamente un correo con las instrucciones de grabación. Si no,
                               podrás enviarlo manualmente más tarde.
                            </p>
                         </div>
@@ -321,23 +266,11 @@ export default function CreateRecordingForm({
                {/* Action Buttons */}
                <div className="pt-4 border-gray-100 border-t">
                   <div className="flex justify-end gap-3">
-                     <Button
-                        variant="secondary"
-                        type="button"
-                        disabled={isCreatingRecording}
-                        onClick={() => router.back()}
-                     >
+                     <Button variant="secondary" type="button" disabled={isCreatingRecording} onClick={() => router.back()}>
                         Cancelar
                      </Button>
-                     <Button
-                        variant="primary"
-                        type="submit"
-                        loading={isCreatingRecording}
-                        disabled={isCreatingRecording}
-                     >
-                        {isCreatingRecording
-                           ? "Programando..."
-                           : "Programar grabación"}
+                     <Button variant="primary" type="submit" loading={isCreatingRecording} disabled={isCreatingRecording}>
+                        {isCreatingRecording ? "Programando..." : "Programar grabación"}
                      </Button>
                   </div>
                </div>

@@ -9,18 +9,13 @@ interface SendCampaignInvitesButtonProps {
    pendingCount: number;
 }
 
-export default function SendCampaignInvitesButton({
-   campaignId,
-   pendingCount,
-}: SendCampaignInvitesButtonProps) {
+export default function SendCampaignInvitesButton({ campaignId, pendingCount }: SendCampaignInvitesButtonProps) {
    const [isPending, startTransition] = useTransition();
    const [lastResult, setLastResult] = useState<string | null>(null);
 
    const onClick = () => {
       if (pendingCount === 0) return;
-      const confirmed = window.confirm(
-         `¿Enviar invitaciones a ${pendingCount} grabación(es) pendientes?`,
-      );
+      const confirmed = window.confirm(`¿Enviar invitaciones a ${pendingCount} grabación(es) pendientes?`);
       if (!confirmed) return;
 
       startTransition(async () => {
@@ -28,10 +23,7 @@ export default function SendCampaignInvitesButton({
          if (res.success) {
             setLastResult(`Enviadas ${res.data?.sent} de ${res.data?.total}`);
          } else {
-            setLastResult(
-               res.errorMessage ??
-                  "Ocurrió un error al enviar las invitaciones",
-            );
+            setLastResult(res.errorMessage ?? "Ocurrió un error al enviar las invitaciones");
          }
       });
    };
@@ -47,13 +39,9 @@ export default function SendCampaignInvitesButton({
             aria-disabled={disabled}
          >
             <MailsIcon className="size-4" />
-            {isPending
-               ? "Enviando..."
-               : `Enviar todas las invitaciones (${pendingCount})`}
+            {isPending ? "Enviando..." : `Enviar todas las invitaciones (${pendingCount})`}
          </button>
-         {lastResult && (
-            <span className="text-xs text-gray-500">{lastResult}</span>
-         )}
+         {lastResult && <span className="text-xs text-gray-500">{lastResult}</span>}
       </div>
    );
 }

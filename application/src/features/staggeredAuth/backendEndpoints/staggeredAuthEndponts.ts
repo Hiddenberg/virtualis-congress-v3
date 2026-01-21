@@ -2,16 +2,10 @@ import { cookies } from "next/headers";
 import "server-only";
 import { NextResponse } from "next/server";
 import { REFRESH_COOKIE_KEY } from "../constants/authConstants";
-import {
-   generateUserAuthToken,
-   getUserIdFromRefreshToken,
-   verifyRefreshToken,
-} from "../services/jwtServices";
+import { generateUserAuthToken, getUserIdFromRefreshToken, verifyRefreshToken } from "../services/jwtServices";
 import { setAuthTokenCookie } from "../services/staggeredAuthServices";
 
-export async function refreshAuthTokenEndpoint(): Promise<
-   NextResponse<BackendResponse>
-> {
+export async function refreshAuthTokenEndpoint(): Promise<NextResponse<BackendResponse>> {
    const cookieStore = await cookies();
    const refreshToken = cookieStore.get(REFRESH_COOKIE_KEY)?.value;
 

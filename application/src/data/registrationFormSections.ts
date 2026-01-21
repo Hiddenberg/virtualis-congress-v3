@@ -166,12 +166,7 @@ export const registrationFormSections: FormSection[] = [
             type: "select",
             name: "institution",
             required: true,
-            options: [
-               "Universidad Pública",
-               "Universidad Privada",
-               "Institución de salud pública",
-               "Práctica Privada",
-            ],
+            options: ["Universidad Pública", "Universidad Privada", "Institución de salud pública", "Práctica Privada"],
             value: "",
          },
          {
@@ -200,14 +195,7 @@ export const registrationFormSections: FormSection[] = [
             name: "howDidYouHearAboutTheCourse",
             required: true,
             value: "",
-            options: [
-               "Invitación",
-               "Hospital",
-               "Colegio",
-               "Redes sociales",
-               "Whatsapp",
-               "Otro",
-            ],
+            options: ["Invitación", "Hospital", "Colegio", "Redes sociales", "Whatsapp", "Otro"],
          },
          {
             label: "¿Si no eres miembro te gustaría ser miembro del ACP?",

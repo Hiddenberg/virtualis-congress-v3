@@ -1,15 +1,6 @@
 "use client";
 
-import {
-   AlertCircle,
-   ArrowLeft,
-   Calendar,
-   CheckCircle,
-   Mail,
-   Phone,
-   User,
-   UserPlus,
-} from "lucide-react";
+import { AlertCircle, ArrowLeft, Calendar, CheckCircle, Mail, Phone, User, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -25,13 +16,7 @@ interface FormFieldProps {
    error?: string;
 }
 
-function FormField({
-   label,
-   icon,
-   required = false,
-   children,
-   error,
-}: FormFieldProps) {
+function FormField({ label, icon, required = false, children, error }: FormFieldProps) {
    return (
       <div>
          <label className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
@@ -59,17 +44,10 @@ export default function StaffCreateUserForm() {
    const router = useRouter();
 
    // Validation
-   const nameError =
-      name.trim().length > 0 && name.trim().length < 3
-         ? "El nombre debe tener al menos 3 caracteres"
-         : "";
-   const emailError =
-      email.trim().length > 0 && !/.+@.+\..+/.test(email)
-         ? "Ingresa un correo electrónico válido"
-         : "";
+   const nameError = name.trim().length > 0 && name.trim().length < 3 ? "El nombre debe tener al menos 3 caracteres" : "";
+   const emailError = email.trim().length > 0 && !/.+@.+\..+/.test(email) ? "Ingresa un correo electrónico válido" : "";
 
-   const canSubmit =
-      name.trim().length > 2 && /.+@.+\..+/.test(email) && !isPending;
+   const canSubmit = name.trim().length > 2 && /.+@.+\..+/.test(email) && !isPending;
 
    const onSubmit = () => {
       if (!canSubmit) return;
@@ -106,12 +84,9 @@ export default function StaffCreateUserForm() {
                   Volver al registro manual
                </Link>
 
-               <h1 className="mb-2 font-bold text-gray-900 text-3xl">
-                  Crear Nuevo Usuario
-               </h1>
+               <h1 className="mb-2 font-bold text-gray-900 text-3xl">Crear Nuevo Usuario</h1>
                <p className="text-gray-600 text-lg">
-                  Registra a un asistente en la plataforma para poder confirmar
-                  su pago manualmente
+                  Registra a un asistente en la plataforma para poder confirmar su pago manualmente
                </p>
             </div>
 
@@ -123,12 +98,8 @@ export default function StaffCreateUserForm() {
                         <UserPlus className="text-blue-600" size={20} />
                      </div>
                      <div>
-                        <h2 className="font-semibold text-gray-900 text-lg">
-                           Información del Usuario
-                        </h2>
-                        <p className="text-gray-600 text-sm">
-                           Completa los datos del nuevo asistente
-                        </p>
+                        <h2 className="font-semibold text-gray-900 text-lg">Información del Usuario</h2>
+                        <p className="text-gray-600 text-sm">Completa los datos del nuevo asistente</p>
                      </div>
                   </div>
                </div>
@@ -196,10 +167,7 @@ export default function StaffCreateUserForm() {
                      </h3> */}
 
                      <div className="space-y-4">
-                        <FormField
-                           label="Teléfono"
-                           icon={<Phone size={16} className="text-gray-500" />}
-                        >
+                        <FormField label="Teléfono" icon={<Phone size={16} className="text-gray-500" />}>
                            <input
                               type="tel"
                               value={phoneNumber}
@@ -209,12 +177,7 @@ export default function StaffCreateUserForm() {
                            />
                         </FormField>
 
-                        <FormField
-                           label="Fecha de Nacimiento"
-                           icon={
-                              <Calendar size={16} className="text-gray-500" />
-                           }
-                        >
+                        <FormField label="Fecha de Nacimiento" icon={<Calendar size={16} className="text-gray-500" />}>
                            <input
                               type="date"
                               value={dateOfBirth}
@@ -230,9 +193,7 @@ export default function StaffCreateUserForm() {
                   {canSubmit && (
                      <div className="flex items-center gap-2 bg-green-50 p-4 border border-green-200 rounded-lg">
                         <CheckCircle className="text-green-600" size={16} />
-                        <span className="font-medium text-green-800 text-sm">
-                           Formulario completo y listo para enviar
-                        </span>
+                        <span className="font-medium text-green-800 text-sm">Formulario completo y listo para enviar</span>
                      </div>
                   )}
 
@@ -261,10 +222,7 @@ export default function StaffCreateUserForm() {
 
             {/* Help Text */}
             <div className="mt-6 text-center">
-               <p className="text-gray-500 text-sm">
-                  Una vez creado el usuario, podrás registrar su pago en la
-                  página anterior
-               </p>
+               <p className="text-gray-500 text-sm">Una vez creado el usuario, podrás registrar su pago en la página anterior</p>
             </div>
          </div>
       </div>

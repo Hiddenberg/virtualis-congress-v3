@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface AboutToStartEventTemplateProps {
    userName: string;
@@ -18,28 +7,19 @@ interface AboutToStartEventTemplateProps {
    joinURL: string;
 }
 
-export default function AboutToStartEventTemplate({
-   userName,
-   eventTitle,
-   startTime,
-   joinURL,
-}: AboutToStartEventTemplateProps) {
+export default function AboutToStartEventTemplate({ userName, eventTitle, startTime, joinURL }: AboutToStartEventTemplateProps) {
    return (
       <Html lang="es-MX">
          <Head>
             <title>¡El congreso está por comenzar! - Virtualis Congress</title>
          </Head>
-         <Preview>
-            {eventTitle} comienza pronto - ¡Prepárate para conectarte!
-         </Preview>
+         <Preview>{eventTitle} comienza pronto - ¡Prepárate para conectarte!</Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
@@ -47,22 +27,16 @@ export default function AboutToStartEventTemplate({
                   {/* Alert Message */}
                   <Section style={alertContainerStyle}>
                      <Text style={alertIconStyle}>⏰</Text>
-                     <Heading style={messageTitleStyle}>
-                        ¡Ya casi es hora, {userName}!
-                     </Heading>
+                     <Heading style={messageTitleStyle}>¡Ya casi es hora, {userName}!</Heading>
                      <Text style={alertDescriptionStyle}>
-                        El congreso{" "}
-                        <span style={highlightStyle}>{eventTitle}</span> está
-                        por comenzar. Es momento de prepararte para esta
-                        experiencia educativa única.
+                        El congreso <span style={highlightStyle}>{eventTitle}</span> está por comenzar. Es momento de prepararte
+                        para esta experiencia educativa única.
                      </Text>
                   </Section>
 
                   {/* Event Details */}
                   <Section style={detailsContainerStyle}>
-                     <Heading style={detailsTitleStyle}>
-                        📅 Detalles del evento
-                     </Heading>
+                     <Heading style={detailsTitleStyle}>📅 Detalles del evento</Heading>
 
                      <Section style={detailItemContainerStyle}>
                         <Text style={detailLabelStyle}>Congreso:</Text>
@@ -80,10 +54,7 @@ export default function AboutToStartEventTemplate({
                      <Button href={joinURL} style={ctaButtonStyle}>
                         🚀 Acceder al congreso ahora
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Si el botón no funciona, copia y pega este enlace en tu
-                        navegador:
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Si el botón no funciona, copia y pega este enlace en tu navegador:</Text>
                      <Text style={linkTextStyle}>{joinURL}</Text>
                   </Section>
 
@@ -91,9 +62,7 @@ export default function AboutToStartEventTemplate({
 
                   {/* Quick Tips Section */}
                   <Section style={tipsStyle}>
-                     <Heading style={tipsTitleStyle}>
-                        💡 Consejos para una mejor experiencia
-                     </Heading>
+                     <Heading style={tipsTitleStyle}>💡 Consejos para una mejor experiencia</Heading>
 
                      <Section style={tipsContainerStyle}>
                         <Text style={tipItemStyle}>
@@ -103,14 +72,12 @@ export default function AboutToStartEventTemplate({
 
                         <Text style={tipItemStyle}>
                            <span style={tipBulletStyle}>✓</span>
-                           Asegúrate de tener tus auriculares o audio
-                           funcionando correctamente
+                           Asegúrate de tener tus auriculares o audio funcionando correctamente
                         </Text>
 
                         <Text style={tipItemStyle}>
                            <span style={tipBulletStyle}>✓</span>
-                           Ten a la mano una libreta para tomar notas
-                           importantes
+                           Ten a la mano una libreta para tomar notas importantes
                         </Text>
 
                         <Text style={tipItemStyle}>
@@ -124,18 +91,15 @@ export default function AboutToStartEventTemplate({
                   <Section style={urgencyStyle}>
                      <Text style={urgencyIconStyle}>🔔</Text>
                      <Text style={urgencyTextStyle}>
-                        <strong>No te lo pierdas:</strong> El congreso comenzará
-                        en breve. Te recomendamos acceder a la plataforma ahora
-                        para garantizar que todo esté listo cuando iniciemos.
+                        <strong>No te lo pierdas:</strong> El congreso comenzará en breve. Te recomendamos acceder a la plataforma
+                        ahora para garantizar que todo esté listo cuando iniciemos.
                      </Text>
                   </Section>
                </Section>
 
                {/* Footer */}
                <Section style={footerStyle}>
-                  <Text style={footerTextStyle}>
-                     ¡Nos vemos dentro de unos momentos!
-                  </Text>
+                  <Text style={footerTextStyle}>¡Nos vemos dentro de unos momentos!</Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
                   </Text>
@@ -145,8 +109,7 @@ export default function AboutToStartEventTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -157,8 +120,7 @@ export default function AboutToStartEventTemplate({
 
 // Styles following the consistent pattern from other templates
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

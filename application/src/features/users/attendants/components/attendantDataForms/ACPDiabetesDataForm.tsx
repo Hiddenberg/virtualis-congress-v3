@@ -32,11 +32,7 @@ function BackButton({ onClick }: { onClick: () => void }) {
    );
 }
 
-function IsACPMemberForm({
-   setFormStage,
-}: {
-   setFormStage: (stage: FormStage) => void;
-}) {
+function IsACPMemberForm({ setFormStage }: { setFormStage: (stage: FormStage) => void }) {
    return (
       <div className="mx-auto px-2 sm:px-4 max-w-2xl">
          {/* Header Card */}
@@ -45,12 +41,8 @@ function IsACPMemberForm({
                <div className="flex justify-center items-center bg-blue-50 mx-auto mb-3 sm:mb-4 rounded-full w-14 sm:w-16 h-14 sm:h-16">
                   <UsersIcon className="w-7 sm:w-8 h-7 sm:h-8 text-blue-600" />
                </div>
-               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">
-                  Información de Afiliación
-               </h1>
-               <p className="px-2 text-gray-600 text-sm sm:text-base">
-                  ¿Estás afiliado al ACP?
-               </p>
+               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">Información de Afiliación</h1>
+               <p className="px-2 text-gray-600 text-sm sm:text-base">¿Estás afiliado al ACP?</p>
             </div>
 
             <div className="space-y-3 sm:space-y-4">
@@ -64,12 +56,8 @@ function IsACPMemberForm({
                            <CheckCircleIcon className="w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
                         </div>
                         <div className="flex-1 min-w-0 text-left">
-                           <h3 className="font-semibold text-gray-900 text-base sm:text-lg">
-                              Sí, estoy afiliado
-                           </h3>
-                           <p className="mt-1 text-gray-600 text-xs sm:text-sm">
-                              Verificar ACP ID
-                           </p>
+                           <h3 className="font-semibold text-gray-900 text-base sm:text-lg">Sí, estoy afiliado</h3>
+                           <p className="mt-1 text-gray-600 text-xs sm:text-sm">Verificar ACP ID</p>
                         </div>
                      </div>
                   </button>
@@ -83,12 +71,8 @@ function IsACPMemberForm({
                            <UserIcon className="w-5 sm:w-6 h-5 sm:h-6 text-gray-600" />
                         </div>
                         <div className="flex-1 min-w-0 text-left">
-                           <h3 className="font-semibold text-gray-900 text-base sm:text-lg">
-                              No estoy afiliado
-                           </h3>
-                           <p className="mt-1 text-gray-600 text-xs sm:text-sm">
-                              Continuar como profesional independiente
-                           </p>
+                           <h3 className="font-semibold text-gray-900 text-base sm:text-lg">No estoy afiliado</h3>
+                           <p className="mt-1 text-gray-600 text-xs sm:text-sm">Continuar como profesional independiente</p>
                         </div>
                      </div>
                   </button>
@@ -155,23 +139,16 @@ function ValidateACPIDForm({
                <div className="flex justify-center items-center bg-green-50 mx-auto mb-3 sm:mb-4 rounded-full w-14 sm:w-16 h-14 sm:h-16">
                   <CheckCircleIcon className="w-7 sm:w-8 h-7 sm:h-8 text-green-600" />
                </div>
-               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">
-                  Verificación de Afiliación ACP
-               </h1>
+               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">Verificación de Afiliación ACP</h1>
                <p className="px-2 text-gray-600 text-xs sm:text-sm">
-                  Ingresa tu número de afiliación para verificar tu membresía en
-                  la ACP
+                  Ingresa tu número de afiliación para verificar tu membresía en la ACP
                </p>
             </div>
 
             <div className="space-y-4 sm:space-y-6">
                <div className="space-y-2">
-                  <label
-                     htmlFor="acp-id"
-                     className="block font-medium text-gray-700 text-xs sm:text-sm"
-                  >
-                     Número de Afiliación ACP{" "}
-                     <span className="text-red-500">*</span>
+                  <label htmlFor="acp-id" className="block font-medium text-gray-700 text-xs sm:text-sm">
+                     Número de Afiliación ACP <span className="text-red-500">*</span>
                   </label>
                   <input
                      id="acp-id"
@@ -203,10 +180,7 @@ function ValidateACPIDForm({
                <div className="text-center">
                   <p className="px-2 text-gray-500 text-xs">
                      ¿No recuerdas tu número de afiliación?
-                     <a
-                        href="mailto:soporte@acp.org"
-                        className="ml-1 text-blue-600 hover:text-blue-800 underline"
-                     >
+                     <a href="mailto:soporte@acp.org" className="ml-1 text-blue-600 hover:text-blue-800 underline">
                         Contacta al soporte de ACP
                      </a>
                   </p>
@@ -217,11 +191,7 @@ function ValidateACPIDForm({
    );
 }
 
-function UploadACPIDScreenshotForm({
-   setFormStage,
-}: {
-   setFormStage: (stage: FormStage) => void;
-}) {
+function UploadACPIDScreenshotForm({ setFormStage }: { setFormStage: (stage: FormStage) => void }) {
    const [isSubmitting, startTransition] = useTransition();
    const [selectedFile, setSelectedFile] = useState<File | null>(null);
    const [dragActive, setDragActive] = useState(false);
@@ -229,17 +199,14 @@ function UploadACPIDScreenshotForm({
    const handleUploadACPIScreenshot = () => {
       startTransition(async () => {
          if (!selectedFile) {
-            toast.error(
-               "Por favor sube una imagen de tu certificado de afiliación",
-            );
+            toast.error("Por favor sube una imagen de tu certificado de afiliación");
             return;
          }
 
-         const uploadACPIScreenshotResponse =
-            await uploadAttendantCredentialFileAction({
-               fileType: "ACP Certificate",
-               file: selectedFile,
-            });
+         const uploadACPIScreenshotResponse = await uploadAttendantCredentialFileAction({
+            fileType: "ACP Certificate",
+            file: selectedFile,
+         });
 
          if (!uploadACPIScreenshotResponse.success) {
             toast.error(uploadACPIScreenshotResponse.errorMessage);
@@ -307,12 +274,9 @@ function UploadACPIDScreenshotForm({
                <div className="flex justify-center items-center bg-amber-50 mx-auto mb-3 sm:mb-4 rounded-full w-14 sm:w-16 h-14 sm:h-16">
                   <UploadIcon className="w-7 sm:w-8 h-7 sm:h-8 text-amber-600" />
                </div>
-               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">
-                  Confirmación de Afiliación
-               </h1>
+               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">Confirmación de Afiliación</h1>
                <p className="px-2 text-gray-600 text-xs sm:text-sm">
-                  Tu <strong>ACP ID</strong> no aparece en nuestra base de
-                  datos.
+                  Tu <strong>ACP ID</strong> no aparece en nuestra base de datos.
                </p>
                <p className="px-2 text-gray-600 text-xs sm:text-sm">
                   Por favor sube una captura donde aparezca tu nombre y ACP ID.
@@ -327,16 +291,9 @@ function UploadACPIDScreenshotForm({
                </h3>
                <div className="space-y-1.5 sm:space-y-2">
                   {steps.map((step, index) => (
-                     <div
-                        key={index}
-                        className="flex items-start gap-2 sm:gap-3"
-                     >
-                        <span className="flex-shrink-0 mt-0.5 text-base sm:text-lg">
-                           {step.icon}
-                        </span>
-                        <span className="text-blue-800 text-xs sm:text-sm">
-                           {step.text}
-                        </span>
+                     <div key={index} className="flex items-start gap-2 sm:gap-3">
+                        <span className="flex-shrink-0 mt-0.5 text-base sm:text-lg">{step.icon}</span>
+                        <span className="text-blue-800 text-xs sm:text-sm">{step.text}</span>
                      </div>
                   ))}
                </div>
@@ -345,11 +302,7 @@ function UploadACPIDScreenshotForm({
                   <strong>Ejemplo:</strong>
                </p>
                <div className="bg-white mt-3 sm:mt-4 p-2 sm:p-3 border border-blue-200 rounded-lg">
-                  <img
-                     src={exampleScreenshotURL}
-                     alt="Ejemplo de captura"
-                     className="rounded-lg w-full h-auto"
-                  />
+                  <img src={exampleScreenshotURL} alt="Ejemplo de captura" className="rounded-lg w-full h-auto" />
                </div>
                <div className="bg-white mt-3 sm:mt-4 p-2 sm:p-3 border border-blue-200 rounded-lg">
                   <p className="text-blue-700 text-xs break-words">
@@ -396,12 +349,9 @@ function UploadACPIDScreenshotForm({
                               <CheckCircleIcon className="w-5 sm:w-6 h-5 sm:h-6 text-green-600" />
                            </div>
                            <div>
-                              <p className="font-medium text-green-800 text-sm sm:text-base break-words">
-                                 {selectedFile.name}
-                              </p>
+                              <p className="font-medium text-green-800 text-sm sm:text-base break-words">{selectedFile.name}</p>
                               <p className="text-green-600 text-xs sm:text-sm">
-                                 {(selectedFile.size / 1024 / 1024).toFixed(2)}{" "}
-                                 MB
+                                 {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                               </p>
                            </div>
                         </>
@@ -412,12 +362,9 @@ function UploadACPIDScreenshotForm({
                            </div>
                            <div>
                               <p className="px-2 font-medium text-gray-900 text-sm sm:text-base">
-                                 Arrastra tu captura aquí o haz clic para
-                                 seleccionar la imagen
+                                 Arrastra tu captura aquí o haz clic para seleccionar la imagen
                               </p>
-                              <p className="mt-1 text-gray-500 text-xs sm:text-sm">
-                                 PNG, JPG, PDF hasta 10MB
-                              </p>
+                              <p className="mt-1 text-gray-500 text-xs sm:text-sm">PNG, JPG, PDF hasta 10MB</p>
                            </div>
                         </>
                      )}
@@ -447,9 +394,7 @@ function SelectACPAffiliatedRoleForm({
    acpID: string | null;
 }) {
    const [isSubmitting, startTransition] = useTransition();
-   const [selectedRole, setSelectedRole] = useState<
-      "student" | "doctor" | null
-   >(null);
+   const [selectedRole, setSelectedRole] = useState<"student" | "doctor" | null>(null);
 
    const handleGetAffiliatedRolePrice = () => {
       startTransition(async () => {
@@ -459,16 +404,13 @@ function SelectACPAffiliatedRoleForm({
          }
 
          // Save the attendant data with the selected role and ACP ID
-         const attendantDataResponse =
-            await createAttendantAdditionalDataAction<ACPDiabetesAdditionalAttendantData>(
-               {
-                  additionalData: {
-                     acpID: acpID ?? undefined,
-                     isACPMember: true,
-                     medicalRole: selectedRole,
-                  },
-               },
-            );
+         const attendantDataResponse = await createAttendantAdditionalDataAction<ACPDiabetesAdditionalAttendantData>({
+            additionalData: {
+               acpID: acpID ?? undefined,
+               isACPMember: true,
+               medicalRole: selectedRole,
+            },
+         });
 
          if (!attendantDataResponse.success) {
             toast.error(attendantDataResponse.errorMessage);
@@ -485,12 +427,10 @@ function SelectACPAffiliatedRoleForm({
 
          // if the attendant is a doctor get the checkout link for the doctor role
          if (selectedRole === "doctor") {
-            const checkoutLinkResponse = await getACPDiabetesCheckoutLinkAction(
-               {
-                  priceMXN: 500,
-                  description: "Precio con membresía ACP",
-               },
-            );
+            const checkoutLinkResponse = await getACPDiabetesCheckoutLinkAction({
+               priceMXN: 500,
+               description: "Precio con membresía ACP",
+            });
 
             if (!checkoutLinkResponse.success) {
                toast.error(checkoutLinkResponse.errorMessage);
@@ -535,14 +475,10 @@ function SelectACPAffiliatedRoleForm({
                <div className="flex justify-center items-center bg-green-50 mx-auto mb-3 sm:mb-4 rounded-full w-14 sm:w-16 h-14 sm:h-16">
                   <CheckCircleIcon className="w-7 sm:w-8 h-7 sm:h-8 text-green-600" />
                </div>
-               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">
-                  ¡Verificación Exitosa!
-               </h1>
+               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">¡Verificación Exitosa!</h1>
                <p className="px-2 text-gray-600 text-xs sm:text-sm">
-                  Tu número ACP{" "}
-                  <span className="font-semibold text-green-600">{acpID}</span>{" "}
-                  ha sido verificado correctamente. Por favor selecciona tu rol
-                  médico para continuar.
+                  Tu número ACP <span className="font-semibold text-green-600">{acpID}</span> ha sido verificado correctamente.
+                  Por favor selecciona tu rol médico para continuar.
                </p>
             </div>
 
@@ -564,49 +500,31 @@ function SelectACPAffiliatedRoleForm({
                         <div className="flex items-center gap-3 sm:gap-4">
                            <div
                               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                 isSelected
-                                    ? "bg-green-100"
-                                    : "bg-gray-100 group-hover:bg-gray-200"
+                                 isSelected ? "bg-green-100" : "bg-gray-100 group-hover:bg-gray-200"
                               } transition-colors`}
                            >
                               <IconComponent
-                                 className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                                    isSelected
-                                       ? "text-green-600"
-                                       : "text-gray-600"
-                                 }`}
+                                 className={`w-5 h-5 sm:w-6 sm:h-6 ${isSelected ? "text-green-600" : "text-gray-600"}`}
                               />
                            </div>
                            <div className="flex-1 min-w-0 text-left">
                               <h3
                                  className={`font-semibold text-sm sm:text-base md:text-lg ${
-                                    isSelected
-                                       ? "text-green-900"
-                                       : "text-gray-900"
+                                    isSelected ? "text-green-900" : "text-gray-900"
                                  }`}
                               >
                                  {role.title}
                               </h3>
-                              <p
-                                 className={`text-xs sm:text-sm mt-1 ${
-                                    isSelected
-                                       ? "text-green-700"
-                                       : "text-gray-600"
-                                 }`}
-                              >
+                              <p className={`text-xs sm:text-sm mt-1 ${isSelected ? "text-green-700" : "text-gray-600"}`}>
                                  {role.description}
                               </p>
                            </div>
                            <div
                               className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                                 isSelected
-                                    ? "border-green-400 bg-green-400"
-                                    : "border-gray-300"
+                                 isSelected ? "border-green-400 bg-green-400" : "border-gray-300"
                               }`}
                            >
-                              {isSelected && (
-                                 <div className="bg-white rounded-full w-1.5 sm:w-2 h-1.5 sm:h-2" />
-                              )}
+                              {isSelected && <div className="bg-white rounded-full w-1.5 sm:w-2 h-1.5 sm:h-2" />}
                            </div>
                         </div>
                      </button>
@@ -625,23 +543,15 @@ function SelectACPAffiliatedRoleForm({
             </Button>
 
             <div className="mt-3 sm:mt-4 text-center">
-               <p className="px-2 text-gray-500 text-xs">
-                  Los precios pueden variar según tu rol médico y membresía ACP
-               </p>
+               <p className="px-2 text-gray-500 text-xs">Los precios pueden variar según tu rol médico y membresía ACP</p>
             </div>
          </div>
       </div>
    );
 }
 
-function SelectNoAffiliatedRoleForm({
-   setFormStage,
-}: {
-   setFormStage: (stage: FormStage) => void;
-}) {
-   const [selectedRole, setSelectedRole] = useState<
-      "nurse" | "student" | "doctor" | null
-   >(null);
+function SelectNoAffiliatedRoleForm({ setFormStage }: { setFormStage: (stage: FormStage) => void }) {
+   const [selectedRole, setSelectedRole] = useState<"nurse" | "student" | "doctor" | null>(null);
    const [isSubmitting, startTransition] = useTransition();
 
    const handleGetNonAffiliatedRolePrice = async () => {
@@ -652,15 +562,12 @@ function SelectNoAffiliatedRoleForm({
          }
 
          // Save the attendant data with the selected role and no ACP ID
-         const attendantDataResponse =
-            await createAttendantAdditionalDataAction<ACPDiabetesAdditionalAttendantData>(
-               {
-                  additionalData: {
-                     isACPMember: false,
-                     medicalRole: selectedRole,
-                  },
-               },
-            );
+         const attendantDataResponse = await createAttendantAdditionalDataAction<ACPDiabetesAdditionalAttendantData>({
+            additionalData: {
+               isACPMember: false,
+               medicalRole: selectedRole,
+            },
+         });
 
          if (!attendantDataResponse.success) {
             toast.error(attendantDataResponse.errorMessage);
@@ -670,12 +577,10 @@ function SelectNoAffiliatedRoleForm({
          toast.success("Datos guardados correctamente");
          // TODO: Add action to get non affiliated role checkout link
          if (selectedRole === "doctor") {
-            const checkoutLinkResponse = await getACPDiabetesCheckoutLinkAction(
-               {
-                  priceMXN: 700,
-                  description: "Precio sin membresía ACP",
-               },
-            );
+            const checkoutLinkResponse = await getACPDiabetesCheckoutLinkAction({
+               priceMXN: 700,
+               description: "Precio sin membresía ACP",
+            });
 
             if (!checkoutLinkResponse.success) {
                toast.error(checkoutLinkResponse.errorMessage);
@@ -687,20 +592,17 @@ function SelectNoAffiliatedRoleForm({
          }
 
          if (selectedRole === "student" || selectedRole === "nurse") {
-            const studentRoleCheckoutLinkResponse =
-               await getACPDiabetesCheckoutLinkAction({
-                  priceMXN: 400,
-                  description:
-                     "Precio estudiante/residente o enfermero/enfermera sin membresía ACP",
-               });
+            const studentRoleCheckoutLinkResponse = await getACPDiabetesCheckoutLinkAction({
+               priceMXN: 400,
+               description: "Precio estudiante/residente o enfermero/enfermera sin membresía ACP",
+            });
 
             if (!studentRoleCheckoutLinkResponse.success) {
                toast.error(studentRoleCheckoutLinkResponse.errorMessage);
                return;
             }
 
-            window.location.href =
-               studentRoleCheckoutLinkResponse.data.checkoutLink;
+            window.location.href = studentRoleCheckoutLinkResponse.data.checkoutLink;
             return;
          }
 
@@ -744,12 +646,9 @@ function SelectNoAffiliatedRoleForm({
                <div className="flex justify-center items-center bg-purple-50 mx-auto mb-3 sm:mb-4 rounded-full w-14 sm:w-16 h-14 sm:h-16">
                   <UserIcon className="w-7 sm:w-8 h-7 sm:h-8 text-purple-600" />
                </div>
-               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">
-                  Información Profesional
-               </h1>
+               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">Información Profesional</h1>
                <p className="px-2 text-gray-600 text-xs sm:text-sm">
-                  Selecciona tu rol médico para continuar con el proceso de
-                  registro
+                  Selecciona tu rol médico para continuar con el proceso de registro
                </p>
             </div>
 
@@ -771,49 +670,31 @@ function SelectNoAffiliatedRoleForm({
                         <div className="flex items-center gap-3 sm:gap-4">
                            <div
                               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                 isSelected
-                                    ? "bg-purple-100"
-                                    : "bg-gray-100 group-hover:bg-gray-200"
+                                 isSelected ? "bg-purple-100" : "bg-gray-100 group-hover:bg-gray-200"
                               } transition-colors`}
                            >
                               <IconComponent
-                                 className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                                    isSelected
-                                       ? "text-purple-600"
-                                       : "text-gray-600"
-                                 }`}
+                                 className={`w-5 h-5 sm:w-6 sm:h-6 ${isSelected ? "text-purple-600" : "text-gray-600"}`}
                               />
                            </div>
                            <div className="flex-1 min-w-0 text-left">
                               <h3
                                  className={`font-semibold text-sm sm:text-base md:text-lg ${
-                                    isSelected
-                                       ? "text-purple-900"
-                                       : "text-gray-900"
+                                    isSelected ? "text-purple-900" : "text-gray-900"
                                  }`}
                               >
                                  {role.title}
                               </h3>
-                              <p
-                                 className={`text-xs sm:text-sm mt-1 ${
-                                    isSelected
-                                       ? "text-purple-700"
-                                       : "text-gray-600"
-                                 }`}
-                              >
+                              <p className={`text-xs sm:text-sm mt-1 ${isSelected ? "text-purple-700" : "text-gray-600"}`}>
                                  {role.description}
                               </p>
                            </div>
                            <div
                               className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-                                 isSelected
-                                    ? "border-purple-400 bg-purple-400"
-                                    : "border-gray-300"
+                                 isSelected ? "border-purple-400 bg-purple-400" : "border-gray-300"
                               }`}
                            >
-                              {isSelected && (
-                                 <div className="bg-white rounded-full w-1.5 sm:w-2 h-1.5 sm:h-2" />
-                              )}
+                              {isSelected && <div className="bg-white rounded-full w-1.5 sm:w-2 h-1.5 sm:h-2" />}
                            </div>
                         </div>
                      </button>
@@ -832,20 +713,14 @@ function SelectNoAffiliatedRoleForm({
             </Button>
 
             <div className="mt-3 sm:mt-4 text-center">
-               <p className="px-2 text-gray-500 text-xs">
-                  Continuarás al proceso de pago después de seleccionar tu rol
-               </p>
+               <p className="px-2 text-gray-500 text-xs">Continuarás al proceso de pago después de seleccionar tu rol</p>
             </div>
          </div>
       </div>
    );
 }
 
-function UploadStudentProofForm({
-   setFormStage,
-}: {
-   setFormStage: (stage: FormStage) => void;
-}) {
+function UploadStudentProofForm({ setFormStage }: { setFormStage: (stage: FormStage) => void }) {
    const [isSubmitting, startTransition] = useTransition();
    const [selectedFile, setSelectedFile] = useState<File | null>(null);
    const [dragActive, setDragActive] = useState(false);
@@ -853,17 +728,14 @@ function UploadStudentProofForm({
    const handleUploadACPIScreenshot = () => {
       startTransition(async () => {
          if (!selectedFile) {
-            toast.error(
-               "Por favor sube una imagen de tu comprobante de estudiante o residente",
-            );
+            toast.error("Por favor sube una imagen de tu comprobante de estudiante o residente");
             return;
          }
 
-         const uploadACPIScreenshotResponse =
-            await uploadAttendantCredentialFileAction({
-               fileType: "Comprobante Estudiante / Residente",
-               file: selectedFile,
-            });
+         const uploadACPIScreenshotResponse = await uploadAttendantCredentialFileAction({
+            fileType: "Comprobante Estudiante / Residente",
+            file: selectedFile,
+         });
 
          if (!uploadACPIScreenshotResponse.success) {
             toast.error(uploadACPIScreenshotResponse.errorMessage);
@@ -917,21 +789,16 @@ function UploadStudentProofForm({
       <div className="mx-auto px-2 sm:px-4 max-w-2xl">
          <div className="bg-white shadow-lg p-4 sm:p-6 md:p-8 border border-gray-100 rounded-xl sm:rounded-2xl">
             <div className="mb-4 sm:mb-6">
-               <BackButton
-                  onClick={() => setFormStage("select_acp_affiliated_role")}
-               />
+               <BackButton onClick={() => setFormStage("select_acp_affiliated_role")} />
             </div>
 
             <div className="mb-4 sm:mb-6 md:mb-8 text-center">
                <div className="flex justify-center items-center bg-amber-50 mx-auto mb-3 sm:mb-4 rounded-full w-14 sm:w-16 h-14 sm:h-16">
                   <UploadIcon className="w-7 sm:w-8 h-7 sm:h-8 text-amber-600" />
                </div>
-               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">
-                  Subir comprobante
-               </h1>
+               <h1 className="mb-2 px-2 font-bold text-gray-900 text-xl sm:text-2xl">Subir comprobante</h1>
                <p className="px-2 text-gray-600 text-xs sm:text-sm">
-                  Por favor sube tu comprobante de estudiante o residente, este
-                  será verificado.
+                  Por favor sube tu comprobante de estudiante o residente, este será verificado.
                </p>
             </div>
 
@@ -965,12 +832,9 @@ function UploadStudentProofForm({
                               <CheckCircleIcon className="w-5 sm:w-6 h-5 sm:h-6 text-green-600" />
                            </div>
                            <div>
-                              <p className="font-medium text-green-800 text-sm sm:text-base break-words">
-                                 {selectedFile.name}
-                              </p>
+                              <p className="font-medium text-green-800 text-sm sm:text-base break-words">{selectedFile.name}</p>
                               <p className="text-green-600 text-xs sm:text-sm">
-                                 {(selectedFile.size / 1024 / 1024).toFixed(2)}{" "}
-                                 MB
+                                 {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                               </p>
                            </div>
                         </>
@@ -981,12 +845,9 @@ function UploadStudentProofForm({
                            </div>
                            <div>
                               <p className="px-2 font-medium text-gray-900 text-sm sm:text-base">
-                                 Arrastra tu certificado aquí o haz clic para
-                                 seleccionar
+                                 Arrastra tu certificado aquí o haz clic para seleccionar
                               </p>
-                              <p className="mt-1 text-gray-500 text-xs sm:text-sm">
-                                 PNG, JPG, PDF hasta 10MB
-                              </p>
+                              <p className="mt-1 text-gray-500 text-xs sm:text-sm">PNG, JPG, PDF hasta 10MB</p>
                            </div>
                         </>
                      )}
@@ -1000,9 +861,7 @@ function UploadStudentProofForm({
                   className="!px-4 sm:!px-6 !py-2.5 sm:!py-3 w-full !font-semibold !text-sm sm:!text-base"
                   variant="primary"
                >
-                  {isSubmitting
-                     ? "Subiendo comprobante..."
-                     : "Subir comprobante"}
+                  {isSubmitting ? "Subiendo comprobante..." : "Subir comprobante"}
                </Button>
             </div>
          </div>
@@ -1022,28 +881,11 @@ export default function ACPDiabetesDataForm() {
 
    const formStagesMap: Record<FormStage, React.ReactNode> = {
       is_acp_member: <IsACPMemberForm setFormStage={setFormStage} />,
-      validate_acp_id: (
-         <ValidateACPIDForm
-            setFormStage={setFormStage}
-            acpID={acpID}
-            setACPID={setACPID}
-         />
-      ),
-      upload_acp_screenshot: (
-         <UploadACPIDScreenshotForm setFormStage={setFormStage} />
-      ),
-      select_acp_affiliated_role: (
-         <SelectACPAffiliatedRoleForm
-            setFormStage={setFormStage}
-            acpID={acpID}
-         />
-      ),
-      upload_student_proof: (
-         <UploadStudentProofForm setFormStage={setFormStage} />
-      ),
-      select_no_affiliated_role: (
-         <SelectNoAffiliatedRoleForm setFormStage={setFormStage} />
-      ),
+      validate_acp_id: <ValidateACPIDForm setFormStage={setFormStage} acpID={acpID} setACPID={setACPID} />,
+      upload_acp_screenshot: <UploadACPIDScreenshotForm setFormStage={setFormStage} />,
+      select_acp_affiliated_role: <SelectACPAffiliatedRoleForm setFormStage={setFormStage} acpID={acpID} />,
+      upload_student_proof: <UploadStudentProofForm setFormStage={setFormStage} />,
+      select_no_affiliated_role: <SelectNoAffiliatedRoleForm setFormStage={setFormStage} />,
    };
 
    const formStageComponent = formStagesMap[formStage];

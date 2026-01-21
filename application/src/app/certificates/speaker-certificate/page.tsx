@@ -21,9 +21,7 @@ export default async function SpeakerCertificatePage() {
    return (
       <div>
          <div className="mb-8">
-            <h1 className="font-semibold text-gray-800 text-2xl">
-               Tus certificados actuales
-            </h1>
+            <h1 className="font-semibold text-gray-800 text-2xl">Tus certificados actuales</h1>
 
             <span className="mb-4 font-semibold text-red-600 text-sm">
                Nota: Tu nombre puede parecer descuadrado en la imagen de abajo.
@@ -32,9 +30,7 @@ export default async function SpeakerCertificatePage() {
             </span>
          </div>
 
-         <CreateSpeakerCertificateForm
-            speakerCertificateDesign={speakerCertificateDesign}
-         />
+         <CreateSpeakerCertificateForm speakerCertificateDesign={speakerCertificateDesign} />
          <CertificatesListSection />
       </div>
    );

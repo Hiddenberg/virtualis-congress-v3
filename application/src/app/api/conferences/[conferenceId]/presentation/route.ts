@@ -4,10 +4,7 @@ import {
    unlinkPresentationFromConference,
 } from "@/features/conferences/services/conferencePresentationsServices";
 
-export async function POST(
-   _req: NextRequest,
-   { params }: { params: Promise<{ conferenceId: string }> },
-) {
+export async function POST(_req: NextRequest, { params }: { params: Promise<{ conferenceId: string }> }) {
    try {
       const { conferenceId } = await params;
       const body = await _req.json();
@@ -31,10 +28,7 @@ export async function POST(
          data: null,
       });
    } catch (error) {
-      const message =
-         error instanceof Error
-            ? error.message
-            : "Error al vincular presentación";
+      const message = error instanceof Error ? error.message : "Error al vincular presentación";
       return NextResponse.json(
          {
             success: false,
@@ -47,10 +41,7 @@ export async function POST(
    }
 }
 
-export async function DELETE(
-   _req: NextRequest,
-   { params }: { params: Promise<{ conferenceId: string }> },
-) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ conferenceId: string }> }) {
    try {
       const { conferenceId } = await params;
       if (!conferenceId) {
@@ -71,10 +62,7 @@ export async function DELETE(
          data: null,
       });
    } catch (error) {
-      const message =
-         error instanceof Error
-            ? error.message
-            : "Error al desvincular presentación";
+      const message = error instanceof Error ? error.message : "Error al desvincular presentación";
       return NextResponse.json(
          {
             success: false,

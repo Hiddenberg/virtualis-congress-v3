@@ -55,27 +55,17 @@ export default function RecordingActions({
          {showMoreActions && (
             <div className="top-full right-0 z-10 absolute bg-white shadow-lg mt-2 border border-gray-200 rounded-lg w-64">
                <div className="space-y-2 p-3">
-                  <span className="text-gray-600 text-sm">
-                     Id: {recording.id}
-                  </span>
+                  <span className="text-gray-600 text-sm">Id: {recording.id}</span>
 
                   {/* Upload Video Section */}
-                  {recording.status !== "processing" &&
-                     !recording.muxPlaybackId && (
-                        <LinkButton
-                           variant="blue"
-                           href={`/recordings/recording/${recording.id}/upload-video`}
-                        >
-                           <UploadIcon className="size-4" />
-                           Subir video
-                        </LinkButton>
-                     )}
+                  {recording.status !== "processing" && !recording.muxPlaybackId && (
+                     <LinkButton variant="blue" href={`/recordings/recording/${recording.id}/upload-video`}>
+                        <UploadIcon className="size-4" />
+                        Subir video
+                     </LinkButton>
+                  )}
 
-                  <LinkButton
-                     href={`/recordings/record/${recording.id}/review`}
-                     variant="blue"
-                     className="w-full text-sm"
-                  >
+                  <LinkButton href={`/recordings/record/${recording.id}/review`} variant="blue" className="w-full text-sm">
                      <EyeIcon className="size-4" />
                      Ir a revisión
                   </LinkButton>
@@ -91,12 +81,7 @@ export default function RecordingActions({
          )}
 
          {/* Click Outside to Close */}
-         {showMoreActions && (
-            <div
-               className="z-[5] fixed inset-0"
-               onClick={() => setShowMoreActions(false)}
-            />
-         )}
+         {showMoreActions && <div className="z-[5] fixed inset-0" onClick={() => setShowMoreActions(false)} />}
       </div>
    );
 }

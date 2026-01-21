@@ -20,13 +20,8 @@ export default async function NewCertificate() {
    return (
       <div className="mx-auto max-w-3xl">
          <div className="mb-8">
-            <h1 className="mt-4 font-semibold text-gray-800 text-3xl">
-               Configura tu nombre en certificados
-            </h1>
-            <p className="mt-2 text-gray-600">
-               Personaliza cómo aparecerá tu nombre en todos los certificados
-               que obtengas.
-            </p>
+            <h1 className="mt-4 font-semibold text-gray-800 text-3xl">Configura tu nombre en certificados</h1>
+            <p className="mt-2 text-gray-600">Personaliza cómo aparecerá tu nombre en todos los certificados que obtengas.</p>
          </div>
 
          <CertificatesNameForm />

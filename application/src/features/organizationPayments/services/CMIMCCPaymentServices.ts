@@ -12,10 +12,7 @@ export async function getCMIMCCStripeProducts() {
       throw new Error("Stripe credentials not found");
    }
 
-   const CMIMCCStripeProducts =
-      stripeCredentials.environment === "production"
-         ? stripeProductsProd
-         : stripeProductsDev;
+   const CMIMCCStripeProducts = stripeCredentials.environment === "production" ? stripeProductsProd : stripeProductsDev;
 
    return CMIMCCStripeProducts;
 }

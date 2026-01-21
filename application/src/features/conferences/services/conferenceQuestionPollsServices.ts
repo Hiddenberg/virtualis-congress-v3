@@ -1,13 +1,7 @@
 import "server-only";
 
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   deleteDBRecord,
-   getFullDBRecordsList,
-   getSingleDBRecord,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 
 export async function linkQuestionPollToConference(
    conferenceId: CongressConferenceRecord["id"],
@@ -18,14 +12,11 @@ export async function linkQuestionPollToConference(
    const existing = await getConferenceQuestionPollRecord(conferenceId, pollId);
    if (existing) return existing;
 
-   const record = await createDBRecord<ConferenceQuestionPoll>(
-      "CONFERENCE_QUESTION_POLLS",
-      {
-         organization: organization.id,
-         conference: conferenceId,
-         questionPoll: pollId,
-      },
-   );
+   const record = await createDBRecord<ConferenceQuestionPoll>("CONFERENCE_QUESTION_POLLS", {
+      organization: organization.id,
+      conference: conferenceId,
+      questionPoll: pollId,
+   });
 
    return record;
 }
@@ -49,16 +40,11 @@ export async function getConferenceQuestionPollRecord(
       },
    );
 
-   const record = await getSingleDBRecord<ConferenceQuestionPoll>(
-      "CONFERENCE_QUESTION_POLLS",
-      filter,
-   );
+   const record = await getSingleDBRecord<ConferenceQuestionPoll>("CONFERENCE_QUESTION_POLLS", filter);
    return record;
 }
 
-export async function getConferenceQuestionPollRecords(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function getConferenceQuestionPollRecords(conferenceId: CongressConferenceRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -85,21 +71,14 @@ export async function getConferenceQuestionPollRecords(
    return records;
 }
 
-export async function getAllQuestionPollsForConference(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function getAllQuestionPollsForConference(conferenceId: CongressConferenceRecord["id"]) {
    const records = await getConferenceQuestionPollRecords(conferenceId);
    return records.map((record) => record.expand.questionPoll);
 }
 
-export async function getActiveQuestionPollForConference(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function getActiveQuestionPollForConference(conferenceId: CongressConferenceRecord["id"]) {
    const questionPolls = await getAllQuestionPollsForConference(conferenceId);
-   return (
-      questionPolls.find((questionPoll) => questionPoll.status === "active") ??
-      null
-   );
+   return questionPolls.find((questionPoll) => questionPoll.status === "active") ?? null;
 }
 
 export async function unlinkQuestionPollFromConference(

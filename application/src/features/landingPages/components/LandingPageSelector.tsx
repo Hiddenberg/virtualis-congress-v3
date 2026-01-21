@@ -3,11 +3,7 @@ import ACPLandingPage from "./organizationLandingPages/ACPDiabetesLandingPage";
 import CMIMChiapasLandingPage from "./organizationLandingPages/CMIMChiapasLandingPage";
 import GeaLandingPage from "./organizationLandingPages/GeaLandingPage";
 
-export default function LandingPageSelector({
-   organization,
-}: {
-   organization: OrganizationRecord;
-}) {
+export default function LandingPageSelector({ organization }: { organization: OrganizationRecord }) {
    const landingPagesMap: Record<string, React.ReactNode> = {
       CMIMCC: <CMIMChiapasLandingPage organization={organization} />,
       "ACP-MX": <ACPLandingPage />,

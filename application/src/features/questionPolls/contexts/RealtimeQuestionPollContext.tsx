@@ -1,13 +1,7 @@
 "use client";
 
 import type { UnsubscribeFunc } from "pocketbase";
-import {
-   createContext,
-   type ReactNode,
-   useContext,
-   useEffect,
-   useState,
-} from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
 import pbClient from "@/libs/pbClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
@@ -17,8 +11,7 @@ interface RealtimeQuestionPollContextType {
    questionPollAnswers: QuestionPollAnswerRecord[];
 }
 
-const realtimeQuestionPollContext =
-   createContext<RealtimeQuestionPollContextType | null>(null);
+const realtimeQuestionPollContext = createContext<RealtimeQuestionPollContextType | null>(null);
 
 interface RealtimeQuestionPollContextProviderProps {
    initialQuestionPoll: QuestionPollRecord;
@@ -33,14 +26,9 @@ export const RealtimeQuestionPollContextProvider = ({
    initialQuestionPollAnswers,
    children,
 }: RealtimeQuestionPollContextProviderProps) => {
-   const [questionPoll, setQuestionPoll] =
-      useState<QuestionPollRecord>(initialQuestionPoll);
-   const [questionPollOptions, setQuestionPollOptions] = useState<
-      QuestionPollOptionRecord[]
-   >(initialQuestionPollOptions);
-   const [questionPollAnswers, setQuestionPollAnswers] = useState<
-      QuestionPollAnswerRecord[]
-   >(initialQuestionPollAnswers);
+   const [questionPoll, setQuestionPoll] = useState<QuestionPollRecord>(initialQuestionPoll);
+   const [questionPollOptions, setQuestionPollOptions] = useState<QuestionPollOptionRecord[]>(initialQuestionPollOptions);
+   const [questionPollAnswers, setQuestionPollAnswers] = useState<QuestionPollAnswerRecord[]>(initialQuestionPollAnswers);
 
    useEffect(() => {
       let aborted = false;
@@ -92,22 +80,13 @@ export const RealtimeQuestionPollContextProvider = ({
                   "*",
                   (event) => {
                      if (event.action === "create") {
-                        console.log(
-                           "create question poll answer",
-                           event.record,
-                        );
+                        console.log("create question poll answer", event.record);
                         const updatedQuestionPollAnswer = event.record;
-                        setQuestionPollAnswers((prevAnswers) => [
-                           ...prevAnswers,
-                           updatedQuestionPollAnswer,
-                        ]);
+                        setQuestionPollAnswers((prevAnswers) => [...prevAnswers, updatedQuestionPollAnswer]);
                      } else if (event.action === "delete") {
                         const deletedQuestionPollAnswer = event.record;
                         setQuestionPollAnswers((prevAnswers) =>
-                           prevAnswers.filter(
-                              (answer) =>
-                                 answer.id !== deletedQuestionPollAnswer.id,
-                           ),
+                           prevAnswers.filter((answer) => answer.id !== deletedQuestionPollAnswer.id),
                         );
                      }
                   },
@@ -118,10 +97,7 @@ export const RealtimeQuestionPollContextProvider = ({
             if (aborted) unsubscribeQuestionPollAnswers();
             else unsubscribers.push(unsubscribeQuestionPollAnswers);
          } catch (error) {
-            console.error(
-               "Failed to subscribe to question poll realtime updates",
-               error,
-            );
+            console.error("Failed to subscribe to question poll realtime updates", error);
          }
       };
 
@@ -133,9 +109,7 @@ export const RealtimeQuestionPollContextProvider = ({
             try {
                unsubscribe();
             } catch {
-               console.error(
-                  "Failed to unsubscribe from question poll realtime updates",
-               );
+               console.error("Failed to unsubscribe from question poll realtime updates");
             }
          });
       };
@@ -158,9 +132,7 @@ export function useRealtimeQuestionPoll() {
    const context = useContext(realtimeQuestionPollContext);
 
    if (!context) {
-      throw new Error(
-         "useRealtimeQuestionPoll must be used within a RealtimeQuestionPollContextProvider",
-      );
+      throw new Error("useRealtimeQuestionPoll must be used within a RealtimeQuestionPollContextProvider");
    }
 
    return context;

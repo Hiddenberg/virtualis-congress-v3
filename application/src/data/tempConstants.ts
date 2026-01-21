@@ -9,8 +9,7 @@ export const TEMP_CONSTANTS = {
 export const CMIM_CONFERENCES_DAY_1 = [
    {
       title: "Inauguración",
-      description:
-         "Evento Inaugural del XXIX Congreso Anual de Medicina Interna Costa de Chiapas.",
+      description: "Evento Inaugural del XXIX Congreso Anual de Medicina Interna Costa de Chiapas.",
       speakerName: "",
       startTime: "08:00",
       endTime: "08:30",
@@ -87,8 +86,7 @@ export const CMIM_CONFERENCES_DAY_1 = [
    },
    {
       title: "ACP-Actualidades en Nefrología",
-      description:
-         "Del glomérulo a la clínica: Avances que marcan la diferencia.",
+      description: "Del glomérulo a la clínica: Avances que marcan la diferencia.",
       speakerName: "Dr. Diego Luis Carrillo Pérez",
       startTime: "13:30",
       endTime: "14:00",
@@ -126,8 +124,7 @@ export const CMIM_CONFERENCES_DAY_2 = [
    },
    {
       title: "Actualidades en Hígado Graso",
-      description:
-         "Nuevas rutas en el abordaje del hígado graso: más allá de la esteatosis.",
+      description: "Nuevas rutas en el abordaje del hígado graso: más allá de la esteatosis.",
       speakerName: "Dra. María de Fátima Higuera de la Tijera",
       startTime: "09:00",
       endTime: "09:30",
@@ -197,8 +194,7 @@ export const CMIM_CONFERENCES_DAY_2 = [
    },
    {
       title: "Clausura",
-      description:
-         "Clausura del XXIX Congreso Anual de Medicina Interna Costa de Chiapas.",
+      description: "Clausura del XXIX Congreso Anual de Medicina Interna Costa de Chiapas.",
       speakerName: "",
       startTime: "14:30",
       endTime: "15:00",

@@ -1,19 +1,10 @@
-import {
-   CheckCircle,
-   Clock,
-   Settings,
-   Upload,
-   Video,
-   XCircle,
-} from "lucide-react";
+import { CheckCircle, Clock, Settings, Upload, Video, XCircle } from "lucide-react";
 
 interface RecordingStatusBadgeProps {
    status: SimpleRecording["status"];
 }
 
-export default function RecordingStatusBadge({
-   status,
-}: RecordingStatusBadgeProps) {
+export default function RecordingStatusBadge({ status }: RecordingStatusBadgeProps) {
    const statusConfig = {
       scheduled: {
          label: "Programada",
@@ -63,9 +54,7 @@ export default function RecordingStatusBadge({
    const IconComponent = config.icon;
 
    return (
-      <div
-         className={`${config.className} flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium`}
-      >
+      <div className={`${config.className} flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium`}>
          <IconComponent className="size-3" />
          {config.label}
       </div>

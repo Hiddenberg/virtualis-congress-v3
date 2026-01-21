@@ -2,15 +2,10 @@
 import { LifeBuoyIcon } from "lucide-react";
 import { LinkButton } from "@/components/global/Buttons";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
-import {
-   ORGANIZATION_CONSTANTS,
-   type OrganizationShortId,
-} from "@/features/organizations/data/organizationConstants";
+import { ORGANIZATION_CONSTANTS, type OrganizationShortId } from "@/features/organizations/data/organizationConstants";
 
 function getWhatsappLink(organizationShortID: string, message?: string) {
-   const whatsappLink =
-      ORGANIZATION_CONSTANTS[organizationShortID as OrganizationShortId]
-         ?.WHATSAPP_LINK;
+   const whatsappLink = ORGANIZATION_CONSTANTS[organizationShortID as OrganizationShortId]?.WHATSAPP_LINK;
 
    if (!whatsappLink) {
       return "";
@@ -24,11 +19,7 @@ export default function HelpButton() {
    const whatsappLink = getWhatsappLink(organizationShortID);
 
    if (!whatsappLink) {
-      return (
-         <div className="flex justify-center items-center h-full font-bold text-red-500">
-            Enlace de ayuda no encontrado
-         </div>
-      );
+      return <div className="flex justify-center items-center h-full font-bold text-red-500">Enlace de ayuda no encontrado</div>;
    }
 
    return (

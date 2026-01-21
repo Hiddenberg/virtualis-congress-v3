@@ -10,12 +10,7 @@ interface GoBackButtonProps {
    children?: React.ReactNode;
 }
 
-export default function GoBackButton({
-   className = "",
-   backURL,
-   backButtonText,
-   children,
-}: GoBackButtonProps) {
+export default function GoBackButton({ className = "", backURL, backButtonText, children }: GoBackButtonProps) {
    const router = useRouter();
    const handleGoBack = () => {
       if (backURL) {

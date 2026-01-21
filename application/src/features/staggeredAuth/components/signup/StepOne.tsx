@@ -13,14 +13,7 @@ interface StepOneProps {
    onNext: () => void;
 }
 
-export default function StepOne({
-   email,
-   name,
-   errors,
-   onEmailChange,
-   onNameChange,
-   onNext,
-}: StepOneProps) {
+export default function StepOne({ email, name, errors, onEmailChange, onNameChange, onNext }: StepOneProps) {
    return (
       <div className="space-y-8">
          <InputField

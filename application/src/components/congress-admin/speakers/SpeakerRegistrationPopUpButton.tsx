@@ -5,13 +5,7 @@ import { Button } from "@/components/global/Buttons";
 import PopUp from "@/components/global/PopUp";
 import AdminSpeakerRegistrationForm from "./AdminSpeakerRegistrationForm";
 
-function SpeakerRegistrationPopUp({
-   isOpen,
-   setIsOpen,
-}: {
-   isOpen: boolean;
-   setIsOpen: (isOpen: boolean) => void;
-}) {
+function SpeakerRegistrationPopUp({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (isOpen: boolean) => void }) {
    if (!isOpen) return null;
 
    return (
@@ -26,9 +20,7 @@ export default function SpeakerRegistrationPopUpButton() {
 
    return (
       <div>
-         <Button onClick={() => setIsOpen(true)}>
-            Registrar nuevo conferencista
-         </Button>
+         <Button onClick={() => setIsOpen(true)}>Registrar nuevo conferencista</Button>
 
          <SpeakerRegistrationPopUp isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>

@@ -21,11 +21,7 @@ import HelpButton from "@/features/userSupport/components/HelpButton";
 import { uploadAttendantCredentialFileAction } from "../../serverActions/attendatCredentialFileActions";
 import { submitCMIMCCAttendantDataAction } from "../../serverActions/CMIMCCAttendantActions";
 
-export type CMIMCCMedicalRoleType =
-   | "specialist"
-   | "general"
-   | "health_professional"
-   | "student/resident";
+export type CMIMCCMedicalRoleType = "specialist" | "general" | "health_professional" | "student/resident";
 
 export interface MedicalRole {
    id: CMIMCCMedicalRoleType;
@@ -41,8 +37,7 @@ export interface MedicalRole {
 }
 
 export default function CMIMCCAttendantDataForm() {
-   const [selectedRole, setSelectedRole] =
-      useState<CMIMCCMedicalRoleType>("specialist");
+   const [selectedRole, setSelectedRole] = useState<CMIMCCMedicalRoleType>("specialist");
    const [selectedFile, setSelectedFile] = useState<File | null>(null);
    const [dragActive, setDragActive] = useState(false);
    const [isSubmitting, startTransition] = useTransition();
@@ -58,8 +53,7 @@ export default function CMIMCCAttendantDataForm() {
          bgColor: "bg-blue-50",
          textColor: "text-blue-600",
          requiresVerification: false,
-         description:
-            "Médicos certificados en especialidades o subespecialidades",
+         description: "Médicos certificados en especialidades o subespecialidades",
       },
       {
          id: "general",
@@ -83,8 +77,7 @@ export default function CMIMCCAttendantDataForm() {
          bgColor: "bg-purple-50",
          textColor: "text-purple-600",
          requiresVerification: true,
-         description:
-            "Enfermeros, nutriólogos, psicólogos, y otros profesionales",
+         description: "Enfermeros, nutriólogos, psicólogos, y otros profesionales",
       },
       {
          id: "student/resident",
@@ -102,9 +95,7 @@ export default function CMIMCCAttendantDataForm() {
 
    const router = useRouter();
 
-   const selectedRoleData = medicalRoles.find(
-      (role) => role.id === selectedRole,
-   );
+   const selectedRoleData = medicalRoles.find((role) => role.id === selectedRole);
 
    const handleFileSelected = (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
@@ -179,9 +170,7 @@ export default function CMIMCCAttendantDataForm() {
       <div className="space-y-4 sm:space-y-6 md:space-y-8 mx-auto p-3 sm:p-4 md:p-6 max-w-4xl">
          {/* Header */}
          <div className="text-center">
-            <h1 className="mb-2 sm:mb-3 md:mb-4 font-bold text-gray-800 text-2xl sm:text-3xl px-2">
-               Información de Registro
-            </h1>
+            <h1 className="mb-2 sm:mb-3 md:mb-4 font-bold text-gray-800 text-2xl sm:text-3xl px-2">Información de Registro</h1>
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed px-2">
                Selecciona tu categoría profesional para tu registro al congreso
             </p>
@@ -194,9 +183,7 @@ export default function CMIMCCAttendantDataForm() {
                   <Info className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                </div>
                <div className="flex-1 min-w-0">
-                  <h3 className="mb-2 sm:mb-3 font-bold text-gray-800 text-lg sm:text-xl">
-                     Información sobre Precios
-                  </h3>
+                  <h3 className="mb-2 sm:mb-3 font-bold text-gray-800 text-lg sm:text-xl">Información sobre Precios</h3>
                   <div className="gap-4 sm:gap-6 grid md:grid-cols-2">
                      <div>
                         <h4 className="flex items-center gap-2 mb-2 font-semibold text-gray-700 text-sm sm:text-base">
@@ -204,9 +191,8 @@ export default function CMIMCCAttendantDataForm() {
                            Modalidad Presencial
                         </h4>
                         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                           Los precios mostrados abajo corresponden a la{" "}
-                           <strong>asistencia presencial</strong> al congreso en
-                           el Hotel Holiday Inn Tapachula.
+                           Los precios mostrados abajo corresponden a la <strong>asistencia presencial</strong> al congreso en el
+                           Hotel Holiday Inn Tapachula.
                         </p>
                      </div>
                      <div>
@@ -215,16 +201,14 @@ export default function CMIMCCAttendantDataForm() {
                            Modalidad Virtual
                         </h4>
                         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                           Si eliges asistencia <strong>virtual</strong>, el
-                           precio será de <strong>$1,500 MXN</strong> para todas
+                           Si eliges asistencia <strong>virtual</strong>, el precio será de <strong>$1,500 MXN</strong> para todas
                            las categorías profesionales.
                         </p>
                      </div>
                   </div>
                   <div className="bg-blue-100 mt-3 sm:mt-4 p-2.5 sm:p-3 rounded-lg">
                      <p className="text-blue-800 text-xs sm:text-sm">
-                        💡 <strong>Nota:</strong> Podrás elegir entre modalidad
-                        presencial o virtual en la página de pago.
+                        💡 <strong>Nota:</strong> Podrás elegir entre modalidad presencial o virtual en la página de pago.
                      </p>
                   </div>
                </div>
@@ -242,9 +226,7 @@ export default function CMIMCCAttendantDataForm() {
                   <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 flex-shrink-0" />
                   Categoría Profesional
                </h2>
-               <div className="font-medium text-gray-500 text-xs sm:text-sm">
-                  Precios para modalidad presencial
-               </div>
+               <div className="font-medium text-gray-500 text-xs sm:text-sm">Precios para modalidad presencial</div>
             </div>
 
             <div className="gap-3 sm:gap-4 grid md:grid-cols-2">
@@ -257,9 +239,7 @@ export default function CMIMCCAttendantDataForm() {
                         key={role.id}
                         onClick={() => setSelectedRole(role.id)}
                         className={`relative cursor-pointer rounded-xl sm:rounded-2xl border-2 p-4 sm:p-6 transition-all duration-300 hover:shadow-lg ${
-                           isSelected
-                              ? "border-blue-500 bg-blue-50 shadow-md"
-                              : "border-gray-200 bg-white hover:border-gray-300"
+                           isSelected ? "border-blue-500 bg-blue-50 shadow-md" : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                      >
                         {/* Verification Badge */}
@@ -277,12 +257,8 @@ export default function CMIMCCAttendantDataForm() {
                            </div>
 
                            <div className="flex-1 min-w-0">
-                              <h3 className="mb-1 font-bold text-gray-900 text-sm sm:text-base">
-                                 {role.title}
-                              </h3>
-                              <p className="mb-2 sm:mb-3 text-gray-600 text-xs sm:text-sm">
-                                 {role.description}
-                              </p>
+                              <h3 className="mb-1 font-bold text-gray-900 text-sm sm:text-base">{role.title}</h3>
+                              <p className="mb-2 sm:mb-3 text-gray-600 text-xs sm:text-sm">{role.description}</p>
                               {/* <div className="space-y-1">
                                  <div className="font-bold text-gray-900 text-2xl">
                                     {role.price}
@@ -315,14 +291,10 @@ export default function CMIMCCAttendantDataForm() {
                   <div className="flex items-start gap-2 sm:gap-3">
                      <AlertCircle className="flex-shrink-0 mt-0.5 w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
                      <div className="min-w-0 flex-1">
-                        <h3 className="mb-2 font-semibold text-amber-800 text-sm sm:text-base">
-                           Verificación Requerida
-                        </h3>
+                        <h3 className="mb-2 font-semibold text-amber-800 text-sm sm:text-base">Verificación Requerida</h3>
                         <p className="text-amber-700 text-xs sm:text-sm leading-relaxed">
-                           Para acceder a la tarifa de{" "}
-                           <strong>{selectedRoleData.title}</strong>, necesitas
-                           subir un documento que confirme tu estatus
-                           profesional o académico.
+                           Para acceder a la tarifa de <strong>{selectedRoleData.title}</strong>, necesitas subir un documento que
+                           confirme tu estatus profesional o académico.
                         </p>
                      </div>
                   </div>
@@ -336,9 +308,7 @@ export default function CMIMCCAttendantDataForm() {
 
                   {/* Accepted Documents Info */}
                   <div className="bg-blue-50 p-3 sm:p-4 border border-blue-200 rounded-lg sm:rounded-xl">
-                     <h4 className="mb-2 font-semibold text-blue-800 text-sm sm:text-base">
-                        Documentos Aceptados:
-                     </h4>
+                     <h4 className="mb-2 font-semibold text-blue-800 text-sm sm:text-base">Documentos Aceptados:</h4>
                      <ul className="space-y-1 text-blue-700 text-xs sm:text-sm">
                         {selectedRole === "health_professional" && (
                            <>
@@ -376,18 +346,12 @@ export default function CMIMCCAttendantDataForm() {
                               <FileText className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-green-600" />
                            </div>
                            <div>
-                              <p className="font-semibold text-green-800 text-sm sm:text-base break-words">
-                                 {selectedFile.name}
-                              </p>
+                              <p className="font-semibold text-green-800 text-sm sm:text-base break-words">{selectedFile.name}</p>
                               <p className="text-green-600 text-xs sm:text-sm">
-                                 {(selectedFile.size / 1024 / 1024).toFixed(2)}{" "}
-                                 MB
+                                 {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                               </p>
                            </div>
-                           <button
-                              onClick={removeFile}
-                              className="text-red-600 hover:text-red-800 text-xs sm:text-sm underline"
-                           >
+                           <button onClick={removeFile} className="text-red-600 hover:text-red-800 text-xs sm:text-sm underline">
                               Remover archivo
                            </button>
                         </div>
@@ -398,8 +362,7 @@ export default function CMIMCCAttendantDataForm() {
                            </div>
                            <div>
                               <p className="mb-2 font-semibold text-gray-700 text-base sm:text-lg px-2">
-                                 Arrastra tu archivo aquí o haz clic para
-                                 seleccionar
+                                 Arrastra tu archivo aquí o haz clic para seleccionar
                               </p>
                               <p className="text-gray-500 text-xs sm:text-sm px-2">
                                  Formatos aceptados: PDF, JPG, PNG (máx. 5MB)
@@ -428,19 +391,13 @@ export default function CMIMCCAttendantDataForm() {
          {/* Summary and Continue */}
          {selectedRole && (
             <div className="bg-white shadow-lg p-4 sm:p-6 border border-gray-200 rounded-xl sm:rounded-2xl">
-               <h3 className="mb-3 sm:mb-4 font-bold text-gray-800 text-lg sm:text-xl">
-                  Resumen de Registro
-               </h3>
+               <h3 className="mb-3 sm:mb-4 font-bold text-gray-800 text-lg sm:text-xl">Resumen de Registro</h3>
 
                <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                   <div className="flex justify-between items-center gap-2">
                      <div className="min-w-0 flex-1">
-                        <p className="text-gray-600 text-xs sm:text-sm">
-                           Categoría seleccionada:
-                        </p>
-                        <p className="font-semibold text-gray-900 text-sm sm:text-base">
-                           {selectedRoleData?.title}
-                        </p>
+                        <p className="text-gray-600 text-xs sm:text-sm">Categoría seleccionada:</p>
+                        <p className="font-semibold text-gray-900 text-sm sm:text-base">{selectedRoleData?.title}</p>
                      </div>
                   </div>
 
@@ -471,9 +428,7 @@ export default function CMIMCCAttendantDataForm() {
                )} */}
 
                <Button
-                  disabled={
-                     selectedRoleData?.requiresVerification && !selectedFile
-                  }
+                  disabled={selectedRoleData?.requiresVerification && !selectedFile}
                   loading={isSubmitting}
                   className="bg-gradient-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl !w-full font-bold text-white disabled:text-white text-base sm:text-lg transition-all duration-300 disabled:cursor-not-allowed transform"
                   onClick={handleSubmitt}

@@ -12,10 +12,7 @@ interface ConferenceTypeSelectorProps {
    onChange: (value: CongressConference["conferenceType"]) => void;
 }
 
-export function ConferenceTypeSelector({
-   value,
-   onChange,
-}: ConferenceTypeSelectorProps) {
+export function ConferenceTypeSelector({ value, onChange }: ConferenceTypeSelectorProps) {
    const options: Option[] = [
       {
          value: "in-person",
@@ -59,9 +56,7 @@ export function ConferenceTypeSelector({
                minHeight: 38,
                borderRadius: 8,
                borderColor: state.isFocused ? "#2563eb" : "#d1d5db",
-               boxShadow: state.isFocused
-                  ? "0 0 0 2px rgba(37,99,235,0.2)"
-                  : "none",
+               boxShadow: state.isFocused ? "0 0 0 2px rgba(37,99,235,0.2)" : "none",
                ":hover": {
                   borderColor: state.isFocused ? "#2563eb" : "#9ca3af",
                },
@@ -94,11 +89,7 @@ export function ConferenceTypeSelector({
                ...base,
                padding: 10,
                fontSize: 14,
-               backgroundColor: state.isFocused
-                  ? "#eff6ff"
-                  : state.isSelected
-                    ? "#dbeafe"
-                    : "#ffffff",
+               backgroundColor: state.isFocused ? "#eff6ff" : state.isSelected ? "#dbeafe" : "#ffffff",
                color: state.isFocused ? "#1d4ed8" : "#111827",
                cursor: "pointer",
             }),

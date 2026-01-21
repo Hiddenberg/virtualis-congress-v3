@@ -1,10 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-   createRecordingPresentation,
-   deleteRecordingPresentation,
-} from "../services/recordingPresentationsServices";
+import { createRecordingPresentation, deleteRecordingPresentation } from "../services/recordingPresentationsServices";
 
 export async function linkRecordingWithPresentationAction({
    recordingId,
@@ -17,15 +14,11 @@ export async function linkRecordingWithPresentationAction({
       if (!recordingId || !presentationId) {
          return {
             success: false,
-            errorMessage:
-               "Faltan datos para vincular la grabación con la presentación",
+            errorMessage: "Faltan datos para vincular la grabación con la presentación",
          };
       }
 
-      const linked = await createRecordingPresentation(
-         recordingId,
-         presentationId,
-      );
+      const linked = await createRecordingPresentation(recordingId, presentationId);
 
       return {
          success: true,

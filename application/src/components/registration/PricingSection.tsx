@@ -51,31 +51,23 @@ export default function PricingSection() {
                   Costos del 1er Curso Internacional ACP México Chapter 2025
                </h2>
                <p className="mx-auto max-w-2xl text-gray-600 text-sm md:text-base">
-                  Selecciona la categoría que mejor se adapte a tu perfil
-                  profesional
+                  Selecciona la categoría que mejor se adapte a tu perfil profesional
                </p>
             </div>
 
             {isMobile ? (
                <div className="grid gap-6">
                   {pricingData.map((item, index) => (
-                     <div
-                        key={index}
-                        className="bg-white shadow-md rounded-lg overflow-hidden"
-                     >
+                     <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
                         <div className="bg-[#1a237e] text-white p-4">
-                           <h3 className="font-semibold text-lg">
-                              {item.category}
-                           </h3>
+                           <h3 className="font-semibold text-lg">{item.category}</h3>
                         </div>
                         <div className="p-4">
                            <p className="mb-2">
-                              <span className="font-medium">Miembros:</span>{" "}
-                              {item.member}
+                              <span className="font-medium">Miembros:</span> {item.member}
                            </p>
                            <p>
-                              <span className="font-medium">No miembros:</span>{" "}
-                              {item.nonMember}
+                              <span className="font-medium">No miembros:</span> {item.nonMember}
                            </p>
                         </div>
                      </div>
@@ -86,15 +78,9 @@ export default function PricingSection() {
                   <table className="w-full border-collapse">
                      <thead>
                         <tr>
-                           <th className="bg-[#1a237e] px-6 py-4 rounded-tl-lg text-white text-left">
-                              Categoría
-                           </th>
-                           <th className="bg-[#1a237e] px-6 py-4 text-white text-left">
-                              Miembros
-                           </th>
-                           <th className="bg-[#1a237e] px-6 py-4 rounded-tr-lg text-white text-left">
-                              No miembros
-                           </th>
+                           <th className="bg-[#1a237e] px-6 py-4 rounded-tl-lg text-white text-left">Categoría</th>
+                           <th className="bg-[#1a237e] px-6 py-4 text-white text-left">Miembros</th>
+                           <th className="bg-[#1a237e] px-6 py-4 rounded-tr-lg text-white text-left">No miembros</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -107,15 +93,9 @@ export default function PricingSection() {
                                  hover:bg-gray-50 transition-colors
                               `}
                            >
-                              <td className="px-6 py-4 text-gray-800">
-                                 {row.category}
-                              </td>
-                              <td className="px-6 py-4 font-medium text-gray-800">
-                                 {row.member}
-                              </td>
-                              <td className="px-6 py-4 font-medium text-gray-800">
-                                 {row.nonMember}
-                              </td>
+                              <td className="px-6 py-4 text-gray-800">{row.category}</td>
+                              <td className="px-6 py-4 font-medium text-gray-800">{row.member}</td>
+                              <td className="px-6 py-4 font-medium text-gray-800">{row.nonMember}</td>
                            </tr>
                         ))}
                      </tbody>

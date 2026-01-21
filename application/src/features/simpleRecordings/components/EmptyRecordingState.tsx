@@ -8,13 +8,11 @@ export default function EmptyRecordingState() {
             <VideoIcon className="size-12 text-gray-400" />
          </div>
 
-         <h2 className="mb-2 font-semibold text-gray-900 text-xl">
-            No hay grabaciones disponibles
-         </h2>
+         <h2 className="mb-2 font-semibold text-gray-900 text-xl">No hay grabaciones disponibles</h2>
 
          <p className="mb-8 max-w-md text-gray-600">
-            Comienza creando tu primera grabación. Podrás invitar a personas
-            para que graben sus presentaciones y administrar todo desde aquí.
+            Comienza creando tu primera grabación. Podrás invitar a personas para que graben sus presentaciones y administrar todo
+            desde aquí.
          </p>
 
          <LinkButton href="/recordings/create">

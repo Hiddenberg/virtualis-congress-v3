@@ -12,9 +12,7 @@ interface UnauthorizedPageProps {
    }>;
 }
 
-export default async function UnauthorizedPage({
-   searchParams,
-}: UnauthorizedPageProps) {
+export default async function UnauthorizedPage({ searchParams }: UnauthorizedPageProps) {
    const attemptedRoute = (await searchParams).route || "esta página";
 
    const userId = await getLoggedInUserId();
@@ -38,22 +36,16 @@ export default async function UnauthorizedPage({
                </div>
 
                {/* Title */}
-               <h1 className="mb-4 font-bold text-gray-900 text-3xl">
-                  Acceso No Autorizado
-               </h1>
+               <h1 className="mb-4 font-bold text-gray-900 text-3xl">Acceso No Autorizado</h1>
 
                {/* User info section */}
                {user && user.email ? (
                   <div className="bg-blue-50 mb-6 p-4 border border-blue-200 rounded-lg">
                      <div className="flex justify-center items-center gap-2 text-blue-700">
                         <User className="w-4 h-4" />
-                        <span className="font-medium text-sm">
-                           Conectado como:
-                        </span>
+                        <span className="font-medium text-sm">Conectado como:</span>
                      </div>
-                     <p className="mt-1 font-semibold text-blue-800">
-                        {user.email}
-                     </p>
+                     <p className="mt-1 font-semibold text-blue-800">{user.email}</p>
                   </div>
                ) : null}
 
@@ -61,21 +53,17 @@ export default async function UnauthorizedPage({
                <div className="space-y-3 mb-8 text-gray-600">
                   <p className="text-lg">
                      No tienes permisos para acceder a{" "}
-                     <span className="bg-blue-50 px-2 py-1 rounded font-semibold text-blue-600">
-                        {attemptedRoute}
-                     </span>
+                     <span className="bg-blue-50 px-2 py-1 rounded font-semibold text-blue-600">{attemptedRoute}</span>
                   </p>
                   <p>
-                     Si crees que esto es un error, por favor toma una captura
-                     de pantalla y contacta con los administradores del sistema.
+                     Si crees que esto es un error, por favor toma una captura de pantalla y contacta con los administradores del
+                     sistema.
                   </p>
                </div>
 
                {/* Contact information */}
                <div className="bg-white shadow-sm mb-8 p-6 border border-gray-200 rounded-lg">
-                  <h3 className="mb-4 font-semibold text-gray-900 text-lg">
-                     ¿Necesitas ayuda?
-                  </h3>
+                  <h3 className="mb-4 font-semibold text-gray-900 text-lg">¿Necesitas ayuda?</h3>
                   <div className="space-y-3 text-gray-600 text-sm">
                      <div className="flex justify-center items-center gap-2">
                         <Mail className="w-4 h-4 text-blue-500" />

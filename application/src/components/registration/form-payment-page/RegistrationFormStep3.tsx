@@ -1,9 +1,5 @@
 "use client";
-export default function RegistrationFormStep3({
-   setInputValue,
-}: {
-   setInputValue: (name: string, value: string) => void;
-}) {
+export default function RegistrationFormStep3({ setInputValue }: { setInputValue: (name: string, value: string) => void }) {
    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setInputValue(name, value);

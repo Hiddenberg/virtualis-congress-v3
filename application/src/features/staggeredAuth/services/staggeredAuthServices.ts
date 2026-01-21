@@ -4,16 +4,8 @@ import { cookies } from "next/headers";
 import { getUserRole } from "@/features/users/services/userRoleServices";
 import { getUserByEmail } from "@/features/users/services/userServices";
 import { createDBRecord, getDBRecordById } from "@/libs/pbServerClientNew";
-import {
-   AUTH_COOKIE_KEY,
-   REFRESH_COOKIE_KEY,
-} from "../constants/authConstants";
-import {
-   generateRefreshToken,
-   generateUserAuthToken,
-   getUserIdFromAuthToken,
-   verifyUserAuthToken,
-} from "./jwtServices";
+import { AUTH_COOKIE_KEY, REFRESH_COOKIE_KEY } from "../constants/authConstants";
+import { generateRefreshToken, generateUserAuthToken, getUserIdFromAuthToken, verifyUserAuthToken } from "./jwtServices";
 import { deleteAllUserOTPCodes, verifyOTPCode } from "./otpServices";
 
 export async function createUserAuthData(userId: string) {
@@ -53,9 +45,7 @@ export async function authenticateWithOTPCode(email: string, otpCode: string) {
    const user = await getUserByEmail(email);
 
    if (!user) {
-      throw new Error(
-         "Este correo no está registrado por favor registrate para iniciar sesión",
-      );
+      throw new Error("Este correo no está registrado por favor registrate para iniciar sesión");
    }
 
    const isValidOTPCode = await verifyOTPCode(user.id, otpCode);
@@ -70,47 +60,32 @@ export async function authenticateWithOTPCode(email: string, otpCode: string) {
    throw new Error("Este código de verificación no es válido o ha expirado");
 }
 
-export async function authenticateWithBirthdate(
-   email: string,
-   birthday: string,
-) {
+export async function authenticateWithBirthdate(email: string, birthday: string) {
    const user = await getUserByEmail(email);
 
    if (!user) {
-      throw new Error(
-         "Este correo no está registrado por favor registrate para iniciar sesión",
-      );
+      throw new Error("Este correo no está registrado por favor registrate para iniciar sesión");
    }
 
    if (!user.dateOfBirth) {
-      throw new Error(
-         "La fecha de nacimiento no está registrada en el sistema",
-      );
+      throw new Error("La fecha de nacimiento no está registrada en el sistema");
    }
 
-   const isCorrectBirthday =
-      format(birthday, "YYYY-MM-DD") === format(user.dateOfBirth, "YYYY-MM-DD");
+   const isCorrectBirthday = format(birthday, "YYYY-MM-DD") === format(user.dateOfBirth, "YYYY-MM-DD");
    if (isCorrectBirthday) {
       await deleteAllUserOTPCodes(user.id);
       const authData = await createUserAuthData(user.id);
       return authData;
    }
 
-   throw new Error(
-      "La fecha de nacimiento no coincide con la registrada en el sistema",
-   );
+   throw new Error("La fecha de nacimiento no coincide con la registrada en el sistema");
 }
 
-export async function authenticateWithPhoneNumber(
-   email: string,
-   phoneNumber: string,
-) {
+export async function authenticateWithPhoneNumber(email: string, phoneNumber: string) {
    const user = await getUserByEmail(email);
 
    if (!user) {
-      throw new Error(
-         "Este correo no está registrado por favor registrate para iniciar sesión",
-      );
+      throw new Error("Este correo no está registrado por favor registrate para iniciar sesión");
    }
 
    if (!user.phoneNumber) {
@@ -124,9 +99,7 @@ export async function authenticateWithPhoneNumber(
       return authData;
    }
 
-   throw new Error(
-      "El número de teléfono no coincide con el registrado en el sistema",
-   );
+   throw new Error("El número de teléfono no coincide con el registrado en el sistema");
 }
 
 export async function getLoggedInUserId() {

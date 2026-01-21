@@ -27,12 +27,8 @@ export default function CountdownCard({
                .getTime() - now;
 
          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-         const hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-         );
-         const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60),
-         );
+         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
          if (distance < 0) {
@@ -74,30 +70,20 @@ export default function CountdownCard({
          {/* Header Section */}
          <div className="mb-8 text-center">
             <div className="flex justify-center items-center gap-3 mb-4">
-               <h1 className="font-bold text-slate-800 text-2xl md:text-3xl">
-                  {title}
-               </h1>
+               <h1 className="font-bold text-slate-800 text-2xl md:text-3xl">{title}</h1>
             </div>
             <div className="flex justify-center items-center gap-2 mb-2 text-slate-600">
                <Calendar className="w-4 h-4" />
-               <p className="text-base md:text-lg">
-                  {formatDate(new Date(date))}
-               </p>
+               <p className="text-base md:text-lg">{formatDate(new Date(date))}</p>
             </div>
-            {timeLeft.days === 0 && (
-               <p className="text-slate-600 text-sm">
-                  El congreso comenzará pronto
-               </p>
-            )}
+            {timeLeft.days === 0 && <p className="text-slate-600 text-sm">El congreso comenzará pronto</p>}
          </div>
 
          {/* Countdown Card */}
          <div className="bg-white shadow-lg border border-slate-200 rounded-2xl overflow-hidden">
             {/* Card Header */}
             <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 border-slate-200 border-b">
-               <p className="font-medium text-slate-700 text-center">
-                  Tiempo restante para el inicio
-               </p>
+               <p className="font-medium text-slate-700 text-center">Tiempo restante para el inicio</p>
             </div>
 
             {/* Countdown Display */}
@@ -110,9 +96,7 @@ export default function CountdownCard({
                            {formatNumber(timeLeft.days)}
                         </div>
                      </div>
-                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">
-                        Días
-                     </div>
+                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">Días</div>
                   </div>
 
                   {/* Hours */}
@@ -122,9 +106,7 @@ export default function CountdownCard({
                            {formatNumber(timeLeft.hours)}
                         </div>
                      </div>
-                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">
-                        Horas
-                     </div>
+                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">Horas</div>
                   </div>
 
                   {/* Minutes */}
@@ -134,9 +116,7 @@ export default function CountdownCard({
                            {formatNumber(timeLeft.minutes)}
                         </div>
                      </div>
-                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">
-                        Minutos
-                     </div>
+                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">Minutos</div>
                   </div>
 
                   {/* Seconds */}
@@ -146,9 +126,7 @@ export default function CountdownCard({
                            {formatNumber(timeLeft.seconds)}
                         </div>
                      </div>
-                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">
-                        Segundos
-                     </div>
+                     <div className="font-semibold text-slate-500 text-xs md:text-sm uppercase tracking-wider">Segundos</div>
                   </div>
                </div>
             </div>
@@ -157,9 +135,7 @@ export default function CountdownCard({
             <div className="bg-slate-50 px-6 py-4 border-slate-200 border-t">
                <div className="flex justify-center items-center gap-2">
                   <div className="bg-green-500 rounded-full w-2 h-2 animate-pulse" />
-                  <p className="text-slate-600 text-sm">
-                     El contador se actualiza automáticamente
-                  </p>
+                  <p className="text-slate-600 text-sm">El contador se actualiza automáticamente</p>
                </div>
             </div>
          </div>

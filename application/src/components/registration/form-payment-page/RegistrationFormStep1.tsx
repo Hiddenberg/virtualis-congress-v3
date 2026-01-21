@@ -1,10 +1,6 @@
 "use client";
 
-function RegistrationFormStep1({
-   setInputValue,
-}: {
-   setInputValue: (name: string, value: string) => void;
-}) {
+function RegistrationFormStep1({ setInputValue }: { setInputValue: (name: string, value: string) => void }) {
    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
 

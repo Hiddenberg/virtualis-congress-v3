@@ -1,20 +1,10 @@
 "use client";
 
-import {
-   AlertTriangle,
-   ArrowUpRight,
-   Check,
-   FileText,
-   HelpCircle,
-} from "lucide-react";
+import { AlertTriangle, ArrowUpRight, Check, FileText, HelpCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
-import {
-   Button,
-   type ButtonVariant,
-   LinkButton,
-} from "@/components/global/Buttons";
+import { Button, type ButtonVariant, LinkButton } from "@/components/global/Buttons";
 import BillingInfoPopUp from "./BillingInfoPopUp";
 
 type PaymentStatus = "success" | "cancel" | "unknown";
@@ -60,8 +50,7 @@ const STATUS_CONFIGS: Record<PaymentStatus, StatusConfig> = {
       iconBackground: "bg-blue-500",
       title: "Estado Pendiente",
       titleColor: "text-blue-700",
-      message:
-         "No pudimos verificar tu pago, por favor intenta nuevamente o contacta a nuestro equipo de soporte.",
+      message: "No pudimos verificar tu pago, por favor intenta nuevamente o contacta a nuestro equipo de soporte.",
       buttonText: "Reintentar Pago",
       buttonHref: "/api/create-checkout-session",
       buttonVariant: "primary",
@@ -71,9 +60,7 @@ const STATUS_CONFIGS: Record<PaymentStatus, StatusConfig> = {
 
 const PaymentStatusMessage: React.FC = () => {
    const searchParams = useSearchParams();
-   const status = searchParams
-      ? (searchParams.get("status") as PaymentStatus)
-      : "unknown";
+   const status = searchParams ? (searchParams.get("status") as PaymentStatus) : "unknown";
    const config = STATUS_CONFIGS[status in STATUS_CONFIGS ? status : "unknown"];
 
    return (
@@ -87,15 +74,11 @@ const PaymentStatusMessage: React.FC = () => {
 
 const StatusContent: React.FC<{ config: StatusConfig }> = ({ config }) => (
    <div className="space-y-6 text-center">
-      <div
-         className={`${config.iconBackground} mx-auto rounded-full w-24 h-24 flex items-center justify-center shadow-lg`}
-      >
+      <div className={`${config.iconBackground} mx-auto rounded-full w-24 h-24 flex items-center justify-center shadow-lg`}>
          {config.icon}
       </div>
       <div className="space-y-4">
-         <h1 className={`text-3xl font-bold ${config.titleColor}`}>
-            {config.title}
-         </h1>
+         <h1 className={`text-3xl font-bold ${config.titleColor}`}>{config.title}</h1>
          <p className="text-gray-600 leading-relaxed">{config.message}</p>
       </div>
    </div>
@@ -106,21 +89,13 @@ const ActionButtons: React.FC<{ config: StatusConfig }> = ({ config }) => {
 
    return (
       <div className="space-y-4">
-         <LinkButton
-            href={config.buttonHref}
-            variant={config.buttonVariant}
-            className="mx-auto w-3/4"
-         >
+         <LinkButton href={config.buttonHref} variant={config.buttonVariant} className="mx-auto w-3/4">
             {config.buttonText}
             <ArrowUpRight className="ml-2 w-5 h-5" />
          </LinkButton>
 
          {config.paymentStatus === "success" && (
-            <Button
-               variant="secondary"
-               className="mx-auto w-3/4"
-               onClick={() => setShowPopUp(true)}
-            >
+            <Button variant="secondary" className="mx-auto w-3/4" onClick={() => setShowPopUp(true)}>
                Solicitar Factura
                <FileText className="ml-2 size-5" />
             </Button>
@@ -145,8 +120,8 @@ const ActionButtons: React.FC<{ config: StatusConfig }> = ({ config }) => {
 const MobileWarning: React.FC = () => (
    <div className="md:hidden bg-blue-100 p-4 rounded-lg text-blue-800 text-sm text-center">
       <p>
-         <strong>Nota:</strong> La plataforma completa está optimizada para
-         escritorio. Para una mejor experiencia, accede desde una computadora.
+         <strong>Nota:</strong> La plataforma completa está optimizada para escritorio. Para una mejor experiencia, accede desde
+         una computadora.
       </p>
    </div>
 );

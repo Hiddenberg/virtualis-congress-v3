@@ -16,10 +16,7 @@ export async function createLivestreamSession(
    // sessionType: "qna_live" | "conference_live"
 ) {
    try {
-      console.log(
-         "[Livestream Session Service] Creating livestream session for conference",
-         conferenceId,
-      );
+      console.log("[Livestream Session Service] Creating livestream session for conference", conferenceId);
       const newLivestreamSessionData: LivestreamSession = {
          organization: TEMP_CONSTANTS.ORGANIZATION_ID,
          // congress: TEMP_CONSTANTS.CONGRESS_ID,
@@ -33,33 +30,20 @@ export async function createLivestreamSession(
          .collection(PB_COLLECTIONS.LIVESTREAM_SESSIONS)
          .create<LivestreamSessionRecord>(newLivestreamSessionData);
 
-      console.log(
-         "[Livestream Session Service] Livestream session created successfully",
-         newLivestreamSession,
-      );
+      console.log("[Livestream Session Service] Livestream session created successfully", newLivestreamSession);
       return newLivestreamSession;
    } catch (error) {
-      console.error(
-         "[Livestream Session Service] Error creating livestream session",
-         error,
-      );
+      console.error("[Livestream Session Service] Error creating livestream session", error);
       throw error;
    }
 }
 
-export async function prepareQnALivestreamSessionForConference(
-   conferenceId: string,
-) {
+export async function prepareQnALivestreamSessionForConference(conferenceId: string) {
    try {
-      console.log(
-         "[Livestream Session Service] Preparing qna livestream session for conference",
-         conferenceId,
-      );
+      console.log("[Livestream Session Service] Preparing qna livestream session for conference", conferenceId);
       const livestreamSession = await createLivestreamSession(conferenceId);
 
-      const muxLiveStream = await createMuxLiveStream(
-         `Live for conf: ${conferenceId}`,
-      );
+      const muxLiveStream = await createMuxLiveStream(`Live for conf: ${conferenceId}`);
 
       await createLivestreamMuxAsset({
          conferenceId: conferenceId,
@@ -69,15 +53,9 @@ export async function prepareQnALivestreamSessionForConference(
          streamKey: muxLiveStream.stream_key,
       });
 
-      console.log(
-         "[Livestream Session Service] QnA livestream session prepared successfully",
-         livestreamSession,
-      );
+      console.log("[Livestream Session Service] QnA livestream session prepared successfully", livestreamSession);
    } catch (error) {
-      console.error(
-         "[Livestream Session Service] Error preparing qna livestream session for conference",
-         error,
-      );
+      console.error("[Livestream Session Service] Error preparing qna livestream session for conference", error);
       throw error;
    }
 }
@@ -94,10 +72,7 @@ export async function getLivestreamSessionById(livestreamSessionId: string) {
          return null;
       }
 
-      console.error(
-         "[Livestream Session Service] Error getting livestream session by id",
-         error,
-      );
+      console.error("[Livestream Session Service] Error getting livestream session by id", error);
       throw error;
    }
 }
@@ -116,23 +91,16 @@ export async function getAllQnALivestreamSessions() {
          return [];
       }
 
-      console.error(
-         "[Livestream Session Service] Error getting all qna livestream sessions",
-         error,
-      );
+      console.error("[Livestream Session Service] Error getting all qna livestream sessions", error);
       throw error;
    }
 }
 
-export async function getQnALivestreamSessionForConference(
-   conferenceId: string,
-) {
+export async function getQnALivestreamSessionForConference(conferenceId: string) {
    try {
       const livestreamSession = await pbServerClient
          .collection(PB_COLLECTIONS.LIVESTREAM_SESSIONS)
-         .getFirstListItem<LivestreamSessionRecord>(
-            `conference="${conferenceId}" && sessionType="qna_live"`,
-         );
+         .getFirstListItem<LivestreamSessionRecord>(`conference="${conferenceId}" && sessionType="qna_live"`);
 
       return livestreamSession;
    } catch (error) {
@@ -140,33 +108,21 @@ export async function getQnALivestreamSessionForConference(
          return null;
       }
 
-      console.error(
-         "[Livestream Session Service] Error getting qna livestream session for conference",
-         error,
-      );
+      console.error("[Livestream Session Service] Error getting qna livestream session for conference", error);
       throw error;
    }
 }
 
-export async function getQnALivestreamSessionByMuxLiveStreamId(
-   muxLiveStreamId: string,
-) {
+export async function getQnALivestreamSessionByMuxLiveStreamId(muxLiveStreamId: string) {
    try {
       const livestreamAsset = await pbServerClient
          .collection(PB_COLLECTIONS.LIVESTREAM_MUX_LIVESTREAMS)
-         .getFirstListItem<LivestreamMuxAssetRecord>(
-            `muxLivestreamId = "${muxLiveStreamId}"`,
-         );
+         .getFirstListItem<LivestreamMuxAssetRecord>(`muxLivestreamId = "${muxLiveStreamId}"`);
 
-      const livestreamSession = await getLivestreamSessionById(
-         livestreamAsset.livestreamSession,
-      );
+      const livestreamSession = await getLivestreamSessionById(livestreamAsset.livestreamSession);
 
       if (!livestreamSession) {
-         console.error(
-            "[Livestream Session Service] No livestream session found for mux live stream id",
-            muxLiveStreamId,
-         );
+         console.error("[Livestream Session Service] No livestream session found for mux live stream id", muxLiveStreamId);
          return null;
       }
 
@@ -179,29 +135,19 @@ export async function getQnALivestreamSessionByMuxLiveStreamId(
          return null;
       }
 
-      console.error(
-         "[Livestream Session Service] Error getting qna livestream session by mux live stream id",
-         error,
-      );
+      console.error("[Livestream Session Service] Error getting qna livestream session by mux live stream id", error);
       throw error;
    }
 }
 
-export async function checkIfConferenceHasQnALivestreamSession(
-   conferenceId: string,
-) {
+export async function checkIfConferenceHasQnALivestreamSession(conferenceId: string) {
    try {
-      const livestreamSession =
-         await getQnALivestreamSessionForConference(conferenceId);
-      const livestreamMuxAsset =
-         await getQnALivestreamMuxAssetForConference(conferenceId);
+      const livestreamSession = await getQnALivestreamSessionForConference(conferenceId);
+      const livestreamMuxAsset = await getQnALivestreamMuxAssetForConference(conferenceId);
 
       return livestreamSession !== null && livestreamMuxAsset !== null;
    } catch (error) {
-      console.error(
-         "[Livestream Session Service] Error checking if conference has qna livestream session",
-         error,
-      );
+      console.error("[Livestream Session Service] Error checking if conference has qna livestream session", error);
       throw error;
    }
 }
@@ -216,25 +162,16 @@ export async function updateLivestreamSessionAttendantStatus(
          .update<LivestreamSessionRecord>(livestreamSessionId, {
             attendantStatus: newAttendantStatus,
          });
-      console.log(
-         "[Livestream Session Service] Livestream session attendant status updated successfully",
-         newAttendantStatus,
-      );
+      console.log("[Livestream Session Service] Livestream session attendant status updated successfully", newAttendantStatus);
 
       return updatedLivestreamSession;
    } catch (error) {
-      console.error(
-         "[Livestream Session Service] Error updating livestream session attendant status",
-         error,
-      );
+      console.error("[Livestream Session Service] Error updating livestream session attendant status", error);
       throw error;
    }
 }
 
-export async function updateLivestreamSessionStatus(
-   livestreamSessionId: string,
-   newStatus: LivestreamSession["status"],
-) {
+export async function updateLivestreamSessionStatus(livestreamSessionId: string, newStatus: LivestreamSession["status"]) {
    try {
       const shouldUpdateAttendantStatus = () => {
          if (newStatus === "streaming") {
@@ -249,32 +186,20 @@ export async function updateLivestreamSessionStatus(
          .update<LivestreamSessionRecord>(livestreamSessionId, {
             status: newStatus,
          });
-      console.log(
-         "[Livestream Session Service] Livestream session status updated successfully to ",
-         newStatus,
-      );
+      console.log("[Livestream Session Service] Livestream session status updated successfully to ", newStatus);
 
       if (shouldUpdateAttendantStatus()) {
-         await updateLivestreamSessionAttendantStatus(
-            livestreamSessionId,
-            newStatus,
-         );
+         await updateLivestreamSessionAttendantStatus(livestreamSessionId, newStatus);
       }
 
       return updatedLivestreamSession;
    } catch (error) {
-      console.error(
-         "[Livestream Session Service] Error updating livestream session status",
-         error,
-      );
+      console.error("[Livestream Session Service] Error updating livestream session status", error);
       throw error;
    }
 }
 
-export async function updateLivestreamSessionZoomLink(
-   livestreamSessionId: string,
-   zoomLink: string,
-) {
+export async function updateLivestreamSessionZoomLink(livestreamSessionId: string, zoomLink: string) {
    try {
       const updatedLivestreamSession = await pbServerClient
          .collection(PB_COLLECTIONS.LIVESTREAM_SESSIONS)
@@ -284,27 +209,18 @@ export async function updateLivestreamSessionZoomLink(
 
       return updatedLivestreamSession;
    } catch (error) {
-      console.error(
-         "[Livestream Session Service] Error updating livestream session zoom link",
-         error,
-      );
+      console.error("[Livestream Session Service] Error updating livestream session zoom link", error);
       throw error;
    }
 }
 
-export async function getLivestreamSessionZoomLink(
-   livestreamSessionId: string,
-) {
+export async function getLivestreamSessionZoomLink(livestreamSessionId: string) {
    try {
-      const livestreamSession =
-         await getLivestreamSessionById(livestreamSessionId);
+      const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
 
       return livestreamSession?.zoomEmergencyLink;
    } catch (error) {
-      console.error(
-         "[Livestream Session Service] Error getting livestream session zoom link",
-         error,
-      );
+      console.error("[Livestream Session Service] Error getting livestream session zoom link", error);
       throw error;
    }
 }

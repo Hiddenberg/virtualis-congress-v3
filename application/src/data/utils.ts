@@ -23,8 +23,7 @@ export const preferredLanguages = {
    portugues: "pt-BR",
 } as const;
 
-export type PreferredLanguage =
-   (typeof preferredLanguages)[keyof typeof preferredLanguages];
+export type PreferredLanguage = (typeof preferredLanguages)[keyof typeof preferredLanguages];
 
 export const countries = [
    "Afganistán",

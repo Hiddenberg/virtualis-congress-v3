@@ -18,10 +18,7 @@ export function LogoutButton({ redirectTo = "/" }: { redirectTo?: string }) {
    };
 
    return (
-      <button
-         className="bg-red-500 p-2 px-4 rounded-xl text-white"
-         onClick={handleLogout}
-      >
+      <button className="bg-red-500 p-2 px-4 rounded-xl text-white" onClick={handleLogout}>
          logout
       </button>
    );

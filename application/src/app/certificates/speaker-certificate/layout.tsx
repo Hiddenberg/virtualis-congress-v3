@@ -1,31 +1,17 @@
-import {
-   Calendar,
-   Cloud,
-   FileText,
-   Home,
-   SquareArrowOutUpRight,
-} from "lucide-react";
+import { Calendar, Cloud, FileText, Home, SquareArrowOutUpRight } from "lucide-react";
 import Link from "next/link";
 import type React from "react";
 import GoBackButton from "@/components/global/GoBackButton";
 import MobileMenuToggle from "../(withAccount)/MobileMenuToggle";
 
-export default async function CertificatesLayout({
-   children,
-}: {
-   children: React.ReactNode;
-}) {
+export default async function CertificatesLayout({ children }: { children: React.ReactNode }) {
    return (
       <div className="flex md:flex-row flex-col mx-auto max-w-screen-2xl h-full min-h-screen">
          {/* Mobile Menu Button - Only visible on mobile */}
          <div className="md:hidden flex justify-between items-center bg-gradient-to-br from-[#DEEDFD] to-[#F1EAFB] p-4">
             <div className="flex items-center">
-               <h1 className="font-bold text-indigo-700 text-xl leading-none">
-                  virtualis
-               </h1>
-               <p className="ml-2 font-light text-indigo-700 text-sm">
-                  Certificates
-               </p>
+               <h1 className="font-bold text-indigo-700 text-xl leading-none">virtualis</h1>
+               <p className="ml-2 font-light text-indigo-700 text-sm">Certificates</p>
             </div>
             <MobileMenuToggle />
          </div>
@@ -37,12 +23,8 @@ export default async function CertificatesLayout({
          >
             <div className="md:block flex justify-between items-center p-4 md:p-6">
                <div className="md:flex md:flex-col md:items-center md:mb-8">
-                  <h1 className="font-bold text-indigo-700 text-2xl leading-none">
-                     virtualis
-                  </h1>
-                  <p className="font-light text-indigo-700 text-lg">
-                     Certificates
-                  </p>
+                  <h1 className="font-bold text-indigo-700 text-2xl leading-none">virtualis</h1>
+                  <p className="font-light text-indigo-700 text-lg">Certificates</p>
                </div>
 
                {/* Close button - Only visible on mobile */}
@@ -70,10 +52,7 @@ export default async function CertificatesLayout({
                   <span>Formularios</span>
                </Link>
 
-               <Link
-                  href="/certificates/"
-                  className="flex items-center space-x-3 bg-blue-50 p-3 rounded-lg text-indigo-700"
-               >
+               <Link href="/certificates/" className="flex items-center space-x-3 bg-blue-50 p-3 rounded-lg text-indigo-700">
                   <div className="flex justify-center items-center w-6 h-6">
                      <Calendar size={20} />
                   </div>
@@ -97,9 +76,7 @@ export default async function CertificatesLayout({
                   target="_blank"
                   className="flex justify-center items-center bg-indigo-600 hover:bg-indigo-700 px-4 py-3 rounded-lg w-full text-white"
                >
-                  <span className="mr-2 text-sm md:text-base">
-                     Crea tus propios certificados
-                  </span>
+                  <span className="mr-2 text-sm md:text-base">Crea tus propios certificados</span>
                   <SquareArrowOutUpRight className="size-5 md:size-6" />
                </Link>
             </div>

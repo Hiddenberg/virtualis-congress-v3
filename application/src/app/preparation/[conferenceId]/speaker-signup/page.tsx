@@ -1,11 +1,7 @@
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import SpeakerSelfRegistrationForm from "@/features/users/speakers/components/SpeakerRegistrationForm";
 
-export default async function SpeakerSignupPage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function SpeakerSignupPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const conferenceSpeakers = await getConferenceSpeakers(conferenceId);
@@ -18,10 +14,7 @@ export default async function SpeakerSignupPage({
 
    return (
       <div>
-         <SpeakerSelfRegistrationForm
-            conferenceId={conferenceId}
-            speakerData={speakerData}
-         />
+         <SpeakerSelfRegistrationForm conferenceId={conferenceId} speakerData={speakerData} />
       </div>
    );
 }

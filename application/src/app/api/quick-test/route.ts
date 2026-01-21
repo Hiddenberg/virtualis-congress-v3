@@ -14,8 +14,7 @@ export async function GET() {
          };
       }
    >("CONFERENCE_LIVESTREAMS", {
-      expand:
-         "livestreamSession, conference, livestreamSession.livestream__mux_livestream_via_livestreamSession",
+      expand: "livestreamSession, conference, livestreamSession.livestream__mux_livestream_via_livestreamSession",
    });
    return NextResponse.json({
       conferenceLivestreams: conferenceLivestreams[0],

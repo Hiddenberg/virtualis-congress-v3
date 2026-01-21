@@ -19,10 +19,7 @@ export default function QuestionPollCard({
                <h3 className="font-medium text-gray-900">{poll.question}</h3>
                <div className="space-y-2 mt-3">
                   {options.map((opt) => (
-                     <div
-                        key={opt.id}
-                        className="flex items-center gap-2 text-gray-700"
-                     >
+                     <div key={opt.id} className="flex items-center gap-2 text-gray-700">
                         <CircleDot className="w-4 h-4 text-gray-400" />
                         <span>{opt.text}</span>
                      </div>
@@ -40,10 +37,7 @@ export default function QuestionPollCard({
                      <CircleSlash className="w-4 h-4" /> Finalizada
                   </span>
                )}
-               <DeleteQuestionPollButton
-                  conferenceId={conferenceId}
-                  pollId={poll.id}
-               />
+               <DeleteQuestionPollButton conferenceId={conferenceId} pollId={poll.id} />
             </div>
          </div>
       </div>

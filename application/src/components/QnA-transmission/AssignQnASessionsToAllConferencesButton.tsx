@@ -9,13 +9,8 @@ export default function AssignQnASessionsToAllConferencesButton() {
 
    const handleClick = () => {
       startTransition(async () => {
-         const {
-            message,
-            skippedConferences,
-            preparedConferences,
-            updatedConferences,
-            errorConferences,
-         } = await assignQnALivestreamSessionsToAllConferencesAction();
+         const { message, skippedConferences, preparedConferences, updatedConferences, errorConferences } =
+            await assignQnALivestreamSessionsToAllConferencesAction();
 
          console.log(message);
          console.log(skippedConferences);
@@ -34,11 +29,7 @@ export default function AssignQnASessionsToAllConferencesButton() {
          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 px-4 py-2 rounded-md text-white transition-colors disabled:animate-pulse disabled:cursor-not-allowed"
       >
          <VideoIcon size={18} />
-         <span>
-            {isLoading
-               ? "Asignando sesiones de QnA..."
-               : "Asignar sesiones de QnA a todas las conferencias"}
-         </span>
+         <span>{isLoading ? "Asignando sesiones de QnA..." : "Asignar sesiones de QnA a todas las conferencias"}</span>
       </button>
    );
 }

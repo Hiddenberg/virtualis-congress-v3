@@ -8,21 +8,13 @@ interface SubCardProps {
    footer?: ReactNode;
 }
 
-export default function SubCard({
-   title,
-   icon,
-   badge,
-   children,
-   footer,
-}: SubCardProps) {
+export default function SubCard({ title, icon, badge, children, footer }: SubCardProps) {
    return (
       <div className="flex flex-col bg-gray-50 p-3 rounded-lg ring-1 ring-gray-200 h-full">
          <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
                {icon}
-               <span className="font-semibold text-gray-900 text-sm">
-                  {title}
-               </span>
+               <span className="font-semibold text-gray-900 text-sm">{title}</span>
             </div>
             {badge}
          </div>

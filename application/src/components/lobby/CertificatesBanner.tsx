@@ -8,8 +8,7 @@ export default function CertificatesBanner() {
          <div
             className="absolute inset-0 pointer-events-none"
             style={{
-               background:
-                  "linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(168, 85, 247, 0) 70%)",
+               background: "linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(168, 85, 247, 0) 70%)",
             }}
          />
          <div className="relative flex sm:flex-row flex-col items-center gap-4 sm:gap-6">
@@ -18,12 +17,9 @@ export default function CertificatesBanner() {
             </div>
             <div className="flex-1 sm:text-left text-center">
                <div>
-                  <p className="font-bold text-xl sm:text-2xl">
-                     Certificado de Asistencia
-                  </p>
+                  <p className="font-bold text-xl sm:text-2xl">Certificado de Asistencia</p>
                   <p className="mt-1 text-gray-700 text-sm sm:text-base">
-                     ¡Felicidades por tu participación! Reclama tu certificado
-                     oficial que acredita tu asistencia a este congreso.
+                     ¡Felicidades por tu participación! Reclama tu certificado oficial que acredita tu asistencia a este congreso.
                   </p>
 
                   <div className="flex sm:flex-row flex-col items-center gap-3 mt-4">

@@ -44,33 +44,23 @@ export default function PresentationAndCameraRecorder({
                   <div className="!space-y-4 !bg-white !shadow-lg !mb-6 !p-6 !rounded-2xl">
                      <div className="!flex !justify-between !items-center">
                         <div>
-                           <h2 className="!font-bold !text-gray-900 !text-2xl">
-                              Grabando: {sessionTitle}
-                           </h2>
+                           <h2 className="!font-bold !text-gray-900 !text-2xl">Grabando: {sessionTitle}</h2>
                         </div>
 
-                        <DeleteRecordingPresentationWPopupButton
-                           recordingId={recordingId}
-                        />
+                        <DeleteRecordingPresentationWPopupButton recordingId={recordingId} />
 
                         <div className="!flex !items-center !gap-2 !text-sm">
                            <div
                               className={`!w-3 !h-3 !rounded-full ${presentationHasVideo ? "!bg-orange-400" : "!bg-green-400"}`}
                            />
                            <span className="!text-gray-600">
-                              {presentationHasVideo
-                                 ? "Diapositiva con videos"
-                                 : "Diapositiva estática"}
+                              {presentationHasVideo ? "Diapositiva con videos" : "Diapositiva estática"}
                            </span>
                         </div>
                      </div>
 
                      <div className="!top-0 !z-10 !sticky !flex !justify-center !mt-6 !w-max">
-                        {!zoomIsLoading && (
-                           <RecordingLivestreamControlButtons
-                              sessionTitle={sessionTitle}
-                           />
-                        )}
+                        {!zoomIsLoading && <RecordingLivestreamControlButtons sessionTitle={sessionTitle} />}
                      </div>
 
                      <div className="!space-y-4">
@@ -83,11 +73,7 @@ export default function PresentationAndCameraRecorder({
 
                         {sessionId && (
                            <div>
-                              <PresentationRecorder
-                                 presentationSlides={
-                                    recordingPresentationSlides
-                                 }
-                              />
+                              <PresentationRecorder presentationSlides={recordingPresentationSlides} />
                            </div>
                         )}
                      </div>

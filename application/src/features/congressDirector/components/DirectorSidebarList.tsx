@@ -24,21 +24,13 @@ export default function DirectorSidebarList({
          {conferences.map((conf) => {
             const isSelected = pathname.startsWith(`${basePath}/${conf.id}`);
             return (
-               <Link
-                  key={conf.id}
-                  href={`${basePath}/${conf.id}`}
-                  className="block"
-               >
+               <Link key={conf.id} href={`${basePath}/${conf.id}`} className="block">
                   <div
                      className={`${isSelected ? "bg-blue-50 ring-1 ring-blue-200" : "hover:bg-gray-50"} px-2 py-1.5 rounded-md transition-colors`}
                   >
-                     <p className="font-medium text-gray-900 text-sm truncate">
-                        {conf.title}
-                     </p>
+                     <p className="font-medium text-gray-900 text-sm truncate">{conf.title}</p>
                      <div className="flex items-center gap-2 text-gray-600 text-xs">
-                        <span
-                           className={`px-1.5 py-0.5 rounded-full ring-1 font-medium ${statusBadgeClasses[conf.status]}`}
-                        >
+                        <span className={`px-1.5 py-0.5 rounded-full ring-1 font-medium ${statusBadgeClasses[conf.status]}`}>
                            <span className="capitalize">{conf.status}</span>
                         </span>
                         <span>•</span>

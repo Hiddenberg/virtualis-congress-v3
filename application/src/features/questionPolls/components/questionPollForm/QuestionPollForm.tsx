@@ -4,11 +4,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { createQuestionPollAndLinkToConferenceAction } from "@/features/questionPolls/serverActions/questionPollActions";
 
-export default function QuestionPollForm({
-   conferenceId,
-}: {
-   conferenceId: CongressConferenceRecord["id"];
-}) {
+export default function QuestionPollForm({ conferenceId }: { conferenceId: CongressConferenceRecord["id"] }) {
    const [question, setQuestion] = useState("");
    const [options, setOptions] = useState<string[]>(["", ""]); // at least two inputs
    const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,8 +16,7 @@ export default function QuestionPollForm({
    };
 
    const addOption = () => setOptions((prev) => [...prev, ""]);
-   const removeOption = (index: number) =>
-      setOptions((prev) => prev.filter((_, i) => i !== index));
+   const removeOption = (index: number) => setOptions((prev) => prev.filter((_, i) => i !== index));
 
    const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
@@ -48,9 +43,7 @@ export default function QuestionPollForm({
    return (
       <form onSubmit={handleSubmit} className="space-y-6">
          <div>
-            <label className="block mb-2 font-medium text-gray-900 text-sm">
-               Pregunta
-            </label>
+            <label className="block mb-2 font-medium text-gray-900 text-sm">Pregunta</label>
             <textarea
                value={question}
                onChange={(e) => setQuestion(e.target.value)}
@@ -61,9 +54,7 @@ export default function QuestionPollForm({
          </div>
 
          <div>
-            <label className="block mb-2 font-medium text-gray-900 text-sm">
-               Opciones
-            </label>
+            <label className="block mb-2 font-medium text-gray-900 text-sm">Opciones</label>
             <div className="space-y-3">
                {options.map((opt, index) => (
                   <div key={index} className="flex items-center gap-2">
@@ -99,16 +90,8 @@ export default function QuestionPollForm({
             </div>
          </div>
 
-         {error && (
-            <div className="bg-red-50 px-4 py-2 rounded-md text-red-700">
-               {error}
-            </div>
-         )}
-         {success && (
-            <div className="bg-green-50 px-4 py-2 rounded-md text-green-700">
-               {success}
-            </div>
-         )}
+         {error && <div className="bg-red-50 px-4 py-2 rounded-md text-red-700">{error}</div>}
+         {success && <div className="bg-green-50 px-4 py-2 rounded-md text-green-700">{success}</div>}
 
          <div className="flex justify-end">
             <button

@@ -2,11 +2,7 @@ import { redirect } from "next/navigation";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
 
-export default async function ManualRegistrationLayout({
-   children,
-}: {
-   children: React.ReactNode;
-}) {
+export default async function ManualRegistrationLayout({ children }: { children: React.ReactNode }) {
    const userId = await getLoggedInUserId();
    const user = await getUserById(userId ?? "");
 

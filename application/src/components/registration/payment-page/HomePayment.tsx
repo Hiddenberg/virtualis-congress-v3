@@ -18,9 +18,7 @@ export default function HomePayment() {
          try {
             congressRegistration = await pbClient
                .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
-               .getFirstListItem<CongressRegistration & RecordModel>(
-                  `userRegistered.id = "${user!.id}"`,
-               );
+               .getFirstListItem<CongressRegistration & RecordModel>(`userRegistered.id = "${user!.id}"`);
          } catch (error) {
             if (error instanceof ClientResponseError && error.status === 404) {
                congressRegistration = null;
@@ -39,22 +37,15 @@ export default function HomePayment() {
       <div className="flex flex-col justify-center items-center">
          <div className="items-center md:bg-[#F5F6FA] mx-auto md:mt-10 md:p-12 px-4 pt-20 md:rounded-3xl max-w-2xl text-center">
             <div className="mb-8">
-               <svg
-                  viewBox="0 0 24 24"
-                  className="opacity-80 mx-auto w-16 h-16 text-blue-900"
-                  fill="currentColor"
-               >
+               <svg viewBox="0 0 24 24" className="opacity-80 mx-auto w-16 h-16 text-blue-900" fill="currentColor">
                   <CheckCircle />
                </svg>
             </div>
 
-            <h1 className="mb-5 font-bold text-blue-900 text-2xl">
-               ¡Ya estás Registrado!
-            </h1>
+            <h1 className="mb-5 font-bold text-blue-900 text-2xl">¡Ya estás Registrado!</h1>
 
             <p className="mb-2 text-lg">
-               Ahora toca realizar el último paso para inscribirte. Realiza tu
-               pago aquí para completar tu inscripción.
+               Ahora toca realizar el último paso para inscribirte. Realiza tu pago aquí para completar tu inscripción.
             </p>
          </div>
       </div>

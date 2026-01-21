@@ -1,12 +1,6 @@
 "use client";
 
-import {
-   CalendarDays,
-   ChartBar,
-   EllipsisIcon,
-   MessageSquareText,
-   X,
-} from "lucide-react";
+import { CalendarDays, ChartBar, EllipsisIcon, MessageSquareText, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
@@ -37,9 +31,7 @@ export default function AttendantConferenceViewer({
    conferenceRecording,
    speakerPresentationRecording,
 }: AttendantConferenceViewerProps) {
-   const [activeOverlay, setActiveOverlay] = useState<
-      null | "chat" | "polls" | "program" | "options"
-   >(null);
+   const [activeOverlay, setActiveOverlay] = useState<null | "chat" | "polls" | "program" | "options">(null);
    const [isMounted, setIsMounted] = useState(false);
 
    useEffect(() => {
@@ -131,18 +123,10 @@ export default function AttendantConferenceViewer({
                      <div className="bg-white md:shadow-2xl p-3 md:p-4 md:rounded-2xl rounded-t-2xl h-[100dvh] md:h-full overflow-auto md:overflow-hidden">
                         <div className="flex justify-between items-center mb-3">
                            <div className="flex items-center gap-2">
-                              {activeOverlay === "chat" && (
-                                 <MessageSquareText className="w-4 h-4 text-gray-700" />
-                              )}
-                              {activeOverlay === "polls" && (
-                                 <ChartBar className="w-4 h-4 text-gray-700" />
-                              )}
-                              {activeOverlay === "program" && (
-                                 <CalendarDays className="w-4 h-4 text-gray-700" />
-                              )}
-                              {activeOverlay === "options" && (
-                                 <EllipsisIcon className="w-4 h-4 text-gray-700" />
-                              )}
+                              {activeOverlay === "chat" && <MessageSquareText className="w-4 h-4 text-gray-700" />}
+                              {activeOverlay === "polls" && <ChartBar className="w-4 h-4 text-gray-700" />}
+                              {activeOverlay === "program" && <CalendarDays className="w-4 h-4 text-gray-700" />}
+                              {activeOverlay === "options" && <EllipsisIcon className="w-4 h-4 text-gray-700" />}
                               <span className="font-semibold text-gray-800 text-sm">
                                  {activeOverlay === "chat" && "Chat"}
                                  {activeOverlay === "polls" && "Encuestas"}
@@ -166,24 +150,15 @@ export default function AttendantConferenceViewer({
                            )}
                            {activeOverlay === "polls" &&
                               (conferenceQuestionPollId ? (
-                                 <SelfContainedRaltimeQuestionPollWidget
-                                    conferenceId={conference.id}
-                                 />
+                                 <SelfContainedRaltimeQuestionPollWidget conferenceId={conference.id} />
                               ) : (
-                                 <div className="text-gray-600 text-sm">
-                                    No hay encuestas asignadas a esta
-                                    conferencia.
-                                 </div>
+                                 <div className="text-gray-600 text-sm">No hay encuestas asignadas a esta conferencia.</div>
                               ))}
                            {activeOverlay === "program" && (
-                              <div className="text-gray-600 text-sm">
-                                 Aquí se mostrará el programa de la conferencia.
-                              </div>
+                              <div className="text-gray-600 text-sm">Aquí se mostrará el programa de la conferencia.</div>
                            )}
                            {activeOverlay === "options" && (
-                              <div className="text-gray-600 text-sm">
-                                 Opciones adicionales próximamente.
-                              </div>
+                              <div className="text-gray-600 text-sm">Opciones adicionales próximamente.</div>
                            )}
                         </div>
                      </div>
@@ -192,24 +167,16 @@ export default function AttendantConferenceViewer({
                document.body,
             )}
 
-         <ConferenceTitleSection
-            expandedConference={conference}
-            isQna={isQna}
-            conferenceId={conference.id}
-         />
+         <ConferenceTitleSection expandedConference={conference} isQna={isQna} conferenceId={conference.id} />
 
          {/* Interactive presentation section */}
          {conferencePresentationId && (
             <section className="bg-white shadow-sm border border-gray-200 rounded-2xl">
                <div className="px-4 py-3 border-gray-200 border-b">
-                  <h3 className="font-semibold text-gray-800">
-                     Diapositiva interactiva
-                  </h3>
+                  <h3 className="font-semibold text-gray-800">Diapositiva interactiva</h3>
                </div>
                <div className="p-4">
-                  <SelfContainedPresentationShower
-                     presentationId={conferencePresentationId?.id ?? ""}
-                  />
+                  <SelfContainedPresentationShower presentationId={conferencePresentationId?.id ?? ""} />
                </div>
             </section>
          )}

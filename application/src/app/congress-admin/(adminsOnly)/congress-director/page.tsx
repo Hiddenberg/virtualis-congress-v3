@@ -9,14 +9,10 @@ export default async function CongressDirectorPage() {
    return (
       <div className="space-y-4">
          <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200">
-            <h2 className="font-semibold text-gray-900 text-base">
-               Estado general
-            </h2>
+            <h2 className="font-semibold text-gray-900 text-base">Estado general</h2>
             <div className="gap-3 grid md:grid-cols-2 mt-3">
                <div className="bg-gray-50 p-4 rounded-lg ring-1 ring-gray-200">
-                  <p className="font-medium text-gray-700 text-sm">
-                     Conferencia activa
-                  </p>
+                  <p className="font-medium text-gray-700 text-sm">Conferencia activa</p>
                   {activeConference ? (
                      <Link
                         href={`/congress-admin/congress-director/${activeConference.id}`}
@@ -25,9 +21,7 @@ export default async function CongressDirectorPage() {
                         {activeConference.title}
                      </Link>
                   ) : (
-                     <p className="text-gray-600 text-sm">
-                        No hay conferencia activa
-                     </p>
+                     <p className="text-gray-600 text-sm">No hay conferencia activa</p>
                   )}
                </div>
                <div className="bg-gray-50 p-4 rounded-lg ring-1 ring-gray-200">
@@ -40,20 +34,15 @@ export default async function CongressDirectorPage() {
                         {nextConference.title}
                      </Link>
                   ) : (
-                     <p className="text-gray-600 text-sm">
-                        No hay próxima conferencia
-                     </p>
+                     <p className="text-gray-600 text-sm">No hay próxima conferencia</p>
                   )}
                </div>
             </div>
          </section>
          <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200">
-            <h2 className="font-semibold text-gray-900 text-base">
-               Cómo funciona
-            </h2>
+            <h2 className="font-semibold text-gray-900 text-base">Cómo funciona</h2>
             <p className="mt-1 text-gray-600 text-sm">
-               Selecciona una conferencia en la lista para administrarla:
-               iniciar, finalizar o acceder a accesos directos.
+               Selecciona una conferencia en la lista para administrarla: iniciar, finalizar o acceder a accesos directos.
             </p>
          </section>
       </div>

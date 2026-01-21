@@ -2,14 +2,8 @@
 
 import { getConferenceLivestreamSession } from "@/features/conferences/services/conferenceLivestreamsServices";
 import { getConferencePresentation } from "@/features/conferences/services/conferencePresentationsServices";
-import {
-   getConferenceRecording,
-   linkRecordingToConference,
-} from "@/features/conferences/services/conferenceRecordingsServices";
-import {
-   getAllCongressConferences,
-   getAllProgramConferences,
-} from "@/features/conferences/services/conferenceServices";
+import { getConferenceRecording, linkRecordingToConference } from "@/features/conferences/services/conferenceRecordingsServices";
+import { getAllCongressConferences, getAllProgramConferences } from "@/features/conferences/services/conferenceServices";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
@@ -38,11 +32,7 @@ import {
    updateSimpleRecordingDuration,
 } from "@/features/simpleRecordings/services/recordingsServices";
 import { getUserById } from "@/features/users/services/userServices";
-import {
-   deleteDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import { getMuxAssetDuration } from "@/services/muxServices";
 
 export async function ensureAllRecordingsHaveDuration(): Promise<
@@ -65,19 +55,14 @@ export async function ensureAllRecordingsHaveDuration(): Promise<
          try {
             const duration = await getMuxAssetDuration(recording.muxAssetId);
             if (!duration) {
-               console.error(
-                  `[CongressAdminSynchPage] Error getting mux asset duration for recording ${recording.id}`,
-               );
+               console.error(`[CongressAdminSynchPage] Error getting mux asset duration for recording ${recording.id}`);
                recordingsWithError.push(recording.id);
                continue;
             }
             await updateSimpleRecordingDuration(recording.id, duration);
             recordingsUpdated.push(recording.id);
          } catch (error) {
-            console.error(
-               `[CongressAdminSynchPage] Error getting mux asset duration for recording ${recording.id}`,
-               error,
-            );
+            console.error(`[CongressAdminSynchPage] Error getting mux asset duration for recording ${recording.id}`, error);
             recordingsWithError.push(recording.id);
          }
       }
@@ -110,25 +95,21 @@ export async function syncCongressRecordings(): Promise<
 
       const campaginTitle = `[Congress Recordings] - ${congress.title}`;
       // Check if the campagin exists
-      let congressRecordingsCampaign =
-         await getSingleDBRecord<SimpleRecordingCampaign>(
-            "SIMPLE_RECORDING_CAMPAIGNS",
-            pbFilter(
-               `
+      let congressRecordingsCampaign = await getSingleDBRecord<SimpleRecordingCampaign>(
+         "SIMPLE_RECORDING_CAMPAIGNS",
+         pbFilter(
+            `
             organization = {:organizationId} &&
             title = {:campaginTitle}
             `,
-               {
-                  organizationId: organization.id,
-                  campaginTitle,
-               },
-            ),
-         );
+            {
+               organizationId: organization.id,
+               campaginTitle,
+            },
+         ),
+      );
       if (!congressRecordingsCampaign) {
-         congressRecordingsCampaign = await createRecordingCampaign(
-            campaginTitle,
-            "Conferencias grabadas del congreso",
-         );
+         congressRecordingsCampaign = await createRecordingCampaign(campaginTitle, "Conferencias grabadas del congreso");
       }
 
       // Get all congress conferences
@@ -162,18 +143,13 @@ export async function syncCongressRecordings(): Promise<
             ),
          );
          if (recording) {
-            console.log(
-               "Recording already exists for conference, skipping",
-               conference.id,
-            );
+            console.log("Recording already exists for conference, skipping", conference.id);
             skippedRecordings.push(conference.id);
             continue;
          }
 
          // Check if the conference was already pre-recorded
-         const conferenceRecording = await getConferenceRecording(
-            conference.id,
-         );
+         const conferenceRecording = await getConferenceRecording(conference.id);
          if (conferenceRecording) {
             // Add the existing recording to the campaign as a copy
             const recordingCopy = {
@@ -188,15 +164,9 @@ export async function syncCongressRecordings(): Promise<
                status: "ready",
             });
 
-            const recordingPresentation =
-               await getRecordingPresentationByRecordingId(
-                  conferenceRecording.id,
-               );
+            const recordingPresentation = await getRecordingPresentationByRecordingId(conferenceRecording.id);
             if (recordingPresentation) {
-               await createRecordingPresentation(
-                  createdRecording.id,
-                  recordingPresentation.id,
-               );
+               await createRecordingPresentation(createdRecording.id, recordingPresentation.id);
             }
             console.log("Recording copied to campaign", conference.id);
             copiedRecordings.push(conference.id);
@@ -204,22 +174,11 @@ export async function syncCongressRecordings(): Promise<
          }
 
          // If the conference was live obtain the livestream session and its mux asset
-         if (
-            conference.conferenceType === "in-person" ||
-            conference.conferenceType === "livestream"
-         ) {
-            const livestreamSession = await getConferenceLivestreamSession(
-               conference.id,
-            );
-            const livestreamMuxAssetRecord =
-               await getMuxLivestreamRecordByLivestreamSessionId(
-                  livestreamSession?.id ?? "",
-               );
+         if (conference.conferenceType === "in-person" || conference.conferenceType === "livestream") {
+            const livestreamSession = await getConferenceLivestreamSession(conference.id);
+            const livestreamMuxAssetRecord = await getMuxLivestreamRecordByLivestreamSessionId(livestreamSession?.id ?? "");
             if (!livestreamMuxAssetRecord) {
-               console.log(
-                  "No mux asset found for livestream session, skipping",
-                  conference.id,
-               );
+               console.log("No mux asset found for livestream session, skipping", conference.id);
                failedRecordings.push({
                   conferenceId: conference.id,
                   errorMessage: "No mux asset found for livestream session",
@@ -227,14 +186,9 @@ export async function syncCongressRecordings(): Promise<
                continue;
             }
 
-            const muxAsset = await getMuxAssetByMuxLivestreamId(
-               livestreamMuxAssetRecord.muxLivestreamId,
-            );
+            const muxAsset = await getMuxAssetByMuxLivestreamId(livestreamMuxAssetRecord.muxLivestreamId);
             if (!muxAsset) {
-               console.log(
-                  "No mux asset found for livestream session, skipping",
-                  conference.id,
-               );
+               console.log("No mux asset found for livestream session, skipping", conference.id);
                failedRecordings.push({
                   conferenceId: conference.id,
                   errorMessage: "No mux asset found for livestream session",
@@ -257,25 +211,14 @@ export async function syncCongressRecordings(): Promise<
                muxPlaybackId: muxAsset.playback_ids?.[0]?.id ?? "",
             });
 
-            const conferencePresentation = await getConferencePresentation(
-               conference.id,
-            );
+            const conferencePresentation = await getConferencePresentation(conference.id);
             if (conferencePresentation) {
-               const presentationRecording =
-                  await getPresentationRecordingByPresentationId(
-                     conferencePresentation.id,
-                  );
+               const presentationRecording = await getPresentationRecordingByPresentationId(conferencePresentation.id);
                if (!presentationRecording) {
-                  console.log(
-                     "No presentation recording found for conference, skipping",
-                     conference.id,
-                  );
+                  console.log("No presentation recording found for conference, skipping", conference.id);
                } else {
                   // Link the presentation recording to the recording that was created
-                  await createRecordingPresentation(
-                     createdRecording.id,
-                     conferencePresentation.id,
-                  );
+                  await createRecordingPresentation(createdRecording.id, conferencePresentation.id);
 
                   await updateSimpleRecording(createdRecording.id, {
                      recordingType: "camera_and_presentation",
@@ -327,9 +270,7 @@ export interface ScheduleAllConferenceRecordingsResult {
       errorMessage: string;
    }[];
 }
-export async function scheduleAllConferenceRecordingsAction(): Promise<
-   BackendResponse<ScheduleAllConferenceRecordingsResult>
-> {
+export async function scheduleAllConferenceRecordingsAction(): Promise<BackendResponse<ScheduleAllConferenceRecordingsResult>> {
    try {
       const organization = await getOrganizationFromSubdomain();
       const congress = await getLatestCongress();
@@ -337,8 +278,7 @@ export async function scheduleAllConferenceRecordingsAction(): Promise<
       const campaignTitle = `Conferencias del congreso: ${congress.title}`;
 
       // Check if the campaign exists
-      const conferenceRecordingsCampaign =
-         await ensuredRecordingCampaign(campaignTitle);
+      const conferenceRecordingsCampaign = await ensuredRecordingCampaign(campaignTitle);
 
       const createdRecordings = [];
       const skippedRecordings: {
@@ -354,10 +294,7 @@ export async function scheduleAllConferenceRecordingsAction(): Promise<
          try {
             // This applies only to simulated livestreams
             if (conference.conferenceType !== "simulated_livestream") {
-               console.log(
-                  "Conference is not a simulated livestream, skipping",
-                  conference.id,
-               );
+               console.log("Conference is not a simulated livestream, skipping", conference.id);
                skippedRecordings.push({
                   conferenceId: conference.id,
                   reason: "Conference is not a simulated livestream",
@@ -366,29 +303,18 @@ export async function scheduleAllConferenceRecordingsAction(): Promise<
             }
 
             const conferenceRecordingTitle = `Grabación de conferencia - ${conference.title}`;
-            const conferenceSpeakers = await getConferenceSpeakers(
-               conference.id,
-            );
-            const conferenceSpeaker =
-               conferenceSpeakers.length > 0
-                  ? conferenceSpeakers[0]
-                  : undefined;
-            const speakerUser = await getUserById(
-               conferenceSpeaker?.user ?? "",
-            );
+            const conferenceSpeakers = await getConferenceSpeakers(conference.id);
+            const conferenceSpeaker = conferenceSpeakers.length > 0 ? conferenceSpeakers[0] : undefined;
+            const speakerUser = await getUserById(conferenceSpeaker?.user ?? "");
 
             // Check if the conference recording already exists in the campaign
-            const existingRecording =
-               await getSimpleRecordingByTitleAndCampaign({
-                  title: conferenceRecordingTitle,
-                  campaignId: conferenceRecordingsCampaign.id,
-               });
+            const existingRecording = await getSimpleRecordingByTitleAndCampaign({
+               title: conferenceRecordingTitle,
+               campaignId: conferenceRecordingsCampaign.id,
+            });
             // If the recording exists, skip it
             if (existingRecording) {
-               console.log(
-                  "Recording already exists for conference, skipping",
-                  conference.id,
-               );
+               console.log("Recording already exists for conference, skipping", conference.id);
                skippedRecordings.push({
                   conferenceId: conference.id,
                   reason: "Recording already exists for conference",
@@ -421,15 +347,10 @@ export async function scheduleAllConferenceRecordingsAction(): Promise<
             console.log("Recording created for conference", conference.id);
             createdRecordings.push(createdRecording.id);
          } catch (error) {
-            console.error(
-               "Error creating recording for conference",
-               conference.id,
-               error,
-            );
+            console.error("Error creating recording for conference", conference.id, error);
             failedRecordings.push({
                conferenceId: conference.id,
-               errorMessage:
-                  error instanceof Error ? error.message : "Unknown error",
+               errorMessage: error instanceof Error ? error.message : "Unknown error",
             });
          }
       }
@@ -468,8 +389,7 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
       const campaignTitle = `Presentaciones del congreso: ${congress.title}`;
 
       // Check if the campaign exists
-      const conferenceRecordingsCampaign =
-         await ensuredRecordingCampaign(campaignTitle);
+      const conferenceRecordingsCampaign = await ensuredRecordingCampaign(campaignTitle);
 
       const createdRecordings = [];
       const skippedRecordings: {
@@ -485,10 +405,7 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
          try {
             // This applies only to simulated livestreams
             if (conference.conferenceType !== "simulated_livestream") {
-               console.log(
-                  "Conference is not a simulated livestream, skipping",
-                  conference.id,
-               );
+               console.log("Conference is not a simulated livestream, skipping", conference.id);
                skippedRecordings.push({
                   conferenceId: conference.id,
                   reason: "Conference is not a simulated livestream",
@@ -496,27 +413,18 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
                continue;
             }
 
-            const conferenceSpeakers = await getConferenceSpeakers(
-               conference.id,
-            );
-            const conferenceSpeaker =
-               conferenceSpeakers.length > 0
-                  ? conferenceSpeakers[0]
-                  : undefined;
+            const conferenceSpeakers = await getConferenceSpeakers(conference.id);
+            const conferenceSpeaker = conferenceSpeakers.length > 0 ? conferenceSpeakers[0] : undefined;
             const conferenceRecordingTitle = `Presentación de la conferencia: ${conference.title} ${conferenceSpeaker ? ` | Ponente: ${conferenceSpeaker.academicTitle} ${conferenceSpeaker.displayName}` : ""}`;
 
             // Check if the conference recording already exists in the campaign
-            const existingRecording =
-               await getSimpleRecordingByTitleAndCampaign({
-                  title: conferenceRecordingTitle,
-                  campaignId: conferenceRecordingsCampaign.id,
-               });
+            const existingRecording = await getSimpleRecordingByTitleAndCampaign({
+               title: conferenceRecordingTitle,
+               campaignId: conferenceRecordingsCampaign.id,
+            });
             // If the recording exists, skip it
             if (existingRecording) {
-               console.log(
-                  "Recording already exists for conference, skipping",
-                  conference.id,
-               );
+               console.log("Recording already exists for conference, skipping", conference.id);
                skippedRecordings.push({
                   conferenceId: conference.id,
                   reason: "Recording already exists for conference",
@@ -542,15 +450,10 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
             console.log("Recording created for conference", conference.id);
             createdRecordings.push(createdRecording.id);
          } catch (error) {
-            console.error(
-               "Error creating recording for conference",
-               conference.id,
-               error,
-            );
+            console.error("Error creating recording for conference", conference.id, error);
             failedRecordings.push({
                conferenceId: conference.id,
-               errorMessage:
-                  error instanceof Error ? error.message : "Unknown error",
+               errorMessage: error instanceof Error ? error.message : "Unknown error",
             });
          }
       }
@@ -579,9 +482,7 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
    }
 }
 
-export async function deleteRecordingsCampaign(
-   campaignId: string,
-): Promise<BackendResponse<null>> {
+export async function deleteRecordingsCampaign(campaignId: string): Promise<BackendResponse<null>> {
    try {
       const campaign = await getRecordingsCampaignById(campaignId);
       if (!campaign) {

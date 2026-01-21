@@ -10,11 +10,7 @@ interface LocalLineSegment {
    y2: number;
 }
 
-export default function PresentationDrawingOverlay({
-   previewLine,
-}: {
-   previewLine?: LocalLineSegment;
-}) {
+export default function PresentationDrawingOverlay({ previewLine }: { previewLine?: LocalLineSegment }) {
    const canvasRef = useRef<HTMLCanvasElement>(null);
    const contextRef = useRef<CanvasRenderingContext2D | null>(null);
    const { lines } = usePresentationDrawing();

@@ -31,9 +31,7 @@ export async function getUserByIdAction(userId: string) {
       throw error;
    }
 }
-export async function createNewUserAction(
-   newUserData: NewUserData,
-): Promise<BackendResponse<{ userCreatedId: string }>> {
+export async function createNewUserAction(newUserData: NewUserData): Promise<BackendResponse<{ userCreatedId: string }>> {
    try {
       const userCreatedId = await createUser(newUserData);
       return {
@@ -94,10 +92,7 @@ export async function updateUserAction(
    }
 }
 
-export async function updateUserRoleAction(
-   userId: string,
-   role: RoleType,
-): Promise<BackendResponse<{ userUpdated: User }>> {
+export async function updateUserRoleAction(userId: string, role: RoleType): Promise<BackendResponse<{ userUpdated: User }>> {
    try {
       const userRoleUpdated = await updateUserRole(userId, role);
       return {
@@ -117,9 +112,7 @@ export async function updateUserRoleAction(
    }
 }
 
-export async function deleteUserAction(
-   userId: string,
-): Promise<BackendResponse<null>> {
+export async function deleteUserAction(userId: string): Promise<BackendResponse<null>> {
    try {
       await deleteUser(userId);
 
@@ -151,9 +144,7 @@ export async function removeTokenCookieAction() {
    cookieStore.delete("authToken");
 }
 
-export async function checkExistingEmailAction(
-   email: string,
-): Promise<BackendResponse<{ existingUser: boolean }>> {
+export async function checkExistingEmailAction(email: string): Promise<BackendResponse<{ existingUser: boolean }>> {
    try {
       const user = await getUserByEmail(email);
       return {

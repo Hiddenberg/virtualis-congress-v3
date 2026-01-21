@@ -2,45 +2,24 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import {
-   ChevronLeft,
-   ChevronRight,
-   Eye,
-   EyeOff,
-   PresentationIcon,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Eye, EyeOff, PresentationIcon } from "lucide-react";
 import { useMemo } from "react";
 import { useRealtimePresentationState } from "@/features/pptPresentations/customHooks/useRealtimePresentationState";
 import pbClient from "@/libs/pbClient";
 
-export default function RealtimePresentationController({
-   presentationId,
-}: {
-   presentationId: string;
-}) {
-   const {
-      state,
-      isLoading: isLoadingState,
-      updateState,
-   } = useRealtimePresentationState(presentationId);
+export default function RealtimePresentationController({ presentationId }: { presentationId: string }) {
+   const { state, isLoading: isLoadingState, updateState } = useRealtimePresentationState(presentationId);
 
-   const { data: presentationSlides, isLoading } = useQuery<
-      PresentationSlideRecord[]
-   >({
+   const { data: presentationSlides, isLoading } = useQuery<PresentationSlideRecord[]>({
       queryFn: async () => {
-         const response = await fetch(
-            `/api/presentation/${presentationId}/slides`,
-         );
+         const response = await fetch(`/api/presentation/${presentationId}/slides`);
          const data = await response.json();
          return data;
       },
       queryKey: ["presentation-slides", presentationId],
    });
 
-   const currentSlide = useMemo(
-      () => state?.currentSlideIndex ?? 0,
-      [state?.currentSlideIndex],
-   );
+   const currentSlide = useMemo(() => state?.currentSlideIndex ?? 0, [state?.currentSlideIndex]);
    const isHidden = useMemo(() => state?.isHidden ?? false, [state?.isHidden]);
 
    if (!presentationSlides) return <div>No hay diapositivas para mostrar</div>;
@@ -53,9 +32,7 @@ export default function RealtimePresentationController({
    };
 
    const goToPrevSlide = () => {
-      const prev =
-         (currentSlide - 1 + presentationSlides.length) %
-         presentationSlides.length;
+      const prev = (currentSlide - 1 + presentationSlides.length) % presentationSlides.length;
       updateState({
          currentSlideIndex: prev,
       });
@@ -114,9 +91,7 @@ export default function RealtimePresentationController({
    const currentSlideImage = presentationSlides[currentSlide];
 
    return (
-      <div
-         className={`bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden max-w-3xl mx-auto`}
-      >
+      <div className={`bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden max-w-3xl mx-auto`}>
          {/* Header with controls */}
          <div className="bg-gray-50 p-4 border-gray-200 border-b">
             <div className="flex justify-between items-center">
@@ -145,14 +120,8 @@ export default function RealtimePresentationController({
                      className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors ${isHidden ? "bg-blue-600 text-white border-blue-600 hover:bg-blue-700" : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"}`}
                      type="button"
                   >
-                     {isHidden ? (
-                        <Eye className="w-4 h-4" />
-                     ) : (
-                        <EyeOff className="w-4 h-4" />
-                     )}
-                     {isHidden
-                        ? "Mostrar presentación"
-                        : "Ocultar presentación"}
+                     {isHidden ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                     {isHidden ? "Mostrar presentación" : "Ocultar presentación"}
                   </button>
                </div>
             </div>
@@ -173,10 +142,7 @@ export default function RealtimePresentationController({
                {/* Slide image */}
                <div className="relative max-w-full max-h-full overflow-hidden">
                   <img
-                     src={pbClient.files.getURL(
-                        currentSlideImage,
-                        currentSlideImage.image as string,
-                     )}
+                     src={pbClient.files.getURL(currentSlideImage, currentSlideImage.image as string)}
                      alt={`Diapositiva ${currentSlide + 1}`}
                      className={`max-w-full max-h-full object-contain transition-transform duration-300 ${isHidden ? "opacity-30 blur-[1px]" : ""}`}
                   />
@@ -193,9 +159,7 @@ export default function RealtimePresentationController({
                               <EyeOff className="w-5 h-5" />
                            </div>
                            <p className="font-semibold">Presentación oculta</p>
-                           <p className="text-gray-200 text-sm">
-                              Los asistentes no la pueden ver.
-                           </p>
+                           <p className="text-gray-200 text-sm">Los asistentes no la pueden ver.</p>
                         </div>
                      </div>
                   )}
@@ -220,23 +184,16 @@ export default function RealtimePresentationController({
                      key={slide.id}
                      onClick={() => goToSlide(index)}
                      className={`flex-shrink-0 relative border-2 rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${
-                        index === currentSlide
-                           ? "border-yellow-400 shadow-lg"
-                           : "border-gray-300 hover:border-gray-400"
+                        index === currentSlide ? "border-yellow-400 shadow-lg" : "border-gray-300 hover:border-gray-400"
                      }`}
                   >
                      <img
-                        src={pbClient.files.getURL(
-                           slide,
-                           slide.image as string,
-                        )}
+                        src={pbClient.files.getURL(slide, slide.image as string)}
                         alt={`Miniatura ${index + 1}`}
                         className="w-24 h-16 object-cover"
                      />
                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
-                        <span className="bottom-1 left-1 absolute font-medium text-white text-xs">
-                           {index + 1}
-                        </span>
+                        <span className="bottom-1 left-1 absolute font-medium text-white text-xs">{index + 1}</span>
                      </div>
                      {index === currentSlide && (
                         <div className="-top-1 -right-1 absolute bg-yellow-400 border border-white rounded-full w-3 h-3" />

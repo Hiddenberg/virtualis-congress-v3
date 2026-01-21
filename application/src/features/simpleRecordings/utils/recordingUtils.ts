@@ -2,10 +2,7 @@ import type { OrganizationRecord } from "@/features/organizations/types/organiza
 
 const isDevEnvironment = process.env.NODE_ENV === "development";
 
-export function getRecordingLink(
-   recordingId: string,
-   organization: OrganizationRecord,
-) {
+export function getRecordingLink(recordingId: string, organization: OrganizationRecord) {
    if (isDevEnvironment) {
       return `http://${organization.subdomain}.localhost:3000/recordings/record/${recordingId}`;
    }

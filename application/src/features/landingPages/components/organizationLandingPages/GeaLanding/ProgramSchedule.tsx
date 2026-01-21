@@ -125,11 +125,7 @@ export default function ProgramSchedule({
                               </div>
                               <div className="text-left">
                                  <div className="font-bold">{d.label}</div>
-                                 <div className="opacity-75 text-xs">
-                                    {new Date(d.dateISO).toLocaleDateString(
-                                       "es-MX",
-                                    )}
-                                 </div>
+                                 <div className="opacity-75 text-xs">{new Date(d.dateISO).toLocaleDateString("es-MX")}</div>
                               </div>
                            </div>
                         </button>
@@ -149,18 +145,13 @@ export default function ProgramSchedule({
                            </span>
                         </div>
                         <div>
-                           <h3 className="font-bold text-gray-900 text-2xl">
-                              {current.label}
-                           </h3>
+                           <h3 className="font-bold text-gray-900 text-2xl">{current.label}</h3>
                            <p className="font-medium text-blue-600">
-                              {new Date(current.dateISO).toLocaleDateString(
-                                 "es-MX",
-                                 {
-                                    day: "numeric",
-                                    month: "long",
-                                    year: "numeric",
-                                 },
-                              )}
+                              {new Date(current.dateISO).toLocaleDateString("es-MX", {
+                                 day: "numeric",
+                                 month: "long",
+                                 year: "numeric",
+                              })}
                            </p>
                         </div>
                      </div>
@@ -174,16 +165,11 @@ export default function ProgramSchedule({
                               <div className="p-4 md:p-6">
                                  <div className="flex flex-col gap-3">
                                     <div className="bg-blue-100 px-3 py-1 rounded-lg w-max font-semibold text-blue-800 text-sm">
-                                       {formatTime(conf.startTime)} -{" "}
-                                       {formatTime(conf.endTime)}
+                                       {formatTime(conf.startTime)} - {formatTime(conf.endTime)}
                                     </div>
-                                    <h4 className="font-bold text-gray-900 text-lg">
-                                       {conf.title}
-                                    </h4>
+                                    <h4 className="font-bold text-gray-900 text-lg">{conf.title}</h4>
                                     {conf.shortDescription && (
-                                       <p className="text-gray-700 text-sm leading-relaxed">
-                                          {conf.shortDescription}
-                                       </p>
+                                       <p className="text-gray-700 text-sm leading-relaxed">{conf.shortDescription}</p>
                                     )}
                                  </div>
                               </div>

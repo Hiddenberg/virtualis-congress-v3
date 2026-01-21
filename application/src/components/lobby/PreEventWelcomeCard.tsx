@@ -18,11 +18,7 @@ export function CopyLinkButton() {
          onClick={handleCopyLink}
          className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 px-6 py-2 rounded-xl font-semibold"
       >
-         {isCopied ? (
-            <Check className="size-5" />
-         ) : (
-            <Link2 className="size-5" />
-         )}
+         {isCopied ? <Check className="size-5" /> : <Link2 className="size-5" />}
          {isCopied ? "Copiado" : "Copiar Enlace"}
       </button>
    );
@@ -35,12 +31,9 @@ export default function PreEventWelcomeCard() {
             <AlarmClockCheckIcon className="size-10 text-gray-700 shrink-0" />
             <div>
                <div className="mb-4">
-                  <p className="font-bold text-2xl">
-                     ¡Ya estás inscrito! El evento está por comenzar
-                  </p>
+                  <p className="font-bold text-2xl">¡Ya estás inscrito! El evento está por comenzar</p>
                   <p>
-                     Te recomendamos guardar esta página en tus favoritos o
-                     copiar el siguiente enlace para tenerlo siempre a mano
+                     Te recomendamos guardar esta página en tus favoritos o copiar el siguiente enlace para tenerlo siempre a mano
                      cuando el evento comience.
                   </p>
                </div>

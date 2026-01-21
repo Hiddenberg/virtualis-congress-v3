@@ -12,11 +12,7 @@ type SynchronizedMuxPlayersProps = {
    title: string;
 };
 
-export function SynchronizedMuxPlayers({
-   videoAssets,
-   videoTypesText,
-   title,
-}: SynchronizedMuxPlayersProps) {
+export function SynchronizedMuxPlayers({ videoAssets, videoTypesText, title }: SynchronizedMuxPlayersProps) {
    const playerRefs = useRef<(HTMLDivElement | null)[]>([]);
    const syncLock = useRef<boolean>(false);
    const syncTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -34,10 +30,7 @@ export function SynchronizedMuxPlayers({
       if (playerElements.length < 2) return;
 
       // Function to sync all other players with the triggering player
-      const syncPlayers = (
-         triggeringPlayer: HTMLMediaElement,
-         action: "play" | "pause" | "seek",
-      ) => {
+      const syncPlayers = (triggeringPlayer: HTMLMediaElement, action: "play" | "pause" | "seek") => {
          // If we're already syncing, don't trigger another sync
          if (syncLock.current) return;
 
@@ -52,9 +45,7 @@ export function SynchronizedMuxPlayers({
          playerElements.forEach((player) => {
             if (player && player !== triggeringPlayer) {
                if (action === "play") {
-                  player
-                     .play()
-                     .catch((err) => console.error("Error syncing play:", err));
+                  player.play().catch((err) => console.error("Error syncing play:", err));
                } else if (action === "pause") {
                   player.pause();
                } else if (action === "seek") {
@@ -65,11 +56,7 @@ export function SynchronizedMuxPlayers({
                   // If the triggering player is playing, resume playback after a short delay
                   if (!triggeringPlayer.paused) {
                      setTimeout(() => {
-                        player
-                           .play()
-                           .catch((err) =>
-                              console.error("Error playing after seek:", err),
-                           );
+                        player.play().catch((err) => console.error("Error playing after seek:", err));
                      }, 50);
                   }
                }

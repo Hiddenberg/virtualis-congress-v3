@@ -9,16 +9,10 @@ import { getMuxAssetDuration } from "@/services/muxServices";
 export default async function PresentationSimulivePlayerPage() {
    const simpleRecording = await getSimpleRecordingById("ob85ml6lg7l1u37");
 
-   const recordingPresentation = await getRecordingPresentationByRecordingId(
-      simpleRecording?.id ?? "",
-   );
-   const presentationRecording = await getPresentationRecordingByPresentationId(
-      recordingPresentation?.id ?? "",
-   );
+   const recordingPresentation = await getRecordingPresentationByRecordingId(simpleRecording?.id ?? "");
+   const presentationRecording = await getPresentationRecordingByPresentationId(recordingPresentation?.id ?? "");
    const conference = await getConferenceById("");
-   const durationSeconds = await getMuxAssetDuration(
-      simpleRecording?.muxAssetId ?? "",
-   );
+   const durationSeconds = await getMuxAssetDuration(simpleRecording?.muxAssetId ?? "");
 
    if (!conference) {
       return <div>Conference not found</div>;

@@ -41,15 +41,8 @@ export default function SponsorsSection() {
          <h1 className="pb-5 text-blue-900 text-xl">Patrocinadores</h1>
          <div className="gap-4 grid grid-cols-4">
             {logos.map((logo, index) => (
-               <div
-                  key={index}
-                  className="flex justify-center items-center bg-white p-4 rounded-lg"
-               >
-                  <Image
-                     src={logo.image}
-                     alt=""
-                     className="w-full max-w-20 h-auto object-contain"
-                  />
+               <div key={index} className="flex justify-center items-center bg-white p-4 rounded-lg">
+                  <Image src={logo.image} alt="" className="w-full max-w-20 h-auto object-contain" />
                </div>
             ))}
          </div>

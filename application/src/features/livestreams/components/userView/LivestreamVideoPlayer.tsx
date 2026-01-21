@@ -4,11 +4,7 @@ import MuxPlayer from "@mux/mux-player-react";
 import { useState } from "react";
 import UnmuteOverlay from "@/features/simulive/components/UnmuteOverlay";
 
-export default function LivestreamVideoPlayer({
-   livestreamPlaybackId,
-}: {
-   livestreamPlaybackId: string;
-}) {
+export default function LivestreamVideoPlayer({ livestreamPlaybackId }: { livestreamPlaybackId: string }) {
    const [isMuted, setIsMuted] = useState(true);
 
    return (

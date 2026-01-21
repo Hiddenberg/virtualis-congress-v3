@@ -1,9 +1,7 @@
 import { addDay, diffDays, format } from "@formkit/tempo";
 import type { RecordModel } from "pocketbase";
 
-export function getAccumulatedGainsPerDay(
-   allPayments: (UserPayment & RecordModel)[],
-) {
+export function getAccumulatedGainsPerDay(allPayments: (UserPayment & RecordModel)[]) {
    const initialDate = format({
       date: addDay(allPayments[0].created, -1),
       format: "YYYY-MM-DD",
@@ -42,10 +40,7 @@ export function getAccumulatedGainsPerDay(
             paymentsForDate.length === 0
                ? 0
                : paymentsForDate.reduce((prev, currPayment) => {
-                    const paymentAmount =
-                       currPayment.totalAmount === 0
-                          ? 0
-                          : (currPayment.totalAmount ?? 0 / 100);
+                    const paymentAmount = currPayment.totalAmount === 0 ? 0 : (currPayment.totalAmount ?? 0 / 100);
                     return prev + paymentAmount;
                  }, 0);
 
@@ -62,9 +57,7 @@ export function getAccumulatedGainsPerDay(
             ...prev,
             {
                date: currDate,
-               accumulatedGains:
-                  prev[prev.length - 1].accumulatedGains +
-                  accumulatedGainsForDate,
+               accumulatedGains: prev[prev.length - 1].accumulatedGains + accumulatedGainsForDate,
             },
          ];
       },
@@ -78,9 +71,7 @@ export interface NewRegistrationsData {
    date: string;
    newRegistrations: number;
 }
-export function getNewRegistrationsPerDay(
-   allAttendantsRegistered: (AttendantData & RecordModel)[],
-) {
+export function getNewRegistrationsPerDay(allAttendantsRegistered: (AttendantData & RecordModel)[]) {
    const registrationsPerDay = allAttendantsRegistered.reduce((prev, curr) => {
       const formattedCreationDate = format({
          date: curr.created,
@@ -88,9 +79,7 @@ export function getNewRegistrationsPerDay(
          locale: "es-MX",
          tz: "America/Mexico_City",
       });
-      const existingDate = prev.find(
-         (item) => item.date === formattedCreationDate,
-      );
+      const existingDate = prev.find((item) => item.date === formattedCreationDate);
       if (existingDate) {
          existingDate.newRegistrations += 1;
       } else {
@@ -107,40 +96,32 @@ export function getNewRegistrationsPerDay(
 }
 
 export function getPaymentsCollected(
-   attendatsWithPaymentConfirmedData: (AttendantData &
-      RecordModel & { expand: { user: User & RecordModel } })[],
+   attendatsWithPaymentConfirmedData: (AttendantData & RecordModel & { expand: { user: User & RecordModel } })[],
    allPayments: (UserPayment & RecordModel)[],
 ) {
-   const usersWithPayments = attendatsWithPaymentConfirmedData.map(
-      (attendantData) => {
-         const attendantPayment = allPayments.find(
-            (attendantPayment) => attendantPayment.user === attendantData.user,
-         );
-         if (!attendantPayment) {
-            return null;
-         }
+   const usersWithPayments = attendatsWithPaymentConfirmedData.map((attendantData) => {
+      const attendantPayment = allPayments.find((attendantPayment) => attendantPayment.user === attendantData.user);
+      if (!attendantPayment) {
+         return null;
+      }
 
-         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-         //@ts-expect-error
-         const additionalData: ACPAdditionalData = attendantData.additionalData;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
+      const additionalData: ACPAdditionalData = attendantData.additionalData;
 
-         return {
-            isACPMember: additionalData.acpId ? true : false,
-            amountPaid:
-               attendantPayment.totalAmount === 0
-                  ? 0
-                  : (attendantPayment.totalAmount ?? 0 / 100),
-            studiesGrade: additionalData.studiesGrade,
-            name: attendantData.expand.user.name,
-            date: format({
-               date: attendantPayment.created,
-               format: "YYYY-MM-DD",
-               locale: "es-MX",
-               tz: "America/Mexico_City",
-            }),
-         };
-      },
-   );
+      return {
+         isACPMember: additionalData.acpId ? true : false,
+         amountPaid: attendantPayment.totalAmount === 0 ? 0 : (attendantPayment.totalAmount ?? 0 / 100),
+         studiesGrade: additionalData.studiesGrade,
+         name: attendantData.expand.user.name,
+         date: format({
+            date: attendantPayment.created,
+            format: "YYYY-MM-DD",
+            locale: "es-MX",
+            tz: "America/Mexico_City",
+         }),
+      };
+   });
 
    return usersWithPayments;
 }

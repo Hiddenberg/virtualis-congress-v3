@@ -1,21 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-   sendRecordingInvitationEmail,
-   sendRecordingReminderEmail,
-} from "@/features/emails/services/emailSendingServices";
+import { sendRecordingInvitationEmail, sendRecordingReminderEmail } from "@/features/emails/services/emailSendingServices";
 import { updateLivestreamSession } from "@/features/livestreams/services/livestreamSessionServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createMuxStaticRendition,
-   deleteMuxAsset,
-   getMuxAssetByUploadId,
-} from "@/services/muxServices";
-import {
-   createRecordingLivestream,
-   getRecordingLivestreamSessionByRecordingId,
-} from "../services/recordingLivestreamServices";
+import { createMuxStaticRendition, deleteMuxAsset, getMuxAssetByUploadId } from "@/services/muxServices";
+import { createRecordingLivestream, getRecordingLivestreamSessionByRecordingId } from "../services/recordingLivestreamServices";
 import { deletePresentationRecordingForRecording } from "../services/recordingPresentationsServices";
 import {
    createRecordingRecord,
@@ -89,10 +79,7 @@ export async function updateRecordingAction(
    recording: Partial<SimpleRecording>,
 ): Promise<BackendResponse<SimpleRecording>> {
    try {
-      const updatedRecording = await updateSimpleRecording(
-         recordingId,
-         recording,
-      );
+      const updatedRecording = await updateSimpleRecording(recordingId, recording);
 
       return {
          success: true,
@@ -112,10 +99,7 @@ export async function updateRecordingAction(
    }
 }
 
-export async function completeRecordingUploadAction(
-   recordingId: string,
-   muxUploadId: string,
-): Promise<BackendResponse<null>> {
+export async function completeRecordingUploadAction(recordingId: string, muxUploadId: string): Promise<BackendResponse<null>> {
    try {
       // get the mux asset and playback Id
       const muxAsset = await getMuxAssetByUploadId(muxUploadId);
@@ -132,8 +116,7 @@ export async function completeRecordingUploadAction(
       if (!playbackId) {
          return {
             success: false,
-            errorMessage:
-               "[CompleteRecordingUploadAction] Playback ID not found",
+            errorMessage: "[CompleteRecordingUploadAction] Playback ID not found",
          };
       }
 
@@ -163,9 +146,7 @@ export async function completeRecordingUploadAction(
    }
 }
 
-export async function deleteRecordingAction(
-   recordingId: string,
-): Promise<BackendResponse<null>> {
+export async function deleteRecordingAction(recordingId: string): Promise<BackendResponse<null>> {
    try {
       await deleteRecording(recordingId);
 
@@ -217,9 +198,7 @@ export async function sendRecordingInvitationEmailAction(
    }
 }
 
-export async function sendRecordingReminderEmailAction(
-   recordingId: string,
-): Promise<BackendResponse<null>> {
+export async function sendRecordingReminderEmailAction(recordingId: string): Promise<BackendResponse<null>> {
    try {
       await sendRecordingReminderEmail(recordingId);
 
@@ -274,9 +253,7 @@ export async function sendCampaignInvitationsAction(
    }
 }
 
-export async function acceptRecordingAction(
-   recordingId: string,
-): Promise<BackendResponse<null>> {
+export async function acceptRecordingAction(recordingId: string): Promise<BackendResponse<null>> {
    try {
       const recording = await getSimpleRecordingById(recordingId);
       if (!recording) {
@@ -317,9 +294,7 @@ export async function acceptRecordingAction(
    }
 }
 
-export async function rejectRecordingAction(
-   recordingId: string,
-): Promise<BackendResponse<null>> {
+export async function rejectRecordingAction(recordingId: string): Promise<BackendResponse<null>> {
    try {
       const recording = await getSimpleRecordingById(recordingId);
       if (!recording) {
@@ -337,13 +312,11 @@ export async function rejectRecordingAction(
 
       await deletePresentationRecordingForRecording(recordingId);
 
-      const recordingLivestreamSession =
-         await getRecordingLivestreamSessionByRecordingId(recordingId);
+      const recordingLivestreamSession = await getRecordingLivestreamSessionByRecordingId(recordingId);
       if (!recordingLivestreamSession) {
          return {
             success: false,
-            errorMessage:
-               "[RejectRecordingAction] Recording livestream session not found",
+            errorMessage: "[RejectRecordingAction] Recording livestream session not found",
          };
       }
 
@@ -389,8 +362,7 @@ export async function completeManualRecordingVideoUploadAction(
       if (!recording) {
          return {
             success: false,
-            errorMessage:
-               "[CompleteManualRecordingVideoUploadAction] Recording not found",
+            errorMessage: "[CompleteManualRecordingVideoUploadAction] Recording not found",
          };
       }
 
@@ -398,8 +370,7 @@ export async function completeManualRecordingVideoUploadAction(
       if (!muxAsset) {
          return {
             success: false,
-            errorMessage:
-               "[CompleteManualRecordingVideoUploadAction] Mux asset not found",
+            errorMessage: "[CompleteManualRecordingVideoUploadAction] Mux asset not found",
          };
       }
 
@@ -407,8 +378,7 @@ export async function completeManualRecordingVideoUploadAction(
       if (!playbackId) {
          return {
             success: false,
-            errorMessage:
-               "[CompleteManualRecordingVideoUploadAction] Playback ID not found",
+            errorMessage: "[CompleteManualRecordingVideoUploadAction] Playback ID not found",
          };
       }
 

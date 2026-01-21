@@ -19,15 +19,11 @@ export default function RegistrationHomepage() {
                {/* <SponsorsSection /> */}
                <div className="flex flex-col justify-center space-y-10 pb-20">
                   <h1 className="pt-20 font-semibold text-blue-900 text-xl md:text-2xl text-center">
-                     No te pierdas la oportunidad de actualizar tus
-                     conocimientos y conectar con profesionales de talla
+                     No te pierdas la oportunidad de actualizar tus conocimientos y conectar con profesionales de talla
                      internacional.
                   </h1>
 
-                  <LinkButton
-                     className="mx-auto md:!px-24 text-xl"
-                     href="/registro/formulario"
-                  >
+                  <LinkButton className="mx-auto md:!px-24 text-xl" href="/registro/formulario">
                      Regístrate ahora
                   </LinkButton>
                </div>

@@ -8,9 +8,7 @@ import { getUserById } from "@/features/users/services/userServices";
  * @param authorizedUserTypes
  * @returns {Promise<boolean>} true if the user is authorized, false otherwise
  */
-export async function checkAuthorizedUserFromServer(
-   authorizedUserTypes: User["role"][],
-): Promise<boolean> {
+export async function checkAuthorizedUserFromServer(authorizedUserTypes: User["role"][]): Promise<boolean> {
    const userId = await getLoggedInUserId();
    if (!userId) {
       return false;

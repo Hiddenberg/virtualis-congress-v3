@@ -1,10 +1,8 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
-import type {
-   CertificateDesign,
-   CongressCertificate,
-} from "../types/certificatesTypes";
+import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { CertificateDesign, CongressCertificate } from "../types/certificatesTypes";
 
 export async function getCertificateDesign({
    congressId,
@@ -26,12 +24,8 @@ export async function getCertificateDesign({
          certificateType,
       },
    );
-   console.log(filter);
 
-   const certificateDesign = await getSingleDBRecord<CertificateDesign>(
-      "CONGRESS_CERTIFICATE_DESIGNS",
-      filter,
-   );
+   const certificateDesign = await getSingleDBRecord<CertificateDesign>("CONGRESS_CERTIFICATE_DESIGNS", filter);
 
    return certificateDesign;
 }

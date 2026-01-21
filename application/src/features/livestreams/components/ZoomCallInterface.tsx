@@ -11,11 +11,7 @@ import "@/app/zoomStyles.css";
 import { User, UserIcon } from "lucide-react";
 import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
 
-function UsernameInput({
-   onUserNameSubmit,
-}: {
-   onUserNameSubmit: (username: string) => void;
-}) {
+function UsernameInput({ onUserNameSubmit }: { onUserNameSubmit: (username: string) => void }) {
    const [username, _setUsername] = useState<string>("");
    const [_errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -50,9 +46,7 @@ export default function ZoomCallInterface({
    className?: string;
    isHostByDefault?: boolean;
 }) {
-   const [userName, setUserName] = useState<string | undefined>(
-      initialUsername,
-   );
+   const [userName, setUserName] = useState<string | undefined>(initialUsername);
    const containerRef = useRef<HTMLDivElement>(null);
    const sessionJoinedRef = useRef(false);
    const { setSessionId, sessionName, sessionKey } = useZoomSession();
@@ -139,11 +133,7 @@ export default function ZoomCallInterface({
                viewMode: {
                   enable: true,
                   defaultViewMode: "gallery" as SuspensionViewValue,
-                  viewModes: [
-                     "minimized",
-                     "speaker",
-                     "gallery",
-                  ] as SuspensionViewValue[],
+                  viewModes: ["minimized", "speaker", "gallery"] as SuspensionViewValue[],
                },
                audio: {
                   enable: true,
@@ -196,22 +186,7 @@ export default function ZoomCallInterface({
          uiToolkit.leaveSession();
          setSessionId(null);
       });
-   }, [
-      userName,
-      sessionKey,
-      sessionName,
-      setSessionId,
-      isHost,
-      setIsLoading,
-      allowScreenShare,
-      showInPopUp,
-   ]);
+   }, [userName, sessionKey, sessionName, setSessionId, isHost, setIsLoading, allowScreenShare, showInPopUp]);
 
-   return (
-      <div
-         ref={containerRef}
-         id="sessionContainer"
-         className={`rounded-3xl! aspect-video! ${className}`}
-      />
-   );
+   return <div ref={containerRef} id="sessionContainer" className={`rounded-3xl! aspect-video! ${className}`} />;
 }

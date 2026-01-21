@@ -7,8 +7,7 @@ export default function RecordingsBanner() {
          <div
             className="absolute inset-0 pointer-events-none"
             style={{
-               background:
-                  "linear-gradient(45deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0) 70%)",
+               background: "linear-gradient(45deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0) 70%)",
             }}
          />
          <div className="relative flex sm:flex-row flex-col items-center gap-4 sm:gap-6">
@@ -17,12 +16,9 @@ export default function RecordingsBanner() {
             </div>
             <div className="flex-1 sm:text-left text-center">
                <div>
-                  <p className="font-bold text-xl sm:text-2xl">
-                     ¡Evento Finalizado!
-                  </p>
+                  <p className="font-bold text-xl sm:text-2xl">¡Evento Finalizado!</p>
                   <p className="mt-1 text-gray-700 text-sm sm:text-base">
-                     Gracias por participar en nuestro congreso. Ya puedes ver
-                     las grabaciones de todas las conferencias.
+                     Gracias por participar en nuestro congreso. Ya puedes ver las grabaciones de todas las conferencias.
                   </p>
 
                   {/* <div className="flex sm:flex-row flex-col items-center gap-3 mt-4">

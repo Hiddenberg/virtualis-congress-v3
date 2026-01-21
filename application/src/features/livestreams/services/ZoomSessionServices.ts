@@ -1,12 +1,7 @@
 import "server-only";
 import { KJUR } from "jsrsasign";
 
-export async function getZoomSignature(
-   sessionName: string,
-   userIdentity: string,
-   sessionKey: string,
-   role: number,
-) {
+export async function getZoomSignature(sessionName: string, userIdentity: string, sessionKey: string, role: number) {
    if (!process.env.ZOOM_SDK_KEY || !process.env.ZOOM_SDK_SECRET) {
       throw new Error("Missing Zoom SDK credentials");
    }

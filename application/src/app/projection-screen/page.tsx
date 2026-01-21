@@ -29,30 +29,19 @@ export default async function ProjectionScreenPage() {
    const organization = await getOrganizationFromSubdomain();
    const { nextConference } = await getActiveAndNextConferences();
 
-   if (
-      congressInPersonState.status === "standby" ||
-      !congressInPersonState.activeConference
-   ) {
-      return (
-         <StandbyScreen
-            nextConference={nextConference}
-            organization={organization}
-            congress={congress}
-         />
-      );
+   if (congressInPersonState.status === "standby" || !congressInPersonState.activeConference) {
+      return <StandbyScreen nextConference={nextConference} organization={organization} congress={congress} />;
    }
 
    const activeConferenceId = congressInPersonState.activeConference;
 
    // const conference = await getConferenceById(conferenceId)
    const conference = await getConferenceById(activeConferenceId);
-   const conferencePresentation =
-      await getConferencePresentation(activeConferenceId);
+   const conferencePresentation = await getConferencePresentation(activeConferenceId);
    const conferenceSpeakers = await getConferenceSpeakers(activeConferenceId);
    const conferenceSpeaker = conferenceSpeakers[0] ?? null;
 
-   const platformQrURL =
-      "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757052238/qr-code_1_mpdft8.webp";
+   const platformQrURL = "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757052238/qr-code_1_mpdft8.webp";
 
    if (!conference) {
       return (
@@ -62,21 +51,13 @@ export default async function ProjectionScreenPage() {
       );
    }
 
-   const conferenceQnaLivestreamSession =
-      await getConferenceQnASession(activeConferenceId);
+   const conferenceQnaLivestreamSession = await getConferenceQnASession(activeConferenceId);
 
    console.log(conferenceQnaLivestreamSession);
-   if (
-      conferenceQnaLivestreamSession &&
-      conferenceQnaLivestreamSession.status === "streaming"
-   ) {
+   if (conferenceQnaLivestreamSession && conferenceQnaLivestreamSession.status === "streaming") {
       return (
          <div className="top-0 left-0 fixed bg-[url(https://res.cloudinary.com/dnx2lg7vb/image/upload/v1756937736/Cmim_background_t4ej4c.webp)] bg-cover bg-center p-4 w-dvw min-h-dvh">
-            <FixedScaleStage
-               baseWidth={1400}
-               baseHeight={950}
-               className="mx-auto"
-            >
+            <FixedScaleStage baseWidth={1400} baseHeight={950} className="mx-auto">
                {/* header */}
                {/* <div className="items-center gap-4 grid grid-cols-12 mx-auto mb-4"
                   style={{
@@ -122,10 +103,7 @@ export default async function ProjectionScreenPage() {
                            sessionName={`${conference.title}-qna`}
                            sessionKey={conferenceQnaLivestreamSession.id}
                         >
-                           <ZoomCallInterface
-                              initialUsername="Pantalla Proyección"
-                              className="w-full"
-                           />
+                           <ZoomCallInterface initialUsername="Pantalla Proyección" className="w-full" />
                         </ZoomSessionProvider>
                      </div>
 
@@ -174,16 +152,11 @@ export default async function ProjectionScreenPage() {
    }
 
    if (conference.conferenceType === "simulated_livestream") {
-      const conferenceRecording =
-         await getConferenceRecording(activeConferenceId);
+      const conferenceRecording = await getConferenceRecording(activeConferenceId);
 
       return (
          <div className="top-0 left-0 fixed bg-[url(https://res.cloudinary.com/dnx2lg7vb/image/upload/v1756937736/Cmim_background_t4ej4c.webp)] bg-cover bg-center p-4 w-dvw min-h-dvh">
-            <FixedScaleStage
-               baseWidth={1400}
-               baseHeight={870}
-               className="mx-auto"
-            >
+            <FixedScaleStage baseWidth={1400} baseHeight={870} className="mx-auto">
                {/* header */}
                {/* <div className="items-center gap-4 grid grid-cols-12 mx-auto mb-4"
                style={{
@@ -231,8 +204,7 @@ export default async function ProjectionScreenPage() {
                            simuliveData={{
                               startDateTime: new Date().toISOString(),
                               serverTime: new Date().toISOString(),
-                              durationSeconds:
-                                 conferenceRecording?.durationSeconds ?? 0,
+                              durationSeconds: conferenceRecording?.durationSeconds ?? 0,
                               speakerPresentationRecording: null,
                            }}
                            isQna={false}
@@ -244,17 +216,11 @@ export default async function ProjectionScreenPage() {
 
                      {/* bottom widgets */}
                      <div className="gap-4 grid grid-cols-2">
-                        <SelfContainedRealtimeQuestionPollCompactDisplay
-                           conferenceId={activeConferenceId}
-                        />
+                        <SelfContainedRealtimeQuestionPollCompactDisplay conferenceId={activeConferenceId} />
                         {/* <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
                   </div> */}
                         <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl h-[220px] min-h-[180px] font-medium text-slate-800">
-                           <img
-                              src={platformQrURL}
-                              alt="Plataforma QR"
-                              className="w-auto h-full"
-                           />
+                           <img src={platformQrURL} alt="Plataforma QR" className="w-auto h-full" />
                            <ConferenceCountdown conference={conference} />
                         </div>
                      </div>
@@ -285,9 +251,7 @@ export default async function ProjectionScreenPage() {
                            height: 420,
                         }}
                      >
-                        <SelfContainedRealtimeChatViewer
-                           conferenceId={activeConferenceId}
-                        />
+                        <SelfContainedRealtimeChatViewer conferenceId={activeConferenceId} />
                      </div>
                   </div>
                </div>
@@ -297,27 +261,19 @@ export default async function ProjectionScreenPage() {
    }
 
    if (!conferencePresentation || conferencePresentation.hasVideo) {
-      const livestreamSession =
-         await getConferenceLivestreamSession(activeConferenceId);
+      const livestreamSession = await getConferenceLivestreamSession(activeConferenceId);
 
       if (!livestreamSession) {
          return (
             <div>
-               <h1>
-                  No se encontró la sesión de transmisión para la conferencia{" "}
-                  {activeConferenceId}
-               </h1>
+               <h1>No se encontró la sesión de transmisión para la conferencia {activeConferenceId}</h1>
             </div>
          );
       }
 
       return (
          <div className="top-0 left-0 fixed bg-[url(https://res.cloudinary.com/dnx2lg7vb/image/upload/v1756937736/Cmim_background_t4ej4c.webp)] bg-cover bg-center p-4 w-dvw min-h-dvh">
-            <FixedScaleStage
-               baseWidth={1400}
-               baseHeight={880}
-               className="mx-auto"
-            >
+            <FixedScaleStage baseWidth={1400} baseHeight={880} className="mx-auto">
                {/* header */}
                <div
                   className="items-center gap-4 grid grid-cols-12 mx-auto mb-4"
@@ -364,14 +320,8 @@ export default async function ProjectionScreenPage() {
                         }}
                      >
                         {/* <span className="font-medium text-white/90 text-lg md:text-xl">Presentación / Video</span> */}
-                        <ZoomSessionProvider
-                           sessionName={`${conference.title}-conf`}
-                           sessionKey={livestreamSession.id}
-                        >
-                           <ZoomCallInterface
-                              initialUsername="Pantalla Proyección"
-                              className="w-full"
-                           />
+                        <ZoomSessionProvider sessionName={`${conference.title}-conf`} sessionKey={livestreamSession.id}>
+                           <ZoomCallInterface initialUsername="Pantalla Proyección" className="w-full" />
                         </ZoomSessionProvider>
                      </div>
 
@@ -380,9 +330,7 @@ export default async function ProjectionScreenPage() {
 
                      {/* bottom widgets */}
                      <div className="gap-4 grid grid-cols-2">
-                        <SelfContainedRealtimeQuestionPollCompactDisplay
-                           conferenceId={activeConferenceId}
-                        />
+                        <SelfContainedRealtimeQuestionPollCompactDisplay conferenceId={activeConferenceId} />
                         {/* <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
                   </div> */}
                         <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
@@ -413,9 +361,7 @@ export default async function ProjectionScreenPage() {
                            height: 420,
                         }}
                      >
-                        <SelfContainedRealtimeChatViewer
-                           conferenceId={activeConferenceId}
-                        />
+                        <SelfContainedRealtimeChatViewer conferenceId={activeConferenceId} />
                      </div>
                   </div>
                </div>
@@ -468,10 +414,7 @@ export default async function ProjectionScreenPage() {
                      }}
                   >
                      {/* <span className="font-medium text-white/90 text-lg md:text-xl">Presentación / Video</span> */}
-                     <RealtimePresentationViewer
-                        showHeader={false}
-                        presentationId={conferencePresentation?.id ?? ""}
-                     />
+                     <RealtimePresentationViewer showHeader={false} presentationId={conferencePresentation?.id ?? ""} />
                   </div>
 
                   {/* conference title */}
@@ -479,17 +422,11 @@ export default async function ProjectionScreenPage() {
 
                   {/* bottom widgets */}
                   <div className="gap-4 grid grid-cols-2">
-                     <SelfContainedRealtimeQuestionPollCompactDisplay
-                        conferenceId={activeConferenceId}
-                     />
+                     <SelfContainedRealtimeQuestionPollCompactDisplay conferenceId={activeConferenceId} />
                      {/* <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
                   </div> */}
                      <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl h-[220px] min-h-[180px] font-medium text-slate-800">
-                        <img
-                           src={platformQrURL}
-                           alt="Plataforma QR"
-                           className="w-auto h-full"
-                        />
+                        <img src={platformQrURL} alt="Plataforma QR" className="w-auto h-full" />
                         <ConferenceCountdown conference={conference} />
                      </div>
                   </div>
@@ -520,9 +457,7 @@ export default async function ProjectionScreenPage() {
                         height: 420,
                      }}
                   >
-                     <SelfContainedRealtimeChatViewer
-                        conferenceId={activeConferenceId}
-                     />
+                     <SelfContainedRealtimeChatViewer conferenceId={activeConferenceId} />
                   </div>
                </div>
             </div>

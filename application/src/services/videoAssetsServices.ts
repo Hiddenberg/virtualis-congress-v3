@@ -11,12 +11,7 @@ export interface NewVideoAssetData {
    videoType: ConferenceVideoAsset["videoType"];
    muxUploadId: string;
 }
-export async function createNewVideoAsset({
-   conferenceId,
-   recordingId,
-   videoType,
-   muxUploadId,
-}: NewVideoAssetData) {
+export async function createNewVideoAsset({ conferenceId, recordingId, videoType, muxUploadId }: NewVideoAssetData) {
    const newVideoAsset: ConferenceVideoAsset = {
       organization: TEMP_CONSTANTS.ORGANIZATION_ID,
       recording: recordingId,
@@ -55,9 +50,7 @@ export async function getVideoAssetByMuxAssetId(muxId: string) {
    try {
       const videoAsset = await pbServerClient
          .collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS)
-         .getFirstListItem<ConferenceVideoAsset & RecordModel>(
-            `muxAssetId = "${muxId}"`,
-         );
+         .getFirstListItem<ConferenceVideoAsset & RecordModel>(`muxAssetId = "${muxId}"`);
       return videoAsset;
    } catch (error) {
       if (error instanceof ClientResponseError && error.status === 404) {
@@ -71,9 +64,7 @@ export async function getVideoAssetByMuxUploadId(muxUploadId: string) {
    try {
       const videoAsset = await pbServerClient
          .collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS)
-         .getFirstListItem<ConferenceVideoAsset & RecordModel>(
-            `muxUploadId = "${muxUploadId}"`,
-         );
+         .getFirstListItem<ConferenceVideoAsset & RecordModel>(`muxUploadId = "${muxUploadId}"`);
       return videoAsset;
    } catch (error) {
       if (error instanceof ClientResponseError && error.status === 404) {
@@ -106,30 +97,20 @@ export async function getVideoAssetsForRecording(recordingId: string) {
    return recordingVideoAssets;
 }
 
-export async function updateVideoAsset(
-   videoAssetId: string,
-   newData: Partial<ConferenceVideoAsset>,
-) {
+export async function updateVideoAsset(videoAssetId: string, newData: Partial<ConferenceVideoAsset>) {
    try {
-      await pbServerClient
-         .collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS)
-         .update(videoAssetId, newData);
+      await pbServerClient.collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS).update(videoAssetId, newData);
    } catch (error) {
       console.error("Error updating video asset", error);
       throw error;
    }
 }
 
-export async function updateVideoAssetStatus(
-   videoAssetId: string,
-   status: ConferenceVideoAsset["muxAssetStatus"],
-) {
+export async function updateVideoAssetStatus(videoAssetId: string, status: ConferenceVideoAsset["muxAssetStatus"]) {
    try {
-      await pbServerClient
-         .collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS)
-         .update(videoAssetId, {
-            muxAssetStatus: status,
-         } satisfies Partial<ConferenceVideoAsset>);
+      await pbServerClient.collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS).update(videoAssetId, {
+         muxAssetStatus: status,
+      } satisfies Partial<ConferenceVideoAsset>);
    } catch (error) {
       console.error("Error updating video asset status", error);
       throw error;
@@ -147,16 +128,13 @@ export async function deleteVideoAsset(videoAssetId: string) {
    // await mux.video.assets.delete(videoAsset.muxAssetId)
    // console.log("Deleted MUX video asset", videoAsset.muxAssetId)
 
-   await pbServerClient
-      .collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS)
-      .delete(videoAssetId);
+   await pbServerClient.collection(PB_COLLECTIONS.CONFERENCE_VIDEO_ASSETS).delete(videoAssetId);
    console.log("Deleted PB video asset", videoAssetId);
 }
 
 export async function deleteAllVideoAssetsForConference(conferenceId: string) {
    console.log("Deleting conference video assets", conferenceId);
-   const conferenceVideoAssets =
-      await getVideoAssetsForConference(conferenceId);
+   const conferenceVideoAssets = await getVideoAssetsForConference(conferenceId);
 
    for (const videoAsset of conferenceVideoAssets) {
       await deleteVideoAsset(videoAsset.id);
@@ -167,17 +145,12 @@ export async function deleteAllVideoAssetsForRecording(recordingId: string) {
    const recordingVideoAssets = await getVideoAssetsForRecording(recordingId);
 
    if (recordingVideoAssets.length === 0) {
-      console.log(
-         "No previous video assets found for recording, skipping deletion",
-         recordingId,
-      );
+      console.log("No previous video assets found for recording, skipping deletion", recordingId);
       return;
    }
 
    for (const videoAsset of recordingVideoAssets) {
       await deleteVideoAsset(videoAsset.id);
-      console.log(
-         `Deleted video asset ${videoAsset.id} for recording ${recordingId} muxAssetId: ${videoAsset.muxAssetId}`,
-      );
+      console.log(`Deleted video asset ${videoAsset.id} for recording ${recordingId} muxAssetId: ${videoAsset.muxAssetId}`);
    }
 }

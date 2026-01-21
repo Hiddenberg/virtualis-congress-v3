@@ -22,10 +22,7 @@ import {
    getRecordingTrackedEmails,
 } from "@/features/simpleRecordings/services/recordingTrackedEmailsServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
-import {
-   createTrackedEmailRecord,
-   updateTrackedEmailRecord,
-} from "@/features/trackedEmails/services/trackedEmailServices";
+import { createTrackedEmailRecord, updateTrackedEmailRecord } from "@/features/trackedEmails/services/trackedEmailServices";
 import { checkUserAuthorization } from "@/features/users/services/userServices";
 import { getAllSpeakersDetails } from "@/features/users/speakers/services/speakerServices";
 import { getAllUsersWithoutPayments } from "../services/superAdminServices";
@@ -35,9 +32,7 @@ import { getAllUsersWithoutPayments } from "../services/superAdminServices";
 
 async function checkIfUserIsSuperAdmin() {
    const userId = await getLoggedInUserId();
-   const isAuthorized = await checkUserAuthorization(userId ?? "", [
-      "super_admin",
-   ]);
+   const isAuthorized = await checkUserAuthorization(userId ?? "", ["super_admin"]);
    if (!isAuthorized) {
       throw new Error("User is not authorized to perform this action");
    }
@@ -71,9 +66,7 @@ export async function migrateAllRecordingEmailsAction(): Promise<
          try {
             // Check if the recording has already been migrated
             // Check if it already has a tracked email
-            const recordingTrackedEmails = await getRecordingTrackedEmails(
-               recording.id,
-            );
+            const recordingTrackedEmails = await getRecordingTrackedEmails(recording.id);
             if (recordingTrackedEmails.length > 0) {
                // skip
                skippedRecordings.push({
@@ -88,8 +81,7 @@ export async function migrateAllRecordingEmailsAction(): Promise<
                // skip
                skippedRecordings.push({
                   id: recording.id,
-                  reason:
-                     "This recording does not have an invitation email sent yet",
+                  reason: "This recording does not have an invitation email sent yet",
                });
                continue;
             }
@@ -129,8 +121,7 @@ export async function migrateAllRecordingEmailsAction(): Promise<
                   // skip
                   erroredRecordings.push({
                      id: recording.id,
-                     errorMessage:
-                        "The recording invitation email status is opened but no invitation email opened at is set",
+                     errorMessage: "The recording invitation email status is opened but no invitation email opened at is set",
                   });
                   continue;
                }
@@ -228,16 +219,11 @@ export async function sendCongressInvitationEmailsToNonPayersAction(): Promise<
          throw new Error("Congress not found");
       }
 
-      const congressRegistrations =
-         await getAllCongressRegistrationsWithUsers();
-      const completedPayments =
-         await getAllOrganizationCompletedPaymentsWithUsers();
+      const congressRegistrations = await getAllCongressRegistrationsWithUsers();
+      const completedPayments = await getAllOrganizationCompletedPaymentsWithUsers();
 
       const nonPayersCongressRegistrations = congressRegistrations.filter(
-         (registration) =>
-            !completedPayments.some(
-               (payment) => payment.user === registration.user,
-            ),
+         (registration) => !completedPayments.some((payment) => payment.user === registration.user),
       );
 
       const emailsSentArray = [];
@@ -248,10 +234,7 @@ export async function sendCongressInvitationEmailsToNonPayersAction(): Promise<
 
       for (const registration of nonPayersCongressRegistrations) {
          try {
-            console.log(
-               "Sending invitation email to non payer",
-               registration.user,
-            );
+            console.log("Sending invitation email to non payer", registration.user);
             await sendNonPayersCongressInvitationEmail(registration.user);
             emailsSentArray.push(registration.user);
          } catch (error) {
@@ -277,8 +260,7 @@ export async function sendCongressInvitationEmailsToNonPayersAction(): Promise<
          data: {
             usersRegistered: congressRegistrations.length,
             usersWithPaymentsConfirmed: completedPayments.length,
-            usersWithoutPayments:
-               congressRegistrations.length - completedPayments.length,
+            usersWithoutPayments: congressRegistrations.length - completedPayments.length,
             emailsSent: emailsSentArray.length,
             emailsErrored: emailsErroredArray.length,
             emailErrors: emailsErroredArray,
@@ -298,9 +280,7 @@ export async function sendCongressInvitationEmailsToNonPayersAction(): Promise<
    }
 }
 
-export async function testSendCongressInvitationEmailToNonPayerAction(
-   userId: string,
-): Promise<BackendResponse<null>> {
+export async function testSendCongressInvitationEmailToNonPayerAction(userId: string): Promise<BackendResponse<null>> {
    try {
       await checkIfUserIsSuperAdmin();
 
@@ -397,8 +377,7 @@ export async function sendIphoneIssueSolvedEmailToAllUsersAction(): Promise<
    try {
       await checkIfUserIsSuperAdmin();
 
-      const allUsersWithPayment =
-         await getAllOrganizationCompletedPaymentsWithUsers();
+      const allUsersWithPayment = await getAllOrganizationCompletedPaymentsWithUsers();
 
       const emailsSentArray = [];
       const emailsErroredArray: EmailError[] = [];
@@ -451,9 +430,7 @@ interface SendNewEventDayAboutToStartEmailToAllUsersActionResponse {
 }
 export async function sendNewEventDayAboutToStartEmailToAllUsersAction(
    eventDayNumberString: string,
-): Promise<
-   BackendResponse<SendNewEventDayAboutToStartEmailToAllUsersActionResponse>
-> {
+): Promise<BackendResponse<SendNewEventDayAboutToStartEmailToAllUsersActionResponse>> {
    try {
       await checkIfUserIsSuperAdmin();
 
@@ -480,10 +457,7 @@ export async function sendNewEventDayAboutToStartEmailToAllUsersAction(
 
       for (const registration of allCongressUsers) {
          try {
-            await sendNewEventDayAboutToStartEmail(
-               registration.user,
-               eventDayNumber as 1 | 2 | 3 | 4 | 5 | 6,
-            );
+            await sendNewEventDayAboutToStartEmail(registration.user, eventDayNumber as 1 | 2 | 3 | 4 | 5 | 6);
             emailsSentArray.push(registration.user);
          } catch (error) {
             if (error instanceof Error) {
@@ -523,9 +497,7 @@ export async function sendNewEventDayAboutToStartEmailToAllUsersAction(
    }
 }
 
-export async function sendEventFinishedEmailToAllUsersAction(): Promise<
-   BackendResponse<unknown>
-> {
+export async function sendEventFinishedEmailToAllUsersAction(): Promise<BackendResponse<unknown>> {
    try {
       await checkIfUserIsSuperAdmin();
 
@@ -576,9 +548,7 @@ export async function sendEventFinishedEmailToAllUsersAction(): Promise<
    }
 }
 
-export async function sendSpeakerCertificateEmailToAllSpeakersAction(): Promise<
-   BackendResponse<unknown>
-> {
+export async function sendSpeakerCertificateEmailToAllSpeakersAction(): Promise<BackendResponse<unknown>> {
    try {
       await checkIfUserIsSuperAdmin();
 
@@ -599,17 +569,10 @@ export async function sendSpeakerCertificateEmailToAllSpeakersAction(): Promise<
             });
             emailsSentArray.push(speaker.email);
          } catch (error) {
-            console.error(
-               "Error sending speaker certificate email to",
-               speaker.email,
-               error,
-            );
+            console.error("Error sending speaker certificate email to", speaker.email, error);
             emailsErroredArray.push({
                user: speaker.email || "",
-               errorMessage:
-                  error instanceof Error
-                     ? error.message
-                     : "An unknown error occurred",
+               errorMessage: error instanceof Error ? error.message : "An unknown error occurred",
             });
          }
       }
@@ -637,9 +600,7 @@ export async function sendSpeakerCertificateEmailToAllSpeakersAction(): Promise<
    }
 }
 
-export async function sendOnDemandReminderEmailsToAllUsersWithoutPaymentsAction(): Promise<
-   BackendResponse<unknown>
-> {
+export async function sendOnDemandReminderEmailsToAllUsersWithoutPaymentsAction(): Promise<BackendResponse<unknown>> {
    try {
       await checkIfUserIsSuperAdmin();
 

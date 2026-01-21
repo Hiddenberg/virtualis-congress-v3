@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface IphoneIssueSolvedTemplateProps {
    userName: string;
@@ -29,18 +18,13 @@ export default function IphoneIssueSolvedTemplate({
          <Head>
             <title>Problema resuelto - Virtualis Congress</title>
          </Head>
-         <Preview>
-            El problema de acceso desde iPhone ha sido solucionado -{" "}
-            {congressTitle}
-         </Preview>
+         <Preview>El problema de acceso desde iPhone ha sido solucionado - {congressTitle}</Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
@@ -48,52 +32,38 @@ export default function IphoneIssueSolvedTemplate({
                   {/* Success Message */}
                   <Section style={successContainerStyle}>
                      <Text style={successIconStyle}>✅</Text>
-                     <Heading style={messageTitleStyle}>
-                        ¡Problema resuelto!
-                     </Heading>
+                     <Heading style={messageTitleStyle}>¡Problema resuelto!</Heading>
                   </Section>
 
                   {/* Announcement Section */}
                   <Text style={mainTextStyle}>Hola {userName},</Text>
 
                   <Text style={mainTextStyle}>
-                     Queremos informarte que hemos identificado y resuelto un
-                     problema técnico que afectó el acceso a{" "}
-                     <span style={highlightStyle}>{congressTitle}</span> para
-                     usuarios de iPhone. Si experimentaste dificultades al
-                     intentar conectarte desde un dispositivo iPhone, lamentamos
-                     sinceramente el inconveniente.
+                     Queremos informarte que hemos identificado y resuelto un problema técnico que afectó el acceso a{" "}
+                     <span style={highlightStyle}>{congressTitle}</span> para usuarios de iPhone. Si experimentaste dificultades
+                     al intentar conectarte desde un dispositivo iPhone, lamentamos sinceramente el inconveniente.
                   </Text>
 
                   {/* Solution Announcement */}
                   <Section style={solutionContainerStyle}>
                      <Text style={solutionIconStyle}>🔧</Text>
-                     <Heading style={solutionTitleStyle}>
-                        El acceso ya está disponible
-                     </Heading>
+                     <Heading style={solutionTitleStyle}>El acceso ya está disponible</Heading>
                      <Text style={solutionTextStyle}>
-                        Nuestro equipo técnico ha solucionado el problema. Todos
-                        los usuarios ahora pueden acceder al congreso sin
-                        inconvenientes desde cualquier dispositivo, incluyendo
-                        iPhones.
+                        Nuestro equipo técnico ha solucionado el problema. Todos los usuarios ahora pueden acceder al congreso sin
+                        inconvenientes desde cualquier dispositivo, incluyendo iPhones.
                      </Text>
                   </Section>
 
                   {/* Compensation Section */}
                   <Section style={compensationContainerStyle}>
-                     <Heading style={compensationTitleStyle}>
-                        🎁 Acceso a grabaciones
-                     </Heading>
+                     <Heading style={compensationTitleStyle}>🎁 Acceso a grabaciones</Heading>
                      <Text style={compensationTextStyle}>
-                        Para aquellos usuarios que se vieron afectados por esta
-                        situación, tendrán acceso completo a las{" "}
-                        <strong>grabaciones de todas las conferencias</strong>{" "}
-                        que pudieron haberse perdido durante el tiempo que el
-                        problema estuvo presente.
+                        Para aquellos usuarios que se vieron afectados por esta situación, tendrán acceso completo a las{" "}
+                        <strong>grabaciones de todas las conferencias</strong> que pudieron haberse perdido durante el tiempo que
+                        el problema estuvo presente.
                      </Text>
                      <Text style={compensationTextStyle}>
-                        Si fuiste afectado, podrás ver las grabaciones cuando
-                        quieras, cuantas veces necesites, y desde cualquier
+                        Si fuiste afectado, podrás ver las grabaciones cuando quieras, cuantas veces necesites, y desde cualquier
                         dispositivo al terminar el evento.
                      </Text>
                   </Section>
@@ -103,10 +73,7 @@ export default function IphoneIssueSolvedTemplate({
                      <Button href={platformLink} style={ctaButtonStyle}>
                         Acceder a la plataforma
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Si el botón no funciona, copia y pega este enlace en tu
-                        navegador:
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Si el botón no funciona, copia y pega este enlace en tu navegador:</Text>
                      <Text style={linkTextStyle}>{platformLink}</Text>
                   </Section>
 
@@ -114,27 +81,22 @@ export default function IphoneIssueSolvedTemplate({
 
                   {/* Information Section */}
                   <Section style={nextStepsStyle}>
-                     <Heading style={nextStepsTitleStyle}>
-                        Información importante
-                     </Heading>
+                     <Heading style={nextStepsTitleStyle}>Información importante</Heading>
 
                      <Section style={stepsContainerStyle}>
                         <Text style={stepItemStyle}>
                            <span style={stepNumberStyle}>✓</span>
-                           El problema de acceso desde iPhone ha sido
-                           completamente resuelto
+                           El problema de acceso desde iPhone ha sido completamente resuelto
                         </Text>
 
                         <Text style={stepItemStyle}>
                            <span style={stepNumberStyle}>✓</span>
-                           Todos los dispositivos ahora tienen acceso sin
-                           restricciones
+                           Todos los dispositivos ahora tienen acceso sin restricciones
                         </Text>
 
                         <Text style={stepItemStyle}>
                            <span style={stepNumberStyle}>✓</span>
-                           Las grabaciones están disponibles para usuarios
-                           afectados
+                           Las grabaciones están disponibles para usuarios afectados
                         </Text>
 
                         <Text style={stepItemStyle}>
@@ -146,36 +108,28 @@ export default function IphoneIssueSolvedTemplate({
 
                   {/* Support Note */}
                   <Section style={supportContainerStyle}>
-                     <Text style={supportTitleStyle}>
-                        💬 ¿Experimentaste problemas de acceso?
-                     </Text>
+                     <Text style={supportTitleStyle}>💬 ¿Experimentaste problemas de acceso?</Text>
                      <Text style={supportTextStyle}>
-                        Si tuviste dificultades para acceder desde tu iPhone y
-                        necesitas ayuda para acceder a las grabaciones, o si
-                        experimentas cualquier otro problema técnico, no dudes
-                        en contactarnos a través de la plataforma. Estamos aquí
-                        para ayudarte.
+                        Si tuviste dificultades para acceder desde tu iPhone y necesitas ayuda para acceder a las grabaciones, o
+                        si experimentas cualquier otro problema técnico, no dudes en contactarnos a través de la plataforma.
+                        Estamos aquí para ayudarte.
                      </Text>
                   </Section>
 
                   {/* Final Message */}
                   <Section style={finalApologyStyle}>
                      <Text style={finalApologyTextStyle}>
-                        Agradecemos tu comprensión y paciencia mientras
-                        trabajamos continuamente para brindarte la mejor
+                        Agradecemos tu comprensión y paciencia mientras trabajamos continuamente para brindarte la mejor
                         experiencia educativa posible.
                      </Text>
-                     <Text style={signatureStyle}>
-                        — El equipo de {organizationName}
-                     </Text>
+                     <Text style={signatureStyle}>— El equipo de {organizationName}</Text>
                   </Section>
                </Section>
 
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -186,8 +140,7 @@ export default function IphoneIssueSolvedTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -198,8 +151,7 @@ export default function IphoneIssueSolvedTemplate({
 
 // Styles following the consistent pattern from other templates
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

@@ -1,31 +1,20 @@
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getDBRecordById,
-   getFullDBRecordsList,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getDBRecordById, getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import type { SlideImage } from "./convertapiServices";
 
 export async function createPresentationRecord(presentation: Presentation) {
-   const createdPresentation = await createDBRecord<Presentation>(
-      "PRESENTATIONS",
-      {
-         ...presentation,
-      } satisfies Presentation,
-   );
+   const createdPresentation = await createDBRecord<Presentation>("PRESENTATIONS", {
+      ...presentation,
+   } satisfies Presentation);
 
    return createdPresentation;
 }
 
 export async function createPresentationSlideRecord(slide: PresentationSlide) {
-   const createdSlide = await createDBRecord<PresentationSlide>(
-      "PRESENTATION_SLIDES",
-      {
-         ...slide,
-      } satisfies PresentationSlide,
-   );
+   const createdSlide = await createDBRecord<PresentationSlide>("PRESENTATION_SLIDES", {
+      ...slide,
+   } satisfies PresentationSlide);
 
    return createdSlide;
 }
@@ -38,10 +27,7 @@ export interface SavePresentationAndSlidesParams {
 }
 
 export async function getPresentationById(presentationId: string) {
-   const presentation = await getDBRecordById<Presentation>(
-      "PRESENTATIONS",
-      presentationId,
-   );
+   const presentation = await getDBRecordById<Presentation>("PRESENTATIONS", presentationId);
    return presentation;
 }
 
@@ -57,22 +43,14 @@ export async function getPresentationSlidesById(presentationId: string) {
          presentationId,
       },
    );
-   const slides = await getFullDBRecordsList<PresentationSlide>(
-      "PRESENTATION_SLIDES",
-      {
-         filter,
-      },
-   );
+   const slides = await getFullDBRecordsList<PresentationSlide>("PRESENTATION_SLIDES", {
+      filter,
+   });
 
    return slides;
 }
 
-export async function savePresentationAndSlides({
-   name,
-   file,
-   slides,
-   hasVideo,
-}: SavePresentationAndSlidesParams): Promise<{
+export async function savePresentationAndSlides({ name, file, slides, hasVideo }: SavePresentationAndSlidesParams): Promise<{
    presentation: PresentationRecord;
    presentationSlides: PresentationSlideRecord[];
 }> {
@@ -98,13 +76,9 @@ export async function savePresentationAndSlides({
          throw new Error(`No se pudo descargar la diapositiva ${index + 1}`);
       }
       const arrayBuffer = await response.arrayBuffer();
-      const imageFile = new File(
-         [arrayBuffer],
-         slide.fileName || `slide_${index + 1}.webp`,
-         {
-            type: "image/webp",
-         },
-      );
+      const imageFile = new File([arrayBuffer], slide.fileName || `slide_${index + 1}.webp`, {
+         type: "image/webp",
+      });
 
       const createdPresentationSlide = await createPresentationSlideRecord({
          organization: organization.id,

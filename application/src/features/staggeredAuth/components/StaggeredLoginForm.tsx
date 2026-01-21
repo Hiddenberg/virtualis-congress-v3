@@ -49,9 +49,7 @@ function BirthdayLoginForm({
 }: {
    email: string | undefined;
    redirectTo: string | null;
-   setStage: (
-      stage: "login" | "otp_verification" | "birthday_login" | "phone_login",
-   ) => void;
+   setStage: (stage: "login" | "otp_verification" | "birthday_login" | "phone_login") => void;
 }) {
    const [isLoading, setIsLoading] = useState(false);
    const [birthday, setBirthday] = useState<string>();
@@ -60,9 +58,7 @@ function BirthdayLoginForm({
 
    const { loginWithBirthdate } = useStaggeredAuthContext();
 
-   const handleLoginWithBirthday = async (
-      e: React.FormEvent<HTMLFormElement>,
-   ) => {
+   const handleLoginWithBirthday = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!birthday || !email) {
          return;
@@ -109,20 +105,15 @@ function BirthdayLoginForm({
                <ArrowLeft className="w-4 h-4" />
             </button>
             <div>
-               <h3 className="font-bold text-gray-800 text-lg">
-                  Verificación alternativa
-               </h3>
-               <p className="text-gray-600 text-sm">
-                  Ingresa tu fecha de nacimiento para continuar
-               </p>
+               <h3 className="font-bold text-gray-800 text-lg">Verificación alternativa</h3>
+               <p className="text-gray-600 text-sm">Ingresa tu fecha de nacimiento para continuar</p>
             </div>
          </div>
 
          {/* Email reminder */}
          <div className="bg-gradient-to-r from-blue-50 to-gray-50 p-4 border border-blue-200 rounded-xl">
             <p className="text-gray-700 text-sm">
-               Verificando acceso para:{" "}
-               <strong className="text-blue-700">{email}</strong>
+               Verificando acceso para: <strong className="text-blue-700">{email}</strong>
             </p>
          </div>
 
@@ -132,12 +123,9 @@ function BirthdayLoginForm({
                <div className="flex items-start gap-3">
                   <AlertCircle className="flex-shrink-0 mt-0.5 w-5 h-5 text-red-500" />
                   <div>
-                     <p className="font-semibold text-red-700 text-sm">
-                        Fecha de nacimiento incorrecta
-                     </p>
+                     <p className="font-semibold text-red-700 text-sm">Fecha de nacimiento incorrecta</p>
                      <p className="mt-1 text-red-600 text-sm">
-                        La fecha ingresada no coincide con nuestros registros.
-                        Por favor, verifica e intenta nuevamente.
+                        La fecha ingresada no coincide con nuestros registros. Por favor, verifica e intenta nuevamente.
                      </p>
                   </div>
                </div>
@@ -146,10 +134,7 @@ function BirthdayLoginForm({
 
          {/* Birthday input */}
          <div>
-            <label
-               htmlFor="birthday"
-               className="block mb-2 font-semibold text-gray-700 text-sm"
-            >
+            <label htmlFor="birthday" className="block mb-2 font-semibold text-gray-700 text-sm">
                Fecha de nacimiento
             </label>
             <input
@@ -202,9 +187,7 @@ function BirthdayLoginForm({
 
          {/* Help section */}
          <div className="pt-2">
-            <p className="mb-2 text-gray-600 text-sm text-center">
-               ¿Necesitas ayuda adicional?
-            </p>
+            <p className="mb-2 text-gray-600 text-sm text-center">¿Necesitas ayuda adicional?</p>
             <Button
                type="button"
                onClick={() => setStage("login")}
@@ -225,9 +208,7 @@ function PhoneLoginForm({
 }: {
    email: string | undefined;
    redirectTo: string | null;
-   setStage: (
-      stage: "login" | "otp_verification" | "birthday_login" | "phone_login",
-   ) => void;
+   setStage: (stage: "login" | "otp_verification" | "birthday_login" | "phone_login") => void;
 }) {
    const [isLoading, setIsLoading] = useState(false);
    const [phoneNumber, setPhoneNumber] = useState<string>();
@@ -236,9 +217,7 @@ function PhoneLoginForm({
 
    const { loginWithPhoneNumber } = useStaggeredAuthContext();
 
-   const handleLoginWithPhoneNumber = async (
-      e: React.FormEvent<HTMLFormElement>,
-   ) => {
+   const handleLoginWithPhoneNumber = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (!phoneNumber || !email) {
          return;
@@ -283,20 +262,15 @@ function PhoneLoginForm({
                <ArrowLeft className="w-4 h-4" />
             </button>
             <div>
-               <h3 className="font-bold text-gray-800 text-lg">
-                  Verificación con teléfono
-               </h3>
-               <p className="text-gray-600 text-sm">
-                  Ingresa tu número de teléfono para continuar
-               </p>
+               <h3 className="font-bold text-gray-800 text-lg">Verificación con teléfono</h3>
+               <p className="text-gray-600 text-sm">Ingresa tu número de teléfono para continuar</p>
             </div>
          </div>
 
          {/* Email reminder */}
          <div className="bg-gradient-to-r from-blue-50 to-gray-50 p-4 border border-blue-200 rounded-xl">
             <p className="text-gray-700 text-sm">
-               Verificando acceso para:{" "}
-               <strong className="text-blue-700">{email}</strong>
+               Verificando acceso para: <strong className="text-blue-700">{email}</strong>
             </p>
          </div>
 
@@ -306,12 +280,9 @@ function PhoneLoginForm({
                <div className="flex items-start gap-3">
                   <AlertCircle className="flex-shrink-0 mt-0.5 w-5 h-5 text-red-500" />
                   <div>
-                     <p className="font-semibold text-red-700 text-sm">
-                        Número de teléfono incorrecto
-                     </p>
+                     <p className="font-semibold text-red-700 text-sm">Número de teléfono incorrecto</p>
                      <p className="mt-1 text-red-600 text-sm">
-                        El número ingresado no coincide con nuestros registros.
-                        Por favor, verifica e intenta nuevamente.
+                        El número ingresado no coincide con nuestros registros. Por favor, verifica e intenta nuevamente.
                      </p>
                   </div>
                </div>
@@ -320,10 +291,7 @@ function PhoneLoginForm({
 
          {/* Phone input */}
          <div>
-            <label
-               htmlFor="phoneNumber"
-               className="block mb-2 font-semibold text-gray-700 text-sm"
-            >
+            <label htmlFor="phoneNumber" className="block mb-2 font-semibold text-gray-700 text-sm">
                Número de teléfono
             </label>
             <input
@@ -358,9 +326,7 @@ function PhoneLoginForm({
 
          {/* Help section */}
          <div className="pt-2">
-            <p className="mb-2 text-gray-600 text-sm text-center">
-               ¿Necesitas ayuda adicional?
-            </p>
+            <p className="mb-2 text-gray-600 text-sm text-center">¿Necesitas ayuda adicional?</p>
             <Button
                type="button"
                onClick={() => setStage("login")}
@@ -377,9 +343,7 @@ function PhoneLoginForm({
 export default function StaggeredLoginForm() {
    const [email, setEmail] = useState<string>("");
    const [otpCode, setOtpCode] = useState<string>("");
-   const [stage, setStage] = useState<
-      "login" | "otp_verification" | "birthday_login" | "phone_login"
-   >("login");
+   const [stage, setStage] = useState<"login" | "otp_verification" | "birthday_login" | "phone_login">("login");
    const [isSendingOTP, setIsSendingOTP] = useState(false);
    const [isValidatingOTP, setIsValidatingOTP] = useState(false);
    const router = useRouter();
@@ -417,9 +381,7 @@ export default function StaggeredLoginForm() {
          }
 
          if (!userExistsResponse.data.exists) {
-            toast.error(
-               "Este correo aun no está registrado, por favor registrate para poder iniciar sesión",
-            );
+            toast.error("Este correo aun no está registrado, por favor registrate para poder iniciar sesión");
             setIsSendingOTP(false);
             return;
          }
@@ -479,13 +441,9 @@ export default function StaggeredLoginForm() {
       return (
          <form className="space-y-6" onSubmit={handleValidateOTP}>
             <div className="text-center">
-               <p className="font-medium text-gray-800 text-lg">
-                  Hemos enviado un código de verificación a tu correo
-               </p>
+               <p className="font-medium text-gray-800 text-lg">Hemos enviado un código de verificación a tu correo</p>
                <p className="mt-1 font-bold text-blue-700">{email}</p>
-               <p className="mt-2 text-gray-600 text-sm">
-                  Ingresa el código para continuar
-               </p>
+               <p className="mt-2 text-gray-600 text-sm">Ingresa el código para continuar</p>
             </div>
 
             {/* Email Help Message */}
@@ -493,39 +451,24 @@ export default function StaggeredLoginForm() {
                <div className="flex items-start gap-3">
                   <Mail className="flex-shrink-0 mt-0.5 w-5 h-5 text-blue-600" />
                   <div className="space-y-2">
-                     <p className="font-semibold text-gray-800 text-sm">
-                        Consejos para encontrar tu código:
-                     </p>
+                     <p className="font-semibold text-gray-800 text-sm">Consejos para encontrar tu código:</p>
                      <div className="space-y-1 text-gray-700 text-sm">
                         <p>
-                           • Revisa tu bandeja de{" "}
-                           <strong className="text-gray-900">
-                              spam o correo no deseado
-                           </strong>
+                           • Revisa tu bandeja de <strong className="text-gray-900">spam o correo no deseado</strong>
                         </p>
                         <p>
                            • Busca un email con el asunto{" "}
-                           <strong className="text-gray-900">
-                              &quot;Código de verificación&quot;
-                           </strong>{" "}
-                           o{" "}
-                           <strong className="text-gray-900">
-                              &quot;Virtualis Courses&quot;
-                           </strong>
+                           <strong className="text-gray-900">&quot;Código de verificación&quot;</strong> o{" "}
+                           <strong className="text-gray-900">&quot;Virtualis Courses&quot;</strong>
                         </p>
-                        <p>
-                           • El código puede tardar hasta 2 minutos en llegar
-                        </p>
+                        <p>• El código puede tardar hasta 2 minutos en llegar</p>
                      </div>
                   </div>
                </div>
             </div>
 
             <div>
-               <label
-                  htmlFor="otp-code"
-                  className="block mb-2 font-semibold text-gray-700 text-sm"
-               >
+               <label htmlFor="otp-code" className="block mb-2 font-semibold text-gray-700 text-sm">
                   Código de verificación
                </label>
                <input
@@ -556,15 +499,11 @@ export default function StaggeredLoginForm() {
                      )}
                   </Button>
 
-                  {codeFailed && (
-                     <ReSendCodeButton handleSendOTP={handleSendOTP} />
-                  )}
+                  {codeFailed && <ReSendCodeButton handleSendOTP={handleSendOTP} />}
                </div>
 
                <div className="pt-2">
-                  <p className="mb-2 text-gray-600 text-sm text-center">
-                     ¿No recibiste el código o necesitas corregir tu email?
-                  </p>
+                  <p className="mb-2 text-gray-600 text-sm text-center">¿No recibiste el código o necesitas corregir tu email?</p>
 
                   <div className="space-y-2 *:w-full">
                      <Button
@@ -588,32 +527,17 @@ export default function StaggeredLoginForm() {
    }
 
    if (stage === "birthday_login") {
-      return (
-         <BirthdayLoginForm
-            setStage={setStage}
-            email={email}
-            redirectTo={redirectTo}
-         />
-      );
+      return <BirthdayLoginForm setStage={setStage} email={email} redirectTo={redirectTo} />;
    }
 
    if (stage === "phone_login") {
-      return (
-         <PhoneLoginForm
-            setStage={setStage}
-            email={email}
-            redirectTo={redirectTo}
-         />
-      );
+      return <PhoneLoginForm setStage={setStage} email={email} redirectTo={redirectTo} />;
    }
 
    return (
       <form className="space-y-6" onSubmit={handleSendOTP}>
          <div>
-            <label
-               htmlFor="email"
-               className="block mb-2 font-semibold text-gray-700 text-sm"
-            >
+            <label htmlFor="email" className="block mb-2 font-semibold text-gray-700 text-sm">
                Correo electrónico
             </label>
             <input

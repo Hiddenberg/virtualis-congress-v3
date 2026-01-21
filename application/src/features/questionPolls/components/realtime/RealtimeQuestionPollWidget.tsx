@@ -6,19 +6,13 @@ import { useStaggeredAuthContext } from "@/features/staggeredAuth/context/Stagge
 import { useRealtimeQuestionPoll } from "../../contexts/RealtimeQuestionPollContext";
 
 export default function RealtimeQuestionPollWidget() {
-   const { questionPoll, questionPollOptions, questionPollAnswers } =
-      useRealtimeQuestionPoll();
+   const { questionPoll, questionPollOptions, questionPollAnswers } = useRealtimeQuestionPoll();
    const { user } = useStaggeredAuthContext();
-   const userHasAnswered = user
-      ? questionPollAnswers.some((answer) => answer.user === user.id)
-      : false;
+   const userHasAnswered = user ? questionPollAnswers.some((answer) => answer.user === user.id) : false;
 
    const [selectedOptionId, setSelectedOptionId] = useState<string>(() => {
       if (userHasAnswered) {
-         return (
-            questionPollAnswers.find((answer) => answer.user === user?.id)
-               ?.optionSelected ?? ""
-         );
+         return questionPollAnswers.find((answer) => answer.user === user?.id)?.optionSelected ?? "";
       }
       return "";
    });
@@ -29,15 +23,11 @@ export default function RealtimeQuestionPollWidget() {
 
    return (
       <section className="bg-white shadow mx-auto p-6 border border-blue-100 rounded-xl max-w-xl">
-         <h2 className="mb-2 font-semibold text-blue-900 text-xl">
-            Encuesta en tiempo real
-         </h2>
+         <h2 className="mb-2 font-semibold text-blue-900 text-xl">Encuesta en tiempo real</h2>
          <p className="mb-6 text-gray-900 text-lg">{questionPoll.question}</p>
 
          <div className="mb-6">
-            <h3 className="mb-2 font-medium text-blue-800 text-base">
-               Opciones
-            </h3>
+            <h3 className="mb-2 font-medium text-blue-800 text-base">Opciones</h3>
             <ul className="space-y-2">
                {questionPollOptions.map((option) => (
                   <li
@@ -58,17 +48,8 @@ export default function RealtimeQuestionPollWidget() {
                      </label>
                      {userHasAnswered && (
                         <span className="bg-blue-100 ml-auto px-2 py-0.5 rounded text-blue-700 text-xs">
-                           {
-                              questionPollAnswers.filter(
-                                 (a) => a.optionSelected === option.id,
-                              ).length
-                           }{" "}
-                           voto
-                           {questionPollAnswers.filter(
-                              (a) => a.optionSelected === option.id,
-                           ).length !== 1
-                              ? "s"
-                              : ""}
+                           {questionPollAnswers.filter((a) => a.optionSelected === option.id).length} voto
+                           {questionPollAnswers.filter((a) => a.optionSelected === option.id).length !== 1 ? "s" : ""}
                         </span>
                      )}
                   </li>
@@ -76,11 +57,7 @@ export default function RealtimeQuestionPollWidget() {
             </ul>
          </div>
 
-         {message && (
-            <div className="bg-green-50 mb-4 px-4 py-2 rounded text-green-700">
-               {message}
-            </div>
-         )}
+         {message && <div className="bg-green-50 mb-4 px-4 py-2 rounded text-green-700">{message}</div>}
 
          <div className="flex justify-end">
             <button
@@ -94,10 +71,7 @@ export default function RealtimeQuestionPollWidget() {
                         optionId: selectedOptionId,
                      });
                      if (!res.success) {
-                        setMessage(
-                           res.errorMessage ??
-                              "No se pudo registrar tu respuesta",
-                        );
+                        setMessage(res.errorMessage ?? "No se pudo registrar tu respuesta");
                         return;
                      }
                      setMessage("¡Gracias por participar!");
@@ -106,11 +80,7 @@ export default function RealtimeQuestionPollWidget() {
                className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 px-5 py-2 rounded-md text-white"
                disabled={isPending || !selectedOptionId || userHasAnswered}
             >
-               {userHasAnswered
-                  ? "Ya votaste"
-                  : isPending
-                    ? "Enviando..."
-                    : "Enviar respuesta"}
+               {userHasAnswered ? "Ya votaste" : isPending ? "Enviando..." : "Enviar respuesta"}
             </button>
          </div>
 

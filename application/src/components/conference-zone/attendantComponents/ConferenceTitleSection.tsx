@@ -7,18 +7,13 @@ import type { SpeakerDataRecord } from "@/types/congress";
 function ConferenceSpeakersSection({ conferenceId }: { conferenceId: string }) {
    const { data, isLoading } = useQuery({
       queryKey: ["conference-speakers", conferenceId],
-      queryFn: () =>
-         backendFetcher<{ conferenceSpeakers: SpeakerDataRecord[] }>(
-            `/api/conferences/${conferenceId}/speakers`,
-         ),
+      queryFn: () => backendFetcher<{ conferenceSpeakers: SpeakerDataRecord[] }>(`/api/conferences/${conferenceId}/speakers`),
    });
 
    const conferenceSpeakers = data?.conferenceSpeakers;
 
    if (isLoading) {
-      return (
-         <div className="flex items-center gap-2 bg-gray-200 rounded-md w-96 h-4 animate-pulse" />
-      );
+      return <div className="flex items-center gap-2 bg-gray-200 rounded-md w-96 h-4 animate-pulse" />;
    }
 
    if (!conferenceSpeakers) return null;
@@ -27,15 +22,12 @@ function ConferenceSpeakersSection({ conferenceId }: { conferenceId: string }) {
       return (
          <div className="flex items-center gap-2 animate-appear">
             <p className="flex items-center gap-1 font-semibold text-gray-900">
-               <Mic2 strokeWidth={3} className="w-4 h-4" />{" "}
-               {conferenceSpeakers.length > 1 ? "Ponentes:" : "Ponente:"}
+               <Mic2 strokeWidth={3} className="w-4 h-4" /> {conferenceSpeakers.length > 1 ? "Ponentes:" : "Ponente:"}
             </p>
             <p>
                {conferenceSpeakers
                   .map((speaker) =>
-                     speaker.academicTitle
-                        ? `${speaker.academicTitle} ${speaker.displayName}`
-                        : speaker.displayName,
+                     speaker.academicTitle ? `${speaker.academicTitle} ${speaker.displayName}` : speaker.displayName,
                   )
                   .join(", ")}
             </p>
@@ -69,16 +61,11 @@ export default function ConferenceTitleSection({
                <div className="flex sm:flex-row flex-col sm:justify-between sm:items-start gap-4">
                   <div className="flex-1 min-w-0">
                      <h1 className="mb-2 font-bold text-gray-900 text-lg leading-tight">
-                        {isQna
-                           ? "Sesión de preguntas y respuestas"
-                           : "Conferencia"}
-                        : {expandedConference.title}
+                        {isQna ? "Sesión de preguntas y respuestas" : "Conferencia"}: {expandedConference.title}
                      </h1>
 
                      {expandedConference.shortDescription && (
-                        <p className="text-gray-600 leading-relaxed">
-                           {expandedConference.shortDescription}
-                        </p>
+                        <p className="text-gray-600 leading-relaxed">{expandedConference.shortDescription}</p>
                      )}
                      <ConferenceSpeakersSection conferenceId={conferenceId} />
 

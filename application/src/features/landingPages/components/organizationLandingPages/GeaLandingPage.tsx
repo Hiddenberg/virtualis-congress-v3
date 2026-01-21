@@ -5,23 +5,14 @@ import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAu
 import HeroSection from "./GeaLanding/HeroSection";
 import PricingInfo from "./GeaLanding/PricingInfo";
 
-export default async function GeaLandingPage({
-   organization,
-}: {
-   organization: OrganizationRecord;
-}) {
+export default async function GeaLandingPage({ organization }: { organization: OrganizationRecord }) {
    const userId = (await getLoggedInUserId()) ?? undefined;
    const congress = await getLatestCongress();
    const conferencesWithSpeakers = await getAllProgramConferencesWithSpeakers();
 
    return (
       <div className="bg-white min-h-screen">
-         <HeroSection
-            userId={userId}
-            organization={organization}
-            congress={congress}
-            conferences={conferencesWithSpeakers}
-         />
+         <HeroSection userId={userId} organization={organization} congress={congress} conferences={conferencesWithSpeakers} />
          <PricingInfo userId={userId} />
       </div>
    );

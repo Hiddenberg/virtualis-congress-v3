@@ -44,22 +44,14 @@ export default function ConferenceCarousel() {
    return (
       <div className="relative mx-auto rounded-3xl w-full h-[35rem] overflow-hidden">
          {/* Background Image */}
-         <Image
-            src={slides[currentSlide].image}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-         />
+         <Image src={slides[currentSlide].image} alt="" className="absolute inset-0 w-full h-full object-cover" />
 
          <div className="relative flex flex-col justify-end p-7 w-full h-full text-white">
             <div className="inline-block mb-6">
-               <span className="px-6 py-2 border border-white rounded-full text-sm">
-                  Qué encontrarás
-               </span>
+               <span className="px-6 py-2 border border-white rounded-full text-sm">Qué encontrarás</span>
             </div>
 
-            <h2 className="mb-4 font-bold text-2xl">
-               {slides[currentSlide].title}
-            </h2>
+            <h2 className="mb-4 font-bold text-2xl">{slides[currentSlide].title}</h2>
 
             <p className="mb-8 text-lg">{slides[currentSlide].description}</p>
 
@@ -74,9 +66,7 @@ export default function ConferenceCarousel() {
                   >
                      <span
                         className={`block h-1 w-10 rounded-full transition-all duration-300 ${
-                           index === currentSlide
-                              ? "w-12 bg-white"
-                              : "w-12 bg-gray-500"
+                           index === currentSlide ? "w-12 bg-white" : "w-12 bg-gray-500"
                         }`}
                      />
                   </button>

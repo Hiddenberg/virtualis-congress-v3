@@ -23,36 +23,24 @@ export async function getAllCourtesyInvitations() {
          congressId: congress.id,
       },
    );
-   const courtesyInvitations = await getFullDBRecordsList<CourtesyInvitation>(
-      "COURTESY_INVITATIONS",
-      {
-         filter,
-      },
-   );
+   const courtesyInvitations = await getFullDBRecordsList<CourtesyInvitation>("COURTESY_INVITATIONS", {
+      filter,
+   });
 
    return courtesyInvitations;
 }
 
-export async function generateMultipleCourtesyInvitationCodes(
-   congressId: string,
-   quantity: number,
-) {
+export async function generateMultipleCourtesyInvitationCodes(congressId: string, quantity: number) {
    const organization = await getOrganizationFromSubdomain();
    for (let i = 0; i < quantity; i++) {
       await createCourtesyInvitationCode(congressId, organization.id);
    }
 }
 
-export async function createCourtesyInvitationCode(
-   congressId: string,
-   organizationId: string,
-) {
+export async function createCourtesyInvitationCode(congressId: string, organizationId: string) {
    const courtesyCuponId = "EqO90OPA";
 
-   const strypePromotionCode = await createStripePromotionCode(
-      courtesyCuponId,
-      1,
-   );
+   const strypePromotionCode = await createStripePromotionCode(courtesyCuponId, 1);
 
    const newCourtesyInvitationCode: CourtesyInvitation = {
       congress: congressId,
@@ -68,15 +56,11 @@ export async function createCourtesyInvitationCode(
    return courtesyInvitationCreated;
 }
 
-export async function getCourtesyInvitationByStryipePromoCode(
-   stripePromotionCode: string,
-) {
+export async function getCourtesyInvitationByStryipePromoCode(stripePromotionCode: string) {
    try {
       const courtesyInvitationCode = await pbServerClient
          .collection(PB_COLLECTIONS.COURTESY_INVITATIONS)
-         .getFirstListItem<CourtesyInvitation & RecordModel>(
-            `stripePromotionCode = "${stripePromotionCode}"`,
-         );
+         .getFirstListItem<CourtesyInvitation & RecordModel>(`stripePromotionCode = "${stripePromotionCode}"`);
       return courtesyInvitationCode;
    } catch (error) {
       if (error instanceof ClientResponseError && error.status === 404) {
@@ -86,23 +70,17 @@ export async function getCourtesyInvitationByStryipePromoCode(
    }
 }
 
-export async function redeemCourtesyInvitationCode(
-   stripePromotionCode: string,
-   user: User & RecordModel,
-) {
-   const courtesyInvitation =
-      await getCourtesyInvitationByStryipePromoCode(stripePromotionCode);
+export async function redeemCourtesyInvitationCode(stripePromotionCode: string, user: User & RecordModel) {
+   const courtesyInvitation = await getCourtesyInvitationByStryipePromoCode(stripePromotionCode);
    if (!courtesyInvitation) {
       return;
    }
 
-   await pbServerClient
-      .collection(PB_COLLECTIONS.COURTESY_INVITATIONS)
-      .update(courtesyInvitation.id, {
-         used: true,
-         redeemedAt: new Date().toISOString(),
-         userWhoRedeemed: user.id,
-      } as Partial<CourtesyInvitation>);
+   await pbServerClient.collection(PB_COLLECTIONS.COURTESY_INVITATIONS).update(courtesyInvitation.id, {
+      used: true,
+      redeemedAt: new Date().toISOString(),
+      userWhoRedeemed: user.id,
+   } as Partial<CourtesyInvitation>);
 
    await setRegistrationAsCourtesyGuest(user.id, courtesyInvitation.congress);
 

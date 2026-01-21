@@ -18,10 +18,7 @@ export default function SpeakerSelfRegistrationForm({
    const router = useRouter();
 
    const handleUserCreated = async (newUserFormData: NewUserFormData) => {
-      const response = await registerSpeakerUserAction(
-         newUserFormData,
-         speakerData,
-      );
+      const response = await registerSpeakerUserAction(newUserFormData, speakerData);
 
       if (!response.success) {
          toast.error(response.errorMessage);

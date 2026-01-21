@@ -4,17 +4,7 @@ import { useState } from "react";
 import AllSponsorsSection from "./AllSponsorsSection";
 import BayerSponsorSection from "./BayerSponsorSection";
 
-const companies = [
-   "Todos",
-   "Bayer",
-   "Pfizer",
-   "Johnson & Johnson",
-   "Roche",
-   "Merck & Co.",
-   "Sanofi",
-   "AstraZeneca",
-   "Novartis",
-];
+const companies = ["Todos", "Bayer", "Pfizer", "Johnson & Johnson", "Roche", "Merck & Co.", "Sanofi", "AstraZeneca", "Novartis"];
 
 export default function SponsorSelector() {
    const [selectedTab, setSelectedTab] = useState("Todos");

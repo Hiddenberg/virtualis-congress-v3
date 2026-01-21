@@ -3,10 +3,7 @@ import { getPresentationRecordingByPresentationId } from "@/features/pptPresenta
 import { getPresentationSlidesById } from "@/features/pptPresentations/services/presentationServices";
 import { getRecordingPresentationByRecordingId } from "@/features/simpleRecordings/services/recordingPresentationsServices";
 
-export async function GET(
-   _request: Request,
-   { params }: { params: Promise<{ recordingId: string }> },
-) {
+export async function GET(_request: Request, { params }: { params: Promise<{ recordingId: string }> }) {
    const { recordingId } = await params;
 
    if (!recordingId) {
@@ -20,8 +17,7 @@ export async function GET(
       );
    }
 
-   const presentation =
-      await getRecordingPresentationByRecordingId(recordingId);
+   const presentation = await getRecordingPresentationByRecordingId(recordingId);
 
    if (!presentation) {
       return NextResponse.json({

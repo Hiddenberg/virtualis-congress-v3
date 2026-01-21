@@ -14,17 +14,8 @@ import {
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import { getAllSpeakerPhoneNumbers } from "../../users/speakers/services/speakerServices";
 
-export type NewConferenceData = Omit<
-   CongressConference,
-   "organization" | "congress" | "status"
->;
-export async function createConference({
-   title,
-   shortDescription,
-   startTime,
-   endTime,
-   conferenceType,
-}: NewConferenceData) {
+export type NewConferenceData = Omit<CongressConference, "organization" | "congress" | "status">;
+export async function createConference({ title, shortDescription, startTime, endTime, conferenceType }: NewConferenceData) {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
    const newConference: CongressConference = {
@@ -38,26 +29,18 @@ export async function createConference({
       status: "scheduled",
    };
 
-   const conferenceCreated = await createDBRecord<CongressConference>(
-      "CONGRESS_CONFERENCES",
-      newConference,
-   );
+   const conferenceCreated = await createDBRecord<CongressConference>("CONGRESS_CONFERENCES", newConference);
 
    console.log("conference created");
    return conferenceCreated;
 }
 
 export async function getConferenceById(conferenceId: string) {
-   const conference = await getDBRecordById<CongressConference>(
-      "CONGRESS_CONFERENCES",
-      conferenceId,
-   );
+   const conference = await getDBRecordById<CongressConference>("CONGRESS_CONFERENCES", conferenceId);
    return conference;
 }
 
-export interface ConferenceWithSpeakerNamesAndPhones
-   extends CongressConference,
-      RecordModel {
+export interface ConferenceWithSpeakerNamesAndPhones extends CongressConference, RecordModel {
    speakersDetails: {
       name: User["name"];
       phone: string | undefined;
@@ -69,54 +52,44 @@ export interface ConferenceWithSpeakerNamesAndPhones
       email: string;
    };
 }
-export async function getAllCongressConferencesByDate(
-   congressId: string,
-   date: Date,
-) {
+export async function getAllCongressConferencesByDate(congressId: string, date: Date) {
    const startOfTheDay = dayStart(date).toISOString().replace("T", " ");
    const endOfTheDay = dayEnd(date).toISOString().replace("T", " ");
 
    const filter = `congress = "${congressId}" && startTime >= "${startOfTheDay}" && endTime <= "${endOfTheDay}"`;
    try {
-      const conferences = await pbServerClient
-         .collection(PB_COLLECTIONS.CONGRESS_CONFERENCES)
-         .getFullList<
-            CongressConference &
-               RecordModel & {
-                  expand: {
-                     speakers: (RecordModel & User)[];
-                     presenter: RecordModel & User;
-                  };
-               }
-         >({
-            filter,
-            expand: "speakers, presenter",
-         });
+      const conferences = await pbServerClient.collection(PB_COLLECTIONS.CONGRESS_CONFERENCES).getFullList<
+         CongressConference &
+            RecordModel & {
+               expand: {
+                  speakers: (RecordModel & User)[];
+                  presenter: RecordModel & User;
+               };
+            }
+      >({
+         filter,
+         expand: "speakers, presenter",
+      });
 
       const speakerPhones = await getAllSpeakerPhoneNumbers();
 
-      const conferencesDetails: ConferenceWithSpeakerNamesAndPhones[] =
-         conferences.map((conference) => ({
-            ...conference,
-            speakersDetails: conference.expand.speakers.map((speaker) => {
-               const speakerPhone = speakerPhones.find(
-                  (phone) => phone.userId === speaker.id,
-               )?.phoneNumber;
-               return {
-                  name: speaker.name,
-                  phone: speakerPhone,
-                  email: speaker.email,
-               };
-            }),
-            presenterDetails: {
-               name: conference.expand.presenter?.name,
-               phone: speakerPhones.find(
-                  (phone) => phone.userId === conference.expand.presenter?.id,
-               )?.phoneNumber,
-               email: conference.expand.presenter?.email,
-            },
-            expand: undefined,
-         }));
+      const conferencesDetails: ConferenceWithSpeakerNamesAndPhones[] = conferences.map((conference) => ({
+         ...conference,
+         speakersDetails: conference.expand.speakers.map((speaker) => {
+            const speakerPhone = speakerPhones.find((phone) => phone.userId === speaker.id)?.phoneNumber;
+            return {
+               name: speaker.name,
+               phone: speakerPhone,
+               email: speaker.email,
+            };
+         }),
+         presenterDetails: {
+            name: conference.expand.presenter?.name,
+            phone: speakerPhones.find((phone) => phone.userId === conference.expand.presenter?.id)?.phoneNumber,
+            email: conference.expand.presenter?.email,
+         },
+         expand: undefined,
+      }));
 
       return conferencesDetails;
    } catch (error) {
@@ -143,12 +116,9 @@ export async function getAllProgramConferences() {
          congressId: congress.id,
       },
    );
-   const allProgramConferences = await getFullDBRecordsList<CongressConference>(
-      "CONGRESS_CONFERENCES",
-      {
-         filter,
-      },
-   );
+   const allProgramConferences = await getFullDBRecordsList<CongressConference>("CONGRESS_CONFERENCES", {
+      filter,
+   });
    return allProgramConferences;
 }
 
@@ -164,39 +134,31 @@ export async function getAllCongressConferences(congressId: string) {
          congressId,
       },
    );
-   const allCongressConferences =
-      await getFullDBRecordsList<CongressConference>("CONGRESS_CONFERENCES", {
-         filter,
-         sort: "startTime",
-      });
+   const allCongressConferences = await getFullDBRecordsList<CongressConference>("CONGRESS_CONFERENCES", {
+      filter,
+      sort: "startTime",
+   });
 
    return allCongressConferences;
 }
 
-export async function getIndividualConferencesWithSpeakerEmails(
-   congressId: string,
-) {
+export async function getIndividualConferencesWithSpeakerEmails(congressId: string) {
    const filter = `congress = "${congressId}" && conferenceType = "individual"`;
    const expandedIndividualConferences = await pbServerClient
       .collection(PB_COLLECTIONS.CONGRESS_CONFERENCES)
-      .getFullList<
-         CongressConference &
-            RecordModel & { expand: { speakers: (RecordModel & User)[] } }
-      >({
+      .getFullList<CongressConference & RecordModel & { expand: { speakers: (RecordModel & User)[] } }>({
          filter,
          expand: "speakers",
       });
 
-   const conferencesDetails = expandedIndividualConferences.map(
-      (conference) => ({
-         ...conference,
-         speakerDetails: {
-            name: conference.expand.speakers[0].name,
-            email: conference.expand.speakers[0].email,
-         },
-         expand: undefined,
-      }),
-   );
+   const conferencesDetails = expandedIndividualConferences.map((conference) => ({
+      ...conference,
+      speakerDetails: {
+         name: conference.expand.speakers[0].name,
+         email: conference.expand.speakers[0].email,
+      },
+      expand: undefined,
+   }));
 
    return conferencesDetails;
 }
@@ -224,23 +186,13 @@ export async function getExpandedConferenceById(conferenceId: string) {
    }
 }
 
-export async function updateConference(
-   conferenceId: string,
-   data: Partial<CongressConference>,
-) {
-   const conference = await getDBRecordById<CongressConference>(
-      "CONGRESS_CONFERENCES",
-      conferenceId,
-   );
+export async function updateConference(conferenceId: string, data: Partial<CongressConference>) {
+   const conference = await getDBRecordById<CongressConference>("CONGRESS_CONFERENCES", conferenceId);
    if (!conference) {
       throw new Error("Conference not found");
    }
 
-   const updatedConference = await updateDBRecord<CongressConference>(
-      "CONGRESS_CONFERENCES",
-      conferenceId,
-      data,
-   );
+   const updatedConference = await updateDBRecord<CongressConference>("CONGRESS_CONFERENCES", conferenceId, data);
    return updatedConference;
 }
 

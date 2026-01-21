@@ -32,9 +32,7 @@ export default async function CertificatesPage() {
    if (!attenddantCertificateDesign) {
       return (
          <div>
-            <h1 className="mb-4 font-semibold text-gray-800 text-xl">
-               No se encontró el diseño del certificado
-            </h1>
+            <h1 className="mb-4 font-semibold text-gray-800 text-xl">No se encontró el diseño del certificado</h1>
             <LinkButton href="/lobby" variant="blue">
                Volver al lobby
             </LinkButton>
@@ -45,9 +43,7 @@ export default async function CertificatesPage() {
    return (
       <div>
          <div className="mb-8">
-            <h1 className="font-semibold text-gray-800 text-2xl">
-               Tus certificados actuales
-            </h1>
+            <h1 className="font-semibold text-gray-800 text-2xl">Tus certificados actuales</h1>
 
             <span className="mb-4 font-semibold text-red-600 text-sm">
                Nota: Tu nombre puede parecer descuadrado en la imagen de abajo.

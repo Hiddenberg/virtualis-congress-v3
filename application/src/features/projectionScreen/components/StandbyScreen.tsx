@@ -4,6 +4,7 @@ import { format } from "@formkit/tempo";
 import { Calendar, Clock, QrCode, Users } from "lucide-react";
 import Image from "next/image";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
+import { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import FixedScaleStage from "./FixedScaleStage";
 
@@ -16,12 +17,9 @@ export default async function StandbyScreen({
    organization: OrganizationRecord;
    congress: CongressRecord;
 }) {
-   const conferenceSpeakers = await getConferenceSpeakers(
-      nextConference?.id ?? "",
-   );
+   const conferenceSpeakers = await getConferenceSpeakers(nextConference?.id ?? "");
    const conferenceSpeaker = conferenceSpeakers[0] ?? null;
-   const platformQrURL =
-      "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757052238/qr-code_1_mpdft8.webp";
+   const platformQrURL = "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757052238/qr-code_1_mpdft8.webp";
 
    const congressVideoUrl = "/CMIMCC/videos/video-presentacion.webm";
 
@@ -69,18 +67,14 @@ export default async function StandbyScreen({
                      {nextConference ? (
                         <div>
                            {/* Card header with modern status badge */}
-                           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6 border-slate-200/60 border-b">
+                           <div className="bg-linear-to-r from-blue-50 to-indigo-50 px-8 py-6 border-slate-200/60 border-b">
                               <div className="flex justify-between items-start">
                                  <div className="space-y-3">
                                     <div className="inline-flex items-center gap-2 bg-blue-100 px-4 py-2 border border-blue-200 rounded-full">
                                        <div className="bg-blue-500 rounded-full w-2.5 h-2.5 animate-pulse" />
-                                       <span className="font-semibold text-blue-700 text-sm">
-                                          Próxima conferencia
-                                       </span>
+                                       <span className="font-semibold text-blue-700 text-sm">Próxima conferencia</span>
                                     </div>
-                                    <h2 className="font-bold text-slate-900 text-3xl leading-tight">
-                                       {nextConference.title}
-                                    </h2>
+                                    <h2 className="font-bold text-slate-900 text-3xl leading-tight">{nextConference.title}</h2>
                                  </div>
                               </div>
                            </div>
@@ -89,7 +83,7 @@ export default async function StandbyScreen({
                            <div className="p-8">
                               {/* Vertical congress video */}
                               <div className="relative flex justify-center mb-6">
-                                 <div className="relative bg-black shadow-lg border border-slate-200 rounded-2xl w-[320px] aspect-[9/16] overflow-hidden">
+                                 <div className="relative bg-black shadow-lg border border-slate-200 rounded-2xl w-[320px] aspect-9/16 overflow-hidden">
                                     <video
                                        src={congressVideoUrl}
                                        className="absolute inset-0 w-full h-full object-cover"
@@ -118,25 +112,18 @@ export default async function StandbyScreen({
                                  {conferenceSpeaker && (
                                     <div className="flex items-center gap-3 bg-slate-50 px-4 py-3 rounded-xl">
                                        <Users className="w-5 h-5 text-slate-600" />
-                                       <span className="font-medium text-slate-700 text-lg">
-                                          {conferenceSpeaker.displayName}
-                                       </span>
+                                       <span className="font-medium text-slate-700 text-lg">{conferenceSpeaker.displayName}</span>
                                     </div>
                                  )}
 
                                  {/* Status message with modern styling */}
-                                 <div className="flex justify-center items-center bg-gradient-to-br from-slate-50 to-slate-100 mt-8 p-8 border border-slate-200 rounded-2xl">
+                                 <div className="flex justify-center items-center bg-linear-to-br from-slate-50 to-slate-100 mt-8 p-8 border border-slate-200 rounded-2xl">
                                     <div className="space-y-2 text-center">
                                        <div className="flex justify-center items-center bg-blue-100 mx-auto rounded-full w-16 h-16">
                                           <Clock className="w-8 h-8 text-blue-600" />
                                        </div>
-                                       <p className="font-semibold text-slate-700 text-lg">
-                                          La conferencia comenzará pronto
-                                       </p>
-                                       <p className="text-slate-500 text-sm">
-                                          Prepárate para una experiencia
-                                          increíble
-                                       </p>
+                                       <p className="font-semibold text-slate-700 text-lg">La conferencia comenzará pronto</p>
+                                       <p className="text-slate-500 text-sm">Prepárate para una experiencia increíble</p>
                                     </div>
                                  </div>
                               </div>
@@ -149,9 +136,7 @@ export default async function StandbyScreen({
                                  <Calendar className="w-8 h-8 text-slate-400" />
                               </div>
                               {/* <p className="font-medium text-slate-600 text-lg">No hay conferencias programadas</p> */}
-                              <p className="text-slate-400 text-sm">
-                                 Mantente atento a las próximas actualizaciones
-                              </p>
+                              <p className="text-slate-400 text-sm">Mantente atento a las próximas actualizaciones</p>
                            </div>
                         </div>
                      )}
@@ -165,23 +150,16 @@ export default async function StandbyScreen({
                      <div className="space-y-4 text-center">
                         <div className="flex justify-center items-center gap-2 mb-4">
                            <QrCode className="w-5 h-5 text-blue-600" />
-                           <h3 className="font-bold text-slate-900 text-lg">
-                              Accede a la plataforma
-                           </h3>
+                           <h3 className="font-bold text-slate-900 text-lg">Accede a la plataforma</h3>
                         </div>
 
                         <div className="flex justify-center">
-                           <img
-                              src={platformQrURL}
-                              alt="Plataforma QR"
-                              className="rounded-lg size-72 object-contain"
-                           />
+                           <img src={platformQrURL} alt="Plataforma QR" className="rounded-lg size-72 object-contain" />
                         </div>
 
                         <div className="bg-blue-50 px-4 py-3 rounded-xl">
                            <p className="font-medium text-blue-800 text-sm">
-                              Escanea el código QR para participar desde tu
-                              dispositivo
+                              Escanea el código QR para participar desde tu dispositivo
                            </p>
                         </div>
                      </div>
@@ -190,14 +168,10 @@ export default async function StandbyScreen({
                   {/* Organization info with enhanced styling */}
                   <div className="bg-white shadow-xl p-6 border border-slate-200/60 rounded-3xl">
                      <div className="space-y-3">
-                        <h4 className="font-bold text-slate-900 text-base">
-                           {organization.name}
-                        </h4>
-                        <p className="text-slate-600 text-sm leading-relaxed">
-                           {congress.title}
-                        </p>
+                        <h4 className="font-bold text-slate-900 text-base">{organization.name}</h4>
+                        <p className="text-slate-600 text-sm leading-relaxed">{congress.title}</p>
 
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 mt-4 px-4 py-3 rounded-xl">
+                        <div className="bg-linear-to-r from-blue-50 to-indigo-50 mt-4 px-4 py-3 rounded-xl">
                            <p className="font-medium text-blue-700 text-xs text-center">
                               Experiencia virtual de calidad profesional
                            </p>

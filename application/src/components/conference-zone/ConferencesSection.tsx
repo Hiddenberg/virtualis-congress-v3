@@ -52,11 +52,7 @@ export default function ConferencesSection() {
          <h2 className="text-2xl font-bold mb-4">En vivo</h2>
          <div className="space-y-4">
             {sessions.map((session, index) => (
-               <SessionCard
-                  key={index}
-                  title={session.title}
-                  viewers={session.viewers}
-               />
+               <SessionCard key={index} title={session.title} viewers={session.viewers} />
             ))}
          </div>
          <div className="flex justify-center mt-4 space-x-2">

@@ -30,11 +30,7 @@ export default function RecorderCountdown({
    return (
       <div>
          <p>Tiempo restante:</p>
-         <p
-            className={`font-bold text-xl ${isWarning ? "text-red-500 animate-pulse" : ""}`}
-         >
-            {formatVideoTime(timeLeft)}
-         </p>
+         <p className={`font-bold text-xl ${isWarning ? "text-red-500 animate-pulse" : ""}`}>{formatVideoTime(timeLeft)}</p>
       </div>
    );
 }

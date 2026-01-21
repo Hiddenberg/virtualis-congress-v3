@@ -20,10 +20,7 @@ export async function savePresentationDrawingEventsAction(
          };
       }
 
-      const saved = await savePresentationDrawingEvents(
-         presentationId,
-         drawingEvents,
-      );
+      const saved = await savePresentationDrawingEvents(presentationId, drawingEvents);
       return {
          success: true,
          data: saved,

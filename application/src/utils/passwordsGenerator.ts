@@ -7,8 +7,7 @@ import { randomBytes } from "crypto";
  */
 export function generateRandomPassword(length: number = 15): string {
    // Define the character set (uppercase, lowercase, digits, symbols).
-   const chars =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
 
    // Generate a random byte array of the desired length.
    const byteArray = randomBytes(length);

@@ -21,10 +21,7 @@ export async function createLivestreamMuxAsset({
    livestreamPlaybackId,
 }: NewLivestreamMuxAssetData) {
    try {
-      console.log(
-         "[Livestream Mux Asset Service] Creating livestream mux asset for conference",
-         conferenceId,
-      );
+      console.log("[Livestream Mux Asset Service] Creating livestream mux asset for conference", conferenceId);
       const newLivestreamMuxAssetData: LivestreamMuxLivestream = {
          organization: TEMP_CONSTANTS.ORGANIZATION_ID,
          livestreamSession: livestreamSessionId,
@@ -37,23 +34,15 @@ export async function createLivestreamMuxAsset({
          .collection(PB_COLLECTIONS.LIVESTREAM_MUX_LIVESTREAMS)
          .create<LivestreamMuxAssetRecord>(newLivestreamMuxAssetData);
 
-      console.log(
-         "[Livestream Mux Asset Service] Livestream mux asset created successfully",
-         newLivestreamMuxAsset,
-      );
+      console.log("[Livestream Mux Asset Service] Livestream mux asset created successfully", newLivestreamMuxAsset);
       return newLivestreamMuxAsset;
    } catch (error) {
-      console.error(
-         "[Livestream Mux Asset Service] Error creating livestream mux asset",
-         error,
-      );
+      console.error("[Livestream Mux Asset Service] Error creating livestream mux asset", error);
       throw error;
    }
 }
 
-export async function getQnALivestreamMuxAssetForConference(
-   conferenceId: string,
-) {
+export async function getQnALivestreamMuxAssetForConference(conferenceId: string) {
    try {
       const qnaLivestreamMuxAsset = await pbServerClient
          .collection(PB_COLLECTIONS.LIVESTREAM_MUX_LIVESTREAMS)
@@ -67,10 +56,7 @@ export async function getQnALivestreamMuxAssetForConference(
          return null;
       }
 
-      console.error(
-         "[Livestream Mux Asset Service] Error getting qna livestream mux asset for conference",
-         error,
-      );
+      console.error("[Livestream Mux Asset Service] Error getting qna livestream mux asset for conference", error);
       throw error;
    }
 }

@@ -6,10 +6,7 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { CopyButton } from "@/components/global/Buttons";
-import {
-   IS_DEV_ENVIRONMENT,
-   PLATFORM_BASE_DOMAIN,
-} from "@/data/constants/platformConstants";
+import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { disableConferenceQnAAction } from "@/features/conferences/actions/conferenceQnAActions";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
 
@@ -18,11 +15,7 @@ interface AdminQnALinksProps {
    sessionStatus?: LivestreamSessionRecord["status"];
 }
 
-function StatusBadge({
-   status,
-}: {
-   status: AdminQnALinksProps["sessionStatus"];
-}) {
+function StatusBadge({ status }: { status: AdminQnALinksProps["sessionStatus"] }) {
    if (!status) return null;
    const map = {
       scheduled: {
@@ -48,24 +41,16 @@ function StatusBadge({
    } as const;
    const conf = map[status];
    return (
-      <span
-         className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs border ${conf.className}`}
-      >
-         {conf.label}
-      </span>
+      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs border ${conf.className}`}>{conf.label}</span>
    );
 }
 
-export default function AdminQnALinks({
-   conferenceId,
-   sessionStatus,
-}: AdminQnALinksProps) {
+export default function AdminQnALinks({ conferenceId, sessionStatus }: AdminQnALinksProps) {
    const router = useRouter();
    const { organization } = useOrganizationContext();
    const [isDisabling, startTransition] = useTransition();
 
-   if (!organization)
-      return <div className="p-6">Error: Organization is required</div>;
+   if (!organization) return <div className="p-6">Error: Organization is required</div>;
 
    const protocol = IS_DEV_ENVIRONMENT ? "http" : "https";
    const routeBase = `live-transmission/${conferenceId}/qna`;
@@ -75,9 +60,7 @@ export default function AdminQnALinks({
    const guestLink = `${baseUrl}`;
 
    const handleDisable = () => {
-      const confirmed = window.confirm(
-         "¿Eliminar la sesión de QnA? Esta acción no se puede deshacer.",
-      );
+      const confirmed = window.confirm("¿Eliminar la sesión de QnA? Esta acción no se puede deshacer.");
       if (!confirmed) return;
       startTransition(async () => {
          const res = await disableConferenceQnAAction({
@@ -96,10 +79,7 @@ export default function AdminQnALinks({
       <div className="p-6">
          <div className="space-y-6 max-w-3xl">
             <div className="flex justify-between items-center">
-               <button
-                  onClick={() => router.back()}
-                  className="text-stone-700 hover:text-stone-900 text-sm"
-               >
+               <button onClick={() => router.back()} className="text-stone-700 hover:text-stone-900 text-sm">
                   ← Volver
                </button>
                <StatusBadge status={sessionStatus} />
@@ -112,19 +92,12 @@ export default function AdminQnALinks({
                      <MessageSquareIcon className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                     <h2 className="font-semibold text-stone-900 text-base">
-                        Iniciar QnA (admin)
-                     </h2>
-                     <p className="text-stone-600 text-sm">
-                        Link para anfitriones de la sesión de preguntas y
-                        respuestas.
-                     </p>
+                     <h2 className="font-semibold text-stone-900 text-base">Iniciar QnA (admin)</h2>
+                     <p className="text-stone-600 text-sm">Link para anfitriones de la sesión de preguntas y respuestas.</p>
                   </div>
                </div>
                <div className="flex items-center gap-3 bg-stone-50 p-3 border border-stone-200 rounded-lg">
-                  <span className="flex-1 min-w-0 text-stone-700 text-sm truncate">
-                     {adminLink}
-                  </span>
+                  <span className="flex-1 min-w-0 text-stone-700 text-sm truncate">{adminLink}</span>
                   <CopyButton text={adminLink} />
                   <Link
                      href={adminLink}
@@ -137,10 +110,7 @@ export default function AdminQnALinks({
                </div>
                <div className="flex items-start gap-2 bg-amber-50 mt-3 p-2 border border-amber-200 rounded-md text-amber-700 text-xs">
                   <TriangleAlertIcon className="mt-0.5 w-4 h-4 shrink-0" />
-                  <p>
-                     Solo para administradores o coordinadores. NO compartir
-                     este link públicamente.
-                  </p>
+                  <p>Solo para administradores o coordinadores. NO compartir este link públicamente.</p>
                </div>
             </div>
 
@@ -151,18 +121,12 @@ export default function AdminQnALinks({
                      <LinkIcon className="w-5 h-5 text-stone-700" />
                   </div>
                   <div>
-                     <h2 className="font-semibold text-stone-900 text-base">
-                        Link para invitados
-                     </h2>
-                     <p className="text-stone-600 text-sm">
-                        Comparte este link con asistentes o invitados.
-                     </p>
+                     <h2 className="font-semibold text-stone-900 text-base">Link para invitados</h2>
+                     <p className="text-stone-600 text-sm">Comparte este link con asistentes o invitados.</p>
                   </div>
                </div>
                <div className="flex items-center gap-3 bg-stone-50 p-3 border border-stone-200 rounded-lg">
-                  <span className="flex-1 min-w-0 text-stone-700 text-sm truncate">
-                     {guestLink}
-                  </span>
+                  <span className="flex-1 min-w-0 text-stone-700 text-sm truncate">{guestLink}</span>
                   <CopyButton text={guestLink} />
                   <Link
                      href={guestLink}
@@ -177,12 +141,9 @@ export default function AdminQnALinks({
 
             {/* Danger zone */}
             <div className="bg-red-50 shadow-sm p-5 border border-red-200 rounded-xl">
-               <h3 className="mb-2 font-semibold text-red-800 text-base">
-                  Eliminar sesión de QnA
-               </h3>
+               <h3 className="mb-2 font-semibold text-red-800 text-base">Eliminar sesión de QnA</h3>
                <p className="mb-3 text-red-700 text-sm">
-                  Si ya no necesitas esta sesión, puedes eliminarla. Esto
-                  también eliminará los recursos asociados.
+                  Si ya no necesitas esta sesión, puedes eliminarla. Esto también eliminará los recursos asociados.
                </p>
                <button
                   onClick={handleDisable}

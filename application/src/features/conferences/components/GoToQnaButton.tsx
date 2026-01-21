@@ -4,17 +4,11 @@ import { MessageCircleQuestionIcon } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useRealtimeLivestreamStatusContext } from "@/features/livestreams/contexts/RealtimeLivestreamStatusProvider";
 
-export default function GoToQnaButton({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export default function GoToQnaButton({ conferenceId }: { conferenceId: string }) {
    const { livestreamStatus } = useRealtimeLivestreamStatusContext();
 
    const searchParams = useSearchParams();
-   const isHost =
-      searchParams.get("ishost") === "true" ||
-      searchParams.get("isHost") === "true";
+   const isHost = searchParams.get("ishost") === "true" || searchParams.get("isHost") === "true";
 
    if (livestreamStatus !== "ended") {
       return null;

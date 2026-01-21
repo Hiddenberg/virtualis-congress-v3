@@ -16,13 +16,8 @@ export default async function AttendantConferenceLayout({
    if (!conference) {
       return (
          <div className="mx-auto p-3 sm:p-6 container">
-            <h1 className="mb-4 sm:mb-6 font-bold text-xl sm:text-2xl">
-               Conferencia no encontrada
-            </h1>
-            <p className="text-sm sm:text-base">
-               La conferencia con ID {conferenceId} no existe o no está
-               disponible.
-            </p>
+            <h1 className="mb-4 sm:mb-6 font-bold text-xl sm:text-2xl">Conferencia no encontrada</h1>
+            <p className="text-sm sm:text-base">La conferencia con ID {conferenceId} no existe o no está disponible.</p>
          </div>
       );
    }

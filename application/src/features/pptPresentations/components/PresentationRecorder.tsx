@@ -9,11 +9,7 @@ import { usePresentationDrawing } from "../contexts/PresentationDrawingContext";
 import { PresentationRecorderContext } from "../contexts/PresentationRecorderContext";
 import PresentationDrawingOverlay from "./PresentationDrawingOverlay";
 
-export default function PresentationRecorder({
-   presentationSlides,
-}: {
-   presentationSlides: PresentationSlideRecord[];
-}) {
+export default function PresentationRecorder({ presentationSlides }: { presentationSlides: PresentationSlideRecord[] }) {
    const [currentSlide, setCurrentSlide] = useState(0);
 
    // Navigation functions
@@ -60,10 +56,7 @@ export default function PresentationRecorder({
    }, [presentationSlides.length]);
 
    const goToPrevSlide = useCallback(() => {
-      setCurrentSlide(
-         (prev) =>
-            (prev - 1 + presentationSlides.length) % presentationSlides.length,
-      );
+      setCurrentSlide((prev) => (prev - 1 + presentationSlides.length) % presentationSlides.length);
    }, [presentationSlides.length]);
 
    const goToSlide = useCallback(
@@ -88,16 +81,12 @@ export default function PresentationRecorder({
    const currentSlideImage = presentationSlides[currentSlide];
 
    return (
-      <div
-         className={`bg-white rounded-2xl shadow-xl !border !border-gray-200 overflow-hidden max-w-[150dvh] mx-auto`}
-      >
+      <div className={`bg-white rounded-2xl shadow-xl !border !border-gray-200 overflow-hidden max-w-[150dvh] mx-auto`}>
          {/* Header with controls */}
          <div className="bg-gray-50 p-4 border-gray-200 border-b">
             <div className="flex justify-between items-center">
                <div className="flex items-center gap-4">
-                  <h2 className="font-bold text-gray-900 text-xl">
-                     Diapositiva Convertida
-                  </h2>
+                  <h2 className="font-bold text-gray-900 text-xl">Diapositiva Convertida</h2>
                   <span className="text-gray-500 text-sm">
                      {currentSlide + 1} de {presentationSlides.length}
                   </span>
@@ -105,9 +94,7 @@ export default function PresentationRecorder({
 
                <div className="flex items-center gap-2 min-h-[1.5rem]">
                   <button
-                     onClick={() =>
-                        drawing?.setDrawingMode(!drawing?.isDrawingMode)
-                     }
+                     onClick={() => drawing?.setDrawingMode(!drawing?.isDrawingMode)}
                      className={`px-3 py-1.5 rounded-md border text-sm ${
                         drawing?.isDrawingMode
                            ? "bg-blue-600 text-white border-blue-600"
@@ -115,8 +102,7 @@ export default function PresentationRecorder({
                      }`}
                   >
                      <span className="inline-flex items-center gap-2">
-                        <Pencil className="w-4 h-4" />{" "}
-                        {drawing?.isDrawingMode ? "Laser Activo" : "Laser"}
+                        <Pencil className="w-4 h-4" /> {drawing?.isDrawingMode ? "Laser Activo" : "Laser"}
                      </span>
                   </button>
                   <button
@@ -152,10 +138,7 @@ export default function PresentationRecorder({
                {/* Slide image */}
                <div className="relative flex justify-center items-center bg-gray-900 w-full aspect-video">
                   <img
-                     src={pbClient.files.getURL(
-                        currentSlideImage,
-                        currentSlideImage.image as string,
-                     )}
+                     src={pbClient.files.getURL(currentSlideImage, currentSlideImage.image as string)}
                      alt={`Diapositiva ${currentSlide + 1}`}
                      className="max-w-full max-h-full object-contain transition-transform duration-300"
                      // style={{
@@ -189,23 +172,16 @@ export default function PresentationRecorder({
                      key={slide.id}
                      onClick={() => goToSlide(index)}
                      className={`flex-shrink-0 relative border-2 rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${
-                        index === currentSlide
-                           ? "border-yellow-400 shadow-lg"
-                           : "border-gray-300 hover:border-gray-400"
+                        index === currentSlide ? "border-yellow-400 shadow-lg" : "border-gray-300 hover:border-gray-400"
                      }`}
                   >
                      <img
-                        src={pbClient.files.getURL(
-                           slide,
-                           slide.image as string,
-                        )}
+                        src={pbClient.files.getURL(slide, slide.image as string)}
                         alt={`Miniatura ${index + 1}`}
                         className="w-24 h-16 object-cover"
                      />
                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
-                        <span className="bottom-1 left-1 absolute font-medium text-white text-xs">
-                           {index + 1}
-                        </span>
+                        <span className="bottom-1 left-1 absolute font-medium text-white text-xs">{index + 1}</span>
                      </div>
                      {index === currentSlide && (
                         <div className="-top-1 -right-1 absolute bg-yellow-400 border border-white rounded-full w-3 h-3" />
@@ -218,11 +194,7 @@ export default function PresentationRecorder({
    );
 }
 
-function PointerCaptureDrawingLayer({
-   currentSlide,
-}: {
-   currentSlide: number;
-}) {
+function PointerCaptureDrawingLayer({ currentSlide }: { currentSlide: number }) {
    const { isDrawingMode, addLine } = usePresentationDrawing();
    const containerRef = useRef<HTMLDivElement>(null);
    const startRef = useRef<{ x: number; y: number } | null>(null);
@@ -305,9 +277,7 @@ function PointerCaptureDrawingLayer({
          onPointerMove={onPointerMove}
          onPointerUp={onPointerUp}
       >
-         <PresentationDrawingOverlay
-            previewLine={previewRef.current || undefined}
-         />
+         <PresentationDrawingOverlay previewLine={previewRef.current || undefined} />
       </div>
    );
 }

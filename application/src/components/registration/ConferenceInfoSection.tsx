@@ -7,11 +7,9 @@ function InfoText() {
    return (
       <div className="">
          <p>
-            En este congreso virtual, ampliarás tus conocimientos con las
-            últimas tendencias en Medicina Interna. Ya viste cómo funciona la
-            plataforma en el video: conferencias en vivo con chat interactivo,
-            espacio de preguntas al final de cada sesión y una biblioteca
-            On-Demand para no perderte nada.
+            En este congreso virtual, ampliarás tus conocimientos con las últimas tendencias en Medicina Interna. Ya viste cómo
+            funciona la plataforma en el video: conferencias en vivo con chat interactivo, espacio de preguntas al final de cada
+            sesión y una biblioteca On-Demand para no perderte nada.
          </p>
          {/* <p>
             Ahora, es el momento de conocer más detalles y asegurarte de obtener el máximo provecho de cada ponencia. Prepárate para compartir experiencias con colegas de todo el mundo, mientras aprendes de especialistas que lideran la innovación en el área.

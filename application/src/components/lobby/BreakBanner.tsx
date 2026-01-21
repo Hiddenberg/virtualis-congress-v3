@@ -11,8 +11,7 @@ function BreakBanner() {
       const minutes = now.getMinutes();
 
       // Check if time is between 11:30 and 12:00
-      const isInBreakTimeRange =
-         (hours === 11 && minutes >= 30) || (hours === 12 && minutes === 0);
+      const isInBreakTimeRange = (hours === 11 && minutes >= 30) || (hours === 12 && minutes === 0);
 
       setIsBreakTime(isInBreakTimeRange);
    }, []);
@@ -32,12 +31,8 @@ function BreakBanner() {
 
    return (
       <div className="bg-yellow-400 px-4 py-3 rounded-lg w-full text-center animate-pulse">
-         <p className="font-medium text-black text-lg">
-            🕐 Tiempo de Descanso del Congreso 🕐
-         </p>
-         <p className="mt-1 text-black text-sm">
-            Las conferencias se reanudarán a las 12:00 PM
-         </p>
+         <p className="font-medium text-black text-lg">🕐 Tiempo de Descanso del Congreso 🕐</p>
+         <p className="mt-1 text-black text-sm">Las conferencias se reanudarán a las 12:00 PM</p>
       </div>
    );
 }

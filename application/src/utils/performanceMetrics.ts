@@ -48,9 +48,7 @@ export interface PerformanceMetrics {
  * Generate a unique session ID for tracking user interactions
  */
 export function generateSessionId(): string {
-   return (
-      Date.now().toString() + "-" + Math.random().toString(36).substring(2, 9)
-   );
+   return Date.now().toString() + "-" + Math.random().toString(36).substring(2, 9);
 }
 
 /**
@@ -146,13 +144,7 @@ export function getConnectionType() {
  * Get supported video mime types for the current browser
  */
 export function getSupportedMimeTypes() {
-   const types = [
-      "video/webm",
-      "video/webm; codecs=vp9",
-      "video/webm; codecs=vp8",
-      "video/mp4",
-      "video/mp4; codecs=h264",
-   ];
+   const types = ["video/webm", "video/webm; codecs=vp9", "video/webm; codecs=vp8", "video/mp4", "video/mp4; codecs=h264"];
 
    return types.filter((type) => MediaRecorder.isTypeSupported(type));
 }
@@ -162,19 +154,16 @@ export function getSupportedMimeTypes() {
  */
 export function checkBrowserCompatibility(language: string | null) {
    // Check if getDisplayMedia is supported
-   const isDisplayMediaSupported =
-      navigator.mediaDevices && "getDisplayMedia" in navigator.mediaDevices;
+   const isDisplayMediaSupported = navigator.mediaDevices && "getDisplayMedia" in navigator.mediaDevices;
 
    // Get browser info
    const userAgent = navigator.userAgent;
    const isSafari = /^((?!chrome|android).)*safari/i.test(userAgent);
    const isMac = /Mac/.test(userAgent);
-   const isOlderMac =
-      isMac && /Intel Mac OS X 10[._](9|10|11|12|13)/.test(userAgent);
+   const isOlderMac = isMac && /Intel Mac OS X 10[._](9|10|11|12|13)/.test(userAgent);
 
    // Extremely old Macs should warn about compatibility
-   const isVeryOldMac =
-      isMac && /Intel Mac OS X 10[._](9|10|11)/.test(userAgent);
+   const isVeryOldMac = isMac && /Intel Mac OS X 10[._](9|10|11)/.test(userAgent);
    if (isVeryOldMac) {
       console.warn("Very old Mac detected, may experience performance issues");
       return {
@@ -190,9 +179,7 @@ export function checkBrowserCompatibility(language: string | null) {
    if (isMac && isSafari) {
       // Add older Mac detection with potential timeout warning
       if (isOlderMac) {
-         console.warn(
-            "Detected older Mac, may experience timeout issues with video sources",
-         );
+         console.warn("Detected older Mac, may experience timeout issues with video sources");
       }
 
       const safariVersionMatch = userAgent.match(/Version\/(\d+)\.(\d+)/);
@@ -273,9 +260,7 @@ export function logPerformanceEvent(
    action: string,
    initTime: number,
    data?: LogData,
-   updateMetricsCallback?: (
-      updatedMetrics: Partial<PerformanceMetrics>,
-   ) => void,
+   updateMetricsCallback?: (updatedMetrics: Partial<PerformanceMetrics>) => void,
 ) {
    console.log(`[Performance] ${action}`, {
       timestamp: Date.now(),

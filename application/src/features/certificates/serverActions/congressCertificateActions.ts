@@ -3,15 +3,9 @@
 import { createCongressCertificate } from "@/features/certificates/services/certificateServices";
 import { getUserById } from "@/features/users/services/userServices";
 
-export async function createCongressCertificateAction(
-   userId: string,
-   displayName: string,
-) {
+export async function createCongressCertificateAction(userId: string, displayName: string) {
    try {
-      console.log(
-         "[Congress Certificate Actions] Creating congress certificate for user",
-         userId,
-      );
+      console.log("[Congress Certificate Actions] Creating congress certificate for user", userId);
       const user = await getUserById(userId);
       if (!user) {
          console.error("[Congress Certificate Actions] User not found", userId);
@@ -35,19 +29,13 @@ export async function createCongressCertificateAction(
       // }
 
       await createCongressCertificate(userId, displayName, "attendee");
-      console.log(
-         "[Congress Certificate Actions] User was attendee, creating attendee certificate",
-         userId,
-      );
+      console.log("[Congress Certificate Actions] User was attendee, creating attendee certificate", userId);
       return {
          success: true,
          message: "Certificados creados correctamente",
       };
    } catch (error) {
-      console.error(
-         "[Congress Certificate] Error creating congress certificate",
-         error,
-      );
+      console.error("[Congress Certificate] Error creating congress certificate", error);
       return {
          success: false,
          error: "Error creating congress certificate",

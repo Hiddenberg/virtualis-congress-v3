@@ -1,11 +1,6 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import "server-only";
-import {
-   createDBRecord,
-   deleteDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
 
 export async function linkSpeakerPresentationRecordingToConference({
@@ -17,22 +12,19 @@ export async function linkSpeakerPresentationRecordingToConference({
 }) {
    const organization = await getOrganizationFromSubdomain();
 
-   const speakerPresentationRecording =
-      await createDBRecord<ConferenceSpeakerPresentationRecording>(
-         "CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS",
-         {
-            organization: organization.id,
-            conference: conferenceId,
-            recording: recordingId,
-         },
-      );
+   const speakerPresentationRecording = await createDBRecord<ConferenceSpeakerPresentationRecording>(
+      "CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS",
+      {
+         organization: organization.id,
+         conference: conferenceId,
+         recording: recordingId,
+      },
+   );
 
    return speakerPresentationRecording;
 }
 
-export async function getSpeakerPresentationRecordingByConferenceId(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function getSpeakerPresentationRecordingByConferenceId(conferenceId: CongressConferenceRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -77,16 +69,12 @@ export async function unlinkSpeakerPresentationRecordingFromConference({
       },
    );
 
-   const speakerPresentationRecording =
-      await getSingleDBRecord<ConferenceSpeakerPresentationRecording>(
-         "CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS",
-         filter,
-      );
+   const speakerPresentationRecording = await getSingleDBRecord<ConferenceSpeakerPresentationRecording>(
+      "CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS",
+      filter,
+   );
 
    if (!speakerPresentationRecording) return null;
-   await deleteDBRecord(
-      "CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS",
-      speakerPresentationRecording.id,
-   );
+   await deleteDBRecord("CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS", speakerPresentationRecording.id);
    return null;
 }

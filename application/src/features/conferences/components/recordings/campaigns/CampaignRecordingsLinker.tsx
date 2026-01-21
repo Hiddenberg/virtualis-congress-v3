@@ -24,13 +24,9 @@ export default function CampaignRecordingsLinker({
 }: Props) {
    const router = useRouter();
 
-   const [activeCampaignId, setActiveCampaignId] = useState<string>(
-      campaigns[0]?.id || "",
-   );
+   const [activeCampaignId, setActiveCampaignId] = useState<string>(campaigns[0]?.id || "");
    const [query, setQuery] = useState("");
-   const [selectedId, setSelectedId] = useState<string | null>(
-      initiallyLinkedRecordingId || null,
-   );
+   const [selectedId, setSelectedId] = useState<string | null>(initiallyLinkedRecordingId || null);
    const [isSubmitting, setIsSubmitting] = useState(false);
 
    const idToRecording = useMemo(() => {
@@ -43,10 +39,7 @@ export default function CampaignRecordingsLinker({
       return map;
    }, [recordingsByCampaign]);
 
-   const activeRecordings = useMemo(
-      () => recordingsByCampaign[activeCampaignId] || [],
-      [recordingsByCampaign, activeCampaignId],
-   );
+   const activeRecordings = useMemo(() => recordingsByCampaign[activeCampaignId] || [], [recordingsByCampaign, activeCampaignId]);
 
    const filteredRecordings = useMemo(() => {
       const q = query.trim().toLowerCase();
@@ -61,8 +54,7 @@ export default function CampaignRecordingsLinker({
 
    const initial = initiallyLinkedRecordingId || null;
    const toLink = selectedId && selectedId !== initial ? selectedId : null;
-   const toUnlink =
-      initial && (!selectedId || selectedId !== initial) ? initial : null;
+   const toUnlink = initial && (!selectedId || selectedId !== initial) ? initial : null;
 
    const assignedRecording = initial ? idToRecording[initial] : undefined;
    const assignedCampaignTitle = assignedRecording
@@ -121,14 +113,10 @@ export default function CampaignRecordingsLinker({
    return (
       <div className="gap-4 grid grid-cols-1 lg:grid-cols-3">
          <aside className="lg:col-span-1 bg-white shadow-sm p-4 border border-gray-200 rounded-lg">
-            <h3 className="mb-3 font-semibold text-gray-900 text-sm">
-               Campañas
-            </h3>
+            <h3 className="mb-3 font-semibold text-gray-900 text-sm">Campañas</h3>
             <nav className="space-y-1">
                {campaigns.length === 0 ? (
-                  <p className="text-gray-600 text-sm">
-                     No hay campañas de grabación.
-                  </p>
+                  <p className="text-gray-600 text-sm">No hay campañas de grabación.</p>
                ) : (
                   campaigns.map((c) => (
                      <button
@@ -152,20 +140,15 @@ export default function CampaignRecordingsLinker({
                {assignedRecording ? (
                   <div className="flex justify-between items-start gap-4 bg-green-50 px-4 py-3 rounded-lg ring-1 ring-green-200">
                      <div>
-                        <span className="font-semibold text-green-800">
-                           Grabación asignada
-                        </span>
+                        <span className="font-semibold text-green-800">Grabación asignada</span>
                         <div className="flex items-start gap-3 min-w-0">
                            <div className="bg-green-100 p-2 rounded-md shrink-0">
                               <FileVideo2Icon className="w-5 h-5 text-green-700" />
                            </div>
                            <div className="min-w-0">
-                              <p className="font-medium text-green-900 text-sm truncate">
-                                 {assignedRecording.title}
-                              </p>
+                              <p className="font-medium text-green-900 text-sm truncate">{assignedRecording.title}</p>
                               <p className="text-green-800 text-xs truncate">
-                                 {assignedCampaignTitle || "Sin campaña"} •{" "}
-                                 {assignedRecording.status}
+                                 {assignedCampaignTitle || "Sin campaña"} • {assignedRecording.status}
                               </p>
                            </div>
                         </div>
@@ -182,12 +165,8 @@ export default function CampaignRecordingsLinker({
                   <div className="flex items-center gap-3 bg-amber-50 px-4 py-3 rounded-lg ring-1 ring-amber-200">
                      <FileVideo2Icon className="w-5 h-5 text-amber-700" />
                      <div className="min-w-0">
-                        <p className="font-medium text-amber-900 text-sm">
-                           Sin grabación asignada
-                        </p>
-                        <p className="text-amber-800 text-xs">
-                           Selecciona una grabación de la lista para asignarla.
-                        </p>
+                        <p className="font-medium text-amber-900 text-sm">Sin grabación asignada</p>
+                        <p className="text-amber-800 text-xs">Selecciona una grabación de la lista para asignarla.</p>
                      </div>
                   </div>
                )}
@@ -216,27 +195,18 @@ export default function CampaignRecordingsLinker({
             {filteredRecordings.length === 0 ? (
                <div className="flex flex-col justify-center items-center gap-2 py-10 text-center">
                   <FileVideo2Icon className="w-8 h-8 text-gray-300" />
-                  <p className="text-gray-600 text-sm">
-                     No hay grabaciones en esta campaña.
-                  </p>
+                  <p className="text-gray-600 text-sm">No hay grabaciones en esta campaña.</p>
                </div>
             ) : (
                <ul className="divide-y divide-gray-100">
                   {filteredRecordings.map((rec) => (
-                     <li
-                        key={rec.id}
-                        className="flex justify-between items-center gap-3 py-2"
-                     >
+                     <li key={rec.id} className="flex justify-between items-center gap-3 py-2">
                         <div className="min-w-0">
-                           <p className="text-gray-900 text-sm truncate">
-                              {rec.title}
-                           </p>
+                           <p className="text-gray-900 text-sm truncate">{rec.title}</p>
                            <p className="text-gray-500 text-xs truncate">
                               {rec.recorderName} • {rec.status}
                            </p>
-                           <p className="text-gray-500 text-xs truncate">
-                              {rec.durationSeconds.toFixed(2)} segundos
-                           </p>
+                           <p className="text-gray-500 text-xs truncate">{rec.durationSeconds.toFixed(2)} segundos</p>
                         </div>
                         <label className="inline-flex items-center gap-2">
                            <input

@@ -4,19 +4,13 @@ import ExistingQuestionPollsList from "@/features/questionPolls/components/admin
 import QuestionPollForm from "@/features/questionPolls/components/questionPollForm/QuestionPollForm";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 
-export default async function QuestionPollsPage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function QuestionPollsPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const user = await getLoggedInUserId();
 
    if (!user) {
-      return redirect(
-         `/preparation/${conferenceId}/speaker-signup?redirectTo=/preparation/${conferenceId}/question-polls`,
-      );
+      return redirect(`/preparation/${conferenceId}/speaker-signup?redirectTo=/preparation/${conferenceId}/question-polls`);
    }
 
    const conference = await getConferenceById(conferenceId);
@@ -31,18 +25,12 @@ export default async function QuestionPollsPage({
    return (
       <div className="p-6">
          <div className="mb-6">
-            <h1 className="mb-2 font-bold text-gray-900 text-2xl">
-               Encuestas de la conferencia: {conference.title}
-            </h1>
-            <p className="text-gray-600">
-               Crea y administra encuestas para esta conferencia.
-            </p>
+            <h1 className="mb-2 font-bold text-gray-900 text-2xl">Encuestas de la conferencia: {conference.title}</h1>
+            <p className="text-gray-600">Crea y administra encuestas para esta conferencia.</p>
          </div>
          <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
             <div className="bg-white shadow-sm p-6 border border-gray-200 rounded-lg max-w-2xl">
-               <h2 className="mb-4 font-semibold text-gray-900 text-lg">
-                  Nueva encuesta
-               </h2>
+               <h2 className="mb-4 font-semibold text-gray-900 text-lg">Nueva encuesta</h2>
                <QuestionPollForm conferenceId={conferenceId} />
             </div>
 

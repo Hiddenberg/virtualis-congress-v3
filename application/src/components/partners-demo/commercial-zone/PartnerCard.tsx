@@ -38,9 +38,7 @@ export default function PartnerCard({
    darkBackground = false,
 }: Partner) {
    const CardInner = (
-      <div
-         className={`block h-full rounded-2xl border p-5 shadow-sm ${TINT_STYLES[tint]}`}
-      >
+      <div className={`block h-full rounded-2xl border p-5 shadow-sm ${TINT_STYLES[tint]}`}>
          <div className="flex flex-col items-start gap-4">
             <div
                className={`flex justify-center items-center ${darkBackground ? "bg-gray-800" : "bg-white/70"} rounded-xl w-24 h-24`}
@@ -56,9 +54,7 @@ export default function PartnerCard({
             </div>
             <div className="w-full">
                <div className="flex justify-between items-center w-full">
-                  <h3 className="font-semibold text-gray-900 text-lg">
-                     {name}
-                  </h3>
+                  <h3 className="font-semibold text-gray-900 text-lg">{name}</h3>
                   {link ? (
                      <span className="inline-flex items-center gap-1 font-medium text-blue-700 text-xs">
                         Ver más <ChevronRight size={14} />
@@ -67,11 +63,7 @@ export default function PartnerCard({
                      <span className="text-gray-500 text-xs">Ver más</span>
                   )}
                </div>
-               {description ? (
-                  <p className="opacity-80 mt-2 text-gray-700 text-xs">
-                     {description}
-                  </p>
-               ) : null}
+               {description ? <p className="opacity-80 mt-2 text-gray-700 text-xs">{description}</p> : null}
 
                <div className="flex sm:flex-row flex-col sm:flex-wrap gap-2 mt-3">
                   {actions.map((a, idx) => (
@@ -88,9 +80,5 @@ export default function PartnerCard({
       </div>
    );
 
-   return (
-      <div className={`${isLarge ? "lg:col-span-2" : ""}`}>
-         {link ? <Link href={link}>{CardInner}</Link> : CardInner}
-      </div>
-   );
+   return <div className={`${isLarge ? "lg:col-span-2" : ""}`}>{link ? <Link href={link}>{CardInner}</Link> : CardInner}</div>;
 }

@@ -33,15 +33,11 @@ export async function createAttendantAdditionalDataAction<T>({
             errorMessage: error.message,
          };
       }
-      console.error(
-         "[createAttendantAdditionalDataAction] An unknown error occurred:",
-         error,
-      );
+      console.error("[createAttendantAdditionalDataAction] An unknown error occurred:", error);
 
       return {
          success: false,
-         errorMessage:
-            "[createAttendantAdditionalDataAction] An unknown error occurred",
+         errorMessage: "[createAttendantAdditionalDataAction] An unknown error occurred",
       };
    }
 }

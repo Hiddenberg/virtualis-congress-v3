@@ -2,11 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { registerUserToLatestCongress } from "@/features/congresses/services/congressRegistrationServices";
-import {
-   checkIfUserExists,
-   createUser,
-   type NewUserData,
-} from "@/features/users/services/userServices";
+import { checkIfUserExists, createUser, type NewUserData } from "@/features/users/services/userServices";
 import {
    fulfillManualCongressRegistration,
    searchUsersRegisteredToCurrentCongress,
@@ -61,12 +57,7 @@ export async function registerManualPaymentAction(
          modality: form.modality,
          grantRecordingsAccess: form.grantRecordingsAccess,
          totalAmount: form.totalAmount !== 0 ? form.totalAmount * 100 : 0, // Convert to cents
-         discount:
-            form.discount !== 0
-               ? form.discount !== undefined
-                  ? form.discount * 100
-                  : 0
-               : 0, // Convert to cents
+         discount: form.discount !== 0 ? (form.discount !== undefined ? form.discount * 100 : 0) : 0, // Convert to cents
          currency: form.currency,
       });
 
@@ -98,9 +89,7 @@ export interface StaffNewUserFormData {
    dateOfBirth?: string;
 }
 
-export async function staffCreateAttendantUserAction(
-   form: StaffNewUserFormData,
-): Promise<BackendResponse<{ user: UserRecord }>> {
+export async function staffCreateAttendantUserAction(form: StaffNewUserFormData): Promise<BackendResponse<{ user: UserRecord }>> {
    try {
       const exists = await checkIfUserExists(form.email);
       if (exists) {

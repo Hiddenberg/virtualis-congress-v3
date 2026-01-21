@@ -6,11 +6,7 @@ import { getConferenceRecording } from "@/features/conferences/services/conferen
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
 import { getSpeakerPresentationRecordingByConferenceId } from "@/features/conferences/services/conferenceSpeakerPresentationRecordingServices";
 
-export default async function AttendantConferencePage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function AttendantConferencePage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const [
@@ -32,9 +28,7 @@ export default async function AttendantConferencePage({
    if (!conference) {
       return (
          <div className="flex flex-col justify-center items-center space-y-4 h-80">
-            <h1 className="font-bold text-2xl">
-               No se encontró esta conferencia
-            </h1>
+            <h1 className="font-bold text-2xl">No se encontró esta conferencia</h1>
          </div>
       );
    }

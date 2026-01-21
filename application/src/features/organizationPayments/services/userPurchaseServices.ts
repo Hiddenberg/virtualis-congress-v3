@@ -1,10 +1,5 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getFullDBRecordsList,
-   getSingleDBRecord,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
 
 interface CreateUserPurchaseRecordParams {
@@ -13,11 +8,7 @@ interface CreateUserPurchaseRecordParams {
    productType: UserPurchase["productType"];
 }
 
-export async function createUserPurchaseRecord({
-   userId,
-   congressId,
-   productType,
-}: CreateUserPurchaseRecordParams) {
+export async function createUserPurchaseRecord({ userId, congressId, productType }: CreateUserPurchaseRecordParams) {
    const organization = await getOrganizationFromSubdomain();
 
    const userPurchase = await createDBRecord<UserPurchase>("USER_PURCHASES", {
@@ -30,13 +21,7 @@ export async function createUserPurchaseRecord({
    return userPurchase;
 }
 
-export async function getAllUserPurchases({
-   userId,
-   congressId,
-}: {
-   userId: string;
-   congressId: string;
-}) {
+export async function getAllUserPurchases({ userId, congressId }: { userId: string; congressId: string }) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -52,31 +37,21 @@ export async function getAllUserPurchases({
       },
    );
 
-   const userPurchases = await getFullDBRecordsList<UserPurchase>(
-      "USER_PURCHASES",
-      {
-         filter,
-      },
-   );
+   const userPurchases = await getFullDBRecordsList<UserPurchase>("USER_PURCHASES", {
+      filter,
+   });
 
    return userPurchases;
 }
 
-export async function getUserPurchasedModality(
-   userId: string,
-   congressId: string,
-) {
+export async function getUserPurchasedModality(userId: string, congressId: string) {
    const userPurchases = await getAllUserPurchases({
       userId,
       congressId,
    });
 
-   const inPersonPurchase = userPurchases.find(
-      (purchase) => purchase.productType === "in-person_congress",
-   );
-   const virtualPurchase = userPurchases.find(
-      (purchase) => purchase.productType === "virtual_congress",
-   );
+   const inPersonPurchase = userPurchases.find((purchase) => purchase.productType === "in-person_congress");
+   const virtualPurchase = userPurchases.find((purchase) => purchase.productType === "virtual_congress");
 
    if (inPersonPurchase) {
       return "in-person";
@@ -87,10 +62,7 @@ export async function getUserPurchasedModality(
    }
 }
 
-export async function checkIfUserHasAccessToRecordings(
-   userId: string,
-   congressId: string,
-) {
+export async function checkIfUserHasAccessToRecordings(userId: string, congressId: string) {
    const organization = await getOrganizationFromSubdomain();
    const filter = pbFilter(
       `
@@ -105,10 +77,7 @@ export async function checkIfUserHasAccessToRecordings(
          userId,
       },
    );
-   const recordingsPurchase = await getSingleDBRecord<UserPurchase>(
-      "USER_PURCHASES",
-      filter,
-   );
+   const recordingsPurchase = await getSingleDBRecord<UserPurchase>("USER_PURCHASES", filter);
 
    const hasAccessToRecordings = recordingsPurchase !== null;
 

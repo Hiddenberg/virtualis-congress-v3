@@ -12,8 +12,7 @@ export default function ACPIDCheckButton() {
    const [showInvalidACPIDPopUp, setShowInvalidACPIDPopUp] = useState(false);
    const [isBlackListed, setIsBlackListed] = useState(false);
 
-   const { getInputValue, skipCmimSection, updateInputValue } =
-      useDynamicFormContext();
+   const { getInputValue, skipCmimSection, updateInputValue } = useDynamicFormContext();
 
    if (isPending || countryCode === null || countryCode !== "MX") {
       return null;
@@ -36,10 +35,7 @@ export default function ACPIDCheckButton() {
       if (acpData.isBlackListed === true) {
          setShowInvalidACPIDPopUp(true);
          setIsBlackListed(true);
-         console.log(
-            "[ACPIDCheckButton] Blacklisted ACP ID condition:",
-            acpID && (showInvalidACPIDPopUp || isBlackListed),
-         );
+         console.log("[ACPIDCheckButton] Blacklisted ACP ID condition:", acpID && (showInvalidACPIDPopUp || isBlackListed));
          return;
       }
 
@@ -62,11 +58,7 @@ export default function ACPIDCheckButton() {
             {loading ? "Comprobando..." : "Comprobar ACP ID"}
          </button>
          {acpID && showInvalidACPIDPopUp && (
-            <InvalidACPIDPopUp
-               acpId={acpID}
-               setShowPopUp={setShowInvalidACPIDPopUp}
-               isBlackListed={isBlackListed}
-            />
+            <InvalidACPIDPopUp acpId={acpID} setShowPopUp={setShowInvalidACPIDPopUp} isBlackListed={isBlackListed} />
          )}
       </>
    );

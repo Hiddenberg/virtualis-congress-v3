@@ -8,8 +8,7 @@ interface OrganizationContextType {
    organization: OrganizationRecord | null;
 }
 
-export const OrganizationContext =
-   createContext<OrganizationContextType | null>(null);
+export const OrganizationContext = createContext<OrganizationContextType | null>(null);
 
 export function OrganizationContextProvider({
    organization,
@@ -34,9 +33,7 @@ export function useOrganizationContext() {
    const context = useContext(OrganizationContext);
 
    if (!context) {
-      throw new Error(
-         "useOrganizationContext must be used within a OrganizationContextProvider",
-      );
+      throw new Error("useOrganizationContext must be used within a OrganizationContextProvider");
    }
 
    return context;

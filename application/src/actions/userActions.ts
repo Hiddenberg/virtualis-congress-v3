@@ -5,11 +5,7 @@ import { cookies } from "next/headers";
 import { ClientResponseError, type RecordModel } from "pocketbase";
 import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
-import {
-   createUser,
-   getUserByEmail,
-   getUserById,
-} from "@/features/users/services/userServices";
+import { createUser, getUserByEmail, getUserById } from "@/features/users/services/userServices";
 import pbServerClient from "@/libs/pbServerClient";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import { getIpInfoFromHeaders } from "@/services/ipServices";
@@ -29,10 +25,7 @@ export async function createNewCoordinatorUserAction({
    coordinatorEmail: string;
 }) {
    try {
-      const isUserAuthorized = await checkAuthorizedUserFromServer([
-         "admin",
-         "super_admin",
-      ]);
+      const isUserAuthorized = await checkAuthorizedUserFromServer(["admin", "super_admin"]);
 
       if (!isUserAuthorized) {
          return {
@@ -85,35 +78,25 @@ export async function confirmUserPaymentAction() {
       const user = await getUserById(userId ?? "");
 
       if (!user) {
-         console.error(
-            `[User Actions] User not found for token ${userId} while confirming payment`,
-         );
+         console.error(`[User Actions] User not found for token ${userId} while confirming payment`);
          return false;
       }
 
       // If the user is not a regular attendant, check if they have a payment since they usually don't have a registration
       if (user.role !== "attendant") {
          try {
-            console.log(
-               `[User Actions] User ${user.id} is not an attendant, checking for payment directly`,
-            );
+            console.log(`[User Actions] User ${user.id} is not an attendant, checking for payment directly`);
             const userPayment = await pbServerClient
                .collection(PB_COLLECTIONS.USER_PAYMENTS)
-               .getFirstListItem<RecordModel & UserPayment>(
-                  `user = "${user.id}"`,
-               );
+               .getFirstListItem<RecordModel & UserPayment>(`user = "${user.id}"`);
 
             if (userPayment) {
-               console.log(
-                  `[User Actions] User ${user.id} has a payment, allowing access`,
-               );
+               console.log(`[User Actions] User ${user.id} has a payment, allowing access`);
                return true;
             }
          } catch (error) {
             if (error instanceof ClientResponseError && error.status === 404) {
-               console.log(
-                  `[User Actions] User ${user.id} does not have a payment, denying access`,
-               );
+               console.log(`[User Actions] User ${user.id} does not have a payment, denying access`);
                return false;
             }
             throw error;
@@ -121,24 +104,16 @@ export async function confirmUserPaymentAction() {
       }
 
       // If the user is an attendant, check if they have a registration
-      console.log(
-         `[User Actions] User ${user.id} is an attendant, checking for registration`,
-      );
+      console.log(`[User Actions] User ${user.id} is an attendant, checking for registration`);
       const userRegistration = await pbServerClient
          .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
-         .getFirstListItem<RecordModel & CongressRegistration>(
-            `userRegistered = "${user.id}"`,
-         );
+         .getFirstListItem<RecordModel & CongressRegistration>(`userRegistered = "${user.id}"`);
 
       if (userRegistration.paymentConfirmed) {
-         console.log(
-            `[User Actions] User ${user.id} has a registration AND payment confirmed, allowing access`,
-         );
+         console.log(`[User Actions] User ${user.id} has a registration AND payment confirmed, allowing access`);
          return true;
       }
-      console.log(
-         `[User Actions] User ${user.id} does not have a payment confirmed, denying access`,
-      );
+      console.log(`[User Actions] User ${user.id} does not have a payment confirmed, denying access`);
       return false;
    } catch (error) {
       if (error instanceof ClientResponseError && error.status === 404) {

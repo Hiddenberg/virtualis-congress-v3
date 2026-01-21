@@ -63,22 +63,10 @@ interface LinkButtonProps extends ButtonProps {
    href: string;
    target?: "_blank" | "_self" | "_parent" | "_top";
 }
-export function LinkButton({
-   children,
-   className,
-   href,
-   variant = "primary",
-   target,
-   title,
-   disabled,
-}: LinkButtonProps) {
+export function LinkButton({ children, className, href, variant = "primary", target, title, disabled }: LinkButtonProps) {
    if (disabled) {
       return (
-         <button
-            title={title}
-            disabled
-            className={`${baseButtonClassName} ${variantClasses[variant]} ${className}`}
-         >
+         <button title={title} disabled className={`${baseButtonClassName} ${variantClasses[variant]} ${className}`}>
             {children}
          </button>
       );

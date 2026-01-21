@@ -4,6 +4,7 @@ import { tzDate } from "@formkit/tempo";
 import { CalendarDays, DoorOpenIcon, Monitor, Play } from "lucide-react";
 import Link from "next/link";
 import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
+import { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import ConferencesPreview from "./ConferencesPreview";
 
@@ -14,12 +15,7 @@ interface HeroSectionProps {
    conferences: ConferenceWithSpeakers[];
 }
 
-export default function HeroSection({
-   organization,
-   userId,
-   congress,
-   conferences,
-}: HeroSectionProps) {
+export default function HeroSection({ organization, userId, congress, conferences }: HeroSectionProps) {
    const startDate = tzDate(congress.startDate, "America/Mexico_City");
    const endDate = new Date(congress.finishDate);
 
@@ -27,7 +23,7 @@ export default function HeroSection({
       "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757620427/logo_sociedad_medica_wrgq6i.webp";
 
    return (
-      <section className="relative flex items-center bg-gradient-to-br from-blue-600 via-blue-400 to-cyan-400 min-h-dvh">
+      <section className="relative flex items-center bg-linear-to-br from-blue-600 via-blue-400 to-cyan-400 min-h-dvh">
          {/* Background accents */}
          <div className="absolute inset-0 opacity-40 w-full overflow-hidden">
             {Array.from({
@@ -100,8 +96,7 @@ export default function HeroSection({
                         <span className="text-cyan-200">{congress.title}</span>
                      </h1>
                      <p className="max-w-xl text-blue-100 text-lg">
-                        Actualízate con las mejores conferencias en un formato
-                        digital accesible, sin traslados y desde cualquier
+                        Actualízate con las mejores conferencias en un formato digital accesible, sin traslados y desde cualquier
                         dispositivo.
                      </p>
                      <div className="gap-3 grid sm:grid-cols-3">
@@ -127,9 +122,7 @@ export default function HeroSection({
                      <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
                         <div className="flex items-center gap-2 mb-1">
                            <CalendarDays className="w-4 h-4 text-cyan-200" />
-                           <span className="font-semibold text-white text-xl">
-                              Fechas
-                           </span>
+                           <span className="font-semibold text-white text-xl">Fechas</span>
                         </div>
                         <div className="text-cyan-100">
                            {startDate.toLocaleDateString("es-MX", {
@@ -145,13 +138,8 @@ export default function HeroSection({
                         </div>
                      </div>
                      <div className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 rounded-xl">
-                        <div className="mb-1 font-bold text-white text-xl">
-                           {" "}
-                           Grabaciones
-                        </div>
-                        <div className="font-medium text-cyan-200">
-                           A demanda por 3 meses
-                        </div>
+                        <div className="mb-1 font-bold text-white text-xl"> Grabaciones</div>
+                        <div className="font-medium text-cyan-200">A demanda por 3 meses</div>
                      </div>
                   </div>
 
@@ -176,8 +164,7 @@ export default function HeroSection({
                            href="/lobby"
                            className="flex justify-center items-center gap-2 bg-white hover:bg-cyan-50 shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold text-blue-900 text-lg text-center hover:scale-105 transition-all duration-300 transform"
                         >
-                           <DoorOpenIcon className="w-5 h-5" /> Entrar con mi
-                           cuenta
+                           <DoorOpenIcon className="w-5 h-5" /> Entrar con mi cuenta
                         </Link>
                      </div>
                      <p className="flex items-center gap-2 text-cyan-100 text-sm">
@@ -193,7 +180,7 @@ export default function HeroSection({
             </div>
          </div>
 
-         <div className="bottom-0 left-0 absolute bg-gradient-to-t from-blue-600/60 to-transparent w-full h-24" />
+         <div className="bottom-0 left-0 absolute bg-linear-to-t from-blue-600/60 to-transparent w-full h-24" />
       </section>
    );
 }

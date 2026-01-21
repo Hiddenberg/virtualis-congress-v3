@@ -4,12 +4,7 @@ import {
    deletePresentationRecording,
    getPresentationRecordingByPresentationId,
 } from "@/features/pptPresentations/services/presentationRecordingServices";
-import {
-   createDBRecord,
-   deleteDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 
 export async function createRecordingPresentation(
    recordingId: SimpleRecordingRecord["id"],
@@ -17,21 +12,16 @@ export async function createRecordingPresentation(
 ) {
    const organization = await getOrganizationFromSubdomain();
 
-   const recordingPresentation = await createDBRecord<RecordingPresentation>(
-      "SIMPLE_RECORDING_PRESENTATIONS",
-      {
-         organization: organization.id,
-         recording: recordingId,
-         presentation: presentationId,
-      },
-   );
+   const recordingPresentation = await createDBRecord<RecordingPresentation>("SIMPLE_RECORDING_PRESENTATIONS", {
+      organization: organization.id,
+      recording: recordingId,
+      presentation: presentationId,
+   });
 
    return recordingPresentation;
 }
 
-export async function getRecordingPresentationByRecordingId(
-   recordingId: SimpleRecordingRecord["id"],
-) {
+export async function getRecordingPresentationByRecordingId(recordingId: SimpleRecordingRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -58,9 +48,7 @@ export async function getRecordingPresentationByRecordingId(
    return recordingPresentation?.expand.presentation ?? null;
 }
 
-export async function getRecordingPresentationRecordByRecordingId(
-   recordingId: SimpleRecordingRecord["id"],
-) {
+export async function getRecordingPresentationRecordByRecordingId(recordingId: SimpleRecordingRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -74,10 +62,7 @@ export async function getRecordingPresentationRecordByRecordingId(
       },
    );
 
-   const recordingPresentation = await getSingleDBRecord<RecordingPresentation>(
-      "SIMPLE_RECORDING_PRESENTATIONS",
-      filter,
-   );
+   const recordingPresentation = await getSingleDBRecord<RecordingPresentation>("SIMPLE_RECORDING_PRESENTATIONS", filter);
 
    return recordingPresentation;
 }
@@ -100,19 +85,13 @@ export async function getRecordingPresentationRecordByPresentationId({
       },
    );
 
-   const recordingPresentation = await getSingleDBRecord<RecordingPresentation>(
-      "SIMPLE_RECORDING_PRESENTATIONS",
-      filter,
-   );
+   const recordingPresentation = await getSingleDBRecord<RecordingPresentation>("SIMPLE_RECORDING_PRESENTATIONS", filter);
 
    return recordingPresentation;
 }
 
-export async function deleteRecordingPresentation(
-   recordingId: SimpleRecordingRecord["id"],
-) {
-   const recordingPresentation =
-      await getRecordingPresentationByRecordingId(recordingId);
+export async function deleteRecordingPresentation(recordingId: SimpleRecordingRecord["id"]) {
+   const recordingPresentation = await getRecordingPresentationByRecordingId(recordingId);
    if (!recordingPresentation) {
       throw new Error("Recording presentation not found");
    }
@@ -120,22 +99,15 @@ export async function deleteRecordingPresentation(
    await deleteDBRecord("PRESENTATIONS", recordingPresentation.id);
 }
 
-export async function deletePresentationRecordingForRecording(
-   recordingId: SimpleRecordingRecord["id"],
-) {
+export async function deletePresentationRecordingForRecording(recordingId: SimpleRecordingRecord["id"]) {
    //Check if the recording has a presentation linked
-   const recordingPresentation =
-      await getRecordingPresentationByRecordingId(recordingId);
+   const recordingPresentation = await getRecordingPresentationByRecordingId(recordingId);
    if (recordingPresentation === null) {
-      console.log(
-         `[deletePresentationRecordingForRecording] No presentation linked to recording ${recordingId}`,
-      );
+      console.log(`[deletePresentationRecordingForRecording] No presentation linked to recording ${recordingId}`);
       return;
    }
    // Check if the presentation has a presentation recording and delete it
-   const presentationRecording = await getPresentationRecordingByPresentationId(
-      recordingPresentation.id,
-   );
+   const presentationRecording = await getPresentationRecordingByPresentationId(recordingPresentation.id);
 
    if (presentationRecording === null) {
       console.log(

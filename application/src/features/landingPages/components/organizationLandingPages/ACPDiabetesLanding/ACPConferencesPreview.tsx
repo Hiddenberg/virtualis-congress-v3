@@ -5,26 +5,19 @@ import { Calendar, Clock, Mic2Icon } from "lucide-react";
 import { useMemo, useState } from "react";
 import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
 
-export default function ACPConferencesPreview({
-   conferences,
-}: {
-   conferences: ConferenceWithSpeakers[];
-}) {
+export default function ACPConferencesPreview({ conferences }: { conferences: ConferenceWithSpeakers[] }) {
    const [activeIdx, setActiveIdx] = useState(0);
 
    // Build grouped days from the conferences list
    const days = useMemo(() => {
       const dateKeyToConferences = new Map<string, ConferenceWithSpeakers[]>();
       for (const conferenceWithSpeakers of conferences) {
-         if (
-            !conferenceWithSpeakers.conference.startTime ||
-            !conferenceWithSpeakers.conference.endTime
-         )
-            continue;
+         if (!conferenceWithSpeakers.conference.startTime || !conferenceWithSpeakers.conference.endTime) continue;
          const start = new Date(conferenceWithSpeakers.conference.startTime);
-         const key = `${start.getFullYear()}-${String(
-            start.getMonth() + 1,
-         ).padStart(2, "0")}-${String(start.getDate()).padStart(2, "0")}`;
+         const key = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(
+            2,
+            "0",
+         )}-${String(start.getDate()).padStart(2, "0")}`;
          const list = dateKeyToConferences.get(key) ?? [];
          list.push(conferenceWithSpeakers);
          dateKeyToConferences.set(key, list);
@@ -36,9 +29,7 @@ export default function ACPConferencesPreview({
             const [y, m, d] = key.split("-").map(Number);
             const date = new Date(y, m - 1, d);
             const conferencesSorted = list.sort(
-               (a, b) =>
-                  new Date(a.conference.startTime).getTime() -
-                  new Date(b.conference.startTime).getTime(),
+               (a, b) => new Date(a.conference.startTime).getTime() - new Date(b.conference.startTime).getTime(),
             );
             return {
                dateISO: date.toISOString(),
@@ -126,9 +117,7 @@ export default function ACPConferencesPreview({
                               })}
                            </div>
                            <div>
-                              <div className="font-semibold text-white text-sm leading-snug">
-                                 {conf.conference.title}
-                              </div>
+                              <div className="font-semibold text-white text-sm leading-snug">{conf.conference.title}</div>
                               {conf.conference.shortDescription && (
                                  <p className="mt-1 text-teal-100/80 text-xs line-clamp-3 leading-relaxed">
                                     {conf.conference.shortDescription}
@@ -138,12 +127,7 @@ export default function ACPConferencesPreview({
                            {conf.speakers.length > 0 && (
                               <div className="flex items-center gap-1 mt-0.5 text-white text-xs md:text-sm line-clamp-2">
                                  <Mic2Icon className="size-4" />
-                                 {conf.speakers
-                                    .map(
-                                       (speaker) =>
-                                          `${speaker.academicTitle} ${speaker.displayName}`,
-                                    )
-                                    .join(", ")}
+                                 {conf.speakers.map((speaker) => `${speaker.academicTitle} ${speaker.displayName}`).join(", ")}
                               </div>
                            )}
                         </div>
@@ -163,9 +147,7 @@ export default function ACPConferencesPreview({
                </div> */}
             </div>
          ) : (
-            <div className="text-teal-100 text-sm">
-               Pronto publicaremos el programa.
-            </div>
+            <div className="text-teal-100 text-sm">Pronto publicaremos el programa.</div>
          )}
       </div>
    );

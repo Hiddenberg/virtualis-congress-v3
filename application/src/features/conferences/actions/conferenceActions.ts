@@ -14,10 +14,7 @@ export async function createConferenceAction(
    newConferenceData: NewConferenceData,
 ): Promise<BackendResponse<CongressConferenceRecord>> {
    console.log("createNewConferenceAction", newConferenceData);
-   const isAuthorizedUser = checkAuthorizedUserFromServer([
-      "admin",
-      "super_admin",
-   ]);
+   const isAuthorizedUser = checkAuthorizedUserFromServer(["admin", "super_admin"]);
 
    if (!isAuthorizedUser) {
       return {
@@ -68,10 +65,7 @@ export async function updateConferenceAction({
    conferenceId: string;
    newConferenceData: Partial<NewConferenceData>;
 }): Promise<BackendResponse<CongressConferenceRecord>> {
-   const isAuthorizedUser = checkAuthorizedUserFromServer([
-      "admin",
-      "super_admin",
-   ]);
+   const isAuthorizedUser = checkAuthorizedUserFromServer(["admin", "super_admin"]);
 
    if (!isAuthorizedUser) {
       return {
@@ -81,10 +75,7 @@ export async function updateConferenceAction({
    }
 
    try {
-      const updatedConference = await updateConference(
-         conferenceId,
-         newConferenceData,
-      );
+      const updatedConference = await updateConference(conferenceId, newConferenceData);
       return {
          success: true,
          data: updatedConference,
@@ -105,13 +96,8 @@ export async function updateConferenceAction({
    }
 }
 
-export async function deleteAllVideoAssetsForRecordingAction(
-   recordingId: string,
-) {
-   const isAuthorizedUser = checkAuthorizedUserFromServer([
-      "admin",
-      "super_admin",
-   ]);
+export async function deleteAllVideoAssetsForRecordingAction(recordingId: string) {
+   const isAuthorizedUser = checkAuthorizedUserFromServer(["admin", "super_admin"]);
 
    if (!isAuthorizedUser) {
       return {
@@ -121,10 +107,7 @@ export async function deleteAllVideoAssetsForRecordingAction(
 
    try {
       await deleteAllVideoAssetsForRecording(recordingId);
-      revalidatePath(
-         `/congress-admin/conference-calendar/[conferenceDate]`,
-         "layout",
-      );
+      revalidatePath(`/congress-admin/conference-calendar/[conferenceDate]`, "layout");
       return {
          success: true,
       };
@@ -136,13 +119,8 @@ export async function deleteAllVideoAssetsForRecordingAction(
    }
 }
 
-export async function deleteConferenceAction(
-   conferenceId: string,
-): Promise<BackendResponse<null>> {
-   const isAuthorizedUser = checkAuthorizedUserFromServer([
-      "super_admin",
-      "admin",
-   ]);
+export async function deleteConferenceAction(conferenceId: string): Promise<BackendResponse<null>> {
+   const isAuthorizedUser = checkAuthorizedUserFromServer(["super_admin", "admin"]);
 
    if (!isAuthorizedUser) {
       return {
@@ -153,10 +131,7 @@ export async function deleteConferenceAction(
 
    try {
       await deleteConferenceRecord(conferenceId);
-      revalidatePath(
-         "/congress-admin/conference-calendar/[conferenceDate]",
-         "layout",
-      );
+      revalidatePath("/congress-admin/conference-calendar/[conferenceDate]", "layout");
       revalidatePath("/congress-admin/conferences", "layout");
 
       return {

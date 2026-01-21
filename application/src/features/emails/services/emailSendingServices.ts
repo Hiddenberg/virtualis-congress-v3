@@ -1,29 +1,14 @@
 import { format } from "@formkit/tempo";
 import { render } from "@react-email/components";
-import {
-   IS_DEV_ENVIRONMENT,
-   PLATFORM_BASE_DOMAIN,
-} from "@/data/constants/platformConstants";
-import {
-   getAllCongressConferences,
-   getConferenceById,
-} from "@/features/conferences/services/conferenceServices";
+import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
+import { getAllCongressConferences, getConferenceById } from "@/features/conferences/services/conferenceServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import {
-   getAllUserPurchases,
-   getUserPurchasedModality,
-} from "@/features/organizationPayments/services/userPurchaseServices";
-import {
-   getOrganizationBaseUrl,
-   getOrganizationFromSubdomain,
-} from "@/features/organizations/services/organizationServices";
+import { getAllUserPurchases, getUserPurchasedModality } from "@/features/organizationPayments/services/userPurchaseServices";
+import { getOrganizationBaseUrl, getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getSimpleRecordingById } from "@/features/simpleRecordings/services/recordingsServices";
 import { createRecordingTrackedEmailRecord } from "@/features/simpleRecordings/services/recordingTrackedEmailsServices";
 import { getRecordingLink } from "@/features/simpleRecordings/utils/recordingUtils";
-import {
-   createTrackedEmailRecord,
-   updateTrackedEmailRecord,
-} from "@/features/trackedEmails/services/trackedEmailServices";
+import { createTrackedEmailRecord, updateTrackedEmailRecord } from "@/features/trackedEmails/services/trackedEmailServices";
 import { getUserById } from "@/features/users/services/userServices";
 import transporter from "@/libs/nodeMailer";
 import SENDER_EMAILS from "../constants/emailConstants";
@@ -51,13 +36,7 @@ import SpeakerCertificateTemplate from "../templates/SpeakerCertificateTemplate"
  * @param cc - Optional array of email addresses to CC
  * @returns Promise that resolves when the email is sent
  */
-export async function sendNotificationEmail(
-   senderAlias: string,
-   to: string,
-   subject: string,
-   body: string,
-   cc?: string[],
-) {
+export async function sendNotificationEmail(senderAlias: string, to: string, subject: string, body: string, cc?: string[]) {
    try {
       const sentMessageInfo = await transporter.sendMail({
          from: {
@@ -76,9 +55,7 @@ export async function sendNotificationEmail(
       return sentMessageInfo;
    } catch (error) {
       console.error(`Failed to send email to ${to}:`, error);
-      throw new Error(
-         `Failed to send notification email: ${error instanceof Error ? error.message : String(error)}`,
-      );
+      throw new Error(`Failed to send notification email: ${error instanceof Error ? error.message : String(error)}`);
    }
 }
 
@@ -102,17 +79,10 @@ export async function sendRecordingsAvailableEmail(userId: string) {
       }),
    );
 
-   await sendNotificationEmail(
-      `${organization.name} | Virtualis Congress`,
-      user.email,
-      "Grabaciones disponibles!",
-      template,
-   );
+   await sendNotificationEmail(`${organization.name} | Virtualis Congress`, user.email, "Grabaciones disponibles!", template);
 }
 
-export async function sendPlatformRegistrationConfirmationEmail(
-   userId: string,
-) {
+export async function sendPlatformRegistrationConfirmationEmail(userId: string) {
    const user = await getUserById(userId);
 
    if (!user) {
@@ -161,10 +131,7 @@ export async function sendPlatformRegistrationConfirmationEmail(
    );
 }
 
-export async function sendPreCongressInvitationEmail(
-   userId: string,
-   conferenceId: string,
-) {
+export async function sendPreCongressInvitationEmail(userId: string, conferenceId: string) {
    const user = await getUserById(userId);
 
    if (!user) {
@@ -247,9 +214,7 @@ export async function sendOTPCodeEmail(userId: string, otpCode: string) {
       template,
    );
 
-   console.log(
-      `[EmailSendingServices] OTP code email sent successfully to ${user.email}`,
-   );
+   console.log(`[EmailSendingServices] OTP code email sent successfully to ${user.email}`);
 }
 
 export async function sendPaymentConfirmationEmail(userId: UserRecord["id"]) {
@@ -271,14 +236,9 @@ export async function sendPaymentConfirmationEmail(userId: UserRecord["id"]) {
       congressId: congress.id,
    });
 
-   const hasAccessToRecordings = userPurchases.some(
-      (purchase) => purchase.productType === "recordings_access",
-   );
+   const hasAccessToRecordings = userPurchases.some((purchase) => purchase.productType === "recordings_access");
 
-   const modalitySelected = await getUserPurchasedModality(
-      user.id,
-      congress.id,
-   );
+   const modalitySelected = await getUserPurchasedModality(user.id, congress.id);
 
    if (!modalitySelected) {
       throw new Error("[EmailSendingServices] Modality not found");
@@ -311,18 +271,12 @@ export async function sendPaymentConfirmationEmail(userId: UserRecord["id"]) {
    );
 }
 
-export async function sendRecordingInvitationEmail(
-   recordingId: string,
-   maxDeadline?: string,
-) {
+export async function sendRecordingInvitationEmail(recordingId: string, maxDeadline?: string) {
    const organization = await getOrganizationFromSubdomain();
    const simpleRecording = await getSimpleRecordingById(recordingId);
 
    if (!simpleRecording) {
-      console.error(
-         "[Recordings Services] Simple recording not found",
-         recordingId,
-      );
+      console.error("[Recordings Services] Simple recording not found", recordingId);
       return;
    }
 
@@ -375,10 +329,7 @@ export async function sendRecordingInvitationEmail(
          },
       });
    } catch (error) {
-      console.error(
-         "[Recordings Services] Error sending recording invitation email",
-         error,
-      );
+      console.error("[Recordings Services] Error sending recording invitation email", error);
       if (error instanceof Error) {
          await updateTrackedEmailRecord({
             trackedEmailId: trackedEmailRecord.id,
@@ -391,9 +342,7 @@ export async function sendRecordingInvitationEmail(
    }
 }
 
-export async function sendRecordingReminderEmail(
-   recordingId: SimpleRecordingRecord["id"],
-) {
+export async function sendRecordingReminderEmail(recordingId: SimpleRecordingRecord["id"]) {
    const recording = await getSimpleRecordingById(recordingId);
    const organization = await getOrganizationFromSubdomain();
 
@@ -431,12 +380,7 @@ export async function sendRecordingReminderEmail(
    );
 
    try {
-      await sendNotificationEmail(
-         `${organization.name} | Virtualis Recordings`,
-         recording.recorderEmail,
-         emailSubject,
-         template,
-      );
+      await sendNotificationEmail(`${organization.name} | Virtualis Recordings`, recording.recorderEmail, emailSubject, template);
 
       await updateTrackedEmailRecord({
          trackedEmailId: trackedEmailRecord.id,
@@ -446,10 +390,7 @@ export async function sendRecordingReminderEmail(
          },
       });
    } catch (error) {
-      console.error(
-         "[Recordings Services] Error sending recording reminder email",
-         error,
-      );
+      console.error("[Recordings Services] Error sending recording reminder email", error);
       if (error instanceof Error) {
          await updateTrackedEmailRecord({
             trackedEmailId: trackedEmailRecord.id,
@@ -602,10 +543,7 @@ export async function sendIphoneIssueSolvedEmail(userId: string) {
    );
 }
 
-export async function sendNewEventDayAboutToStartEmail(
-   userId: string,
-   eventDayNumber: 1 | 2 | 3 | 4 | 5 | 6,
-) {
+export async function sendNewEventDayAboutToStartEmail(userId: string, eventDayNumber: 1 | 2 | 3 | 4 | 5 | 6) {
    const user = await getUserById(userId);
    if (!user) {
       throw new Error("[EmailSendingServices] User not found");
@@ -724,13 +662,7 @@ export async function sendSpeakerCertificateEmail({
    );
 }
 
-export async function sendOnDemandReminderEmail({
-   userId,
-   bannerImageUrl,
-}: {
-   userId: string;
-   bannerImageUrl?: string;
-}) {
+export async function sendOnDemandReminderEmail({ userId, bannerImageUrl }: { userId: string; bannerImageUrl?: string }) {
    const user = await getUserById(userId);
    if (!user) {
       throw new Error("[EmailSendingServices] User not found");

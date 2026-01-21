@@ -19,32 +19,16 @@ import {
 } from "@/features/simpleRecordings/services/recordingCampaignsServices";
 
 // Campaign Statistics Component
-function CampaignStats({
-   recordings,
-}: {
-   recordings: SimpleRecordingRecord[];
-}) {
+function CampaignStats({ recordings }: { recordings: SimpleRecordingRecord[] }) {
    const totalRecordings = recordings.length;
-   const readyRecordings = recordings.filter(
-      (r) => r.status === "ready",
-   ).length;
-   const scheduledRecordings = recordings.filter(
-      (r) => r.status === "scheduled",
-   ).length;
+   const readyRecordings = recordings.filter((r) => r.status === "ready").length;
+   const scheduledRecordings = recordings.filter((r) => r.status === "scheduled").length;
    const processingRecordings = recordings.filter(
-      (r) =>
-         r.status === "recording" ||
-         r.status === "uploading" ||
-         r.status === "processing",
+      (r) => r.status === "recording" || r.status === "uploading" || r.status === "processing",
    ).length;
-   const errorRecordings = recordings.filter(
-      (r) => r.status === "error",
-   ).length;
+   const errorRecordings = recordings.filter((r) => r.status === "error").length;
 
-   const completionRate =
-      totalRecordings > 0
-         ? Math.round((readyRecordings / totalRecordings) * 100)
-         : 0;
+   const completionRate = totalRecordings > 0 ? Math.round((readyRecordings / totalRecordings) * 100) : 0;
 
    const stats = [
       {
@@ -98,12 +82,8 @@ function CampaignStats({
                         <stat.icon className={`size-5 ${stat.color}`} />
                      </div>
                      <div>
-                        <div className="font-semibold text-gray-900 text-lg">
-                           {stat.value}
-                        </div>
-                        <div className="text-gray-500 text-sm">
-                           {stat.label}
-                        </div>
+                        <div className="font-semibold text-gray-900 text-lg">{stat.value}</div>
+                        <div className="text-gray-500 text-sm">{stat.label}</div>
                      </div>
                   </div>
                ))}
@@ -113,9 +93,7 @@ function CampaignStats({
             {totalRecordings > 0 && (
                <div className="flex items-center gap-4">
                   <div className="text-right">
-                     <div className="font-semibold text-gray-900 text-lg">
-                        {completionRate}%
-                     </div>
+                     <div className="font-semibold text-gray-900 text-lg">{completionRate}%</div>
                      <div className="text-gray-500 text-sm">Completado</div>
                   </div>
                   <div className="bg-gray-200 rounded-full w-24 h-3">
@@ -140,12 +118,9 @@ function EmptyRecordingsState({ campaignId }: { campaignId: string }) {
          <div className="bg-gray-100 mx-auto mb-4 p-4 rounded-full w-16 h-16">
             <VideoIcon className="size-8 text-gray-400" />
          </div>
-         <h3 className="mb-2 font-semibold text-gray-900 text-xl">
-            No hay grabaciones en esta campaña
-         </h3>
+         <h3 className="mb-2 font-semibold text-gray-900 text-xl">No hay grabaciones en esta campaña</h3>
          <p className="mx-auto mb-6 max-w-md text-gray-500">
-            Comienza agregando tu primera grabación a esta campaña. Puedes crear
-            grabaciones individuales y organizarlas aquí.
+            Comienza agregando tu primera grabación a esta campaña. Puedes crear grabaciones individuales y organizarlas aquí.
          </p>
          <LinkButton
             variant="primary"
@@ -159,11 +134,7 @@ function EmptyRecordingsState({ campaignId }: { campaignId: string }) {
    );
 }
 
-export default async function CampaignPage({
-   params,
-}: {
-   params: Promise<{ campaignId: string }>;
-}) {
+export default async function CampaignPage({ params }: { params: Promise<{ campaignId: string }> }) {
    const { campaignId } = await params;
 
    const organization = await getOrganizationFromSubdomain();
@@ -177,18 +148,9 @@ export default async function CampaignPage({
                <div className="bg-red-100 mx-auto mb-4 p-3 rounded-full w-12 h-12">
                   <AlertCircleIcon className="size-6 text-red-600" />
                </div>
-               <h1 className="mb-2 font-semibold text-red-900 text-xl">
-                  Campaña no encontrada
-               </h1>
-               <p className="mb-4 text-red-700">
-                  La campaña que estás buscando no existe o no tienes permisos
-                  para verla.
-               </p>
-               <LinkButton
-                  variant="secondary"
-                  href="/recordings"
-                  className="inline-flex items-center gap-2"
-               >
+               <h1 className="mb-2 font-semibold text-red-900 text-xl">Campaña no encontrada</h1>
+               <p className="mb-4 text-red-700">La campaña que estás buscando no existe o no tienes permisos para verla.</p>
+               <LinkButton variant="secondary" href="/recordings" className="inline-flex items-center gap-2">
                   <ArrowLeftIcon className="size-4" />
                   Volver a grabaciones
                </LinkButton>
@@ -197,9 +159,7 @@ export default async function CampaignPage({
       );
    }
 
-   const pendingInvites = campaignRecordings.filter(
-      (r) => r.invitationEmailStatus === "not_sent",
-   ).length;
+   const pendingInvites = campaignRecordings.filter((r) => r.invitationEmailStatus === "not_sent").length;
 
    return (
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
@@ -221,18 +181,12 @@ export default async function CampaignPage({
                   <FolderIcon className="size-8 text-yellow-600" />
                </div>
                <div>
-                  <h1 className="mb-2 font-bold text-gray-900 text-3xl">
-                     {campaign.title}
-                  </h1>
+                  <h1 className="mb-2 font-bold text-gray-900 text-3xl">{campaign.title}</h1>
                   {campaign.description && (
-                     <p className="max-w-3xl text-gray-600 text-lg leading-relaxed">
-                        {campaign.description}
-                     </p>
+                     <p className="max-w-3xl text-gray-600 text-lg leading-relaxed">{campaign.description}</p>
                   )}
                   <div className="flex items-center gap-2 mt-3">
-                     <span className="bg-gray-100 px-3 py-1 rounded-full text-gray-600 text-sm">
-                        Campaña de grabación
-                     </span>
+                     <span className="bg-gray-100 px-3 py-1 rounded-full text-gray-600 text-sm">Campaña de grabación</span>
                   </div>
                </div>
             </div>
@@ -248,10 +202,7 @@ export default async function CampaignPage({
                   Nueva grabación
                </LinkButton>
                {campaignRecordings.length > 0 && (
-                  <SendCampaignInvitesButton
-                     campaignId={campaignId}
-                     pendingCount={pendingInvites}
-                  />
+                  <SendCampaignInvitesButton campaignId={campaignId} pendingCount={pendingInvites} />
                )}
             </div>
          </div>
@@ -261,20 +212,14 @@ export default async function CampaignPage({
 
          {/* Recordings Section */}
          <div className="mb-6">
-            <h2 className="mb-4 font-semibold text-gray-900 text-xl">
-               Grabaciones de la campaña
-            </h2>
+            <h2 className="mb-4 font-semibold text-gray-900 text-xl">Grabaciones de la campaña</h2>
 
             {campaignRecordings.length === 0 ? (
                <EmptyRecordingsState campaignId={campaignId} />
             ) : (
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                   {campaignRecordings.map((recording) => (
-                     <RecordingCard
-                        key={recording.id}
-                        recording={recording}
-                        organization={organization}
-                     />
+                     <RecordingCard key={recording.id} recording={recording} organization={organization} />
                   ))}
                </div>
             )}

@@ -23,11 +23,7 @@ export default function QuestionPollControls({
       if (!confirmed) return;
 
       startTransition(async () => {
-         const res = await setQuestionPollStatusAction(
-            conferenceId,
-            poll.id,
-            status,
-         );
+         const res = await setQuestionPollStatusAction(conferenceId, poll.id, status);
          if (!res.success) {
             alert(res.errorMessage ?? "No se pudo actualizar la encuesta");
             return;

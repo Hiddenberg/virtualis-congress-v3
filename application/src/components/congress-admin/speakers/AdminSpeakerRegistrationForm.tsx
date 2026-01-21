@@ -3,12 +3,7 @@
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
-import {
-   type ChangeEvent,
-   type FormEvent,
-   useState,
-   useTransition,
-} from "react";
+import { type ChangeEvent, type FormEvent, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { Button } from "@/components/global/Buttons";
@@ -39,15 +34,9 @@ const speakerRegistrationSchema = z.object({
    name: z.string().trim().min(1, {
       message: "El nombre es obligatorio",
    }),
-   academicTitle: z
-      .string()
-      .refine(
-         (val) =>
-            academicTitles.includes(val as (typeof academicTitles)[number]),
-         {
-            message: "Título académico inválido",
-         },
-      ),
+   academicTitle: z.string().refine((val) => academicTitles.includes(val as (typeof academicTitles)[number]), {
+      message: "Título académico inválido",
+   }),
    specialityDetails: z
       .union([
          z.string().trim().max(500, {
@@ -93,11 +82,7 @@ export type FormErrors = {
 };
 
 // Main form component
-function AdminSpeakerRegistrationForm({
-   closePopUp,
-}: {
-   closePopUp: () => void;
-}) {
+function AdminSpeakerRegistrationForm({ closePopUp }: { closePopUp: () => void }) {
    const [formData, setFormData] = useState<NewSpeakerData>({
       name: "",
       email: "",
@@ -111,11 +96,7 @@ function AdminSpeakerRegistrationForm({
    const [errors, setErrors] = useState<FormErrors>({});
    const [photoPreview, setPhotoPreview] = useState<string | null>(null);
 
-   function handleChange(
-      e: ChangeEvent<
-         HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-      >,
-   ): void {
+   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void {
       const { name, value } = e.target;
       setFormData({
          ...formData,
@@ -171,8 +152,7 @@ function AdminSpeakerRegistrationForm({
          const fieldErrors = parsed.error.flatten().fieldErrors;
          const newErrors: FormErrors = {};
          for (const [key, messages] of Object.entries(fieldErrors)) {
-            if (messages && messages[0])
-               newErrors[key as keyof NewSpeakerData] = messages[0];
+            if (messages && messages[0]) newErrors[key as keyof NewSpeakerData] = messages[0];
          }
          setErrors(newErrors);
          return;
@@ -183,8 +163,7 @@ function AdminSpeakerRegistrationForm({
 
       // Submit form data
       startTransition(async () => {
-         const speakerDataResult =
-            await registerSpeakerFromAdminFormAction(formData);
+         const speakerDataResult = await registerSpeakerFromAdminFormAction(formData);
 
          if (!speakerDataResult.success) {
             toast.error(speakerDataResult.errorMessage);
@@ -203,8 +182,7 @@ function AdminSpeakerRegistrationForm({
          const fieldErrors = parsed.error.flatten().fieldErrors;
          const newErrors: FormErrors = {};
          for (const [key, messages] of Object.entries(fieldErrors)) {
-            if (messages && messages[0])
-               newErrors[key as keyof NewSpeakerData] = messages[0];
+            if (messages && messages[0]) newErrors[key as keyof NewSpeakerData] = messages[0];
          }
          setErrors(newErrors);
          return;
@@ -213,8 +191,7 @@ function AdminSpeakerRegistrationForm({
       setErrors({});
 
       startTransition(async () => {
-         const speakerDataResult =
-            await registerSpeakerFromAdminFormAction(formData);
+         const speakerDataResult = await registerSpeakerFromAdminFormAction(formData);
 
          if (!speakerDataResult.success) {
             toast.error(speakerDataResult.errorMessage);
@@ -230,9 +207,7 @@ function AdminSpeakerRegistrationForm({
 
    return (
       <section className="bg-white shadow-sm mx-auto p-6 rounded-lg max-w-xl">
-         <h2 className="mb-6 font-semibold text-gray-800 text-2xl">
-            Nuevo Conferencista
-         </h2>
+         <h2 className="mb-6 font-semibold text-gray-800 text-2xl">Nuevo Conferencista</h2>
 
          <form onSubmit={handleSubmit} className="space-y-5">
             <FormField
@@ -240,11 +215,7 @@ function AdminSpeakerRegistrationForm({
                name="name"
                type="text"
                value={formData.name}
-               onChange={
-                  handleChange as (
-                     e: React.ChangeEvent<HTMLInputElement>,
-                  ) => void
-               }
+               onChange={handleChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
                required
                error={errors.name}
             />
@@ -254,19 +225,12 @@ function AdminSpeakerRegistrationForm({
                name="email"
                type="email"
                value={formData.email || ""}
-               onChange={
-                  handleChange as (
-                     e: React.ChangeEvent<HTMLInputElement>,
-                  ) => void
-               }
+               onChange={handleChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
                error={errors.email}
             />
 
             <fieldset className="space-y-2">
-               <label
-                  htmlFor="academicTitle"
-                  className="block font-medium text-gray-700 text-sm"
-               >
+               <label htmlFor="academicTitle" className="block font-medium text-gray-700 text-sm">
                   Título académico
                </label>
                <select
@@ -289,19 +253,12 @@ function AdminSpeakerRegistrationForm({
                name="specialityDetails"
                type="text"
                value={formData.specialityDetails || ""}
-               onChange={
-                  handleChange as (
-                     e: React.ChangeEvent<HTMLInputElement>,
-                  ) => void
-               }
+               onChange={handleChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
                error={errors.specialityDetails}
             />
 
             <fieldset className="space-y-2">
-               <label
-                  htmlFor="bio"
-                  className="block font-medium text-gray-700 text-sm"
-               >
+               <label htmlFor="bio" className="block font-medium text-gray-700 text-sm">
                   Bio
                </label>
                <textarea
@@ -320,18 +277,12 @@ function AdminSpeakerRegistrationForm({
                name="phoneNumber"
                type="tel"
                value={formData.phoneNumber || ""}
-               onChange={
-                  handleChange as (
-                     e: React.ChangeEvent<HTMLInputElement>,
-                  ) => void
-               }
+               onChange={handleChange as (e: React.ChangeEvent<HTMLInputElement>) => void}
                error={errors.phoneNumber}
             />
 
             <fieldset className="space-y-2">
-               <label className="block font-medium text-gray-700 text-sm">
-                  Foto de presentación
-               </label>
+               <label className="block font-medium text-gray-700 text-sm">Foto de presentación</label>
 
                {photoPreview ? (
                   <figure className="relative mb-2 w-32 h-32">
@@ -354,16 +305,9 @@ function AdminSpeakerRegistrationForm({
                   <label className="flex flex-col justify-center items-center hover:bg-gray-50 border-2 border-gray-300 border-dashed rounded-md w-full h-32 cursor-pointer">
                      <div className="flex flex-col justify-center items-center pt-5 pb-6">
                         <Upload className="mb-1 w-8 h-8 text-gray-400" />
-                        <p className="text-gray-500 text-sm">
-                           Click to upload a photo
-                        </p>
+                        <p className="text-gray-500 text-sm">Click to upload a photo</p>
                      </div>
-                     <input
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        onChange={handlePhotoChange}
-                     />
+                     <input type="file" className="hidden" accept="image/*" onChange={handlePhotoChange} />
                   </label>
                )}
             </fieldset>
@@ -372,12 +316,7 @@ function AdminSpeakerRegistrationForm({
                <Button onClick={closePopUp} type="button" variant="dark">
                   Cancelar
                </Button>
-               <Button
-                  onClick={handleSaveAndAddAnother}
-                  type="button"
-                  variant="blue"
-                  loading={submitting}
-               >
+               <Button onClick={handleSaveAndAddAnother} type="button" variant="blue" loading={submitting}>
                   Guardar y agregar otro
                </Button>
                <Button type="submit" variant="primary">
@@ -390,21 +329,10 @@ function AdminSpeakerRegistrationForm({
 }
 
 // Reusable form field component
-function FormField({
-   label,
-   name,
-   type,
-   value,
-   onChange,
-   required = false,
-   error,
-}: FormFieldProps) {
+function FormField({ label, name, type, value, onChange, required = false, error }: FormFieldProps) {
    return (
       <fieldset className="space-y-2">
-         <label
-            htmlFor={name}
-            className="block font-medium text-gray-700 text-sm"
-         >
+         <label htmlFor={name} className="block font-medium text-gray-700 text-sm">
             {label} {required && <span className="text-red-500">*</span>}
          </label>
          <input

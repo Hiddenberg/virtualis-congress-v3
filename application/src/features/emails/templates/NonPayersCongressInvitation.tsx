@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface NonPayersCongressInvitationTemplateProps {
    conferenceTitle: string;
@@ -30,17 +19,14 @@ export default function NonPayersCongressInvitationTemplate({
             <title>¡No te pierdas este congreso! - Virtualis Congress</title>
          </Head>
          <Preview>
-            ¡Completa tu registro para {conferenceTitle} y únete a nosotros el{" "}
-            {conferenceFormattedStartDate}!
+            ¡Completa tu registro para {conferenceTitle} y únete a nosotros el {conferenceFormattedStartDate}!
          </Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
@@ -48,22 +34,16 @@ export default function NonPayersCongressInvitationTemplate({
                   {/* Enthusiastic Opening */}
                   <Section style={openingContainerStyle}>
                      <Text style={enthusiasticIconStyle}>🎉</Text>
-                     <Heading style={messageTitleStyle}>
-                        ¡Tu lugar está reservado!
-                     </Heading>
+                     <Heading style={messageTitleStyle}>¡Tu lugar está reservado!</Heading>
                      <Text style={openingTextStyle}>
-                        Podrías perderte de una experiencia educativa única. Has
-                        dado el primer paso al registrarte al evento{" "}
-                        <span style={highlightStyle}>{conferenceTitle}</span>,
-                        pero tu inscripción aún no está completa.
+                        Podrías perderte de una experiencia educativa única. Has dado el primer paso al registrarte al evento{" "}
+                        <span style={highlightStyle}>{conferenceTitle}</span>, pero tu inscripción aún no está completa.
                      </Text>
                   </Section>
 
                   {/* Event Details */}
                   <Section style={detailsContainerStyle}>
-                     <Heading style={detailsTitleStyle}>
-                        📅 Detalles del congreso
-                     </Heading>
+                     <Heading style={detailsTitleStyle}>📅 Detalles del congreso</Heading>
 
                      <Section style={detailItemContainerStyle}>
                         <Text style={detailLabelStyle}>Congreso:</Text>
@@ -72,9 +52,7 @@ export default function NonPayersCongressInvitationTemplate({
 
                      <Section style={detailItemContainerStyle}>
                         <Text style={detailLabelStyle}>Fecha de inicio:</Text>
-                        <Text style={detailValueStyle}>
-                           {conferenceFormattedStartDate}
-                        </Text>
+                        <Text style={detailValueStyle}>{conferenceFormattedStartDate}</Text>
                      </Section>
 
                      <Section style={detailItemContainerStyle}>
@@ -85,57 +63,37 @@ export default function NonPayersCongressInvitationTemplate({
 
                   {/* Benefits Section */}
                   <Section style={benefitsContainerStyle}>
-                     <Heading style={benefitsTitleStyle}>
-                        ✨ Lo que te espera
-                     </Heading>
+                     <Heading style={benefitsTitleStyle}>✨ Lo que te espera</Heading>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>🎓</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Aprendizaje de alto nivel
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              Conferencias impartidas por expertos reconocidos
-                              en la industria
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Aprendizaje de alto nivel</Text>
+                           <Text style={benefitTextStyle}>Conferencias impartidas por expertos reconocidos en la industria</Text>
                         </Section>
                      </Section>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>🤝</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Networking valioso
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              Conecta con profesionales y colegas de tu área
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Networking valioso</Text>
+                           <Text style={benefitTextStyle}>Conecta con profesionales y colegas de tu área</Text>
                         </Section>
                      </Section>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>💼</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Crecimiento profesional
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              Adquiere conocimientos actualizados que impulsarán
-                              tu carrera
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Crecimiento profesional</Text>
+                           <Text style={benefitTextStyle}>Adquiere conocimientos actualizados que impulsarán tu carrera</Text>
                         </Section>
                      </Section>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>📱</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Acceso desde cualquier lugar
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              Participa cómodamente desde tu casa u oficina
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Acceso desde cualquier lugar</Text>
+                           <Text style={benefitTextStyle}>Participa cómodamente desde tu casa u oficina</Text>
                         </Section>
                      </Section>
                   </Section>
@@ -144,9 +102,7 @@ export default function NonPayersCongressInvitationTemplate({
                   <Section style={urgencyContainerStyle}>
                      <Text style={urgencyIconStyle}>⏰</Text>
                      <Text style={urgencyTitleStyle}>¡El tiempo corre!</Text>
-                     <Text style={urgencyTextStyle}>
-                        No dejes pasar esta oportunidad
-                     </Text>
+                     <Text style={urgencyTextStyle}>No dejes pasar esta oportunidad</Text>
                   </Section>
 
                   {/* CTA Button */}
@@ -155,8 +111,7 @@ export default function NonPayersCongressInvitationTemplate({
                         Completar mi registro ahora
                      </Button>
                      <Text style={ctaHelperTextStyle}>
-                        Haz clic en el botón para finalizar tu inscripción y
-                        asegurar tu lugar
+                        Haz clic en el botón para finalizar tu inscripción y asegurar tu lugar
                      </Text>
                   </Section>
 
@@ -165,8 +120,7 @@ export default function NonPayersCongressInvitationTemplate({
                   {/* Final Encouragement */}
                   <Section style={encouragementContainerStyle}>
                      <Text style={encouragementTextStyle}>
-                        Estamos emocionados de tenerte con nosotros. ¡Nos vemos
-                        en <strong>{conferenceTitle}</strong>!
+                        Estamos emocionados de tenerte con nosotros. ¡Nos vemos en <strong>{conferenceTitle}</strong>!
                      </Text>
                   </Section>
                </Section>
@@ -174,8 +128,7 @@ export default function NonPayersCongressInvitationTemplate({
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -186,8 +139,7 @@ export default function NonPayersCongressInvitationTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -198,8 +150,7 @@ export default function NonPayersCongressInvitationTemplate({
 
 // Styles following the platform's design system
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

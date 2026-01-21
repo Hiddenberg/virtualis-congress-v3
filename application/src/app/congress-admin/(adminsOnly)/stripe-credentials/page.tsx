@@ -1,11 +1,4 @@
-import {
-   AlertTriangle,
-   CheckCircle,
-   CreditCard,
-   Globe,
-   Key,
-   Shield,
-} from "lucide-react";
+import { AlertTriangle, CheckCircle, CreditCard, Globe, Key, Shield } from "lucide-react";
 import { redirect } from "next/navigation";
 import CMIMCCCredentialsForm from "@/features/organizationPayments/components/CMIMCCCredentialsForm";
 import DeleteOrganizationCredentialsButton from "@/features/organizationPayments/components/DeleteOrganizationCredentialsButton";
@@ -30,13 +23,8 @@ export default async function StripeCredentialsAdminPage() {
                   <CreditCard className="w-6 h-6 text-emerald-600" />
                </div>
                <div>
-                  <h1 className="font-bold text-gray-900 text-3xl">
-                     Credenciales de Stripe
-                  </h1>
-                  <p className="mt-1 text-gray-600">
-                     Configura y administra las credenciales de pago de tu
-                     organización
-                  </p>
+                  <h1 className="font-bold text-gray-900 text-3xl">Credenciales de Stripe</h1>
+                  <p className="mt-1 text-gray-600">Configura y administra las credenciales de pago de tu organización</p>
                </div>
             </div>
 
@@ -44,12 +32,9 @@ export default async function StripeCredentialsAdminPage() {
             <div className="flex items-start gap-3 bg-amber-50 p-4 border border-amber-200 rounded-lg">
                <AlertTriangle className="flex-shrink-0 mt-0.5 w-5 h-5 text-amber-600" />
                <div>
-                  <h3 className="mb-1 font-semibold text-amber-800">
-                     Información Sensible
-                  </h3>
+                  <h3 className="mb-1 font-semibold text-amber-800">Información Sensible</h3>
                   <p className="text-amber-700 text-sm">
-                     Las credenciales de Stripe son información altamente
-                     sensible. Mantén estas credenciales seguras y no las
+                     Las credenciales de Stripe son información altamente sensible. Mantén estas credenciales seguras y no las
                      compartas con personas no autorizadas.
                   </p>
                </div>
@@ -79,9 +64,7 @@ export default async function StripeCredentialsAdminPage() {
                               Clave API
                            </label>
                            <div className="bg-gray-50 p-3 border border-gray-200 rounded-lg">
-                              <code className="font-mono text-gray-600 text-sm">
-                                 {credentialsSaved.apiKey}
-                              </code>
+                              <code className="font-mono text-gray-600 text-sm">{credentialsSaved.apiKey}</code>
                            </div>
                         </div>
 
@@ -91,9 +74,7 @@ export default async function StripeCredentialsAdminPage() {
                               Webhook Secret
                            </label>
                            <div className="bg-gray-50 p-3 border border-gray-200 rounded-lg">
-                              <code className="font-mono text-gray-600 text-sm">
-                                 {credentialsSaved.webhookSecret}
-                              </code>
+                              <code className="font-mono text-gray-600 text-sm">{credentialsSaved.webhookSecret}</code>
                            </div>
                         </div>
                      </div>
@@ -112,9 +93,7 @@ export default async function StripeCredentialsAdminPage() {
                         </div>
 
                         <div className="pt-4">
-                           <h4 className="mb-2 font-medium text-gray-900">
-                              URLs Configuradas
-                           </h4>
+                           <h4 className="mb-2 font-medium text-gray-900">URLs Configuradas</h4>
                            <div className="space-y-1 text-gray-600 text-sm">
                               <div>✓ URL de éxito configurada</div>
                               <div>✓ URL de cancelación configurada</div>
@@ -125,9 +104,7 @@ export default async function StripeCredentialsAdminPage() {
                   </div>
 
                   <div className="mt-6 pt-6 border-gray-200 border-t">
-                     <DeleteOrganizationCredentialsButton
-                        credentialsId={credentialsSaved.id}
-                     />
+                     <DeleteOrganizationCredentialsButton credentialsId={credentialsSaved.id} />
                   </div>
                </div>
 
@@ -140,18 +117,15 @@ export default async function StripeCredentialsAdminPage() {
                   <ul className="space-y-2 text-blue-800 text-sm">
                      <li className="flex items-start gap-2">
                         <div className="flex-shrink-0 bg-blue-600 mt-2 rounded-full w-1.5 h-1.5" />
-                        Las credenciales están encriptadas y almacenadas de
-                        forma segura
+                        Las credenciales están encriptadas y almacenadas de forma segura
                      </li>
                      <li className="flex items-start gap-2">
                         <div className="flex-shrink-0 bg-blue-600 mt-2 rounded-full w-1.5 h-1.5" />
-                        Solo los super administradores pueden ver y modificar
-                        estas credenciales
+                        Solo los super administradores pueden ver y modificar estas credenciales
                      </li>
                      <li className="flex items-start gap-2">
                         <div className="flex-shrink-0 bg-blue-600 mt-2 rounded-full w-1.5 h-1.5" />
-                        Los valores mostrados están parcialmente ocultos por
-                        seguridad
+                        Los valores mostrados están parcialmente ocultos por seguridad
                      </li>
                   </ul>
                </div>
@@ -164,20 +138,15 @@ export default async function StripeCredentialsAdminPage() {
                      <div className="flex justify-center items-center bg-emerald-50 mx-auto mb-4 rounded-full w-16 h-16">
                         <CreditCard className="w-8 h-8 text-emerald-600" />
                      </div>
-                     <h2 className="mb-2 font-semibold text-gray-900 text-xl">
-                        Configurar Credenciales de Stripe
-                     </h2>
+                     <h2 className="mb-2 font-semibold text-gray-900 text-xl">Configurar Credenciales de Stripe</h2>
                      <p className="text-gray-600">
-                        Configura las credenciales de Stripe para habilitar los
-                        pagos en tu plataforma
+                        Configura las credenciales de Stripe para habilitar los pagos en tu plataforma
                      </p>
                   </div>
 
                   {/* Instructions */}
                   <div className="bg-gray-50 mb-6 p-4 border border-gray-200 rounded-lg">
-                     <h3 className="mb-3 font-semibold text-gray-900">
-                        Antes de comenzar:
-                     </h3>
+                     <h3 className="mb-3 font-semibold text-gray-900">Antes de comenzar:</h3>
                      <ol className="space-y-2 text-gray-700 text-sm">
                         <li className="flex items-start gap-2">
                            <span className="flex flex-shrink-0 justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs">

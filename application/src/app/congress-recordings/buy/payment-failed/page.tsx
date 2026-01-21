@@ -12,29 +12,21 @@ export default function PaymentFailedPage() {
                         <XCircle className="w-6 h-6" />
                      </div>
                   </div>
-                  <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">
-                     Pago no completado
-                  </h1>
+                  <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">Pago no completado</h1>
                   <p className="mb-6 text-slate-600 text-base md:text-lg">
-                     Tu pago fue cancelado o no se pudo procesar. Puedes
-                     intentarlo nuevamente.
+                     Tu pago fue cancelado o no se pudo procesar. Puedes intentarlo nuevamente.
                   </p>
 
                   <div className="gap-3 grid grid-cols-1 sm:grid-cols-1 mb-6">
                      <div className="flex justify-center items-center gap-2 bg-white/60 px-4 py-3 border border-blue-100 rounded-xl">
                         <Info className="w-5 h-5 text-blue-700" />
                         <span className="text-slate-700 text-sm md:text-base">
-                           Si el cargo aparece pendiente, se liberará
-                           automáticamente.
+                           Si el cargo aparece pendiente, se liberará automáticamente.
                         </span>
                      </div>
                   </div>
 
-                  <LinkButton
-                     href="/congress-recordings/buy"
-                     variant="blue"
-                     className="mx-auto mb-6"
-                  >
+                  <LinkButton href="/congress-recordings/buy" variant="blue" className="mx-auto mb-6">
                      <RotateCcw className="w-4 h-4" />
                      Intentar de nuevo
                   </LinkButton>

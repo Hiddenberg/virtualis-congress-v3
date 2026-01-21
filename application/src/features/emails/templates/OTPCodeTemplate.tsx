@@ -1,13 +1,4 @@
-import {
-   Body,
-   Container,
-   Head,
-   Heading,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Container, Head, Heading, Html, Preview, Section, Text } from "@react-email/components";
 
 interface OTPCodeTemplateProps {
    otpCode: string;
@@ -15,11 +6,7 @@ interface OTPCodeTemplateProps {
    organizationName: string;
 }
 
-export default function OTPCodeTemplate({
-   otpCode,
-   userEmail,
-   organizationName,
-}: OTPCodeTemplateProps) {
+export default function OTPCodeTemplate({ otpCode, userEmail, organizationName }: OTPCodeTemplateProps) {
    return (
       <Html lang="es-MX">
          <Head>
@@ -31,54 +18,36 @@ export default function OTPCodeTemplate({
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
                <Section style={contentStyle}>
-                  <Heading style={messageTitleStyle}>
-                     Código de verificación
-                  </Heading>
+                  <Heading style={messageTitleStyle}>Código de verificación</Heading>
                   <Text style={descriptionStyle}>
-                     Has solicitado un código de verificación para acceder a tu
-                     cuenta de{" "}
-                     <span style={platformNameStyle}>Virtualis Congress</span>.
-                     Utiliza el siguiente código para completar el proceso de
-                     verificación.
+                     Has solicitado un código de verificación para acceder a tu cuenta de{" "}
+                     <span style={platformNameStyle}>Virtualis Congress</span>. Utiliza el siguiente código para completar el
+                     proceso de verificación.
                   </Text>
 
                   {/* OTP Code Section */}
                   <Section style={otpContainerStyle}>
-                     <Heading style={otpTitleStyle}>
-                        Tu código de verificación
-                     </Heading>
+                     <Heading style={otpTitleStyle}>Tu código de verificación</Heading>
                      <Text style={otpCodeStyle}>{otpCode}</Text>
-                     <Text style={otpInfoStyle}>
-                        Este código expirará en 15 minutos.
-                     </Text>
+                     <Text style={otpInfoStyle}>Este código expirará en 15 minutos.</Text>
                   </Section>
 
                   <Text style={descriptionStyle}>
-                     Si no solicitaste este código, por favor ignora este correo
-                     o contacta a nuestro equipo de soporte.
+                     Si no solicitaste este código, por favor ignora este correo o contacta a nuestro equipo de soporte.
                   </Text>
 
                   {/* Security Notice */}
                   <Section style={securityNoticeStyle}>
-                     <Text style={securityTitleStyle}>
-                        Información de seguridad:
-                     </Text>
+                     <Text style={securityTitleStyle}>Información de seguridad:</Text>
                      <Text style={securityTextStyle}>
-                        Este código fue solicitado para la cuenta{" "}
-                        <span style={emailAccountStyle}>{userEmail}</span>.
-                        Nunca compartas este código con nadie, incluyendo
-                        personal de{" "}
-                        <span style={platformNameStyle}>
-                           Virtualis Congress
-                        </span>
-                        .
+                        Este código fue solicitado para la cuenta <span style={emailAccountStyle}>{userEmail}</span>. Nunca
+                        compartas este código con nadie, incluyendo personal de{" "}
+                        <span style={platformNameStyle}>Virtualis Congress</span>.
                      </Text>
                   </Section>
                </Section>
@@ -86,8 +55,7 @@ export default function OTPCodeTemplate({
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -98,8 +66,7 @@ export default function OTPCodeTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -110,8 +77,7 @@ export default function OTPCodeTemplate({
 
 // Styles matching the original HTML template
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",
@@ -192,8 +158,7 @@ const otpTitleStyle = {
 };
 
 const otpCodeStyle = {
-   fontFamily:
-      "'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace",
+   fontFamily: "'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace",
    fontSize: "36px",
    fontWeight: "800",
    letterSpacing: "6px",

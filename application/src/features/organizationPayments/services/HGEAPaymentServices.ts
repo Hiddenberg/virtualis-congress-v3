@@ -10,9 +10,6 @@ export async function getHGEAStripeProducts() {
    if (!stripeCredentials) {
       throw new Error("Stripe credentials not found");
    }
-   const HGEAStripeProducts =
-      stripeCredentials.environment === "production"
-         ? GeaStripeProductsProd
-         : GeaStripeProductsDev;
+   const HGEAStripeProducts = stripeCredentials.environment === "production" ? GeaStripeProductsProd : GeaStripeProductsDev;
    return HGEAStripeProducts;
 }

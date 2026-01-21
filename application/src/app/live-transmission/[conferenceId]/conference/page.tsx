@@ -9,11 +9,7 @@ import LivestreamTransmissionInterface from "@/features/livestreams/components/t
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
 
-export default async function ConferenceLivestreamTransmissionPage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function ConferenceLivestreamTransmissionPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const conference = await getConferenceById(conferenceId);
@@ -24,15 +20,12 @@ export default async function ConferenceLivestreamTransmissionPage({
          </div>
       );
    }
-   const requiresLivestream =
-      conference.conferenceType === "livestream" ||
-      conference.conferenceType === "in-person";
+   const requiresLivestream = conference.conferenceType === "livestream" || conference.conferenceType === "in-person";
    if (!requiresLivestream) {
       return (
          <div>
             <h1>
-               La conferencia {conference.title} no requiere transmisión en vivo
-               ya que es {conference.conferenceType}
+               La conferencia {conference.title} no requiere transmisión en vivo ya que es {conference.conferenceType}
             </h1>
          </div>
       );
@@ -53,12 +46,7 @@ export default async function ConferenceLivestreamTransmissionPage({
 
    if (livestreamSession.status === "scheduled") {
       if (userIsAdmin) {
-         return (
-            <AdminScheduledPage
-               livestreamSessionId={livestreamSession.id}
-               isQnASession={false}
-            />
-         );
+         return <AdminScheduledPage livestreamSessionId={livestreamSession.id} isQnASession={false} />;
       }
       return (
          <GuestScheduledPage
@@ -72,8 +60,7 @@ export default async function ConferenceLivestreamTransmissionPage({
    const qnaSession = await getConferenceQnASession(conferenceId);
    const conferencePresentation = await getConferencePresentation(conferenceId);
 
-   const activeConferenceQuestionPoll =
-      await getActiveQuestionPollForConference(conferenceId);
+   const activeConferenceQuestionPoll = await getActiveQuestionPollForConference(conferenceId);
 
    return (
       <LivestreamTransmissionInterface

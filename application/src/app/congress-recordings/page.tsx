@@ -27,25 +27,13 @@ function BackNavigationButtons() {
    );
 }
 
-function CongressRecordingsLayout({
-   congressTitle,
-   children,
-}: {
-   congressTitle: string;
-   children: React.ReactNode;
-}) {
+function CongressRecordingsLayout({ congressTitle, children }: { congressTitle: string; children: React.ReactNode }) {
    return (
       <div className="p-4 md:p-8">
          <div className="mb-6 text-center">
-            <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">
-               Grabaciones del congreso
-            </h1>
-            <h2 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">
-               {congressTitle}
-            </h2>
-            <p className="text-slate-600 text-base md:text-lg">
-               Revive las ponencias a tu ritmo.
-            </p>
+            <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">Grabaciones del congreso</h1>
+            <h2 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">{congressTitle}</h2>
+            <p className="text-slate-600 text-base md:text-lg">Revive las ponencias a tu ritmo.</p>
          </div>
          <div className="mb-6">
             <BackNavigationButtons />
@@ -67,10 +55,7 @@ export default async function CongressRecordingsPage() {
       redirect("/congress");
    }
 
-   const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(
-      userId,
-      congress.id,
-   );
+   const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(userId, congress.id);
    const organization = await getOrganizationFromSubdomain();
 
    const recordingsCampaignFilter = pbFilter(
@@ -83,34 +68,24 @@ export default async function CongressRecordingsPage() {
          organizationId: organization.id,
       },
    );
-   const congressRecordings = await getFullDBRecordsList<SimpleRecording>(
-      "SIMPLE_RECORDINGS",
-      {
-         filter: recordingsCampaignFilter,
-      },
-   );
+   const congressRecordings = await getFullDBRecordsList<SimpleRecording>("SIMPLE_RECORDINGS", {
+      filter: recordingsCampaignFilter,
+   });
 
    const allConferences = await getAllCongressConferences(congress.id);
 
    if (congressRecordings.length === 0) {
       return (
          <CongressRecordingsLayout congressTitle={congress.title}>
-            {hasAccessToRecordings ? (
-               <RecordingsComingSoonBanner />
-            ) : (
-               <NoRecordingsAccessCard />
-            )}
+            {hasAccessToRecordings ? <RecordingsComingSoonBanner /> : <NoRecordingsAccessCard />}
          </CongressRecordingsLayout>
       );
    }
 
    const recordingsWithMeta = await Promise.all(
       congressRecordings.map(async (recording) => {
-         const recordingTitle =
-            recording.title.split(" - ")[1] ?? recording.title;
-         const conference = allConferences.find(
-            (conf) => conf.title === recordingTitle,
-         );
+         const recordingTitle = recording.title.split(" - ")[1] ?? recording.title;
+         const conference = allConferences.find((conf) => conf.title === recordingTitle);
          const speakers = await getConferenceSpeakers(conference?.id ?? "");
          return {
             recording,

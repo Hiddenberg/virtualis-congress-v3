@@ -2,13 +2,7 @@
 
 import { PlayIcon, StopCircleIcon, VideoIcon } from "lucide-react";
 import { useParams } from "next/navigation";
-import {
-   startTransition,
-   useCallback,
-   useContext,
-   useRef,
-   useTransition,
-} from "react";
+import { startTransition, useCallback, useContext, useRef, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { useRealtimeLivestreamStatusContext } from "@/features/livestreams/contexts/RealtimeLivestreamStatusProvider";
@@ -80,11 +74,7 @@ function StartRecordingButton({
    );
 }
 
-function StopRecordingButton({
-   handleBeforeUnload,
-}: {
-   handleBeforeUnload: (e: BeforeUnloadEvent) => string;
-}) {
+function StopRecordingButton({ handleBeforeUnload }: { handleBeforeUnload: (e: BeforeUnloadEvent) => string }) {
    const { livestreamSession } = useRealtimeLivestreamStatusContext();
    const { sessionId } = useZoomSession();
    const [stopping, startTransition] = useTransition();
@@ -127,22 +117,14 @@ function StopRecordingButton({
          window.removeEventListener("beforeunload", handleBeforeUnload);
 
          toast.promise(new Promise((resolve) => setTimeout(resolve, 15000)), {
-            loading:
-               "Procesando grabación, por favor no cierres la página aún 📽️",
+            loading: "Procesando grabación, por favor no cierres la página aún 📽️",
             success: () => {
                window.location.href = `/recordings/record/${recordingId}/review`;
                return "Grabación procesada con éxito";
             },
          });
       });
-   }, [
-      drawingContext,
-      handleBeforeUnload,
-      livestreamSession,
-      presentationRecorder,
-      recordingId,
-      sessionId,
-   ]);
+   }, [drawingContext, handleBeforeUnload, livestreamSession, presentationRecorder, recordingId, sessionId]);
 
    return (
       <Button
@@ -218,13 +200,8 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
    if (livestreamStatus === "preparing" || livestreamStatus === "scheduled") {
       return (
          <div className="!flex !flex-col !items-center !gap-2">
-            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">
-               Listo para comenzar
-            </div>
-            <StartRecordingButton
-               sessionTitle={sessionTitle}
-               handleBeforeUnload={handleBeforeUnloadRef.current}
-            />
+            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">Listo para comenzar</div>
+            <StartRecordingButton sessionTitle={sessionTitle} handleBeforeUnload={handleBeforeUnloadRef.current} />
          </div>
       );
    }
@@ -237,9 +214,7 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
                   <div className="!bg-red-500 !rounded-full !w-2 !h-2 !animate-pulse" />
                   Grabando...
                </div>
-               <StopRecordingButton
-                  handleBeforeUnload={handleBeforeUnloadRef.current}
-               />
+               <StopRecordingButton handleBeforeUnload={handleBeforeUnloadRef.current} />
             </div>
          </div>
       );
@@ -248,13 +223,8 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
    if (livestreamStatus === "paused") {
       return (
          <div className="!flex !flex-col !items-center !gap-2">
-            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">
-               Grabación pausada
-            </div>
-            <ResumeRecordingButton
-               handleBeforeUnload={handleBeforeUnloadRef.current}
-               sessionTitle={sessionTitle}
-            />
+            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">Grabación pausada</div>
+            <ResumeRecordingButton handleBeforeUnload={handleBeforeUnloadRef.current} sessionTitle={sessionTitle} />
          </div>
       );
    }
@@ -262,9 +232,7 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
    if (livestreamStatus === "ended") {
       return (
          <div className="!flex !flex-col !items-center !gap-2">
-            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">
-               Grabación terminada
-            </div>
+            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">Grabación terminada</div>
          </div>
       );
    }
@@ -279,11 +247,7 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
    );
 }
 
-export default function RecordingLivestreamControlButtons({
-   sessionTitle,
-}: {
-   sessionTitle: string;
-}) {
+export default function RecordingLivestreamControlButtons({ sessionTitle }: { sessionTitle: string }) {
    const { sessionId } = useZoomSession();
 
    if (!sessionId) {

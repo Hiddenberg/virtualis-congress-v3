@@ -14,10 +14,7 @@ interface ConferenceNotificationProps {
    conferenceId: string;
 }
 
-function ConferenceNotification({
-   conferenceTitle,
-   conferenceId,
-}: ConferenceNotificationProps) {
+function ConferenceNotification({ conferenceTitle, conferenceId }: ConferenceNotificationProps) {
    const router = useRouter();
    const handleGoToConference = () => {
       router.push(`/conference/${conferenceId}`);
@@ -39,22 +36,13 @@ function ConferenceNotification({
          {/* Content */}
          <div className="flex-1 space-y-3">
             <div>
-               <h3 className="mb-1 font-bold text-gray-900 text-base">
-                  ¡Próxima conferencia!
-               </h3>
+               <h3 className="mb-1 font-bold text-gray-900 text-base">¡Próxima conferencia!</h3>
                <p className="text-gray-700 text-sm leading-relaxed">
-                  <span className="font-semibold text-blue-600">
-                     {conferenceTitle}
-                  </span>{" "}
-                  comenzará en 1 minuto
+                  <span className="font-semibold text-blue-600">{conferenceTitle}</span> comenzará en 1 minuto
                </p>
             </div>
 
-            <Button
-               onClick={handleGoToConference}
-               variant="green"
-               className="!px-3 !py-2 !w-full text-sm"
-            >
+            <Button onClick={handleGoToConference} variant="green" className="!px-3 !py-2 !w-full text-sm">
                Ir a la conferencia
                <ArrowRightIcon className="size-4" />
             </Button>
@@ -66,10 +54,7 @@ function ConferenceNotification({
 export default function ConferenceNotificationController() {
    const { data: allCongressConferencesResponse } = useQuery({
       queryKey: ["all-congress-conferences"],
-      queryFn: () =>
-         backendFetcher<{ conferences: CongressConferenceRecord[] }>(
-            "/api/conferences",
-         ),
+      queryFn: () => backendFetcher<{ conferences: CongressConferenceRecord[] }>("/api/conferences"),
       staleTime: 1000 * 60 * 60, // 1 hour
    });
 
@@ -85,8 +70,7 @@ export default function ConferenceNotificationController() {
          // Check if there is an upcoming conference within the next 1 minute
          const upcomingConference = conferences?.find(
             (conference) =>
-               isAfter(conference.startTime, currentDateTime) &&
-               isBefore(conference.startTime, addMinute(currentDateTime, 1)),
+               isAfter(conference.startTime, currentDateTime) && isBefore(conference.startTime, addMinute(currentDateTime, 1)),
          );
 
          if (upcomingConference) {
@@ -96,22 +80,14 @@ export default function ConferenceNotificationController() {
             }
 
             // If the user has already been notified about this conference, don't show the notification
-            if (
-               conferencesNotifiedRef.current.includes(upcomingConference.id)
-            ) {
+            if (conferencesNotifiedRef.current.includes(upcomingConference.id)) {
                return;
             }
 
             // Send notification to the user
-            toast(
-               <ConferenceNotification
-                  conferenceTitle={upcomingConference.title}
-                  conferenceId={upcomingConference.id}
-               />,
-               {
-                  duration: 60000, // 1 minute
-               },
-            );
+            toast(<ConferenceNotification conferenceTitle={upcomingConference.title} conferenceId={upcomingConference.id} />, {
+               duration: 60000, // 1 minute
+            });
             conferencesNotifiedRef.current.push(upcomingConference.id);
          } else {
             // If there is no upcoming conference, don't show the notification

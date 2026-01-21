@@ -24,11 +24,7 @@ export default function SyncRecordingDurationsButton() {
       <div>
          <h1>Sincronizar duraciones de grabaciones</h1>
 
-         <Button
-            onClick={handleSyncRecordingDurations}
-            loading={isLoading}
-            variant="primary"
-         >
+         <Button onClick={handleSyncRecordingDurations} loading={isLoading} variant="primary">
             Sincronizar duraciones de grabaciones
          </Button>
       </div>

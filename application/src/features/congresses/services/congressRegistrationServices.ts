@@ -1,12 +1,6 @@
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getFullDBRecordsList,
-   getSingleDBRecord,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import type { CongressRegistration } from "../types/congressRegistrationTypes";
 import { getLatestCongress } from "./congressServices";
 
@@ -25,13 +19,9 @@ export async function getAllCongressRegistrations() {
       },
    );
 
-   const congressRegistrations =
-      await getFullDBRecordsList<CongressRegistration>(
-         "CONGRESS_REGISTRATIONS",
-         {
-            filter,
-         },
-      );
+   const congressRegistrations = await getFullDBRecordsList<CongressRegistration>("CONGRESS_REGISTRATIONS", {
+      filter,
+   });
 
    return congressRegistrations;
 }
@@ -111,10 +101,7 @@ export async function getCongressRegistrationByUserId(userId: string) {
       },
    );
 
-   const congressRegistration = await getSingleDBRecord<CongressRegistration>(
-      "CONGRESS_REGISTRATIONS",
-      filter,
-   );
+   const congressRegistration = await getSingleDBRecord<CongressRegistration>("CONGRESS_REGISTRATIONS", filter);
 
    return congressRegistration;
 }
@@ -126,31 +113,24 @@ export async function registerUserToLatestCongress(userId: string) {
       throw new Error("No congress found");
    }
 
-   const congressRegistration = await createDBRecord<CongressRegistration>(
-      "CONGRESS_REGISTRATIONS",
-      {
-         congress: latestCongress.id,
-         organization: latestCongress.organization,
-         user: userId,
-         paymentConfirmed: false,
-         registrationType: "regular",
-         hasAccessToRecordings: false,
-      },
-   );
+   const congressRegistration = await createDBRecord<CongressRegistration>("CONGRESS_REGISTRATIONS", {
+      congress: latestCongress.id,
+      organization: latestCongress.organization,
+      user: userId,
+      paymentConfirmed: false,
+      registrationType: "regular",
+      hasAccessToRecordings: false,
+   });
 
    return congressRegistration;
 }
 
-export async function updateCongressRegistration(
-   congressRegistrationId: string,
-   data: Partial<CongressRegistration>,
-) {
-   const updatedCongressRegistration =
-      await updateDBRecord<CongressRegistration>(
-         "CONGRESS_REGISTRATIONS",
-         congressRegistrationId,
-         data,
-      );
+export async function updateCongressRegistration(congressRegistrationId: string, data: Partial<CongressRegistration>) {
+   const updatedCongressRegistration = await updateDBRecord<CongressRegistration>(
+      "CONGRESS_REGISTRATIONS",
+      congressRegistrationId,
+      data,
+   );
 
    return updatedCongressRegistration;
 }

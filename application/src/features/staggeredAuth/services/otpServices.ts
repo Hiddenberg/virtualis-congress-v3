@@ -1,20 +1,12 @@
 import { createHash } from "crypto";
-import {
-   createDBRecord,
-   deleteDBRecord,
-   getDBRecordById,
-   getFullDBRecordsList,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, deleteDBRecord, getDBRecordById, getFullDBRecordsList } from "@/libs/pbServerClientNew";
 import { generateRandomOTPCode } from "../utils/passwordsGenerator";
 
 const OTP_CODE_EXPIRATION_TIME = 900000; // 15 minutes
 
 export async function deleteOTPCode(otpCodeId: string) {
    try {
-      const otpCodeRecord = await getDBRecordById<OTPCodeRecord>(
-         "OTP_CODES",
-         otpCodeId,
-      );
+      const otpCodeRecord = await getDBRecordById<OTPCodeRecord>("OTP_CODES", otpCodeId);
       if (!otpCodeRecord) {
          console.log("[deleteOTPCode] OTP code already deleted", otpCodeId);
          return;
@@ -37,20 +29,14 @@ export async function generateOTPCode(userId: string) {
    });
 
    // Automatically delete the OTP code after 15 minutes
-   setTimeout(
-      async () => deleteOTPCode(createdOTPRecord.id),
-      OTP_CODE_EXPIRATION_TIME,
-   );
+   setTimeout(async () => deleteOTPCode(createdOTPRecord.id), OTP_CODE_EXPIRATION_TIME);
    return otpCode;
 }
 
 export async function getOTPCodesForUser(userId: string) {
-   const otpCodeRecord = await getFullDBRecordsList<OTPCodeRecord>(
-      "OTP_CODES",
-      {
-         filter: `user = "${userId}"`,
-      },
-   );
+   const otpCodeRecord = await getFullDBRecordsList<OTPCodeRecord>("OTP_CODES", {
+      filter: `user = "${userId}"`,
+   });
    return otpCodeRecord;
 }
 
@@ -62,9 +48,7 @@ export async function verifyOTPCode(userId: string, otpCode: string) {
    }
 
    const validCode = otpCodeRecords.some((otpCodeRecord) => {
-      const isExpired =
-         new Date(otpCodeRecord.created).getTime() + OTP_CODE_EXPIRATION_TIME <
-         Date.now();
+      const isExpired = new Date(otpCodeRecord.created).getTime() + OTP_CODE_EXPIRATION_TIME < Date.now();
 
       const otpCodeHash = createHash("sha256").update(otpCode).digest("hex");
       return otpCodeHash === otpCodeRecord.otpCode && !isExpired;
@@ -74,12 +58,9 @@ export async function verifyOTPCode(userId: string, otpCode: string) {
 }
 
 export async function deleteAllUserOTPCodes(userId: string) {
-   const otpCodeRecords = await getFullDBRecordsList<OTPCodeRecord>(
-      "OTP_CODES",
-      {
-         filter: `user = "${userId}"`,
-      },
-   );
+   const otpCodeRecords = await getFullDBRecordsList<OTPCodeRecord>("OTP_CODES", {
+      filter: `user = "${userId}"`,
+   });
 
    if (otpCodeRecords.length === 0) return;
 

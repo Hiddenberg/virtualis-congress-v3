@@ -5,12 +5,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRealtimeQuestionPoll } from "../../contexts/RealtimeQuestionPollContext";
 
 export default function RealtimeQuestionPollDisplay() {
-   const { questionPoll, questionPollOptions, questionPollAnswers } =
-      useRealtimeQuestionPoll();
+   const { questionPoll, questionPollOptions, questionPollAnswers } = useRealtimeQuestionPoll();
 
-   const [animatedCounts, setAnimatedCounts] = useState<Record<string, number>>(
-      {},
-   );
+   const [animatedCounts, setAnimatedCounts] = useState<Record<string, number>>({});
    const countsRef = useRef<Record<string, number>>({});
 
    // Calculate totals
@@ -20,23 +17,15 @@ export default function RealtimeQuestionPollDisplay() {
       const totalAnswers = questionPollAnswers.length;
       const optionIdToVotesMap = new Map<string, number>();
 
-      questionPollOptions.forEach((option) =>
-         optionIdToVotesMap.set(option.id, 0),
-      );
+      questionPollOptions.forEach((option) => optionIdToVotesMap.set(option.id, 0));
       questionPollAnswers.forEach((answer) => {
-         optionIdToVotesMap.set(
-            answer.optionSelected,
-            (optionIdToVotesMap.get(answer.optionSelected) ?? 0) + 1,
-         );
+         optionIdToVotesMap.set(answer.optionSelected, (optionIdToVotesMap.get(answer.optionSelected) ?? 0) + 1);
       });
 
       return questionPollOptions
          .map((option) => {
             const votesForOption = optionIdToVotesMap.get(option.id) ?? 0;
-            const percentage =
-               totalAnswers === 0
-                  ? 0
-                  : Math.round((votesForOption / totalAnswers) * 100);
+            const percentage = totalAnswers === 0 ? 0 : Math.round((votesForOption / totalAnswers) * 100);
             return {
                option,
                votes: votesForOption,
@@ -48,14 +37,10 @@ export default function RealtimeQuestionPollDisplay() {
 
    // Animate vote counts
    useEffect(() => {
-      const targetCountsByOptionId = Object.fromEntries(
-         results.map((result) => [result.option.id, result.votes]),
-      );
+      const targetCountsByOptionId = Object.fromEntries(results.map((result) => [result.option.id, result.votes]));
 
       const hasCountsChanged = Object.keys(targetCountsByOptionId).some(
-         (optionId) =>
-            targetCountsByOptionId[optionId] !==
-            (countsRef.current[optionId] ?? 0),
+         (optionId) => targetCountsByOptionId[optionId] !== (countsRef.current[optionId] ?? 0),
       );
       if (!hasCountsChanged) return;
 
@@ -66,19 +51,14 @@ export default function RealtimeQuestionPollDisplay() {
       const animationDurationMs = 800;
 
       const animateCounts = () => {
-         const progress = Math.min(
-            (Date.now() - animationStartTimestamp) / animationDurationMs,
-            1,
-         );
+         const progress = Math.min((Date.now() - animationStartTimestamp) / animationDurationMs, 1);
          const easedProgress = 1 - (1 - progress) ** 3;
 
          const nextCountsByOptionId: Record<string, number> = {};
          Object.keys(targetCountsByOptionId).forEach((optionId) => {
             const startCount = startCountsByOptionId[optionId] ?? 0;
             const targetCount = targetCountsByOptionId[optionId];
-            nextCountsByOptionId[optionId] = Math.round(
-               startCount + (targetCount - startCount) * easedProgress,
-            );
+            nextCountsByOptionId[optionId] = Math.round(startCount + (targetCount - startCount) * easedProgress);
          });
 
          setAnimatedCounts(nextCountsByOptionId);
@@ -104,13 +84,9 @@ export default function RealtimeQuestionPollDisplay() {
          <div className="mb-8 text-center">
             <div className="inline-flex items-center gap-3 bg-white/80 shadow-sm backdrop-blur-sm mb-4 px-6 py-3 rounded-full">
                <BarChart3 className="w-6 h-6 text-blue-600" />
-               <span className="font-semibold text-blue-900 text-lg">
-                  Encuesta en Vivo
-               </span>
+               <span className="font-semibold text-blue-900 text-lg">Encuesta en Vivo</span>
             </div>
-            <h2 className="mb-2 font-bold text-gray-900 text-3xl">
-               {questionPoll.question}
-            </h2>
+            <h2 className="mb-2 font-bold text-gray-900 text-3xl">{questionPoll.question}</h2>
             <div className="flex justify-center items-center gap-2 text-gray-600">
                <Users className="w-5 h-5" />
                <span className="font-medium text-lg">
@@ -121,8 +97,7 @@ export default function RealtimeQuestionPollDisplay() {
 
          <div className="space-y-4">
             {results.map((result, index) => {
-               const animatedVotesForOption =
-                  animatedCounts[result.option.id] ?? 0;
+               const animatedVotesForOption = animatedCounts[result.option.id] ?? 0;
                const isLeading = index === 0 && result.votes > 0;
 
                return (
@@ -136,16 +111,10 @@ export default function RealtimeQuestionPollDisplay() {
                      }}
                   >
                      <div className="flex justify-between items-center mb-3">
-                        <h3 className="flex-1 font-semibold text-gray-900 text-xl">
-                           {result.option.text}
-                        </h3>
+                        <h3 className="flex-1 font-semibold text-gray-900 text-xl">{result.option.text}</h3>
                         <div className="flex items-center gap-4">
-                           <span className="font-bold text-blue-600 text-2xl">
-                              {animatedVotesForOption}
-                           </span>
-                           <span className="font-medium text-gray-600 text-lg">
-                              {result.percentage}%
-                           </span>
+                           <span className="font-bold text-blue-600 text-2xl">{animatedVotesForOption}</span>
+                           <span className="font-medium text-gray-600 text-lg">{result.percentage}%</span>
                         </div>
                      </div>
 
@@ -158,10 +127,7 @@ export default function RealtimeQuestionPollDisplay() {
                            }`}
                            style={{
                               width: `${result.percentage}%`,
-                              boxShadow:
-                                 result.percentage > 0
-                                    ? "0 2px 8px rgba(59, 130, 246, 0.3)"
-                                    : "none",
+                              boxShadow: result.percentage > 0 ? "0 2px 8px rgba(59, 130, 246, 0.3)" : "none",
                            }}
                         />
                         {isLeading && (

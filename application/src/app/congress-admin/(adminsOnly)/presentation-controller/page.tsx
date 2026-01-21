@@ -23,21 +23,16 @@ export default async function PresentationControllerPage() {
                <div className="flex justify-center items-center bg-yellow-50 mb-6 rounded-full w-16 h-16">
                   <AlertCircle className="w-8 h-8 text-yellow-600" />
                </div>
-               <h2 className="mb-3 font-semibold text-gray-900 text-xl">
-                  No hay una conferencia activa
-               </h2>
+               <h2 className="mb-3 font-semibold text-gray-900 text-xl">No hay una conferencia activa</h2>
                <p className="mb-6 max-w-md text-gray-600 text-sm">
-                  Para usar el control de presentación, primero debe haber una
-                  conferencia activa en el sistema.
+                  Para usar el control de presentación, primero debe haber una conferencia activa en el sistema.
                </p>
             </div>
          </div>
       );
    }
 
-   const conferencePresentation = await getConferencePresentation(
-      currentConferencec.activeConference,
-   );
+   const conferencePresentation = await getConferencePresentation(currentConferencec.activeConference);
 
    if (!conferencePresentation) {
       return (
@@ -55,12 +50,10 @@ export default async function PresentationControllerPage() {
                <div className="flex justify-center items-center bg-blue-50 mb-6 rounded-full w-16 h-16">
                   <PresentationIcon className="w-8 h-8 text-blue-600" />
                </div>
-               <h2 className="mb-3 font-semibold text-gray-900 text-xl">
-                  No hay una presentación configurada
-               </h2>
+               <h2 className="mb-3 font-semibold text-gray-900 text-xl">No hay una presentación configurada</h2>
                <p className="mb-6 max-w-md text-gray-600 text-sm">
-                  La conferencia activa no tiene una presentación asignada.
-                  Configure una presentación para poder controlarla desde aquí.
+                  La conferencia activa no tiene una presentación asignada. Configure una presentación para poder controlarla
+                  desde aquí.
                </p>
             </div>
          </div>
@@ -80,9 +73,7 @@ export default async function PresentationControllerPage() {
 
          {/* Presentation Controller */}
          <div className="space-y-6">
-            <RealtimePresentationController
-               presentationId={conferencePresentation.id}
-            />
+            <RealtimePresentationController presentationId={conferencePresentation.id} />
          </div>
       </div>
    );

@@ -16,8 +16,7 @@ function SpamNotificationMessage() {
    return (
       <p className="text-yellow-400 text-lg">
          <strong>Nota: </strong>
-         Si no encuentras el correo de verificación por favor revisa en la
-         carpeta de spam
+         Si no encuentras el correo de verificación por favor revisa en la carpeta de spam
       </p>
    );
 }
@@ -69,9 +68,7 @@ export default function LoginForm() {
 
       const existingUser = await checkExistingUserAction(email);
       if (!existingUser) {
-         alert(
-            "Este correo aun no está registrado, por favor completa tu registro para poder continuar",
-         );
+         alert("Este correo aun no está registrado, por favor completa tu registro para poder continuar");
          return;
       }
 
@@ -92,9 +89,7 @@ export default function LoginForm() {
       const loginResult = await loginWithOTPCode(otpId, otpCode.trim());
       console.log("[LoginForm] OTP login result:", loginResult);
       if (loginResult) {
-         router.push(
-            (redirectTo as string) || "/registro/confirmacion-registro",
-         );
+         router.push((redirectTo as string) || "/registro/confirmacion-registro");
       } else {
          setCodeFailed(true);
          setIsLoading(false);
@@ -113,9 +108,8 @@ export default function LoginForm() {
       return (
          <form className="space-y-6" onSubmit={handleValidateOTP}>
             <p className="text-white text-xl">
-               Hemos enviado un código de verificación a tu correo{" "}
-               <strong className="text-yellow-400">{email}</strong>, ingresa el
-               código para continuar
+               Hemos enviado un código de verificación a tu correo <strong className="text-yellow-400">{email}</strong>, ingresa
+               el código para continuar
             </p>
 
             <input
@@ -135,15 +129,11 @@ export default function LoginForm() {
                      Confirmar código
                   </button>
 
-                  {codeFailed && (
-                     <ReSendCodeButton handleSendOTP={handleSendOTP} />
-                  )}
+                  {codeFailed && <ReSendCodeButton handleSendOTP={handleSendOTP} />}
                </div>
 
                <div>
-                  <p className="text-gray-300 text-center">
-                     Si tu mail tiene algun error puedes corregirlo
-                  </p>
+                  <p className="text-gray-300 text-center">Si tu mail tiene algun error puedes corregirlo</p>
                   <button
                      type="button"
                      onClick={() => setStage("login")}
@@ -169,31 +159,21 @@ export default function LoginForm() {
                <PopUp onClose={() => setShowPopUp(false)}>
                   <div className="space-y-4 mb-10">
                      <p className="text-xl">
-                        Por favor corrobora que tu mail sea correcto y que
-                        ingresaste a la bandeja de entrada del mail{" "}
+                        Por favor corrobora que tu mail sea correcto y que ingresaste a la bandeja de entrada del mail{" "}
                         <span className="font-semibold">{email}</span>
                      </p>
 
                      <p className="text-xl">
-                        Si no encuentras el correo de verificación por favor
-                        revisa en la carpeta de spam o busca el mail en la
+                        Si no encuentras el correo de verificación por favor revisa en la carpeta de spam o busca el mail en la
                         bandeja de entrada por el nombre de ACP México
                      </p>
 
                      <p className="text-xl">
-                        Busca en las carpetas de &quot;Promociones&quot; o
-                        &quot;Publicidad&quot; de tu correo
+                        Busca en las carpetas de &quot;Promociones&quot; o &quot;Publicidad&quot; de tu correo
                      </p>
-                     <Image
-                        src={emailExplanationImage}
-                        alt="Email de verificación"
-                        className="w-full"
-                     />
+                     <Image src={emailExplanationImage} alt="Email de verificación" className="w-full" />
 
-                     <p className="text-xl">
-                        O escribe en el buscador de tu mail &quot;ACP
-                        Mexico&quot;
-                     </p>
+                     <p className="text-xl">O escribe en el buscador de tu mail &quot;ACP Mexico&quot;</p>
                   </div>
                   {/* <Link className='group flex justify-center items-center gap-2 bg-blue-200 p-2 px-4 rounded-full'
                         href="https://wa.me/5619920940?text=Hola, necesito ayuda con mi registro al congreso"
@@ -236,10 +216,7 @@ export default function LoginForm() {
 
          <p className="text-white/70 text-center">
             ¿No tienes una cuenta?{" "}
-            <a
-               href="/registro/formulario"
-               className="text-yellow-400 hover:text-yellow-300"
-            >
+            <a href="/registro/formulario" className="text-yellow-400 hover:text-yellow-300">
                Regístrate aquí
             </a>
          </p>

@@ -12,10 +12,7 @@ export default async function ConferencesDataProvider() {
    const dates = await getCongressDates(TEMP_CONSTANTS.CONGRESS_ID);
 
    // Create a map to store conferences by day with speaker names
-   const conferencesByDay: Record<
-      string,
-      ConferenceWithSpeakerNamesAndPhones[]
-   > = {};
+   const conferencesByDay: Record<string, ConferenceWithSpeakerNamesAndPhones[]> = {};
 
    // Fetch conferences for each day with expanded speaker data
    // Using Promise.all to fetch all days in parallel for better performance
@@ -23,19 +20,11 @@ export default async function ConferencesDataProvider() {
       dates.map(async (day) => {
          const dayStr = format(day, "DD-MM-YYYY");
          // Use getAllCongressConferencesByDate which includes the expand parameter for speakers
-         const conferences = await getAllCongressConferencesByDate(
-            TEMP_CONSTANTS.CONGRESS_ID,
-            day,
-         );
+         const conferences = await getAllCongressConferencesByDate(TEMP_CONSTANTS.CONGRESS_ID, day);
          conferencesByDay[dayStr] = conferences;
       }),
    );
 
    // Return the client component with the fetched data
-   return (
-      <ScheduledConferencesSection
-         congressDates={dates}
-         conferencesMap={conferencesByDay}
-      />
-   );
+   return <ScheduledConferencesSection congressDates={dates} conferencesMap={conferencesByDay} />;
 }

@@ -9,10 +9,7 @@ interface BuyRecordingsButtonProps {
    className?: string;
 }
 
-export default function BuyRecordingsButton({
-   priceId,
-   className,
-}: BuyRecordingsButtonProps) {
+export default function BuyRecordingsButton({ priceId, className }: BuyRecordingsButtonProps) {
    const [isLoading, setIsLoading] = useState(false);
 
    const action = async () => {

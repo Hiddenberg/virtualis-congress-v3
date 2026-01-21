@@ -33,11 +33,7 @@ export async function POST(request: Request) {
 
    let event;
    try {
-      event = stripe.webhooks.constructEvent(
-         body,
-         signature,
-         credentials.webhookSecret,
-      );
+      event = stripe.webhooks.constructEvent(body, signature, credentials.webhookSecret);
    } catch (err) {
       // console.log(err)
       if (err instanceof Error) {
@@ -53,19 +49,13 @@ export async function POST(request: Request) {
       });
    }
 
-   if (
-      event.type === "checkout.session.async_payment_succeeded" ||
-      event.type === "checkout.session.completed"
-   ) {
+   if (event.type === "checkout.session.async_payment_succeeded" || event.type === "checkout.session.completed") {
       const checkoutSession = event.data.object;
 
       try {
          await fulfillCongressRegistrationV2(checkoutSession.id);
       } catch (error) {
-         console.error(
-            `[Webhook] Error fulfilling congress registration: `,
-            error,
-         );
+         console.error(`[Webhook] Error fulfilling congress registration: `, error);
          if (error instanceof Error) {
             await createFulfillmentErrorRecord({
                stripeCheckoutSessionId: checkoutSession.id,
@@ -88,9 +78,7 @@ export async function POST(request: Request) {
       const checkoutSession = event.data.object;
       const userPayment = await getUserPaymentRecord(checkoutSession.id);
       if (!userPayment) {
-         console.error(
-            `[Webhook] User payment not found for checkout session ${checkoutSession.id}`,
-         );
+         console.error(`[Webhook] User payment not found for checkout session ${checkoutSession.id}`);
          return new Response("Webhook Error: User payment not found", {
             status: 400,
          });

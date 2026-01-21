@@ -66,12 +66,10 @@ function useConferenceMessages(conferenceId: string | null) {
       const run = async () => {
          // initial load
          if (!loadedRef.current) {
-            const records = await pbClient
-               .collection(PB_COLLECTIONS.CHAT_MESSAGES)
-               .getFullList<ChatMessageRecord>({
-                  filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
-                  sort: "created",
-               });
+            const records = await pbClient.collection(PB_COLLECTIONS.CHAT_MESSAGES).getFullList<ChatMessageRecord>({
+               filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
+               sort: "created",
+            });
             for (const r of records) {
                processedIds.current.add(r.id);
             }
@@ -80,28 +78,26 @@ function useConferenceMessages(conferenceId: string | null) {
          }
 
          // realtime subscribe
-         unsub = await pbClient
-            .collection(PB_COLLECTIONS.CHAT_MESSAGES)
-            .subscribe<ChatMessageRecord>(
-               "*",
-               (evt) => {
-                  switch (evt.action) {
-                     case "create":
-                        add(toMsg(evt.record));
-                        break;
-                     case "delete":
-                        remove(evt.record.id);
-                        break;
-                     case "update":
-                        remove(evt.record.id);
-                        add(toMsg(evt.record));
-                        break;
-                  }
-               },
-               {
-                  filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
-               },
-            );
+         unsub = await pbClient.collection(PB_COLLECTIONS.CHAT_MESSAGES).subscribe<ChatMessageRecord>(
+            "*",
+            (evt) => {
+               switch (evt.action) {
+                  case "create":
+                     add(toMsg(evt.record));
+                     break;
+                  case "delete":
+                     remove(evt.record.id);
+                     break;
+                  case "update":
+                     remove(evt.record.id);
+                     add(toMsg(evt.record));
+                     break;
+               }
+            },
+            {
+               filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
+            },
+         );
       };
 
       run();
@@ -113,11 +109,7 @@ function useConferenceMessages(conferenceId: string | null) {
    return messages;
 }
 
-export default function SelfContainedRealtimeChatViewer({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export default function SelfContainedRealtimeChatViewer({ conferenceId }: { conferenceId: string }) {
    const messages = useConferenceMessages(conferenceId);
    const containerRef = useRef<HTMLDivElement>(null);
 
@@ -153,16 +145,10 @@ export default function SelfContainedRealtimeChatViewer({
                            className={`max-w-sm p-3 rounded-xl border shadow-sm ${msg.isQuestion ? "bg-amber-50 border-amber-200" : "bg-white border-stone-200"}`}
                         >
                            <div className="flex items-center gap-2 mb-1">
-                              <span className="font-semibold text-stone-700 text-xl">
-                                 {msg.sender}
-                              </span>
-                              {msg.isQuestion && (
-                                 <HelpCircle className="w-4 h-4 text-amber-600" />
-                              )}
+                              <span className="font-semibold text-stone-700 text-xl">{msg.sender}</span>
+                              {msg.isQuestion && <HelpCircle className="w-4 h-4 text-amber-600" />}
                            </div>
-                           <p className="font-bold text-stone-700 text-lg">
-                              {msg.text}
-                           </p>
+                           <p className="font-bold text-stone-700 text-lg">{msg.text}</p>
                         </div>
                      </div>
                   ))

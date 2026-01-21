@@ -1,13 +1,7 @@
 "use client";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
-import {
-   ProgressIndicator,
-   SignUpFooter,
-   StepHeader,
-   StepOne,
-   StepTwo,
-} from ".";
+import { ProgressIndicator, SignUpFooter, StepHeader, StepOne, StepTwo } from ".";
 
 export interface NewUserFormData {
    email: string;
@@ -140,10 +134,7 @@ export default function StaggeredAuthSignupForm({
       }
    };
 
-   const handleInputChange = (
-      field: keyof typeof newUserData,
-      value: string,
-   ) => {
+   const handleInputChange = (field: keyof typeof newUserData, value: string) => {
       setNewUserData((prev) => ({
          ...prev,
          [field]: value,
@@ -177,11 +168,7 @@ export default function StaggeredAuthSignupForm({
       <div className="flex justify-center items-center bg-gradient-to-br from-gray-50 to-gray-100 p-4 w-full min-h-screen">
          <div className="bg-white shadow-xl p-8 md:p-10 border border-gray-200 rounded-2xl w-full max-w-lg">
             <ProgressIndicator currentStep={currentStep} totalSteps={2} />
-            <StepHeader
-               currentStep={currentStep}
-               welcomeMessage={welcomeMessage}
-               welcomeDescription={welcomeDescription}
-            />
+            <StepHeader currentStep={currentStep} welcomeMessage={welcomeMessage} welcomeDescription={welcomeDescription} />
 
             {/* Step 1: Email and Name */}
             {currentStep === 1 && (
@@ -207,9 +194,7 @@ export default function StaggeredAuthSignupForm({
                      dateOfBirth: errors.dateOfBirth,
                      phoneNumber: errors.phoneNumber,
                   }}
-                  onDateOfBirthChange={(value) =>
-                     handleInputChange("dateOfBirth", value)
-                  }
+                  onDateOfBirthChange={(value) => handleInputChange("dateOfBirth", value)}
                   onPhoneNumberChange={handlePhoneInputChange}
                   onBack={handleBack}
                   onSubmit={handleSubmit}

@@ -14,10 +14,7 @@ export default function DeleteQuestionPollButton({
    const [isPending, startTransition] = useTransition();
 
    const handleDelete = () => {
-      if (
-         !confirm("¿Eliminar esta encuesta? Esta acción no se puede deshacer.")
-      )
-         return;
+      if (!confirm("¿Eliminar esta encuesta? Esta acción no se puede deshacer.")) return;
 
       startTransition(async () => {
          await deleteQuestionPollAction({

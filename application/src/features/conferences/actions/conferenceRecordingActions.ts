@@ -2,10 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
-import {
-   linkRecordingToConference,
-   unlinkRecordingFromConference,
-} from "../services/conferenceRecordingsServices";
+import { linkRecordingToConference, unlinkRecordingFromConference } from "../services/conferenceRecordingsServices";
 
 export async function linkRecordingToConferenceAction({
    conferenceId,

@@ -49,20 +49,11 @@ export default function SponsorCarousel({
       return () => clearInterval(interval);
    }, [nextPage]);
 
-   const currentSponsors = sponsors.slice(
-      currentPage * sponsorsPerPage,
-      (currentPage + 1) * sponsorsPerPage,
-   );
+   const currentSponsors = sponsors.slice(currentPage * sponsorsPerPage, (currentPage + 1) * sponsorsPerPage);
 
    return (
       <div className="bg-gray-100 mx-auto px-4 py-3 rounded-xl w-full">
-         {title && (
-            <h2
-               className={`text-2xl font-bold text-center mb-6 transition-opacity duration-300`}
-            >
-               {title}
-            </h2>
-         )}
+         {title && <h2 className={`text-2xl font-bold text-center mb-6 transition-opacity duration-300`}>{title}</h2>}
          <div className="relative">
             <div className="flex justify-between items-center">
                <button
@@ -78,9 +69,7 @@ export default function SponsorCarousel({
                         href={sponsor.url || "#"}
                         target={sponsor.url ? "_blank" : undefined}
                         className={`size-36 ${sponsor.background === "dark" ? "bg-gray-800" : "bg-white"} ${sponsor.url ? "cursor-pointer" : "cursor-default pointer-events-none"} rounded-lg shadow-md flex items-center justify-center p-4 transition-all duration-300 ${
-                           isAnimating
-                              ? "opacity-0 transform translate-x-full"
-                              : "opacity-100 transform translate-x-0"
+                           isAnimating ? "opacity-0 transform translate-x-full" : "opacity-100 transform translate-x-0"
                         }`}
                      >
                         <Image
@@ -103,12 +92,7 @@ export default function SponsorCarousel({
          </div>
          <div className="flex justify-center space-x-2 mt-6">
             {[...Array(totalPages)].map((_, index) => (
-               <div
-                  key={index}
-                  className={`size-2 rounded-full ${
-                     index === currentPage ? "bg-blue-500" : "bg-gray-300"
-                  }`}
-               />
+               <div key={index} className={`size-2 rounded-full ${index === currentPage ? "bg-blue-500" : "bg-gray-300"}`} />
             ))}
          </div>
       </div>

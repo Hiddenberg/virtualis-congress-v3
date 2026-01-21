@@ -6,17 +6,12 @@ import { toast } from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { deleteOrganizationCredentialsAction } from "../serverActions/organizationCredentialsActions";
 
-export default function DeleteOrganizationCredentialsButton({
-   credentialsId,
-}: {
-   credentialsId: string;
-}) {
+export default function DeleteOrganizationCredentialsButton({ credentialsId }: { credentialsId: string }) {
    const [isSubmitting, startTransition] = useTransition();
 
    const handleDelete = () => {
       startTransition(async () => {
-         const response =
-            await deleteOrganizationCredentialsAction(credentialsId);
+         const response = await deleteOrganizationCredentialsAction(credentialsId);
 
          if (!response.success) {
             toast.error(response.errorMessage);

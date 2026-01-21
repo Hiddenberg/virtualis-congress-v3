@@ -5,12 +5,7 @@ const EMAIL_SMTP_PORT = process.env.EMAIL_SMTP_PORT;
 const EMAIL_SMTP_USER = process.env.EMAIL_SMTP_USER;
 const EMAIL_SMTP_PASSWORD = process.env.EMAIL_SMTP_PASSWORD;
 
-if (
-   !EMAIL_SMTP_HOST ||
-   !EMAIL_SMTP_PORT ||
-   !EMAIL_SMTP_USER ||
-   !EMAIL_SMTP_PASSWORD
-) {
+if (!EMAIL_SMTP_HOST || !EMAIL_SMTP_PORT || !EMAIL_SMTP_USER || !EMAIL_SMTP_PASSWORD) {
    throw new Error("Missing SMTP configuration");
 }
 

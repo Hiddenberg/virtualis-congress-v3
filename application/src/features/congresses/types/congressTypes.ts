@@ -14,7 +14,4 @@ export interface Congress {
 
 export type CongressRecord = DBRecordItem<Congress>;
 
-export type NewCongressPriceData = Omit<
-   ProductPrice,
-   "organization" | "congress" | "stripePriceId"
->;
+export type NewCongressPriceData = Omit<ProductPrice, "organization" | "congress" | "stripePriceId">;

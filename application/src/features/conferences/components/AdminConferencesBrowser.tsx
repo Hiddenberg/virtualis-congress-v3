@@ -9,10 +9,7 @@ interface AdminConferencesBrowserProps {
    children: React.ReactNode;
 }
 
-export default function AdminConferencesBrowser({
-   conferences,
-   children,
-}: AdminConferencesBrowserProps) {
+export default function AdminConferencesBrowser({ conferences, children }: AdminConferencesBrowserProps) {
    const [selectedDateKey, setSelectedDateKey] = useState<string>("all");
    const [query, setQuery] = useState<string>("");
 
@@ -39,33 +36,19 @@ export default function AdminConferencesBrowser({
       const normalizedQuery = query.trim().toLowerCase();
 
       return items.map((item) => {
-         const matchesDate =
-            selectedDateKey === "all" || item.dateKey === selectedDateKey;
-         const matchesQuery =
-            normalizedQuery === "" ||
-            item.title.toLowerCase().includes(normalizedQuery);
+         const matchesDate = selectedDateKey === "all" || item.dateKey === selectedDateKey;
+         const matchesQuery = normalizedQuery === "" || item.title.toLowerCase().includes(normalizedQuery);
          return matchesDate && matchesQuery;
       });
    }, [items, selectedDateKey, query]);
 
-   const visibleCount = useMemo(
-      () => visibilityByIndex.filter(Boolean).length,
-      [visibilityByIndex],
-   );
+   const visibleCount = useMemo(() => visibilityByIndex.filter(Boolean).length, [visibilityByIndex]);
 
    return (
       <div className="space-y-6">
          <div className="flex md:flex-row flex-col md:justify-between md:items-center gap-4">
-            <div
-               role="tablist"
-               aria-label="Filtrar por fecha"
-               className="flex flex-wrap items-center gap-2"
-            >
-               <TabButton
-                  isActive={selectedDateKey === "all"}
-                  onClick={() => setSelectedDateKey("all")}
-                  label="Todas"
-               />
+            <div role="tablist" aria-label="Filtrar por fecha" className="flex flex-wrap items-center gap-2">
+               <TabButton isActive={selectedDateKey === "all"} onClick={() => setSelectedDateKey("all")} label="Todas" />
                {uniqueDateKeys.map((key) => (
                   <TabButton
                      key={key}
@@ -91,19 +74,12 @@ export default function AdminConferencesBrowser({
 
          {visibleCount === 0 ? (
             <div className="bg-white shadow-sm p-10 border border-gray-300 border-dashed rounded-xl text-center">
-               <p className="text-gray-600">
-                  No hay conferencias que coincidan con los filtros
-               </p>
+               <p className="text-gray-600">No hay conferencias que coincidan con los filtros</p>
             </div>
          ) : (
             <div className="gap-6 grid grid-cols-1">
                {childrenArray.map((child, index) => (
-                  <div
-                     key={index}
-                     className={
-                        visibilityByIndex[index] ? "contents" : "hidden"
-                     }
-                  >
+                  <div key={index} className={visibilityByIndex[index] ? "contents" : "hidden"}>
                      {child}
                   </div>
                ))}
@@ -113,15 +89,7 @@ export default function AdminConferencesBrowser({
    );
 }
 
-function TabButton({
-   isActive,
-   onClick,
-   label,
-}: {
-   isActive: boolean;
-   onClick: () => void;
-   label: string;
-}) {
+function TabButton({ isActive, onClick, label }: { isActive: boolean; onClick: () => void; label: string }) {
    return (
       <button
          type="button"

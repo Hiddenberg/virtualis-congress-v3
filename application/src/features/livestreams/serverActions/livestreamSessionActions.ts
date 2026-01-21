@@ -1,11 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-   prepareZoomSessionLiveStream,
-   startZoomSessionLiveStream,
-   stopZoomSessionLiveStream,
-} from "@/libs/zoomVideoSDKAPI";
+import { prepareZoomSessionLiveStream, startZoomSessionLiveStream, stopZoomSessionLiveStream } from "@/libs/zoomVideoSDKAPI";
 import { MUX_RTMP_URL } from "../constants/livestreamConstants";
 import {
    createLivestreamSession,
@@ -25,9 +21,7 @@ export async function createLivestreamAction() {
    return createdLivestreamSession;
 }
 
-export async function startPreparingLivestreamSessionAction(
-   livestreamSessionId: string,
-) {
+export async function startPreparingLivestreamSessionAction(livestreamSessionId: string) {
    // const userId = await getLoggedInUserId()
 
    // if (!userId) {
@@ -44,13 +38,10 @@ export async function startPreparingLivestreamSessionAction(
    //    }
    // }
 
-   const livestreamSession =
-      await getLivestreamSessionById(livestreamSessionId);
+   const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
 
    if (!livestreamSession) {
-      console.error(
-         `[Livestream Session Actions] Livestream session not found for livestream session ${livestreamSessionId}`,
-      );
+      console.error(`[Livestream Session Actions] Livestream session not found for livestream session ${livestreamSessionId}`);
       return {
          errorMessage:
             "[startPreparingLivestreamSessionAction] No se encontró una sesión de transmisión para el webinar seleccionado",
@@ -66,8 +57,7 @@ export async function startPreparingLivestreamSessionAction(
    revalidatePath(`/live-transmission/[classId]`, "page");
 
    return {
-      successMessage:
-         "Se ha iniciado la preparación de la sesión de transmisión",
+      successMessage: "Se ha iniciado la preparación de la sesión de transmisión",
    };
 }
 
@@ -89,34 +79,24 @@ export async function startLivestreamAction({
       //    }
       // }
 
-      const livestreamSession =
-         await getLivestreamSessionById(livestreamSessionId);
+      const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
 
       if (!livestreamSession) {
          return {
             success: false,
-            errorMessage:
-               "[startLivestreamAction] No se encontró una sesión de transmisión para el webinar seleccionado",
+            errorMessage: "[startLivestreamAction] No se encontró una sesión de transmisión para el webinar seleccionado",
          };
       }
 
-      const livestreamMuxAsset =
-         await getMuxLivestreamRecordByLivestreamSessionId(
-            livestreamSession.id,
-         );
+      const livestreamMuxAsset = await getMuxLivestreamRecordByLivestreamSessionId(livestreamSession.id);
       if (!livestreamMuxAsset) {
          return {
             success: false,
-            errorMessage:
-               "[startLivestreamAction] No se encontró un asset de transmisión para la sesión de transmisión",
+            errorMessage: "[startLivestreamAction] No se encontró un asset de transmisión para la sesión de transmisión",
          };
       }
 
-      const { message, success } = await prepareZoomSessionLiveStream(
-         zoomSessionId,
-         MUX_RTMP_URL,
-         livestreamMuxAsset.streamKey,
-      );
+      const { message, success } = await prepareZoomSessionLiveStream(zoomSessionId, MUX_RTMP_URL, livestreamMuxAsset.streamKey);
 
       if (!success) {
          return {
@@ -125,10 +105,8 @@ export async function startLivestreamAction({
          };
       }
 
-      const {
-         success: successStartZoomSessionLiveStream,
-         message: messageStartZoomSessionLiveStream,
-      } = await startZoomSessionLiveStream(zoomSessionId, sessionTitle);
+      const { success: successStartZoomSessionLiveStream, message: messageStartZoomSessionLiveStream } =
+         await startZoomSessionLiveStream(zoomSessionId, sessionTitle);
 
       if (!successStartZoomSessionLiveStream) {
          return {
@@ -171,32 +149,23 @@ export async function resumeLivestreamAction({
    zoomSessionId: string;
    sessionTitle: string;
 }): Promise<BackendResponse<{ successMessage: string }>> {
-   const livestreamSession =
-      await getLivestreamSessionById(livestreamSessionId);
+   const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
    if (!livestreamSession) {
       return {
          success: false,
-         errorMessage:
-            "[resumeLivestreamAction] No se encontró una sesión de transmisión para el webinar seleccionado",
+         errorMessage: "[resumeLivestreamAction] No se encontró una sesión de transmisión para el webinar seleccionado",
       };
    }
 
-   const livestreamMuxAsset = await getMuxLivestreamRecordByLivestreamSessionId(
-      livestreamSession.id,
-   );
+   const livestreamMuxAsset = await getMuxLivestreamRecordByLivestreamSessionId(livestreamSession.id);
    if (!livestreamMuxAsset) {
       return {
          success: false,
-         errorMessage:
-            "[resumeLivestreamAction] No se encontró un asset de transmisión para la sesión de transmisión",
+         errorMessage: "[resumeLivestreamAction] No se encontró un asset de transmisión para la sesión de transmisión",
       };
    }
 
-   const { message, success } = await prepareZoomSessionLiveStream(
-      zoomSessionId,
-      MUX_RTMP_URL,
-      livestreamMuxAsset.streamKey,
-   );
+   const { message, success } = await prepareZoomSessionLiveStream(zoomSessionId, MUX_RTMP_URL, livestreamMuxAsset.streamKey);
 
    if (!success) {
       return {
@@ -205,10 +174,8 @@ export async function resumeLivestreamAction({
       };
    }
 
-   const {
-      success: successResumeZoomSessionLiveStream,
-      message: messageResumeZoomSessionLiveStream,
-   } = await startZoomSessionLiveStream(zoomSessionId, sessionTitle);
+   const { success: successResumeZoomSessionLiveStream, message: messageResumeZoomSessionLiveStream } =
+      await startZoomSessionLiveStream(zoomSessionId, sessionTitle);
 
    if (!successResumeZoomSessionLiveStream) {
       return {
@@ -246,8 +213,7 @@ export async function stopLivestreamAction({
       //    }
       // }
 
-      const livestreamSession =
-         await getLivestreamSessionById(livestreamSessionId);
+      const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
 
       if (!livestreamSession) {
          return {
@@ -259,15 +225,12 @@ export async function stopLivestreamAction({
       if (livestreamSession.status !== "streaming") {
          return {
             success: false,
-            errorMessage:
-               "La sesión de transmisión no está en estado streaming",
+            errorMessage: "La sesión de transmisión no está en estado streaming",
          };
       }
 
-      const {
-         success: successStopZoomSessionLiveStream,
-         message: messageStopZoomSessionLiveStream,
-      } = await stopZoomSessionLiveStream(zoomSessionId);
+      const { success: successStopZoomSessionLiveStream, message: messageStopZoomSessionLiveStream } =
+         await stopZoomSessionLiveStream(zoomSessionId);
 
       if (!successStopZoomSessionLiveStream) {
          return {

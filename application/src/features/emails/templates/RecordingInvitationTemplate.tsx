@@ -1,16 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface RecordingInvitationTemplateProps {
    inviteeName: string;
@@ -39,36 +28,24 @@ export default function RecordingInvitationTemplate({
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
-                  <Heading style={brandTitleStyle}>
-                     Virtualis Recordings
-                  </Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Plataforma de grabación
-                  </Text>
+                  <Heading style={brandTitleStyle}>Virtualis Recordings</Heading>
+                  <Text style={headerSubtitleStyle}>Plataforma de grabación</Text>
                </Section>
 
                {/* Main Content */}
                <Section style={contentStyle}>
-                  <Heading style={messageTitleStyle}>
-                     ¡Hola, {inviteeName}!
-                  </Heading>
+                  <Heading style={messageTitleStyle}>¡Hola, {inviteeName}!</Heading>
 
                   {/* Intro */}
                   <Text style={introStyle}>
-                     Te hemos enviado esta invitación para que puedas grabar tu
-                     presentación utilizando nuestra plataforma. Hemos
-                     configurado todo para que tu experiencia de grabación sea
-                     simple y profesional.
+                     Te hemos enviado esta invitación para que puedas grabar tu presentación utilizando nuestra plataforma. Hemos
+                     configurado todo para que tu experiencia de grabación sea simple y profesional.
                   </Text>
 
                   {/* Recording Info */}
                   <Section style={detailsContainerStyle}>
-                     <Heading style={detailsTitleStyle}>
-                        Detalles de la grabación
-                     </Heading>
-                     <Text style={detailsLabelStyle}>
-                        Has sido invitado(a) a grabar:
-                     </Text>
+                     <Heading style={detailsTitleStyle}>Detalles de la grabación</Heading>
+                     <Text style={detailsLabelStyle}>Has sido invitado(a) a grabar:</Text>
                      <Text style={recordingTitleStyle}>{recordingTitle}</Text>
                   </Section>
 
@@ -77,8 +54,7 @@ export default function RecordingInvitationTemplate({
                      <Section style={deadlineContainerStyle}>
                         <Text style={deadlineTitleStyle}>Fecha límite</Text>
                         <Text style={deadlineTextStyle}>
-                           Por favor completa tu grabación a más tardar el{" "}
-                           <strong>{maxDeadline}</strong>.
+                           Por favor completa tu grabación a más tardar el <strong>{maxDeadline}</strong>.
                         </Text>
                      </Section>
                   )}
@@ -88,10 +64,7 @@ export default function RecordingInvitationTemplate({
                      <Button href={recordingLink} style={ctaButtonStyle}>
                         🎥 Comenzar grabación
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Si el botón no funciona, copia y pega este enlace en tu
-                        navegador:
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Si el botón no funciona, copia y pega este enlace en tu navegador:</Text>
                      <Text style={linkTextStyle}>{recordingLink}</Text>
                   </Section>
 
@@ -99,29 +72,15 @@ export default function RecordingInvitationTemplate({
 
                   {/* Instructions */}
                   <Section style={instructionsContainerStyle}>
-                     <Text style={instructionsTitleStyle}>
-                        📋 Instrucciones para la grabación
-                     </Text>
+                     <Text style={instructionsTitleStyle}>📋 Instrucciones para la grabación</Text>
                      <Section>
+                        <Text style={instructionItemStyle}>1. Haz clic en el botón &quot;Comenzar grabación&quot; de arriba</Text>
                         <Text style={instructionItemStyle}>
-                           1. Haz clic en el botón &quot;Comenzar
-                           grabación&quot; de arriba
+                           2. Permite el acceso a tu cámara y micrófono cuando se te solicite
                         </Text>
-                        <Text style={instructionItemStyle}>
-                           2. Permite el acceso a tu cámara y micrófono cuando
-                           se te solicite
-                        </Text>
-                        <Text style={instructionItemStyle}>
-                           3. Realiza una prueba de grabación para verificar
-                           audio y video
-                        </Text>
-                        <Text style={instructionItemStyle}>
-                           4. Cuando estés listo(a), inicia la grabación oficial
-                        </Text>
-                        <Text style={instructionItemStyle}>
-                           5. Al finalizar, la grabación se subirá
-                           automáticamente
-                        </Text>
+                        <Text style={instructionItemStyle}>3. Realiza una prueba de grabación para verificar audio y video</Text>
+                        <Text style={instructionItemStyle}>4. Cuando estés listo(a), inicia la grabación oficial</Text>
+                        <Text style={instructionItemStyle}>5. Al finalizar, la grabación se subirá automáticamente</Text>
                      </Section>
                   </Section>
 
@@ -129,8 +88,7 @@ export default function RecordingInvitationTemplate({
                   <Section style={noteContainerStyle}>
                      <Text style={noteTitleStyle}>ℹ️ Importante</Text>
                      <Text style={noteTextStyle}>
-                        Este enlace es único para ti y tu grabación. Por favor,
-                        no lo compartas con otras personas.
+                        Este enlace es único para ti y tu grabación. Por favor, no lo compartas con otras personas.
                      </Text>
                   </Section>
                </Section>
@@ -138,8 +96,7 @@ export default function RecordingInvitationTemplate({
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -150,8 +107,7 @@ export default function RecordingInvitationTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
 
                   {/* Tracking pixel */}
@@ -174,8 +130,7 @@ export default function RecordingInvitationTemplate({
 
 // Styles aligned with existing templates (neutral + blue palette)
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

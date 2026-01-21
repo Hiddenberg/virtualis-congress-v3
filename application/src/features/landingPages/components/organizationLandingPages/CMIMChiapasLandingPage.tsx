@@ -1,7 +1,4 @@
-import {
-   CMIM_CONFERENCES_DAY_1,
-   CMIM_CONFERENCES_DAY_2,
-} from "@/data/tempConstants";
+import { CMIM_CONFERENCES_DAY_1, CMIM_CONFERENCES_DAY_2 } from "@/data/tempConstants";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import FooterSection from "./CMIMChiapasLanding/FooterSection";
@@ -9,11 +6,7 @@ import HeroSection from "./CMIMChiapasLanding/HeroSection";
 import ProgramSchedule from "./CMIMChiapasLanding/ProgramSchedule";
 import RegistrationInfo from "./CMIMChiapasLanding/RegistrationInfo";
 
-export default async function CMIMChiapasLandingPage({
-   organization,
-}: {
-   organization: OrganizationRecord;
-}) {
+export default async function CMIMChiapasLandingPage({ organization }: { organization: OrganizationRecord }) {
    const organizationLogoUrl = organization.logoURL ?? "";
    const conferencesDay1 = CMIM_CONFERENCES_DAY_1;
    const conferencesDay2 = CMIM_CONFERENCES_DAY_2;
@@ -36,11 +29,7 @@ export default async function CMIMChiapasLandingPage({
          <RegistrationInfo userId={userId} />
 
          {/* Program Schedule Section */}
-         <ProgramSchedule
-            conferencesDay1={conferencesDay1}
-            conferencesDay2={conferencesDay2}
-            userId={userId}
-         />
+         <ProgramSchedule conferencesDay1={conferencesDay1} conferencesDay2={conferencesDay2} userId={userId} />
 
          {/* Footer */}
          <FooterSection />

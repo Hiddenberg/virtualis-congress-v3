@@ -3,9 +3,7 @@
 import { sendPlatformRegistrationConfirmationEmail } from "@/features/emails/services/emailSendingServices";
 import { registerUserToLatestCongress } from "../services/congressRegistrationServices";
 
-export async function confirmCongressRegistrationAction(
-   newUserId: string,
-): Promise<BackendResponse<{ successMessage: string }>> {
+export async function confirmCongressRegistrationAction(newUserId: string): Promise<BackendResponse<{ successMessage: string }>> {
    try {
       // Register user to latest congress
       await registerUserToLatestCongress(newUserId);
@@ -29,8 +27,7 @@ export async function confirmCongressRegistrationAction(
 
       return {
          success: false,
-         errorMessage:
-            "Ocurrió un error inesperado al confirmar la registración",
+         errorMessage: "Ocurrió un error inesperado al confirmar la registración",
       };
    }
 }

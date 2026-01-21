@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface SpeakerCertificateTemplateProps {
    speakerName: string;
@@ -27,22 +16,18 @@ export default function SpeakerCertificateTemplate({
    return (
       <Html lang="es-MX">
          <Head>
-            <title>
-               Tu certificado de ponente está disponible - Virtualis Congress
-            </title>
+            <title>Tu certificado de ponente está disponible - Virtualis Congress</title>
          </Head>
          <Preview>
-            {academicTitle} {speakerName}, tu certificado de participación como
-            ponente en {congressTitle} está listo para descargar
+            {academicTitle} {speakerName}, tu certificado de participación como ponente en {congressTitle} está listo para
+            descargar
          </Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
@@ -54,23 +39,18 @@ export default function SpeakerCertificateTemplate({
                         ¡Felicidades, {academicTitle} {speakerName}!
                      </Heading>
                      <Text style={congratsDescriptionStyle}>
-                        Gracias por compartir tu conocimiento y experiencia en{" "}
-                        <span style={highlightStyle}>{congressTitle}</span>. Tu
-                        participación fue invaluable para el éxito del evento.
+                        Gracias por compartir tu conocimiento y experiencia en <span style={highlightStyle}>{congressTitle}</span>
+                        . Tu participación fue invaluable para el éxito del evento.
                      </Text>
                   </Section>
 
                   {/* Certificate Info */}
                   <Section style={certificateInfoStyle}>
-                     <Heading style={certificateInfoTitleStyle}>
-                        Tu certificado está disponible
-                     </Heading>
+                     <Heading style={certificateInfoTitleStyle}>Tu certificado está disponible</Heading>
 
                      <Text style={certificateDescriptionStyle}>
-                        Hemos preparado tu certificado oficial de participación
-                        como ponente. Este documento acredita tu contribución
-                        profesional al congreso y puede ser utilizado para fines
-                        académicos y curriculares.
+                        Hemos preparado tu certificado oficial de participación como ponente. Este documento acredita tu
+                        contribución profesional al congreso y puede ser utilizado para fines académicos y curriculares.
                      </Text>
                   </Section>
 
@@ -79,10 +59,7 @@ export default function SpeakerCertificateTemplate({
                      <Button href={certificateUrl} style={ctaButtonStyle}>
                         Descargar mi certificado
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Si el botón no funciona, copia y pega este enlace en tu
-                        navegador:
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Si el botón no funciona, copia y pega este enlace en tu navegador:</Text>
                      <Text style={linkTextStyle}>{certificateUrl}</Text>
                   </Section>
 
@@ -90,23 +67,18 @@ export default function SpeakerCertificateTemplate({
 
                   {/* Additional Information */}
                   <Section style={additionalInfoContainerStyle}>
-                     <Heading style={additionalInfoTitleStyle}>
-                        Recomendaciones
-                     </Heading>
+                     <Heading style={additionalInfoTitleStyle}>Recomendaciones</Heading>
 
                      <Text style={recommendationItemStyle}>
-                        <strong>📥 Descarga inmediata:</strong> Guarda tu
-                        certificado en un lugar seguro para futuras referencias
+                        <strong>📥 Descarga inmediata:</strong> Guarda tu certificado en un lugar seguro para futuras referencias
                      </Text>
 
                      <Text style={recommendationItemStyle}>
-                        <strong>🖨️ Impresión:</strong> El certificado está
-                        optimizado para impresión en tamaño carta u oficio
+                        <strong>🖨️ Impresión:</strong> El certificado está optimizado para impresión en tamaño carta u oficio
                      </Text>
 
                      <Text style={recommendationItemStyle}>
-                        <strong>💼 Portafolio profesional:</strong> Comparte
-                        este logro en tus redes profesionales y CV
+                        <strong>💼 Portafolio profesional:</strong> Comparte este logro en tus redes profesionales y CV
                      </Text>
                   </Section>
 
@@ -115,10 +87,8 @@ export default function SpeakerCertificateTemplate({
                   {/* Thank You Note */}
                   <Section style={thankYouSectionStyle}>
                      <Text style={thankYouTextStyle}>
-                        Una vez más, agradecemos tu valiosa participación y
-                        esperamos contar contigo en futuros eventos. Tu
-                        expertise y dedicación contribuyen significativamente al
-                        desarrollo profesional de nuestra comunidad.
+                        Una vez más, agradecemos tu valiosa participación y esperamos contar contigo en futuros eventos. Tu
+                        expertise y dedicación contribuyen significativamente al desarrollo profesional de nuestra comunidad.
                      </Text>
                   </Section>
                </Section>
@@ -134,8 +104,7 @@ export default function SpeakerCertificateTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -146,8 +115,7 @@ export default function SpeakerCertificateTemplate({
 
 // Styles using the same design system as other templates
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

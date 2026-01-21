@@ -5,10 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import ConferenceFinishedScreen from "@/components/conferenceStageScreens/ConferenceFinishedScreen";
 import WaitingToStartScreen from "@/components/conferenceStageScreens/WaitingToStartScreen";
-import {
-   getSimuliveVariables,
-   type SimuliveData,
-} from "../utils/simulivePlayerUtils";
+import { getSimuliveVariables, type SimuliveData } from "../utils/simulivePlayerUtils";
 import PresentationAndVideoSimulivePlayer from "./PresentationAndVideoSimulivePlayer";
 import VideoSimulivePlayer from "./VideoSimulivePlayer";
 
@@ -24,17 +21,10 @@ export default function SimuliveStagesWrapper({
    isQna?: boolean;
 }) {
    const [currentStage, setCurrentStage] = useState<
-      | "waiting_to_start"
-      | "speaker_presentation_recording"
-      | "started"
-      | "finished"
+      "waiting_to_start" | "speaker_presentation_recording" | "started" | "finished"
    >(() => {
-      const {
-         startDateTimeDate,
-         endDateTimeDate,
-         serverTimeDate,
-         speakerPresentationEndDate,
-      } = getSimuliveVariables(simuliveData);
+      const { startDateTimeDate, endDateTimeDate, serverTimeDate, speakerPresentationEndDate } =
+         getSimuliveVariables(simuliveData);
 
       if (isBefore(serverTimeDate, startDateTimeDate)) {
          return "waiting_to_start";
@@ -45,10 +35,7 @@ export default function SimuliveStagesWrapper({
       }
 
       // If the server time is after the start date and before the speaker presentation end date, show the speaker presentation recording
-      if (
-         isAfter(serverTimeDate, startDateTimeDate) &&
-         isBefore(serverTimeDate, speakerPresentationEndDate)
-      ) {
+      if (isAfter(serverTimeDate, startDateTimeDate) && isBefore(serverTimeDate, speakerPresentationEndDate)) {
          return "speaker_presentation_recording";
       }
 
@@ -68,17 +55,13 @@ export default function SimuliveStagesWrapper({
    }>({
       queryKey: ["recording-presentation-bundle", recordingId],
       queryFn: async () => {
-         const response = await fetch(
-            `/api/recording/${recordingId}/presentation-bundle`,
-         );
+         const response = await fetch(`/api/recording/${recordingId}/presentation-bundle`);
          if (!response.ok) {
             throw new Error("No se pudo cargar la presentación");
          }
          return response.json();
       },
-      enabled:
-         !!recordingId &&
-         conferenceRecording?.recordingType === "camera_and_presentation",
+      enabled: !!recordingId && conferenceRecording?.recordingType === "camera_and_presentation",
       staleTime: 60_000,
    });
 
@@ -127,19 +110,12 @@ export default function SimuliveStagesWrapper({
       }
 
       if (!simuliveData.speakerPresentationRecording.muxPlaybackId) {
-         return (
-            <div>
-               No hay playbackId de Mux para la grabación de presentación del
-               ponente
-            </div>
-         );
+         return <div>No hay playbackId de Mux para la grabación de presentación del ponente</div>;
       }
 
       return (
          <VideoSimulivePlayer
-            muxPlaybackId={
-               simuliveData.speakerPresentationRecording.muxPlaybackId
-            }
+            muxPlaybackId={simuliveData.speakerPresentationRecording.muxPlaybackId}
             simuliveData={simuliveData}
             onVideoFinished={() => setCurrentStage("started")}
             isSpeakerPresentationRecording={true}
@@ -160,10 +136,8 @@ export default function SimuliveStagesWrapper({
             return <div>No se pudo cargar la presentación</div>;
          }
 
-         const presentationRecording =
-            presentationBundle?.presentationRecording || null;
-         const presentationSlides =
-            presentationBundle?.presentationSlides || [];
+         const presentationRecording = presentationBundle?.presentationRecording || null;
+         const presentationSlides = presentationBundle?.presentationSlides || [];
 
          if (!presentationRecording) {
             return <div>No hay g de presentación disponible</div>;

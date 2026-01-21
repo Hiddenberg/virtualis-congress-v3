@@ -67,11 +67,7 @@ export default function StepTwo({
                className="flex flex-2 justify-center items-center space-x-3 bg-gradient-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl disabled:hover:shadow-lg px-6 py-4 rounded-xl font-bold text-white transition-all hover:-translate-y-0.5 disabled:hover:translate-y-0 duration-200"
             >
                <span>{isSubmitting ? "Registrando..." : "Registrarme"}</span>
-               {isSubmitting ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-               ) : (
-                  <Check className="w-5 h-5" />
-               )}
+               {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Check className="w-5 h-5" />}
             </button>
          </div>
       </div>

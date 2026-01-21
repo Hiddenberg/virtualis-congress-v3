@@ -9,10 +9,7 @@ import { getUserById } from "@/features/users/services/userServices";
 import { getOrganizationStripeInstance } from "../lib/stripe";
 import { getCMIMCCStripeProducts } from "../services/CMIMCCPaymentServices";
 import { getHGEAStripeProducts } from "../services/HGEAPaymentServices";
-import {
-   createUserPaymentRecord,
-   ensuredUserStripeCustomer,
-} from "../services/organizationPaymentsServices";
+import { createUserPaymentRecord, ensuredUserStripeCustomer } from "../services/organizationPaymentsServices";
 import { getOrganizationStripeURLs } from "../services/organizationStripeCredentialsServices";
 
 async function getCMIMCCCongressStripePriceId({
@@ -24,22 +21,15 @@ async function getCMIMCCCongressStripePriceId({
 }) {
    const CMIMCCStripeProducts = await getCMIMCCStripeProducts();
    if (attendanceModality === "virtual") {
-      return CMIMCCStripeProducts["XXIX-Congress-Virtual"].prices.regular
-         .priceId;
+      return CMIMCCStripeProducts["XXIX-Congress-Virtual"].prices.regular.priceId;
    }
 
-   const presentialCongressPrices =
-      CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices;
-   const medicalRolePricesMap: Record<
-      CMIMCCAdditionalAttendantData["medicalRole"],
-      string
-   > = {
+   const presentialCongressPrices = CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices;
+   const medicalRolePricesMap: Record<CMIMCCAdditionalAttendantData["medicalRole"], string> = {
       specialist: presentialCongressPrices.regular.priceId,
       general: presentialCongressPrices["general-medics"].priceId,
-      health_professional:
-         presentialCongressPrices["health-professionals"].priceId,
-      "student/resident":
-         presentialCongressPrices["students/residents"].priceId,
+      health_professional: presentialCongressPrices["health-professionals"].priceId,
+      "student/resident": presentialCongressPrices["students/residents"].priceId,
    };
 
    return medicalRolePricesMap[userMedicalRole];
@@ -84,9 +74,7 @@ export async function getCMIMCCCheckoutLinkAction({
 
       const stripe = await getOrganizationStripeInstance();
       console.log("attendantData", attendantData);
-      const userMedicalRole = (
-         attendantData.additionalData as unknown as CMIMCCAdditionalAttendantData
-      ).medicalRole;
+      const userMedicalRole = (attendantData.additionalData as unknown as CMIMCCAdditionalAttendantData).medicalRole;
 
       const stripeCustomerId = await ensuredUserStripeCustomer(userId);
 
@@ -116,8 +104,7 @@ export async function getCMIMCCCheckoutLinkAction({
 
       if (includeRecordings) {
          lineItems.push({
-            price: CMIMCCStripeProducts["Recordings-Access"].prices.regular
-               .priceId,
+            price: CMIMCCStripeProducts["Recordings-Access"].prices.regular.priceId,
             quantity: 1,
          });
       }
@@ -162,15 +149,12 @@ export async function getCMIMCCCheckoutLinkAction({
 
       return {
          success: false,
-         errorMessage:
-            "[getCMIMCCCheckoutLinkAction] An unknown error occurred",
+         errorMessage: "[getCMIMCCCheckoutLinkAction] An unknown error occurred",
       };
    }
 }
 
-export async function getHGEACheckoutLinkAction(): Promise<
-   BackendResponse<{ checkoutLink: string }>
-> {
+export async function getHGEACheckoutLinkAction(): Promise<BackendResponse<{ checkoutLink: string }>> {
    try {
       const userId = await getLoggedInUserId();
       if (!userId) {
@@ -322,8 +306,7 @@ export async function getACPDiabetesCheckoutLinkAction({
       }
       return {
          success: false,
-         errorMessage:
-            "[getACPDiabetesCheckoutLinkAction] An unknown error occurred",
+         errorMessage: "[getACPDiabetesCheckoutLinkAction] An unknown error occurred",
       };
    }
 }

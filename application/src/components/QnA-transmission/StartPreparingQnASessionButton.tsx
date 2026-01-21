@@ -3,20 +3,13 @@
 import { useTransition } from "react";
 import { updateLivestreamSessionStatusAction } from "@/actions/livestreamActions";
 import { Button } from "../global/Buttons";
-export default function StartPreparingQnASessionButton({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export default function StartPreparingQnASessionButton({ conferenceId }: { conferenceId: string }) {
    const [isLoading, startTransition] = useTransition();
 
    const handleStartPreparingQnASession = async () => {
       startTransition(async () => {
          console.log("Starting to prepare QnA session");
-         const { error } = await updateLivestreamSessionStatusAction(
-            conferenceId,
-            "preparing",
-         );
+         const { error } = await updateLivestreamSessionStatusAction(conferenceId, "preparing");
          if (error) {
             alert(error);
          }

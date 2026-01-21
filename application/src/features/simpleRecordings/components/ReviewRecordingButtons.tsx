@@ -5,10 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
-import {
-   acceptRecordingAction,
-   rejectRecordingAction,
-} from "../serverActions/recordingsActions";
+import { acceptRecordingAction, rejectRecordingAction } from "../serverActions/recordingsActions";
 
 export function ReviewRecordingButtons() {
    const [accepting, startAcceptTransition] = useTransition();
@@ -22,9 +19,7 @@ export function ReviewRecordingButtons() {
          <div className="bg-red-50 p-4 border border-red-200 rounded-lg">
             <div className="flex items-center gap-2 text-red-800">
                <AlertTriangle className="size-5" />
-               <span className="font-medium">
-                  Error: ID de grabación no encontrado
-               </span>
+               <span className="font-medium">Error: ID de grabación no encontrado</span>
             </div>
          </div>
       );

@@ -7,15 +7,9 @@ export interface CongressProduct {
    name: string;
    description?: string;
    stripeProductId: string;
-   productType:
-      | "congress_online_access"
-      | "congress_in_person_access"
-      | "congress_recordings";
+   productType: "congress_online_access" | "congress_in_person_access" | "congress_recordings";
 }
 
 export type CongressProductRecord = DBRecordItem<CongressProduct>;
 
-export type NewCongressProductData = Omit<
-   CongressProduct,
-   "organization" | "stripeProductId"
->;
+export type NewCongressProductData = Omit<CongressProduct, "organization" | "stripeProductId">;

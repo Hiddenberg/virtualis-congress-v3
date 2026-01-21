@@ -1,18 +1,8 @@
 "use client";
 
 import { ClientResponseError, type RecordModel } from "pocketbase";
-import {
-   createContext,
-   type ReactNode,
-   useCallback,
-   useContext,
-   useEffect,
-   useState,
-} from "react";
-import {
-   removeTokenCookieAction,
-   setTokenCookieAction,
-} from "@/actions/userActions";
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { removeTokenCookieAction, setTokenCookieAction } from "@/actions/userActions";
 import GlobalLoadingPage from "@/components/global/GlobalLoadingPage";
 import pbClient from "@/libs/pbClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
@@ -50,49 +40,39 @@ function usePBAuth() {
 
    const isLoggedIn = user !== null;
 
-   const loginWithPassword = useCallback(
-      async (email: string, password: string) => {
-         try {
-            pbClient.collection("users").authWithPassword(email, password);
-         } catch (error) {
-            if (error instanceof ClientResponseError) {
-               alert("Error al iniciar sesión");
-               console.log("[AuthContext] Login error:", error);
-            }
+   const loginWithPassword = useCallback(async (email: string, password: string) => {
+      try {
+         pbClient.collection("users").authWithPassword(email, password);
+      } catch (error) {
+         if (error instanceof ClientResponseError) {
+            alert("Error al iniciar sesión");
+            console.log("[AuthContext] Login error:", error);
          }
-      },
-      [],
-   );
+      }
+   }, []);
 
    const requestOTPCode = useCallback(async (email: string) => {
-      const otpResponse = await pbClient
-         .collection(PB_COLLECTIONS.USERS)
-         .requestOTP(email);
+      const otpResponse = await pbClient.collection(PB_COLLECTIONS.USERS).requestOTP(email);
       return otpResponse.otpId;
    }, []);
 
-   const loginWithOTPCode = useCallback(
-      async (otpId: string, otpCode: string) => {
-         try {
-            const authRecord = await pbClient
-               .collection(PB_COLLECTIONS.USERS)
-               .authWithOTP(otpId, otpCode);
-            await setTokenCookieAction(authRecord.token);
-            return true;
-         } catch (error) {
-            if (error instanceof ClientResponseError) {
-               if (error.message === "Invalid or expired OTP.") {
-                  alert("Código de autenticación inválido o caducado");
-               } else {
-                  alert("Error al iniciar sesión");
-               }
-               console.log("[AuthContext] OTP login error:", error.message);
+   const loginWithOTPCode = useCallback(async (otpId: string, otpCode: string) => {
+      try {
+         const authRecord = await pbClient.collection(PB_COLLECTIONS.USERS).authWithOTP(otpId, otpCode);
+         await setTokenCookieAction(authRecord.token);
+         return true;
+      } catch (error) {
+         if (error instanceof ClientResponseError) {
+            if (error.message === "Invalid or expired OTP.") {
+               alert("Código de autenticación inválido o caducado");
+            } else {
+               alert("Error al iniciar sesión");
             }
-            return false;
+            console.log("[AuthContext] OTP login error:", error.message);
          }
-      },
-      [],
-   );
+         return false;
+      }
+   }, []);
 
    const logout = useCallback(() => {
       setIsLoading(true);
@@ -121,9 +101,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
       return <GlobalLoadingPage />;
    }
 
-   return (
-      <AuthContext.Provider value={pbAuth}>{children}</AuthContext.Provider>
-   );
+   return <AuthContext.Provider value={pbAuth}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext() {

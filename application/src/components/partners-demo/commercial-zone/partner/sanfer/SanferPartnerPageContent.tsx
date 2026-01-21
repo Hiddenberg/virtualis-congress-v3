@@ -1,13 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import {
-   ArrowRight,
-   MessageCircle,
-   Play,
-   Presentation,
-   TicketPercent,
-   Trophy,
-} from "lucide-react";
+import { ArrowRight, MessageCircle, Play, Presentation, TicketPercent, Trophy } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -50,24 +43,15 @@ function InfoCard() {
          </div>
          <div className="flex flex-col items-start gap-4">
             <div className="place-items-center grid bg-white rounded-xl size-36">
-               <Image
-                  src={PARTNERS_DEMO_CONSTANTS.SANFER_LOGO_URL}
-                  alt="Sanfer logo"
-                  width={80}
-                  height={80}
-                  unoptimized
-               />
+               <Image src={PARTNERS_DEMO_CONSTANTS.SANFER_LOGO_URL} alt="Sanfer logo" width={80} height={80} unoptimized />
             </div>
             <div>
                <div className="flex items-center gap-1">
-                  <h2 className="font-semibold text-gray-900 text-xl">
-                     Sanfer
-                  </h2>
+                  <h2 className="font-semibold text-gray-900 text-xl">Sanfer</h2>
                   <span className="text-gray-400">↗</span>
                </div>
                <p className="opacity-90 mt-2 text-gray-700 text-sm">
-                  Innovación para la salud y bienestar animal. Beneficios
-                  exclusivos para los asistentes del congreso.
+                  Innovación para la salud y bienestar animal. Beneficios exclusivos para los asistentes del congreso.
                </p>
             </div>
          </div>
@@ -82,9 +66,7 @@ function ActionCard({ icon, title, description, href = "#" }: ActionItem) {
          className="flex flex-col justify-between bg-slate-900 shadow hover:brightness-110 p-5 rounded-2xl h-full text-slate-50"
       >
          <div className="flex items-start gap-3">
-            <div className="place-items-center grid bg-rose-400 rounded-full w-9 h-9 text-slate-900">
-               {icon}
-            </div>
+            <div className="place-items-center grid bg-rose-400 rounded-full w-9 h-9 text-slate-900">{icon}</div>
             <div>
                <h3 className="font-semibold text-lg leading-tight">{title}</h3>
                <p className="opacity-80 mt-2 text-sm">{description}</p>
@@ -104,20 +86,17 @@ export default function SanferPartnerPageContent() {
       {
          icon: <TicketPercent size={18} />,
          title: "¡Descubre tus Descuentos Exclusivos!",
-         description:
-            "Accede a ofertas y descuentos especiales en productos Sanfer, solo para asistentes del congreso.",
+         description: "Accede a ofertas y descuentos especiales en productos Sanfer, solo para asistentes del congreso.",
       },
       {
          icon: <Trophy size={18} />,
          title: "Participa en nuestro Sorteo",
-         description:
-            "Participa y gana productos Sanfer exclusivos. ¡Descubre más aquí!",
+         description: "Participa y gana productos Sanfer exclusivos. ¡Descubre más aquí!",
       },
       {
          icon: <Presentation size={18} />,
          title: "Explora Nuestras Charlas Exclusivas",
-         description:
-            "Infórmate sobre nuestras sesiones en vivo y descubre soluciones innovadoras. Conoce más y regístrate.",
+         description: "Infórmate sobre nuestras sesiones en vivo y descubre soluciones innovadoras. Conoce más y regístrate.",
       },
    ];
 
@@ -135,10 +114,7 @@ export default function SanferPartnerPageContent() {
          </div>
 
          <div className="place-items-center grid">
-            <Link
-               href="#mas"
-               className="inline-flex items-center gap-2 text-gray-700 text-sm"
-            >
+            <Link href="#mas" className="inline-flex items-center gap-2 text-gray-700 text-sm">
                Conocer más <span className="text-gray-400">▾</span>
             </Link>
          </div>

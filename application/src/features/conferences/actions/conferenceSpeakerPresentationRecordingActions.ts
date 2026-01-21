@@ -32,8 +32,7 @@ export async function linkSpeakerPresentationRecordingAction({
       }
       return {
          success: false,
-         errorMessage:
-            "Error al vincular la grabación de la presentación del ponente con la conferencia",
+         errorMessage: "Error al vincular la grabación de la presentación del ponente con la conferencia",
       };
    }
 }
@@ -62,8 +61,7 @@ export async function unlinkSpeakerPresentationRecordingFromConferenceAction({
       }
       return {
          success: false,
-         errorMessage:
-            "Error al desvincular la grabación de la presentación del ponente de la conferencia",
+         errorMessage: "Error al desvincular la grabación de la presentación del ponente de la conferencia",
       };
    }
 }

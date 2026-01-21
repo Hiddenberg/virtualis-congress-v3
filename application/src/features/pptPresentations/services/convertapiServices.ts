@@ -7,10 +7,7 @@ export interface SlideImage {
    url: string;
 }
 
-export async function convertPPTToImages(
-   file: File,
-   outputFormat: "png" | "webp",
-): Promise<SlideImage[]> {
+export async function convertPPTToImages(file: File, outputFormat: "png" | "webp"): Promise<SlideImage[]> {
    console.log("starting conversion");
    console.log("file type", file.type);
 

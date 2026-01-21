@@ -8,9 +8,7 @@ interface FinishedPhaseProps {
    classTitle?: string;
 }
 
-export default function FinishedPhase({
-   classTitle = "Esta clase",
-}: FinishedPhaseProps) {
+export default function FinishedPhase({ classTitle = "Esta clase" }: FinishedPhaseProps) {
    // const { classId } = useParams()
    // const { organizationBasePath } = useOrganizationContext()
 
@@ -22,16 +20,11 @@ export default function FinishedPhase({
                   <CheckCircle2 className="w-16 h-16 text-emerald-600" />
                </div>
 
-               <h2 className="font-bold text-stone-900 text-2xl md:text-3xl">
-                  ¡La clase ha finalizado!
-               </h2>
+               <h2 className="font-bold text-stone-900 text-2xl md:text-3xl">¡La clase ha finalizado!</h2>
 
                <p className="max-w-md text-stone-700 text-base md:text-lg">
-                  Gracias por asistir a{" "}
-                  <span className="font-semibold text-emerald-700">
-                     {classTitle}
-                  </span>
-                  . Esperamos que hayas disfrutado del contenido.
+                  Gracias por asistir a <span className="font-semibold text-emerald-700">{classTitle}</span>. Esperamos que hayas
+                  disfrutado del contenido.
                </p>
             </div>
 
@@ -64,9 +57,7 @@ export default function FinishedPhase({
             </div> */}
 
             <div className="pt-4 border-stone-200 border-t">
-               <p className="mb-3 text-stone-600 text-sm">
-                  Asegúrate de no perderte nuestras próximas clases
-               </p>
+               <p className="mb-3 text-stone-600 text-sm">Asegúrate de no perderte nuestras próximas clases</p>
                <div className="flex justify-center items-center space-x-2 text-emerald-600 text-sm">
                   <Calendar className="w-4 h-4" />
                   <span>Revisa tu calendario de clases</span>

@@ -1,31 +1,20 @@
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   deleteDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import { deleteMuxLivestream } from "./muxLivestreamServices";
 
 export async function createLivestreamSession() {
    const currentOrganization = await getOrganizationFromSubdomain();
 
    if (!currentOrganization) {
-      throw new Error(
-         "[Livestream Session Service] Current organization not found",
-      );
+      throw new Error("[Livestream Session Service] Current organization not found");
    }
 
-   const createdLivestreamSession = await createDBRecord<LivestreamSession>(
-      "LIVESTREAM_SESSIONS",
-      {
-         organization: currentOrganization.id,
-         status: "scheduled",
-         attendantStatus: "scheduled",
-      },
-   );
+   const createdLivestreamSession = await createDBRecord<LivestreamSession>("LIVESTREAM_SESSIONS", {
+      organization: currentOrganization.id,
+      status: "scheduled",
+      attendantStatus: "scheduled",
+   });
 
    return createdLivestreamSession;
 }
@@ -34,9 +23,7 @@ export async function getLivestreamSessionById(livestreamSessionId: string) {
    const currentOrganization = await getOrganizationFromSubdomain();
 
    if (!currentOrganization) {
-      throw new Error(
-         "[Livestream Session Service] Current organization not found",
-      );
+      throw new Error("[Livestream Session Service] Current organization not found");
    }
 
    const livestreamSession = await getSingleDBRecord<LivestreamSessionRecord>(
@@ -53,9 +40,7 @@ export async function getLivestreamSessionById(livestreamSessionId: string) {
    return livestreamSession;
 }
 
-export async function getLivestreamSessionByMuxLivestreamId(
-   muxLivestreamId: string,
-) {
+export async function getLivestreamSessionByMuxLivestreamId(muxLivestreamId: string) {
    const currentOrganization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -82,9 +67,7 @@ export async function getLivestreamSessionByMuxLivestreamId(
    return livestreamSession?.expand.livestreamSession ?? null;
 }
 
-export async function getGlobalLivestreamSessionByMuxLivestreamId(
-   muxLivestreamId: string,
-) {
+export async function getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId: string) {
    const filter = pbFilter(
       `
       muxLivestreamId = {:muxLivestreamId}
@@ -107,17 +90,11 @@ export async function getGlobalLivestreamSessionByMuxLivestreamId(
    return livestreamSession?.expand.livestreamSession ?? null;
 }
 
-export async function updateLivestreamSession(
-   livestreamSessionId: string,
-   newLivestreamSessionData: Partial<LivestreamSession>,
-) {
-   const livestreamSession =
-      await getLivestreamSessionById(livestreamSessionId);
+export async function updateLivestreamSession(livestreamSessionId: string, newLivestreamSessionData: Partial<LivestreamSession>) {
+   const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
 
    if (!livestreamSession) {
-      throw new Error(
-         "[Livestream Session Service] Livestream session not found",
-      );
+      throw new Error("[Livestream Session Service] Livestream session not found");
    }
 
    const updatedLivestreamSession = await updateDBRecord<LivestreamSession>(
@@ -129,17 +106,10 @@ export async function updateLivestreamSession(
    return updatedLivestreamSession;
 }
 
-export async function updateLivestreamSessionStatus(
-   livestreamSessionId: string,
-   newStatus: LivestreamSession["status"],
-) {
-   const updatedLivestreamSession = await updateDBRecord<LivestreamSession>(
-      "LIVESTREAM_SESSIONS",
-      livestreamSessionId,
-      {
-         status: newStatus,
-      } satisfies Partial<LivestreamSession>,
-   );
+export async function updateLivestreamSessionStatus(livestreamSessionId: string, newStatus: LivestreamSession["status"]) {
+   const updatedLivestreamSession = await updateDBRecord<LivestreamSession>("LIVESTREAM_SESSIONS", livestreamSessionId, {
+      status: newStatus,
+   } satisfies Partial<LivestreamSession>);
 
    return updatedLivestreamSession;
 }
@@ -148,43 +118,28 @@ export async function updateLivestreamSessionAttendantStatus(
    livestreamSessionId: string,
    newAttendantStatus: LivestreamSession["attendantStatus"],
 ) {
-   const updatedLivestreamSession = await updateDBRecord<LivestreamSession>(
-      "LIVESTREAM_SESSIONS",
-      livestreamSessionId,
-      {
-         attendantStatus: newAttendantStatus,
-      } satisfies Partial<LivestreamSession>,
-   );
+   const updatedLivestreamSession = await updateDBRecord<LivestreamSession>("LIVESTREAM_SESSIONS", livestreamSessionId, {
+      attendantStatus: newAttendantStatus,
+   } satisfies Partial<LivestreamSession>);
 
    return updatedLivestreamSession;
 }
 
-export async function deleteLivestreamSessionRecord(
-   livestreamSessionId: string,
-) {
-   const livestreamSession =
-      await getLivestreamSessionById(livestreamSessionId);
+export async function deleteLivestreamSessionRecord(livestreamSessionId: string) {
+   const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
 
    if (!livestreamSession) {
-      throw new Error(
-         "[Livestream Session Service] Livestream session not found",
-      );
+      throw new Error("[Livestream Session Service] Livestream session not found");
    }
 
    await deleteDBRecord("LIVESTREAM_SESSIONS", livestreamSessionId);
 }
 
-export async function deleteLivestreamSessionResources(
-   livestreamSessionId: string,
-) {
-   const livestreamSession =
-      await getLivestreamSessionById(livestreamSessionId);
+export async function deleteLivestreamSessionResources(livestreamSessionId: string) {
+   const livestreamSession = await getLivestreamSessionById(livestreamSessionId);
 
    if (!livestreamSession) {
-      console.error(
-         "[Livestream Session Service] Livestream session not found or already deleted",
-         livestreamSessionId,
-      );
+      console.error("[Livestream Session Service] Livestream session not found or already deleted", livestreamSessionId);
       return;
    }
 

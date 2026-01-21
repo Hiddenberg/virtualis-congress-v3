@@ -5,11 +5,7 @@ import { getAllSpeakerNamesAndIds } from "@/features/users/speakers/services/spe
 
 export const dynamic = "force-dynamic";
 
-export default async function EditConferencePage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function EditConferencePage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const speakersAvailable = await getAllSpeakerNamesAndIds();

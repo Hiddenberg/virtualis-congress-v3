@@ -16,19 +16,15 @@ export default function ConfirmedPayment() {
                </svg>
             </div>
 
-            <h1 className="text-3xl font-bold text-blue-900 mb-8">
-               ¡Pago Confirmado!
-            </h1>
+            <h1 className="text-3xl font-bold text-blue-900 mb-8">¡Pago Confirmado!</h1>
 
             <p className="leading-relaxed">
-               Ya completaste todos los pasos de registro. Ahora puedes acceder
-               al dashboard del congreso para explorar todas las actividades y
-               recursos disponibles.
+               Ya completaste todos los pasos de registro. Ahora puedes acceder al dashboard del congreso para explorar todas las
+               actividades y recursos disponibles.
             </p>
             <div className="mx-auto p-5 bg-rose-200 rounded-3xl text-center md:hidden">
-               Ten en cuenta que la plataforma solo está disponible en versión
-               de escritorio. Si estás en un dispositivo móvil, por favor,
-               accede desde una computadora para acceder al contenido.
+               Ten en cuenta que la plataforma solo está disponible en versión de escritorio. Si estás en un dispositivo móvil,
+               por favor, accede desde una computadora para acceder al contenido.
             </div>
          </div>
       </div>

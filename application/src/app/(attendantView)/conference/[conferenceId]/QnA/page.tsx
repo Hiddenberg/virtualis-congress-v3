@@ -5,22 +5,16 @@ import { getActiveQuestionPollForConference } from "@/features/conferences/servi
 import { getConferenceRecording } from "@/features/conferences/services/conferenceRecordingsServices";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
 
-export default async function AttendantConferenceQnAPage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function AttendantConferenceQnAPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
-   const [conference, conferenceQuestionPoll, conferencePresentation] =
-      await Promise.all([
-         getConferenceById(conferenceId),
-         getActiveQuestionPollForConference(conferenceId),
-         getConferencePresentation(conferenceId),
-      ]);
+   const [conference, conferenceQuestionPoll, conferencePresentation] = await Promise.all([
+      getConferenceById(conferenceId),
+      getActiveQuestionPollForConference(conferenceId),
+      getConferencePresentation(conferenceId),
+   ]);
    const conferenceRecording = await getConferenceRecording(conferenceId);
-   const conferenceQnaLivestreamSession =
-      await getConferenceQnASession(conferenceId);
+   const conferenceQnaLivestreamSession = await getConferenceQnASession(conferenceId);
 
    return (
       <AttendantConferenceViewer

@@ -43,10 +43,7 @@ export default function CertificatesNameForm() {
                const nextStep = prevStep + 1;
 
                // If we've shown all messages and reached the random duration
-               if (
-                  nextStep >= loadingMessages.length ||
-                  nextStep >= randomDuration / 1000
-               ) {
+               if (nextStep >= loadingMessages.length || nextStep >= randomDuration / 1000) {
                   clearInterval(interval);
 
                   // Add a slight delay before showing completion
@@ -83,14 +80,10 @@ export default function CertificatesNameForm() {
       router.push("/login");
    }
 
-   const handleChange = (
-      e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-   ) => {
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const { name, value, type } = e.target;
       const isCheckbox = type === "checkbox";
-      const newValue = isCheckbox
-         ? (e.target as HTMLInputElement).checked
-         : value;
+      const newValue = isCheckbox ? (e.target as HTMLInputElement).checked : value;
 
       setFormData((prev) => {
          const newData = {
@@ -99,14 +92,7 @@ export default function CertificatesNameForm() {
          };
 
          // Update the name preview whenever form fields change
-         if (
-            [
-               "fullName",
-               "academicTitle",
-               "preferredName",
-               "includeMiddleName",
-            ].includes(name)
-         ) {
+         if (["fullName", "academicTitle", "preferredName", "includeMiddleName"].includes(name)) {
             const nameParts = newData.fullName.split(" ");
             let displayName = "";
 
@@ -115,10 +101,7 @@ export default function CertificatesNameForm() {
             } else if (newData.includeMiddleName && nameParts.length > 2) {
                displayName = nameParts.join(" ");
             } else if (nameParts.length >= 2) {
-               displayName = [
-                  nameParts[0],
-                  nameParts[nameParts.length - 1],
-               ].join(" ");
+               displayName = [nameParts[0], nameParts[nameParts.length - 1]].join(" ");
             } else {
                displayName = newData.fullName;
             }
@@ -163,54 +146,30 @@ export default function CertificatesNameForm() {
                <div className="flex flex-col justify-center items-center min-h-[400px]">
                   {loadingComplete ? (
                      <>
-                        <CheckCircle2
-                           className="mb-4 text-green-500"
-                           size={60}
-                        />
-                        <h2 className="mb-2 font-medium text-gray-800 text-2xl">
-                           ¡Configuración guardada!
-                        </h2>
-                        <p className="text-gray-600">
-                           Tus preferencias han sido aplicadas a todos tus
-                           certificados.
-                        </p>
+                        <CheckCircle2 className="mb-4 text-green-500" size={60} />
+                        <h2 className="mb-2 font-medium text-gray-800 text-2xl">¡Configuración guardada!</h2>
+                        <p className="text-gray-600">Tus preferencias han sido aplicadas a todos tus certificados.</p>
 
-                        <LinkButton
-                           variant="green"
-                           href="/certificates"
-                           className="mt-4"
-                        >
+                        <LinkButton variant="green" href="/certificates" className="mt-4">
                            Ver mis certificados
                         </LinkButton>
                      </>
                   ) : (
                      <>
                         <div className="relative mb-8">
-                           <Loader2
-                              className="text-indigo-600 animate-spin"
-                              size={60}
-                           />
+                           <Loader2 className="text-indigo-600 animate-spin" size={60} />
                            <div className="absolute inset-0 flex justify-center items-center">
                               <div className="bg-white rounded-full w-12 h-12" />
                            </div>
                            <div className="absolute inset-0 flex justify-center items-center">
                               <span className="font-semibold text-indigo-600">
-                                 {Math.min(
-                                    Math.round(
-                                       (loadingStep /
-                                          (loadingMessages.length - 1)) *
-                                          100,
-                                    ),
-                                    95,
-                                 )}
-                                 %
+                                 {Math.min(Math.round((loadingStep / (loadingMessages.length - 1)) * 100), 95)}%
                               </span>
                            </div>
                         </div>
 
                         <h2 className="mb-4 font-medium text-gray-800 text-xl">
-                           {loadingMessages[loadingStep] ||
-                              loadingMessages[loadingMessages.length - 1]}
+                           {loadingMessages[loadingStep] || loadingMessages[loadingMessages.length - 1]}
                         </h2>
 
                         <div className="max-w-md">
@@ -224,8 +183,7 @@ export default function CertificatesNameForm() {
                            </div>
 
                            <p className="mt-4 text-gray-500 text-sm">
-                              Por favor, espera mientras actualizamos tus
-                              preferencias. Esto puede tomar unos momentos.
+                              Por favor, espera mientras actualizamos tus preferencias. Esto puede tomar unos momentos.
                            </p>
                         </div>
                      </>
@@ -237,12 +195,8 @@ export default function CertificatesNameForm() {
                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-6">
                      <div>
-                        <label
-                           htmlFor="fullName"
-                           className="block mb-1 font-medium text-gray-700 text-sm"
-                        >
-                           Ingresa tu nombre como quieres que aparezca en tus
-                           certificados
+                        <label htmlFor="fullName" className="block mb-1 font-medium text-gray-700 text-sm">
+                           Ingresa tu nombre como quieres que aparezca en tus certificados
                         </label>
                         <input
                            type="text"
@@ -257,10 +211,7 @@ export default function CertificatesNameForm() {
                      </div>
 
                      <div>
-                        <label
-                           htmlFor="academicTitle"
-                           className="block mb-1 font-medium text-gray-700 text-sm"
-                        >
+                        <label htmlFor="academicTitle" className="block mb-1 font-medium text-gray-700 text-sm">
                            Título académico (opcional)
                         </label>
                         <select
@@ -291,25 +242,17 @@ export default function CertificatesNameForm() {
                            onChange={handleChange}
                            className="border-gray-300 rounded focus:ring-indigo-500 size-6 text-indigo-600"
                         />
-                        <label
-                           htmlFor="includeMiddleName"
-                           className="block ml-2 text-gray-700 text-sm"
-                        >
+                        <label htmlFor="includeMiddleName" className="block ml-2 text-gray-700 text-sm">
                            Incluir segundo nombre y apellidos intermedios
                         </label>
                      </div>
 
                      <div className="bg-linear-to-r from-indigo-50 to-purple-50 mt-8 p-6 rounded-lg">
-                        <h3 className="mb-2 font-semibold text-indigo-700 text-sm uppercase">
-                           Vista previa
-                        </h3>
+                        <h3 className="mb-2 font-semibold text-indigo-700 text-sm uppercase">Vista previa</h3>
                         <div className="pt-3 border-indigo-200 border-t">
-                           <p className="mb-1 text-gray-600 text-sm">
-                              Así aparecerá tu nombre en los certificados:
-                           </p>
+                           <p className="mb-1 text-gray-600 text-sm">Así aparecerá tu nombre en los certificados:</p>
                            <p className="font-serif font-medium text-gray-800 text-xl">
-                              {formData.namePreview ||
-                                 "Tu nombre aparecerá aquí"}
+                              {formData.namePreview || "Tu nombre aparecerá aquí"}
                            </p>
                         </div>
                      </div>

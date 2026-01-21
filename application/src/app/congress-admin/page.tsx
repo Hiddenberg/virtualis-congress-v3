@@ -1,19 +1,10 @@
 import { format } from "@formkit/tempo";
-import {
-   ArrowDownUp,
-   BarChart3,
-   Calendar,
-   CreditCard,
-   GiftIcon,
-   GlobeIcon,
-   HomeIcon,
-   Users,
-   VideoIcon,
-} from "lucide-react";
+import { ArrowDownUp, BarChart3, Calendar, CreditCard, GiftIcon, GlobeIcon, HomeIcon, Users, VideoIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { CopyButton } from "@/components/global/Buttons";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { CongressRecord } from "@/features/congresses/types/congressTypes";
 import { getOrganizationBaseUrl } from "@/features/organizations/services/organizationServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
@@ -129,8 +120,7 @@ const hybridCongressSections: AdminLink[] = [
    },
    {
       title: "Control de Presentación",
-      description:
-         "Controla el avance de diapositivas y presentaciones en vivo",
+      description: "Controla el avance de diapositivas y presentaciones en vivo",
       href: "/congress-admin/presentation-controller",
       icon: Users,
       color: "bg-teal-500",
@@ -151,8 +141,7 @@ const superAdminSections: AdminLink[] = [
    },
    {
       title: "Conferencias",
-      description:
-         "Administrar conferencias del congreso, horarios y contenido",
+      description: "Administrar conferencias del congreso, horarios y contenido",
       href: "/congress-admin/conferences",
       icon: Calendar,
       color: "bg-blue-500",
@@ -181,20 +170,14 @@ function AdminLink({ link }: { link: AdminLink }) {
       >
          <div className="flex flex-col bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl h-full hover:scale-105 transition-all duration-200">
             {/* Icon */}
-            <div
-               className={`inline-flex items-center justify-center w-12 h-12 rounded-lg ${link.lightColor} mb-4`}
-            >
+            <div className={`inline-flex items-center justify-center w-12 h-12 rounded-lg ${link.lightColor} mb-4`}>
                <IconComponent className={`w-6 h-6 ${link.textColor}`} />
             </div>
 
             {/* Content */}
             <div className="flex flex-col flex-1">
-               <h3 className="mb-2 font-semibold text-gray-900 group-hover:text-gray-700 text-lg">
-                  {link.title}
-               </h3>
-               <p className="flex-1 text-gray-600 text-sm leading-relaxed">
-                  {link.description}
-               </p>
+               <h3 className="mb-2 font-semibold text-gray-900 group-hover:text-gray-700 text-lg">{link.title}</h3>
+               <p className="flex-1 text-gray-600 text-sm leading-relaxed">{link.description}</p>
             </div>
 
             {/* Hover indicator */}
@@ -213,15 +196,10 @@ async function CongressLinkSection() {
       <div className="mt-6">
          <div className="flex items-center gap-2 mb-1">
             <GlobeIcon className="w-5 h-5 text-blue-500" />
-            <span className="font-semibold text-gray-900 text-base">
-               Página informativa del congreso
-            </span>
+            <span className="font-semibold text-gray-900 text-base">Página informativa del congreso</span>
          </div>
-         <div className="flex items-center bg-gradient-to-r from-blue-50 to-white shadow-sm px-4 py-3 border border-blue-100 rounded-xl w-max">
-            <span
-               className="font-medium text-blue-700 text-sm truncate"
-               title={landingUrl}
-            >
+         <div className="flex items-center bg-linear-to-r from-blue-50 to-white shadow-sm px-4 py-3 border border-blue-100 rounded-xl w-max">
+            <span className="font-medium text-blue-700 text-sm truncate" title={landingUrl}>
                {landingUrl}
             </span>
             <CopyButton text={landingUrl} />
@@ -230,14 +208,12 @@ async function CongressLinkSection() {
    );
 }
 
-function CongressInformationHeader({ congress }: { congress: Congress }) {
+function CongressInformationHeader({ congress }: { congress: CongressRecord }) {
    return (
-      <div className="bg-gradient-to-br from-blue-50 to-white shadow-sm mb-8 p-6 border border-blue-100 rounded-xl">
+      <div className="bg-linear-to-br from-blue-50 to-white shadow-sm mb-8 p-6 border border-blue-100 rounded-xl">
          <div className="flex md:flex-row flex-col md:justify-between md:items-center gap-4">
             <div className="flex-1">
-               <h2 className="mb-3 font-bold text-gray-900 text-xl">
-                  {congress.title}
-               </h2>
+               <h2 className="mb-3 font-bold text-gray-900 text-xl">{congress.title}</h2>
                <div className="flex flex-wrap items-center gap-4">
                   <div className="flex items-center gap-2 text-gray-700">
                      <Calendar className="w-5 h-5 text-blue-600" />
@@ -252,9 +228,7 @@ function CongressInformationHeader({ congress }: { congress: Congress }) {
                         </span>
                         {congress.startDate !== congress.finishDate && (
                            <>
-                              <span className="hidden sm:inline text-gray-400">
-                                 -
-                              </span>
+                              <span className="hidden sm:inline text-gray-400">-</span>
                               <span className="font-medium text-sm">
                                  {format({
                                     date: congress.finishDate,
@@ -270,9 +244,7 @@ function CongressInformationHeader({ congress }: { congress: Congress }) {
                </div>
             </div>
             <div className="flex items-center gap-2 bg-white px-4 py-2 border border-blue-200 rounded-lg">
-               <div
-                  className={`w-2 h-2 rounded-full ${congress.status === "active" ? "bg-green-500" : "bg-gray-400"}`}
-               />
+               <div className={`w-2 h-2 rounded-full ${congress.status === "active" ? "bg-green-500" : "bg-gray-400"}`} />
                <span className="font-medium text-gray-700 text-sm capitalize">
                   {congress.status === "active" ? "Activo" : "Finalizado"}
                </span>
@@ -304,13 +276,8 @@ export default async function CongressAdminPage() {
       <div className="p-6">
          {/* Header */}
          <div className="mb-4">
-            <h1 className="mb-2 font-bold text-gray-900 text-3xl">
-               Administración del Congreso
-            </h1>
-            <p className="text-gray-600">
-               Administra todos los aspectos de tu congreso desde ponentes hasta
-               horarios y análisis
-            </p>
+            <h1 className="mb-2 font-bold text-gray-900 text-3xl">Administración del Congreso</h1>
+            <p className="text-gray-600">Administra todos los aspectos de tu congreso desde ponentes hasta horarios y análisis</p>
          </div>
 
          <CongressInformationHeader congress={congress} />
@@ -329,9 +296,7 @@ export default async function CongressAdminPage() {
 
          {user.role === "super_admin" && (
             <div className="mt-12">
-               <h3 className="mb-4 font-bold text-gray-900 text-xl">
-                  Super Admin only
-               </h3>
+               <h3 className="mb-4 font-bold text-gray-900 text-xl">Super Admin only</h3>
                <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {superAdminSections.map((section) => {
                      return <AdminLink key={section.href} link={section} />;

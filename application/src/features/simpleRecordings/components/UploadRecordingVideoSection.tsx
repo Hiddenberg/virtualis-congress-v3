@@ -8,13 +8,7 @@ import toast from "react-hot-toast";
 import { createMuxUploadUrlAction } from "@/actions/muxActions";
 import { completeManualRecordingVideoUploadAction } from "../serverActions/recordingsActions";
 
-export default function UploadRecordingVideoSection({
-   recordingId,
-   redirectTo,
-}: {
-   recordingId: string;
-   redirectTo?: string;
-}) {
+export default function UploadRecordingVideoSection({ recordingId, redirectTo }: { recordingId: string; redirectTo?: string }) {
    const [isUpdatingRecording, startTransition] = useTransition();
    const uploadIdRef = useRef<string | null>(null);
 
@@ -26,13 +20,8 @@ export default function UploadRecordingVideoSection({
             <div className="flex items-start gap-3">
                <Loader2 className="mt-0.5 size-5 text-blue-600 animate-spin" />
                <div>
-                  <h2 className="font-semibold text-gray-900">
-                     Subiendo video...
-                  </h2>
-                  <p className="mt-1 text-gray-600 text-sm">
-                     Estamos procesando tu archivo. Esto puede tardar unos
-                     minutos.
-                  </p>
+                  <h2 className="font-semibold text-gray-900">Subiendo video...</h2>
+                  <p className="mt-1 text-gray-600 text-sm">Estamos procesando tu archivo. Esto puede tardar unos minutos.</p>
                </div>
             </div>
          </div>
@@ -45,12 +34,8 @@ export default function UploadRecordingVideoSection({
             <div className="flex items-start gap-3">
                <CloudUpload className="mt-0.5 size-5 text-gray-700" />
                <div>
-                  <h2 className="font-semibold text-gray-900">
-                     Cargar archivo de video
-                  </h2>
-                  <p className="mt-1 text-gray-600 text-sm">
-                     Formatos recomendados: MP4
-                  </p>
+                  <h2 className="font-semibold text-gray-900">Cargar archivo de video</h2>
+                  <p className="mt-1 text-gray-600 text-sm">Formatos recomendados: MP4</p>
                </div>
             </div>
          </div>
@@ -59,11 +44,7 @@ export default function UploadRecordingVideoSection({
             <MuxUploader
                noDrop={true}
                endpoint={async () => {
-                  const {
-                     url,
-                     error,
-                     id: muxUploadId,
-                  } = await createMuxUploadUrlAction(recordingId as string);
+                  const { url, error, id: muxUploadId } = await createMuxUploadUrlAction(recordingId as string);
 
                   if (error) {
                      toast.error(error);
@@ -84,10 +65,7 @@ export default function UploadRecordingVideoSection({
                }}
                onSuccess={() => {
                   startTransition(async () => {
-                     await completeManualRecordingVideoUploadAction(
-                        recordingId,
-                        uploadIdRef.current as string,
-                     );
+                     await completeManualRecordingVideoUploadAction(recordingId, uploadIdRef.current as string);
                      router.push(redirectTo || `/recordings/`);
                      toast.success("Video subido correctamente");
                   });
@@ -105,10 +83,7 @@ export default function UploadRecordingVideoSection({
 
          <div className="flex items-start gap-2 mt-4 text-gray-500 text-xs">
             <Info className="mt-0.5 size-4" />
-            <p>
-               Al finalizar la subida, procesaremos el video automáticamente y
-               te redirigiremos a la lista de grabaciones.
-            </p>
+            <p>Al finalizar la subida, procesaremos el video automáticamente y te redirigiremos a la lista de grabaciones.</p>
          </div>
       </div>
    );

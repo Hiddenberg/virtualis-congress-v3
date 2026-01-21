@@ -1,12 +1,6 @@
 "use client";
 
-import {
-   createContext,
-   type ReactNode,
-   useContext,
-   useMemo,
-   useState,
-} from "react";
+import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 
 interface ZoomSessionContextType {
    sessionId: string | null;
@@ -31,30 +25,20 @@ export function ZoomSessionProvider({
    const value = useMemo(() => {
       return {
          sessionId,
-         sessionName: sessionName
-            .toLowerCase()
-            .trim()
-            .replaceAll(" ", "-")
-            .substring(0, 50),
+         sessionName: sessionName.toLowerCase().trim().replaceAll(" ", "-").substring(0, 50),
          sessionKey,
          setSessionId,
       };
    }, [sessionId, sessionName, sessionKey]);
 
-   return (
-      <ZoomSessionContext.Provider value={value}>
-         {children}
-      </ZoomSessionContext.Provider>
-   );
+   return <ZoomSessionContext.Provider value={value}>{children}</ZoomSessionContext.Provider>;
 }
 
 export const useZoomSession = () => {
    const context = useContext(ZoomSessionContext);
 
    if (!context) {
-      throw new Error(
-         "useZoomSession must be used within a ZoomSessionProvider",
-      );
+      throw new Error("useZoomSession must be used within a ZoomSessionProvider");
    }
 
    return context;

@@ -10,8 +10,7 @@ export async function GET() {
       });
    }
 
-   const allUsersRegistered =
-      await getAllOrganizationUsersRegisteredToCongress();
+   const allUsersRegistered = await getAllOrganizationUsersRegisteredToCongress();
 
    const sentEmails = [];
    const failedEmails = [];
@@ -21,10 +20,7 @@ export async function GET() {
             await sendRecordingsAvailableEmail(user.id);
             sentEmails.push(user.id);
          } catch (error) {
-            console.error(
-               `Error sending recordings available email to ${user.id}:`,
-               error,
-            );
+            console.error(`Error sending recordings available email to ${user.id}:`, error);
             failedEmails.push(user.id);
          }
       }

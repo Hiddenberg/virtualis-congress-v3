@@ -1,13 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-   createContext,
-   useCallback,
-   useContext,
-   useState,
-   useTransition,
-} from "react";
+import { createContext, useCallback, useContext, useState, useTransition } from "react";
 import { registrationFormSections } from "@/data/registrationFormSections";
 
 function useDynamicFormState(formSteps: FormSection[]) {
@@ -18,8 +12,7 @@ function useDynamicFormState(formSteps: FormSection[]) {
       }, [] as DynamicFormInput[]);
    });
    const [cmimFile, setCMIMFile] = useState<File | null>(null);
-   const [studentCredentialFile, setStudentCredentialFile] =
-      useState<File | null>(null);
+   const [studentCredentialFile, setStudentCredentialFile] = useState<File | null>(null);
    const [isSubmitting, startTransition] = useTransition();
 
    const router = useRouter();
@@ -28,17 +21,12 @@ function useDynamicFormState(formSteps: FormSection[]) {
    const isLastSection = currentFormSection === formSteps.length - 1;
    const isFirstSection = currentFormSection === 0;
    const currentSectionInputs = inputValues.filter((input) =>
-      formSteps[currentFormSection].questions.some(
-         (question) => question.name === input.name,
-      ),
+      formSteps[currentFormSection].questions.some((question) => question.name === input.name),
    );
    const currentSectionTitle = formSteps[currentFormSection].title;
 
    const updateInputValue = useCallback(
-      <TName extends DynamicFormInput["name"]>(
-         name: TName,
-         newValue: Extract<DynamicFormInput, { name: TName }>["value"],
-      ) => {
+      <TName extends DynamicFormInput["name"]>(name: TName, newValue: Extract<DynamicFormInput, { name: TName }>["value"]) => {
          setInputValues((prevInputValues) =>
             prevInputValues.map((input) => {
                if (input.name !== name) {
@@ -47,10 +35,7 @@ function useDynamicFormState(formSteps: FormSection[]) {
 
                // Now that we know `input.name === name`,
                // cast `input` to the more specific type for that `name`.
-               const typedInput = input as Extract<
-                  DynamicFormInput,
-                  { name: TName }
-               >;
+               const typedInput = input as Extract<DynamicFormInput, { name: TName }>;
                return {
                   ...typedInput,
                   value: newValue,
@@ -62,13 +47,12 @@ function useDynamicFormState(formSteps: FormSection[]) {
    );
 
    const getInputValuesObject = useCallback(() => {
-      const inputValuesObject: Record<string, InputValueType> =
-         inputValues.reduce((prev, input) => {
-            return {
-               ...prev,
-               [input.name]: input.value ?? null,
-            };
-         }, {});
+      const inputValuesObject: Record<string, InputValueType> = inputValues.reduce((prev, input) => {
+         return {
+            ...prev,
+            [input.name]: input.value ?? null,
+         };
+      }, {});
 
       return inputValuesObject;
    }, [inputValues]);
@@ -128,21 +112,13 @@ function useDynamicFormState(formSteps: FormSection[]) {
       clearAllInputErrors();
 
       const isSectionValid = currentSectionInputs.every((input) => {
-         if (
-            input.required &&
-            (input.value === null ||
-               input.value === "" ||
-               input.value === undefined)
-         ) {
+         if (input.required && (input.value === null || input.value === "" || input.value === undefined)) {
             setInputError(input.name, "Este campo es requerido");
             return false;
          }
 
          if (input.validation && !input.validation(input.value)) {
-            setInputError(
-               input.name,
-               input.validationErrorMessage ?? "Este campo no es válido",
-            );
+            setInputError(input.name, input.validationErrorMessage ?? "Este campo no es válido");
             return false;
          }
 
@@ -151,29 +127,20 @@ function useDynamicFormState(formSteps: FormSection[]) {
 
       if (
          currentFormSection === 1 &&
-         inputValues.find((input) => input.name === "isCMIMAffiliated")
-            ?.value === true &&
+         inputValues.find((input) => input.name === "isCMIMAffiliated")?.value === true &&
          !cmimFile
       ) {
-         setInputError(
-            "isCMIMAffiliated",
-            "Debes subir tu comprobante para poder continuar",
-         );
+         setInputError("isCMIMAffiliated", "Debes subir tu comprobante para poder continuar");
          return false;
       }
 
       if (
          currentFormSection === 4 &&
-         (inputValues.find((input) => input.name === "studiesGrade")?.value ===
-            "Estudiante" ||
-            inputValues.find((input) => input.name === "studiesGrade")
-               ?.value === "Residente") &&
+         (inputValues.find((input) => input.name === "studiesGrade")?.value === "Estudiante" ||
+            inputValues.find((input) => input.name === "studiesGrade")?.value === "Residente") &&
          !studentCredentialFile
       ) {
-         setInputError(
-            "studiesGrade",
-            "Debes subir tu comprobante para poder continuar",
-         );
+         setInputError("studiesGrade", "Debes subir tu comprobante para poder continuar");
          return false;
       }
 
@@ -275,29 +242,17 @@ function useDynamicFormState(formSteps: FormSection[]) {
    };
 }
 
-const RegistrationFormContext = createContext(
-   {} as ReturnType<typeof useDynamicFormState>,
-);
+const RegistrationFormContext = createContext({} as ReturnType<typeof useDynamicFormState>);
 
-export function DynamicFormContextProvider({
-   children,
-}: {
-   children: React.ReactNode;
-}) {
+export function DynamicFormContextProvider({ children }: { children: React.ReactNode }) {
    const registrationFormState = useDynamicFormState(registrationFormSections);
 
-   return (
-      <RegistrationFormContext.Provider value={registrationFormState}>
-         {children}
-      </RegistrationFormContext.Provider>
-   );
+   return <RegistrationFormContext.Provider value={registrationFormState}>{children}</RegistrationFormContext.Provider>;
 }
 
 export function useDynamicFormContext() {
    if (!RegistrationFormContext) {
-      throw new Error(
-         "useRegistrationFormContext must be used within a RegistrationFormContextProvider",
-      );
+      throw new Error("useRegistrationFormContext must be used within a RegistrationFormContextProvider");
    }
 
    return useContext(RegistrationFormContext);

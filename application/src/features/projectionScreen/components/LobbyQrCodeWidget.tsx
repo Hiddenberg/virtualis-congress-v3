@@ -1,9 +1,6 @@
 "use client";
 import { QRCodeSVG } from "qrcode.react";
-import {
-   IS_DEV_ENVIRONMENT,
-   PLATFORM_BASE_DOMAIN,
-} from "@/data/constants/platformConstants";
+import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
 
 export default function LobbyQrCodeWidget() {

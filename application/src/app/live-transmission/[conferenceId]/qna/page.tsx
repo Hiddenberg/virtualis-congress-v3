@@ -8,11 +8,7 @@ import LivestreamTransmissionInterface from "@/features/livestreams/components/t
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
 
-export default async function ConferenceLivestreamTransmissionPage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function ConferenceLivestreamTransmissionPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const conference = await getConferenceById(conferenceId);
@@ -28,10 +24,7 @@ export default async function ConferenceLivestreamTransmissionPage({
    if (!qnaLivestreamSession) {
       return (
          <div>
-            <h1>
-               Sesión de preguntas y respuestas no encontrada para la
-               conferencia {conference.title}
-            </h1>
+            <h1>Sesión de preguntas y respuestas no encontrada para la conferencia {conference.title}</h1>
          </div>
       );
    }
@@ -42,12 +35,7 @@ export default async function ConferenceLivestreamTransmissionPage({
 
    if (qnaLivestreamSession.status === "scheduled") {
       if (userIsAdmin) {
-         return (
-            <AdminScheduledPage
-               livestreamSessionId={qnaLivestreamSession.id}
-               isQnASession={true}
-            />
-         );
+         return <AdminScheduledPage livestreamSessionId={qnaLivestreamSession.id} isQnASession={true} />;
       }
       return (
          <GuestScheduledPage
@@ -60,8 +48,7 @@ export default async function ConferenceLivestreamTransmissionPage({
 
    const conferencePresentation = await getConferencePresentation(conferenceId);
 
-   const activeConferenceQuestionPoll =
-      await getActiveQuestionPollForConference(conferenceId);
+   const activeConferenceQuestionPoll = await getActiveQuestionPollForConference(conferenceId);
 
    return (
       <LivestreamTransmissionInterface

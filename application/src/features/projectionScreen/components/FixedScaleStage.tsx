@@ -15,13 +15,7 @@ interface FixedScaleStageProps {
 }
 
 export default function FixedScaleStage(props: FixedScaleStageProps) {
-   const {
-      baseWidth,
-      baseHeight,
-      children,
-      className = "",
-      contain = true,
-   } = props;
+   const { baseWidth, baseHeight, children, className = "", contain = true } = props;
 
    const containerRef = useRef<HTMLDivElement | null>(null);
    const [size, setSize] = useState<{ w: number; h: number }>({
@@ -72,14 +66,8 @@ export default function FixedScaleStage(props: FixedScaleStageProps) {
    );
 
    return (
-      <div
-         ref={containerRef}
-         className={`relative w-full min-h-dvh overflow-hidden ${className}`}
-      >
-         <div
-            className="top-1/2! left-1/2! -translate-x-1/2! -translate-y-1/2! absolute!"
-            style={offsetStyle}
-         >
+      <div ref={containerRef} className={`relative w-full min-h-dvh overflow-hidden ${className}`}>
+         <div className="top-1/2! left-1/2! -translate-x-1/2! -translate-y-1/2! absolute!" style={offsetStyle}>
             <div style={stageStyle}>{children}</div>
          </div>
       </div>

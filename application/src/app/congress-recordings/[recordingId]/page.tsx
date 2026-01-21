@@ -22,19 +22,12 @@ function formatDuration(seconds?: number | null) {
    return `${minutes}m`;
 }
 
-export default async function CongressRecordingPage({
-   params,
-}: {
-   params: Promise<{ recordingId: string }>;
-}) {
+export default async function CongressRecordingPage({ params }: { params: Promise<{ recordingId: string }> }) {
    const { recordingId } = await params;
 
    const congress = await getLatestCongress();
    const userId = await getLoggedInUserId();
-   const hasAccessToRecording = await checkIfUserHasAccessToRecordings(
-      userId ?? "",
-      congress.id,
-   );
+   const hasAccessToRecording = await checkIfUserHasAccessToRecordings(userId ?? "", congress.id);
 
    if (!hasAccessToRecording) {
       return redirect("/congress-recordings/buy");
@@ -46,18 +39,9 @@ export default async function CongressRecordingPage({
       return (
          <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-5xl">
             <div className="bg-red-50 p-6 border border-red-200 rounded-xl text-center">
-               <h1 className="mb-2 font-semibold text-red-900 text-xl">
-                  Grabación no encontrada
-               </h1>
-               <p className="mb-4 text-red-700">
-                  La grabación que buscas no existe o no tienes permiso para
-                  verla.
-               </p>
-               <LinkButton
-                  href="/congress-recordings"
-                  variant="secondary"
-                  className="inline-flex items-center gap-2"
-               >
+               <h1 className="mb-2 font-semibold text-red-900 text-xl">Grabación no encontrada</h1>
+               <p className="mb-4 text-red-700">La grabación que buscas no existe o no tienes permiso para verla.</p>
+               <LinkButton href="/congress-recordings" variant="secondary" className="inline-flex items-center gap-2">
                   <ArrowLeft className="w-4 h-4" />
                   Volver a grabaciones
                </LinkButton>
@@ -66,21 +50,13 @@ export default async function CongressRecordingPage({
       );
    }
 
-   const recordingPresentation = await getRecordingPresentationByRecordingId(
-      recording.id,
-   );
-   const presentationSlides = await getPresentationSlidesById(
-      recordingPresentation?.id ?? "",
-   );
-   const presentationRecording = await getPresentationRecordingByPresentationId(
-      recordingPresentation?.id ?? "",
-   );
+   const recordingPresentation = await getRecordingPresentationByRecordingId(recording.id);
+   const presentationSlides = await getPresentationSlidesById(recordingPresentation?.id ?? "");
+   const presentationRecording = await getPresentationRecordingByPresentationId(recordingPresentation?.id ?? "");
 
    const allConferences = await getAllCongressConferences(congress.id);
    const recordingTitle = recording.title.split(" - ")[1] ?? recording.title;
-   const conference = allConferences.find(
-      (conf) => conf.title === recordingTitle,
-   );
+   const conference = allConferences.find((conf) => conf.title === recordingTitle);
    const speakers = await getConferenceSpeakers(conference?.id ?? "");
    const durationLabel = formatDuration(recording.durationSeconds);
 
@@ -99,16 +75,10 @@ export default async function CongressRecordingPage({
 
          {/* Header */}
          <div className="mb-6">
-            <div className="mb-2 text-slate-500 text-sm">
-               Grabación de la ponencia
-            </div>
-            <h1 className="font-bold text-slate-900 text-2xl md:text-3xl leading-tight">
-               {recordingTitle}
-            </h1>
+            <div className="mb-2 text-slate-500 text-sm">Grabación de la ponencia</div>
+            <h1 className="font-bold text-slate-900 text-2xl md:text-3xl leading-tight">{recordingTitle}</h1>
             {conference?.shortDescription && (
-               <p className="mt-2 max-w-3xl text-slate-600 text-base md:text-lg">
-                  {conference.shortDescription}
-               </p>
+               <p className="mt-2 max-w-3xl text-slate-600 text-base md:text-lg">{conference.shortDescription}</p>
             )}
             {speakers.length > 0 && (
                <div className="flex flex-wrap gap-2 mt-3">
@@ -126,8 +96,7 @@ export default async function CongressRecordingPage({
                <div className="flex items-center gap-2">
                   <Users className="w-4 h-4" />
                   <span>
-                     {speakers.length}{" "}
-                     {speakers.length === 1 ? "ponente" : "ponentes"}
+                     {speakers.length} {speakers.length === 1 ? "ponente" : "ponentes"}
                   </span>
                </div>
                {durationLabel && (
@@ -142,32 +111,27 @@ export default async function CongressRecordingPage({
          {/* Player Card */}
          <div className="bg-white p-3 md:p-4 rounded-xl">
             <div className="mx-auto max-h-[80vh] aspect-video">
-               {recording.status === "ready" &&
-                  recording.muxPlaybackId &&
-                  !recordingPresentation && (
-                     <div className="bg-slate-100 mb-3 rounded-lg aspect-video overflow-hidden">
-                        <MuxPlayer
-                           playbackId={recording.muxPlaybackId}
-                           metadataVideoTitle={recording.title}
-                           preload="none"
-                           className="w-full h-full"
-                        />
-                     </div>
-                  )}
+               {recording.status === "ready" && recording.muxPlaybackId && !recordingPresentation && (
+                  <div className="bg-slate-100 mb-3 rounded-lg aspect-video overflow-hidden">
+                     <MuxPlayer
+                        playbackId={recording.muxPlaybackId}
+                        metadataVideoTitle={recording.title}
+                        preload="none"
+                        className="w-full h-full"
+                     />
+                  </div>
+               )}
 
-               {recording.status === "ready" &&
-                  recording.muxPlaybackId &&
-                  recordingPresentation &&
-                  presentationRecording && (
-                     <div className="bg-slate-100 mb-3 rounded-lg">
-                        <PresentationAndVideoPlayer
-                           isSmall={true}
-                           muxPlaybackId={recording.muxPlaybackId}
-                           presentationSlides={presentationSlides || []}
-                           presentationRecording={presentationRecording}
-                        />
-                     </div>
-                  )}
+               {recording.status === "ready" && recording.muxPlaybackId && recordingPresentation && presentationRecording && (
+                  <div className="bg-slate-100 mb-3 rounded-lg">
+                     <PresentationAndVideoPlayer
+                        isSmall={true}
+                        muxPlaybackId={recording.muxPlaybackId}
+                        presentationSlides={presentationSlides || []}
+                        presentationRecording={presentationRecording}
+                     />
+                  </div>
+               )}
             </div>
          </div>
 

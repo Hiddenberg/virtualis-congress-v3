@@ -1,22 +1,12 @@
 "use client";
 
-import {
-   AlertCircle,
-   CheckCircle,
-   CreditCard,
-   Plus,
-   Search,
-   User,
-   Users,
-} from "lucide-react";
+import { AlertCircle, CheckCircle, CreditCard, Plus, Search, User, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
-import {
-   registerManualPaymentAction,
-   searchRegisteredUsersAction,
-} from "../serverActions/manualRegistrationActions";
+import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import { registerManualPaymentAction, searchRegisteredUsersAction } from "../serverActions/manualRegistrationActions";
 
 interface UserListItemProps {
    user: UserRecord;
@@ -26,13 +16,7 @@ interface UserListItemProps {
    onSelect: (user: UserRecord) => void;
 }
 
-function UserListItem({
-   user,
-   hasPaid,
-   hasRecordings,
-   selected,
-   onSelect,
-}: UserListItemProps) {
+function UserListItem({ user, hasPaid, hasRecordings, selected, onSelect }: UserListItemProps) {
    const isSelectable = !hasPaid || (hasPaid && !hasRecordings);
 
    return (
@@ -42,17 +26,11 @@ function UserListItem({
          disabled={!isSelectable}
          className={`
             w-full text-left p-4 rounded-lg border transition-all duration-200
-            ${
-               selected
-                  ? "bg-blue-50 border-blue-200 shadow-sm"
-                  : !isSelectable
-                    ? "bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed opacity-60"
-                    : "bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 hover:shadow-sm"
-            }
+            ${selected ? "bg-blue-50 border-blue-200 shadow-sm" : !isSelectable ? "bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed opacity-60" : "bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 hover:shadow-sm"}
          `}
       >
          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0 mt-1">
+            <div className="mt-1 shrink-0">
                <div
                   className={`
                   w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
@@ -64,12 +42,8 @@ function UserListItem({
             </div>
 
             <div className="flex-1 min-w-0">
-               <div className="font-semibold text-gray-900 truncate">
-                  {user.name}
-               </div>
-               <div className="mt-1 text-gray-600 text-sm truncate">
-                  {user.email}
-               </div>
+               <div className="font-semibold text-gray-900 truncate">{user.name}</div>
+               <div className="mt-1 text-gray-600 text-sm truncate">{user.email}</div>
 
                <div className="flex items-center gap-3 mt-2">
                   {hasPaid ? (
@@ -87,16 +61,10 @@ function UserListItem({
                   <div
                      className={`
                      flex items-center gap-1 text-xs px-2 py-1 rounded-full
-                     ${
-                        hasRecordings
-                           ? "bg-green-100 text-green-700"
-                           : "bg-blue-100 text-blue-700"
-                     }
+                     ${hasRecordings ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"}
                   `}
                   >
-                     <div
-                        className={`w-2 h-2 rounded-full ${hasRecordings ? "bg-green-500" : "bg-blue-500"}`}
-                     />
+                     <div className={`w-2 h-2 rounded-full ${hasRecordings ? "bg-green-500" : "bg-blue-500"}`} />
                      {hasRecordings ? "Con grabaciones" : "Sin grabaciones"}
                   </div>
                </div>
@@ -127,20 +95,13 @@ function SearchSection({
                   <Search className="text-blue-600" size={20} />
                </div>
                <div>
-                  <h2 className="font-semibold text-gray-900 text-lg">
-                     Buscar Usuario
-                  </h2>
-                  <p className="text-gray-600 text-sm">
-                     Encuentra al asistente registrado
-                  </p>
+                  <h2 className="font-semibold text-gray-900 text-lg">Buscar Usuario</h2>
+                  <p className="text-gray-600 text-sm">Encuentra al asistente registrado</p>
                </div>
             </div>
 
             <div className="relative">
-               <Search
-                  className="top-1/2 left-3 absolute text-gray-400 -translate-y-1/2 transform"
-                  size={16}
-               />
+               <Search className="top-1/2 left-3 absolute text-gray-400 -translate-y-1/2 transform" size={16} />
                <input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -155,11 +116,7 @@ function SearchSection({
                {users.length === 0 ? (
                   <div className="py-8 text-gray-500 text-center">
                      <Users className="mx-auto mb-2 text-gray-400" size={24} />
-                     <p className="text-sm">
-                        {search.trim()
-                           ? "No se encontraron usuarios"
-                           : "Escribe para buscar usuarios"}
-                     </p>
+                     <p className="text-sm">{search.trim() ? "No se encontraron usuarios" : "Escribe para buscar usuarios"}</p>
                   </div>
                ) : (
                   users.map((item) => (
@@ -250,12 +207,8 @@ function PaymentSection({
                   <CreditCard className="text-green-600" size={20} />
                </div>
                <div>
-                  <h2 className="font-semibold text-gray-900 text-lg">
-                     Registro de Pago
-                  </h2>
-                  <p className="text-gray-600 text-sm">
-                     Configura el pago manual del usuario
-                  </p>
+                  <h2 className="font-semibold text-gray-900 text-lg">Registro de Pago</h2>
+                  <p className="text-gray-600 text-sm">Configura el pago manual del usuario</p>
                </div>
             </div>
          </div>
@@ -263,9 +216,7 @@ function PaymentSection({
          <div className="space-y-6 p-6">
             {/* Usuario Seleccionado */}
             <div>
-               <label className="block mb-2 font-medium text-gray-700 text-sm">
-                  Usuario Seleccionado
-               </label>
+               <label className="block mb-2 font-medium text-gray-700 text-sm">Usuario Seleccionado</label>
                <div className="bg-gray-50 p-4 border rounded-lg">
                   {selectedUser ? (
                      <div className="flex items-center gap-3">
@@ -273,12 +224,8 @@ function PaymentSection({
                            <User className="text-blue-600" size={16} />
                         </div>
                         <div>
-                           <div className="font-medium text-gray-900">
-                              {selectedUser.name}
-                           </div>
-                           <div className="text-gray-600 text-sm">
-                              {selectedUser.email}
-                           </div>
+                           <div className="font-medium text-gray-900">{selectedUser.name}</div>
+                           <div className="text-gray-600 text-sm">{selectedUser.email}</div>
                         </div>
                         {isPaidSelected && (
                            <div className="ml-auto">
@@ -291,13 +238,8 @@ function PaymentSection({
                      </div>
                   ) : (
                      <div className="py-4 text-gray-500 text-center">
-                        <AlertCircle
-                           className="mx-auto mb-2 text-gray-400"
-                           size={20}
-                        />
-                        <p className="text-sm">
-                           Selecciona un usuario para continuar
-                        </p>
+                        <AlertCircle className="mx-auto mb-2 text-gray-400" size={20} />
+                        <p className="text-sm">Selecciona un usuario para continuar</p>
                      </div>
                   )}
                </div>
@@ -305,35 +247,21 @@ function PaymentSection({
 
             {/* Modalidad */}
             <div>
-               <label className="block mb-3 font-medium text-gray-700 text-sm">
-                  Modalidad de Asistencia
-               </label>
+               <label className="block mb-3 font-medium text-gray-700 text-sm">Modalidad de Asistencia</label>
                <div className="gap-3 grid grid-cols-1 sm:grid-cols-3">
                   {modalityOptions.map((option) => (
                      <button
                         key={option.value}
                         type="button"
-                        onClick={() =>
-                           setModality(
-                              option.value as "in-person" | "virtual" | "",
-                           )
-                        }
+                        onClick={() => setModality(option.value as "in-person" | "virtual" | "")}
                         disabled={isPaidSelected}
                         className={`
                            p-4 rounded-lg border-2 transition-all text-left
-                           ${
-                              modality === option.value
-                                 ? "border-blue-500 bg-blue-50 text-blue-900"
-                                 : isPaidSelected
-                                   ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed"
-                                   : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                           }
+                           ${modality === option.value ? "border-blue-500 bg-blue-50 text-blue-900" : isPaidSelected ? "border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed" : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"}
                         `}
                      >
                         <div className="mb-1 text-lg">{option.icon}</div>
-                        <div className="font-medium text-sm">
-                           {option.label}
-                        </div>
+                        <div className="font-medium text-sm">{option.label}</div>
                      </button>
                   ))}
                </div>
@@ -351,19 +279,14 @@ function PaymentSection({
                   <input
                      type="checkbox"
                      checked={grantRecordingsAccess}
-                     onChange={(e) =>
-                        setGrantRecordingsAccess(e.target.checked)
-                     }
+                     onChange={(e) => setGrantRecordingsAccess(e.target.checked)}
                      className="mt-1 border-gray-300 rounded focus:ring-blue-500 w-4 h-4 text-blue-600"
                   />
                   <div>
-                     <span className="font-medium text-gray-700 text-sm">
-                        Otorgar acceso a grabaciones
-                     </span>
+                     <span className="font-medium text-gray-700 text-sm">Otorgar acceso a grabaciones</span>
                      {isPaidSelected && (
                         <p className="mt-1 text-gray-600 text-xs">
-                           Para usuarios ya pagados, solo se puede agregar
-                           acceso a grabaciones
+                           Para usuarios ya pagados, solo se puede agregar acceso a grabaciones
                         </p>
                      )}
                   </div>
@@ -373,9 +296,7 @@ function PaymentSection({
             {/* Montos */}
             <div className="gap-4 grid grid-cols-1 sm:grid-cols-3">
                <div className="sm:col-span-2">
-                  <label className="block mb-2 font-medium text-gray-700 text-sm">
-                     Monto Total
-                  </label>
+                  <label className="block mb-2 font-medium text-gray-700 text-sm">Monto Total</label>
                   <input
                      inputMode="decimal"
                      value={amount}
@@ -385,9 +306,7 @@ function PaymentSection({
                   />
                </div>
                <div>
-                  <label className="block mb-2 font-medium text-gray-700 text-sm">
-                     Descuento
-                  </label>
+                  <label className="block mb-2 font-medium text-gray-700 text-sm">Descuento</label>
                   <input
                      inputMode="decimal"
                      value={discount}
@@ -400,9 +319,7 @@ function PaymentSection({
 
             {/* Moneda */}
             <div>
-               <label className="block mb-2 font-medium text-gray-700 text-sm">
-                  Moneda
-               </label>
+               <label className="block mb-2 font-medium text-gray-700 text-sm">Moneda</label>
                <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
@@ -431,15 +348,9 @@ function PaymentSection({
    );
 }
 
-export default function ManualRegistrationPanel({
-   congress,
-}: {
-   congress: CongressRecord;
-}) {
+export default function ManualRegistrationPanel({ congress }: { congress: CongressRecord }) {
    const [search, setSearch] = useState("");
-   const [users, setUsers] = useState<
-      Array<{ user: UserRecord; hasPaid: boolean; hasRecordings: boolean }>
-   >([]);
+   const [users, setUsers] = useState<Array<{ user: UserRecord; hasPaid: boolean; hasRecordings: boolean }>>([]);
    const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
    const [modality, setModality] = useState<"in-person" | "virtual" | "">("");
    const [grantRecordingsAccess, setGrantRecordingsAccess] = useState(false);
@@ -480,9 +391,7 @@ export default function ManualRegistrationPanel({
          return;
       }
       if (!selectedUser) return;
-      const confirm = window.confirm(
-         "¿Estás seguro de querer registrar este pago?",
-      );
+      const confirm = window.confirm("¿Estás seguro de querer registrar este pago?");
       if (!confirm) return;
       const parsedAmount = Number(amount);
       const parsedDiscount = Number(discount || 0);
@@ -514,13 +423,8 @@ export default function ManualRegistrationPanel({
          <div className="mx-auto px-4 py-8 max-w-7xl">
             {/* Header */}
             <div className="mb-8">
-               <h1 className="mb-2 font-bold text-gray-900 text-3xl">
-                  Registro Manual de Pagos
-               </h1>
-               <p className="text-gray-600 text-lg">
-                  Gestiona pagos en efectivo y otorga acceso a los asistentes
-                  del congreso
-               </p>
+               <h1 className="mb-2 font-bold text-gray-900 text-3xl">Registro Manual de Pagos</h1>
+               <p className="text-gray-600 text-lg">Gestiona pagos en efectivo y otorga acceso a los asistentes del congreso</p>
             </div>
 
             {/* Crear Usuario Button */}

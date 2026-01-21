@@ -9,23 +9,18 @@ interface LobbyConferencesPreviewProps {
    conferences: ConferenceWithSpeakers[];
 }
 
-export default function LobbyConferencesPreview({
-   conferences,
-}: LobbyConferencesPreviewProps) {
+export default function LobbyConferencesPreview({ conferences }: LobbyConferencesPreviewProps) {
    const [activeIdx, setActiveIdx] = useState(0);
 
    const days = useMemo(() => {
       const dateKeyToConferences = new Map<string, ConferenceWithSpeakers[]>();
       for (const conferenceWithSpeakers of conferences) {
-         if (
-            !conferenceWithSpeakers.conference.startTime ||
-            !conferenceWithSpeakers.conference.endTime
-         )
-            continue;
+         if (!conferenceWithSpeakers.conference.startTime || !conferenceWithSpeakers.conference.endTime) continue;
          const start = new Date(conferenceWithSpeakers.conference.startTime);
-         const key = `${start.getFullYear()}-${String(
-            start.getMonth() + 1,
-         ).padStart(2, "0")}-${String(start.getDate()).padStart(2, "0")}`;
+         const key = `${start.getFullYear()}-${String(start.getMonth() + 1).padStart(
+            2,
+            "0",
+         )}-${String(start.getDate()).padStart(2, "0")}`;
          const list = dateKeyToConferences.get(key) ?? [];
          list.push(conferenceWithSpeakers);
          dateKeyToConferences.set(key, list);
@@ -37,9 +32,7 @@ export default function LobbyConferencesPreview({
             const [y, m, d] = key.split("-").map(Number);
             const date = new Date(y, m - 1, d);
             const conferencesSorted = list.sort(
-               (a, b) =>
-                  new Date(a.conference.startTime).getTime() -
-                  new Date(b.conference.startTime).getTime(),
+               (a, b) => new Date(a.conference.startTime).getTime() - new Date(b.conference.startTime).getTime(),
             );
             return {
                dateISO: date.toISOString(),
@@ -71,9 +64,7 @@ export default function LobbyConferencesPreview({
          <div className="bg-white shadow-sm border border-blue-100 rounded-2xl overflow-hidden">
             <div className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-cyan-50 px-4 md:px-6 py-4">
                <Calendar className="w-4 h-4 text-blue-700" />
-               <h3 className="font-semibold text-slate-800 text-base md:text-lg">
-                  Próximas conferencias
-               </h3>
+               <h3 className="font-semibold text-slate-800 text-base md:text-lg">Próximas conferencias</h3>
             </div>
 
             {/* Day tabs */}
@@ -130,10 +121,7 @@ export default function LobbyConferencesPreview({
                                     <div className="flex items-center gap-1 mt-0.5 text-slate-600 text-xs md:text-sm line-clamp-2">
                                        <Mic2 className="size-4" />
                                        {conf.speakers
-                                          .map(
-                                             (speaker) =>
-                                                `${speaker.academicTitle} ${speaker.displayName}`,
-                                          )
+                                          .map((speaker) => `${speaker.academicTitle} ${speaker.displayName}`)
                                           .join(", ")}
                                     </div>
                                  )}

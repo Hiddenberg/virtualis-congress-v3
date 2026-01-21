@@ -1,10 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import {
-   linkSpeakerToConference,
-   unlinkSpeakerFromConference,
-} from "@/features/conferences/services/conferenceSpeakersServices";
+import { linkSpeakerToConference, unlinkSpeakerFromConference } from "@/features/conferences/services/conferenceSpeakersServices";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 
 export async function linkSpeakersToConferenceAction({
@@ -14,10 +11,7 @@ export async function linkSpeakersToConferenceAction({
    conferenceId: string;
    speakerIds: string[];
 }): Promise<BackendResponse<null>> {
-   const isAuthorizedUser = checkAuthorizedUserFromServer([
-      "admin",
-      "super_admin",
-   ]);
+   const isAuthorizedUser = checkAuthorizedUserFromServer(["admin", "super_admin"]);
    if (!isAuthorizedUser) {
       return {
          success: false,
@@ -55,10 +49,7 @@ export async function unlinkSpeakersFromConferenceAction({
    conferenceId: string;
    speakerIds: string[];
 }): Promise<BackendResponse<null>> {
-   const isAuthorizedUser = checkAuthorizedUserFromServer([
-      "admin",
-      "super_admin",
-   ]);
+   const isAuthorizedUser = checkAuthorizedUserFromServer(["admin", "super_admin"]);
    if (!isAuthorizedUser) {
       return {
          success: false,

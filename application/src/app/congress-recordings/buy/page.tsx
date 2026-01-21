@@ -10,10 +10,7 @@ export default async function BuyRecordingsPage() {
       redirect("/login");
    }
    const congress = await getLatestCongress();
-   const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(
-      userId,
-      congress.id,
-   );
+   const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(userId, congress.id);
 
    if (hasAccessToRecordings) {
       redirect("/congress-recordings");
@@ -22,12 +19,8 @@ export default async function BuyRecordingsPage() {
    return (
       <div className="p-4 md:p-8">
          <div className="mb-6 text-center">
-            <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">
-               Compra de grabaciones
-            </h1>
-            <p className="text-slate-600 text-base md:text-lg">
-               Adquiere acceso a todas las grabaciones del congreso.
-            </p>
+            <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">Compra de grabaciones</h1>
+            <p className="text-slate-600 text-base md:text-lg">Adquiere acceso a todas las grabaciones del congreso.</p>
          </div>
          <BuyRecordingsCard />
       </div>

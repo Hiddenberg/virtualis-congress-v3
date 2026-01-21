@@ -7,9 +7,7 @@ interface MobileMenuToggleProps {
    isCloseButton?: boolean;
 }
 
-export default function MobileMenuToggle({
-   isCloseButton = false,
-}: MobileMenuToggleProps) {
+export default function MobileMenuToggle({ isCloseButton = false }: MobileMenuToggleProps) {
    const toggleMenu = () => {
       const sidebar = document.getElementById("sidebar");
       if (isCloseButton) {

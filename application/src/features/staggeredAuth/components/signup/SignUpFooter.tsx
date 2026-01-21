@@ -18,9 +18,7 @@ export default function SignUpFooter() {
 
          {/* Login prompt */}
          <div className="bg-gradient-to-r from-gray-50 to-blue-50 shadow-sm p-6 border-2 border-gray-200 rounded-2xl text-center">
-            <p className="mb-4 font-semibold text-gray-800 text-lg">
-               ¿Ya tienes una cuenta?
-            </p>
+            <p className="mb-4 font-semibold text-gray-800 text-lg">¿Ya tienes una cuenta?</p>
             <a
                href={loginUrl}
                className="inline-block bg-gradient-to-r from-gray-700 hover:from-gray-800 to-gray-800 hover:to-gray-900 shadow-lg hover:shadow-xl px-8 py-3 rounded-xl font-bold text-white transition-all hover:-translate-y-0.5 duration-200"

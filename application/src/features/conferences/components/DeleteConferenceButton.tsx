@@ -6,17 +6,11 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { deleteConferenceAction } from "../actions/conferenceActions";
 
-export default function DeleteConferenceButton({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export default function DeleteConferenceButton({ conferenceId }: { conferenceId: string }) {
    const [deleting, startTransition] = useTransition();
 
    const handleDelete = () => {
-      const confirm = window.confirm(
-         "¿Estás seguro de querer eliminar esta conferencia? Esta acción no se puede deshacer.",
-      );
+      const confirm = window.confirm("¿Estás seguro de querer eliminar esta conferencia? Esta acción no se puede deshacer.");
       if (!confirm) return;
 
       startTransition(async () => {

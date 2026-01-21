@@ -2,6 +2,7 @@
 import { CalendarDays, DoorOpenIcon, Monitor, Play } from "lucide-react";
 import Link from "next/link";
 import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
+import { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import ACPConferencesPreview from "./ACPConferencesPreview";
 
@@ -12,16 +13,11 @@ interface HeroSectionProps {
    conferences: ConferenceWithSpeakers[];
 }
 
-export default function ACPHeroSection({
-   organization,
-   userId,
-   congress,
-   conferences,
-}: HeroSectionProps) {
+export default function ACPHeroSection({ organization, userId, congress, conferences }: HeroSectionProps) {
    // const medicalOrganizationLogoUrl = "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757620427/logo_sociedad_medica_wrgq6i.webp"
 
    return (
-      <section className="relative flex items-center bg-gradient-to-br from-teal-600 via-emerald-500 to-green-400 min-h-dvh">
+      <section className="relative flex items-center bg-linear-to-br from-teal-600 via-emerald-500 to-green-400 min-h-dvh">
          {/* Background accents */}
          <div className="absolute inset-0 opacity-40 w-full overflow-hidden">
             {Array.from({
@@ -73,8 +69,7 @@ export default function ACPHeroSection({
                         <span className="text-lime-200">{congress.title}</span>
                      </h1>
                      <p className="max-w-xl text-teal-100 text-lg">
-                        Actualízate con las mejores conferencias en un formato
-                        digital accesible, sin traslados y desde cualquier
+                        Actualízate con las mejores conferencias en un formato digital accesible, sin traslados y desde cualquier
                         dispositivo.
                      </p>
                      <div className="gap-3 grid sm:grid-cols-3">
@@ -100,22 +95,13 @@ export default function ACPHeroSection({
                      <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
                         <div className="flex items-center gap-2 mb-1">
                            <CalendarDays className="w-4 h-4 text-cyan-200" />
-                           <span className="font-semibold text-white text-xl">
-                              Fechas
-                           </span>
+                           <span className="font-semibold text-white text-xl">Fechas</span>
                         </div>
-                        <div className="text-cyan-100">
-                           14 de noviembre 2025
-                        </div>
+                        <div className="text-cyan-100">14 de noviembre 2025</div>
                      </div>
                      <div className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 rounded-xl">
-                        <div className="mb-1 font-bold text-white text-xl">
-                           {" "}
-                           Grabaciones
-                        </div>
-                        <div className="font-medium text-cyan-200">
-                           A demanda por 3 meses
-                        </div>
+                        <div className="mb-1 font-bold text-white text-xl"> Grabaciones</div>
+                        <div className="font-medium text-cyan-200">A demanda por 3 meses</div>
                      </div>
                   </div>
 
@@ -140,8 +126,7 @@ export default function ACPHeroSection({
                            href="/lobby"
                            className="flex justify-center items-center gap-2 bg-white hover:bg-lime-50 shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold text-teal-900 text-lg text-center hover:scale-105 transition-all duration-300 transform"
                         >
-                           <DoorOpenIcon className="w-5 h-5" /> Entrar con mi
-                           cuenta
+                           <DoorOpenIcon className="w-5 h-5" /> Entrar con mi cuenta
                         </Link>
                      </div>
                      <p className="flex items-center gap-2 text-teal-100 text-sm">
@@ -157,7 +142,7 @@ export default function ACPHeroSection({
             </div>
          </div>
 
-         <div className="bottom-0 left-0 absolute bg-gradient-to-t from-teal-600/60 to-transparent w-full h-24" />
+         <div className="bottom-0 left-0 absolute bg-linear-to-t from-teal-600/60 to-transparent w-full h-24" />
       </section>
    );
 }

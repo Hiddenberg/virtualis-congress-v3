@@ -1081,9 +1081,7 @@ Estou à disposição, esse é meu e-mail e muito obrigado pela paciência.
    // Translate each chunk using OpenAI
    const translatedChunks = await Promise.all(
       joinedChunksOf50.map(async (chunk, index) => {
-         console.log(
-            `Translating chunk ${index + 1} of ${joinedChunksOf50.length}`,
-         );
+         console.log(`Translating chunk ${index + 1} of ${joinedChunksOf50.length}`);
          const completion = await openai.chat.completions.create({
             model: "gpt-4o-mini",
             messages: [
@@ -1100,9 +1098,7 @@ Estou à disposição, esse é meu e-mail e muito obrigado pela paciência.
             temperature: 0.3,
          });
 
-         console.log(
-            `Translated chunk ${index + 1} of ${joinedChunksOf50.length}`,
-         );
+         console.log(`Translated chunk ${index + 1} of ${joinedChunksOf50.length}`);
          return completion.choices[0].message.content || "";
       }),
    );

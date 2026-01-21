@@ -47,10 +47,7 @@ export async function POST(req: NextRequest) {
                });
                controller.enqueue(encoder.encode(payload));
             } catch (error) {
-               const message =
-                  error instanceof Error
-                     ? error.message
-                     : "Error al convertir la presentación";
+               const message = error instanceof Error ? error.message : "Error al convertir la presentación";
                const payload = JSON.stringify({
                   success: false,
                   errorMessage: message,
@@ -70,10 +67,7 @@ export async function POST(req: NextRequest) {
          },
       });
    } catch (error) {
-      const message =
-         error instanceof Error
-            ? error.message
-            : "Error al convertir la presentación";
+      const message = error instanceof Error ? error.message : "Error al convertir la presentación";
       return NextResponse.json(
          {
             success: false,

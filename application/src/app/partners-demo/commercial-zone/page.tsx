@@ -1,18 +1,14 @@
 import type { Partner } from "@/components/partners-demo/commercial-zone/PartnerCard";
 import PartnersGrid from "@/components/partners-demo/commercial-zone/PartnersGrid";
 import TopBrandsNav from "@/components/partners-demo/commercial-zone/TopBrandsNav";
-import {
-   PARTNERS_DEMO_CONSTANTS,
-   SPONSOR_LOGO_URLS,
-} from "@/data/partnersDemoConstants";
+import { PARTNERS_DEMO_CONSTANTS, SPONSOR_LOGO_URLS } from "@/data/partnersDemoConstants";
 
 export default function DemoCommercialZonePage() {
    const partners = [
       {
          id: "abbott",
          name: "Abbott",
-         description:
-            "Innovamos en salud con soluciones de diagnóstico y dispositivos médicos.",
+         description: "Innovamos en salud con soluciones de diagnóstico y dispositivos médicos.",
          logoUrl: PARTNERS_DEMO_CONSTANTS.ABBOTT_LOGO_URL,
          link: "/partners-demo/commercial-zone/partner/abbott",
          darkBackground: true,
@@ -32,8 +28,7 @@ export default function DemoCommercialZonePage() {
       {
          id: "sanfer",
          name: "Sanfer",
-         description:
-            "Líderes en innovación farmacéutica en LATAM. Beneficios exclusivos durante el congreso.",
+         description: "Líderes en innovación farmacéutica en LATAM. Beneficios exclusivos durante el congreso.",
          logoUrl: PARTNERS_DEMO_CONSTANTS.SANFER_LOGO_URL,
          link: "/partners-demo/commercial-zone/partner/sanfer",
          tint: "pink",

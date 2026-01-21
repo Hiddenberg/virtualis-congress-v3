@@ -34,9 +34,7 @@ export async function proxy(request: NextRequest) {
    const isAuthTokenValid = await verifyUserAuthToken(authToken ?? "");
    const response = NextResponse.next();
    if (!authToken || !isAuthTokenValid) {
-      console.log(
-         "[middleware] Auth token is invalid, generating new auth token",
-      );
+      console.log("[middleware] Auth token is invalid, generating new auth token");
       const userId = getUserIdFromRefreshToken(refreshToken);
       const newAuthToken = await generateUserAuthToken(userId);
 

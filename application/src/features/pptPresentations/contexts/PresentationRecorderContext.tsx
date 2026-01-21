@@ -1,11 +1,5 @@
 "use client";
-import React, {
-   createContext,
-   useCallback,
-   useMemo,
-   useRef,
-   useState,
-} from "react";
+import React, { createContext, useCallback, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useLocalPresentationRecording } from "../hooks/useLocalPresentationRecording";
 import { savePresentationRecordingAction } from "../serverActions/presentationRecordingActions";
@@ -22,15 +16,12 @@ interface PresentationRecorderContextType {
    lastRecordedSlideIndex: number | null;
 }
 
-export const PresentationRecorderContext =
-   createContext<PresentationRecorderContextType | null>(null);
+export const PresentationRecorderContext = createContext<PresentationRecorderContextType | null>(null);
 
 export function usePresentationRecorder() {
    const ctx = React.useContext(PresentationRecorderContext);
    if (!ctx) {
-      throw new Error(
-         "usePresentationRecorder must be used within PresentationRecorderProvider",
-      );
+      throw new Error("usePresentationRecorder must be used within PresentationRecorderProvider");
    }
    return ctx;
 }
@@ -43,9 +34,7 @@ export function PresentationRecorderProvider({
    children: React.ReactNode;
 }) {
    const [isRecording, setIsRecording] = useState<boolean>(false);
-   const [slideChanges, setSlideChanges] = useState<
-      { slideIndex: number; timestamp: number }[]
-   >([]);
+   const [slideChanges, setSlideChanges] = useState<{ slideIndex: number; timestamp: number }[]>([]);
    const startTimeRef = useRef<number | null>(null);
    const local = useLocalPresentationRecording(presentationId);
 
@@ -99,8 +88,7 @@ export function PresentationRecorderProvider({
    const savePresentationRecording = useCallback(async () => {
       if (slideChanges.length === 0) return;
 
-      const savePresentationRecordingResponse =
-         await savePresentationRecordingAction(presentationId, slideChanges);
+      const savePresentationRecordingResponse = await savePresentationRecordingAction(presentationId, slideChanges);
       if (!savePresentationRecordingResponse.success) {
          toast.error(savePresentationRecordingResponse.errorMessage);
          return;
@@ -126,9 +114,7 @@ export function PresentationRecorderProvider({
          resumeRecording,
          recordSlideChange,
          savePresentationRecording,
-         hasPersistedData: Boolean(
-            local.persisted && local.persisted.slideChanges.length > 0,
-         ),
+         hasPersistedData: Boolean(local.persisted && local.persisted.slideChanges.length > 0),
          lastRecordedSlideIndex,
       }),
       [
@@ -144,9 +130,5 @@ export function PresentationRecorderProvider({
       ],
    );
 
-   return (
-      <PresentationRecorderContext.Provider value={value}>
-         {children}
-      </PresentationRecorderContext.Provider>
-   );
+   return <PresentationRecorderContext.Provider value={value}>{children}</PresentationRecorderContext.Provider>;
 }

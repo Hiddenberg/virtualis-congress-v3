@@ -1,9 +1,6 @@
 "use server";
 import { redirect } from "next/navigation";
-import {
-   IS_DEV_ENVIRONMENT,
-   PLATFORM_BASE_DOMAIN,
-} from "@/data/constants/platformConstants";
+import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { getCMIMCCStripeProducts } from "@/features/organizationPayments/services/CMIMCCPaymentServices";
 import {
@@ -19,9 +16,7 @@ export async function createRecordingsCheckout() {
    const urls = await getOrganizationStripeCredentials();
 
    if (!urls) {
-      throw new Error(
-         "No se encontraron las URLs de Stripe para la organización",
-      );
+      throw new Error("No se encontraron las URLs de Stripe para la organización");
    }
 
    const organization = await getOrganizationFromSubdomain();
@@ -40,8 +35,7 @@ export async function createRecordingsCheckout() {
       cancel_url: `${protocol}${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/congress-recordings/buy/payment-failed`,
       line_items: [
          {
-            price: CMIMCCStripeProducts["Recordings-Access"].prices.regular
-               .priceId,
+            price: CMIMCCStripeProducts["Recordings-Access"].prices.regular.priceId,
             quantity: 1,
          },
       ],

@@ -64,11 +64,7 @@ function ParticipantCard({
         ${isActive ? "scale-105 z-10" : "scale-90 opacity-70"}`}
          onClick={onClick}
       >
-         <Image
-            src={participant.image}
-            alt={participant.name}
-            className="shadow-lg rounded-lg w-full h-full object-cover"
-         />
+         <Image src={participant.image} alt={participant.name} className="shadow-lg rounded-lg w-full h-full object-cover" />
          {isActive && (
             <button className="bottom-4 left-4 absolute bg-primary bg-white hover:bg-primary/90 px-4 py-2 rounded-full font-semibold text-green-800 text-primary-foreground text-sm transition-colors">
                Ver CV
@@ -86,10 +82,7 @@ function ExpositorsCarousel() {
    };
 
    const prevSlide = () => {
-      setActiveIndex(
-         (prevIndex) =>
-            (prevIndex - 1 + participants.length) % participants.length,
-      );
+      setActiveIndex((prevIndex) => (prevIndex - 1 + participants.length) % participants.length);
    };
 
    return (
@@ -119,20 +112,11 @@ function ExpositorsCarousel() {
             </button>
          </div>
          <div className="mt-6 text-center">
-            <h2 className="font-bold text-2xl">
-               {participants[activeIndex].name}
-            </h2>
-            <p className="text-muted-foreground">
-               {participants[activeIndex].title}
-            </p>
+            <h2 className="font-bold text-2xl">{participants[activeIndex].name}</h2>
+            <p className="text-muted-foreground">{participants[activeIndex].title}</p>
             <div className="flex justify-center space-x-2 mt-2">
                {participants.map((_, index) => (
-                  <div
-                     key={index}
-                     className={`w-2 h-2 rounded-full ${
-                        index === activeIndex ? "bg-primary" : "bg-gray-300"
-                     }`}
-                  />
+                  <div key={index} className={`w-2 h-2 rounded-full ${index === activeIndex ? "bg-primary" : "bg-gray-300"}`} />
                ))}
             </div>
          </div>

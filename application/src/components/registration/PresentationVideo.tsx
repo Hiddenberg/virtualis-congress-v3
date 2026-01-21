@@ -18,8 +18,7 @@ export function PresentationVideo() {
             </h1>
 
             <h2 className="block mx-auto mb-10 px-4 font-bold text-[#A4A1B1] text-3xl">
-               Domina un nuevo idioma con nuestra metodología práctica y
-               efectiva
+               Domina un nuevo idioma con nuestra metodología práctica y efectiva
             </h2>
 
             <iframe

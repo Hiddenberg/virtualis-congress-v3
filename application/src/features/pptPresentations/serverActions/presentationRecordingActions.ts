@@ -1,9 +1,6 @@
 "use server";
 
-import {
-   getPresentationRecordingByPresentationId,
-   savePresentationRecording,
-} from "../services/presentationRecordingServices";
+import { getPresentationRecordingByPresentationId, savePresentationRecording } from "../services/presentationRecordingServices";
 
 export async function savePresentationRecordingAction(
    presentationId: string,
@@ -23,10 +20,7 @@ export async function savePresentationRecordingAction(
          };
       }
 
-      const saved = await savePresentationRecording(
-         presentationId,
-         slideChanges,
-      );
+      const saved = await savePresentationRecording(presentationId, slideChanges);
       return {
          success: true,
          data: saved,
@@ -56,8 +50,7 @@ export async function getPresentationRecordingByPresentationIdAction(
          };
       }
 
-      const recording =
-         await getPresentationRecordingByPresentationId(presentationId);
+      const recording = await getPresentationRecordingByPresentationId(presentationId);
       return {
          success: true,
          data: recording,

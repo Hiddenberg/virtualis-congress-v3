@@ -11,13 +11,7 @@ type CompanyCardProps = {
    buttonColor: string;
 };
 
-function CompanyCard({
-   name,
-   logo,
-   description,
-   backgroundColor,
-   buttonColor,
-}: CompanyCardProps) {
+function CompanyCard({ name, logo, description, backgroundColor, buttonColor }: CompanyCardProps) {
    return (
       <div className={`rounded-lg grow p-6 ${backgroundColor} flex items-end`}>
          <div className="flex-1 pr-6">

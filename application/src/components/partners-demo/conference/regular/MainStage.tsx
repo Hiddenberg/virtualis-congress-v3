@@ -10,15 +10,9 @@ const COLORS_MAP = {
    pink: "shadow-pink-200 shadow-lg border-2 border-pink-500",
 };
 
-export default function MainStage({
-   color,
-}: {
-   color: keyof typeof COLORS_MAP;
-}) {
+export default function MainStage({ color }: { color: keyof typeof COLORS_MAP }) {
    return (
-      <div
-         className={`relative ${COLORS_MAP[color]} rounded-2xl aspect-video overflow-hidden`}
-      >
+      <div className={`relative ${COLORS_MAP[color]} rounded-2xl aspect-video overflow-hidden`}>
          <div className="inline-flex top-4 left-4 z-10 absolute items-center gap-2 shadow px-3 py-1 rounded-full font-medium text-emerald-700 text-xs">
             <span className="place-items-center grid w-2 h-2">
                <span className="bg-emerald-500 rounded-full w-2 h-2 animate-pulse" />

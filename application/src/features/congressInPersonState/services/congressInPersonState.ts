@@ -1,12 +1,7 @@
 import { updateConference } from "@/features/conferences/services/conferenceServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import "server-only";
 
 export async function ensuredCongressInPersonState() {
@@ -24,31 +19,23 @@ export async function ensuredCongressInPersonState() {
       },
    );
 
-   const existingState = await getSingleDBRecord<CongressInPersonState>(
-      "CONGRESS_IN_PERSON_STATE",
-      filter,
-   );
+   const existingState = await getSingleDBRecord<CongressInPersonState>("CONGRESS_IN_PERSON_STATE", filter);
 
    if (existingState) {
       return existingState;
    }
 
-   const createdState = await createDBRecord<CongressInPersonState>(
-      "CONGRESS_IN_PERSON_STATE",
-      {
-         organization: organization.id,
-         congress: congress.id,
-         activeConference: null,
-         status: "standby",
-      },
-   );
+   const createdState = await createDBRecord<CongressInPersonState>("CONGRESS_IN_PERSON_STATE", {
+      organization: organization.id,
+      congress: congress.id,
+      activeConference: null,
+      status: "standby",
+   });
 
    return createdState;
 }
 
-export async function markConferenceAsStarted(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function markConferenceAsStarted(conferenceId: CongressConferenceRecord["id"]) {
    await updateConference(conferenceId, {
       status: "active",
    });
@@ -58,9 +45,7 @@ export async function markConferenceAsStarted(
    });
 }
 
-export async function markConferenceAsFinished(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function markConferenceAsFinished(conferenceId: CongressConferenceRecord["id"]) {
    await updateConference(conferenceId, {
       status: "finished",
    });
@@ -76,21 +61,13 @@ export async function setCongressInPersonStateToStandby() {
    });
 }
 
-export async function updateCongressInPersonState(
-   newState: Partial<CongressInPersonState>,
-) {
+export async function updateCongressInPersonState(newState: Partial<CongressInPersonState>) {
    const existingState = await ensuredCongressInPersonState();
-   const updatedState = await updateDBRecord<CongressInPersonState>(
-      "CONGRESS_IN_PERSON_STATE",
-      existingState.id,
-      newState,
-   );
+   const updatedState = await updateDBRecord<CongressInPersonState>("CONGRESS_IN_PERSON_STATE", existingState.id, newState);
    return updatedState;
 }
 
-export async function setCongressInPersonStatus(
-   newStatus: "active" | "standby",
-) {
+export async function setCongressInPersonStatus(newStatus: "active" | "standby") {
    await updateCongressInPersonState({
       status: newStatus,
    });

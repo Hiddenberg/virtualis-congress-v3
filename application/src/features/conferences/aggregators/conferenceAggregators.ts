@@ -11,9 +11,7 @@ export interface ConferenceWithSpeakers {
    speakers: SpeakerDataRecord[];
 }
 
-export async function getAllProgramConferencesWithSpeakers(): Promise<
-   ConferenceWithSpeakers[]
-> {
+export async function getAllProgramConferencesWithSpeakers(): Promise<ConferenceWithSpeakers[]> {
    const [organization, congress, allProgramConferences] = await Promise.all([
       getOrganizationFromSubdomain(),
       getLatestCongress(),
@@ -42,12 +40,10 @@ export async function getAllProgramConferencesWithSpeakers(): Promise<
       expand: "speaker",
    });
 
-   const conferenceSpeakers = expandedConferenceSpeakersRecord.map(
-      (conferenceSpeakerRecord) => ({
-         conference: conferenceSpeakerRecord.conference,
-         speaker: conferenceSpeakerRecord.expand.speaker,
-      }),
-   );
+   const conferenceSpeakers = expandedConferenceSpeakersRecord.map((conferenceSpeakerRecord) => ({
+      conference: conferenceSpeakerRecord.conference,
+      speaker: conferenceSpeakerRecord.expand.speaker,
+   }));
 
    const conferencesWithSpeakers = allProgramConferences.map((conference) => {
       const speakersForThisConference = conferenceSpeakers.filter(
@@ -56,17 +52,14 @@ export async function getAllProgramConferencesWithSpeakers(): Promise<
 
       return {
          conference,
-         speakers: speakersForThisConference.map(
-            (conferenceSpeaker) => conferenceSpeaker.speaker,
-         ),
+         speakers: speakersForThisConference.map((conferenceSpeaker) => conferenceSpeaker.speaker),
       };
    });
 
    return conferencesWithSpeakers;
 }
 
-export interface ConferenceWithSpeakersAndDurations
-   extends ConferenceWithSpeakers {
+export interface ConferenceWithSpeakersAndDurations extends ConferenceWithSpeakers {
    preRecordedData?: {
       conferenceRecordingDurationSeconds: number;
       speakerPresentationDurationSeconds: number;
@@ -75,9 +68,7 @@ export interface ConferenceWithSpeakersAndDurations
    };
 }
 
-export async function getAllProgramConferencesWithSpeakersAndDurations(): Promise<
-   ConferenceWithSpeakersAndDurations[]
-> {
+export async function getAllProgramConferencesWithSpeakersAndDurations(): Promise<ConferenceWithSpeakersAndDurations[]> {
    const [organization, congress, allProgramConferences] = await Promise.all([
       getOrganizationFromSubdomain(),
       getLatestCongress(),
@@ -115,49 +106,44 @@ export async function getAllProgramConferencesWithSpeakersAndDurations(): Promis
       },
    );
 
-   const [
-      expandedConferenceSpeakersRecord,
-      allConferenceRecordings,
-      allConferenceSpeakerPresentationRecordings,
-   ] = await Promise.all([
-      getFullDBRecordsList<
-         ConferenceSpeaker & {
-            expand: {
-               speaker: SpeakerDataRecord;
-            };
-         }
-      >("CONFERENCE_SPEAKERS", {
-         filter: conferenceSpeakersFilter,
-         expand: "speaker",
-      }),
-      getFullDBRecordsList<
-         ConferenceRecording & {
-            expand: {
-               recording: SimpleRecordingRecord;
-            };
-         }
-      >("CONFERENCE_RECORDINGS", {
-         filter: conferenceRecordingsFilter,
-         expand: "recording",
-      }),
-      getFullDBRecordsList<
-         ConferenceSpeakerPresentationRecording & {
-            expand: {
-               recording: SimpleRecordingRecord;
-            };
-         }
-      >("CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS", {
-         filter: conferenceSpeakerPresentationRecordingsFilter,
-         expand: "recording",
-      }),
-   ]);
+   const [expandedConferenceSpeakersRecord, allConferenceRecordings, allConferenceSpeakerPresentationRecordings] =
+      await Promise.all([
+         getFullDBRecordsList<
+            ConferenceSpeaker & {
+               expand: {
+                  speaker: SpeakerDataRecord;
+               };
+            }
+         >("CONFERENCE_SPEAKERS", {
+            filter: conferenceSpeakersFilter,
+            expand: "speaker",
+         }),
+         getFullDBRecordsList<
+            ConferenceRecording & {
+               expand: {
+                  recording: SimpleRecordingRecord;
+               };
+            }
+         >("CONFERENCE_RECORDINGS", {
+            filter: conferenceRecordingsFilter,
+            expand: "recording",
+         }),
+         getFullDBRecordsList<
+            ConferenceSpeakerPresentationRecording & {
+               expand: {
+                  recording: SimpleRecordingRecord;
+               };
+            }
+         >("CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS", {
+            filter: conferenceSpeakerPresentationRecordingsFilter,
+            expand: "recording",
+         }),
+      ]);
 
-   const conferenceSpeakers = expandedConferenceSpeakersRecord.map(
-      (conferenceSpeakerRecord) => ({
-         conference: conferenceSpeakerRecord.conference,
-         speaker: conferenceSpeakerRecord.expand.speaker,
-      }),
-   );
+   const conferenceSpeakers = expandedConferenceSpeakersRecord.map((conferenceSpeakerRecord) => ({
+      conference: conferenceSpeakerRecord.conference,
+      speaker: conferenceSpeakerRecord.expand.speaker,
+   }));
 
    const conferencesWithSpeakers = allProgramConferences.map((conference) => {
       const speakersForThisConference = conferenceSpeakers.filter(
@@ -165,37 +151,22 @@ export async function getAllProgramConferencesWithSpeakersAndDurations(): Promis
       );
 
       let preRecordedData: ConferenceWithSpeakersAndDurations["preRecordedData"];
-      if (
-         conference.conferenceType === "simulated_livestream" ||
-         conference.conferenceType === "pre-recorded"
-      ) {
+      if (conference.conferenceType === "simulated_livestream" || conference.conferenceType === "pre-recorded") {
          const conferenceRecording = allConferenceRecordings.find(
-            (conferenceRecording) =>
-               conferenceRecording.conference === conference.id,
+            (conferenceRecording) => conferenceRecording.conference === conference.id,
          );
-         const conferenceSpeakerPresentationRecording =
-            allConferenceSpeakerPresentationRecordings.find(
-               (conferenceSpeakerPresentationRecording) =>
-                  conferenceSpeakerPresentationRecording.conference ===
-                  conference.id,
-            );
+         const conferenceSpeakerPresentationRecording = allConferenceSpeakerPresentationRecordings.find(
+            (conferenceSpeakerPresentationRecording) => conferenceSpeakerPresentationRecording.conference === conference.id,
+         );
 
-         const conferenceDurationSeconds =
-            conferenceRecording?.expand.recording.durationSeconds ?? 0;
+         const conferenceDurationSeconds = conferenceRecording?.expand.recording.durationSeconds ?? 0;
          const conferenceSpeakerPresentationDurationSeconds =
-            conferenceSpeakerPresentationRecording?.expand.recording
-               .durationSeconds ?? 0;
-         const totalDurationSeconds =
-            conferenceDurationSeconds +
-            conferenceSpeakerPresentationDurationSeconds;
-         const realEndDate = addSecond(
-            conference.startTime,
-            totalDurationSeconds,
-         );
+            conferenceSpeakerPresentationRecording?.expand.recording.durationSeconds ?? 0;
+         const totalDurationSeconds = conferenceDurationSeconds + conferenceSpeakerPresentationDurationSeconds;
+         const realEndDate = addSecond(conference.startTime, totalDurationSeconds);
          preRecordedData = {
             conferenceRecordingDurationSeconds: conferenceDurationSeconds,
-            speakerPresentationDurationSeconds:
-               conferenceSpeakerPresentationDurationSeconds,
+            speakerPresentationDurationSeconds: conferenceSpeakerPresentationDurationSeconds,
             totalDurationSeconds: totalDurationSeconds,
             realEndDate: realEndDate.toISOString(),
          };
@@ -203,9 +174,7 @@ export async function getAllProgramConferencesWithSpeakersAndDurations(): Promis
 
       return {
          conference,
-         speakers: speakersForThisConference.map(
-            (conferenceSpeaker) => conferenceSpeaker.speaker,
-         ),
+         speakers: speakersForThisConference.map((conferenceSpeaker) => conferenceSpeaker.speaker),
          preRecordedData,
       };
    });

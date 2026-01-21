@@ -5,9 +5,7 @@ import pbClient from "@/libs/pbClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 export function useRealtimePresentationState(presentationId: string) {
-   const [state, setState] = useState<RealtimePresentationStateRecord | null>(
-      null,
-   );
+   const [state, setState] = useState<RealtimePresentationStateRecord | null>(null);
    const [isLoading, setIsLoading] = useState<boolean>(true);
 
    useEffect(() => {
@@ -20,12 +18,9 @@ export function useRealtimePresentationState(presentationId: string) {
          setIsLoading(true);
          try {
             // Ensure current state via API
-            const res = await fetch(
-               `/api/presentation/${presentationId}/realtime-state`,
-               {
-                  cache: "no-store",
-               },
-            );
+            const res = await fetch(`/api/presentation/${presentationId}/realtime-state`, {
+               cache: "no-store",
+            });
             if (!res.ok) {
                throw new Error(`Error fetching realtime state (${res.status})`);
             }
@@ -33,16 +28,11 @@ export function useRealtimePresentationState(presentationId: string) {
             if (!aborted) setState(initial);
 
             // Subscribe to realtime updates of the single record
-            const collection = pbClient.collection(
-               PB_COLLECTIONS.PRESENTATION_REALTIME_STATES,
-            );
+            const collection = pbClient.collection(PB_COLLECTIONS.PRESENTATION_REALTIME_STATES);
             const unsub = initial?.id
-               ? await collection.subscribe<RealtimePresentationStateRecord>(
-                    initial.id,
-                    (event) => {
-                       if (event.action === "update") setState(event.record);
-                    },
-                 )
+               ? await collection.subscribe<RealtimePresentationStateRecord>(initial.id, (event) => {
+                    if (event.action === "update") setState(event.record);
+                 })
                : await collection.subscribe<RealtimePresentationStateRecord>(
                     "*",
                     (event) => {
@@ -67,14 +57,7 @@ export function useRealtimePresentationState(presentationId: string) {
    }, [presentationId]);
 
    const updateState = useCallback(
-      async (
-         updates: Partial<
-            Pick<
-               RealtimePresentationState,
-               "currentSlideIndex" | "isHidden" | "userControlling"
-            >
-         >,
-      ) => {
+      async (updates: Partial<Pick<RealtimePresentationState, "currentSlideIndex" | "isHidden" | "userControlling">>) => {
          if (!presentationId) return;
          fetch(`/api/presentation/${presentationId}/realtime-state`, {
             method: "POST",

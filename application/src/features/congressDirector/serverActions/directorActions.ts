@@ -18,10 +18,7 @@ export async function startConferenceAction(conferenceId: string) {
          success: true as const,
       };
    } catch (error) {
-      const message =
-         error instanceof Error
-            ? error.message
-            : "Error al iniciar la conferencia";
+      const message = error instanceof Error ? error.message : "Error al iniciar la conferencia";
       return {
          success: false as const,
          errorMessage: message,
@@ -37,10 +34,7 @@ export async function finishConferenceAction(conferenceId: string) {
          success: true as const,
       };
    } catch (error) {
-      const message =
-         error instanceof Error
-            ? error.message
-            : "Error al finalizar la conferencia";
+      const message = error instanceof Error ? error.message : "Error al finalizar la conferencia";
       return {
          success: false as const,
          errorMessage: message,
@@ -56,8 +50,7 @@ export async function standbyCongressAction() {
          success: true as const,
       };
    } catch (error) {
-      const message =
-         error instanceof Error ? error.message : "Error al poner en standby";
+      const message = error instanceof Error ? error.message : "Error al poner en standby";
       return {
          success: false as const,
          errorMessage: message,
@@ -73,10 +66,7 @@ export async function setStandbyStatusAction(enable: boolean) {
          success: true as const,
       };
    } catch (error) {
-      const message =
-         error instanceof Error
-            ? error.message
-            : "Error al cambiar el estado de standby";
+      const message = error instanceof Error ? error.message : "Error al cambiar el estado de standby";
       return {
          success: false as const,
          errorMessage: message,
@@ -84,19 +74,13 @@ export async function setStandbyStatusAction(enable: boolean) {
    }
 }
 
-export async function setQuestionPollStatusAction(
-   conferenceId: string,
-   pollId: string,
-   status: QuestionPoll["status"],
-) {
+export async function setQuestionPollStatusAction(conferenceId: string, pollId: string, status: QuestionPoll["status"]) {
    try {
       if (status === "active") {
          const polls = await getAllQuestionPollsForConference(conferenceId);
          // Deactivate any other active polls for this conference
          await Promise.all(
-            polls
-               .filter((p) => p.id !== pollId && p.status === "active")
-               .map((p) => setQuestionPollStatus(p.id, "inactive")),
+            polls.filter((p) => p.id !== pollId && p.status === "active").map((p) => setQuestionPollStatus(p.id, "inactive")),
          );
       }
 
@@ -107,10 +91,7 @@ export async function setQuestionPollStatusAction(
          success: true as const,
       };
    } catch (error) {
-      const message =
-         error instanceof Error
-            ? error.message
-            : "Error al cambiar el estado de la encuesta";
+      const message = error instanceof Error ? error.message : "Error al cambiar el estado de la encuesta";
       return {
          success: false as const,
          errorMessage: message,

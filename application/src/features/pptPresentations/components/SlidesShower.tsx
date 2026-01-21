@@ -51,9 +51,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
    }, [slideImages.length]);
 
    const goToPrevSlide = useCallback(() => {
-      setCurrentSlide(
-         (prev) => (prev - 1 + slideImages.length) % slideImages.length,
-      );
+      setCurrentSlide((prev) => (prev - 1 + slideImages.length) % slideImages.length);
    }, [slideImages.length]);
 
    const goToSlide = useCallback((index: number) => {
@@ -127,16 +125,12 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
    const currentSlideImage = slideImages[currentSlide];
 
    return (
-      <div
-         className={`bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden max-w-3xl mx-auto`}
-      >
+      <div className={`bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden max-w-3xl mx-auto`}>
          {/* Header with controls */}
          <div className="bg-gray-50 p-4 border-gray-200 border-b">
             <div className="flex justify-between items-center">
                <div className="flex items-center gap-4">
-                  <h2 className="font-bold text-gray-900 text-xl">
-                     Diapositiva Convertida
-                  </h2>
+                  <h2 className="font-bold text-gray-900 text-xl">Diapositiva Convertida</h2>
                   <span className="text-gray-500 text-sm">
                      {currentSlide + 1} de {slideImages.length}
                   </span>
@@ -243,20 +237,12 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                      key={slide.fileName}
                      onClick={() => goToSlide(index)}
                      className={`flex-shrink-0 relative border-2 rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${
-                        index === currentSlide
-                           ? "border-yellow-400 shadow-lg"
-                           : "border-gray-300 hover:border-gray-400"
+                        index === currentSlide ? "border-yellow-400 shadow-lg" : "border-gray-300 hover:border-gray-400"
                      }`}
                   >
-                     <img
-                        src={slide.url}
-                        alt={`Miniatura ${index + 1}`}
-                        className="w-24 h-16 object-cover"
-                     />
+                     <img src={slide.url} alt={`Miniatura ${index + 1}`} className="w-24 h-16 object-cover" />
                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
-                        <span className="bottom-1 left-1 absolute font-medium text-white text-xs">
-                           {index + 1}
-                        </span>
+                        <span className="bottom-1 left-1 absolute font-medium text-white text-xs">{index + 1}</span>
                      </div>
                      {index === currentSlide && (
                         <div className="-top-1 -right-1 absolute bg-yellow-400 border border-white rounded-full w-3 h-3" />

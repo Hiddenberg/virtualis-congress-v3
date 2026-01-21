@@ -4,17 +4,11 @@ import { useTransition } from "react";
 import { Button } from "@/components/global/Buttons";
 import { startConferenceAction } from "@/features/congressDirector/serverActions/directorActions";
 
-export default function StartConferenceButton({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export default function StartConferenceButton({ conferenceId }: { conferenceId: string }) {
    const [isPending, startTransition] = useTransition();
 
    const handleClick = () => {
-      const confirmed = window.confirm(
-         "¿Iniciar esta conferencia ahora? Esto finalizará cualquier conferencia activa.",
-      );
+      const confirmed = window.confirm("¿Iniciar esta conferencia ahora? Esto finalizará cualquier conferencia activa.");
       if (!confirmed) return;
 
       startTransition(async () => {
@@ -28,12 +22,7 @@ export default function StartConferenceButton({
    };
 
    return (
-      <Button
-         onClick={handleClick}
-         loading={isPending}
-         variant="green"
-         className="text-sm"
-      >
+      <Button onClick={handleClick} loading={isPending} variant="green" className="text-sm">
          {isPending ? "Iniciando..." : "Marcar como iniciada"}
       </Button>
    );

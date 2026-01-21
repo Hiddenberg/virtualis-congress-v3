@@ -87,11 +87,7 @@ function DateInput({ dateInput }: { dateInput: DateInput }) {
    );
 }
 
-function BooleanInput({
-   checkboxInput: booleanInput,
-}: {
-   checkboxInput: BooleanInput;
-}) {
+function BooleanInput({ checkboxInput: booleanInput }: { checkboxInput: BooleanInput }) {
    const { updateInputValue } = useDynamicFormContext();
 
    return (
@@ -127,23 +123,11 @@ function OptionInput({ optionInput }: { optionInput: OptionInput }) {
             updateInputValue(optionInput.name, e.target.value);
          }}
       >
-         <option
-            className="bg-transparent text-black"
-            key="dpbw"
-            value=""
-            selected
-            disabled
-            hidden
-            defaultChecked
-         >
+         <option className="bg-transparent text-black" key="dpbw" value="" selected disabled hidden defaultChecked>
             Selecciona
          </option>
          {optionInput.options.map((option) => (
-            <option
-               className="bg-transparent text-black"
-               key={option}
-               value={option}
-            >
+            <option className="bg-transparent text-black" key={option} value={option}>
                {option}
             </option>
          ))}
@@ -151,15 +135,9 @@ function OptionInput({ optionInput }: { optionInput: OptionInput }) {
    );
 }
 
-function FormInput({
-   registrationInput,
-}: {
-   registrationInput: DynamicFormInput;
-}) {
+function FormInput({ registrationInput }: { registrationInput: DynamicFormInput }) {
    const { inputValues } = useDynamicFormContext();
-   const inputValue = inputValues.find(
-      (input) => input.name === registrationInput.name,
-   );
+   const inputValue = inputValues.find((input) => input.name === registrationInput.name);
 
    if (!inputValue) {
       return null;
@@ -185,23 +163,12 @@ function FormInput({
    }
 }
 
-export default function RegisterFormInput({
-   registrationInput,
-}: {
-   registrationInput: DynamicFormInput;
-}) {
+export default function RegisterFormInput({ registrationInput }: { registrationInput: DynamicFormInput }) {
    return (
       <div className="block [&>input]:bg-transparent [&>input]:border-b-2 [&>input]:w-full [&>input]:text-white [&>input]:focus:outline-none [&>input]:outline-none [&>input]:focus:border-b-yellow-400 [&>input]:focus-within:border-b-yellow-400">
-         {registrationInput.hasError && (
-            <span className="block text-red-500 text-sm">
-               {registrationInput.errorMessage}
-            </span>
-         )}
+         {registrationInput.hasError && <span className="block text-red-500 text-sm">{registrationInput.errorMessage}</span>}
          <span className="block mb-2">
-            {registrationInput.label}{" "}
-            {registrationInput.required && (
-               <span className="text-red-500">*</span>
-            )}
+            {registrationInput.label} {registrationInput.required && <span className="text-red-500">*</span>}
          </span>
          <FormInput registrationInput={registrationInput} />
       </div>

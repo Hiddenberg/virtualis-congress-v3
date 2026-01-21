@@ -1,12 +1,6 @@
 "use client";
 
-import {
-   ChevronDown,
-   ChevronRight,
-   ChevronUp,
-   Clock,
-   Users,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronUp, Clock, Users } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
@@ -64,16 +58,9 @@ function formatDateLabel(isoString?: string) {
    return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
-export default function RecordingsByDateAccordion({
-   items,
-}: {
-   items: RecordingWithMetaItem[];
-}) {
+export default function RecordingsByDateAccordion({ items }: { items: RecordingWithMetaItem[] }) {
    const groups = useMemo(() => {
-      const map = new Map<
-         string,
-         { label: string; items: RecordingWithMetaItem[] }
-      >();
+      const map = new Map<string, { label: string; items: RecordingWithMetaItem[] }>();
       for (const item of items) {
          const key = getDateKey(item.conference?.startTime);
          const label = formatDateLabel(item.conference?.startTime);
@@ -88,9 +75,7 @@ export default function RecordingsByDateAccordion({
 
       // sort items inside each group by recordingTitle
       for (const [, group] of map) {
-         group.items.sort((a, b) =>
-            a.recordingTitle.localeCompare(b.recordingTitle),
-         );
+         group.items.sort((a, b) => a.recordingTitle.localeCompare(b.recordingTitle));
       }
 
       // sort groups by date key, keeping "__no_date__" at the end
@@ -125,10 +110,7 @@ export default function RecordingsByDateAccordion({
          {groups.map(([key, group]) => {
             const isOpen = !!openGroups[key];
             return (
-               <section
-                  key={key}
-                  className="bg-white border border-slate-200 rounded-xl overflow-hidden"
-               >
+               <section key={key} className="bg-white border border-slate-200 rounded-xl overflow-hidden">
                   <button
                      type="button"
                      onClick={() => toggle(key)}
@@ -137,26 +119,15 @@ export default function RecordingsByDateAccordion({
                      aria-controls={`panel-${key}`}
                   >
                      <div className="flex items-center gap-3">
-                        <span className="font-semibold text-slate-800 text-base md:text-lg">
-                           {group.label}
-                        </span>
+                        <span className="font-semibold text-slate-800 text-base md:text-lg">{group.label}</span>
                         <span className="inline-flex items-center bg-blue-50 px-2 py-0.5 border border-blue-100 rounded-full font-medium text-blue-700 text-xs">
-                           {group.items.length}{" "}
-                           {group.items.length === 1
-                              ? "grabación"
-                              : "grabaciones"}
+                           {group.items.length} {group.items.length === 1 ? "grabación" : "grabaciones"}
                         </span>
                      </div>
                      {isOpen ? (
-                        <ChevronUp
-                           strokeWidth={2.5}
-                           className="size-6 text-slate-600"
-                        />
+                        <ChevronUp strokeWidth={2.5} className="size-6 text-slate-600" />
                      ) : (
-                        <ChevronDown
-                           strokeWidth={2.5}
-                           className="size-6 text-slate-600"
-                        />
+                        <ChevronDown strokeWidth={2.5} className="size-6 text-slate-600" />
                      )}
                   </button>
 
@@ -164,15 +135,8 @@ export default function RecordingsByDateAccordion({
                      <div id={`panel-${key}`} className="bg-blue-100 px-4 py-4">
                         <div className="gap-4 grid sm:grid-cols-2 lg:grid-cols-3">
                            {group.items.map((item) => {
-                              const {
-                                 recording,
-                                 recordingTitle,
-                                 conference,
-                                 speakers,
-                              } = item;
-                              const durationLabel = formatDuration(
-                                 recording.durationSeconds,
-                              );
+                              const { recording, recordingTitle, conference, speakers } = item;
+                              const durationLabel = formatDuration(recording.durationSeconds);
                               return (
                                  <Link
                                     href={`/congress-recordings/${recording.id}`}
@@ -208,10 +172,7 @@ export default function RecordingsByDateAccordion({
                                              <div className="flex items-center gap-1.5">
                                                 <Users className="w-4 h-4" />
                                                 <span>
-                                                   {speakers.length}{" "}
-                                                   {speakers.length === 1
-                                                      ? "ponente"
-                                                      : "ponentes"}
+                                                   {speakers.length} {speakers.length === 1 ? "ponente" : "ponentes"}
                                                 </span>
                                              </div>
                                              {durationLabel && (
@@ -222,8 +183,7 @@ export default function RecordingsByDateAccordion({
                                              )}
                                           </div>
                                           <span className="inline-flex items-center gap-1 font-medium text-blue-700">
-                                             Ver{" "}
-                                             <ChevronRight className="w-4 h-4" />
+                                             Ver <ChevronRight className="w-4 h-4" />
                                           </span>
                                        </div>
                                     </div>

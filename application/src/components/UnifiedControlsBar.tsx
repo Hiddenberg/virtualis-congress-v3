@@ -12,12 +12,7 @@ type UnifiedControlsBarProps = {
    isSmall?: boolean;
 };
 
-export function UnifiedControlsBar({
-   playerRefs,
-   title,
-   containerRef,
-   isSmall = false,
-}: UnifiedControlsBarProps) {
+export function UnifiedControlsBar({ playerRefs, title, containerRef, isSmall = false }: UnifiedControlsBarProps) {
    const [isPlaying, setIsPlaying] = useState(false);
    const [currentTime, setCurrentTime] = useState(0);
    const [duration, setDuration] = useState(0);
@@ -27,9 +22,7 @@ export function UnifiedControlsBar({
 
    // Get the Mux player elements from refs
    const getPlayerElements = useCallback(() => {
-      return playerRefs.current
-         .map((ref) => ref?.querySelector("mux-player"))
-         .filter(Boolean) as HTMLMediaElement[];
+      return playerRefs.current.map((ref) => ref?.querySelector("mux-player")).filter(Boolean) as HTMLMediaElement[];
    }, [playerRefs]);
 
    const getPrimaryContainer = useCallback(() => {
@@ -37,9 +30,7 @@ export function UnifiedControlsBar({
    }, [playerRefs]);
 
    const getFullscreenContainer = useCallback(() => {
-      return (
-         (containerRef?.current as HTMLElement | null) ?? getPrimaryContainer()
-      );
+      return (containerRef?.current as HTMLElement | null) ?? getPrimaryContainer();
    }, [containerRef, getPrimaryContainer]);
 
    useEffect(() => {
@@ -79,10 +70,7 @@ export function UnifiedControlsBar({
       return () => {
          // Clean up event listeners
          masterPlayer.removeEventListener("timeupdate", handleTimeUpdate);
-         masterPlayer.removeEventListener(
-            "loadedmetadata",
-            handleLoadedMetadata,
-         );
+         masterPlayer.removeEventListener("loadedmetadata", handleLoadedMetadata);
          masterPlayer.removeEventListener("play", handlePlay);
          masterPlayer.removeEventListener("pause", handlePause);
       };
@@ -92,23 +80,14 @@ export function UnifiedControlsBar({
    useEffect(() => {
       const onFsChange = () => {
          const container = getFullscreenContainer();
-         setIsFullscreen(
-            Boolean(
-               document.fullscreenElement &&
-                  container &&
-                  document.fullscreenElement === container,
-            ),
-         );
+         setIsFullscreen(Boolean(document.fullscreenElement && container && document.fullscreenElement === container));
       };
       document.addEventListener("fullscreenchange", onFsChange);
       return () => document.removeEventListener("fullscreenchange", onFsChange);
    }, [getFullscreenContainer]);
 
    // Syncs all players with the given action
-   const syncPlayers = (
-      action: "play" | "pause" | "seek",
-      seekTime?: number,
-   ) => {
+   const syncPlayers = (action: "play" | "pause" | "seek", seekTime?: number) => {
       // If we're already syncing, don't trigger another sync
       if (syncLock.current) return;
 
@@ -124,9 +103,7 @@ export function UnifiedControlsBar({
 
       playerElements.forEach((player) => {
          if (action === "play") {
-            player
-               .play()
-               .catch((err) => console.error("Error syncing play:", err));
+            player.play().catch((err) => console.error("Error syncing play:", err));
          } else if (action === "pause") {
             player.pause();
          } else if (action === "seek" && seekTime !== undefined) {
@@ -137,11 +114,7 @@ export function UnifiedControlsBar({
             // If we were playing before seeking, resume playback
             if (isPlaying) {
                setTimeout(() => {
-                  player
-                     .play()
-                     .catch((err) =>
-                        console.error("Error playing after seek:", err),
-                     );
+                  player.play().catch((err) => console.error("Error playing after seek:", err));
                }, 50);
             }
          }
@@ -190,20 +163,14 @@ export function UnifiedControlsBar({
       <div className={isSmall ? "space-y-2" : "space-y-4"}>
          {title && (
             <div className="text-center">
-               <h3
-                  className={`font-medium text-gray-800 ${isSmall ? "text-xs" : "text-sm"}`}
-               >
-                  {title}
-               </h3>
+               <h3 className={`font-medium text-gray-800 ${isSmall ? "text-xs" : "text-sm"}`}>{title}</h3>
             </div>
          )}
 
          {/* Modern seek bar with progress indication */}
          <div className="group relative">
             {/* Progress track */}
-            <div
-               className={`bg-gray-300 rounded-full w-full overflow-hidden ${isSmall ? "h-1" : "h-2"}`}
-            >
+            <div className={`bg-gray-300 rounded-full w-full overflow-hidden ${isSmall ? "h-1" : "h-2"}`}>
                <div
                   className="bg-black rounded-full h-full transition-all duration-100 ease-out"
                   style={{
@@ -226,9 +193,7 @@ export function UnifiedControlsBar({
 
             {/* Hover indicator */}
             <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-               <div className="bg-black/80 px-2 py-1 rounded font-medium text-white text-xs">
-                  {formatVideoTime(currentTime)}
-               </div>
+               <div className="bg-black/80 px-2 py-1 rounded font-medium text-white text-xs">{formatVideoTime(currentTime)}</div>
             </div>
          </div>
 
@@ -236,21 +201,11 @@ export function UnifiedControlsBar({
          <div className="flex justify-between items-center">
             {/* Time display */}
             <div className="flex items-center space-x-1">
-               <span
-                  className={`font-mono text-gray-700 ${isSmall ? "text-xs" : "text-sm"}`}
-               >
+               <span className={`font-mono text-gray-700 ${isSmall ? "text-xs" : "text-sm"}`}>
                   {formatVideoTime(currentTime)}
                </span>
-               <span
-                  className={`text-gray-400 ${isSmall ? "text-xs" : "text-sm"}`}
-               >
-                  /
-               </span>
-               <span
-                  className={`font-mono text-gray-500 ${isSmall ? "text-xs" : "text-sm"}`}
-               >
-                  {formatVideoTime(duration)}
-               </span>
+               <span className={`text-gray-400 ${isSmall ? "text-xs" : "text-sm"}`}>/</span>
+               <span className={`font-mono text-gray-500 ${isSmall ? "text-xs" : "text-sm"}`}>{formatVideoTime(duration)}</span>
             </div>
 
             {/* Central play/pause button */}
@@ -262,9 +217,7 @@ export function UnifiedControlsBar({
                      aria-label="Pause"
                      title="Pause"
                   >
-                     <Pause
-                        className={`fill-current ${isSmall ? "w-4 h-4" : "w-6 h-6"}`}
-                     />
+                     <Pause className={`fill-current ${isSmall ? "w-4 h-4" : "w-6 h-6"}`} />
                   </button>
                ) : (
                   <button
@@ -273,9 +226,7 @@ export function UnifiedControlsBar({
                      aria-label="Play"
                      title="Play"
                   >
-                     <Play
-                        className={`fill-current ml-0.5 ${isSmall ? "w-4 h-4" : "w-6 h-6"}`}
-                     />
+                     <Play className={`fill-current ml-0.5 ${isSmall ? "w-4 h-4" : "w-6 h-6"}`} />
                   </button>
                )}
             </div>
@@ -285,9 +236,7 @@ export function UnifiedControlsBar({
                <button
                   className={`hover:bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-600 hover:text-gray-800 transition-all duration-200 ${isSmall ? "p-1.5" : "p-2.5"}`}
                   onClick={toggleFullscreen}
-                  aria-label={
-                     isFullscreen ? "Exit fullscreen" : "Enter fullscreen"
-                  }
+                  aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
                   title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
                >
                   {isFullscreen ? (

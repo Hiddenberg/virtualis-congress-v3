@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface AccountCreatedTemplateProps {
    userName: string;
@@ -31,75 +20,57 @@ export default function AccountCreatedTemplate({
          <Head>
             <title>¡Bienvenido a Virtualis Congress!</title>
          </Head>
-         <Preview>
-            Tu cuenta ha sido creada exitosamente. Completa tu registro para{" "}
-            {congressTitle}
-         </Preview>
+         <Preview>Tu cuenta ha sido creada exitosamente. Completa tu registro para {congressTitle}</Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
                <Section style={contentStyle}>
-                  <Heading style={messageTitleStyle}>
-                     ¡Hola, {userName}!
-                  </Heading>
+                  <Heading style={messageTitleStyle}>¡Hola, {userName}!</Heading>
                   <Text style={descriptionStyle}>
-                     Tu cuenta ha sido creada exitosamente en{" "}
-                     <span style={platformNameStyle}>Virtualis Congress</span>.
-                     Ahora puedes acceder a nuestra plataforma de congresos.
+                     Tu cuenta ha sido creada exitosamente en <span style={platformNameStyle}>Virtualis Congress</span>. Ahora
+                     puedes acceder a nuestra plataforma de congresos.
                   </Text>
 
                   {/* Congress Information */}
                   <Section style={congressInfoStyle}>
-                     <Heading style={congressTitleStyle}>
-                        Información del Congreso
-                     </Heading>
+                     <Heading style={congressTitleStyle}>Información del Congreso</Heading>
 
                      <Text style={congressDetailStyle}>
-                        <strong style={labelStyle}>Congreso:</strong>{" "}
-                        {congressTitle}
+                        <strong style={labelStyle}>Congreso:</strong> {congressTitle}
                      </Text>
 
                      <Text style={congressDetailStyle}>
-                        <strong style={labelStyle}>Organizador:</strong>{" "}
-                        {organizationName}
+                        <strong style={labelStyle}>Organizador:</strong> {organizationName}
                      </Text>
 
                      <Text style={congressDetailStyle}>
-                        <strong style={labelStyle}>Fechas:</strong>{" "}
-                        {congressDates}
+                        <strong style={labelStyle}>Fechas:</strong> {congressDates}
                      </Text>
                   </Section>
 
                   {/* Next Steps */}
                   <Section style={nextStepsStyle}>
-                     <Heading style={nextStepsTitleStyle}>
-                        Próximos pasos para completar tu registro
-                     </Heading>
+                     <Heading style={nextStepsTitleStyle}>Próximos pasos para completar tu registro</Heading>
 
                      <Text style={stepDescriptionStyle}>
-                        Para participar en <strong>{congressTitle}</strong>,
-                        necesitas completar los siguientes pasos:
+                        Para participar en <strong>{congressTitle}</strong>, necesitas completar los siguientes pasos:
                      </Text>
 
                      <Section style={stepContainerStyle}>
                         <Text style={stepItemStyle}>
                            <span style={stepNumberStyle}>1.</span>
-                           <strong>Selecciona tu rol profesional</strong> en la
-                           plataforma para personalizar tu experiencia
+                           <strong>Selecciona tu rol profesional</strong> en la plataforma para personalizar tu experiencia
                         </Text>
 
                         <Text style={stepItemStyle}>
                            <span style={stepNumberStyle}>2.</span>
-                           <strong>Completa tu pago</strong> para confirmar tu
-                           participación en el congreso
+                           <strong>Completa tu pago</strong> para confirmar tu participación en el congreso
                         </Text>
                      </Section>
 
@@ -115,17 +86,15 @@ export default function AccountCreatedTemplate({
 
                   {/* Additional Information */}
                   <Text style={additionalInfoStyle}>
-                     Una vez completados estos pasos, podrás acceder a todas las
-                     conferencias, materiales y recursos disponibles para el
-                     congreso.
+                     Una vez completados estos pasos, podrás acceder a todas las conferencias, materiales y recursos disponibles
+                     para el congreso.
                   </Text>
                </Section>
 
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -136,8 +105,7 @@ export default function AccountCreatedTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -148,8 +116,7 @@ export default function AccountCreatedTemplate({
 
 // Styles using the same neutral color scheme as the OTP template
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

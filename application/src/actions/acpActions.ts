@@ -10,9 +10,7 @@ export async function getACPMemberDataAction(acpID: string) {
       const filter = acpID.startsWith("0")
          ? `(acpID = "${acpID}") || (acpID = "${acpID.replace("0", "")}")`
          : `acpID = "${acpID}"`;
-      const acpData = await pbServerClient
-         .collection("acp_members_data")
-         .getFirstListItem<RecordModel & ACPMemberData>(filter);
+      const acpData = await pbServerClient.collection("acp_members_data").getFirstListItem<RecordModel & ACPMemberData>(filter);
 
       return acpData;
    } catch (error) {

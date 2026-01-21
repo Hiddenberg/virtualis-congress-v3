@@ -16,13 +16,7 @@ function RecorderEffects({
    presentationId: string;
    livestreamSession: LivestreamSessionRecord;
 }) {
-   const {
-      startRecording,
-      stopRecording,
-      recordSlideChange,
-      savePresentationRecording,
-      isRecording,
-   } = usePresentationRecorder();
+   const { startRecording, stopRecording, recordSlideChange, savePresentationRecording, isRecording } = usePresentationRecorder();
    const { livestreamStatus } = useRealtimeLivestreamStatus({
       livestreamSession,
    });
@@ -41,10 +35,7 @@ function RecorderEffects({
    useEffect(() => {
       if (livestreamStatus === "streaming" && !wasStreamingRef.current) {
          startRecording();
-         const initialIndex =
-            typeof state?.currentSlideIndex === "number"
-               ? state.currentSlideIndex
-               : 0;
+         const initialIndex = typeof state?.currentSlideIndex === "number" ? state.currentSlideIndex : 0;
          recordSlideChange(initialIndex);
          prevSlideIndexRef.current = initialIndex;
          wasStreamingRef.current = true;
@@ -55,13 +46,7 @@ function RecorderEffects({
          }
          wasStreamingRef.current = false;
       }
-   }, [
-      livestreamStatus,
-      startRecording,
-      stopRecording,
-      recordSlideChange,
-      state?.currentSlideIndex,
-   ]);
+   }, [livestreamStatus, startRecording, stopRecording, recordSlideChange, state?.currentSlideIndex]);
 
    // Record slide changes while streaming/recording
    useEffect(() => {
@@ -100,10 +85,7 @@ export default function LivestreamPresentationRecorderWrapper({
    return (
       <PresentationRecorderProvider presentationId={presentationId}>
          {children}
-         <RecorderEffects
-            presentationId={presentationId}
-            livestreamSession={livestreamSession}
-         />
+         <RecorderEffects presentationId={presentationId} livestreamSession={livestreamSession} />
       </PresentationRecorderProvider>
    );
 }

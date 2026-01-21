@@ -19,9 +19,7 @@ const useAspectRatio = (aspectRatio: number) => {
       const updateDimensions = () => {
          if (!containerRef.current) return;
 
-         const parentWidth =
-            containerRef.current.parentElement?.clientWidth ||
-            window.innerWidth;
+         const parentWidth = containerRef.current.parentElement?.clientWidth || window.innerWidth;
          const maxWidth = 842; // Max width (A4 landscape)
 
          // Calculate responsive width (100% of parent, up to maxWidth)
@@ -86,10 +84,7 @@ const calculateDynamicScale = (width: number) => {
    }
 
    // Linear interpolation between baseScale at referenceWidth and 4 at minWidth
-   const scaleFactor =
-      baseScale +
-      ((referenceWidth - width) / (referenceWidth - minWidth)) *
-         (4 - baseScale);
+   const scaleFactor = baseScale + ((referenceWidth - width) / (referenceWidth - minWidth)) * (4 - baseScale);
 
    // Round to 2 decimal places and ensure scale is at least baseScale
    return Math.max(baseScale, Math.round(scaleFactor * 100) / 100);
@@ -128,21 +123,13 @@ function CertificateDesignContainer({
          }
 
          // Calculate actual pixel size based on container width
-         const calculatedSize = Math.round(
-            containerWidth *
-               basePercentage *
-               certificateDesign.nameFontSizeMultiplier,
-         );
+         const calculatedSize = Math.round(containerWidth * basePercentage * certificateDesign.nameFontSizeMultiplier);
          setFontSize(`${calculatedSize}px`);
       };
 
       // Update font size when dimensions change
       updateFontSize();
-   }, [
-      dimensions.width,
-      displayName,
-      certificateDesign.nameFontSizeMultiplier,
-   ]);
+   }, [dimensions.width, displayName, certificateDesign.nameFontSizeMultiplier]);
 
    // Function to generate PDF
    const generatePDF = async () => {
@@ -177,13 +164,10 @@ function CertificateDesignContainer({
          const imgProperties = pdf.getImageProperties(data);
 
          const pdfWidth = pdf.internal.pageSize.width;
-         const pdfHeight =
-            (imgProperties.height * pdfWidth) / imgProperties.width;
+         const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
          pdf.addImage(data, "JPEG", 0, 0, pdfWidth, pdfHeight);
-         pdf.save(
-            `certificado_${displayName.replace(/\s+/g, "_").toLowerCase()}.pdf`,
-         );
+         pdf.save(`certificado_${displayName.replace(/\s+/g, "_").toLowerCase()}.pdf`);
       } catch (error) {
          console.error("Error generating PDF:", error);
       } finally {
@@ -239,11 +223,7 @@ function CertificateDesignContainer({
             </div>
          </div>
 
-         <Button
-            onClick={generatePDF}
-            disabled={isGeneratingPDF}
-            className="!bg-purple-400 hover:!bg-purple-500 text-white"
-         >
+         <Button onClick={generatePDF} disabled={isGeneratingPDF} className="!bg-purple-400 hover:!bg-purple-500 text-white">
             {isGeneratingPDF ? "Generando PDF..." : "Descargar PDF"}
          </Button>
       </div>
@@ -259,10 +239,7 @@ export default function CertificateComponent({
 }) {
    return (
       <div className="flex justify-center w-full">
-         <CertificateDesignContainer
-            certificateDesign={certificateDesign}
-            displayName={displayName}
-         />
+         <CertificateDesignContainer certificateDesign={certificateDesign} displayName={displayName} />
       </div>
    );
 }

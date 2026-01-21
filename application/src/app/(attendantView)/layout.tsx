@@ -7,11 +7,7 @@ import LeftBar from "@/components/global/LeftBar";
 import ConferenceNotificationController from "@/features/conferenceNotifications/components/ConferenceNotificationController";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 
-export default async function MenuLayout({
-   children,
-}: {
-   children: React.ReactNode;
-}) {
+export default async function MenuLayout({ children }: { children: React.ReactNode }) {
    const user = await getLoggedInUserId();
 
    if (!user) {
@@ -25,11 +21,7 @@ export default async function MenuLayout({
          <div className="flex flex-col w-full overflow-y-auto">
             <div className="grow">{children}</div>
             <footer className="flex justify-end px-8 py-4 w-full text-gray-500">
-               <Link
-                  href="https://virtualis.app"
-                  target="_blank"
-                  className="flex items-center w-max"
-               >
+               <Link href="https://virtualis.app" target="_blank" className="flex items-center w-max">
                   <span>
                      www.<b>virtualis.app</b>
                   </span>

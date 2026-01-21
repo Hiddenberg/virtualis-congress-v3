@@ -23,8 +23,5 @@ export interface ErroredTrackedEmail extends BaseTrackedEmail {
    errorMessage: string;
 }
 
-export type TrackedEmail =
-   | SentTrackedEmail
-   | OpenedTrackedEmail
-   | ErroredTrackedEmail;
+export type TrackedEmail = SentTrackedEmail | OpenedTrackedEmail | ErroredTrackedEmail;
 export type TrackedEmailRecord = DBRecordItem<TrackedEmail>;

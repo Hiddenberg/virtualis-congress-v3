@@ -1,26 +1,15 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getFullDBRecordsList,
-   getSingleDBRecord,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
 
-export async function createRecordingCampaign(
-   title: string,
-   description: string,
-) {
+export async function createRecordingCampaign(title: string, description: string) {
    const organization = await getOrganizationFromSubdomain();
 
-   const campaignCreated = await createDBRecord<SimpleRecordingCampaign>(
-      "SIMPLE_RECORDING_CAMPAIGNS",
-      {
-         title,
-         description,
-         organization: organization.id,
-      },
-   );
+   const campaignCreated = await createDBRecord<SimpleRecordingCampaign>("SIMPLE_RECORDING_CAMPAIGNS", {
+      title,
+      description,
+      organization: organization.id,
+   });
 
    return campaignCreated;
 }
@@ -39,18 +28,12 @@ export async function ensuredRecordingCampaign(title: string) {
       },
    );
 
-   const existingCampaign = await getSingleDBRecord<SimpleRecordingCampaign>(
-      "SIMPLE_RECORDING_CAMPAIGNS",
-      filter,
-   );
+   const existingCampaign = await getSingleDBRecord<SimpleRecordingCampaign>("SIMPLE_RECORDING_CAMPAIGNS", filter);
    if (existingCampaign) {
       return existingCampaign;
    }
 
-   const createdCampaign = await createRecordingCampaign(
-      title,
-      "Grabaciones de conferencias para el congreso",
-   );
+   const createdCampaign = await createRecordingCampaign(title, "Grabaciones de conferencias para el congreso");
    return createdCampaign;
 }
 
@@ -68,10 +51,7 @@ export async function getRecordingsCampaignById(campaignId: string) {
       },
    );
 
-   const campaign = await getSingleDBRecord<SimpleRecordingCampaign>(
-      "SIMPLE_RECORDING_CAMPAIGNS",
-      filter,
-   );
+   const campaign = await getSingleDBRecord<SimpleRecordingCampaign>("SIMPLE_RECORDING_CAMPAIGNS", filter);
 
    return campaign;
 }
@@ -92,12 +72,9 @@ export async function getAllSimpleRecordingCampaigns() {
       },
    );
 
-   const campaigns = await getFullDBRecordsList<SimpleRecordingCampaign>(
-      "SIMPLE_RECORDING_CAMPAIGNS",
-      {
-         filter,
-      },
-   );
+   const campaigns = await getFullDBRecordsList<SimpleRecordingCampaign>("SIMPLE_RECORDING_CAMPAIGNS", {
+      filter,
+   });
 
    return campaigns;
 }
@@ -121,12 +98,9 @@ export async function getAllCampaignRecordings(campaignId: string) {
       },
    );
 
-   const recordings = await getFullDBRecordsList<SimpleRecording>(
-      "SIMPLE_RECORDINGS",
-      {
-         filter,
-      },
-   );
+   const recordings = await getFullDBRecordsList<SimpleRecording>("SIMPLE_RECORDINGS", {
+      filter,
+   });
 
    return recordings;
 }

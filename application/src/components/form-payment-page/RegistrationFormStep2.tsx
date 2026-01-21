@@ -1,9 +1,5 @@
 "use client";
-export default function RegistrationFormStep2({
-   setInputValue,
-}: {
-   setInputValue: (name: string, value: string) => void;
-}) {
+export default function RegistrationFormStep2({ setInputValue }: { setInputValue: (name: string, value: string) => void }) {
    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
       setInputValue(name, value);
@@ -55,9 +51,7 @@ export default function RegistrationFormStep2({
             </div>
 
             <div>
-               <label className="block mb-2">
-                  Años de experiencia (opcional)
-               </label>
+               <label className="block mb-2">Años de experiencia (opcional)</label>
                <select
                   onChange={(e) => {
                      const { name, value } = e.target;

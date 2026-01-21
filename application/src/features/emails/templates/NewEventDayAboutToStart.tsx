@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface NewEventDayAboutToStartProps {
    eventDayNumber: 1 | 2 | 3 | 4 | 5 | 6;
@@ -66,9 +55,8 @@ export default function NewEventDayAboutToStartEmailTemplate({
          <Section style={continuityStyle}>
             <Text style={continuityIconStyle}>🔄</Text>
             <Text style={continuityTextStyle}>
-               <strong>¡Seguimos avanzando!</strong> Hoy continuamos con más
-               contenido valioso y conferencias de alto nivel. No te pierdas
-               esta oportunidad de seguir aprendiendo.
+               <strong>¡Seguimos avanzando!</strong> Hoy continuamos con más contenido valioso y conferencias de alto nivel. No te
+               pierdas esta oportunidad de seguir aprendiendo.
             </Text>
          </Section>
       );
@@ -80,17 +68,14 @@ export default function NewEventDayAboutToStartEmailTemplate({
             <title>{`¡El ${dayText} día está por comenzar! - Virtualis Congress`}</title>
          </Head>
          <Preview>
-            El {dayText} día de {congressTitle} comienza pronto - ¡Prepárate
-            para conectarte!
+            El {dayText} día de {congressTitle} comienza pronto - ¡Prepárate para conectarte!
          </Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
@@ -98,29 +83,21 @@ export default function NewEventDayAboutToStartEmailTemplate({
                   {/* Welcome Message */}
                   <Section style={welcomeContainerStyle}>
                      <Text style={alertIconStyle}>{getIconEmoji()}</Text>
-                     <Heading style={messageTitleStyle}>
-                        ¡Hola, {attendeeName}!
-                     </Heading>
+                     <Heading style={messageTitleStyle}>¡Hola, {attendeeName}!</Heading>
                      <Text style={welcomeTextStyle}>{getWelcomeMessage()}</Text>
-                     <Text style={descriptionStyle}>
-                        {getDescriptionMessage()}
-                     </Text>
+                     <Text style={descriptionStyle}>{getDescriptionMessage()}</Text>
                   </Section>
 
                   {/* Day Badge */}
                   <Section style={dayBadgeContainerStyle}>
                      <Section style={dayBadgeStyle}>
-                        <Text style={dayBadgeTextStyle}>
-                           Día {eventDayNumber}
-                        </Text>
+                        <Text style={dayBadgeTextStyle}>Día {eventDayNumber}</Text>
                      </Section>
                   </Section>
 
                   {/* Event Details */}
                   <Section style={detailsContainerStyle}>
-                     <Heading style={detailsTitleStyle}>
-                        📅 Detalles del evento
-                     </Heading>
+                     <Heading style={detailsTitleStyle}>📅 Detalles del evento</Heading>
 
                      <Section style={detailItemContainerStyle}>
                         <Text style={detailLabelStyle}>Congreso:</Text>
@@ -138,10 +115,7 @@ export default function NewEventDayAboutToStartEmailTemplate({
                      <Button href={joinUrl} style={ctaButtonStyle}>
                         🚀 Acceder al congreso ahora
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Si el botón no funciona, copia y pega este enlace en tu
-                        navegador:
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Si el botón no funciona, copia y pega este enlace en tu navegador:</Text>
                      <Text style={linkTextStyle}>{joinUrl}</Text>
                   </Section>
 
@@ -152,15 +126,12 @@ export default function NewEventDayAboutToStartEmailTemplate({
 
                   {/* Quick Tips Section */}
                   <Section style={tipsStyle}>
-                     <Heading style={tipsTitleStyle}>
-                        💡 Consejos para aprovechar al máximo
-                     </Heading>
+                     <Heading style={tipsTitleStyle}>💡 Consejos para aprovechar al máximo</Heading>
 
                      <Section style={tipsContainerStyle}>
                         <Text style={tipItemStyle}>
                            <span style={tipBulletStyle}>✓</span>
-                           Conecta unos minutos antes para asegurar que todo
-                           esté listo
+                           Conecta unos minutos antes para asegurar que todo esté listo
                         </Text>
 
                         <Text style={tipItemStyle}>
@@ -170,21 +141,18 @@ export default function NewEventDayAboutToStartEmailTemplate({
 
                         <Text style={tipItemStyle}>
                            <span style={tipBulletStyle}>✓</span>
-                           Ten a mano tus auriculares para una mejor experiencia
-                           de audio
+                           Ten a mano tus auriculares para una mejor experiencia de audio
                         </Text>
 
                         <Text style={tipItemStyle}>
                            <span style={tipBulletStyle}>✓</span>
-                           Prepara tus preguntas y participa activamente en las
-                           sesiones
+                           Prepara tus preguntas y participa activamente en las sesiones
                         </Text>
 
                         {!isFirstDay && (
                            <Text style={tipItemStyle}>
                               <span style={tipBulletStyle}>✓</span>
-                              Revisa el material del día anterior si te perdiste
-                              algo
+                              Revisa el material del día anterior si te perdiste algo
                            </Text>
                         )}
                      </Section>
@@ -194,19 +162,15 @@ export default function NewEventDayAboutToStartEmailTemplate({
                   <Section style={urgencyStyle}>
                      <Text style={urgencyIconStyle}>⏰</Text>
                      <Text style={urgencyTextStyle}>
-                        <strong>Comienza pronto:</strong> El {dayText} día del
-                        congreso iniciará en breve. Te recomendamos acceder a la
-                        plataforma ahora para no perderte ni un momento de
-                        contenido valioso.
+                        <strong>Comienza pronto:</strong> El {dayText} día del congreso iniciará en breve. Te recomendamos acceder
+                        a la plataforma ahora para no perderte ni un momento de contenido valioso.
                      </Text>
                   </Section>
                </Section>
 
                {/* Footer */}
                <Section style={footerStyle}>
-                  <Text style={footerTextStyle}>
-                     ¡Nos vemos en unos momentos!
-                  </Text>
+                  <Text style={footerTextStyle}>¡Nos vemos en unos momentos!</Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
                   </Text>
@@ -216,8 +180,7 @@ export default function NewEventDayAboutToStartEmailTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -228,8 +191,7 @@ export default function NewEventDayAboutToStartEmailTemplate({
 
 // Styles following the consistent pattern from other templates
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

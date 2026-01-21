@@ -6,10 +6,7 @@ export async function createMuxStaticRendition(muxAssetId: string) {
    const muxAsset = await getMuxAssetById(muxAssetId);
 
    if (!muxAsset) {
-      console.error(
-         "[createMuxStaticRendition] Error creating mux static rendition",
-         muxAssetId,
-      );
+      console.error("[createMuxStaticRendition] Error creating mux static rendition", muxAssetId);
       throw new Error("Mux asset not found");
    }
 
@@ -45,10 +42,7 @@ export async function getMuxAssetByUploadId(muxUploadId: string) {
       const muxUpload = await mux.video.uploads.retrieve(muxUploadId);
 
       if (!muxUpload.asset_id) {
-         console.error(
-            "[Mux Service] Error getting mux asset by upload id",
-            muxUploadId,
-         );
+         console.error("[Mux Service] Error getting mux asset by upload id", muxUploadId);
          return null;
       }
 
@@ -56,10 +50,7 @@ export async function getMuxAssetByUploadId(muxUploadId: string) {
 
       return muxAsset;
    } catch (error) {
-      console.error(
-         "[Mux Service] Error getting mux asset by upload id",
-         error,
-      );
+      console.error("[Mux Service] Error getting mux asset by upload id", error);
       return null;
    }
 }
@@ -84,10 +75,7 @@ export async function deleteMuxAsset(muxAssetId: string) {
 // Livestreams
 export async function createMuxLiveStream(passthrough: string) {
    try {
-      console.log(
-         "[Mux Service] Creating mux live stream with passthrough",
-         passthrough,
-      );
+      console.log("[Mux Service] Creating mux live stream with passthrough", passthrough);
       const muxLiveStream = await mux.video.liveStreams.create({
          playback_policy: ["public"],
          new_asset_settings: {
@@ -96,10 +84,7 @@ export async function createMuxLiveStream(passthrough: string) {
          passthrough: passthrough,
       });
 
-      console.log(
-         "[Mux Service] Mux live stream created successfully",
-         muxLiveStream,
-      );
+      console.log("[Mux Service] Mux live stream created successfully", muxLiveStream);
       return muxLiveStream;
    } catch (error) {
       console.error("[Mux Service] Error creating mux live stream", error);
@@ -109,8 +94,7 @@ export async function createMuxLiveStream(passthrough: string) {
 
 export async function retrieveMuxLiveStream(muxLiveStreamId: string) {
    try {
-      const muxLiveStream =
-         await mux.video.liveStreams.retrieve(muxLiveStreamId);
+      const muxLiveStream = await mux.video.liveStreams.retrieve(muxLiveStreamId);
       return muxLiveStream;
    } catch (error) {
       console.error("[Mux Service] Error retrieving mux live stream", error);
@@ -132,46 +116,31 @@ export async function finishMuxLiveStream(muxLiveStreamId: string) {
 export async function getMuxAssetDuration(muxAssetId: string) {
    const muxAsset = await mux.video.assets.retrieve(muxAssetId);
    if (!muxAsset) {
-      console.error(
-         "[Mux Service] Error getting mux asset duration",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset duration", muxAssetId);
       throw new Error("Mux asset not found");
    }
    return muxAsset.duration;
 }
 
-export async function generateMuxCaptions(
-   muxAssetId: string,
-   videoAssetId: string,
-) {
+export async function generateMuxCaptions(muxAssetId: string, videoAssetId: string) {
    const muxAsset = await mux.video.assets.retrieve(muxAssetId);
 
    if (!muxAsset) {
-      console.error(
-         "[Mux Service] Error getting mux asset captions",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset captions", muxAssetId);
       throw new Error("Mux asset not found");
    }
 
    const asssetTracks = muxAsset.tracks;
 
    if (!asssetTracks) {
-      console.error(
-         "[Mux Service] Error getting mux asset captions",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset captions", muxAssetId);
       throw new Error("Mux asset tracks not found");
    }
 
    const audioTracks = asssetTracks.filter((track) => track.type === "audio");
 
    if (!audioTracks[0].id) {
-      console.error(
-         "[Mux Service] Error getting mux asset captions",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset captions", muxAssetId);
       throw new Error("Mux asset audio track not found");
    }
 
@@ -194,46 +163,32 @@ export async function generateMuxCaptions(
 export async function getMuxAssetSubtitles(muxAssetId: string) {
    const muxAsset = await mux.video.assets.retrieve(muxAssetId);
    if (!muxAsset) {
-      console.error(
-         "[Mux Service] Error getting mux asset subtitles",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset subtitles", muxAssetId);
       throw new Error("Mux asset not found");
    }
 
    const muxAssetTracks = muxAsset.tracks;
 
    if (!muxAssetTracks) {
-      console.error(
-         "[Mux Service] Error getting mux asset subtitles",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset subtitles", muxAssetId);
       throw new Error("Mux asset tracks not found");
    }
 
    const textTracks = muxAssetTracks.filter((track) => track.type === "text");
 
    if (!textTracks[0].id) {
-      console.error(
-         "[Mux Service] Error getting mux asset subtitles",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset subtitles", muxAssetId);
       throw new Error("Mux asset text track not found");
    }
 
    const playbackIds = muxAsset.playback_ids;
 
    if (!playbackIds?.[0]?.id) {
-      console.error(
-         "[Mux Service] Error getting mux asset subtitles",
-         muxAssetId,
-      );
+      console.error("[Mux Service] Error getting mux asset subtitles", muxAssetId);
       throw new Error("Mux asset playback id not found");
    }
 
-   const response = await axios.get(
-      `https://stream.mux.com/${playbackIds[0].id}/text/${textTracks[0].id}.vtt`,
-   );
+   const response = await axios.get(`https://stream.mux.com/${playbackIds[0].id}/text/${textTracks[0].id}.vtt`);
 
    return response.data;
 }

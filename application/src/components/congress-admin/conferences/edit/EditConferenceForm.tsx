@@ -67,10 +67,7 @@ export default function EditConferenceForm({
    }
 
    return (
-      <form
-         action={handleSubmit}
-         className="space-y-6 bg-white shadow-sm p-6 rounded-lg"
-      >
+      <form action={handleSubmit} className="space-y-6 bg-white shadow-sm p-6 rounded-lg">
          <div>
             <label htmlFor="title" className="block mb-1 font-medium text-sm">
                Título <span className="text-red-500">*</span>
@@ -90,10 +87,7 @@ export default function EditConferenceForm({
          </div>
 
          <div>
-            <label
-               htmlFor="shortDescription"
-               className="block mb-1 font-medium text-sm"
-            >
+            <label htmlFor="shortDescription" className="block mb-1 font-medium text-sm">
                Descripción Breve
             </label>
             <textarea
@@ -108,10 +102,7 @@ export default function EditConferenceForm({
 
          <div className="gap-4 grid md:grid-cols-2">
             <div>
-               <label
-                  htmlFor="startTime"
-                  className="block mb-1 font-medium text-sm"
-               >
+               <label htmlFor="startTime" className="block mb-1 font-medium text-sm">
                   Hora de Inicio <span className="text-red-500">*</span>
                </label>
                <input
@@ -129,10 +120,7 @@ export default function EditConferenceForm({
             </div>
 
             <div>
-               <label
-                  htmlFor="endTime"
-                  className="block mb-1 font-medium text-sm"
-               >
+               <label htmlFor="endTime" className="block mb-1 font-medium text-sm">
                   Hora de Finalización <span className="text-red-500">*</span>
                </label>
                <input
@@ -151,12 +139,7 @@ export default function EditConferenceForm({
          </div>
 
          {/* Hidden input to store speakerIds as a comma-separated string for form submission */}
-         <input
-            type="hidden"
-            name="speakerIds"
-            id="speakerIds"
-            defaultValue={initialConference.speakers.join(",")}
-         />
+         <input type="hidden" name="speakerIds" id="speakerIds" defaultValue={initialConference.speakers.join(",")} />
 
          {/* Client component needs to be wrapped */}
          {/* <ClientSpeakerSelector
@@ -166,10 +149,7 @@ export default function EditConferenceForm({
 
          <div className="gap-4 grid md:grid-cols-2">
             <div>
-               <label
-                  htmlFor="conferenceType"
-                  className="block mb-1 font-medium text-sm"
-               >
+               <label htmlFor="conferenceType" className="block mb-1 font-medium text-sm">
                   Tipo de Conferencia <span className="text-red-500">*</span>
                </label>
                <select
@@ -202,16 +182,11 @@ export default function EditConferenceForm({
                <option value="finished">Finalizada</option>
                <option value="canceled">Cancelada</option>
             </select>
-            <p className="mt-1 text-gray-500 text-sm">
-               Estado actual de la conferencia
-            </p>
+            <p className="mt-1 text-gray-500 text-sm">Estado actual de la conferencia</p>
          </div>
 
          <div>
-            <label
-               htmlFor="presenter"
-               className="block mb-1 font-medium text-sm"
-            >
+            <label htmlFor="presenter" className="block mb-1 font-medium text-sm">
                Presentador
             </label>
             <select
@@ -227,9 +202,7 @@ export default function EditConferenceForm({
                   </option>
                ))}
             </select>
-            <p className="mt-1 text-gray-500 text-sm">
-               El presentador introducirá la conferencia antes de que comience
-            </p>
+            <p className="mt-1 text-gray-500 text-sm">El presentador introducirá la conferencia antes de que comience</p>
          </div>
 
          <div className="flex justify-end pt-4 border-gray-100 border-t">
@@ -239,9 +212,7 @@ export default function EditConferenceForm({
                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-white transition-colors"
             >
                <Save className="w-4 h-4" />
-               <span>
-                  {updating === true ? "Guardando..." : "Guardar Cambios"}
-               </span>
+               <span>{updating === true ? "Guardando..." : "Guardar Cambios"}</span>
             </button>
          </div>
       </form>

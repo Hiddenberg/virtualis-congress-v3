@@ -52,18 +52,11 @@ export default function PaidUsersList({ payments }: PaidUsersListProps) {
          <div className="p-6 border-gray-200 border-b">
             <div className="flex justify-between items-center">
                <div>
-                  <h2 className="font-semibold text-gray-900 text-xl">
-                     Usuarios con Pago
-                  </h2>
-                  <p className="mt-1 text-gray-600">
-                     Listado de pagos confirmados
-                  </p>
+                  <h2 className="font-semibold text-gray-900 text-xl">Usuarios con Pago</h2>
+                  <p className="mt-1 text-gray-600">Listado de pagos confirmados</p>
                </div>
                <div className="text-gray-600 text-sm">
-                  Total:{" "}
-                  <span className="font-semibold text-gray-900">
-                     {successful.length}
-                  </span>
+                  Total: <span className="font-semibold text-gray-900">{successful.length}</span>
                </div>
             </div>
          </div>
@@ -73,12 +66,8 @@ export default function PaidUsersList({ payments }: PaidUsersListProps) {
                <div className="flex justify-center items-center bg-gray-100 rounded-full w-14 h-14">
                   <Users className="w-7 h-7 text-gray-500" />
                </div>
-               <p className="mt-4 font-medium text-gray-900">
-                  No hay pagos registrados
-               </p>
-               <p className="text-gray-600 text-sm">
-                  Cuando se confirmen pagos aparecerán aquí
-               </p>
+               <p className="mt-4 font-medium text-gray-900">No hay pagos registrados</p>
+               <p className="text-gray-600 text-sm">Cuando se confirmen pagos aparecerán aquí</p>
             </div>
          )}
 
@@ -87,21 +76,11 @@ export default function PaidUsersList({ payments }: PaidUsersListProps) {
                <table className="divide-y divide-gray-200 min-w-full">
                   <thead className="bg-gray-50">
                      <tr>
-                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">
-                           Nombre
-                        </th>
-                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">
-                           Email
-                        </th>
-                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">
-                           Monto
-                        </th>
-                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">
-                           Método
-                        </th>
-                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">
-                           Fecha
-                        </th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Nombre</th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Email</th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Monto</th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Método</th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Fecha</th>
                      </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-100">
@@ -110,9 +89,7 @@ export default function PaidUsersList({ payments }: PaidUsersListProps) {
                         const name = user?.name ?? "—";
                         const email = user?.email ?? "—";
                         const amount = formatMoney(p.totalAmount, p.currency);
-                        const method = p.paymentMethod
-                           ? p.paymentMethod.replace(/_/g, " ")
-                           : "—";
+                        const method = p.paymentMethod ? p.paymentMethod.replace(/_/g, " ") : "—";
                         // const paidAt = new Date(p.fulfilledAt ?? p.created)
                         //    .toLocaleDateString();
                         const paidAt = format({
@@ -125,14 +102,10 @@ export default function PaidUsersList({ payments }: PaidUsersListProps) {
                         return (
                            <tr key={p.id} className="hover:bg-gray-50">
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <div className="font-medium text-gray-900 text-sm">
-                                    {name}
-                                 </div>
+                                 <div className="font-medium text-gray-900 text-sm">{name}</div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <div className="text-gray-700 text-sm">
-                                    {email}
-                                 </div>
+                                 <div className="text-gray-700 text-sm">{email}</div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
                                  <div className="flex items-center gap-2 text-green-700 text-sm">
@@ -141,9 +114,7 @@ export default function PaidUsersList({ payments }: PaidUsersListProps) {
                                  </div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <span className="text-gray-700 text-sm capitalize">
-                                    {method}
-                                 </span>
+                                 <span className="text-gray-700 text-sm capitalize">{method}</span>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
                                  <div className="flex items-center gap-2 text-gray-700 text-sm">

@@ -10,11 +10,7 @@ import FixedScaleStage from "@/features/projectionScreen/components/FixedScaleSt
 import RealtimeCameraComponent from "@/features/projectionScreen/components/RealtimeCameraComponent";
 import SelfContainedRealtimeQuestionPollCompactDisplay from "@/features/questionPolls/components/realtime/SelfContainedRealtimeQuestionPollCompactDisplay";
 
-export default async function ProjectionScreenPage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function ProjectionScreenPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const conference = await getConferenceById(conferenceId);
@@ -75,10 +71,7 @@ export default async function ProjectionScreenPage({
                      }}
                   >
                      {/* <span className="font-medium text-white/90 text-lg md:text-xl">Presentación / Video</span> */}
-                     <RealtimePresentationViewer
-                        showHeader={false}
-                        presentationId={conferencePresentation?.id ?? ""}
-                     />
+                     <RealtimePresentationViewer showHeader={false} presentationId={conferencePresentation?.id ?? ""} />
                   </div>
 
                   {/* conference title */}
@@ -88,9 +81,7 @@ export default async function ProjectionScreenPage({
 
                   {/* bottom widgets */}
                   <div className="gap-4 grid grid-cols-2">
-                     <SelfContainedRealtimeQuestionPollCompactDisplay
-                        conferenceId={conferenceId}
-                     />
+                     <SelfContainedRealtimeQuestionPollCompactDisplay conferenceId={conferenceId} />
                      {/* <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
                   </div> */}
                      <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
@@ -124,9 +115,7 @@ export default async function ProjectionScreenPage({
                         height: 340,
                      }}
                   >
-                     <SelfContainedRealtimeChatViewer
-                        conferenceId={conferenceId}
-                     />
+                     <SelfContainedRealtimeChatViewer conferenceId={conferenceId} />
                   </div>
                </div>
             </div>

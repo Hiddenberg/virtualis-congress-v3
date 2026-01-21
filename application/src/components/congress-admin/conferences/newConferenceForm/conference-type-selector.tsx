@@ -6,17 +6,10 @@ interface ConferenceTypeSelectorProps {
    required?: boolean;
 }
 
-export function ConferenceTypeSelector({
-   value,
-   onChange,
-   required = false,
-}: ConferenceTypeSelectorProps) {
+export function ConferenceTypeSelector({ value, onChange, required = false }: ConferenceTypeSelectorProps) {
    return (
       <fieldset className="flex flex-col gap-1">
-         <legend className="font-medium text-sm">
-            Conference Type{" "}
-            {required && <span className="text-red-500">*</span>}
-         </legend>
+         <legend className="font-medium text-sm">Conference Type {required && <span className="text-red-500">*</span>}</legend>
          <div className="gap-3 grid grid-cols-2 mt-1">
             <label
                className={`flex cursor-pointer items-center justify-center gap-2 rounded-md border p-3 text-sm transition-colors`}

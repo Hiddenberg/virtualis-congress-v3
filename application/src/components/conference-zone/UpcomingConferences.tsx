@@ -60,10 +60,7 @@ export default function UpcomingConferences() {
    const eventsPerPage = 2;
    const totalPages = Math.ceil(events.length / eventsPerPage);
 
-   const currentEvents = events.slice(
-      currentPage * eventsPerPage,
-      (currentPage + 1) * eventsPerPage,
-   );
+   const currentEvents = events.slice(currentPage * eventsPerPage, (currentPage + 1) * eventsPerPage);
 
    return (
       <div className="w-full mx-auto bg-[#F8F8F8] rounded-xl overflow-hidden p-6">
@@ -78,9 +75,7 @@ export default function UpcomingConferences() {
                <button
                   key={index}
                   onClick={() => setCurrentPage(index)}
-                  className={`w-2 h-2 rounded-full ${
-                     index === currentPage ? "bg-blue-500" : "bg-gray-300"
-                  }`}
+                  className={`w-2 h-2 rounded-full ${index === currentPage ? "bg-blue-500" : "bg-gray-300"}`}
                />
             ))}
          </div>

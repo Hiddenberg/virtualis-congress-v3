@@ -5,9 +5,7 @@ import type { SpeakerDataRecord } from "@/types/congress";
 export async function GET(
    _request: Request,
    { params }: { params: Promise<{ conferenceId: string }> },
-): Promise<
-   NextResponse<BackendResponse<{ conferenceSpeakers: SpeakerDataRecord[] }>>
-> {
+): Promise<NextResponse<BackendResponse<{ conferenceSpeakers: SpeakerDataRecord[] }>>> {
    try {
       const { conferenceId } = await params;
 

@@ -5,9 +5,7 @@ interface RecordingHeaderProps {
    recordingsCount: number;
 }
 
-export default function RecordingHeader({
-   recordingsCount,
-}: RecordingHeaderProps) {
+export default function RecordingHeader({ recordingsCount }: RecordingHeaderProps) {
    return (
       <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4 mb-8">
          <div>
@@ -15,9 +13,7 @@ export default function RecordingHeader({
                <div className="bg-blue-200 p-2 rounded-lg">
                   <VideoIcon className="size-6 text-blue-700" />
                </div>
-               <h1 className="font-light text-gray-900 text-2xl">
-                  Grabaciones creadas
-               </h1>
+               <h1 className="font-light text-gray-900 text-2xl">Grabaciones creadas</h1>
             </div>
             <p className="text-gray-600 text-sm">
                {recordingsCount === 0

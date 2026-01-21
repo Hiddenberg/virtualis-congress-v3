@@ -1,10 +1,4 @@
-import {
-   ArrowRight,
-   ChevronDown,
-   Presentation,
-   Ticket,
-   Trophy,
-} from "lucide-react";
+import { ArrowRight, ChevronDown, Presentation, Ticket, Trophy } from "lucide-react";
 
 type PromoCardProps = {
    title: string;

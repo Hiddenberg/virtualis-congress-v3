@@ -27,13 +27,7 @@ const CONFERENCE_COLORS = [
 /**
  * Component to display a single conference card
  */
-function ConferenceCard({
-   conference,
-   colorIndex,
-}: {
-   conference: LobbyConference;
-   colorIndex: number;
-}) {
+function ConferenceCard({ conference, colorIndex }: { conference: LobbyConference; colorIndex: number }) {
    const [currentTime, setCurrentTime] = useState(new Date());
 
    useEffect(() => {
@@ -43,12 +37,8 @@ function ConferenceCard({
       return () => clearInterval(interval);
    }, []);
    const isConferenceActive =
-      isAfter(currentTime.toISOString(), conference.startTime) &&
-      isBefore(currentTime.toISOString(), conference.endTime);
-   const isConferencePast = isBefore(
-      conference.endTime,
-      currentTime.toISOString(),
-   );
+      isAfter(currentTime.toISOString(), conference.startTime) && isBefore(currentTime.toISOString(), conference.endTime);
+   const isConferencePast = isBefore(conference.endTime, currentTime.toISOString());
 
    return (
       <Link
@@ -86,19 +76,13 @@ function ConferenceCard({
                hrs
             </span>
          </div>
-         <h3 className="mb-2 font-semibold text-gray-800 text-sm sm:text-base">
-            {conference.title}
-         </h3>
+         <h3 className="mb-2 font-semibold text-gray-800 text-sm sm:text-base">{conference.title}</h3>
          {conference.shortDescription && (
-            <p className="mb-2 text-gray-600 text-xs sm:text-sm line-clamp-2">
-               {conference.shortDescription}
-            </p>
+            <p className="mb-2 text-gray-600 text-xs sm:text-sm line-clamp-2">{conference.shortDescription}</p>
          )}
          <div className="flex items-center mt-auto text-gray-600">
             <Mic className="flex-shrink-0 mr-1 w-3 sm:w-4 h-3 sm:h-4" />
-            <span className="text-xs sm:text-sm line-clamp-1">
-               {conference.speakerNames.join(", ")}
-            </span>
+            <span className="text-xs sm:text-sm line-clamp-1">{conference.speakerNames.join(", ")}</span>
          </div>
       </Link>
    );
@@ -119,9 +103,7 @@ function DayHeader({ date, dayIndex }: { date: Date; dayIndex: number }) {
                tz: "America/Mexico_City",
             })}
          </h2>
-         <span className="ml-2 text-gray-500 text-xs sm:text-sm whitespace-nowrap">
-            Día {dayIndex + 1}
-         </span>
+         <span className="ml-2 text-gray-500 text-xs sm:text-sm whitespace-nowrap">Día {dayIndex + 1}</span>
       </div>
    );
 }
@@ -129,13 +111,7 @@ function DayHeader({ date, dayIndex }: { date: Date; dayIndex: number }) {
 /**
  * Component to display all conferences for a single day
  */
-function DayConferencesList({
-   dayConferences,
-   dayIndex,
-}: {
-   dayConferences: DayConferences;
-   dayIndex: number;
-}) {
+function DayConferencesList({ dayConferences, dayIndex }: { dayConferences: DayConferences; dayIndex: number }) {
    const [isExpanded, setIsExpanded] = useState(false);
 
    return (
@@ -152,25 +128,15 @@ function DayConferencesList({
             onClick={() => setIsExpanded(!isExpanded)}
          >
             <DayHeader date={dayConferences.date} dayIndex={dayIndex} />
-            <p className="text-gray-500 text-xs">
-               Toca para ver las conferencias
-            </p>
-            <ChevronDown
-               className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
-            />
+            <p className="text-gray-500 text-xs">Toca para ver las conferencias</p>
+            <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
          </button>
 
          {isExpanded && (
             <div className={`flex flex-wrap gap-2 w-full`}>
                {dayConferences.conferences.map((conference, idx) => {
                   const colorIndex = idx % CONFERENCE_COLORS.length;
-                  return (
-                     <ConferenceCard
-                        key={conference.id}
-                        conference={conference}
-                        colorIndex={colorIndex}
-                     />
-                  );
+                  return <ConferenceCard key={conference.id} conference={conference} colorIndex={colorIndex} />;
                })}
             </div>
          )}
@@ -181,9 +147,7 @@ function DayConferencesList({
 /**
  * Utility to group conferences by day
  */
-function organizeConferencesByDay(
-   lobbyConferences: LobbyConference[],
-): DayConferences[] {
+function organizeConferencesByDay(lobbyConferences: LobbyConference[]): DayConferences[] {
    const conferencesByDay: DayConferences[] = [];
 
    if (!lobbyConferences || lobbyConferences.length === 0) {
@@ -212,10 +176,7 @@ function organizeConferencesByDay(
    // Convert map to array and sort by date
    groupedByDay.forEach((conferences, dateKey) => {
       // Sort conferences by start time
-      const sortedConferences = conferences.sort(
-         (a, b) =>
-            new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
-      );
+      const sortedConferences = conferences.sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
 
       // Create date from dateKey in local timezone
       const [year, month, day] = dateKey.split("-").map((n) => parseInt(n, 10));
@@ -234,19 +195,11 @@ function organizeConferencesByDay(
 /**
  * Main component that displays all conference sessions
  */
-export default function SessionSchedulesSection({
-   lobbyConferences,
-}: {
-   lobbyConferences: LobbyConference[];
-}) {
+export default function SessionSchedulesSection({ lobbyConferences }: { lobbyConferences: LobbyConference[] }) {
    const conferencesByDay = organizeConferencesByDay(lobbyConferences);
 
    if (conferencesByDay.length === 0) {
-      return (
-         <div className="mx-auto p-2 sm:p-4 w-full text-center">
-            No hay conferencias programadas
-         </div>
-      );
+      return <div className="mx-auto p-2 sm:p-4 w-full text-center">No hay conferencias programadas</div>;
    }
 
    return (

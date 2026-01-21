@@ -12,37 +12,25 @@ interface DateTimePickerProps {
    required?: boolean;
 }
 
-export function DateTimePicker({
-   id,
-   label,
-   value,
-   onChange,
-   required = false,
-}: DateTimePickerProps) {
+export function DateTimePicker({ id, label, value, onChange, required = false }: DateTimePickerProps) {
    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
    const datePickerRef = useRef<HTMLDivElement>(null);
 
    // Parse the input value into date and time parts
    const date = value ? new Date(value) : new Date();
-   const formattedDate = !isNaN(date.getTime())
-      ? format(date, "YYYY-MM-DD")
-      : format(new Date(), "YYYY-MM-DD");
+   const formattedDate = !isNaN(date.getTime()) ? format(date, "YYYY-MM-DD") : format(new Date(), "YYYY-MM-DD");
    const formattedTime = !isNaN(date.getTime()) ? format(date, "HH:mm") : "";
 
    // Close the date picker when clicking outside
    useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
-         if (
-            datePickerRef.current &&
-            !datePickerRef.current.contains(event.target as Node)
-         ) {
+         if (datePickerRef.current && !datePickerRef.current.contains(event.target as Node)) {
             setIsDatePickerOpen(false);
          }
       };
 
       document.addEventListener("mousedown", handleClickOutside);
-      return () =>
-         document.removeEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
    }, []);
 
    // Update the value when date or time changes
@@ -110,10 +98,7 @@ export function DateTimePicker({
             date: format(dateObj, "YYYY-MM-DD"),
             day: i,
             isCurrentMonth: true,
-            isToday:
-               i === today.getDate() &&
-               currentMonth === today.getMonth() &&
-               currentYear === today.getFullYear(),
+            isToday: i === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear(),
             isSelected:
                i === selectedDate.getDate() &&
                currentMonth === selectedDate.getMonth() &&
@@ -146,26 +131,16 @@ export function DateTimePicker({
       let newDate: Date;
 
       if (direction === "prev") {
-         newDate = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth() - 1,
-            1,
-         );
+         newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
       } else {
-         newDate = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth() + 1,
-            1,
-         );
+         newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
       }
 
       handleDateSelect(format(newDate, "YYYY-MM-DD"));
    };
 
    // Format for display
-   const displayDate = !isNaN(date.getTime())
-      ? format(date, "DD MMM YYYY")
-      : "Seleccionar fecha";
+   const displayDate = !isNaN(date.getTime()) ? format(date, "DD MMM YYYY") : "Seleccionar fecha";
 
    return (
       <fieldset className="flex flex-col gap-1">
@@ -180,25 +155,13 @@ export function DateTimePicker({
                   onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
                >
                   <Calendar className="mr-2 w-4 h-4 text-gray-500" />
-                  <span
-                     className={
-                        !displayDate || displayDate === "Seleccionar fecha"
-                           ? "text-gray-400"
-                           : "text-gray-900"
-                     }
-                  >
+                  <span className={!displayDate || displayDate === "Seleccionar fecha" ? "text-gray-400" : "text-gray-900"}>
                      {displayDate}
                   </span>
                </div>
 
                {/* Hidden date input for form submission */}
-               <input
-                  type="date"
-                  className="sr-only"
-                  value={formattedDate}
-                  onChange={handleDateChange}
-                  required={required}
-               />
+               <input type="date" className="sr-only" value={formattedDate} onChange={handleDateChange} required={required} />
 
                {/* Date picker dropdown */}
                {isDatePickerOpen && (
@@ -212,9 +175,7 @@ export function DateTimePicker({
                         >
                            &lt;
                         </button>
-                        <div className="font-medium">
-                           {format(new Date(formattedDate), "MMMM YYYY")}
-                        </div>
+                        <div className="font-medium">{format(new Date(formattedDate), "MMMM YYYY")}</div>
                         <button
                            type="button"
                            onClick={() => navigateMonth("next")}
@@ -226,16 +187,11 @@ export function DateTimePicker({
 
                      {/* Weekdays header */}
                      <div className="grid grid-cols-7 mb-1">
-                        {["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"].map(
-                           (day) => (
-                              <div
-                                 key={day}
-                                 className="py-1 font-medium text-gray-500 text-xs text-center"
-                              >
-                                 {day}
-                              </div>
-                           ),
-                        )}
+                        {["Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"].map((day) => (
+                           <div key={day} className="py-1 font-medium text-gray-500 text-xs text-center">
+                              {day}
+                           </div>
+                        ))}
                      </div>
 
                      {/* Calendar days */}

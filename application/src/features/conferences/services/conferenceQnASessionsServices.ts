@@ -7,15 +7,9 @@ import {
 } from "@/features/livestreams/services/livestreamSessionServices";
 import { createMuxLivestream } from "@/features/livestreams/services/muxLivestreamServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 
-export async function getConferenceQnASession(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function getConferenceQnASession(conferenceId: CongressConferenceRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
 
@@ -25,14 +19,11 @@ export async function getConferenceQnASession(
       }
    >(
       "CONFERENCE_QNA_SESSIONS",
-      pbFilter(
-         `organization = {:organizationId} && congress = {:congressId} && conference = {:conferenceId}`,
-         {
-            organizationId: organization.id,
-            congressId: congress.id,
-            conferenceId,
-         },
-      ),
+      pbFilter(`organization = {:organizationId} && congress = {:congressId} && conference = {:conferenceId}`, {
+         organizationId: organization.id,
+         congressId: congress.id,
+         conferenceId,
+      }),
       {
          expand: "livestreamSession",
       },
@@ -41,9 +32,7 @@ export async function getConferenceQnASession(
    return link?.expand.livestreamSession ?? null;
 }
 
-export async function ensureConferenceQnASession(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function ensureConferenceQnASession(conferenceId: CongressConferenceRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
 
@@ -63,9 +52,7 @@ export async function ensureConferenceQnASession(
    return livestreamSession;
 }
 
-export async function removeConferenceQnASession(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function removeConferenceQnASession(conferenceId: CongressConferenceRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
 
@@ -75,14 +62,11 @@ export async function removeConferenceQnASession(
       }
    >(
       "CONFERENCE_QNA_SESSIONS",
-      pbFilter(
-         `organization = {:organizationId} && congress = {:congressId} && conference = {:conferenceId}`,
-         {
-            organizationId: organization.id,
-            congressId: congress.id,
-            conferenceId,
-         },
-      ),
+      pbFilter(`organization = {:organizationId} && congress = {:congressId} && conference = {:conferenceId}`, {
+         organizationId: organization.id,
+         congressId: congress.id,
+         conferenceId,
+      }),
       {
          expand: "livestreamSession",
       },

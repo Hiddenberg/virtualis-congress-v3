@@ -10,8 +10,7 @@ import {
 
 export default function ScheduleAllConferenceRecordings() {
    const [isLoading, startTransition] = useTransition();
-   const [result, setResult] =
-      useState<ScheduleAllConferenceRecordingsResult | null>(null);
+   const [result, setResult] = useState<ScheduleAllConferenceRecordingsResult | null>(null);
 
    const handleSchedule = () => {
       startTransition(async () => {
@@ -38,11 +37,7 @@ export default function ScheduleAllConferenceRecordings() {
             </div>
          )}
 
-         <Button
-            onClick={handleSchedule}
-            disabled={isLoading}
-            loading={isLoading}
-         >
+         <Button onClick={handleSchedule} disabled={isLoading} loading={isLoading}>
             Schedule All Conference Recordings
          </Button>
       </div>

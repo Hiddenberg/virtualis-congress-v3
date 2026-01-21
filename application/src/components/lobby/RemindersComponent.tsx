@@ -50,10 +50,7 @@ export default function RemindersComponent() {
       setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
    };
 
-   const currentReminders = reminders.slice(
-      currentPage * remindersPerPage,
-      (currentPage + 1) * remindersPerPage,
-   );
+   const currentReminders = reminders.slice(currentPage * remindersPerPage, (currentPage + 1) * remindersPerPage);
 
    return (
       <div className="w-1/3 mx-auto bg-[#F8F8F8] rounded-lg shadow-md p-6">
@@ -62,16 +59,10 @@ export default function RemindersComponent() {
                <Clock className="mr-2" /> Recordatorios
             </h2>
             <div className="flex space-x-2">
-               <button
-                  onClick={prevPage}
-                  className="p-1 rounded-full bg-gray-200 hover:bg-gray-300"
-               >
+               <button onClick={prevPage} className="p-1 rounded-full bg-gray-200 hover:bg-gray-300">
                   <ChevronLeft className="w-6 h-6" />
                </button>
-               <button
-                  onClick={nextPage}
-                  className="p-1 rounded-full bg-gray-200 hover:bg-gray-300"
-               >
+               <button onClick={nextPage} className="p-1 rounded-full bg-gray-200 hover:bg-gray-300">
                   <ChevronRight className="w-6 h-6" />
                </button>
             </div>
@@ -80,12 +71,8 @@ export default function RemindersComponent() {
             {currentReminders.map((reminder) => (
                <div key={reminder.id} className="flex items-start">
                   <div className="flex-shrink-0 w-12 text-center">
-                     <div className="text-2xl font-bold">
-                        {reminder.date.split(" ")[0]}
-                     </div>
-                     <div className="text-sm text-gray-500">
-                        {reminder.date.split(" ")[1]}
-                     </div>
+                     <div className="text-2xl font-bold">{reminder.date.split(" ")[0]}</div>
+                     <div className="text-sm text-gray-500">{reminder.date.split(" ")[1]}</div>
                   </div>
                   <div className="ml-4 flex-grow">
                      <h3 className="text-sm font-medium">{reminder.title}</h3>
@@ -99,12 +86,7 @@ export default function RemindersComponent() {
          </div>
          <div className="flex justify-center mt-4 space-x-2">
             {[...Array(totalPages)].map((_, index) => (
-               <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full ${
-                     index === currentPage ? "bg-primary" : "bg-gray-300"
-                  }`}
-               />
+               <div key={index} className={`w-2 h-2 rounded-full ${index === currentPage ? "bg-primary" : "bg-gray-300"}`} />
             ))}
          </div>
       </div>

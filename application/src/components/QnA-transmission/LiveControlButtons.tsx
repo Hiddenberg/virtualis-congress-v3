@@ -37,11 +37,7 @@ export function StartLiveStreamButton({
 
    const handleStartLiveStream = () => {
       startTransition(async () => {
-         const { success, message, error } =
-            await startQnALivestreamSessionAction(
-               conferenceId as string,
-               zoomSessionId,
-            );
+         const { success, message, error } = await startQnALivestreamSessionAction(conferenceId as string, zoomSessionId);
 
          if (!success) {
             alert(error);
@@ -61,8 +57,7 @@ export function StartLiveStreamButton({
          disabled={!zoomSessionId || isLoading}
          onClick={handleStartLiveStream}
       >
-         <RadioTowerIcon className="size-4" />{" "}
-         {isLoading ? "Iniciando..." : "Iniciar transmisión"}
+         <RadioTowerIcon className="size-4" /> {isLoading ? "Iniciando..." : "Iniciar transmisión"}
       </Button>
    );
 }
@@ -96,11 +91,7 @@ export function StopLiveStreamButton({
       }
 
       startTransition(async () => {
-         const { success, message, error } =
-            await stopQnALivestreamSessionAction(
-               conferenceId as string,
-               zoomSessionId,
-            );
+         const { success, message, error } = await stopQnALivestreamSessionAction(conferenceId as string, zoomSessionId);
 
          if (!success) {
             alert(error);
@@ -121,8 +112,7 @@ export function StopLiveStreamButton({
          disabled={!zoomSessionId || isLoading}
          onClick={handleStopLiveStream}
       >
-         <RadioTowerIcon className="size-4" />{" "}
-         {isLoading ? "Finalizando..." : "Finalizar transmisión"}
+         <RadioTowerIcon className="size-4" /> {isLoading ? "Finalizando..." : "Finalizar transmisión"}
       </Button>
    );
 }
@@ -138,9 +128,7 @@ export function MoveToZoomButton() {
    }
 
    const handleStartMovingToZoom = () => {
-      const confirmation = confirm(
-         "¿Estás seguro de querer mover la transmisión a Zoom?, esta acción no se puede deshacer.",
-      );
+      const confirmation = confirm("¿Estás seguro de querer mover la transmisión a Zoom?, esta acción no se puede deshacer.");
 
       if (!confirmation) {
          return;
@@ -151,10 +139,7 @@ export function MoveToZoomButton() {
 
    const handleFinishMovingToZoom = () => {
       startTransition(async () => {
-         const { success, message, error } = await moveToZoomAction(
-            conferenceId as string,
-            zoomLink,
-         );
+         const { success, message, error } = await moveToZoomAction(conferenceId as string, zoomLink);
 
          if (!success) {
             alert(error);
@@ -176,8 +161,7 @@ export function MoveToZoomButton() {
             disabled={isLoading}
             onClick={handleStartMovingToZoom}
          >
-            <Video className="size-4" />{" "}
-            {isLoading ? "Moviendo a Zoom..." : "Mover a Zoom"}
+            <Video className="size-4" /> {isLoading ? "Moviendo a Zoom..." : "Mover a Zoom"}
          </Button>
 
          {settingZoomLink && (
@@ -219,8 +203,7 @@ function CancelQnALivestreamSessionButton() {
       }
 
       startTransition(async () => {
-         const { success, message, error } =
-            await cancelQnALivestreamSessionAction(conferenceId as string);
+         const { success, message, error } = await cancelQnALivestreamSessionAction(conferenceId as string);
 
          if (!success) {
             alert(error);
@@ -237,15 +220,12 @@ function CancelQnALivestreamSessionButton() {
          disabled={isLoading}
          onClick={handleCancelQnALivestreamSession}
       >
-         <XIcon className="size-4" />{" "}
-         {isLoading ? "Cancelando..." : "Cancelar Sesión"}
+         <XIcon className="size-4" /> {isLoading ? "Cancelando..." : "Cancelar Sesión"}
       </Button>
    );
 }
 
-export default function LiveControlButtons({
-   sessionId,
-}: LiveControlButtonProps) {
+export default function LiveControlButtons({ sessionId }: LiveControlButtonProps) {
    const [isSessionActive, setIsSessionActive] = useState(false);
 
    const isHost = useSearchParams().get("ishost") === "true";
@@ -257,15 +237,9 @@ export default function LiveControlButtons({
    return (
       <div className="flex flex-col justify-center items-center gap-2 py-4">
          {isSessionActive ? (
-            <StopLiveStreamButton
-               zoomSessionId={sessionId}
-               setIsSessionActive={setIsSessionActive}
-            />
+            <StopLiveStreamButton zoomSessionId={sessionId} setIsSessionActive={setIsSessionActive} />
          ) : (
-            <StartLiveStreamButton
-               zoomSessionId={sessionId}
-               setIsSessionActive={setIsSessionActive}
-            />
+            <StartLiveStreamButton zoomSessionId={sessionId} setIsSessionActive={setIsSessionActive} />
          )}
 
          <div className="flex gap-2 mt-4">

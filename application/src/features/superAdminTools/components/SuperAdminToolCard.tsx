@@ -28,16 +28,12 @@ export default function SuperAdminToolCard({
 }: SuperAdminToolCardProps) {
    const [results, setResults] = useState<string | null>(null);
    const [resultMessage, setResultMessage] = useState<string | null>(null);
-   const [resultStatus, setResultStatus] = useState<"success" | "error" | null>(
-      null,
-   );
+   const [resultStatus, setResultStatus] = useState<"success" | "error" | null>(null);
    const [isLoading, startTransition] = useTransition();
    const [inputText, setInputText] = useState<string>("");
 
    const handleAction = () => {
-      const confirmation = confirm(
-         `¿Estás seguro de querer ejecutar esta acción?: ${buttonText}`,
-      );
+      const confirmation = confirm(`¿Estás seguro de querer ejecutar esta acción?: ${buttonText}`);
       if (!confirmation) {
          return;
       }
@@ -90,26 +86,17 @@ export default function SuperAdminToolCard({
             {buttonText}
          </Button>
 
-         {description && !resultStatus && (
-            <p className="text-gray-600 text-sm">{description}</p>
-         )}
+         {description && !resultStatus && <p className="text-gray-600 text-sm">{description}</p>}
 
          {/* Result Section */}
          {resultStatus && (
             <div
                className={`p-2 rounded-lg ${resultStatus === "error" ? "bg-red-50 border border-red-200" : resultStatus === "success" ? "bg-green-50 border border-green-200" : ""}`}
             >
-               <h3 className="font-medium text-gray-800 text-lg">
-                  Resultados:
-               </h3>
-               {resultMessage && (
-                  <p className="text-gray-600 text-sm">{resultMessage}</p>
-               )}
+               <h3 className="font-medium text-gray-800 text-lg">Resultados:</h3>
+               {resultMessage && <p className="text-gray-600 text-sm">{resultMessage}</p>}
                <pre className="max-h-96 overflow-y-auto">
-                  <code
-                     datatype="json"
-                     className="max-h-96 font-mono text-gray-600 text-sm"
-                  >
+                  <code datatype="json" className="max-h-96 font-mono text-gray-600 text-sm">
                      {results}
                   </code>
                </pre>

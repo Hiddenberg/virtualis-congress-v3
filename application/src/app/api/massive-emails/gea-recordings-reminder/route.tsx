@@ -13,8 +13,7 @@ export async function GET(request: NextRequest) {
       });
    }
 
-   const recordingCampaignId =
-      request.nextUrl.searchParams.get("recordingCampaign");
+   const recordingCampaignId = request.nextUrl.searchParams.get("recordingCampaign");
 
    if (!recordingCampaignId) {
       return NextResponse.json({
@@ -22,8 +21,7 @@ export async function GET(request: NextRequest) {
       });
    }
 
-   const recordingCampaign =
-      await getRecordingsCampaignById(recordingCampaignId);
+   const recordingCampaign = await getRecordingsCampaignById(recordingCampaignId);
 
    if (!recordingCampaign) {
       return NextResponse.json({

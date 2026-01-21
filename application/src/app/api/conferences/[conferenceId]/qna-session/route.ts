@@ -4,9 +4,7 @@ import { getConferenceQnASession } from "@/features/conferences/services/confere
 export async function GET(
    request: NextRequest,
    { params }: { params: Promise<{ conferenceId: string }> },
-): Promise<
-   NextResponse<BackendResponse<{ qnaSession: LivestreamSessionRecord | null }>>
-> {
+): Promise<NextResponse<BackendResponse<{ qnaSession: LivestreamSessionRecord | null }>>> {
    try {
       const { conferenceId } = await params;
 
@@ -34,8 +32,7 @@ export async function GET(
       return NextResponse.json(
          {
             success: false,
-            errorMessage:
-               "Error al obtener la sesión de preguntas y respuestas",
+            errorMessage: "Error al obtener la sesión de preguntas y respuestas",
          },
          {
             status: 500,

@@ -1,13 +1,6 @@
 "use client";
 
-import {
-   Calendar,
-   ClipboardPenIcon,
-   DoorOpenIcon,
-   DownloadIcon,
-   MapPin,
-   Users,
-} from "lucide-react";
+import { Calendar, ClipboardPenIcon, DoorOpenIcon, DownloadIcon, MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import ConferenceItem from "./ConferenceItem";
@@ -26,34 +19,23 @@ interface ProgramScheduleProps {
    userId?: string;
 }
 
-export default function ProgramSchedule({
-   conferencesDay1,
-   conferencesDay2,
-   userId,
-}: ProgramScheduleProps) {
+export default function ProgramSchedule({ conferencesDay1, conferencesDay2, userId }: ProgramScheduleProps) {
    const [activeDay, setActiveDay] = useState<1 | 2>(1);
 
    const isBreakSession = (title: string) => {
-      return (
-         title.toLowerCase().includes("coffee") ||
-         title.toLowerCase().includes("break")
-      );
+      return title.toLowerCase().includes("coffee") || title.toLowerCase().includes("break");
    };
 
-   const currentConferences =
-      activeDay === 1 ? conferencesDay1 : conferencesDay2;
+   const currentConferences = activeDay === 1 ? conferencesDay1 : conferencesDay2;
 
    return (
       <div id="program-schedule" className="bg-gray-50 py-16">
          <div className="mx-auto px-4 container">
             {/* Section Header */}
             <div className="mb-12 text-center">
-               <h2 className="mb-4 font-bold text-gray-900 text-4xl">
-                  Programa del Congreso
-               </h2>
+               <h2 className="mb-4 font-bold text-gray-900 text-4xl">Programa del Congreso</h2>
                <p className="mx-auto max-w-2xl text-gray-600 text-lg">
-                  Dos días intensivos de conocimiento médico especializado con
-                  los mejores expertos en medicina interna
+                  Dos días intensivos de conocimiento médico especializado con los mejores expertos en medicina interna
                </p>
             </div>
 
@@ -72,9 +54,7 @@ export default function ProgramSchedule({
                   <div className="flex justify-center items-center bg-green-100 mx-auto mb-4 rounded-full w-12 h-12">
                      <MapPin className="w-6 h-6 text-green-600" />
                   </div>
-                  <h3 className="mb-2 font-semibold text-gray-900">
-                     Ubicación
-                  </h3>
+                  <h3 className="mb-2 font-semibold text-gray-900">Ubicación</h3>
                   <p className="text-gray-600">Hotel Holiday Inn</p>
                   <p className="text-gray-500 text-sm">Tapachula, Chiapas</p>
                </div>
@@ -85,9 +65,7 @@ export default function ProgramSchedule({
                   </div>
                   <h3 className="mb-2 font-semibold text-gray-900">Expertos</h3>
                   <p className="text-gray-600">Especialistas Reconocidos</p>
-                  <p className="text-gray-500 text-sm">
-                     Ponencias de alto nivel
-                  </p>
+                  <p className="text-gray-500 text-sm">Ponencias de alto nivel</p>
                </div>
             </div>
 
@@ -107,18 +85,14 @@ export default function ProgramSchedule({
                            <div className="flex items-center gap-3">
                               <div
                                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                                    activeDay === 1
-                                       ? "bg-white/20"
-                                       : "bg-blue-100 text-blue-600"
+                                    activeDay === 1 ? "bg-white/20" : "bg-blue-100 text-blue-600"
                                  }`}
                               >
                                  1
                               </div>
                               <div className="text-left">
                                  <div className="font-bold">Día 1</div>
-                                 <div className="opacity-75 text-xs">
-                                    5 Septiembre
-                                 </div>
+                                 <div className="opacity-75 text-xs">5 Septiembre</div>
                               </div>
                            </div>
                         </button>
@@ -134,18 +108,14 @@ export default function ProgramSchedule({
                            <div className="flex items-center gap-3">
                               <div
                                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
-                                    activeDay === 2
-                                       ? "bg-white/20"
-                                       : "bg-cyan-100 text-cyan-600"
+                                    activeDay === 2 ? "bg-white/20" : "bg-cyan-100 text-cyan-600"
                                  }`}
                               >
                                  2
                               </div>
                               <div className="text-left">
                                  <div className="font-bold">Día 2</div>
-                                 <div className="opacity-75 text-xs">
-                                    6 Septiembre
-                                 </div>
+                                 <div className="opacity-75 text-xs">6 Septiembre</div>
                               </div>
                            </div>
                         </button>
@@ -176,35 +146,19 @@ export default function ProgramSchedule({
                               : "bg-gradient-to-br from-cyan-500 to-cyan-600"
                         }`}
                      >
-                        <span className="font-bold text-white text-lg">
-                           {activeDay}
-                        </span>
+                        <span className="font-bold text-white text-lg">{activeDay}</span>
                      </div>
                      <div>
-                        <h3 className="font-bold text-gray-900 text-2xl">
-                           Día {activeDay}
-                        </h3>
-                        <p
-                           className={`font-medium ${
-                              activeDay === 1
-                                 ? "text-blue-600"
-                                 : "text-cyan-600"
-                           }`}
-                        >
-                           {activeDay === 1
-                              ? "5 de Septiembre, 2025"
-                              : "6 de Septiembre, 2025"}
+                        <h3 className="font-bold text-gray-900 text-2xl">Día {activeDay}</h3>
+                        <p className={`font-medium ${activeDay === 1 ? "text-blue-600" : "text-cyan-600"}`}>
+                           {activeDay === 1 ? "5 de Septiembre, 2025" : "6 de Septiembre, 2025"}
                         </p>
                      </div>
                   </div>
 
                   <div className="space-y-4 max-h-[80dvh] overflow-y-auto">
                      {currentConferences.map((conference, index) => (
-                        <ConferenceItem
-                           key={index}
-                           {...conference}
-                           isBreak={isBreakSession(conference.title)}
-                        />
+                        <ConferenceItem key={index} {...conference} isBreak={isBreakSession(conference.title)} />
                      ))}
                   </div>
                </div>
@@ -213,13 +167,8 @@ export default function ProgramSchedule({
             {/* Call to Action */}
             <div className="mt-12 text-center">
                <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-8 rounded-2xl text-white">
-                  <h3 className="mb-4 font-bold text-2xl">
-                     ¿Listo para participar?
-                  </h3>
-                  <p className="mb-6 text-blue-100">
-                     No te pierdas esta oportunidad única de actualización en
-                     medicina interna
-                  </p>
+                  <h3 className="mb-4 font-bold text-2xl">¿Listo para participar?</h3>
+                  <p className="mb-6 text-blue-100">No te pierdas esta oportunidad única de actualización en medicina interna</p>
                   <div className="flex justify-center items-center gap-4">
                      {!userId && (
                         <Link

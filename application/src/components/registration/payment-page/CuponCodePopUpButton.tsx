@@ -10,24 +10,17 @@ export default function CuponCodePopUpButton() {
 
    return (
       <div>
-         <Button
-            variant="blue"
-            onClick={() => setIsOpen(true)}
-            className="w-full"
-         >
+         <Button variant="blue" onClick={() => setIsOpen(true)} className="w-full">
             Tengo un código de invitación o descuento
          </Button>
 
          {isOpen && (
             <PopUp onClose={() => setIsOpen(false)}>
                <div className="flex flex-col items-center gap-4">
-                  <h1 className="font-bold text-2xl">
-                     Como aplicar un código de invitación o descuento
-                  </h1>
+                  <h1 className="font-bold text-2xl">Como aplicar un código de invitación o descuento</h1>
                   <p>
-                     Si tienes un código de invitación o descuento, puedes
-                     aplicarlo en el siguiente campo al momento de realizar tu
-                     pago.
+                     Si tienes un código de invitación o descuento, puedes aplicarlo en el siguiente campo al momento de realizar
+                     tu pago.
                   </p>
 
                   {/* Desktop Image */}

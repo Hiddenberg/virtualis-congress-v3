@@ -1,13 +1,6 @@
 "use client";
 
-import {
-   createContext,
-   type ReactNode,
-   useCallback,
-   useContext,
-   useRef,
-   useState,
-} from "react";
+import { createContext, type ReactNode, useCallback, useContext, useRef, useState } from "react";
 import PopUp from "../components/PopUp";
 
 export interface GlobalPopUpOptions {
@@ -25,25 +18,21 @@ function useGlobalPopUp() {
    const idCounterRef = useRef(0);
 
    const isOpen = popUps.length > 0;
-   const popUpContent =
-      popUps.length > 0 ? popUps[popUps.length - 1].content : null;
+   const popUpContent = popUps.length > 0 ? popUps[popUps.length - 1].content : null;
 
-   const showInPopUp = useCallback(
-      (content: ReactNode, options?: GlobalPopUpOptions) => {
-         idCounterRef.current += 1;
-         const id = `${Date.now()}-${idCounterRef.current}`;
-         setPopUps((current) => [
-            ...current,
-            {
-               id,
-               content,
-               options,
-            },
-         ]);
-         return id;
-      },
-      [],
-   );
+   const showInPopUp = useCallback((content: ReactNode, options?: GlobalPopUpOptions) => {
+      idCounterRef.current += 1;
+      const id = `${Date.now()}-${idCounterRef.current}`;
+      setPopUps((current) => [
+         ...current,
+         {
+            id,
+            content,
+            options,
+         },
+      ]);
+      return id;
+   }, []);
 
    const closePopUp = useCallback((id?: string) => {
       setPopUps((current) => {
@@ -70,19 +59,10 @@ function useGlobalPopUp() {
    };
 }
 
-export const GlobalPopUpContext = createContext<ReturnType<
-   typeof useGlobalPopUp
-> | null>(null);
+export const GlobalPopUpContext = createContext<ReturnType<typeof useGlobalPopUp> | null>(null);
 
 export const GlobalPopUpProvider = ({ children }: { children: ReactNode }) => {
-   const {
-      isOpen,
-      popUpContent,
-      showInPopUp,
-      closePopUp,
-      closeAllPopUps,
-      popUps,
-   } = useGlobalPopUp();
+   const { isOpen, popUpContent, showInPopUp, closePopUp, closeAllPopUps, popUps } = useGlobalPopUp();
 
    return (
       <GlobalPopUpContext.Provider
@@ -95,17 +75,11 @@ export const GlobalPopUpProvider = ({ children }: { children: ReactNode }) => {
             popUps,
          }}
       >
-         <div className={`${isOpen ? "h-screen overflow-hidden" : ""}`}>
-            {children}
-         </div>
+         <div className={`${isOpen ? "h-screen overflow-hidden" : ""}`}>{children}</div>
 
          {isOpen &&
             popUps.map((p) => (
-               <PopUp
-                  key={p.id}
-                  onClose={() => closePopUp(p.id)}
-                  options={p.options}
-               >
+               <PopUp key={p.id} onClose={() => closePopUp(p.id)} options={p.options}>
                   {p.content}
                </PopUp>
             ))}
@@ -117,9 +91,7 @@ export function useGlobalPopUpContext() {
    const globalPopUpContext = useContext(GlobalPopUpContext);
 
    if (!globalPopUpContext) {
-      throw new Error(
-         "useGlobalPopUpContext must be used within a GlobalPopUpProvider",
-      );
+      throw new Error("useGlobalPopUpContext must be used within a GlobalPopUpProvider");
    }
 
    return globalPopUpContext;

@@ -5,11 +5,7 @@ import { Button } from "@/components/global/Buttons";
 import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
 import DeleteRecordingPresentationButton from "./DeleteRecordingPresentationButton";
 
-function DeletePresentationPopup({
-   recordingId,
-}: {
-   recordingId: SimpleRecordingRecord["id"];
-}) {
+function DeletePresentationPopup({ recordingId }: { recordingId: SimpleRecordingRecord["id"] }) {
    const { closePopUp } = useGlobalPopUpContext();
 
    return (
@@ -20,31 +16,20 @@ function DeletePresentationPopup({
          </div>
 
          {/* Title */}
-         <h1 className="font-bold text-gray-900 text-2xl text-center">
-            Usar otra diapositiva
-         </h1>
+         <h1 className="font-bold text-gray-900 text-2xl text-center">Usar otra diapositiva</h1>
 
          {/* Description */}
          <div className="space-y-3 text-center">
             <p className="text-gray-700 text-lg leading-relaxed">
-               Se eliminará la diapositiva actual para que puedas subir una
-               nueva.
+               Se eliminará la diapositiva actual para que puedas subir una nueva.
             </p>
-            <p className="font-semibold text-gray-900">
-               ¿Estás seguro de que quieres eliminar la diapositiva actual?
-            </p>
-            <p className="text-gray-600 text-sm">
-               Esta acción no se puede deshacer.
-            </p>
+            <p className="font-semibold text-gray-900">¿Estás seguro de que quieres eliminar la diapositiva actual?</p>
+            <p className="text-gray-600 text-sm">Esta acción no se puede deshacer.</p>
          </div>
 
          {/* Buttons */}
          <div className="flex flex-wrap justify-center items-center gap-3 mt-2 w-full">
-            <Button
-               variant="secondary"
-               onClick={closePopUp}
-               className="min-w-[140px]"
-            >
+            <Button variant="secondary" onClick={closePopUp} className="min-w-[140px]">
                Cancelar
             </Button>
             <DeleteRecordingPresentationButton recordingId={recordingId} />
@@ -53,11 +38,7 @@ function DeletePresentationPopup({
    );
 }
 
-export default function DeleteRecordingPresentationWPopupButton({
-   recordingId,
-}: {
-   recordingId: SimpleRecordingRecord["id"];
-}) {
+export default function DeleteRecordingPresentationWPopupButton({ recordingId }: { recordingId: SimpleRecordingRecord["id"] }) {
    const { showInPopUp } = useGlobalPopUpContext();
 
    const handleClick = () => {

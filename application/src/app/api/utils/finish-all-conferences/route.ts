@@ -16,11 +16,9 @@ export async function GET() {
 
    for (const conference of conferences) {
       if (conference.status !== "finished") {
-         await pbServerClient
-            .collection(PB_COLLECTIONS.CONGRESS_CONFERENCES)
-            .update(conference.id, {
-               status: "finished",
-            } satisfies Partial<CongressConference>);
+         await pbServerClient.collection(PB_COLLECTIONS.CONGRESS_CONFERENCES).update(conference.id, {
+            status: "finished",
+         } satisfies Partial<CongressConference>);
          conferencesUpdated.push(conference.id);
       } else {
          conferencesSkipped.push(conference.id);

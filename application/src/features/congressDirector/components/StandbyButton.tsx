@@ -4,15 +4,9 @@ import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/global/Buttons";
 import { setStandbyStatusAction } from "@/features/congressDirector/serverActions/directorActions";
 
-export default function StandbyButton({
-   isInitiallyStandby,
-}: {
-   isInitiallyStandby: boolean;
-}) {
+export default function StandbyButton({ isInitiallyStandby }: { isInitiallyStandby: boolean }) {
    const [isPending, startTransition] = useTransition();
-   const [isStandby, setIsStandby] = useState<boolean | null>(
-      isInitiallyStandby,
-   );
+   const [isStandby, setIsStandby] = useState<boolean | null>(isInitiallyStandby);
 
    useEffect(() => {
       // Hydrate current standby status
@@ -22,36 +16,22 @@ export default function StandbyButton({
 
    const handleClick = () => {
       const nextEnable = !isStandby;
-      const confirmed = window.confirm(
-         nextEnable
-            ? "¿Poner el sistema en standby?"
-            : "¿Quitar standby y activar el sistema?",
-      );
+      const confirmed = window.confirm(nextEnable ? "¿Poner el sistema en standby?" : "¿Quitar standby y activar el sistema?");
       if (!confirmed) return;
 
       startTransition(async () => {
          const result = await setStandbyStatusAction(nextEnable);
          if (!result.success) {
-            alert(
-               result.errorMessage ?? "No se pudo cambiar el estado de standby",
-            );
+            alert(result.errorMessage ?? "No se pudo cambiar el estado de standby");
             return;
          }
          setIsStandby(nextEnable);
-         alert(
-            nextEnable ? "El congreso está en standby" : "Standby desactivado",
-         );
+         alert(nextEnable ? "El congreso está en standby" : "Standby desactivado");
       });
    };
 
    return (
-      <Button
-         onClick={handleClick}
-         loading={isPending}
-         variant="amber"
-         className="px-3 py-1.5 text-xs"
-         title="Poner en standby"
-      >
+      <Button onClick={handleClick} loading={isPending} variant="amber" className="px-3 py-1.5 text-xs" title="Poner en standby">
          {isPending ? "Aplicando..." : isStandby ? "Quitar standby" : "Standby"}
       </Button>
    );

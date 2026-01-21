@@ -19,12 +19,8 @@ export default function PaymentCanceledPage() {
                   <XCircle className="w-8 h-8 sm:w-10 sm:h-10 text-red-600" />
                </div>
 
-               <h1 className="mb-2 sm:mb-3 font-bold text-gray-900 text-2xl sm:text-3xl md:text-4xl px-2">
-                  Pago Cancelado
-               </h1>
-               <p className="mb-2 text-gray-600 text-base sm:text-lg px-2">
-                  Tu pago no ha sido procesado
-               </p>
+               <h1 className="mb-2 sm:mb-3 font-bold text-gray-900 text-2xl sm:text-3xl md:text-4xl px-2">Pago Cancelado</h1>
+               <p className="mb-2 text-gray-600 text-base sm:text-lg px-2">Tu pago no ha sido procesado</p>
                <div className="flex justify-center items-center gap-2 text-red-700 text-xs sm:text-sm">
                   <div className="bg-red-500 rounded-full w-2 h-2" />
                   <span>Transacción cancelada</span>
@@ -38,12 +34,8 @@ export default function PaymentCanceledPage() {
                   <div className="flex items-center gap-2 sm:gap-3">
                      <CreditCard className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                      <div className="min-w-0 flex-1">
-                        <h2 className="font-semibold text-lg sm:text-xl">
-                           Proceso de Pago Interrumpido
-                        </h2>
-                        <p className="text-red-100 text-xs sm:text-sm">
-                           No se ha realizado ningún cargo
-                        </p>
+                        <h2 className="font-semibold text-lg sm:text-xl">Proceso de Pago Interrumpido</h2>
+                        <p className="text-red-100 text-xs sm:text-sm">No se ha realizado ningún cargo</p>
                      </div>
                   </div>
                </div>
@@ -54,12 +46,9 @@ export default function PaymentCanceledPage() {
                      <div className="flex items-start gap-2 sm:gap-3">
                         <XCircle className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
                         <div className="min-w-0 flex-1">
-                           <h3 className="mb-1 font-semibold text-orange-800 text-sm sm:text-base">
-                              Pago No Completado
-                           </h3>
+                           <h3 className="mb-1 font-semibold text-orange-800 text-sm sm:text-base">Pago No Completado</h3>
                            <p className="text-orange-700 text-xs sm:text-sm">
-                              El proceso de pago fue cancelado y no se ha
-                              realizado ningún cargo a tu método de pago.
+                              El proceso de pago fue cancelado y no se ha realizado ningún cargo a tu método de pago.
                            </p>
                         </div>
                      </div>
@@ -74,15 +63,11 @@ export default function PaymentCanceledPage() {
                      <div className="space-y-2 sm:space-y-3 text-gray-600 text-xs sm:text-sm">
                         <div className="flex items-start gap-2">
                            <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
-                           <span>
-                              Cancelaste el proceso de pago voluntariamente
-                           </span>
+                           <span>Cancelaste el proceso de pago voluntariamente</span>
                         </div>
                         <div className="flex items-start gap-2">
                            <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
-                           <span>
-                              Hubo un problema de conexión durante el proceso
-                           </span>
+                           <span>Hubo un problema de conexión durante el proceso</span>
                         </div>
                         <div className="flex items-start gap-2">
                            <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
@@ -90,10 +75,7 @@ export default function PaymentCanceledPage() {
                         </div>
                         <div className="flex items-start gap-2">
                            <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
-                           <span>
-                              Decidiste revisar más información antes de
-                              proceder
-                           </span>
+                           <span>Decidiste revisar más información antes de proceder</span>
                         </div>
                      </div>
                   </div>
@@ -110,12 +92,9 @@ export default function PaymentCanceledPage() {
                   <div className="flex items-start gap-2 sm:gap-3 bg-green-50 p-3 rounded-lg">
                      <CreditCard className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                      <div className="min-w-0 flex-1">
-                        <h4 className="font-medium text-green-900 text-sm sm:text-base">
-                           Intentar el pago nuevamente
-                        </h4>
+                        <h4 className="font-medium text-green-900 text-sm sm:text-base">Intentar el pago nuevamente</h4>
                         <p className="mt-1 text-green-700 text-xs sm:text-sm">
-                           Puedes volver a la página de pago y completar tu
-                           registro cuando estés listo.
+                           Puedes volver a la página de pago y completar tu registro cuando estés listo.
                         </p>
                      </div>
                   </div>
@@ -123,12 +102,9 @@ export default function PaymentCanceledPage() {
                   <div className="flex items-start gap-2 sm:gap-3 bg-blue-50 p-3 rounded-lg">
                      <HelpCircle className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                      <div className="min-w-0 flex-1">
-                        <h4 className="font-medium text-blue-900 text-sm sm:text-base">
-                           Revisar información del congreso
-                        </h4>
+                        <h4 className="font-medium text-blue-900 text-sm sm:text-base">Revisar información del congreso</h4>
                         <p className="mt-1 text-blue-700 text-xs sm:text-sm">
-                           Consulta todos los detalles sobre modalidades,
-                           precios y beneficios incluidos.
+                           Consulta todos los detalles sobre modalidades, precios y beneficios incluidos.
                         </p>
                      </div>
                   </div>
@@ -136,12 +112,9 @@ export default function PaymentCanceledPage() {
                   <div className="flex items-start gap-2 sm:gap-3 bg-purple-50 p-3 rounded-lg">
                      <Mail className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                      <div className="min-w-0 flex-1">
-                        <h4 className="font-medium text-purple-900 text-sm sm:text-base">
-                           Contactar soporte
-                        </h4>
+                        <h4 className="font-medium text-purple-900 text-sm sm:text-base">Contactar soporte</h4>
                         <p className="mt-1 text-purple-700 text-xs sm:text-sm">
-                           Si experimentaste algún problema técnico, nuestro
-                           equipo puede ayudarte.
+                           Si experimentaste algún problema técnico, nuestro equipo puede ayudarte.
                         </p>
                      </div>
                   </div>
@@ -170,12 +143,9 @@ export default function PaymentCanceledPage() {
             {/* Support Information */}
             <div className="mt-6 sm:mt-8 text-center">
                <div className="bg-gray-50 p-3 sm:p-4 border border-gray-200 rounded-lg">
-                  <h4 className="mb-2 font-medium text-gray-900 text-sm sm:text-base">
-                     ¿Necesitas ayuda?
-                  </h4>
+                  <h4 className="mb-2 font-medium text-gray-900 text-sm sm:text-base">¿Necesitas ayuda?</h4>
                   <p className="mb-3 text-gray-600 text-xs sm:text-sm px-2">
-                     Si tienes problemas con el proceso de pago o necesitas
-                     asistencia, estamos aquí para ayudarte.
+                     Si tienes problemas con el proceso de pago o necesitas asistencia, estamos aquí para ayudarte.
                   </p>
                   <div className="flex sm:flex-row flex-col justify-center gap-2 text-sm">
                      <HelpButton />
@@ -186,8 +156,7 @@ export default function PaymentCanceledPage() {
             {/* Reassuring Message */}
             <div className="mt-4 sm:mt-6 text-center">
                <p className="text-gray-500 text-xs sm:text-sm px-2">
-                  Recuerda: Tu lugar en el congreso estará disponible cuando
-                  completes el registro
+                  Recuerda: Tu lugar en el congreso estará disponible cuando completes el registro
                </p>
             </div>
          </div>

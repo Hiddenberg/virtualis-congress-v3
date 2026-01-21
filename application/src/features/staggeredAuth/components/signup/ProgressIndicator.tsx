@@ -5,10 +5,7 @@ interface ProgressIndicatorProps {
    totalSteps: number;
 }
 
-export default function ProgressIndicator({
-   currentStep,
-   totalSteps,
-}: ProgressIndicatorProps) {
+export default function ProgressIndicator({ currentStep, totalSteps }: ProgressIndicatorProps) {
    return (
       <div className="mb-10">
          <div className="flex justify-between items-center mb-6">
@@ -23,9 +20,7 @@ export default function ProgressIndicator({
             </div>
             <div
                className={`flex-1 h-2 mx-6 rounded-full transition-colors duration-300 ${
-                  currentStep > 1
-                     ? "bg-gradient-to-r from-blue-600 to-blue-700"
-                     : "bg-gray-200"
+                  currentStep > 1 ? "bg-gradient-to-r from-blue-600 to-blue-700" : "bg-gray-200"
                }`}
             />
             <div

@@ -1,21 +1,9 @@
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   deleteDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 
-export async function createPresentationRecordingRecord(
-   recording: PresentationRecording,
-) {
-   const createdPresentationRecording =
-      await createDBRecord<PresentationRecording>(
-         "PRESENTATION_RECORDINGS",
-         recording,
-      );
+export async function createPresentationRecordingRecord(recording: PresentationRecording) {
+   const createdPresentationRecording = await createDBRecord<PresentationRecording>("PRESENTATION_RECORDINGS", recording);
 
    return createdPresentationRecording;
 }
@@ -24,18 +12,12 @@ export async function updatePresentationRecording(
    recordingId: PresentationRecordingRecord["id"],
    recording: Partial<PresentationRecording>,
 ) {
-   const updated = await updateDBRecord<PresentationRecording>(
-      "PRESENTATION_RECORDINGS",
-      recordingId,
-      recording,
-   );
+   const updated = await updateDBRecord<PresentationRecording>("PRESENTATION_RECORDINGS", recordingId, recording);
 
    return updated;
 }
 
-export async function getPresentationRecordingByPresentationId(
-   presentationId: PresentationRecord["id"],
-) {
+export async function getPresentationRecordingByPresentationId(presentationId: PresentationRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -49,10 +31,7 @@ export async function getPresentationRecordingByPresentationId(
       },
    );
 
-   const presentationRecording = await getSingleDBRecord<PresentationRecording>(
-      "PRESENTATION_RECORDINGS",
-      filter,
-   );
+   const presentationRecording = await getSingleDBRecord<PresentationRecording>("PRESENTATION_RECORDINGS", filter);
 
    return presentationRecording;
 }
@@ -63,15 +42,11 @@ export async function savePresentationRecording(
 ): Promise<PresentationRecordingRecord> {
    const organization = await getOrganizationFromSubdomain();
 
-   const existing =
-      await getPresentationRecordingByPresentationId(presentationId);
+   const existing = await getPresentationRecordingByPresentationId(presentationId);
    if (existing) {
-      const updatedPresentationRecording = await updatePresentationRecording(
-         existing.id,
-         {
-            slideChanges,
-         },
-      );
+      const updatedPresentationRecording = await updatePresentationRecording(existing.id, {
+         slideChanges,
+      });
       return updatedPresentationRecording;
    }
 
@@ -84,9 +59,7 @@ export async function savePresentationRecording(
    return created;
 }
 
-export async function deletePresentationRecording(
-   presentationRecordingId: PresentationRecordingRecord["id"],
-) {
+export async function deletePresentationRecording(presentationRecordingId: PresentationRecordingRecord["id"]) {
    await deleteDBRecord("PRESENTATION_RECORDINGS", presentationRecordingId);
 
    return null;

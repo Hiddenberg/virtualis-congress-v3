@@ -21,16 +21,12 @@ export default function SecurityNote() {
                <Shield className="w-6 h-6 text-blue-700" />
             </div>
             <div>
-               <h4 className="mb-2 font-bold text-gray-800 text-base">
-                  Información importante
-               </h4>
+               <h4 className="mb-2 font-bold text-gray-800 text-base">Información importante</h4>
                <p className="text-gray-700 text-sm leading-relaxed">
-                  Tu fecha de nacimiento y número de teléfono pueden ser
-                  utilizados para recuperar tu cuenta.
+                  Tu fecha de nacimiento y número de teléfono pueden ser utilizados para recuperar tu cuenta.
                   <br />
                   <br />
-                  Por favor, asegúrate de que sean correctos y manténlos
-                  actualizados.
+                  Por favor, asegúrate de que sean correctos y manténlos actualizados.
                </p>
             </div>
          </div>

@@ -12,9 +12,7 @@ export default function CSVUploadForm() {
    const [csvRows, setCsvRows] = useState<Record<string, string>[]>([]);
    const [isUpdating, setIsUpdating] = useState(false);
    const [updateComplete, setUpdateComplete] = useState(false);
-   const [membersAdded, setMembersAdded] = useState<
-      { acpId: string; name: string }[]
-   >([]);
+   const [membersAdded, setMembersAdded] = useState<{ acpId: string; name: string }[]>([]);
 
    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
@@ -41,26 +39,13 @@ export default function CSVUploadForm() {
 
             const rowKeys = Object.keys(firstRow);
 
-            const requiredKeys = [
-               "FirstName",
-               "LastName",
-               "CustomerID",
-               "Email",
-               "BirthYear",
-               "City",
-               "MemberClass",
-            ];
+            const requiredKeys = ["FirstName", "LastName", "CustomerID", "Email", "BirthYear", "City", "MemberClass"];
 
-            const missingColumns = requiredKeys.filter(
-               (key) => !rowKeys.includes(key),
-            );
+            const missingColumns = requiredKeys.filter((key) => !rowKeys.includes(key));
 
             if (missingColumns.length > 0) {
                setIsValid(false);
-               alert(
-                  "Faltan las siguientes columnas: " +
-                     missingColumns.join(", "),
-               );
+               alert("Faltan las siguientes columnas: " + missingColumns.join(", "));
                return;
             }
 
@@ -89,12 +74,7 @@ export default function CSVUploadForm() {
             fields: "acpID",
          });
 
-      const membersToUpdate = csvRows.filter(
-         (row) =>
-            !allACPMemberIds.some(
-               (member) => member.acpID === row["CustomerID"],
-            ),
-      );
+      const membersToUpdate = csvRows.filter((row) => !allACPMemberIds.some((member) => member.acpID === row["CustomerID"]));
 
       if (membersToUpdate.length === 0) {
          setIsUpdating(false);
@@ -109,18 +89,14 @@ export default function CSVUploadForm() {
             acpID: newMember["CustomerID"],
             fullName: `${newMember["FirstName"]} ${newMember["LastName"]}`,
             email: newMember["Email"],
-            age: newMember["BirthYear"]
-               ? 2025 - parseInt(newMember["BirthYear"])
-               : 0,
+            age: newMember["BirthYear"] ? 2025 - parseInt(newMember["BirthYear"]) : 0,
             city: newMember["City"],
             acpMemberClass: newMember["MemberClass"],
             isBlackListed: false,
          };
 
          try {
-            await pbClient
-               .collection(PB_COLLECTIONS.ACP_MEMBERS_DATA)
-               .create(newMemberData);
+            await pbClient.collection(PB_COLLECTIONS.ACP_MEMBERS_DATA).create(newMemberData);
             membersAdded.push({
                acpId: newMemberData.acpID,
                name: newMemberData.fullName,
@@ -149,11 +125,7 @@ export default function CSVUploadForm() {
             {isValid === false && <p className="text-red-400">CSV no valido</p>}
          </div>
 
-         <Button
-            onClick={handleUpdateDatabase}
-            disabled={!isValid || isUpdating}
-            variant="dark"
-         >
+         <Button onClick={handleUpdateDatabase} disabled={!isValid || isUpdating} variant="dark">
             {isUpdating ? "Updating..." : "Update Database"}
          </Button>
 

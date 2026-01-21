@@ -7,11 +7,7 @@ import {
 } from "@/features/simpleRecordings/services/recordingCampaignsServices";
 import CampaignRecordingsLinker from "./campaigns/CampaignRecordingsLinker";
 
-export default async function RecordingsManager({
-   conferenceId,
-}: {
-   conferenceId: CongressConferenceRecord["id"];
-}) {
+export default async function RecordingsManager({ conferenceId }: { conferenceId: CongressConferenceRecord["id"] }) {
    const [linkedRecordings, campaigns] = await Promise.all([
       getConferenceRecordings(conferenceId),
       getAllSimpleRecordingCampaigns(),

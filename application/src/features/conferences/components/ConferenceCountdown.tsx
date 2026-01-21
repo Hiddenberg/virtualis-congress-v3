@@ -2,26 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-export default function ConferenceCountdown({
-   conference,
-}: {
-   conference: CongressConferenceRecord;
-}) {
-   const startDate = useMemo(
-      () => new Date(conference.startTime),
-      [conference.startTime],
-   );
-   const endDate = useMemo(
-      () => new Date(conference.endTime),
-      [conference.endTime],
-   );
+export default function ConferenceCountdown({ conference }: { conference: CongressConferenceRecord }) {
+   const startDate = useMemo(() => new Date(conference.startTime), [conference.startTime]);
+   const endDate = useMemo(() => new Date(conference.endTime), [conference.endTime]);
 
    const startMs = useMemo(() => startDate.getTime(), [startDate]);
    const endMs = useMemo(() => endDate.getTime(), [endDate]);
-   const durationMs = useMemo(
-      () => Math.max(0, endMs - startMs),
-      [endMs, startMs],
-   );
+   const durationMs = useMemo(() => Math.max(0, endMs - startMs), [endMs, startMs]);
 
    const [remainingMs, setRemainingMs] = useState<number>(() => durationMs);
 
@@ -58,17 +45,9 @@ export default function ConferenceCountdown({
 
    return (
       <div className="bg-white shadow-sm p-4 border border-blue-100 rounded-xl w-full text-center">
-         <div className="font-medium text-slate-500 text-xs uppercase tracking-wide">
-            Tiempo restante
-         </div>
-         <div className="mt-1 font-mono font-semibold tabular-nums text-blue-700 text-5xl">
-            {formatRemaining(remainingMs)}
-         </div>
-         {isFinished && (
-            <div className="mt-2 font-medium text-rose-600 text-xs">
-               Finalizado
-            </div>
-         )}
+         <div className="font-medium text-slate-500 text-xs uppercase tracking-wide">Tiempo restante</div>
+         <div className="mt-1 font-mono font-semibold tabular-nums text-blue-700 text-5xl">{formatRemaining(remainingMs)}</div>
+         {isFinished && <div className="mt-2 font-medium text-rose-600 text-xs">Finalizado</div>}
       </div>
    );
 }

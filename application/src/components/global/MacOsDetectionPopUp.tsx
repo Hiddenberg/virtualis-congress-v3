@@ -6,13 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "./Buttons";
 import PopUp from "./PopUp";
 
-function StepsSlider({
-   language = "es-MX",
-   type = "macUpdate",
-}: {
-   language?: string;
-   type?: "macUpdate" | "zoom";
-}) {
+function StepsSlider({ language = "es-MX", type = "macUpdate" }: { language?: string; type?: "macUpdate" | "zoom" }) {
    const [currentStep, setCurrentStep] = useState(0);
 
    useEffect(() => {
@@ -147,26 +141,21 @@ function StepsSlider({
                onClick={previousStep}
                disabled={currentStep === 0}
                className={`px-4 py-2 rounded-md ${
-                  currentStep === 0
-                     ? "bg-gray-300 cursor-not-allowed"
-                     : "bg-blue-500 hover:bg-blue-600 text-white"
+                  currentStep === 0 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
                }`}
             >
                {texts.previous}
             </button>
 
             <span className="text-gray-600">
-               {texts.step} {currentStep + 1}{" "}
-               {language === "en-US" ? "of" : "de"} {steps.length}
+               {texts.step} {currentStep + 1} {language === "en-US" ? "of" : "de"} {steps.length}
             </span>
 
             <button
                onClick={nextStep}
                disabled={currentStep === steps.length - 1}
                className={`px-4 py-2 rounded-md ${
-                  currentStep === steps.length - 1
-                     ? "bg-gray-300 cursor-not-allowed"
-                     : "bg-blue-500 hover:bg-blue-600 text-white"
+                  currentStep === steps.length - 1 ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
                }`}
             >
                {texts.next}
@@ -176,14 +165,9 @@ function StepsSlider({
    );
 }
 
-export default function MacOsDetectionPopUp({
-   closePopUp,
-}: {
-   closePopUp: () => void;
-}) {
+export default function MacOsDetectionPopUp({ closePopUp }: { closePopUp: () => void }) {
    const [showZoomInstructions, setShowZoomInstructions] = useState(false);
-   const language =
-      useSearchParams().get("language") === "en-US" ? "en-US" : "es-MX";
+   const language = useSearchParams().get("language") === "en-US" ? "en-US" : "es-MX";
 
    const texts = {
       "es-MX": {
@@ -219,12 +203,8 @@ export default function MacOsDetectionPopUp({
             }}
          >
             <div className="mx-auto p-6 max-w-4xl">
-               <h1 className="mb-4 font-bold text-2xl text-center">
-                  {texts[language].zoomTitle}
-               </h1>
-               <p className="mb-6 text-gray-700 text-center">
-                  {texts[language].zoomMessage}
-               </p>
+               <h1 className="mb-4 font-bold text-2xl text-center">{texts[language].zoomTitle}</h1>
+               <p className="mb-6 text-gray-700 text-center">{texts[language].zoomMessage}</p>
 
                <StepsSlider language={language} type="zoom" />
             </div>
@@ -240,12 +220,8 @@ export default function MacOsDetectionPopUp({
          }}
       >
          <div className="mx-auto max-w-4xl">
-            <h1 className="mb-4 font-bold text-2xl text-center">
-               {texts[language].title}
-            </h1>
-            <p className="mb-6 text-gray-700 text-center">
-               {texts[language].message}
-            </p>
+            <h1 className="mb-4 font-bold text-2xl text-center">{texts[language].title}</h1>
+            <p className="mb-6 text-gray-700 text-center">{texts[language].message}</p>
 
             <StepsSlider language={language} type="macUpdate" />
 

@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface PreCongressInvitationTemplateProps {
    conferenceTitle: string;
@@ -32,37 +21,28 @@ export default function PreCongressInvitationTemplate({
             <title>Invitación al Precongreso - Virtualis Congress</title>
          </Head>
          <Preview>
-            Te invitamos al precongreso &quot;{conferenceTitle}&quot; -{" "}
-            {conferenceFormattedDate}
+            Te invitamos al precongreso &quot;{conferenceTitle}&quot; - {conferenceFormattedDate}
          </Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
                <Section style={contentStyle}>
-                  <Heading style={messageTitleStyle}>
-                     ¡Estás invitado al Precongreso!
-                  </Heading>
+                  <Heading style={messageTitleStyle}>¡Estás invitado al Precongreso!</Heading>
 
                   <Text style={introStyle}>
-                     Acompáñanos en el precongreso{" "}
-                     <span style={highlightStyle}>{conferenceTitle}</span>. Es
-                     una gran oportunidad para aprender, conectar y prepararte
-                     para las conferencias principales.
+                     Acompáñanos en el precongreso <span style={highlightStyle}>{conferenceTitle}</span>. Es una gran oportunidad
+                     para aprender, conectar y prepararte para las conferencias principales.
                   </Text>
 
                   {/* Conference Details */}
                   <Section style={detailsContainerStyle}>
-                     <Heading style={detailsTitleStyle}>
-                        Detalles del evento
-                     </Heading>
+                     <Heading style={detailsTitleStyle}>Detalles del evento</Heading>
 
                      <Section style={detailItemContainerStyle}>
                         <Text style={detailLabelStyle}>Título:</Text>
@@ -71,9 +51,7 @@ export default function PreCongressInvitationTemplate({
 
                      <Section style={detailItemContainerStyle}>
                         <Text style={detailLabelStyle}>Fecha y hora:</Text>
-                        <Text style={detailValueStyle}>
-                           {conferenceFormattedDate}
-                        </Text>
+                        <Text style={detailValueStyle}>{conferenceFormattedDate}</Text>
                      </Section>
 
                      {conferenceDescription && (
@@ -83,9 +61,7 @@ export default function PreCongressInvitationTemplate({
                            }}
                         >
                            <Text style={detailLabelStyle}>Descripción:</Text>
-                           <Text style={descriptionStyle}>
-                              {conferenceDescription}
-                           </Text>
+                           <Text style={descriptionStyle}>{conferenceDescription}</Text>
                         </Section>
                      )}
                   </Section>
@@ -95,10 +71,7 @@ export default function PreCongressInvitationTemplate({
                      <Button href={accessLink} style={ctaButtonStyle}>
                         Unirme al precongreso
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Si el botón no funciona, copia y pega este enlace en tu
-                        navegador:
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Si el botón no funciona, copia y pega este enlace en tu navegador:</Text>
                      <Text style={linkTextStyle}>{accessLink}</Text>
                   </Section>
 
@@ -108,9 +81,8 @@ export default function PreCongressInvitationTemplate({
                   <Section style={noteContainerStyle}>
                      <Text style={noteTitleStyle}>ℹ️ Información</Text>
                      <Text style={noteTextStyle}>
-                        Este precongreso está disponible para todos los usuarios
-                        registrados en la plataforma. Te recomendamos conectarte
-                        unos minutos antes para verificar tu audio y conexión.
+                        Este precongreso está disponible para todos los usuarios registrados en la plataforma. Te recomendamos
+                        conectarte unos minutos antes para verificar tu audio y conexión.
                      </Text>
                   </Section>
                </Section>
@@ -118,8 +90,7 @@ export default function PreCongressInvitationTemplate({
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -130,8 +101,7 @@ export default function PreCongressInvitationTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -142,8 +112,7 @@ export default function PreCongressInvitationTemplate({
 
 // Styles aligned with existing templates (neutral + blue palette)
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

@@ -14,9 +14,7 @@ export default async function PresentationPreparationLayout({
    const user = await getLoggedInUserId();
 
    if (!user) {
-      return redirect(
-         `/preparation/${conferenceId}/speaker-signup?redirectTo=/preparation/${conferenceId}/presentation/upload`,
-      );
+      return redirect(`/preparation/${conferenceId}/speaker-signup?redirectTo=/preparation/${conferenceId}/presentation/upload`);
    }
 
    return children;

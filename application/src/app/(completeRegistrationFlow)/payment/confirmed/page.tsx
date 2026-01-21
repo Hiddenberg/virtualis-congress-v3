@@ -24,12 +24,11 @@ import HelpButton from "@/features/userSupport/components/HelpButton";
 export default async function PaymentConfirmationPage() {
    const congress = await getLatestCongress();
    const userId = await getLoggedInUserId();
-   const [paymentConfirmed, attendantModality, hasAccessToRecordings] =
-      await Promise.all([
-         confirmUserCongressPayment(userId ?? ""),
-         getUserPurchasedModality(userId ?? "", congress.id),
-         checkIfUserHasAccessToRecordings(userId ?? "", congress.id),
-      ]);
+   const [paymentConfirmed, attendantModality, hasAccessToRecordings] = await Promise.all([
+      confirmUserCongressPayment(userId ?? ""),
+      getUserPurchasedModality(userId ?? "", congress.id),
+      checkIfUserHasAccessToRecordings(userId ?? "", congress.id),
+   ]);
 
    if (!paymentConfirmed) {
       return redirect("/registration-confirmed");
@@ -58,9 +57,7 @@ export default async function PaymentConfirmationPage() {
                   <div className="top-4 -left-4 absolute bg-pink-400 rounded-full w-2 h-2 animate-bounce delay-300" />
                </div>
 
-               <h1 className="mb-2 sm:mb-3 font-bold text-gray-900 text-2xl sm:text-3xl md:text-4xl px-2">
-                  ¡Pago Confirmado!
-               </h1>
+               <h1 className="mb-2 sm:mb-3 font-bold text-gray-900 text-2xl sm:text-3xl md:text-4xl px-2">¡Pago Confirmado!</h1>
                <p className="mb-2 text-gray-600 text-base sm:text-lg px-2">
                   Tu registro al congreso ha sido procesado exitosamente
                </p>
@@ -77,12 +74,8 @@ export default async function PaymentConfirmationPage() {
                   <div className="flex items-center gap-2 sm:gap-3">
                      <Calendar className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
                      <div className="min-w-0 flex-1">
-                        <h2 className="font-semibold text-lg sm:text-xl">
-                           {congress.title}
-                        </h2>
-                        <p className="text-green-100 text-xs sm:text-sm">
-                           Congreso Hibrido
-                        </p>
+                        <h2 className="font-semibold text-lg sm:text-xl">{congress.title}</h2>
+                        <p className="text-green-100 text-xs sm:text-sm">Congreso Hibrido</p>
                      </div>
                   </div>
                </div>
@@ -93,13 +86,10 @@ export default async function PaymentConfirmationPage() {
                      <div className="flex items-start gap-2 sm:gap-3">
                         <CheckCircle className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
                         <div className="min-w-0 flex-1">
-                           <h3 className="mb-1 font-semibold text-green-800 text-sm sm:text-base">
-                              Registro Completado
-                           </h3>
+                           <h3 className="mb-1 font-semibold text-green-800 text-sm sm:text-base">Registro Completado</h3>
                            <p className="text-green-700 text-xs sm:text-sm">
-                              Tu plaza en el congreso ha sido confirmada.
-                              Recibirás un correo de confirmación en los
-                              próximos minutos.
+                              Tu plaza en el congreso ha sido confirmada. Recibirás un correo de confirmación en los próximos
+                              minutos.
                            </p>
                         </div>
                      </div>
@@ -113,44 +103,30 @@ export default async function PaymentConfirmationPage() {
                      </h3>
                      <div className="space-y-2 sm:space-y-3">
                         <div className="flex justify-between items-center py-2 gap-2">
-                           <span className="text-gray-600 text-xs sm:text-sm">
-                              Estado del pago:
-                           </span>
+                           <span className="text-gray-600 text-xs sm:text-sm">Estado del pago:</span>
                            <div className="flex items-center gap-2">
                               <div className="bg-green-500 rounded-full w-2 h-2 flex-shrink-0" />
-                              <span className="font-medium text-green-700 text-xs sm:text-sm">
-                                 Pagado
-                              </span>
+                              <span className="font-medium text-green-700 text-xs sm:text-sm">Pagado</span>
                            </div>
                         </div>
                         <div className="flex justify-between items-center py-2 gap-2">
-                           <span className="text-gray-600 text-xs sm:text-sm">
-                              Modalidad de asistencia:
-                           </span>
+                           <span className="text-gray-600 text-xs sm:text-sm">Modalidad de asistencia:</span>
                            <span className="font-medium text-gray-900 text-xs sm:text-sm">
-                              {attendantModality === "virtual"
-                                 ? "Virtual"
-                                 : "Presencial"}
+                              {attendantModality === "virtual" ? "Virtual" : "Presencial"}
                            </span>
                         </div>
                         <div className="flex justify-between items-center py-2 gap-2">
-                           <span className="text-gray-600 text-xs sm:text-sm">
-                              Acceso a grabaciones:
-                           </span>
+                           <span className="text-gray-600 text-xs sm:text-sm">Acceso a grabaciones:</span>
                            <div className="flex items-center gap-2">
                               {hasAccessToRecordings ? (
                                  <>
                                     <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-                                    <span className="font-medium text-green-700 text-xs sm:text-sm">
-                                       Incluido
-                                    </span>
+                                    <span className="font-medium text-green-700 text-xs sm:text-sm">Incluido</span>
                                  </>
                               ) : (
                                  <>
                                     <Video className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
-                                    <span className="font-medium text-gray-500 text-xs sm:text-sm">
-                                       No incluido
-                                    </span>
+                                    <span className="font-medium text-gray-500 text-xs sm:text-sm">No incluido</span>
                                  </>
                               )}
                            </div>
@@ -181,12 +157,9 @@ export default async function PaymentConfirmationPage() {
                   <div className="flex items-start gap-2 sm:gap-3 bg-blue-50 p-3 rounded-lg">
                      <Mail className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                      <div className="min-w-0 flex-1">
-                        <h4 className="font-medium text-blue-900 text-sm sm:text-base">
-                           Revisa tu correo electrónico
-                        </h4>
+                        <h4 className="font-medium text-blue-900 text-sm sm:text-base">Revisa tu correo electrónico</h4>
                         <p className="mt-1 text-blue-700 text-xs sm:text-sm">
-                           Recibirás información detallada sobre el congreso,
-                           ubicación, horarios y material adicional.
+                           Recibirás información detallada sobre el congreso, ubicación, horarios y material adicional.
                         </p>
                      </div>
                   </div>
@@ -194,12 +167,9 @@ export default async function PaymentConfirmationPage() {
                   <div className="flex items-start gap-2 sm:gap-3 bg-purple-50 p-3 rounded-lg">
                      <Users className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                      <div className="min-w-0 flex-1">
-                        <h4 className="font-medium text-purple-900 text-sm sm:text-base">
-                           Acceso a la plataforma
-                        </h4>
+                        <h4 className="font-medium text-purple-900 text-sm sm:text-base">Acceso a la plataforma</h4>
                         <p className="mt-1 text-purple-700 text-xs sm:text-sm">
-                           Tu cuenta ya tiene acceso completo a todas las
-                           sesiones y materiales del congreso.
+                           Tu cuenta ya tiene acceso completo a todas las sesiones y materiales del congreso.
                         </p>
                      </div>
                   </div>
@@ -207,12 +177,9 @@ export default async function PaymentConfirmationPage() {
                   <div className="flex items-start gap-2 sm:gap-3 bg-amber-50 p-3 rounded-lg">
                      <Download className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
                      <div className="min-w-0 flex-1">
-                        <h4 className="font-medium text-amber-900 text-sm sm:text-base">
-                           Certificados
-                        </h4>
+                        <h4 className="font-medium text-amber-900 text-sm sm:text-base">Certificados</h4>
                         <p className="mt-1 text-amber-700 text-xs sm:text-sm">
-                           Los certificados de participación estarán disponibles
-                           al finalizar el congreso.
+                           Los certificados de participación estarán disponibles al finalizar el congreso.
                         </p>
                      </div>
                   </div>
@@ -221,13 +188,10 @@ export default async function PaymentConfirmationPage() {
                      <div className="flex items-start gap-2 sm:gap-3 bg-indigo-50 p-3 rounded-lg">
                         <Video className="flex-shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
                         <div className="min-w-0 flex-1">
-                           <h4 className="font-medium text-indigo-900 text-sm sm:text-base">
-                              Acceso a Grabaciones
-                           </h4>
+                           <h4 className="font-medium text-indigo-900 text-sm sm:text-base">Acceso a Grabaciones</h4>
                            <p className="mt-1 text-indigo-700 text-xs sm:text-sm">
-                              Tendrás acceso a todas las grabaciones de las
-                              sesiones del congreso. Estas estarán disponibles
-                              en tu cuenta después del evento.
+                              Tendrás acceso a todas las grabaciones de las sesiones del congreso. Estas estarán disponibles en tu
+                              cuenta después del evento.
                            </p>
                         </div>
                      </div>
@@ -257,12 +221,9 @@ export default async function PaymentConfirmationPage() {
             {/* Support Information */}
             <div className="mt-6 sm:mt-8 text-center">
                <div className="bg-gray-50 p-3 sm:p-4 border border-gray-200 rounded-lg">
-                  <h4 className="mb-2 font-medium text-gray-900 text-sm sm:text-base">
-                     ¿Necesitas ayuda?
-                  </h4>
+                  <h4 className="mb-2 font-medium text-gray-900 text-sm sm:text-base">¿Necesitas ayuda?</h4>
                   <p className="mb-3 text-gray-600 text-xs sm:text-sm px-2">
-                     Si tienes alguna pregunta sobre tu registro o el congreso,
-                     no dudes en contactarnos.
+                     Si tienes alguna pregunta sobre tu registro o el congreso, no dudes en contactarnos.
                   </p>
                   <div className="flex sm:flex-row flex-col justify-center gap-2 text-sm">
                      <HelpButton />
@@ -273,8 +234,7 @@ export default async function PaymentConfirmationPage() {
             {/* Footer Message */}
             <div className="mt-4 sm:mt-6 text-center">
                <p className="text-gray-500 text-xs sm:text-sm px-2">
-                  Gracias por formar parte del XXIX Congreso Anual de Medicina
-                  Interna Costa de Chiapas
+                  Gracias por formar parte del XXIX Congreso Anual de Medicina Interna Costa de Chiapas
                </p>
             </div>
          </div>

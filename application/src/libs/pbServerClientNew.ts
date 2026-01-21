@@ -1,9 +1,4 @@
-import Pocketbase, {
-   ClientResponseError,
-   type ListResult,
-   type RecordListOptions,
-   type RecordOptions,
-} from "pocketbase";
+import Pocketbase, { ClientResponseError, type ListResult, type RecordListOptions, type RecordOptions } from "pocketbase";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 if (!process.env.POCKETBASE_SERVER_URL) {
@@ -19,33 +14,20 @@ const pbServerClient = new Pocketbase(process.env.POCKETBASE_SERVER_URL);
 pbServerClient.autoCancellation(false);
 pbServerClient.authStore.save(process.env.PB_SERVER_TOKEN!);
 
-export async function getDBRecordById<T>(
-   collection: keyof typeof PB_COLLECTIONS,
-   id: string,
-   options?: RecordOptions,
-) {
+export async function getDBRecordById<T>(collection: keyof typeof PB_COLLECTIONS, id: string, options?: RecordOptions) {
    try {
-      const record = await pbServerClient
-         .collection(PB_COLLECTIONS[collection])
-         .getOne<DBRecordItem<T>>(id, options);
+      const record = await pbServerClient.collection(PB_COLLECTIONS[collection]).getOne<DBRecordItem<T>>(id, options);
       return record;
    } catch (error) {
       if (error instanceof ClientResponseError && error.status === 404) {
          return null;
       }
-      console.error(
-         `[getDBRecordById] Error getting record from ${collection} collection with id ${id}`,
-         error,
-      );
+      console.error(`[getDBRecordById] Error getting record from ${collection} collection with id ${id}`, error);
       throw error;
    }
 }
 
-export async function getSingleDBRecord<T>(
-   collection: keyof typeof PB_COLLECTIONS,
-   filter: string,
-   options?: RecordListOptions,
-) {
+export async function getSingleDBRecord<T>(collection: keyof typeof PB_COLLECTIONS, filter: string, options?: RecordListOptions) {
    try {
       const record = await pbServerClient
          .collection(PB_COLLECTIONS[collection])
@@ -55,22 +37,14 @@ export async function getSingleDBRecord<T>(
       if (error instanceof ClientResponseError && error.status === 404) {
          return null;
       }
-      console.error(
-         `[getSingleDBRecord] Error getting record from ${collection} collection with filter ${filter}`,
-         error,
-      );
+      console.error(`[getSingleDBRecord] Error getting record from ${collection} collection with filter ${filter}`, error);
       throw error;
    }
 }
 
-export async function getFullDBRecordsList<T>(
-   collection: keyof typeof PB_COLLECTIONS,
-   options?: RecordListOptions,
-) {
+export async function getFullDBRecordsList<T>(collection: keyof typeof PB_COLLECTIONS, options?: RecordListOptions) {
    try {
-      const records = await pbServerClient
-         .collection(PB_COLLECTIONS[collection])
-         .getFullList<DBRecordItem<T>>(options);
+      const records = await pbServerClient.collection(PB_COLLECTIONS[collection]).getFullList<DBRecordItem<T>>(options);
       return records;
    } catch (error) {
       if (error instanceof ClientResponseError && error.status === 404) {
@@ -114,10 +88,7 @@ export async function getPaginatedDBRecordsList<T>(
    }
 }
 
-export async function createDBRecord<T>(
-   collection: keyof typeof PB_COLLECTIONS,
-   data: T,
-) {
+export async function createDBRecord<T>(collection: keyof typeof PB_COLLECTIONS, data: T) {
    try {
       const newRecord = await pbServerClient
          .collection(PB_COLLECTIONS[collection])
@@ -133,15 +104,9 @@ export async function createDBRecord<T>(
    }
 }
 
-export async function updateDBRecord<T>(
-   collection: keyof typeof PB_COLLECTIONS,
-   id: string,
-   newData: Partial<T>,
-) {
+export async function updateDBRecord<T>(collection: keyof typeof PB_COLLECTIONS, id: string, newData: Partial<T>) {
    try {
-      const updatedRecord = await pbServerClient
-         .collection(PB_COLLECTIONS[collection])
-         .update<DBRecordItem<T>>(id, newData);
+      const updatedRecord = await pbServerClient.collection(PB_COLLECTIONS[collection]).update<DBRecordItem<T>>(id, newData);
       return updatedRecord;
    } catch (error) {
       if (error instanceof ClientResponseError) {
@@ -153,15 +118,10 @@ export async function updateDBRecord<T>(
    }
 }
 
-export async function deleteDBRecord(
-   collection: keyof typeof PB_COLLECTIONS,
-   id: string,
-) {
+export async function deleteDBRecord(collection: keyof typeof PB_COLLECTIONS, id: string) {
    try {
       await pbServerClient.collection(PB_COLLECTIONS[collection]).delete(id);
-      console.log(
-         `[deleteDBRecord] Record deleted from ${PB_COLLECTIONS[collection]} collection with id ${id}`,
-      );
+      console.log(`[deleteDBRecord] Record deleted from ${PB_COLLECTIONS[collection]} collection with id ${id}`);
 
       return null;
    } catch (error) {
@@ -171,10 +131,7 @@ export async function deleteDBRecord(
          );
       }
 
-      console.error(
-         `[deleteDBRecord] Error deleting record from ${collection} collection with id ${id}`,
-         error,
-      );
+      console.error(`[deleteDBRecord] Error deleting record from ${collection} collection with id ${id}`, error);
       throw error;
    }
 }

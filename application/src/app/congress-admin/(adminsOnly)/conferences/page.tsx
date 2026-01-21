@@ -17,12 +17,8 @@ export default async function ConferencesPage() {
       <div className="p-6">
          <div className="flex justify-between items-start mb-8">
             <div>
-               <h1 className="mb-2 font-bold text-gray-900 text-3xl">
-                  Conferencias
-               </h1>
-               <p className="text-gray-600">
-                  Administra las conferencias del congreso actual
-               </p>
+               <h1 className="mb-2 font-bold text-gray-900 text-3xl">Conferencias</h1>
+               <p className="text-gray-600">Administra las conferencias del congreso actual</p>
             </div>
             <Link
                href="/congress-admin/conferences/create"
@@ -38,13 +34,8 @@ export default async function ConferencesPage() {
                <div className="flex justify-center items-center bg-blue-50 mx-auto mb-4 rounded-full w-12 h-12">
                   <Calendar className="w-6 h-6 text-blue-600" />
                </div>
-               <h2 className="mb-2 font-semibold text-gray-900 text-lg">
-                  Aún no hay conferencias
-               </h2>
-               <p className="mb-6 text-gray-600">
-                  Crea tu primera conferencia para comenzar a organizar el
-                  programa
-               </p>
+               <h2 className="mb-2 font-semibold text-gray-900 text-lg">Aún no hay conferencias</h2>
+               <p className="mb-6 text-gray-600">Crea tu primera conferencia para comenzar a organizar el programa</p>
                <Link
                   href="/congress-admin/conferences/create"
                   className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-white transition-colors"
@@ -57,8 +48,7 @@ export default async function ConferencesPage() {
             <AdminConferencesBrowser conferences={conferences}>
                {conferences.map((conference) => {
                   const conferencePresentation = conferencePresentations.find(
-                     (presentation) =>
-                        presentation.conference === conference.id,
+                     (presentation) => presentation.conference === conference.id,
                   );
 
                   return (

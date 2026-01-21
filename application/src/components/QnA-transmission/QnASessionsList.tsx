@@ -11,11 +11,7 @@ interface ExtendedSessionData extends QnALiveWithDetails {
    conferenceShortDescription?: string;
 }
 
-export default function QnASessionsList({
-   livestreamSessions,
-}: {
-   livestreamSessions: QnALiveWithDetails[];
-}) {
+export default function QnASessionsList({ livestreamSessions }: { livestreamSessions: QnALiveWithDetails[] }) {
    const livestreamSessionsGroupedByDay = livestreamSessions.reduce(
       (acc, session) => {
          const sessionDay = format({
@@ -45,26 +41,17 @@ export default function QnASessionsList({
    );
 
    const [selectedDay, setSelectedDay] = useState<string | null>(
-      livestreamSessionsGroupedByDay.length > 0
-         ? livestreamSessionsGroupedByDay[0].day
-         : null,
+      livestreamSessionsGroupedByDay.length > 0 ? livestreamSessionsGroupedByDay[0].day : null,
    );
 
    // Sort sessions by start time
    const sortSessionsByTime = (sessions: ExtendedSessionData[]) => {
-      return [...sessions].sort(
-         (a, b) =>
-            new Date(a.conferenceStartTime).getTime() -
-            new Date(b.conferenceStartTime).getTime(),
-      );
+      return [...sessions].sort((a, b) => new Date(a.conferenceStartTime).getTime() - new Date(b.conferenceStartTime).getTime());
    };
 
    // Get selected day's sessions
    const selectedDaySessions = selectedDay
-      ? sortSessionsByTime(
-           livestreamSessionsGroupedByDay.find((day) => day.day === selectedDay)
-              ?.sessions || [],
-        )
+      ? sortSessionsByTime(livestreamSessionsGroupedByDay.find((day) => day.day === selectedDay)?.sessions || [])
       : [];
 
    return (
@@ -89,10 +76,7 @@ export default function QnASessionsList({
          {/* Sessions List */}
          <div className="space-y-6">
             {selectedDaySessions.map((session) => (
-               <div
-                  key={session.id}
-                  className="bg-white shadow-md border border-gray-100 rounded-xl overflow-hidden"
-               >
+               <div key={session.id} className="bg-white shadow-md border border-gray-100 rounded-xl overflow-hidden">
                   {/* Status Badge */}
                   <div className="bg-gray-50 px-4 py-2 border-gray-100 border-b">
                      <span
@@ -110,16 +94,13 @@ export default function QnASessionsList({
                                       : "bg-red-100 text-red-800"
                         }`}
                      >
-                        {session.status.charAt(0).toUpperCase() +
-                           session.status.slice(1)}
+                        {session.status.charAt(0).toUpperCase() + session.status.slice(1)}
                      </span>
                   </div>
 
                   <div className="p-4">
                      {/* Session Title */}
-                     <h3 className="mb-2 font-bold text-gray-900 text-xl">
-                        {session.conferenceTitle}
-                     </h3>
+                     <h3 className="mb-2 font-bold text-gray-900 text-xl">{session.conferenceTitle}</h3>
 
                      {/* Session Time */}
                      <div className="flex items-center mb-3 text-gray-600">
@@ -141,31 +122,23 @@ export default function QnASessionsList({
 
                      {/* Session Description */}
                      {session.conferenceShortDescription && (
-                        <p className="mb-4 text-gray-600">
-                           {session.conferenceShortDescription}
-                        </p>
+                        <p className="mb-4 text-gray-600">{session.conferenceShortDescription}</p>
                      )}
 
                      <div className="flex flex-wrap gap-3 mb-4">
                         {/* Speakers */}
-                        {session.speakersNames &&
-                           session.speakersNames.length > 0 && (
-                              <div className="flex items-center bg-gray-50 px-3 py-2 rounded-lg">
-                                 <Users className="mr-2 w-4 h-4 text-gray-500" />
-                                 <span className="font-medium text-sm">
-                                    Conferencista:{" "}
-                                    {session.speakersNames.join(", ")}
-                                 </span>
-                              </div>
-                           )}
+                        {session.speakersNames && session.speakersNames.length > 0 && (
+                           <div className="flex items-center bg-gray-50 px-3 py-2 rounded-lg">
+                              <Users className="mr-2 w-4 h-4 text-gray-500" />
+                              <span className="font-medium text-sm">Conferencista: {session.speakersNames.join(", ")}</span>
+                           </div>
+                        )}
 
                         {/* Presenter */}
                         {session.presenterName && (
                            <div className="flex items-center bg-gray-50 px-3 py-2 rounded-lg">
                               <User className="mr-2 w-4 h-4 text-gray-500" />
-                              <span className="font-medium text-sm">
-                                 Presentador: {session.presenterName}
-                              </span>
+                              <span className="font-medium text-sm">Presentador: {session.presenterName}</span>
                            </div>
                         )}
                      </div>
@@ -175,9 +148,7 @@ export default function QnASessionsList({
                      <div className="flex flex-wrap gap-3 mt-4">
                         <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
                            <div className="bg-gray-50 px-3 py-2 border-gray-200 border-r">
-                              <span className="font-medium text-gray-600 text-sm">
-                                 Link de Host:
-                              </span>
+                              <span className="font-medium text-gray-600 text-sm">Link de Host:</span>
                            </div>
                            <div className="flex-grow bg-white px-3 py-2">
                               <code className="font-mono text-gray-800 text-sm">
@@ -186,9 +157,7 @@ export default function QnASessionsList({
                               </code>
                            </div>
                            <div className="bg-white py-2 pr-3 pl-1">
-                              <CopyButton
-                                 text={`/QnA-transmission/${session.conferenceId}?ishost=true`}
-                              />
+                              <CopyButton text={`/QnA-transmission/${session.conferenceId}?ishost=true`} />
                            </div>
                         </div>
 
@@ -204,9 +173,7 @@ export default function QnASessionsList({
                      <div className="flex flex-wrap gap-3 mt-4">
                         <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
                            <div className="bg-gray-50 px-3 py-2 border-gray-200 border-r">
-                              <span className="font-medium text-gray-600 text-sm">
-                                 Link de conferencista:
-                              </span>
+                              <span className="font-medium text-gray-600 text-sm">Link de conferencista:</span>
                            </div>
                            <div className="flex-grow bg-white px-3 py-2">
                               <code className="font-mono text-gray-800 text-sm">
@@ -215,17 +182,11 @@ export default function QnASessionsList({
                               </code>
                            </div>
                            <div className="bg-white py-2 pr-3 pl-1">
-                              <CopyButton
-                                 text={`/QnA-transmission/${session.conferenceId}`}
-                              />
+                              <CopyButton text={`/QnA-transmission/${session.conferenceId}`} />
                            </div>
                         </div>
 
-                        <LinkButton
-                           href={`/QnA-transmission/${session.conferenceId}`}
-                           variant="primary"
-                           className="px-4 py-2"
-                        >
+                        <LinkButton href={`/QnA-transmission/${session.conferenceId}`} variant="primary" className="px-4 py-2">
                            Unirse a la sesión como conferencista
                         </LinkButton>
                      </div>
@@ -235,9 +196,7 @@ export default function QnASessionsList({
 
             {selectedDaySessions.length === 0 && selectedDay && (
                <div className="bg-gray-50 p-8 rounded-xl text-center">
-                  <p className="text-gray-600">
-                     No sessions scheduled for this day.
-                  </p>
+                  <p className="text-gray-600">No sessions scheduled for this day.</p>
                </div>
             )}
          </div>

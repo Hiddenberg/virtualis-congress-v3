@@ -5,5 +5,4 @@ export interface ConferenceSpeakerPresentationRecording {
    conference: CongressConferenceRecord["id"];
    recording: SimpleRecordingRecord["id"];
 }
-export type ConferenceSpeakerPresentationRecordingRecord =
-   DBRecordItem<ConferenceSpeakerPresentationRecording>;
+export type ConferenceSpeakerPresentationRecordingRecord = DBRecordItem<ConferenceSpeakerPresentationRecording>;

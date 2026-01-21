@@ -647,12 +647,7 @@ interface RecordingReminderEmailTemplateProps {
    recordingUrl: string;
 }
 export function getRecordingReminderEmailTemplate(
-   {
-      trackingUrl,
-      conferenceTitle,
-      personName,
-      recordingUrl,
-   }: RecordingReminderEmailTemplateProps,
+   { trackingUrl, conferenceTitle, personName, recordingUrl }: RecordingReminderEmailTemplateProps,
    language: "es-MX" | "en-US" | "pt-BR",
 ) {
    const recordingReminderEmailTemplateSpanish = `<!DOCTYPE html>
@@ -901,9 +896,7 @@ export function getRecordingReminderEmailTemplate(
 </html>
 `;
 
-   return language === "es-MX"
-      ? recordingReminderEmailTemplateSpanish
-      : recordingReminderEmailTemplateEnglish;
+   return language === "es-MX" ? recordingReminderEmailTemplateSpanish : recordingReminderEmailTemplateEnglish;
 }
 
 interface ReRecordingEmailTemplateProps {
@@ -1053,12 +1046,7 @@ interface RecordingCompletedEmailTemplateProps {
    videoUrl: string;
 }
 export function getRecordingCompletedEmailTemplate(
-   {
-      conferenceTitle,
-      speakerName,
-      academicTitle,
-      videoUrl,
-   }: RecordingCompletedEmailTemplateProps,
+   { conferenceTitle, speakerName, academicTitle, videoUrl }: RecordingCompletedEmailTemplateProps,
    language: "es-MX" | "en-US" | "pt-BR",
 ) {
    const spanishRecordingCompletedTemplate = `<!DOCTYPE html>
@@ -1269,9 +1257,7 @@ export function getRecordingCompletedEmailTemplate(
 </html>
 `;
 
-   return language === "es-MX"
-      ? spanishRecordingCompletedTemplate
-      : englishRecordingCompletedTemplate;
+   return language === "es-MX" ? spanishRecordingCompletedTemplate : englishRecordingCompletedTemplate;
 }
 
 type InaugurationInvitationEmailTemplateProps = {
@@ -1433,13 +1419,7 @@ interface QnAInvitationEmailTemplateProps {
 }
 
 export function getQnAInvitationEmailTemplate(
-   {
-      academicTitle,
-      speakerName,
-      conferenceTitle,
-      qaDate,
-      liveSessionUrl,
-   }: QnAInvitationEmailTemplateProps,
+   { academicTitle, speakerName, conferenceTitle, qaDate, liveSessionUrl }: QnAInvitationEmailTemplateProps,
    language: "es-MX" | "en-US" | "pt-BR",
 ) {
    const qnaInvitationTemplateSpanish = `<!DOCTYPE html>
@@ -1678,9 +1658,7 @@ export function getQnAInvitationEmailTemplate(
 </html>
 `;
 
-   return language === "es-MX"
-      ? qnaInvitationTemplateSpanish
-      : qnaInvitationTemplateEnglish;
+   return language === "es-MX" ? qnaInvitationTemplateSpanish : qnaInvitationTemplateEnglish;
 }
 
 interface AttendantWelcomeEmailTemplateProps {
@@ -1801,11 +1779,7 @@ interface SecondDayEmailTemplateProps {
    attendeeEmail: string;
    joinUrl: string;
 }
-export function getSecondDayEmailTemplate({
-   attendeeName,
-   attendeeEmail,
-   joinUrl,
-}: SecondDayEmailTemplateProps) {
+export function getSecondDayEmailTemplate({ attendeeName, attendeeEmail, joinUrl }: SecondDayEmailTemplateProps) {
    const secondDayTemplate = `<!DOCTYPE html>
 <html>
 <head>
@@ -2561,9 +2535,7 @@ export function getCongressFinalizationEmailTemplate(
 </html>
 `;
 
-   return language === "es-MX"
-      ? congressFinalizationTemplateSpanish
-      : congressFinalizationTemplateEnglish;
+   return language === "es-MX" ? congressFinalizationTemplateSpanish : congressFinalizationTemplateEnglish;
 }
 
 interface CertificateGenerationReminderEmailTemplateProps {
@@ -2573,11 +2545,7 @@ interface CertificateGenerationReminderEmailTemplateProps {
 }
 export function getCertificateGenerationReminderEmailTemplate(
    language: "es-MX" | "en-US" | "pt-BR",
-   {
-      attendeeName,
-      attendeeEmail,
-      certificatesUrl,
-   }: CertificateGenerationReminderEmailTemplateProps,
+   { attendeeName, attendeeEmail, certificatesUrl }: CertificateGenerationReminderEmailTemplateProps,
 ) {
    const certificateGenerationReminderTemplateSpanish = `<!DOCTYPE html>
 <html>
@@ -2878,7 +2846,5 @@ export function getCertificateGenerationReminderEmailTemplate(
 </html>
 `;
 
-   return language === "es-MX"
-      ? certificateGenerationReminderTemplateSpanish
-      : certificateGenerationReminderTemplateEnglish;
+   return language === "es-MX" ? certificateGenerationReminderTemplateSpanish : certificateGenerationReminderTemplateEnglish;
 }

@@ -6,10 +6,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
-import {
-   createConferenceAction,
-   updateConferenceAction,
-} from "@/features/conferences/actions/conferenceActions";
+import { createConferenceAction, updateConferenceAction } from "@/features/conferences/actions/conferenceActions";
 import {
    linkSpeakersToConferenceAction,
    unlinkSpeakersFromConferenceAction,
@@ -26,16 +23,8 @@ interface ConferenceFormProps {
    conferenceSpeakers?: SpeakerDataRecord[] | null;
 }
 
-export function ConferenceForm({
-   speakersAvailable,
-   mode,
-   conference,
-   conferenceSpeakers,
-}: ConferenceFormProps) {
-   type FormState = Omit<
-      CongressConference,
-      "organization" | "congress" | "status"
-   > & {
+export function ConferenceForm({ speakersAvailable, mode, conference, conferenceSpeakers }: ConferenceFormProps) {
+   type FormState = Omit<CongressConference, "organization" | "congress" | "status"> & {
       selectedSpeakerIds?: string[];
    };
 
@@ -70,18 +59,12 @@ export function ConferenceForm({
       ...initialFormState,
       selectedSpeakerIds: (conferenceSpeakers || []).map((s) => s.id),
    });
-   const [formErrors, setFormErrors] = useState<
-      Partial<Record<keyof FormState, string>>
-   >({});
+   const [formErrors, setFormErrors] = useState<Partial<Record<keyof FormState, string>>>({});
    const [isSaving, startTransition] = useTransition();
    const router = useRouter();
 
    if (mode === "edit" && !conference) {
-      return (
-         <div className="text-red-600">
-            Conference data was not provided to edit.
-         </div>
-      );
+      return <div className="text-red-600">Conference data was not provided to edit.</div>;
    }
 
    const validate = (): boolean => {
@@ -99,8 +82,7 @@ export function ConferenceForm({
          const start = new Date(formData.startTime);
          const end = new Date(formData.endTime);
          if (start >= end) {
-            errors.endTime =
-               "La hora de término debe ser posterior a la de inicio";
+            errors.endTime = "La hora de término debe ser posterior a la de inicio";
          }
       }
       setFormErrors(errors);
@@ -121,10 +103,7 @@ export function ConferenceForm({
          return null;
       }
 
-      if (
-         formData.selectedSpeakerIds &&
-         formData.selectedSpeakerIds.length > 0
-      ) {
+      if (formData.selectedSpeakerIds && formData.selectedSpeakerIds.length > 0) {
          const linkResponse = await linkSpeakersToConferenceAction({
             conferenceId: createConferenceResponse.data.id,
             speakerIds: formData.selectedSpeakerIds,
@@ -158,9 +137,7 @@ export function ConferenceForm({
          return false;
       }
 
-      const initialIds = (conferenceSpeakers || []).map(
-         (speaker) => speaker.id,
-      );
+      const initialIds = (conferenceSpeakers || []).map((speaker) => speaker.id);
       const selectedIds = formData.selectedSpeakerIds || [];
       const toLink = selectedIds.filter((id) => !initialIds.includes(id));
       const toUnlink = initialIds.filter((id) => !selectedIds.includes(id));
@@ -256,23 +233,15 @@ export function ConferenceForm({
             </button>
             <div>
                <h2 className="mb-1 font-semibold text-gray-900 text-xl">
-                  {mode === "create"
-                     ? "Nueva Conferencia"
-                     : "Editar Conferencia"}
+                  {mode === "create" ? "Nueva Conferencia" : "Editar Conferencia"}
                </h2>
-               <p className="text-gray-600 text-sm">
-                  Completa la información básica de la conferencia
-               </p>
+               <p className="text-gray-600 text-sm">Completa la información básica de la conferencia</p>
             </div>
          </div>
 
          <div className="gap-6 grid grid-cols-1">
             <div className="space-y-4">
-               <FormField
-                  label="Título"
-                  error={formErrors.title}
-                  htmlFor="conference-title"
-               >
+               <FormField label="Título" error={formErrors.title} htmlFor="conference-title">
                   <input
                      id="conference-title"
                      type="text"
@@ -283,16 +252,11 @@ export function ConferenceForm({
                   />
                </FormField>
 
-               <FormField
-                  label="Descripción corta"
-                  htmlFor="conference-short-description"
-               >
+               <FormField label="Descripción corta" htmlFor="conference-short-description">
                   <textarea
                      id="conference-short-description"
                      value={formData.shortDescription}
-                     onChange={(e) =>
-                        handleChange("shortDescription", e.target.value)
-                     }
+                     onChange={(e) => handleChange("shortDescription", e.target.value)}
                      placeholder="Breve descripción de la conferencia"
                      rows={4}
                      className="bg-white px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
@@ -301,11 +265,7 @@ export function ConferenceForm({
             </div>
 
             <div className="space-y-4">
-               <FormField
-                  label="Inicio"
-                  error={formErrors.startTime}
-                  htmlFor="conference-start"
-               >
+               <FormField label="Inicio" error={formErrors.startTime} htmlFor="conference-start">
                   <input
                      id="conference-start"
                      type="datetime-local"
@@ -315,11 +275,7 @@ export function ConferenceForm({
                   />
                </FormField>
 
-               <FormField
-                  label="Término"
-                  error={formErrors.endTime}
-                  htmlFor="conference-end"
-               >
+               <FormField label="Término" error={formErrors.endTime} htmlFor="conference-end">
                   <input
                      id="conference-end"
                      type="datetime-local"
@@ -352,9 +308,7 @@ export function ConferenceForm({
                      }
                   />
                </FormField>
-               <p className="mt-1 text-gray-500 text-xs">
-                  Puedes dejar este campo vacío y vincular ponentes después.
-               </p>
+               <p className="mt-1 text-gray-500 text-xs">Puedes dejar este campo vacío y vincular ponentes después.</p>
             </div>
          )}
 
@@ -367,25 +321,11 @@ export function ConferenceForm({
             >
                Cancelar
             </Button>
-            <Button
-               variant="blue"
-               onClick={handleSubmit}
-               disabled={isSaving}
-               loading={isSaving}
-            >
-               {isSaving
-                  ? "Guardando..."
-                  : mode === "create"
-                    ? "Crear conferencia"
-                    : "Guardar cambios"}
+            <Button variant="blue" onClick={handleSubmit} disabled={isSaving} loading={isSaving}>
+               {isSaving ? "Guardando..." : mode === "create" ? "Crear conferencia" : "Guardar cambios"}
             </Button>
             {mode === "create" && (
-               <Button
-                  variant="blue"
-                  onClick={handleSaveAndCreateAnother}
-                  disabled={isSaving}
-                  loading={isSaving}
-               >
+               <Button variant="blue" onClick={handleSaveAndCreateAnother} disabled={isSaving} loading={isSaving}>
                   {isSaving ? "Guardando..." : "Guardar y crear otra"}
                </Button>
             )}

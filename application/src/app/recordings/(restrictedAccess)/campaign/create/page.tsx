@@ -18,12 +18,8 @@ export default function CreateCampaignPage() {
 
          {/* Page Header */}
          <div className="mb-8 text-center">
-            <h1 className="mb-2 font-bold text-gray-900 text-3xl">
-               Crear campaña de grabación
-            </h1>
-            <p className="text-gray-600 text-lg">
-               Organiza tus grabaciones en campañas para una mejor gestión
-            </p>
+            <h1 className="mb-2 font-bold text-gray-900 text-3xl">Crear campaña de grabación</h1>
+            <p className="text-gray-600 text-lg">Organiza tus grabaciones en campañas para una mejor gestión</p>
          </div>
 
          <CreateRecordingCampaignForm />

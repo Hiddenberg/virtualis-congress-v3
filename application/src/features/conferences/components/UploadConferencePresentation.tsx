@@ -3,11 +3,7 @@
 import { useRouter } from "next/navigation";
 import UploadPresentationForm from "@/features/pptPresentations/components/UploadPresentationForm";
 
-export default function UploadConferencePresentation({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export default function UploadConferencePresentation({ conferenceId }: { conferenceId: string }) {
    const router = useRouter();
 
    async function handlePresentationSaved({
@@ -29,7 +25,5 @@ export default function UploadConferencePresentation({
       router.push(`/preparation/${conferenceId}/presentation/uploaded`);
    }
 
-   return (
-      <UploadPresentationForm onPresentationSaved={handlePresentationSaved} />
-   );
+   return <UploadPresentationForm onPresentationSaved={handlePresentationSaved} />;
 }

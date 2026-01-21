@@ -1,3 +1,4 @@
+import { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 
 export interface CongressCertificate {

@@ -4,15 +4,8 @@ import { DownloadIcon } from "lucide-react";
 import { Button } from "@/components/global/Buttons";
 import pbClient from "@/libs/pbClient";
 
-export default function DownloadPresentationFileButton({
-   presentation,
-}: {
-   presentation: PresentationRecord;
-}) {
-   const downloadLink = pbClient.files.getURL(
-      presentation,
-      presentation.file as string,
-   );
+export default function DownloadPresentationFileButton({ presentation }: { presentation: PresentationRecord }) {
+   const downloadLink = pbClient.files.getURL(presentation, presentation.file as string);
    return (
       <Button
          onClick={() => {

@@ -6,11 +6,7 @@ import type React from "react";
 import { useMemo, useState } from "react";
 import type { CourtesyInvitation } from "@/types/congress";
 
-const CourtesyInvitationsTable = ({
-   invitations,
-}: {
-   invitations: (CourtesyInvitation & RecordModel)[];
-}) => {
+const CourtesyInvitationsTable = ({ invitations }: { invitations: (CourtesyInvitation & RecordModel)[] }) => {
    const [searchTerm, setSearchTerm] = useState("");
    const [filter, setFilter] = useState<"all" | "used" | "unused">("all");
    const [copiedCode, setCopiedCode] = useState<string | null>(null);
@@ -18,23 +14,13 @@ const CourtesyInvitationsTable = ({
    const filteredInvitations = useMemo(() => {
       return invitations.filter((invitation) => {
          const matchesFilter =
-            filter === "all" ||
-            (filter === "used" && invitation.used) ||
-            (filter === "unused" && !invitation.used);
+            filter === "all" || (filter === "used" && invitation.used) || (filter === "unused" && !invitation.used);
 
          const matchesSearch =
-            invitation.stripePromotionCode
-               .toLowerCase()
-               .includes(searchTerm.toLowerCase()) ||
-            invitation.congress
-               .toLowerCase()
-               .includes(searchTerm.toLowerCase()) ||
-            invitation.sentTo
-               ?.toLowerCase()
-               .includes(searchTerm.toLowerCase()) ||
-            invitation.userWhoRedeemed
-               ?.toLowerCase()
-               .includes(searchTerm.toLowerCase());
+            invitation.stripePromotionCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            invitation.congress.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            invitation.sentTo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            invitation.userWhoRedeemed?.toLowerCase().includes(searchTerm.toLowerCase());
 
          return matchesFilter && matchesSearch;
       });
@@ -62,14 +48,7 @@ const CourtesyInvitationsTable = ({
    };
 
    const exportToCSV = () => {
-      const headers = [
-         "Promo Code",
-         "Status",
-         "Congress",
-         "Sent To",
-         "Redeemed By",
-         "Redeemed At",
-      ];
+      const headers = ["Promo Code", "Status", "Congress", "Sent To", "Redeemed By", "Redeemed At"];
 
       const csvData = filteredInvitations.map((invitation) => [
          invitation.stripePromotionCode,
@@ -80,10 +59,7 @@ const CourtesyInvitationsTable = ({
          invitation.redeemedAt ? formatDate(invitation.redeemedAt) : "",
       ]);
 
-      const csvContent = [
-         headers.join(","),
-         ...csvData.map((row) => row.join(",")),
-      ].join("\n");
+      const csvContent = [headers.join(","), ...csvData.map((row) => row.join(","))].join("\n");
 
       const blob = new Blob([csvContent], {
          type: "text/csv;charset=utf-8;",
@@ -102,9 +78,7 @@ const CourtesyInvitationsTable = ({
       <div className="bg-white shadow-md rounded-lg w-full">
          <div className="px-6 py-4 border-b">
             <h2 className="mb-2 font-bold text-2xl">Courtesy Invitations</h2>
-            <p className="mb-4 text-gray-600">
-               Manage and track promotional codes for congress registrations
-            </p>
+            <p className="mb-4 text-gray-600">Manage and track promotional codes for congress registrations</p>
             <div className="flex sm:flex-row flex-col gap-4">
                <div className="relative flex-1">
                   <Search className="top-1/2 left-3 absolute text-gray-400 -translate-y-1/2 transform" />
@@ -119,9 +93,7 @@ const CourtesyInvitationsTable = ({
                <select
                   className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={filter}
-                  onChange={(e) =>
-                     setFilter(e.target.value as "all" | "used" | "unused")
-                  }
+                  onChange={(e) => setFilter(e.target.value as "all" | "used" | "unused")}
                >
                   <option value="all">All</option>
                   <option value="used">Used</option>
@@ -141,9 +113,7 @@ const CourtesyInvitationsTable = ({
                <table className="divide-y divide-gray-200 min-w-full">
                   <thead className="bg-gray-50">
                      <tr>
-                        <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
-                           Status
-                        </th>
+                        <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">Status</th>
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
                            Promo Code
                         </th>
@@ -179,40 +149,23 @@ const CourtesyInvitationsTable = ({
                            </td>
                            <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
-                                 <span className="font-medium">
-                                    {invitation.stripePromotionCode}
-                                 </span>
+                                 <span className="font-medium">{invitation.stripePromotionCode}</span>
                                  <button
-                                    onClick={() =>
-                                       copyPromoCode(
-                                          invitation.stripePromotionCode,
-                                       )
-                                    }
+                                    onClick={() => copyPromoCode(invitation.stripePromotionCode)}
                                     className="ml-2 focus:outline-none text-gray-400 hover:text-gray-600"
                                     aria-label={`Copy promo code ${invitation.stripePromotionCode}`}
                                  >
                                     <Copy className="w-4 h-4" />
                                  </button>
-                                 {copiedCode ===
-                                    invitation.stripePromotionCode && (
-                                    <span className="ml-2 text-green-600 text-sm">
-                                       Copied!
-                                    </span>
+                                 {copiedCode === invitation.stripePromotionCode && (
+                                    <span className="ml-2 text-green-600 text-sm">Copied!</span>
                                  )}
                               </div>
                            </td>
-                           <td className="px-6 py-4 whitespace-nowrap">
-                              {invitation.congress}
-                           </td>
-                           <td className="px-6 py-4 whitespace-nowrap">
-                              {invitation.sentTo || "-"}
-                           </td>
-                           <td className="px-6 py-4 whitespace-nowrap">
-                              {invitation.userWhoRedeemed || "-"}
-                           </td>
-                           <td className="px-6 py-4 whitespace-nowrap">
-                              {formatDate(invitation.redeemedAt)}
-                           </td>
+                           <td className="px-6 py-4 whitespace-nowrap">{invitation.congress}</td>
+                           <td className="px-6 py-4 whitespace-nowrap">{invitation.sentTo || "-"}</td>
+                           <td className="px-6 py-4 whitespace-nowrap">{invitation.userWhoRedeemed || "-"}</td>
+                           <td className="px-6 py-4 whitespace-nowrap">{formatDate(invitation.redeemedAt)}</td>
                         </tr>
                      ))}
                   </tbody>

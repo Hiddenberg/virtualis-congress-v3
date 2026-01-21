@@ -1,22 +1,14 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import mux from "@/libs/mux";
-import {
-   createDBRecord,
-   deleteDBRecord,
-   getSingleDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, deleteDBRecord, getSingleDBRecord } from "@/libs/pbServerClientNew";
 
 import "server-only";
 
-export async function createMuxLivestream(
-   livestreamSessionId: LivestreamSessionRecord["id"],
-) {
+export async function createMuxLivestream(livestreamSessionId: LivestreamSessionRecord["id"]) {
    const currentOrganization = await getOrganizationFromSubdomain();
 
    if (!currentOrganization) {
-      throw new Error(
-         "[Livestream Mux Asset Service] Current organization not found",
-      );
+      throw new Error("[Livestream Mux Asset Service] Current organization not found");
    }
 
    const newMuxLivestream = await mux.video.liveStreams.create({
@@ -28,16 +20,13 @@ export async function createMuxLivestream(
       passthrough: livestreamSessionId,
    });
 
-   const newLivestreamMuxAsset = await createDBRecord<LivestreamMuxLivestream>(
-      "LIVESTREAM_MUX_LIVESTREAMS",
-      {
-         organization: currentOrganization.id,
-         livestreamSession: livestreamSessionId,
-         muxLivestreamId: newMuxLivestream.id,
-         livestreamPlaybackId: newMuxLivestream.playback_ids?.[0]?.id || "",
-         streamKey: newMuxLivestream.stream_key,
-      },
-   );
+   const newLivestreamMuxAsset = await createDBRecord<LivestreamMuxLivestream>("LIVESTREAM_MUX_LIVESTREAMS", {
+      organization: currentOrganization.id,
+      livestreamSession: livestreamSessionId,
+      muxLivestreamId: newMuxLivestream.id,
+      livestreamPlaybackId: newMuxLivestream.playback_ids?.[0]?.id || "",
+      streamKey: newMuxLivestream.stream_key,
+   });
 
    return newLivestreamMuxAsset;
 }
@@ -52,15 +41,11 @@ export async function getMuxAssetByMuxLivestreamId(muxLivestreamId: string) {
    return muxAsset.data[0];
 }
 
-export async function getMuxLivestreamRecordByLivestreamSessionId(
-   livestreamSessionId: LivestreamSessionRecord["id"],
-) {
+export async function getMuxLivestreamRecordByLivestreamSessionId(livestreamSessionId: LivestreamSessionRecord["id"]) {
    const currentOrganization = await getOrganizationFromSubdomain();
 
    if (!currentOrganization) {
-      throw new Error(
-         "[Livestream Mux Asset Service] Current organization not found",
-      );
+      throw new Error("[Livestream Mux Asset Service] Current organization not found");
    }
 
    const livestreamMuxAsset = await getSingleDBRecord<LivestreamMuxLivestream>(
@@ -71,30 +56,21 @@ export async function getMuxLivestreamRecordByLivestreamSessionId(
    return livestreamMuxAsset;
 }
 
-export async function completeMuxLivestream(
-   livestreamSessionId: LivestreamSessionRecord["id"],
-) {
-   const livestreamSession =
-      await getMuxLivestreamRecordByLivestreamSessionId(livestreamSessionId);
+export async function completeMuxLivestream(livestreamSessionId: LivestreamSessionRecord["id"]) {
+   const livestreamSession = await getMuxLivestreamRecordByLivestreamSessionId(livestreamSessionId);
 
    if (!livestreamSession) {
-      throw new Error(
-         "[Livestream Mux Asset Service] Livestream session not found",
-      );
+      throw new Error("[Livestream Mux Asset Service] Livestream session not found");
    }
 
    await mux.video.liveStreams.complete(livestreamSession.muxLivestreamId);
 }
 
-export async function deleteMuxLivestream(
-   livestreamSessionId: LivestreamSessionRecord["id"],
-) {
+export async function deleteMuxLivestream(livestreamSessionId: LivestreamSessionRecord["id"]) {
    const currentOrganization = await getOrganizationFromSubdomain();
 
    if (!currentOrganization) {
-      throw new Error(
-         "[Livestream Mux Asset Service] Current organization not found",
-      );
+      throw new Error("[Livestream Mux Asset Service] Current organization not found");
    }
 
    const livestreamMuxAsset = await getSingleDBRecord<LivestreamMuxLivestream>(
@@ -117,14 +93,10 @@ export async function deleteMuxLivestream(
             `[Livestream Mux Asset Service] Mux livestream asset not found or already deleted for livestream session ${livestreamSessionId}`,
          );
       } else {
-         throw new Error(
-            `[Livestream Mux Asset Service] Error deleting mux livestream ${livestreamMuxAsset.muxLivestreamId}`,
-         );
+         throw new Error(`[Livestream Mux Asset Service] Error deleting mux livestream ${livestreamMuxAsset.muxLivestreamId}`);
       }
    }
 
    await deleteDBRecord("LIVESTREAM_MUX_LIVESTREAMS", livestreamMuxAsset.id);
-   console.log(
-      `[Livestream Mux Asset Service] Livestream Mux Asset deleted for livestream session ${livestreamSessionId}`,
-   );
+   console.log(`[Livestream Mux Asset Service] Livestream Mux Asset deleted for livestream session ${livestreamSessionId}`);
 }

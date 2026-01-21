@@ -19,12 +19,11 @@ export async function uploadAttendantCredentialFileAction({
          };
       }
 
-      const attendantCredentialFile =
-         await createOrUpdateAttendantCredentialFile({
-            userId,
-            fileType,
-            file,
-         });
+      const attendantCredentialFile = await createOrUpdateAttendantCredentialFile({
+         userId,
+         fileType,
+         file,
+      });
 
       return {
          success: true,

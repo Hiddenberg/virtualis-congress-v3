@@ -9,20 +9,14 @@ export default function ConferencesLoadingSkeleton() {
                {/* Day selector skeleton */}
                <div className="flex flex-wrap justify-center gap-2 mb-8">
                   {[...Array(5)].map((_, i) => (
-                     <div
-                        key={i}
-                        className="bg-gray-200 rounded-full w-24 h-10 animate-pulse"
-                     />
+                     <div key={i} className="bg-gray-200 rounded-full w-24 h-10 animate-pulse" />
                   ))}
                </div>
             </div>
 
             <div className="gap-6 grid grid-cols-1 md:grid-cols-2 h-[30rem] overflow-y-auto">
                {[...Array(4)].map((_, i) => (
-                  <div
-                     key={i}
-                     className="bg-white shadow-sm p-6 border border-gray-200 rounded-xl"
-                  >
+                  <div key={i} className="bg-white shadow-sm p-6 border border-gray-200 rounded-xl">
                      <div className="bg-gray-200 mb-4 rounded-lg w-3/4 h-7 animate-pulse" />
                      <div className="bg-gray-200 mb-2 rounded-lg w-full h-4 animate-pulse" />
                      <div className="bg-gray-200 mb-6 rounded-lg w-4/5 h-4 animate-pulse" />

@@ -14,22 +14,12 @@ const mockCertificateUrls = [
 export default function CertificatesListSection() {
    return (
       <div className="opacity-70 mt-8">
-         <p className="mb-4 font-bold text-xl">
-            Tus Próximos Certificados Podrían Verse Así
-         </p>
+         <p className="mb-4 font-bold text-xl">Tus Próximos Certificados Podrían Verse Así</p>
 
-         <div
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6`}
-         >
+         <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6`}>
             {mockCertificateUrls.map((imgUrl) => (
                <div key={imgUrl} className="block select-none">
-                  <Image
-                     src={imgUrl}
-                     alt="Certificate"
-                     width={842}
-                     height={596}
-                     className="rounded-lg"
-                  />
+                  <Image src={imgUrl} alt="Certificate" width={842} height={596} className="rounded-lg" />
                </div>
             ))}
          </div>

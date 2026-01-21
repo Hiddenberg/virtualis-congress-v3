@@ -12,34 +12,23 @@ export default function PaymentSucceedPage() {
                         <CheckCircle2 className="w-6 h-6" />
                      </div>
                   </div>
-                  <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">
-                     ¡Pago completado con éxito!
-                  </h1>
+                  <h1 className="mb-2 font-bold text-slate-800 text-2xl md:text-3xl">¡Pago completado con éxito!</h1>
                   <p className="mb-6 text-slate-600 text-base md:text-lg">
-                     Gracias por adquirir el acceso a las grabaciones del
-                     congreso.
+                     Gracias por adquirir el acceso a las grabaciones del congreso.
                   </p>
 
                   <div className="gap-3 grid grid-cols-1 sm:grid-cols-2 mb-6">
                      <div className="flex justify-center items-center gap-2 bg-white/60 px-4 py-3 border border-blue-100 rounded-xl">
                         <VideoIcon className="w-5 h-5 text-blue-700" />
-                        <span className="text-slate-700 text-sm md:text-base">
-                           Acceso a grabaciones habilitado
-                        </span>
+                        <span className="text-slate-700 text-sm md:text-base">Acceso a grabaciones habilitado</span>
                      </div>
                      <div className="flex justify-center items-center gap-2 bg-white/60 px-4 py-3 border border-blue-100 rounded-xl">
                         <Mail className="w-5 h-5 text-blue-700" />
-                        <span className="text-slate-700 text-sm md:text-base">
-                           Te avisaremos por correo cuando estén listas
-                        </span>
+                        <span className="text-slate-700 text-sm md:text-base">Te avisaremos por correo cuando estén listas</span>
                      </div>
                   </div>
 
-                  <LinkButton
-                     href="/congress-recordings"
-                     variant="blue"
-                     className="mx-auto"
-                  >
+                  <LinkButton href="/congress-recordings" variant="blue" className="mx-auto">
                      <VideoIcon className="w-4 h-4" />
                      Ir a grabaciones
                   </LinkButton>

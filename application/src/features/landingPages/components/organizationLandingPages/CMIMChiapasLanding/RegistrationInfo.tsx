@@ -17,9 +17,7 @@ import { useState } from "react";
 import HelpButton from "@/features/userSupport/components/HelpButton";
 
 export default function RegistrationInfo({ userId }: { userId?: string }) {
-   const [activeMode, setActiveMode] = useState<"presencial" | "virtual">(
-      "presencial",
-   );
+   const [activeMode, setActiveMode] = useState<"presencial" | "virtual">("presencial");
 
    const pricingTiers = [
       {
@@ -98,12 +96,8 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
          <div className="mx-auto px-4 container">
             {/* Section Header */}
             <div className="mb-12 text-center">
-               <h2 className="mb-4 font-bold text-gray-900 text-4xl">
-                  Cuotas de Recuperación
-               </h2>
-               <p className="mx-auto max-w-2xl text-gray-600 text-lg">
-                  Elige la modalidad que mejor se adapte a tus necesidades
-               </p>
+               <h2 className="mb-4 font-bold text-gray-900 text-4xl">Cuotas de Recuperación</h2>
+               <p className="mx-auto max-w-2xl text-gray-600 text-lg">Elige la modalidad que mejor se adapte a tus necesidades</p>
             </div>
 
             {/* Pricing Mode Tabs */}
@@ -122,24 +116,16 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            <div className="flex items-center gap-3">
                               <div
                                  className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                                    activeMode === "presencial"
-                                       ? "bg-white/20"
-                                       : "bg-blue-100"
+                                    activeMode === "presencial" ? "bg-white/20" : "bg-blue-100"
                                  }`}
                               >
                                  <Building
-                                    className={`w-4 h-4 ${
-                                       activeMode === "presencial"
-                                          ? "text-white"
-                                          : "text-blue-600"
-                                    }`}
+                                    className={`w-4 h-4 ${activeMode === "presencial" ? "text-white" : "text-blue-600"}`}
                                  />
                               </div>
                               <div className="text-left">
                                  <div className="font-bold">Presencial</div>
-                                 <div className="opacity-75 text-xs">
-                                    En el hotel
-                                 </div>
+                                 <div className="opacity-75 text-xs">En el hotel</div>
                               </div>
                            </div>
                         </button>
@@ -155,24 +141,14 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            <div className="flex items-center gap-3">
                               <div
                                  className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                                    activeMode === "virtual"
-                                       ? "bg-white/20"
-                                       : "bg-pink-100"
+                                    activeMode === "virtual" ? "bg-white/20" : "bg-pink-100"
                                  }`}
                               >
-                                 <Video
-                                    className={`w-4 h-4 ${
-                                       activeMode === "virtual"
-                                          ? "text-white"
-                                          : "text-pink-600"
-                                    }`}
-                                 />
+                                 <Video className={`w-4 h-4 ${activeMode === "virtual" ? "text-white" : "text-pink-600"}`} />
                               </div>
                               <div className="text-left">
                                  <div className="font-bold">Virtual</div>
-                                 <div className="opacity-75 text-xs">
-                                    En línea
-                                 </div>
+                                 <div className="opacity-75 text-xs">En línea</div>
                               </div>
                            </div>
                         </button>
@@ -188,9 +164,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
             {activeMode === "presencial" ? (
                /* Presencial Pricing Grid */
                <div className="mb-12">
-                  <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">
-                     Modalidad Presencial
-                  </h3>
+                  <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">Modalidad Presencial</h3>
                   <div className="gap-6 grid md:grid-cols-2 lg:grid-cols-4">
                      {pricingTiers.map((tier, index) => {
                         const IconComponent = tier.icon;
@@ -204,9 +178,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                               >
                                  <IconComponent className="w-6 h-6 text-white" />
                               </div>
-                              <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight">
-                                 {tier.category}
-                              </h3>
+                              <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight">{tier.category}</h3>
                               {/* <div className="mb-4 font-bold text-gray-900 text-2xl">
                               </div> */}
                               <div
@@ -222,9 +194,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
             ) : (
                /* Virtual Pricing Section */
                <div className="mb-12">
-                  <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">
-                     Modalidad Virtual
-                  </h3>
+                  <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">Modalidad Virtual</h3>
                   <div className="mx-auto max-w-md">
                      <div className="relative bg-gradient-to-br from-pink-50 to-rose-50 p-8 border-2 border-pink-200 rounded-2xl">
                         {/* Background decoration */}
@@ -243,9 +213,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            >
                               <Video className="w-8 h-8 text-white" />
                            </div>
-                           <div className="mb-3 font-bold text-gray-900 text-3xl">
-                              {virtualTier.price}
-                           </div>
+                           <div className="mb-3 font-bold text-gray-900 text-3xl">{virtualTier.price}</div>
                            <div className="bg-pink-100 mb-4 px-4 py-2 rounded-full font-semibold text-pink-700 text-sm">
                               Transmisiones en Vivo
                            </div>
@@ -254,9 +222,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            <div className="space-y-2 text-gray-700 text-sm text-left">
                               <div className="flex items-center gap-2">
                                  <div className="bg-pink-400 rounded-full w-2 h-2" />
-                                 <span>
-                                    Acceso a todas las conferencias en vivo
-                                 </span>
+                                 <span>Acceso a todas las conferencias en vivo</span>
                               </div>
                               <div className="flex items-center gap-2">
                                  <div className="bg-pink-400 rounded-full w-2 h-2" />
@@ -270,9 +236,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
 
                            {/* Important note */}
                            <div className="bg-amber-50 mt-4 p-3 border border-amber-200 rounded-lg">
-                              <p className="font-medium text-amber-800 text-xs">
-                                 ⚠️ No incluye acceso a grabaciones posteriores
-                              </p>
+                              <p className="font-medium text-amber-800 text-xs">⚠️ No incluye acceso a grabaciones posteriores</p>
                            </div>
                         </div>
                      </div>
@@ -282,9 +246,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
 
             {/* Special Pricing Grid - Always Visible */}
             <div className="mb-12">
-               <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">
-                  Opciones Adicionales
-               </h3>
+               <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">Opciones Adicionales</h3>
                <div className="gap-6 grid md:grid-cols-2 mx-auto max-w-3xl">
                   {specialTiers.map((tier, index) => {
                      const IconComponent = tier.icon;
@@ -303,20 +265,14 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            >
                               <IconComponent className="w-6 h-6 text-white" />
                            </div>
-                           <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight">
-                              {tier.category}
-                           </h3>
+                           <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight">{tier.category}</h3>
                            {/* <div className="mb-4 font-bold text-gray-900 text-2xl">
                            </div> */}
-                           <div
-                              className={`text-center py-2 px-4 rounded-full font-semibold ${tier.textColor} ${tier.bgColor}`}
-                           >
+                           <div className={`text-center py-2 px-4 rounded-full font-semibold ${tier.textColor} ${tier.bgColor}`}>
                               {tier.price}
                            </div>
                            {tier.type === "grabaciones" && (
-                              <p className="mt-2 text-gray-500 text-xs text-center">
-                                 Se suma a cualquier modalidad
-                              </p>
+                              <p className="mt-2 text-gray-500 text-xs text-center">Se suma a cualquier modalidad</p>
                            )}
                         </div>
                      );
@@ -333,24 +289,20 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                <div className="gap-4 grid md:grid-cols-2 text-gray-700 text-sm">
                   <div className="space-y-2">
                      <p>
-                        <strong>Modalidad Presencial:</strong> Incluye acceso
-                        completo al evento, coffee breaks y material del
+                        <strong>Modalidad Presencial:</strong> Incluye acceso completo al evento, coffee breaks y material del
                         congreso.
                      </p>
                      <p>
-                        <strong>Modalidad Virtual:</strong> Solo transmisión en
-                        vivo. Para acceso a grabaciones, debe adquirir el
+                        <strong>Modalidad Virtual:</strong> Solo transmisión en vivo. Para acceso a grabaciones, debe adquirir el
                         complemento adicional.
                      </p>
                   </div>
                   <div className="space-y-2">
                      <p>
-                        <strong>Grabaciones:</strong> Acceso por 3 meses
-                        posteriores al evento para revisión y estudio.
+                        <strong>Grabaciones:</strong> Acceso por 3 meses posteriores al evento para revisión y estudio.
                      </p>
                      <p>
-                        <strong>Extranjeros:</strong> Precio especial para
-                        profesionales fuera de México.
+                        <strong>Extranjeros:</strong> Precio especial para profesionales fuera de México.
                      </p>
                   </div>
                </div>
@@ -365,13 +317,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                }`}
             >
                <h3 className="mb-4 font-bold text-3xl">¡INSCRÍBETE YA!</h3>
-               <p
-                  className={`mb-6 text-lg ${
-                     activeMode === "presencial"
-                        ? "text-blue-100"
-                        : "text-pink-100"
-                  }`}
-               >
+               <p className={`mb-6 text-lg ${activeMode === "presencial" ? "text-blue-100" : "text-pink-100"}`}>
                   {activeMode === "presencial"
                      ? "Asegura tu lugar en el congreso más importante de medicina interna en la región"
                      : "Participa desde cualquier lugar con nuestra modalidad virtual"}
@@ -428,13 +374,9 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                   <div className="flex justify-center items-center bg-purple-100 mx-auto mb-4 rounded-full w-12 h-12">
                      <MapPin className="w-6 h-6 text-purple-600" />
                   </div>
-                  <h3 className="mb-2 font-semibold text-gray-900">
-                     Ubicación
-                  </h3>
+                  <h3 className="mb-2 font-semibold text-gray-900">Ubicación</h3>
                   <p className="text-gray-600">Hotel Holiday Inn</p>
-                  <p className="mt-1 text-gray-500 text-sm">
-                     Tapachula, Chiapas
-                  </p>
+                  <p className="mt-1 text-gray-500 text-sm">Tapachula, Chiapas</p>
                </div>
             </div>
          </div>

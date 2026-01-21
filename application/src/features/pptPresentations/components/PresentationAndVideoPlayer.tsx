@@ -50,8 +50,7 @@ export default function PresentationAndVideoPlayer({
 
          const candidate = sortedSlideChanges[answerIndex]?.slideIndex ?? 0;
          if (candidate < 0) return 0;
-         if (candidate >= presentationSlides.length)
-            return presentationSlides.length - 1;
+         if (candidate >= presentationSlides.length) return presentationSlides.length - 1;
          return candidate;
       },
       [sortedSlideChanges, presentationSlides.length],
@@ -59,17 +58,13 @@ export default function PresentationAndVideoPlayer({
 
    useEffect(() => {
       // Attach listeners to the underlying <mux-player> element
-      const playerEl = containerRef.current?.querySelector("mux-player") as
-         | HTMLMediaElement
-         | undefined;
+      const playerEl = containerRef.current?.querySelector("mux-player") as HTMLMediaElement | undefined;
       if (!playerEl) return;
 
       const updateFromPlayerTime = () => {
          const currentTimeMs = (playerEl.currentTime || 0) * 1000;
          const nextIndex = getSlideIndexForTime(currentTimeMs);
-         setCurrentSlideIndex((prev) =>
-            prev !== nextIndex ? nextIndex : prev,
-         );
+         setCurrentSlideIndex((prev) => (prev !== nextIndex ? nextIndex : prev));
       };
 
       // Initialize slide at t=0
@@ -102,18 +97,13 @@ export default function PresentationAndVideoPlayer({
                      {currentSlide ? (
                         <>
                            <img
-                              src={pbClient.files.getURL(
-                                 currentSlide,
-                                 currentSlide.image as string,
-                              )}
+                              src={pbClient.files.getURL(currentSlide, currentSlide.image as string)}
                               alt={`Diapositiva ${currentSlideIndex + 1}`}
                               className="max-w-full max-h-full object-contain"
                            />
                            <PresentationDrawingPlaybackOverlay
                               containerRef={containerRef}
-                              drawingEvents={
-                                 presentationRecording?.drawingEvents
-                              }
+                              drawingEvents={presentationRecording?.drawingEvents}
                               currentSlideIndex={currentSlideIndex}
                            />
                         </>
@@ -150,11 +140,7 @@ export default function PresentationAndVideoPlayer({
 
          {/* Unified controls bar at bottom */}
          <div className="bg-gray-50 px-4 py-3 border-gray-200 border-t">
-            <UnifiedControlsBar
-               playerRefs={playerRefs}
-               containerRef={containerRef}
-               isSmall={isSmall}
-            />
+            <UnifiedControlsBar playerRefs={playerRefs} containerRef={containerRef} isSmall={isSmall} />
          </div>
       </div>
    );

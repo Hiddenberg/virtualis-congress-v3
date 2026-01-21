@@ -5,13 +5,7 @@ import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getFullDBRecordsList,
-   getSingleDBRecord,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 
 export async function getSpeakerDataByUserId(userId: string) {
    const organization = await getOrganizationFromSubdomain();
@@ -30,10 +24,7 @@ export async function getSpeakerDataByUserId(userId: string) {
       },
    );
 
-   const speakerData = await getSingleDBRecord<SpeakerData>(
-      "SPEAKERS_DATA",
-      filter,
-   );
+   const speakerData = await getSingleDBRecord<SpeakerData>("SPEAKERS_DATA", filter);
 
    return speakerData;
 }
@@ -109,13 +100,10 @@ export async function getAllSpeakerNamesAndIds() {
 export async function getSpeakerNameById(speakerId: string) {
    const speakerName = await pbServerClient
       .collection(PB_COLLECTIONS.SPEAKERS_DATA)
-      .getOne<SpeakerData & RecordModel & { expand: { user: User } }>(
-         speakerId,
-         {
-            expand: "user",
-            fields: "expand.user.name",
-         },
-      );
+      .getOne<SpeakerData & RecordModel & { expand: { user: User } }>(speakerId, {
+         expand: "user",
+         fields: "expand.user.name",
+      });
 
    return speakerName.expand.user.name;
 }
@@ -124,12 +112,9 @@ export async function getSpeakerAcademicTitleByUserId(userId: string) {
    try {
       const speakerData = await pbServerClient
          .collection(PB_COLLECTIONS.SPEAKERS_DATA)
-         .getFirstListItem<{ academicTitle: SpeakerData["academicTitle"] }>(
-            `user = "${userId}"`,
-            {
-               fields: "academicTitle",
-            },
-         );
+         .getFirstListItem<{ academicTitle: SpeakerData["academicTitle"] }>(`user = "${userId}"`, {
+            fields: "academicTitle",
+         });
 
       return speakerData.academicTitle || "";
    } catch (error) {
@@ -145,9 +130,7 @@ export async function getExpandedSpeakerByUserId(userId: string) {
    try {
       const speakerData = await pbServerClient
          .collection(PB_COLLECTIONS.SPEAKERS_DATA)
-         .getFirstListItem<
-            SpeakerData & RecordModel & { expand: { user: User & RecordModel } }
-         >(`user = "${userId}"`, {
+         .getFirstListItem<SpeakerData & RecordModel & { expand: { user: User & RecordModel } }>(`user = "${userId}"`, {
             expand: "user",
          });
 
@@ -192,25 +175,15 @@ export async function createSpeakerDataRecord({
       presentationPhoto: speakerRegistrationInfo.presentationPhoto,
    };
 
-   const newSpeaker = await createDBRecord<SpeakerData>(
-      "SPEAKERS_DATA",
-      newSpeakerData,
-   );
+   const newSpeaker = await createDBRecord<SpeakerData>("SPEAKERS_DATA", newSpeakerData);
 
    return newSpeaker;
 }
 
-export async function linkSpeakerAccount(
-   userId: UserRecord["id"],
-   speakerDataId: SpeakerDataRecord["id"],
-) {
-   const updatedSpeakerData = await updateDBRecord<SpeakerData>(
-      "SPEAKERS_DATA",
-      speakerDataId,
-      {
-         user: userId,
-      },
-   );
+export async function linkSpeakerAccount(userId: UserRecord["id"], speakerDataId: SpeakerDataRecord["id"]) {
+   const updatedSpeakerData = await updateDBRecord<SpeakerData>("SPEAKERS_DATA", speakerDataId, {
+      user: userId,
+   });
 
    return updatedSpeakerData;
 }
@@ -230,9 +203,7 @@ export async function getAllSpeakerPhoneNumbers() {
       },
    );
 
-   const speakers = await getFullDBRecordsList<
-      SpeakerData & { expand: { user: UserRecord } }
-   >("SPEAKERS_DATA", {
+   const speakers = await getFullDBRecordsList<SpeakerData & { expand: { user: UserRecord } }>("SPEAKERS_DATA", {
       filter,
       expand: "user",
    });

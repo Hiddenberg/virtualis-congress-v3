@@ -29,10 +29,7 @@ export async function createSinglePaymentCheckoutSession(priceId: string) {
    return checkoutSession;
 }
 
-export async function createBankPaymentCheckoutSession(
-   priceId: string,
-   customerId: string,
-) {
+export async function createBankPaymentCheckoutSession(priceId: string, customerId: string) {
    const customerObject = await stripe.customers.retrieve(customerId);
 
    if (customerObject.deleted) {
@@ -57,16 +54,12 @@ export async function createBankPaymentCheckoutSession(
 }
 
 export async function checkPaymentStatus(checkoutSession: string) {
-   const paymentSession =
-      await stripe.checkout.sessions.retrieve(checkoutSession);
+   const paymentSession = await stripe.checkout.sessions.retrieve(checkoutSession);
 
    return paymentSession.payment_status;
 }
 
-export async function createStripeCustomerObject(
-   email: string,
-   fullName: string,
-) {
+export async function createStripeCustomerObject(email: string, fullName: string) {
    const customer = await stripe.customers.create({
       email: email,
       name: fullName,
@@ -81,27 +74,20 @@ export async function getStripeCustomer(customerId: string) {
    return customer;
 }
 
-export async function getPaymentMethod(
-   checkoutSession: Stripe.Checkout.Session,
-) {
+export async function getPaymentMethod(checkoutSession: Stripe.Checkout.Session) {
    if (!checkoutSession.payment_intent) {
       return "";
    }
-   const paymentIntent = await stripe.paymentIntents.retrieve(
-      checkoutSession.payment_intent.toString(),
-      {
-         expand: ["payment_method"],
-      },
-   );
+   const paymentIntent = await stripe.paymentIntents.retrieve(checkoutSession.payment_intent.toString(), {
+      expand: ["payment_method"],
+   });
 
    const paymentMethod = paymentIntent.payment_method as Stripe.PaymentMethod;
 
    return paymentMethod.type;
 }
 
-export async function getPaymentIntentStatus(
-   checkoutSession: Stripe.Checkout.Session,
-) {
+export async function getPaymentIntentStatus(checkoutSession: Stripe.Checkout.Session) {
    const paymentIntentId = checkoutSession.payment_intent?.toString();
 
    if (!paymentIntentId) {
@@ -112,10 +98,7 @@ export async function getPaymentIntentStatus(
    return paymentIntent.status;
 }
 
-export async function createStripePromotionCode(
-   stripeCuponId: string,
-   maxRedemptions: number,
-) {
+export async function createStripePromotionCode(stripeCuponId: string, maxRedemptions: number) {
    const stripe = await getOrganizationStripeInstance();
    const newPromotionCodeObject = await stripe.promotionCodes.create({
       max_redemptions: maxRedemptions,
@@ -128,15 +111,10 @@ export async function createStripePromotionCode(
    return newPromotionCodeObject.code;
 }
 
-export async function getPromotionCodesUsed(
-   checkoutSession: Stripe.Checkout.Session,
-) {
-   const lineItems = await stripe.checkout.sessions.listLineItems(
-      checkoutSession.id,
-      {
-         expand: ["data.discounts"],
-      },
-   );
+export async function getPromotionCodesUsed(checkoutSession: Stripe.Checkout.Session) {
+   const lineItems = await stripe.checkout.sessions.listLineItems(checkoutSession.id, {
+      expand: ["data.discounts"],
+   });
 
    if (!lineItems || lineItems.data.length === 0) {
       throw new Error("No se encontró line items");
@@ -148,8 +126,7 @@ export async function getPromotionCodesUsed(
    for (const discountObject of discountObjects) {
       const promotionCodeId = discountObject.discount.promotion_code;
       if (typeof promotionCodeId === "string" && promotionCodeId) {
-         const promotionCodeObject =
-            await stripe.promotionCodes.retrieve(promotionCodeId);
+         const promotionCodeObject = await stripe.promotionCodes.retrieve(promotionCodeId);
 
          promotionCodesUsed.push(promotionCodeObject.code);
       }

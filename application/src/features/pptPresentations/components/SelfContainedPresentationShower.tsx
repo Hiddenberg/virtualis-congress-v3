@@ -3,17 +3,11 @@
 import { useQuery } from "@tanstack/react-query";
 import PresentationViewer from "./PresentationShower";
 
-export default function SelfContainedPresentationShower({
-   presentationId,
-}: {
-   presentationId: string;
-}) {
+export default function SelfContainedPresentationShower({ presentationId }: { presentationId: string }) {
    const { data, isLoading } = useQuery<PresentationSlideRecord[]>({
       queryKey: ["presentation"],
       queryFn: async () => {
-         const response = await fetch(
-            `/api/presentation/${presentationId}/slides`,
-         );
+         const response = await fetch(`/api/presentation/${presentationId}/slides`);
          const data = await response.json();
          return data;
       },

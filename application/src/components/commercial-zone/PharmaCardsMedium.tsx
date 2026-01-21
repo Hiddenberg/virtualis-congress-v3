@@ -13,26 +13,13 @@ type CompanyCardProps = {
    actions: string[];
 };
 
-function CompanyCard({
-   name,
-   logo,
-   backgroundColor,
-   buttonColor,
-   actions,
-   textColor,
-}: CompanyCardProps) {
+function CompanyCard({ name, logo, backgroundColor, buttonColor, actions, textColor }: CompanyCardProps) {
    return (
-      <div
-         className={`rounded-lg p-6 ${backgroundColor} flex flex-col items-center grow`}
-      >
+      <div className={`rounded-lg p-6 ${backgroundColor} flex flex-col items-center grow`}>
          <div className="bg-white rounded-lg p-4 mb-4">
             <Image src={logo} alt={`${name} logo`} width={120} height={60} />
          </div>
-         <h2
-            className={`text-2xl font-bold mb-1 ${buttonColor.replace("bg-", "text-")}`}
-         >
-            {name}
-         </h2>
+         <h2 className={`text-2xl font-bold mb-1 ${buttonColor.replace("bg-", "text-")}`}>{name}</h2>
          <Link href="#" className="text-sm text-blue-600 hover:underline mb-6">
             Ver más
          </Link>
@@ -57,10 +44,7 @@ export default function PharmaCardsMedium() {
             backgroundColor="bg-red-50"
             buttonColor="bg-red-200"
             textColor="text-red-800"
-            actions={[
-               "Prueba gratuita de nuestra plataforma",
-               "Descarga cupones de descuento",
-            ]}
+            actions={["Prueba gratuita de nuestra plataforma", "Descarga cupones de descuento"]}
          />
          <CompanyCard
             name="Roche"
@@ -68,10 +52,7 @@ export default function PharmaCardsMedium() {
             backgroundColor="bg-blue-50"
             buttonColor="bg-blue-200"
             textColor="text-blue-800"
-            actions={[
-               "Muestras de kits de diagnóstico",
-               "Obtén acceso a una demo gratuita",
-            ]}
+            actions={["Muestras de kits de diagnóstico", "Obtén acceso a una demo gratuita"]}
          />
          <CompanyCard
             name="Merck & Co."
@@ -79,10 +60,7 @@ export default function PharmaCardsMedium() {
             backgroundColor="bg-green-50"
             buttonColor="bg-green-200"
             textColor="text-green-700"
-            actions={[
-               "Prueba gratuita de nuestra plataforma",
-               "Descarga cupones de descuento",
-            ]}
+            actions={["Prueba gratuita de nuestra plataforma", "Descarga cupones de descuento"]}
          />
       </div>
    );

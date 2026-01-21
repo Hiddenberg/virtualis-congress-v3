@@ -5,13 +5,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "@/contexts/AuthContext";
 import GlobalLoadingPage from "../GlobalLoadingPage";
 
-export function RedirectIfLoggedIn({
-   children,
-   to,
-}: {
-   children: React.ReactNode;
-   to: string;
-}) {
+export function RedirectIfLoggedIn({ children, to }: { children: React.ReactNode; to: string }) {
    const { isLoggedIn } = useAuthContext();
    const router = useRouter();
 

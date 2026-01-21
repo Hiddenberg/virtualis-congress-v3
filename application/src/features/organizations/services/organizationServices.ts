@@ -14,9 +14,7 @@ async function getSubDomain() {
       return host?.split(".")[0] ?? null;
    }
 
-   const subdomain = host?.split(
-      isDevEnvironment ? ".localhost" : ".virtualis.app",
-   )[0];
+   const subdomain = host?.split(isDevEnvironment ? ".localhost" : ".virtualis.app")[0];
    return subdomain ?? null;
 }
 
@@ -35,10 +33,7 @@ export const getOrganizationFromSubdomain = cache(async () => {
          subdomain,
       },
    );
-   const organization = await getSingleDBRecord<Organization>(
-      "ORGANIZATIONS",
-      filter,
-   );
+   const organization = await getSingleDBRecord<Organization>("ORGANIZATIONS", filter);
 
    if (!organization) {
       throw new Error("Organization not found");

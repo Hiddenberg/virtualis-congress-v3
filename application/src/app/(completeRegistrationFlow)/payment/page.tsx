@@ -14,12 +14,7 @@ import type { CMIMCCAdditionalAttendantData } from "@/features/users/attendants/
 
 export default async function PaymentPage() {
    const userId = await getLoggedInUserId();
-   const [
-      organization,
-      userAttendantAdditionalData,
-      paymentConfirmed,
-      CMIMCCStripeProducts,
-   ] = await Promise.all([
+   const [organization, userAttendantAdditionalData, paymentConfirmed, CMIMCCStripeProducts] = await Promise.all([
       getOrganizationFromSubdomain(),
       getAttendantData(userId ?? ""),
       confirmUserCongressPayment(userId ?? ""),
@@ -35,8 +30,7 @@ export default async function PaymentPage() {
          return redirect("/registration-confirmed");
       }
 
-      const CMIMCCAdditionalData =
-         userAttendantAdditionalData.additionalData as unknown as CMIMCCAdditionalAttendantData;
+      const CMIMCCAdditionalData = userAttendantAdditionalData.additionalData as unknown as CMIMCCAdditionalAttendantData;
       const userMedicalRole = CMIMCCAdditionalData.medicalRole;
 
       const medicalRolesMap: Record<CMIMCCMedicalRoleType, string> = {
@@ -47,21 +41,10 @@ export default async function PaymentPage() {
       };
 
       const categoryPricesMap: Record<CMIMCCMedicalRoleType, number> = {
-         specialist:
-            CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices.regular
-               .price,
-         general:
-            CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices[
-               "general-medics"
-            ].price,
-         health_professional:
-            CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices[
-               "health-professionals"
-            ].price,
-         "student/resident":
-            CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices[
-               "students/residents"
-            ].price,
+         specialist: CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices.regular.price,
+         general: CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices["general-medics"].price,
+         health_professional: CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices["health-professionals"].price,
+         "student/resident": CMIMCCStripeProducts["XXIX-Congress-In-Person"].prices["students/residents"].price,
       };
 
       return (
@@ -73,8 +56,7 @@ export default async function PaymentPage() {
                      Finalizar Inscripción
                   </h1>
                   <p className="mx-auto px-2 max-w-2xl text-gray-600 text-base sm:text-lg leading-relaxed">
-                     Selecciona tu modalidad de participación y completa tu pago
-                     para asegurar tu lugar en el congreso
+                     Selecciona tu modalidad de participación y completa tu pago para asegurar tu lugar en el congreso
                   </p>
                </div>
 
@@ -97,8 +79,7 @@ export default async function PaymentPage() {
                      Finalizar inscripción
                   </h1>
                   <p className="mx-auto px-2 max-w-2xl text-gray-600 text-base sm:text-lg">
-                     Tu acceso es en línea e incluye grabaciones. Solo da clic
-                     para proceder al pago.
+                     Tu acceso es en línea e incluye grabaciones. Solo da clic para proceder al pago.
                   </p>
                </div>
                <HGEAPaymentForm />
@@ -130,10 +111,7 @@ export default async function PaymentPage() {
    return (
       <div>
          <h1>Payment Page</h1>
-         <h2>
-            Payment selection page not found for organization{" "}
-            {organization.shortID}
-         </h2>
+         <h2>Payment selection page not found for organization {organization.shortID}</h2>
       </div>
    );
 }

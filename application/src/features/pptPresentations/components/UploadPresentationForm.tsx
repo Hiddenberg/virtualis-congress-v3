@@ -1,13 +1,6 @@
 "use client";
 
-import {
-   AlertCircle,
-   Check,
-   FileText,
-   Loader2,
-   TrashIcon,
-   Upload,
-} from "lucide-react";
+import { AlertCircle, Check, FileText, Loader2, TrashIcon, Upload } from "lucide-react";
 import { type DragEvent, useRef, useState, useTransition } from "react";
 import { Button } from "@/components/global/Buttons";
 import type { SlideImage } from "../services/convertapiServices";
@@ -32,9 +25,7 @@ export default function UploadPresentationForm({
    const [slideImages, setSlideImages] = useState<SlideImage[] | null>(null);
    const [presentationName, setPresentationName] = useState("");
    const [hasVideo, setHasVideo] = useState<boolean | null>(null);
-   const [saveSuccessMessage, setSaveSuccessMessage] = useState<string | null>(
-      null,
-   );
+   const [saveSuccessMessage, setSaveSuccessMessage] = useState<string | null>(null);
    const fileInputRef = useRef<HTMLInputElement>(null);
    // const { recordingId } = useParams()
    // const effectiveRecordingId = (typeof recordingIdProp === "string" && recordingIdProp) || (typeof recordingId === "string" ? recordingId : undefined)
@@ -48,20 +39,13 @@ export default function UploadPresentationForm({
       const maxSize = 50 * 1024 * 1024; // 50MB
 
       if (file.size > maxSize) {
-         setError(
-            "El archivo es muy grande. El tamaño máximo permitido es 50MB.",
-         );
+         setError("El archivo es muy grande. El tamaño máximo permitido es 50MB.");
          return false;
       }
 
       const fileExtension = "." + file.name.split(".").pop()?.toLowerCase();
-      if (
-         !validExtensions.includes(fileExtension) &&
-         !validTypes.includes(file.type)
-      ) {
-         setError(
-            "Formato de archivo no válido. Solo se permiten archivos .ppt y .pptx.",
-         );
+      if (!validExtensions.includes(fileExtension) && !validTypes.includes(file.type)) {
+         setError("Formato de archivo no válido. Solo se permiten archivos .ppt y .pptx.");
          return false;
       }
 
@@ -117,17 +101,13 @@ export default function UploadPresentationForm({
             const result: BackendResponse<SlideImage[]> = await response.json();
             if (result.success) {
                setSlideImages(result.data);
-               setPresentationName(
-                  presentationFile.name.replace(/\.(pptx|ppt)$/i, ""),
-               );
+               setPresentationName(presentationFile.name.replace(/\.(pptx|ppt)$/i, ""));
             } else {
                setError(result.errorMessage);
             }
          } catch (error) {
             console.error(error);
-            setError(
-               "Error al convertir la diapositiva. Por favor, inténtalo de nuevo.",
-            );
+            setError("Error al convertir la diapositiva. Por favor, inténtalo de nuevo.");
          }
       });
    };
@@ -144,9 +124,7 @@ export default function UploadPresentationForm({
 
       setError(null);
       setSaveSuccessMessage(null);
-      const name = (
-         presentationName || presentationFile.name.replace(/\.(pptx|ppt)$/i, "")
-      ).trim();
+      const name = (presentationName || presentationFile.name.replace(/\.(pptx|ppt)$/i, "")).trim();
       if (!name) {
          setError("El nombre de la diapositiva es requerido");
          return;
@@ -167,10 +145,7 @@ export default function UploadPresentationForm({
             presentationSlides: PresentationSlideRecord[];
          }> = await response.json();
          if (!savePresentationResult.success) {
-            setError(
-               savePresentationResult.errorMessage ||
-                  "Error al guardar la diapositiva",
-            );
+            setError(savePresentationResult.errorMessage || "Error al guardar la diapositiva");
             return;
          }
 
@@ -209,19 +184,11 @@ export default function UploadPresentationForm({
             <div className="!mx-auto !px-6 !max-w-7xl">
                {/* Save presentation section */}
                <div className="!bg-white !shadow-xl !mb-4 !p-6 !border !border-gray-200 !rounded-2xl">
-                  <h3 className="!mb-2 !font-semibold !text-gray-900 !text-lg">
-                     Guardar diapositiva
-                  </h3>
-                  <p className="!mb-3 !text-gray-500">
-                     Puedes revisar tu diapositiva en la parte de abajo antes de
-                     guardarla.
-                  </p>
+                  <h3 className="!mb-2 !font-semibold !text-gray-900 !text-lg">Guardar diapositiva</h3>
+                  <p className="!mb-3 !text-gray-500">Puedes revisar tu diapositiva en la parte de abajo antes de guardarla.</p>
                   <div className="!flex !sm:flex-row !flex-col !items-start !sm:items-end !gap-3">
                      <div className="!w-full !sm:w-96">
-                        <label
-                           htmlFor="presentation-name"
-                           className="!block !mb-1 !font-medium !text-gray-700 !text-sm"
-                        >
+                        <label htmlFor="presentation-name" className="!block !mb-1 !font-medium !text-gray-700 !text-sm">
                            Nombre
                         </label>
                         <input
@@ -232,9 +199,7 @@ export default function UploadPresentationForm({
                            placeholder="Ej. Presentación magistral"
                            className="!px-3 !py-2 !border !border-gray-300 !focus:border-yellow-400 !rounded-md !focus:outline-none !focus:ring-1 !focus:ring-yellow-400 !w-full !transition-colors"
                         />
-                        <p className="!mt-1 !text-gray-400 !text-xs">
-                           Si lo dejas vacío, usaremos el nombre del archivo.
-                        </p>
+                        <p className="!mt-1 !text-gray-400 !text-xs">Si lo dejas vacío, usaremos el nombre del archivo.</p>
                      </div>
 
                      <div className="!flex !items-center !gap-3">
@@ -276,11 +241,7 @@ export default function UploadPresentationForm({
                      </div>
                   </div>
 
-                  {saveSuccessMessage && (
-                     <p className="!mt-3 !text-green-700 !text-sm">
-                        {saveSuccessMessage}
-                     </p>
-                  )}
+                  {saveSuccessMessage && <p className="!mt-3 !text-green-700 !text-sm">{saveSuccessMessage}</p>}
 
                   {error && (
                      <div className="!bg-red-50 !mt-3 !p-3 !border !border-red-200 !rounded-lg">
@@ -306,12 +267,8 @@ export default function UploadPresentationForm({
             {/* <div className="!inline-flex !justify-center !items-center !bg-yellow-100 !mb-4 !rounded-full !w-16 !h-16">
                <Upload className="!w-8 !h-8 !text-yellow-600" />
             </div> */}
-            <h1 className="!mb-2 !font-bold !text-gray-900 !text-3xl">
-               Subir Diapositiva
-            </h1>
-            <p className="!text-gray-600">
-               Sube tu diapositiva de PowerPoint al sistema
-            </p>
+            <h1 className="!mb-2 !font-bold !text-gray-900 !text-3xl">Subir Diapositiva</h1>
+            <p className="!text-gray-600">Sube tu diapositiva de PowerPoint al sistema</p>
          </div>
 
          {/* Upload Area */}
@@ -329,13 +286,7 @@ export default function UploadPresentationForm({
                onDragLeave={handleDragLeave}
                onClick={!presentationFile ? openFileDialog : undefined}
             >
-               <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept=".pptx,.ppt"
-                  onChange={handleFileChange}
-                  className="!hidden"
-               />
+               <input ref={fileInputRef} type="file" accept=".pptx,.ppt" onChange={handleFileChange} className="!hidden" />
 
                {!presentationFile ? (
                   <div className="!text-center !cursor-pointer">
@@ -344,47 +295,30 @@ export default function UploadPresentationForm({
                            isDragOver ? "!bg-yellow-200" : "!bg-gray-100"
                         }`}
                      >
-                        <Upload
-                           className={`!w-6 !h-6 ${isDragOver ? "!text-yellow-600" : "!text-gray-400"}`}
-                        />
+                        <Upload className={`!w-6 !h-6 ${isDragOver ? "!text-yellow-600" : "!text-gray-400"}`} />
                      </div>
                      <h3 className="!mb-2 !font-semibold !text-gray-900 !text-lg">
-                        {isDragOver
-                           ? "Suelta el archivo aquí"
-                           : "Arrastra tu diapositiva aquí"}
+                        {isDragOver ? "Suelta el archivo aquí" : "Arrastra tu diapositiva aquí"}
                      </h3>
-                     <p className="!mb-4 !text-gray-500">
-                        o haz clic para seleccionar un archivo
-                     </p>
-                     <p className="!text-gray-400 !text-sm">
-                        Formatos soportados: .ppt, .pptx (máx. 50MB)
-                     </p>
+                     <p className="!mb-4 !text-gray-500">o haz clic para seleccionar un archivo</p>
+                     <p className="!text-gray-400 !text-sm">Formatos soportados: .ppt, .pptx (máx. 50MB)</p>
                   </div>
                ) : (
                   <div className="!text-center">
                      <div className="!inline-flex !justify-center !items-center !bg-green-100 !mb-4 !rounded-full !w-12 !h-12">
                         <Check className="!w-6 !h-6 !text-green-600" />
                      </div>
-                     <h3 className="!mb-2 !font-semibold !text-gray-900 !text-lg">
-                        Archivo seleccionado
-                     </h3>
+                     <h3 className="!mb-2 !font-semibold !text-gray-900 !text-lg">Archivo seleccionado</h3>
                      <div className="!bg-white !mx-auto !p-4 !border !border-green-200 !rounded-lg !max-w-md">
                         <div className="!flex !items-center !gap-3">
                            <FileText className="!w-8 !h-8 !text-blue-500" />
                            <div className="!flex-1 !text-left">
-                              <p className="!font-medium !text-gray-900 !truncate">
-                                 {presentationFile.name}
-                              </p>
-                              <p className="!text-gray-500 !text-sm">
-                                 {formatFileSize(presentationFile.size)}
-                              </p>
+                              <p className="!font-medium !text-gray-900 !truncate">{presentationFile.name}</p>
+                              <p className="!text-gray-500 !text-sm">{formatFileSize(presentationFile.size)}</p>
                            </div>
                         </div>
                      </div>
-                     <button
-                        onClick={removeFile}
-                        className="!mt-3 !text-gray-500 hover:!text-gray-700 !text-sm !underline"
-                     >
+                     <button onClick={removeFile} className="!mt-3 !text-gray-500 hover:!text-gray-700 !text-sm !underline">
                         Seleccionar otro archivo
                      </button>
                   </div>
@@ -438,9 +372,7 @@ export default function UploadPresentationForm({
                   {presentationFile && (
                      <button
                         onClick={handleConvertPresentation}
-                        disabled={
-                           converting || !presentationFile || hasVideo === null
-                        }
+                        disabled={converting || !presentationFile || hasVideo === null}
                         className="!flex !justify-center !items-center !gap-2 !bg-green-600 hover:!bg-green-700 disabled:!bg-gray-300 !px-8 !py-3 !rounded-md focus:!outline-none !focus:ring-2 !focus:ring-green-500 !focus:ring-offset-2 !min-w-[200px] !font-semibold !text-white !text-lg !transition-colors cursor-not-allowed"
                      >
                         {converting ? (
@@ -462,8 +394,8 @@ export default function UploadPresentationForm({
                   <p
                      className={`!mt-4 text-gray-500 !text-lg !text-center ${converting ? "!animate-pulse !duration-75 !text-blue-500" : ""}`}
                   >
-                     Esto puede tardar hasta unos minutos dependiendo del tamaño
-                     del archivo{converting ? ", por favor espera..." : ""}
+                     Esto puede tardar hasta unos minutos dependiendo del tamaño del archivo
+                     {converting ? ", por favor espera..." : ""}
                   </p>
                )}
             </div>
@@ -471,9 +403,7 @@ export default function UploadPresentationForm({
 
          {/* Help Text */}
          <div className="!mt-6 !text-center">
-            <p className="!text-gray-500 !text-sm">
-               Tu diapositiva será convertida a imágenes PNG de alta calidad.
-            </p>
+            <p className="!text-gray-500 !text-sm">Tu diapositiva será convertida a imágenes PNG de alta calidad.</p>
          </div>
       </div>
    );

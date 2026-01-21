@@ -18,12 +18,7 @@ interface TutorialSliderProps {
    lastButtonText?: string;
 }
 
-export default function TutorialSlider({
-   title,
-   steps,
-   onFinish,
-   lastButtonText,
-}: TutorialSliderProps) {
+export default function TutorialSlider({ title, steps, onFinish, lastButtonText }: TutorialSliderProps) {
    const [currentStep, setCurrentStep] = useState(0);
 
    const totalSteps = steps.length;
@@ -52,19 +47,14 @@ export default function TutorialSlider({
          <div className="flex flex-col bg-white shadow-2xl mx-auto rounded-2xl sm:rounded-3xl w-full max-w-5xl overflow-hidden">
             {/* Header */}
             <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5">
-               <h1 className="font-bold text-white text-xl sm:text-2xl lg:text-3xl text-center">
-                  {title}
-               </h1>
+               <h1 className="font-bold text-white text-xl sm:text-2xl lg:text-3xl text-center">{title}</h1>
                <p className="mt-1 sm:mt-2 font-medium text-blue-100 text-sm text-center">
                   Paso {currentStep + 1} de {totalSteps}
                </p>
             </div>
 
             {/* Content - Scrollable if needed */}
-            <div
-               key={currentStep}
-               className="flex-1 px-4 sm:px-6 lg:px-8 py-1 animate-appear"
-            >
+            <div key={currentStep} className="flex-1 px-4 sm:px-6 lg:px-8 py-1 animate-appear">
                {/* Description */}
                <div className="space-y-2 sm:space-y-3 bg-blue-50 mt-3 sm:mt-4 mb-4 p-3 sm:p-4 rounded-xl sm:rounded-2xl">
                   <p className="font-semibold text-gray-800 text-sm sm:text-base lg:text-lg leading-relaxed">
@@ -128,9 +118,7 @@ export default function TutorialSlider({
                   className="!gap-1 !px-3 sm:!px-4 !py-1.5 sm:!py-2 !text-sm sm:!text-base"
                >
                   {isLastStep ? lastButtonText || "Continuar" : "Siguiente"}
-                  {!isLastStep && (
-                     <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5" />
-                  )}
+                  {!isLastStep && <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5" />}
                </Button>
             </div>
          </div>

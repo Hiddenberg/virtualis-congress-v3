@@ -19,33 +19,22 @@ interface PersistedRecordingState {
  * data so users can resume after accidental tab close or network disconnects.
  */
 export function useLocalPresentationRecording(presentationId: string) {
-   const storageKey = useMemo(
-      () => `vc:presentationRecording:${presentationId}`,
-      [presentationId],
-   );
+   const storageKey = useMemo(() => `vc:presentationRecording:${presentationId}`, [presentationId]);
    const isClientRef = useRef<boolean>(typeof window !== "undefined");
-   const [persisted, setPersisted] = useState<PersistedRecordingState | null>(
-      () => {
-         if (!isClientRef.current) return null;
-         try {
-            const raw = window.localStorage.getItem(
-               `vc:presentationRecording:${presentationId}`,
-            );
-            if (!raw) return null;
-            const parsed = JSON.parse(raw) as PersistedRecordingState;
-            if (
-               parsed &&
-               typeof parsed.startedAtMs === "number" &&
-               Array.isArray(parsed.slideChanges)
-            ) {
-               return parsed;
-            }
-            return null;
-         } catch {
-            return null;
+   const [persisted, setPersisted] = useState<PersistedRecordingState | null>(() => {
+      if (!isClientRef.current) return null;
+      try {
+         const raw = window.localStorage.getItem(`vc:presentationRecording:${presentationId}`);
+         if (!raw) return null;
+         const parsed = JSON.parse(raw) as PersistedRecordingState;
+         if (parsed && typeof parsed.startedAtMs === "number" && Array.isArray(parsed.slideChanges)) {
+            return parsed;
          }
-      },
-   );
+         return null;
+      } catch {
+         return null;
+      }
+   });
    const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
    useEffect(() => {

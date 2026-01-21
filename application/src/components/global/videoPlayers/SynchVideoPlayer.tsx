@@ -12,10 +12,7 @@ interface SynchVideoPlayerProps {
    title?: string;
 }
 
-export default function SynchVideoPlayer({
-   conferenceMuxAssets,
-   title,
-}: SynchVideoPlayerProps) {
+export default function SynchVideoPlayer({ conferenceMuxAssets, title }: SynchVideoPlayerProps) {
    const playerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
    // Initialize refs array with proper length
@@ -26,10 +23,7 @@ export default function SynchVideoPlayer({
    if (conferenceMuxAssets.length === 1) {
       return (
          <div>
-            <MuxPlayer
-               className="rounded-xl w-full overflow-hidden"
-               playbackId={conferenceMuxAssets[0].muxPlaybackId}
-            />
+            <MuxPlayer className="rounded-xl w-full overflow-hidden" playbackId={conferenceMuxAssets[0].muxPlaybackId} />
          </div>
       );
    }
@@ -85,9 +79,7 @@ function UnifiedControlsBar({
 
    // Get the Mux player elements from refs
    const getPlayerElements = useCallback(() => {
-      return playerRefs.current
-         .map((ref) => ref?.querySelector("mux-player"))
-         .filter(Boolean) as HTMLMediaElement[];
+      return playerRefs.current.map((ref) => ref?.querySelector("mux-player")).filter(Boolean) as HTMLMediaElement[];
    }, [playerRefs]);
 
    useEffect(() => {
@@ -127,20 +119,14 @@ function UnifiedControlsBar({
       return () => {
          // Clean up event listeners
          masterPlayer.removeEventListener("timeupdate", handleTimeUpdate);
-         masterPlayer.removeEventListener(
-            "loadedmetadata",
-            handleLoadedMetadata,
-         );
+         masterPlayer.removeEventListener("loadedmetadata", handleLoadedMetadata);
          masterPlayer.removeEventListener("play", handlePlay);
          masterPlayer.removeEventListener("pause", handlePause);
       };
    }, [getPlayerElements]);
 
    // Syncs all players with the given action
-   const syncPlayers = (
-      action: "play" | "pause" | "seek",
-      seekTime?: number,
-   ) => {
+   const syncPlayers = (action: "play" | "pause" | "seek", seekTime?: number) => {
       // If we're already syncing, don't trigger another sync
       if (syncLock.current) return;
 
@@ -156,9 +142,7 @@ function UnifiedControlsBar({
 
       playerElements.forEach((player) => {
          if (action === "play") {
-            player
-               .play()
-               .catch((err) => console.error("Error syncing play:", err));
+            player.play().catch((err) => console.error("Error syncing play:", err));
          } else if (action === "pause") {
             player.pause();
          } else if (action === "seek" && seekTime !== undefined) {
@@ -169,11 +153,7 @@ function UnifiedControlsBar({
             // If we were playing before seeking, resume playback
             if (isPlaying) {
                setTimeout(() => {
-                  player
-                     .play()
-                     .catch((err) =>
-                        console.error("Error playing after seek:", err),
-                     );
+                  player.play().catch((err) => console.error("Error playing after seek:", err));
                }, 50);
             }
          }
@@ -214,11 +194,7 @@ function UnifiedControlsBar({
 
    return (
       <div className="bg-gray-100 shadow-md p-4 border border-gray-200 rounded-lg rounded-t-none">
-         {title && (
-            <h3 className="mb-4 font-medium text-gray-700 text-center">
-               {title}
-            </h3>
-         )}
+         {title && <h3 className="mb-4 font-medium text-gray-700 text-center">{title}</h3>}
 
          <div className="flex flex-col space-y-3">
             {/* Seek slider */}
@@ -278,9 +254,7 @@ function UnifiedControlsBar({
                   </button>
                </div>
 
-               <div className="w-20">
-                  {/* Empty div to balance the layout */}
-               </div>
+               <div className="w-20">{/* Empty div to balance the layout */}</div>
             </div>
          </div>
       </div>

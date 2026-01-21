@@ -15,15 +15,11 @@ export async function getAllUsersWithoutPayments() {
       throw new Error("Congress not found");
    }
 
-   const allCongressRegistrations =
-      await getAllCongressRegistrationsWithUsers();
+   const allCongressRegistrations = await getAllCongressRegistrationsWithUsers();
    const allCompletedPayments = await getAllOrganizationCompletedPayments();
 
    const usersWithoutPayments = allCongressRegistrations.filter(
-      (registration) =>
-         !allCompletedPayments.some(
-            (payment) => payment.user === registration.user,
-         ),
+      (registration) => !allCompletedPayments.some((payment) => payment.user === registration.user),
    );
 
    return usersWithoutPayments.map((registration) => registration.expand.user);

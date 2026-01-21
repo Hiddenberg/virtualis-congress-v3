@@ -1,16 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Img,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Img, Preview, Section, Text } from "@react-email/components";
 
 interface OnDemandReminderTemplateProps {
    userName: string;
@@ -30,113 +18,72 @@ export default function OnDemandReminderTemplate({
    return (
       <Html lang="es-MX">
          <Head>
-            <title>
-               ¡El congreso está disponible bajo demanda! - Virtualis Congress
-            </title>
+            <title>¡El congreso está disponible bajo demanda! - Virtualis Congress</title>
          </Head>
-         <Preview>
-            {conferenceTitle} ya está disponible bajo demanda. Accede ahora
-            desde cualquier dispositivo.
-         </Preview>
+         <Preview>{conferenceTitle} ya está disponible bajo demanda. Accede ahora desde cualquier dispositivo.</Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Banner Image */}
                <Section style={bannerContainerStyle}>
                   {/* Greeting */}
                   <Section style={greetingContainerStyle}>
-                     <Heading style={messageTitleStyle}>
-                        ¡Hola, {userName}!
-                     </Heading>
-                     <Text style={greetingTextStyle}>
-                        Tenemos excelentes noticias para ti.
-                     </Text>
+                     <Heading style={messageTitleStyle}>¡Hola, {userName}!</Heading>
+                     <Text style={greetingTextStyle}>Tenemos excelentes noticias para ti.</Text>
                   </Section>
 
                   {/* Main Message */}
                   <Section style={mainMessageContainerStyle}>
                      <Text style={mainMessageIconStyle}>📹</Text>
-                     <Heading style={mainMessageTitleStyle}>
-                        Ahora disponible bajo demanda
-                     </Heading>
+                     <Heading style={mainMessageTitleStyle}>Ahora disponible bajo demanda</Heading>
                      <Text style={mainMessageTextStyle}>
-                        El congreso{" "}
-                        <span style={highlightStyle}>{conferenceTitle}</span> ya
-                        está disponible para que lo veas cuando quieras. Ya no
-                        tienes que preocuparte por perderte ninguna sesión.
+                        El congreso <span style={highlightStyle}>{conferenceTitle}</span> ya está disponible para que lo veas
+                        cuando quieras. Ya no tienes que preocuparte por perderte ninguna sesión.
                      </Text>
                   </Section>
-                  {bannerImageUrl && (
-                     <Img
-                        src={bannerImageUrl}
-                        alt={conferenceTitle}
-                        style={bannerImageStyle}
-                     />
-                  )}
+                  {bannerImageUrl && <Img src={bannerImageUrl} alt={conferenceTitle} style={bannerImageStyle} />}
                </Section>
 
                {/* Main Content */}
                <Section style={contentStyle}>
                   {/* Benefits Section */}
                   <Section style={benefitsContainerStyle}>
-                     <Heading style={benefitsTitleStyle}>
-                        ✨ Accede a tu propio ritmo
-                     </Heading>
+                     <Heading style={benefitsTitleStyle}>✨ Accede a tu propio ritmo</Heading>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>🎯</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Mira cuando quieras
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              No hay horarios fijos. Tienes acceso 24/7 a todas
-                              las sesiones
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Mira cuando quieras</Text>
+                           <Text style={benefitTextStyle}>No hay horarios fijos. Tienes acceso 24/7 a todas las sesiones</Text>
                         </Section>
                      </Section>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>⏸️</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Pausa y reanuda
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              Tómate el tiempo que necesites. Puedes pausar y
-                              continuar después
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Pausa y reanuda</Text>
+                           <Text style={benefitTextStyle}>Tómate el tiempo que necesites. Puedes pausar y continuar después</Text>
                         </Section>
                      </Section>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>📱</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Desde cualquier dispositivo
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              Accede desde tu computadora, tablet o celular
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Desde cualquier dispositivo</Text>
+                           <Text style={benefitTextStyle}>Accede desde tu computadora, tablet o celular</Text>
                         </Section>
                      </Section>
 
                      <Section style={benefitItemStyle}>
                         <Text style={benefitIconStyle}>🔄</Text>
                         <Section>
-                           <Text style={benefitTextTitleStyle}>
-                              Revisa lo que quieras
-                           </Text>
-                           <Text style={benefitTextStyle}>
-                              Vuelve a ver las sesiones que más te interesaron
-                           </Text>
+                           <Text style={benefitTextTitleStyle}>Revisa lo que quieras</Text>
+                           <Text style={benefitTextStyle}>Vuelve a ver las sesiones que más te interesaron</Text>
                         </Section>
                      </Section>
                   </Section>
@@ -146,10 +93,7 @@ export default function OnDemandReminderTemplate({
                      <Button href={accessLink} style={ctaButtonStyle}>
                         Acceder al congreso ahora
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Haz clic en el botón para ver todas las sesiones
-                        disponibles
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Haz clic en el botón para ver todas las sesiones disponibles</Text>
                   </Section>
 
                   <Hr style={dividerStyle} />
@@ -158,27 +102,22 @@ export default function OnDemandReminderTemplate({
                   <Section style={infoContainerStyle}>
                      <Heading style={infoTitleStyle}>💡 Sabías que...</Heading>
                      <Text style={infoTextStyle}>
-                        Muchos asistentes ven el contenido bajo demanda después
-                        del evento para{" "}
-                        <strong>reforzar los conocimientos</strong> adquiridos y
-                        acceder a{" "}
+                        Muchos asistentes ven el contenido bajo demanda después del evento para{" "}
+                        <strong>reforzar los conocimientos</strong> adquiridos y acceder a{" "}
                         <strong>sesiones que no pudieron ver en vivo</strong>.
                      </Text>
                   </Section>
 
                   {/* Final CTA */}
                   <Section style={finalCtaContainerStyle}>
-                     <Text style={finalCtaTextStyle}>
-                        No esperes más. Tu acceso al congreso está aquí.
-                     </Text>
+                     <Text style={finalCtaTextStyle}>No esperes más. Tu acceso al congreso está aquí.</Text>
                   </Section>
                </Section>
 
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -189,8 +128,7 @@ export default function OnDemandReminderTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -203,8 +141,7 @@ export default function OnDemandReminderTemplate({
 // Following the platform's design system
 
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

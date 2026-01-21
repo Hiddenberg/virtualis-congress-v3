@@ -7,13 +7,7 @@ import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopU
 import type { CertificateDesignRecord } from "../types/certificatesTypes";
 import CertificateComponent from "./CertificateComponent";
 
-function EditDisplayNamePopUp({
-   onSave,
-   onCancel,
-}: {
-   onSave: (displayName: string) => void;
-   onCancel?: () => void;
-}) {
+function EditDisplayNamePopUp({ onSave, onCancel }: { onSave: (displayName: string) => void; onCancel?: () => void }) {
    const displayNameInputRef = useRef<HTMLInputElement>(null);
    const [isLoading, setIsLoading] = useState(false);
    const [displayName, setDisplayName] = useState("");
@@ -46,10 +40,7 @@ function EditDisplayNamePopUp({
 
          <div className="space-y-4">
             <div>
-               <label
-                  htmlFor="displayName"
-                  className="block mb-2 font-medium text-gray-700 text-sm"
-               >
+               <label htmlFor="displayName" className="block mb-2 font-medium text-gray-700 text-sm">
                   Nombre para certificados
                </label>
                <input
@@ -66,12 +57,7 @@ function EditDisplayNamePopUp({
 
             <div className="flex gap-3 pt-4">
                {onCancel && (
-                  <Button
-                     variant="secondary"
-                     className="flex-1"
-                     disabled={isLoading}
-                     onClick={onCancel}
-                  >
+                  <Button variant="secondary" className="flex-1" disabled={isLoading} onClick={onCancel}>
                      Cancelar
                   </Button>
                )}
@@ -145,10 +131,7 @@ export default function CreateSpeakerCertificateForm({
          </Button>
 
          <div className="flex flex-wrap gap-4">
-            <CertificateComponent
-               certificateDesign={speakerCertificateDesign}
-               displayName={displayName || ""}
-            />
+            <CertificateComponent certificateDesign={speakerCertificateDesign} displayName={displayName || ""} />
          </div>
       </div>
    );

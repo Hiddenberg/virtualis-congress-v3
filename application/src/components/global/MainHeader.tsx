@@ -33,23 +33,17 @@ export default async function MainHeader() {
          </div>
 
          {/* Mobile event info */}
-         <div
-            className={`flex md:hidden flex-col items-center space-y-4 py-4 w-full`}
-         >
+         <div className={`flex md:hidden flex-col items-center space-y-4 py-4 w-full`}>
             <div className="flex flex-col justify-center items-center px-4 w-full">
                <div className="bg-white shadow-sm border border-slate-200 rounded-xl w-full max-w-sm overflow-hidden">
                   <div className="bg-slate-50 px-4 py-2 border-slate-200 border-b">
                      <div className="flex justify-center items-center gap-2">
                         <Calendar className="w-4 h-4 text-slate-600" />
-                        <span className="font-medium text-slate-700 text-sm">
-                           Evento actual
-                        </span>
+                        <span className="font-medium text-slate-700 text-sm">Evento actual</span>
                      </div>
                   </div>
                   <div className="px-4 py-3">
-                     <p className="font-semibold text-slate-800 text-sm text-center line-clamp-2">
-                        {currentCongress?.title}
-                     </p>
+                     <p className="font-semibold text-slate-800 text-sm text-center line-clamp-2">{currentCongress?.title}</p>
                   </div>
                </div>
             </div>
@@ -61,15 +55,11 @@ export default async function MainHeader() {
                <div className="bg-slate-50 px-4 py-2 border-slate-200 border-b">
                   <div className="flex justify-center items-center gap-2">
                      <Calendar className="w-4 h-4 text-slate-600" />
-                     <span className="font-medium text-slate-700 text-sm">
-                        Evento actual
-                     </span>
+                     <span className="font-medium text-slate-700 text-sm">Evento actual</span>
                   </div>
                </div>
                <div className="px-4 py-3">
-                  <p className="font-semibold text-slate-800 text-sm text-center line-clamp-2">
-                     {currentCongress?.title}
-                  </p>
+                  <p className="font-semibold text-slate-800 text-sm text-center line-clamp-2">{currentCongress?.title}</p>
                </div>
             </div>
          </div>

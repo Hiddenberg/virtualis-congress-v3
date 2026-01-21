@@ -24,9 +24,7 @@ import { checkUserAuthorization } from "@/features/users/services/userServices";
 export default async function CongressAdminSynchPage() {
    const userId = await getLoggedInUserId();
 
-   const isAuthorized = await checkUserAuthorization(userId ?? "", [
-      "super_admin",
-   ]);
+   const isAuthorized = await checkUserAuthorization(userId ?? "", ["super_admin"]);
    if (!isAuthorized) {
       return notFound();
    }
@@ -38,10 +36,7 @@ export default async function CongressAdminSynchPage() {
             <SyncRecordingDurationsButton />
             <SyncAllCongressRecordings />
             {/* <ScheduleAllConferenceRecordings /> */}
-            <SuperAdminToolCard
-               action={scheduleAllConferenceRecordingsAction}
-               buttonText="Schedule All Conference Recordings"
-            />
+            <SuperAdminToolCard action={scheduleAllConferenceRecordingsAction} buttonText="Schedule All Conference Recordings" />
             {/* <ScheduleAllConferencePresentationRecordings /> */}
             <SuperAdminToolCard
                action={scheduleAllConferencePresentationRecordingsAction}
@@ -93,9 +88,7 @@ export default async function CongressAdminSynchPage() {
                buttonText="Enviar correo de certificado de ponente a todos los ponentes"
             />
             <SuperAdminToolCard
-               action={
-                  sendOnDemandReminderEmailsToAllUsersWithoutPaymentsAction
-               }
+               action={sendOnDemandReminderEmailsToAllUsersWithoutPaymentsAction}
                buttonText="Enviar correo de recordatorio de congreso 'on demand' a usuarios sin pagos"
                description="Esta acción enviará un correo de recordatorio de que tienen las grabaciones bajo demanda a todos los usuarios sin pagos."
             />

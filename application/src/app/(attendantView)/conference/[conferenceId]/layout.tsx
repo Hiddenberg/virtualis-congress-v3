@@ -18,13 +18,8 @@ export default async function AttendantConferenceLayout({
    if (!conference) {
       return (
          <div className="mx-auto p-3 sm:p-6 container">
-            <h1 className="mb-4 sm:mb-6 font-bold text-xl sm:text-2xl">
-               Conferencia no encontrada
-            </h1>
-            <p className="text-sm sm:text-base">
-               La conferencia con ID {conferenceId} no existe o no está
-               disponible.
-            </p>
+            <h1 className="mb-4 sm:mb-6 font-bold text-xl sm:text-2xl">Conferencia no encontrada</h1>
+            <p className="text-sm sm:text-base">La conferencia con ID {conferenceId} no existe o no está disponible.</p>
          </div>
       );
    }
@@ -61,14 +56,12 @@ export default async function AttendantConferenceLayout({
                            },
                            {
                               name: "CMIM",
-                              logoURL:
-                                 "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1763051920/cmim_logo_k0wgl9.webp",
+                              logoURL: "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1763051920/cmim_logo_k0wgl9.webp",
                               background: "light",
                            },
                            {
                               name: "CMIM2",
-                              logoURL:
-                                 "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1763093392/cmimlogo2_rjxuhr.webp",
+                              logoURL: "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1763093392/cmimlogo2_rjxuhr.webp",
                               background: "light",
                            },
                            {

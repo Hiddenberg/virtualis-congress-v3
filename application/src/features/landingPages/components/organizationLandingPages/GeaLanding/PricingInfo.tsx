@@ -1,14 +1,6 @@
 "use client";
 
-import {
-   ClipboardPenIcon,
-   CreditCard,
-   DoorOpenIcon,
-   Film,
-   Globe,
-   Video,
-   Wifi,
-} from "lucide-react";
+import { ClipboardPenIcon, CreditCard, DoorOpenIcon, Film, Globe, Video, Wifi } from "lucide-react";
 import Link from "next/link";
 import HelpButton from "@/features/userSupport/components/HelpButton";
 
@@ -17,12 +9,8 @@ export default function PricingInfo({ userId }: { userId?: string }) {
       <section className="bg-white py-16">
          <div className="mx-auto px-4 container">
             <div className="mb-10 text-center">
-               <h2 className="mb-3 font-bold text-gray-900 text-4xl">
-                  Cuotas de recuperación
-               </h2>
-               <p className="mx-auto max-w-2xl text-gray-600 text-lg">
-                  Acceso 100% en línea a todas las conferencias en vivo
-               </p>
+               <h2 className="mb-3 font-bold text-gray-900 text-4xl">Cuotas de recuperación</h2>
+               <p className="mx-auto max-w-2xl text-gray-600 text-lg">Acceso 100% en línea a todas las conferencias en vivo</p>
             </div>
 
             <div className="flex justify-center pb-6">
@@ -48,9 +36,7 @@ export default function PricingInfo({ userId }: { userId?: string }) {
                      <div className="inline-flex items-center gap-2 bg-rose-100 mx-auto mb-4 px-3 py-1 rounded-full font-semibold text-rose-700 text-xs">
                         <Film className="w-4 h-4" /> Grabaciones incluidas
                      </div>
-                     <p className="mx-auto max-w-sm text-gray-700 text-sm">
-                        Disfruta el congreso desde cualquier dispositivo.
-                     </p>
+                     <p className="mx-auto max-w-sm text-gray-700 text-sm">Disfruta el congreso desde cualquier dispositivo.</p>
                   </div>
                </div>
 
@@ -59,12 +45,8 @@ export default function PricingInfo({ userId }: { userId?: string }) {
                   <div className="flex justify-center items-center bg-gradient-to-br from-blue-300 to-blue-400 mb-4 rounded-full w-12 h-12">
                      <CreditCard className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="mb-1 font-bold text-gray-900 text-base">
-                     Participantes en México
-                  </h3>
-                  <div className="bg-blue-50 mb-4 px-4 py-2 rounded-full font-bold text-blue-700 text-xl">
-                     $500 MXN
-                  </div>
+                  <h3 className="mb-1 font-bold text-gray-900 text-base">Participantes en México</h3>
+                  <div className="bg-blue-50 mb-4 px-4 py-2 rounded-full font-bold text-blue-700 text-xl">$500 MXN</div>
                   <ul className="space-y-2 text-gray-600 text-sm">
                      <li>• Acceso a todas las conferencias en vivo</li>
                      <li>• Grabaciones incluidas</li>
@@ -76,12 +58,8 @@ export default function PricingInfo({ userId }: { userId?: string }) {
                   <div className="flex justify-center items-center bg-gradient-to-br from-indigo-300 to-indigo-400 mb-4 rounded-full w-12 h-12">
                      <Globe className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="mb-1 font-bold text-gray-900 text-base">
-                     Participantes extranjeros
-                  </h3>
-                  <div className="bg-indigo-50 mb-4 px-4 py-2 rounded-full font-bold text-indigo-700 text-xl">
-                     $30 USD
-                  </div>
+                  <h3 className="mb-1 font-bold text-gray-900 text-base">Participantes extranjeros</h3>
+                  <div className="bg-indigo-50 mb-4 px-4 py-2 rounded-full font-bold text-indigo-700 text-xl">$30 USD</div>
                   <ul className="space-y-2 text-gray-600 text-sm">
                      <li>• Acceso a todas las conferencias en vivo</li>
                      <li>• Grabaciones incluidas</li>
@@ -92,17 +70,14 @@ export default function PricingInfo({ userId }: { userId?: string }) {
             {/* CTA */}
             <div className="bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400 mt-12 p-8 rounded-2xl text-white text-center">
                <h3 className="mb-4 font-bold text-3xl">¡Inscríbete ya!</h3>
-               <p className="mb-6 text-blue-100">
-                  Asegura tu acceso al congreso en línea del Hospital Gea
-               </p>
+               <p className="mb-6 text-blue-100">Asegura tu acceso al congreso en línea del Hospital Gea</p>
                <div className="flex sm:flex-row flex-col justify-center gap-4">
                   {!userId && (
                      <Link
                         href="/signup"
                         className="flex items-center gap-2 bg-white hover:bg-gray-100 shadow-lg px-8 py-3 rounded-full font-bold text-blue-900 transition-colors"
                      >
-                        <ClipboardPenIcon className="w-4 h-4" /> Quiero
-                        registrarme
+                        <ClipboardPenIcon className="w-4 h-4" /> Quiero registrarme
                      </Link>
                   )}
                   <Link

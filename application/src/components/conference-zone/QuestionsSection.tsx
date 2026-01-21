@@ -25,9 +25,7 @@ const sponsors: Sponsor[] = [
 export function DiamondSponsorSubSection() {
    return (
       <div className="bg-gray-100 mx-auto p-6 rounded-xl w-full">
-         <h2 className="mb-6 font-bold text-xl text-center">
-            Patrocinadores Diamante
-         </h2>
+         <h2 className="mb-6 font-bold text-xl text-center">Patrocinadores Diamante</h2>
          <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
             {sponsors.map((sponsor) => (
                <Link

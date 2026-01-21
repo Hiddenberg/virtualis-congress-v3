@@ -10,10 +10,7 @@ export async function createMuxUploadUrlAction(
 ) {
    try {
       const muxUploadUrl = await mux.video.uploads.create({
-         cors_origin:
-            process.env.NODE_ENV === "development"
-               ? "http://localhost:3000"
-               : "https://acp-congress.virtualis.app",
+         cors_origin: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://acp-congress.virtualis.app",
          new_asset_settings: {
             passthrough: recordingId,
             playback_policy: ["public"],

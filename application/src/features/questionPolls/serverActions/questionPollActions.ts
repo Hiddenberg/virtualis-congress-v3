@@ -3,16 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { linkQuestionPollToConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createQuestionPoll,
-   submitQuestionPollAnswer,
-} from "@/features/questionPolls/services/questionPollServices";
+import { createQuestionPoll, submitQuestionPollAnswer } from "@/features/questionPolls/services/questionPollServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
-import {
-   dbBatch,
-   getFullDBRecordsList,
-   pbFilter,
-} from "@/libs/pbServerClientNew";
+import { dbBatch, getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 export async function createQuestionPollAndLinkToConferenceAction({
@@ -38,9 +31,7 @@ export async function createQuestionPollAndLinkToConferenceAction({
          };
       }
 
-      const sanitizedOptions = options
-         .map((opt) => opt.trim())
-         .filter((opt) => opt.length > 0);
+      const sanitizedOptions = options.map((opt) => opt.trim()).filter((opt) => opt.length > 0);
 
       const uniqueOptions = Array.from(new Set(sanitizedOptions));
 
@@ -51,10 +42,7 @@ export async function createQuestionPollAndLinkToConferenceAction({
          };
       }
 
-      const { poll, options: createdOptions } = await createQuestionPoll(
-         trimmedQuestion,
-         uniqueOptions,
-      );
+      const { poll, options: createdOptions } = await createQuestionPoll(trimmedQuestion, uniqueOptions);
 
       await linkQuestionPollToConference(conferenceId, poll.id);
 
@@ -124,12 +112,9 @@ export async function deleteQuestionPollAction({
       );
 
       const [linkRecords, answerRecords, optionRecords] = await Promise.all([
-         getFullDBRecordsList<ConferenceQuestionPoll>(
-            "CONFERENCE_QUESTION_POLLS",
-            {
-               filter: linksFilter,
-            },
-         ),
+         getFullDBRecordsList<ConferenceQuestionPoll>("CONFERENCE_QUESTION_POLLS", {
+            filter: linksFilter,
+         }),
          getFullDBRecordsList<QuestionPollAnswer>("QUESTION_POLL_ANSWERS", {
             filter: answersFilter,
          }),
@@ -141,17 +126,9 @@ export async function deleteQuestionPollAction({
       // Batch delete: answers, options, links, then poll itself
       const batch = dbBatch();
 
-      answerRecords.forEach((r) =>
-         batch.collection(PB_COLLECTIONS.QUESTION_POLL_ANSWERS).delete(r.id),
-      );
-      optionRecords.forEach((r) =>
-         batch.collection(PB_COLLECTIONS.QUESTION_POLL_OPTIONS).delete(r.id),
-      );
-      linkRecords.forEach((r) =>
-         batch
-            .collection(PB_COLLECTIONS.CONFERENCE_QUESTION_POLLS)
-            .delete(r.id),
-      );
+      answerRecords.forEach((r) => batch.collection(PB_COLLECTIONS.QUESTION_POLL_ANSWERS).delete(r.id));
+      optionRecords.forEach((r) => batch.collection(PB_COLLECTIONS.QUESTION_POLL_OPTIONS).delete(r.id));
+      linkRecords.forEach((r) => batch.collection(PB_COLLECTIONS.CONFERENCE_QUESTION_POLLS).delete(r.id));
       batch.collection(PB_COLLECTIONS.QUESTION_POLLS).delete(pollId);
 
       await batch.send();

@@ -12,9 +12,7 @@ export default function useRecorderSounds() {
          stopSound: [270, 3000],
       },
    });
-   const [playTimeNotificationSound] = useSound(
-      "/sounds/time-notification.mp3",
-   );
+   const [playTimeNotificationSound] = useSound("/sounds/time-notification.mp3");
    const [playErrorAlertSound] = useSound("/sounds/error-alert.mp3");
 
    const playInmediateStartRecorderSound = async () => {

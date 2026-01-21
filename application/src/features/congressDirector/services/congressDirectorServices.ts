@@ -23,19 +23,13 @@ export async function getActiveAndNextConferences(): Promise<ActiveAndNextConfer
    const inPersonState = await ensuredCongressInPersonState();
 
    const activeConferenceId = inPersonState.activeConference;
-   const activeConference = activeConferenceId
-      ? (allConferences.find((c) => c.id === activeConferenceId) ?? null)
-      : null;
+   const activeConference = activeConferenceId ? (allConferences.find((c) => c.id === activeConferenceId) ?? null) : null;
 
    const now = new Date();
    const nextConference =
       allConferences
          .filter((c) => c.status === "scheduled" && new Date(c.startTime) > now)
-         .sort(
-            (a, b) =>
-               new Date(a.startTime).getTime() -
-               new Date(b.startTime).getTime(),
-         )[0] ?? null;
+         .sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime())[0] ?? null;
 
    return {
       activeConference,
@@ -43,9 +37,7 @@ export async function getActiveAndNextConferences(): Promise<ActiveAndNextConfer
    };
 }
 
-export async function startConferenceOrSwitch(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function startConferenceOrSwitch(conferenceId: CongressConferenceRecord["id"]) {
    const inPersonState = await ensuredCongressInPersonState();
    const currentActiveId = inPersonState.activeConference;
 
@@ -66,9 +58,7 @@ export async function startConferenceOrSwitch(
    await markConferenceAsStarted(conferenceId);
 }
 
-export async function finishConference(
-   conferenceId: CongressConferenceRecord["id"],
-) {
+export async function finishConference(conferenceId: CongressConferenceRecord["id"]) {
    await markConferenceAsFinished(conferenceId);
 }
 

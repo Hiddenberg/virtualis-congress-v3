@@ -49,8 +49,7 @@ export default async function ClosingConferenceBanner() {
                         {closingConference.title}
                      </h2>
                      <p className="mx-auto px-1 max-w-2xl text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed">
-                        No te pierdas la sesión de clausura donde se presentarán
-                        conclusiones y avances futuros en el campo de la
+                        No te pierdas la sesión de clausura donde se presentarán conclusiones y avances futuros en el campo de la
                         Medicina Interna.
                      </p>
                   </div>
@@ -59,15 +58,11 @@ export default async function ClosingConferenceBanner() {
                   <div className="flex sm:flex-row flex-col justify-center items-stretch sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                      <div className="flex justify-center items-center gap-2 bg-gradient-to-r from-red-400 via-red-500 to-red-600 shadow-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg w-full sm:w-auto">
                         <Radio className="w-4 sm:w-5 h-4 sm:h-5 text-white shrink-0" />
-                        <span className="font-semibold text-white text-sm sm:text-base md:text-lg">
-                           En vivo
-                        </span>
+                        <span className="font-semibold text-white text-sm sm:text-base md:text-lg">En vivo</span>
                      </div>
                      <div className="flex justify-center items-center gap-2 bg-white shadow-sm px-3 sm:px-4 py-2 sm:py-2.5 border border-purple-100 rounded-lg w-full sm:w-auto">
                         <Clock className="w-4 sm:w-5 h-4 sm:h-5 text-purple-600 shrink-0" />
-                        <span className="font-semibold text-slate-800 text-sm sm:text-base md:text-lg">
-                           {formattedTime}
-                        </span>
+                        <span className="font-semibold text-slate-800 text-sm sm:text-base md:text-lg">{formattedTime}</span>
                      </div>
                   </div>
 

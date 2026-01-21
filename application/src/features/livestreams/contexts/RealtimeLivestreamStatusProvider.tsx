@@ -3,9 +3,7 @@
 import { createContext, useContext } from "react";
 import { useRealtimeLivestreamStatus } from "../customHooks/useRealtimeLivestreamStatus";
 
-const RealtimeLivestreamStatusContext = createContext<ReturnType<
-   typeof useRealtimeLivestreamStatus
-> | null>(null);
+const RealtimeLivestreamStatusContext = createContext<ReturnType<typeof useRealtimeLivestreamStatus> | null>(null);
 
 export function RealtimeLivestreamStatusProvider({
    children,
@@ -19,18 +17,14 @@ export function RealtimeLivestreamStatusProvider({
    });
 
    return (
-      <RealtimeLivestreamStatusContext.Provider value={livestreamStatus}>
-         {children}
-      </RealtimeLivestreamStatusContext.Provider>
+      <RealtimeLivestreamStatusContext.Provider value={livestreamStatus}>{children}</RealtimeLivestreamStatusContext.Provider>
    );
 }
 
 export function useRealtimeLivestreamStatusContext() {
    const context = useContext(RealtimeLivestreamStatusContext);
    if (!context) {
-      throw new Error(
-         "useRealtimeLivestreamStatusContext must be used within a RealtimeLivestreamStatusProvider",
-      );
+      throw new Error("useRealtimeLivestreamStatusContext must be used within a RealtimeLivestreamStatusProvider");
    }
    return context;
 }

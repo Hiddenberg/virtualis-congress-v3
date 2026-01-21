@@ -42,10 +42,7 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
    }
 
    if (muxWebhook.type === "video.asset.created") {
-      console.log(
-         "[processMuxWebhook] Video asset created",
-         muxWebhook.data.id,
-      );
+      console.log("[processMuxWebhook] Video asset created", muxWebhook.data.id);
       console.log(muxWebhook.data);
       return;
    }
@@ -60,26 +57,16 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
       // Since livestreams also trigger this webhook, we need to check the ingest type to avoid updating the status to ready for livestreams
       // until the livestream is completed
       if (muxAssetData.ingest_type === "on_demand_direct_upload") {
-         console.log(
-            "[processMuxWebhook] Mux asset is from a direct upload, updating simple recording status to ready",
-         );
+         console.log("[processMuxWebhook] Mux asset is from a direct upload, updating simple recording status to ready");
          // check if the mux asset is from a simple recording and update the simple recording with the playback id
-         const simpleRecording = await getGlobalSimpleRecordingByMuxAssetId(
-            muxAssetData.id,
-         );
+         const simpleRecording = await getGlobalSimpleRecordingByMuxAssetId(muxAssetData.id);
          if (simpleRecording) {
-            console.log(
-               "[processMuxWebhook] Simple recording found for mux asset",
-               muxAssetData.id,
-            );
+            console.log("[processMuxWebhook] Simple recording found for mux asset", muxAssetData.id);
 
             const playbackId = muxAssetData.playback_ids?.[0].id;
 
             if (!playbackId) {
-               console.log(
-                  "[processMuxWebhook] No playback id found for mux asset",
-                  muxAssetData.id,
-               );
+               console.log("[processMuxWebhook] No playback id found for mux asset", muxAssetData.id);
                return;
             }
 
@@ -89,10 +76,7 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
                durationSeconds: muxAssetData.duration ?? 0,
             });
 
-            console.log(
-               "[processMuxWebhook] Simple recording updated with playback id",
-               playbackId,
-            );
+            console.log("[processMuxWebhook] Simple recording updated with playback id", playbackId);
             return;
          }
       }
@@ -105,17 +89,12 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
 
       const muxAssetId = muxWebhook.data.id;
 
-      const simpleRecording =
-         await getGlobalSimpleRecordingByMuxAssetId(muxAssetId);
+      const simpleRecording = await getGlobalSimpleRecordingByMuxAssetId(muxAssetId);
       if (simpleRecording) {
-         console.log(
-            "[processMuxWebhook] Simple recording found for mux asset",
-            muxAssetId,
-         );
+         console.log("[processMuxWebhook] Simple recording found for mux asset", muxAssetId);
          await updateSimpleRecording(simpleRecording.id, {
             status: "error",
-            errorMessage:
-               muxWebhook.data.errors?.messages?.join(", ") ?? "Unknown error",
+            errorMessage: muxWebhook.data.errors?.messages?.join(", ") ?? "Unknown error",
          });
          console.log(
             "[processMuxWebhook] Simple recording updated with error message",
@@ -127,18 +106,12 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
    }
 
    if (muxWebhook.type === "video.asset.deleted") {
-      console.log(
-         "[processMuxWebhook] Video asset deleted",
-         muxWebhook.data.id,
-      );
+      console.log("[processMuxWebhook] Video asset deleted", muxWebhook.data.id);
       return;
    }
 
    if (muxWebhook.type === "video.asset.updated") {
-      console.log(
-         "[processMuxWebhook] Video asset updated",
-         muxWebhook.data.id,
-      );
+      console.log("[processMuxWebhook] Video asset updated", muxWebhook.data.id);
       return;
    }
 
@@ -149,13 +122,9 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
       const muxLivestreamId = muxWebhook.data.id;
       console.log("[processMuxWebhook] Live stream connected", muxLivestreamId);
 
-      const livestreamSession =
-         await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
+      const livestreamSession = await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
       if (!livestreamSession) {
-         console.log(
-            "[processMuxWebhook] Livestream session not found for mux livestream: ",
-            muxLivestreamId,
-         );
+         console.log("[processMuxWebhook] Livestream session not found for mux livestream: ", muxLivestreamId);
          return;
       }
 
@@ -165,13 +134,8 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
             "[processMuxWebhook] Live stream connected and attendant is paused, updating livestream statuses to streaming",
          );
          await updateLivestreamSessionStatus(livestreamSession.id, "streaming");
-         await updateLivestreamSessionAttendantStatus(
-            livestreamSession.id,
-            "streaming",
-         );
-         console.log(
-            "[processMuxWebhook] Statuses updated to streaming successfully",
-         );
+         await updateLivestreamSessionAttendantStatus(livestreamSession.id, "streaming");
+         console.log("[processMuxWebhook] Statuses updated to streaming successfully");
       }
       return;
    }
@@ -180,22 +144,17 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
       const muxLivestreamId = muxWebhook.data.id;
       console.log("[processMuxWebhook] Live stream recording", muxLivestreamId);
 
-      const livestreamSession =
-         await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
+      const livestreamSession = await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
       if (!livestreamSession) {
-         console.log(
-            "[processMuxWebhook] Livestream session not found for mux livestream: ",
-            muxLivestreamId,
-         );
+         console.log("[processMuxWebhook] Livestream session not found for mux livestream: ", muxLivestreamId);
          return;
       }
 
       // check if the livestream session is from a recording
-      const recordingLivestream =
-         await getRecordingLivestreamRecordByLivestreamSessionId({
-            organizationId: livestreamSession.organization,
-            livestreamSessionId: livestreamSession.id,
-         });
+      const recordingLivestream = await getRecordingLivestreamRecordByLivestreamSessionId({
+         organizationId: livestreamSession.organization,
+         livestreamSessionId: livestreamSession.id,
+      });
 
       if (recordingLivestream) {
          console.log(
@@ -209,9 +168,7 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
                errorMessage: "No mux asset id found for mux livestream",
             });
 
-            console.error(
-               `[processMuxWebhook] No mux asset id found for mux livestream: ${muxLivestreamId}`,
-            );
+            console.error(`[processMuxWebhook] No mux asset id found for mux livestream: ${muxLivestreamId}`);
             return;
          }
 
@@ -229,57 +186,33 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
       const muxLivestreamId = muxWebhook.data.id;
       console.log("[processMuxWebhook] Live stream active", muxLivestreamId);
 
-      const livestreamSession =
-         await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
+      const livestreamSession = await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
 
       if (!livestreamSession) {
-         console.log(
-            "[processMuxWebhook] Livestream session not found",
-            muxLivestreamId,
-         );
+         console.log("[processMuxWebhook] Livestream session not found", muxLivestreamId);
          return;
       }
 
-      await updateLivestreamSessionAttendantStatus(
-         livestreamSession.id,
-         "streaming",
-      );
+      await updateLivestreamSessionAttendantStatus(livestreamSession.id, "streaming");
       return;
    }
 
    if (muxWebhook.type === "video.live_stream.disconnected") {
       const muxLivestreamId = muxWebhook.data.id;
-      console.log(
-         "[processMuxWebhook] Live stream disconnected",
-         muxLivestreamId,
-      );
+      console.log("[processMuxWebhook] Live stream disconnected", muxLivestreamId);
 
-      const livestreamSession =
-         await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
+      const livestreamSession = await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
 
       if (!livestreamSession) {
-         console.log(
-            "[processMuxWebhook] Livestream session not found",
-            muxLivestreamId,
-         );
+         console.log("[processMuxWebhook] Livestream session not found", muxLivestreamId);
          return;
       }
 
-      if (
-         livestreamSession.status === "streaming" ||
-         livestreamSession.attendantStatus === "streaming"
-      ) {
-         console.log(
-            "[processMuxWebhook] Live stream disconnected while streaming, updating livestream statuses to paused",
-         );
+      if (livestreamSession.status === "streaming" || livestreamSession.attendantStatus === "streaming") {
+         console.log("[processMuxWebhook] Live stream disconnected while streaming, updating livestream statuses to paused");
          await updateLivestreamSessionStatus(livestreamSession.id, "paused");
-         await updateLivestreamSessionAttendantStatus(
-            livestreamSession.id,
-            "paused",
-         );
-         console.log(
-            "[processMuxWebhook] Statuses updated to paused successfully",
-         );
+         await updateLivestreamSessionAttendantStatus(livestreamSession.id, "paused");
+         console.log("[processMuxWebhook] Statuses updated to paused successfully");
       }
       return;
    }
@@ -288,53 +221,33 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
       const muxLivestreamId = muxWebhook.data.id;
       console.log("[processMuxWebhook] Live stream idle", muxLivestreamId);
 
-      const livestreamSession =
-         await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
+      const livestreamSession = await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
 
       if (!livestreamSession) {
-         console.log(
-            "[processMuxWebhook] Livestream session not found",
-            muxLivestreamId,
-         );
+         console.log("[processMuxWebhook] Livestream session not found", muxLivestreamId);
          return;
       }
 
       if (livestreamSession.status === "paused") {
-         console.log(
-            "[processMuxWebhook] Live stream changed to idle while paused, updating livestream statuses to ended",
-         );
+         console.log("[processMuxWebhook] Live stream changed to idle while paused, updating livestream statuses to ended");
          await updateLivestreamSessionStatus(livestreamSession.id, "ended");
-         await updateLivestreamSessionAttendantStatus(
-            livestreamSession.id,
-            "ended",
-         );
-         console.log(
-            "[processMuxWebhook] Statuses updated to ended successfully",
-         );
+         await updateLivestreamSessionAttendantStatus(livestreamSession.id, "ended");
+         console.log("[processMuxWebhook] Statuses updated to ended successfully");
       }
       return;
    }
 
    if (muxWebhook.type === "video.asset.live_stream_completed") {
-      console.log(
-         "[processMuxWebhook:video.asset.live_stream_completed]  Live stream completed",
-         muxWebhook.data.id,
-      );
-      console.log(
-         "[processMuxWebhook:video.asset.live_stream_completed] Mux webhook data",
-         muxWebhook.data,
-      );
+      console.log("[processMuxWebhook:video.asset.live_stream_completed]  Live stream completed", muxWebhook.data.id);
+      console.log("[processMuxWebhook:video.asset.live_stream_completed] Mux webhook data", muxWebhook.data);
 
       const muxLivestreamId = muxWebhook.data.live_stream_id;
       if (!muxLivestreamId) {
-         console.error(
-            "[processMuxWebhook:video.asset.live_stream_completed] No mux livestream id found for mux webhook",
-         );
+         console.error("[processMuxWebhook:video.asset.live_stream_completed] No mux livestream id found for mux webhook");
          return;
       }
 
-      const livestreamSession =
-         await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
+      const livestreamSession = await getGlobalLivestreamSessionByMuxLivestreamId(muxLivestreamId);
       if (!livestreamSession) {
          console.log(
             "[processMuxWebhook:video.asset.live_stream_completed] Livestream session not found for mux livestream: ",
@@ -346,27 +259,22 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
       const muxAssetId = muxWebhook.data.id;
 
       if (!muxAssetId) {
-         console.error(
-            "[processMuxWebhook:video.asset.live_stream_completed] No mux asset id found for mux webhook",
-         );
+         console.error("[processMuxWebhook:video.asset.live_stream_completed] No mux asset id found for mux webhook");
          return;
       }
 
       const muxAsset = await getMuxAssetById(muxAssetId);
 
       if (!muxAsset) {
-         console.error(
-            "[processMuxWebhook:video.asset.live_stream_completed] Mux asset not found for mux webhook",
-         );
+         console.error("[processMuxWebhook:video.asset.live_stream_completed] Mux asset not found for mux webhook");
          return;
       }
 
       // check if the livestream session is from a recording
-      const recordingLivestream =
-         await getRecordingLivestreamRecordByLivestreamSessionId({
-            organizationId: livestreamSession.organization,
-            livestreamSessionId: livestreamSession.id,
-         });
+      const recordingLivestream = await getRecordingLivestreamRecordByLivestreamSessionId({
+         organizationId: livestreamSession.organization,
+         livestreamSessionId: livestreamSession.id,
+      });
       if (recordingLivestream) {
          console.log(
             `[processMuxWebhook:video.asset.live_stream_completed] Livestream session ${livestreamSession.id} is from a recording, updating recording status to processing`,
@@ -375,9 +283,7 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
          const muxPlaybackId = muxAsset.playback_ids?.[0].id;
 
          if (!muxPlaybackId) {
-            console.error(
-               "[processMuxWebhook:video.asset.live_stream_completed] No mux playback id found for mux webhook",
-            );
+            console.error("[processMuxWebhook:video.asset.live_stream_completed] No mux playback id found for mux webhook");
             return;
          }
 
@@ -392,10 +298,7 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
    }
 
    if (muxWebhook.type === "video.asset.static_rendition.created") {
-      console.log(
-         "[processMuxWebhook:video.asset.static_rendition.created] Static rendition created",
-         muxWebhook.data.id,
-      );
+      console.log("[processMuxWebhook:video.asset.static_rendition.created] Static rendition created", muxWebhook.data.id);
 
       const staticRendition = muxWebhook.data as Asset.StaticRenditions.File & {
          asset_id?: string;
@@ -420,9 +323,7 @@ async function processMuxWebhook(muxWebhook: UnwrapWebhookEvent) {
       }
 
       // check if the static rendition is from a simple recording
-      const simpleRecording = await getGlobalSimpleRecordingByMuxAssetId(
-         staticRendition.asset_id,
-      );
+      const simpleRecording = await getGlobalSimpleRecordingByMuxAssetId(staticRendition.asset_id);
       if (simpleRecording) {
          console.log(
             `[processMuxWebhook:video.asset.static_rendition.created] Static rendition ${staticRendition.id} is from a simple recording`,
@@ -464,11 +365,7 @@ export async function POST(request: NextRequest) {
 
    // Verify the signature
    try {
-      mux.webhooks.verifySignature(
-         textBody,
-         request.headers,
-         process.env.MUX_WEBHOOK_SECRET,
-      );
+      mux.webhooks.verifySignature(textBody, request.headers, process.env.MUX_WEBHOOK_SECRET);
    } catch (error) {
       console.error("[POST MUX webhook] Signature verification failed", error);
       return NextResponse.json(

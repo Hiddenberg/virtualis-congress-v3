@@ -50,11 +50,7 @@ export default function HeroSection({
                   {/* Organization Logo */}
                   {organizationLogoUrl && (
                      <div className="mb-6">
-                        <img
-                           src={organizationLogoUrl}
-                           alt="Organization Logo"
-                           className="w-auto h-20 object-contain"
-                        />
+                        <img src={organizationLogoUrl} alt="Organization Logo" className="w-auto h-20 object-contain" />
                      </div>
                   )}
 
@@ -66,25 +62,19 @@ export default function HeroSection({
                         </div>
 
                         <h1 className="font-bold text-4xl lg:text-5xl leading-tight">
-                           <span className="text-white">
-                              ¡Te damos la bienvenida al
-                           </span>
+                           <span className="text-white">¡Te damos la bienvenida al</span>
                            <br />
-                           <span className="text-cyan-200">
-                              XXIX Congreso Anual!
-                           </span>
+                           <span className="text-cyan-200">XXIX Congreso Anual!</span>
                         </h1>
                      </div>
 
                      <div className="space-y-4">
                         <p className="font-medium text-cyan-100 text-xl leading-relaxed">
-                           30 años comprometidos con el conocimiento, guiados
-                           por la vocación
+                           30 años comprometidos con el conocimiento, guiados por la vocación
                         </p>
 
                         <p className="text-white/90 text-lg leading-relaxed">
-                           Únete a los mejores especialistas en medicina interna
-                           para dos días de actualización científica y
+                           Únete a los mejores especialistas en medicina interna para dos días de actualización científica y
                            networking profesional en la costa de Chiapas.
                         </p>
                      </div>
@@ -97,55 +87,32 @@ export default function HeroSection({
                            <Monitor className="w-5 h-5 text-blue-900" />
                         </div>
                         <div className="bg-cyan-400/30 px-3 py-1 rounded-full">
-                           <span className="font-bold text-cyan-100 text-sm">
-                              PRIMERO EN SU TIPO
-                           </span>
+                           <span className="font-bold text-cyan-100 text-sm">PRIMERO EN SU TIPO</span>
                         </div>
                      </div>
-                     <h2 className="mb-1 font-bold text-white text-xl">
-                        🎉 Primer Congreso Híbrido
-                     </h2>
+                     <h2 className="mb-1 font-bold text-white text-xl">🎉 Primer Congreso Híbrido</h2>
                      <p className="text-cyan-100 text-sm leading-relaxed">
-                        Por primera vez, podrás participar tanto{" "}
-                        <span className="font-semibold text-white">
-                           presencialmente
-                        </span>{" "}
-                        como{" "}
-                        <span className="font-semibold text-white">
-                           virtualmente
-                        </span>
-                        , gracias a nuestra plataforma.
+                        Por primera vez, podrás participar tanto <span className="font-semibold text-white">presencialmente</span>{" "}
+                        como <span className="font-semibold text-white">virtualmente</span>, gracias a nuestra plataforma.
                      </p>
                   </div>
 
                   {/* Key Highlights */}
                   <div className="gap-4 grid grid-cols-2 lg:grid-cols-3">
                      <div className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 rounded-xl">
-                        <div className="mb-1 font-bold text-white text-2xl">
-                           2 Días
-                        </div>
-                        <div className="font-medium text-cyan-200 text-sm">
-                           de Conocimiento
-                        </div>
+                        <div className="mb-1 font-bold text-white text-2xl">2 Días</div>
+                        <div className="font-medium text-cyan-200 text-sm">de Conocimiento</div>
                      </div>
                      <div className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 rounded-xl">
-                        <div className="mb-1 font-bold text-white text-2xl">
-                           30+
-                        </div>
-                        <div className="font-medium text-cyan-200 text-sm">
-                           Ponencias
-                        </div>
+                        <div className="mb-1 font-bold text-white text-2xl">30+</div>
+                        <div className="font-medium text-cyan-200 text-sm">Ponencias</div>
                      </div>
                      <div className="col-span-2 lg:col-span-1 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-sm p-4 border-2 border-cyan-300/30 rounded-xl">
                         <div className="flex items-center gap-2 mb-1">
                            <Users className="w-5 h-5 text-cyan-300" />
-                           <div className="font-bold text-white text-lg">
-                              Híbrido
-                           </div>
+                           <div className="font-bold text-white text-lg">Híbrido</div>
                         </div>
-                        <div className="font-medium text-cyan-200 text-sm">
-                           Presencial + Virtual
-                        </div>
+                        <div className="font-medium text-cyan-200 text-sm">Presencial + Virtual</div>
                      </div>
                   </div>
 
@@ -181,10 +148,7 @@ export default function HeroSection({
                         </LinkButton>
                      </div>
 
-                     <p className="text-cyan-200 text-sm">
-                        * Todos los detalles del evento están en el programa
-                        oficial →
-                     </p>
+                     <p className="text-cyan-200 text-sm">* Todos los detalles del evento están en el programa oficial →</p>
                   </div>
                </div>
 

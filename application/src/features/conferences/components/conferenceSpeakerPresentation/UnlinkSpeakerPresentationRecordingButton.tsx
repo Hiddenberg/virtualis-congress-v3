@@ -17,10 +17,9 @@ export default function UnlinkSpeakerPresentationRecordingButton({
       const confirmed = window.confirm("¿Desvincular la grabación actual?");
       if (!confirmed) return;
       startTransition(async () => {
-         const unlinkREsponse =
-            await unlinkSpeakerPresentationRecordingFromConferenceAction({
-               conferenceId,
-            });
+         const unlinkREsponse = await unlinkSpeakerPresentationRecordingFromConferenceAction({
+            conferenceId,
+         });
          if (!unlinkREsponse.success) {
             toast.error(unlinkREsponse.errorMessage);
             return;
@@ -30,12 +29,7 @@ export default function UnlinkSpeakerPresentationRecordingButton({
    };
 
    return (
-      <Button
-         variant="destructive"
-         onClick={handleUnlink}
-         loading={isLoading}
-         className="shrink-0"
-      >
+      <Button variant="destructive" onClick={handleUnlink} loading={isLoading} className="shrink-0">
          <UnlinkIcon className="size-4" />
          {isLoading ? "Desvinculando..." : "Desvincular grabación"}
       </Button>

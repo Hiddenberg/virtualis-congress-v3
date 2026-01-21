@@ -67,30 +67,21 @@ function useRealtimeMessages() {
 
    // Remove a message from our state
    const removeMessage = useCallback((messageId: string) => {
-      setMessages((prevMessages) =>
-         prevMessages.filter((msg) => msg.id !== messageId),
-      );
+      setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== messageId));
       processedMessageIds.current.delete(messageId);
    }, []);
 
    const loadInitialMessages = useCallback(async () => {
-      if (
-         !conferenceId ||
-         isLoadingMessagesRef.current ||
-         initialMessagesLoaded.current
-      )
-         return;
+      if (!conferenceId || isLoadingMessagesRef.current || initialMessagesLoaded.current) return;
 
       isLoadingMessagesRef.current = true;
 
       try {
-         const records = await pbClient
-            .collection(PB_COLLECTIONS.CHAT_MESSAGES)
-            .getFullList<ChatMessage & RecordModel>({
-               filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
-               sort: "created",
-               expand: "user",
-            });
+         const records = await pbClient.collection(PB_COLLECTIONS.CHAT_MESSAGES).getFullList<ChatMessage & RecordModel>({
+            filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
+            sort: "created",
+            expand: "user",
+         });
 
          // Reset the processed IDs and messages state
          processedMessageIds.current.clear();
@@ -134,39 +125,37 @@ function useRealtimeMessages() {
          await loadInitialMessages();
 
          // Subscribe to real-time updates
-         unsubscribe = await pbClient
-            .collection(PB_COLLECTIONS.CHAT_MESSAGES)
-            .subscribe<ChatMessage & RecordModel>(
-               "*",
-               (event) => {
-                  // Handle different event types
-                  switch (event.action) {
-                     case "create": {
-                        // Add new message
-                        const newMessage = formatMessage(event.record);
-                        addUniqueMessage(newMessage);
-                        break;
-                     }
-
-                     case "delete":
-                        // Remove deleted message
-                        removeMessage(event.record.id);
-                        break;
-
-                     case "update": {
-                        // Handle message updates (e.g., edited messages)
-                        removeMessage(event.record.id); // Remove old version
-                        const updatedMessage = formatMessage(event.record);
-                        addUniqueMessage(updatedMessage); // Add updated version
-                        break;
-                     }
+         unsubscribe = await pbClient.collection(PB_COLLECTIONS.CHAT_MESSAGES).subscribe<ChatMessage & RecordModel>(
+            "*",
+            (event) => {
+               // Handle different event types
+               switch (event.action) {
+                  case "create": {
+                     // Add new message
+                     const newMessage = formatMessage(event.record);
+                     addUniqueMessage(newMessage);
+                     break;
                   }
-               },
-               {
-                  filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
-                  expand: "user",
-               },
-            );
+
+                  case "delete":
+                     // Remove deleted message
+                     removeMessage(event.record.id);
+                     break;
+
+                  case "update": {
+                     // Handle message updates (e.g., edited messages)
+                     removeMessage(event.record.id); // Remove old version
+                     const updatedMessage = formatMessage(event.record);
+                     addUniqueMessage(updatedMessage); // Add updated version
+                     break;
+                  }
+               }
+            },
+            {
+               filter: `organization = "${organization.id}" && conference = "${conferenceId}"`,
+               expand: "user",
+            },
+         );
       };
 
       setSubscription();
@@ -176,14 +165,7 @@ function useRealtimeMessages() {
             unsubscribe();
          }
       };
-   }, [
-      conferenceId,
-      organization.id,
-      formatMessage,
-      addUniqueMessage,
-      removeMessage,
-      loadInitialMessages,
-   ]);
+   }, [conferenceId, organization.id, formatMessage, addUniqueMessage, removeMessage, loadInitialMessages]);
 
    const sendMessage = useCallback(
       async (newMessage: string, isQuestion: boolean) => {
@@ -203,9 +185,7 @@ function useRealtimeMessages() {
                userIp: "",
             };
 
-            await pbClient
-               .collection(PB_COLLECTIONS.CHAT_MESSAGES)
-               .create(newMsg);
+            await pbClient.collection(PB_COLLECTIONS.CHAT_MESSAGES).create(newMsg);
             // Note: We don't add the message to the UI here - we'll let the subscription handle it
          } catch (error) {
             if (error instanceof ClientResponseError) {
@@ -247,8 +227,7 @@ export default function ChatComponent() {
 
       // Scroll to bottom of messages container
       if (messagesContainerRef.current) {
-         messagesContainerRef.current.scrollTop =
-            messagesContainerRef.current.scrollHeight;
+         messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
       }
    }, []);
 
@@ -268,17 +247,12 @@ export default function ChatComponent() {
                      <div className="text-center">
                         <MessageCircle className="mx-auto mb-2 w-12 h-12 text-stone-400" />
                         <p className="text-sm">No hay mensajes aún</p>
-                        <p className="text-xs">
-                           Sé el primero en enviar un mensaje
-                        </p>
+                        <p className="text-xs">Sé el primero en enviar un mensaje</p>
                      </div>
                   </div>
                ) : (
                   messages.map((message) => (
-                     <div
-                        key={message.id}
-                        className={`flex ${message.isCurrentUser ? "justify-end" : "justify-start"}`}
-                     >
+                     <div key={message.id} className={`flex ${message.isCurrentUser ? "justify-end" : "justify-start"}`}>
                         <div
                            className={`max-w-xs p-3 rounded-xl shadow-sm ${
                               message.isQuestion
@@ -290,12 +264,8 @@ export default function ChatComponent() {
                         >
                            {!message.isCurrentUser && (
                               <div className="flex items-center gap-2 mb-2">
-                                 <span className="font-semibold text-stone-700 text-sm">
-                                    {message.sender}
-                                 </span>
-                                 {message.isQuestion && (
-                                    <HelpCircle className="w-4 h-4 text-amber-600" />
-                                 )}
+                                 <span className="font-semibold text-stone-700 text-sm">{message.sender}</span>
+                                 {message.isQuestion && <HelpCircle className="w-4 h-4 text-amber-600" />}
                               </div>
                            )}
                            <p

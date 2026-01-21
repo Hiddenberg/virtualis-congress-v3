@@ -5,20 +5,12 @@ import { RealtimeLivestreamStatusProvider } from "@/features/livestreams/context
 import SimuliveStagesWrapper from "@/features/simulive/components/SimuliveStagesWrapper";
 
 type ConferenceTransmissionType = "live" | "pre-recorded" | "break" | "unknown";
-function getConferenceType(
-   conference: CongressConferenceRecord,
-): ConferenceTransmissionType {
-   if (
-      conference.conferenceType === "livestream" ||
-      conference.conferenceType === "in-person"
-   ) {
+function getConferenceType(conference: CongressConferenceRecord): ConferenceTransmissionType {
+   if (conference.conferenceType === "livestream" || conference.conferenceType === "in-person") {
       return "live";
    }
 
-   if (
-      conference.conferenceType === "simulated_livestream" ||
-      conference.conferenceType === "pre-recorded"
-   ) {
+   if (conference.conferenceType === "simulated_livestream" || conference.conferenceType === "pre-recorded") {
       return "pre-recorded";
    }
 
@@ -66,9 +58,7 @@ export default function SmartConferenceVideoPlayerSelector({
 
                   <div className="flex flex-col gap-2">
                      <h2 className="font-semibold text-gray-900 text-xl sm:text-2xl">
-                        {isQna
-                           ? "No hay sesión de preguntas y respuestas"
-                           : "No hay sesión de livestream disponible"}
+                        {isQna ? "No hay sesión de preguntas y respuestas" : "No hay sesión de livestream disponible"}
                      </h2>
                      <p className="text-gray-600 text-base sm:text-lg">
                         {isQna
@@ -93,9 +83,7 @@ export default function SmartConferenceVideoPlayerSelector({
       }
 
       return (
-         <RealtimeLivestreamStatusProvider
-            livestreamSession={conferenceLivestreamSession}
-         >
+         <RealtimeLivestreamStatusProvider livestreamSession={conferenceLivestreamSession}>
             <LivestreamStagesWrapper
                conference={conference}
                conferencePresentation={conferencePresentationId}
@@ -115,8 +103,7 @@ export default function SmartConferenceVideoPlayerSelector({
                startDateTime: conference.startTime,
                serverTime,
                durationSeconds: conferenceRecording?.durationSeconds ?? 0,
-               speakerPresentationRecording:
-                  speakerPresentationRecording ?? null,
+               speakerPresentationRecording: speakerPresentationRecording ?? null,
             }}
             isQna={isQna}
          />

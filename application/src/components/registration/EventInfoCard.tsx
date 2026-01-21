@@ -17,9 +17,7 @@ export default function EventInfoCard() {
             <div className="flex flex-col items-start space-y-2">
                <div className="flex items-center gap-3">
                   <Clock className="w-8 h-8 text-white/80" />
-                  <p className="text-white/80 text-base">
-                     CONFERENCIAS DISPONIBLES
-                  </p>
+                  <p className="text-white/80 text-base">CONFERENCIAS DISPONIBLES</p>
                </div>
                <p className="font-bold text-4xl">+24 Horas</p>
             </div>

@@ -1,15 +1,4 @@
-import {
-   Body,
-   Button,
-   Container,
-   Head,
-   Heading,
-   Hr,
-   Html,
-   Preview,
-   Section,
-   Text,
-} from "@react-email/components";
+import { Body, Button, Container, Head, Heading, Hr, Html, Preview, Section, Text } from "@react-email/components";
 
 interface EventFinishedTemplateProps {
    userName: string;
@@ -31,18 +20,13 @@ export default function EventFinishedTemplate({
          <Head>
             <title>{`¡${congressTitle} fue todo un éxito! - Virtualis Congress`}</title>
          </Head>
-         <Preview>
-            Gracias por ser parte de {congressTitle}. Accede ahora a todas las
-            grabaciones de las conferencias.
-         </Preview>
+         <Preview>Gracias por ser parte de {congressTitle}. Accede ahora a todas las grabaciones de las conferencias.</Preview>
          <Body style={bodyStyle}>
             <Container style={containerStyle}>
                {/* Header */}
                <Section style={headerStyle}>
                   <Heading style={brandTitleStyle}>Virtualis Congress</Heading>
-                  <Text style={headerSubtitleStyle}>
-                     Tu plataforma de congresos profesionales
-                  </Text>
+                  <Text style={headerSubtitleStyle}>Tu plataforma de congresos profesionales</Text>
                </Section>
 
                {/* Main Content */}
@@ -50,114 +34,76 @@ export default function EventFinishedTemplate({
                   {/* Success Message */}
                   <Section style={successContainerStyle}>
                      <Text style={successIconStyle}>🎉</Text>
-                     <Heading style={messageTitleStyle}>
-                        ¡{congressTitle} fue todo un éxito!
-                     </Heading>
+                     <Heading style={messageTitleStyle}>¡{congressTitle} fue todo un éxito!</Heading>
                      <Text style={successDescriptionStyle}>
                         Hola <span style={highlightStyle}>{userName}</span>,
                      </Text>
                      <Text style={successDescriptionStyle}>
-                        Queremos agradecerte por haber sido parte de esta
-                        experiencia única. Fueron{" "}
-                        <strong>{totalConferences}</strong> conferencias llenas
-                        de conocimiento, inspiración y aprendizaje.
+                        Queremos agradecerte por haber sido parte de esta experiencia única. Fueron{" "}
+                        <strong>{totalConferences}</strong> conferencias llenas de conocimiento, inspiración y aprendizaje.
                      </Text>
                   </Section>
 
                   {/* Key Highlights Section */}
                   <Section style={highlightsContainerStyle}>
-                     <Heading style={highlightsTitleStyle}>
-                        ✨ Lo que hicimos juntos
-                     </Heading>
+                     <Heading style={highlightsTitleStyle}>✨ Lo que hicimos juntos</Heading>
 
                      <Section style={highlightItemStyle}>
                         <Text style={highlightIconStyle}>🎓</Text>
                         <Section>
-                           <Text style={highlightTextTitleStyle}>
-                              Aprendizaje de alto nivel
-                           </Text>
-                           <Text style={highlightTextStyle}>
-                              Conferencias impartidas por expertos líderes en la
-                              industria
-                           </Text>
+                           <Text style={highlightTextTitleStyle}>Aprendizaje de alto nivel</Text>
+                           <Text style={highlightTextStyle}>Conferencias impartidas por expertos líderes en la industria</Text>
                         </Section>
                      </Section>
 
                      <Section style={highlightItemStyle}>
                         <Text style={highlightIconStyle}>🤝</Text>
                         <Section>
-                           <Text style={highlightTextTitleStyle}>
-                              Conexiones valiosas
-                           </Text>
-                           <Text style={highlightTextStyle}>
-                              Networking con profesionales de toda la comunidad
-                           </Text>
+                           <Text style={highlightTextTitleStyle}>Conexiones valiosas</Text>
+                           <Text style={highlightTextStyle}>Networking con profesionales de toda la comunidad</Text>
                         </Section>
                      </Section>
 
                      <Section style={highlightItemStyle}>
                         <Text style={highlightIconStyle}>💡</Text>
                         <Section>
-                           <Text style={highlightTextTitleStyle}>
-                              Conocimientos actualizados
-                           </Text>
-                           <Text style={highlightTextStyle}>
-                              Las últimas tendencias y mejores prácticas del
-                              sector
-                           </Text>
+                           <Text style={highlightTextTitleStyle}>Conocimientos actualizados</Text>
+                           <Text style={highlightTextStyle}>Las últimas tendencias y mejores prácticas del sector</Text>
                         </Section>
                      </Section>
                   </Section>
 
                   {/* Special Note for Non-Payers (subtle FOMO) */}
                   <Section style={specialNoteStyle}>
-                     <Text style={specialNoteTitleStyle}>
-                        💎 ¿No pudiste asistir en vivo?
+                     <Text style={specialNoteTitleStyle}>💎 ¿No pudiste asistir en vivo?</Text>
+                     <Text style={specialNoteTextStyle}>
+                        Aún estás a tiempo de aprovechar todo el contenido valioso del congreso. Las grabaciones te permiten
+                        acceder al mismo conocimiento de calidad que compartieron los expertos, sin importar si participaste en
+                        vivo o no.
                      </Text>
                      <Text style={specialNoteTextStyle}>
-                        Aún estás a tiempo de aprovechar todo el contenido
-                        valioso del congreso. Las grabaciones te permiten
-                        acceder al mismo conocimiento de calidad que
-                        compartieron los expertos, sin importar si participaste
-                        en vivo o no.
-                     </Text>
-                     <Text style={specialNoteTextStyle}>
-                        No dejes pasar esta oportunidad de crecimiento
-                        profesional. Todas las conferencias están esperándote en
-                        la plataforma.
+                        No dejes pasar esta oportunidad de crecimiento profesional. Todas las conferencias están esperándote en la
+                        plataforma.
                      </Text>
                   </Section>
 
                   {/* Recordings Access Section */}
                   <Section style={recordingsContainerStyle}>
-                     <Heading style={recordingsTitleStyle}>
-                        📹 Revive todas las conferencias
-                     </Heading>
+                     <Heading style={recordingsTitleStyle}>📹 Revive todas las conferencias</Heading>
                      <Text style={recordingsDescriptionStyle}>
-                        ¿Te perdiste alguna conferencia? ¿Quieres repasar los
-                        contenidos más importantes?
+                        ¿Te perdiste alguna conferencia? ¿Quieres repasar los contenidos más importantes?
                      </Text>
                      <Text style={recordingsDescriptionStyle}>
-                        <strong>¡Buenas noticias!</strong> Ahora tienes acceso
-                        completo a todas las grabaciones del congreso. Puedes
-                        verlas en cualquier momento, las veces que quieras, y al
-                        ritmo que mejor te convenga.
+                        <strong>¡Buenas noticias!</strong> Ahora tienes acceso completo a todas las grabaciones del congreso.
+                        Puedes verlas en cualquier momento, las veces que quieras, y al ritmo que mejor te convenga.
                      </Text>
 
                      {/* Benefits of recordings */}
                      <Section style={recordingsBenefitsStyle}>
-                        <Text style={recordingsBenefitItemStyle}>
-                           ✅ Acceso ilimitado a todas las sesiones
-                        </Text>
-                        <Text style={recordingsBenefitItemStyle}>
-                           ✅ Ve las conferencias a tu propio ritmo
-                        </Text>
-                        <Text style={recordingsBenefitItemStyle}>
-                           ✅ Pausa, retrocede y toma notas sin límites
-                        </Text>
-                        <Text style={recordingsBenefitItemStyle}>
-                           ✅ Disponible en todos tus dispositivos
-                        </Text>
+                        <Text style={recordingsBenefitItemStyle}>✅ Acceso ilimitado a todas las sesiones</Text>
+                        <Text style={recordingsBenefitItemStyle}>✅ Ve las conferencias a tu propio ritmo</Text>
+                        <Text style={recordingsBenefitItemStyle}>✅ Pausa, retrocede y toma notas sin límites</Text>
+                        <Text style={recordingsBenefitItemStyle}>✅ Disponible en todos tus dispositivos</Text>
                      </Section>
 
                      {/* <Section style={availabilityNoticeStyle}>
@@ -172,10 +118,7 @@ export default function EventFinishedTemplate({
                      <Button href={recordingsLink} style={ctaButtonStyle}>
                         Acceder a las grabaciones
                      </Button>
-                     <Text style={ctaHelperTextStyle}>
-                        Haz clic en el botón para comenzar a ver las
-                        conferencias grabadas
-                     </Text>
+                     <Text style={ctaHelperTextStyle}>Haz clic en el botón para comenzar a ver las conferencias grabadas</Text>
                   </Section>
 
                   <Hr style={dividerStyle} />
@@ -183,22 +126,18 @@ export default function EventFinishedTemplate({
                   {/* Thank You Section */}
                   <Section style={thankYouContainerStyle}>
                      <Text style={thankYouTextStyle}>
-                        Una vez más, gracias por confiar en nosotros y ser parte
-                        de <strong>{congressTitle}</strong>. Tu participación y
-                        compromiso con el aprendizaje continuo es lo que hace
-                        que estos eventos sean tan especiales.
+                        Una vez más, gracias por confiar en nosotros y ser parte de <strong>{congressTitle}</strong>. Tu
+                        participación y compromiso con el aprendizaje continuo es lo que hace que estos eventos sean tan
+                        especiales.
                      </Text>
-                     <Text style={thankYouSignatureStyle}>
-                        ¡Nos vemos en el próximo congreso! 🚀
-                     </Text>
+                     <Text style={thankYouSignatureStyle}>¡Nos vemos en el próximo congreso! 🚀</Text>
                   </Section>
                </Section>
 
                {/* Footer */}
                <Section style={footerStyle}>
                   <Text style={footerTextStyle}>
-                     Este correo fue enviado por{" "}
-                     <span style={footerLinkStyle}>{organizationName}</span>
+                     Este correo fue enviado por <span style={footerLinkStyle}>{organizationName}</span>
                   </Text>
                   <Text style={footerTextStyle}>
                      Impulsado por <strong>Virtualis</strong> Congress
@@ -209,8 +148,7 @@ export default function EventFinishedTemplate({
                         ...footerItalicStyle,
                      }}
                   >
-                     Este es un correo automático. Por favor no respondas a este
-                     mensaje.
+                     Este es un correo automático. Por favor no respondas a este mensaje.
                   </Text>
                </Section>
             </Container>
@@ -221,8 +159,7 @@ export default function EventFinishedTemplate({
 
 // Styles following the platform's design system
 const bodyStyle = {
-   fontFamily:
-      "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
+   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif",
    lineHeight: "1.6",
    color: "#374151",
    backgroundColor: "#f9fafb",

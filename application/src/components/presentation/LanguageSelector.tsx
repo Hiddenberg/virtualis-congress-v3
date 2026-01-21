@@ -30,9 +30,7 @@ const languages = [
 
 export default function LanguageSelect() {
    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-   const [selectedLanguage, _setSelectedLanguage] = useState<string | null>(
-      null,
-   );
+   const [selectedLanguage, _setSelectedLanguage] = useState<string | null>(null);
    const [hoveredLanguage, setHoveredLanguage] = useState<string | null>(null);
 
    return (
@@ -42,8 +40,7 @@ export default function LanguageSelect() {
                {hoveredLanguage
                   ? languages.find((l) => l.code === hoveredLanguage)?.welcome
                   : selectedLanguage
-                    ? languages.find((l) => l.code === selectedLanguage)
-                         ?.welcome
+                    ? languages.find((l) => l.code === selectedLanguage)?.welcome
                     : "Selecciona el lenguaje / Select your language / Selecione o idioma"}
             </h2>
 
@@ -56,11 +53,7 @@ export default function LanguageSelect() {
                      onMouseLeave={() => setHoveredLanguage(null)}
                      className={`
                   group relative w-full py-6 px-8 rounded-xl transition-all duration-300
-                  ${
-                     selectedLanguage === lang.code
-                        ? "bg-white text-[#1C1C1C]"
-                        : "bg-transparent text-white/90 hover:bg-white/10"
-                  }
+                  ${selectedLanguage === lang.code ? "bg-white text-[#1C1C1C]" : "bg-transparent text-white/90 hover:bg-white/10"}
                   border border-white/20 hover:border-white/40
                 `}
                   >
@@ -74,9 +67,7 @@ export default function LanguageSelect() {
                               />
                            </div> */}
                            <div className="text-left">
-                              <span className="block font-medium text-xl">
-                                 {lang.language}
-                              </span>
+                              <span className="block font-medium text-xl">{lang.language}</span>
                               <span
                                  className={`text-sm ${selectedLanguage === lang.code ? "text-[#1C1C1C]/70" : "text-white/60"}`}
                               >

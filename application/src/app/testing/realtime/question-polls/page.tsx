@@ -9,12 +9,8 @@ import {
 
 export default async function QuestionPollsPage() {
    const questionPoll = await getQuestionPollById("8napzu560wosqo3");
-   const questionPollOptions = await getQuestionPollOptions(
-      questionPoll?.id ?? "",
-   );
-   const questionPollAnswers = await getAllQuestionPollAnswers(
-      questionPoll?.id ?? "",
-   );
+   const questionPollOptions = await getQuestionPollOptions(questionPoll?.id ?? "");
+   const questionPollAnswers = await getAllQuestionPollAnswers(questionPoll?.id ?? "");
 
    if (!questionPoll) {
       return <div>Question poll not found</div>;

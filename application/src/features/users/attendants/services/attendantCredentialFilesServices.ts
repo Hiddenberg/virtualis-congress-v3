@@ -1,10 +1,5 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import "server-only";
 
 export async function createAttendantCredentialFile({
@@ -18,16 +13,12 @@ export async function createAttendantCredentialFile({
 }) {
    const organization = await getOrganizationFromSubdomain();
 
-   const attendantCredentialFile =
-      await createDBRecord<AttendantCredentialFile>(
-         "ATTENDANTS_CREDENTIAL_FILES",
-         {
-            organization: organization.id,
-            user: userId,
-            fileType,
-            file,
-         },
-      );
+   const attendantCredentialFile = await createDBRecord<AttendantCredentialFile>("ATTENDANTS_CREDENTIAL_FILES", {
+      organization: organization.id,
+      user: userId,
+      fileType,
+      file,
+   });
 
    return attendantCredentialFile;
 }
@@ -41,11 +32,10 @@ export async function createOrUpdateAttendantCredentialFile({
    fileType: string;
    file: File;
 }) {
-   const existingAttendantCredentialFile =
-      await getAttendantCredentialFileByType({
-         userId,
-         fileType,
-      });
+   const existingAttendantCredentialFile = await getAttendantCredentialFileByType({
+      userId,
+      fileType,
+   });
 
    if (existingAttendantCredentialFile) {
       return await updateAttendantCredentialFile({
@@ -62,13 +52,7 @@ export async function createOrUpdateAttendantCredentialFile({
    });
 }
 
-export async function getAttendantCredentialFileByType({
-   userId,
-   fileType,
-}: {
-   userId: UserRecord["id"];
-   fileType: string;
-}) {
+export async function getAttendantCredentialFileByType({ userId, fileType }: { userId: UserRecord["id"]; fileType: string }) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
@@ -83,11 +67,7 @@ export async function getAttendantCredentialFileByType({
          fileType,
       },
    );
-   const attendantCredentialFile =
-      await getSingleDBRecord<AttendantCredentialFile>(
-         "ATTENDANTS_CREDENTIAL_FILES",
-         filter,
-      );
+   const attendantCredentialFile = await getSingleDBRecord<AttendantCredentialFile>("ATTENDANTS_CREDENTIAL_FILES", filter);
 
    return attendantCredentialFile;
 }
@@ -116,24 +96,22 @@ export async function updateAttendantCredentialFile({
       },
    );
 
-   const existingAttendantCredentialFile =
-      await getSingleDBRecord<AttendantCredentialFile>(
-         "ATTENDANTS_CREDENTIAL_FILES",
-         filter,
-      );
+   const existingAttendantCredentialFile = await getSingleDBRecord<AttendantCredentialFile>(
+      "ATTENDANTS_CREDENTIAL_FILES",
+      filter,
+   );
 
    if (!existingAttendantCredentialFile) {
       throw new Error("Attendant credential file not found");
    }
 
-   const attendantCredentialFile =
-      await updateDBRecord<AttendantCredentialFile>(
-         "ATTENDANTS_CREDENTIAL_FILES",
-         existingAttendantCredentialFile.id,
-         {
-            file,
-         },
-      );
+   const attendantCredentialFile = await updateDBRecord<AttendantCredentialFile>(
+      "ATTENDANTS_CREDENTIAL_FILES",
+      existingAttendantCredentialFile.id,
+      {
+         file,
+      },
+   );
 
    return attendantCredentialFile;
 }

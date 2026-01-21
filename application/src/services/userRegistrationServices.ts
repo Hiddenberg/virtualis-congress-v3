@@ -39,59 +39,40 @@ export async function createNewCongressRegistration(userId: string) {
    return newCongressRegistration;
 }
 
-export async function confirmUserRegistrationPayment(
-   userId: string,
-   congressId: string,
-   paymentId: string,
-) {
+export async function confirmUserRegistrationPayment(userId: string, congressId: string, paymentId: string) {
    const user = await getUserById(userId);
 
    if (!user) {
-      console.error(
-         `[User Registration Services] No se encontró el usuario ${userId}`,
-      );
+      console.error(`[User Registration Services] No se encontró el usuario ${userId}`);
       throw new Error("User not found");
    }
 
    let registration;
    if (user.role !== "attendant") {
-      console.log(
-         `[User Registration Services] User ${userId} has ${user.role} role, checking for previoius registrations`,
-      );
+      console.log(`[User Registration Services] User ${userId} has ${user.role} role, checking for previoius registrations`);
       registration = await getCongressRegistration(userId, congressId);
 
       if (!registration) {
-         console.log(
-            `[User Registration Services] No previous registration found for user ${userId}, creating new one`,
-         );
+         console.log(`[User Registration Services] No previous registration found for user ${userId}, creating new one`);
          registration = await createNewCongressRegistration(userId);
       }
    } else {
-      console.log(
-         `[User Registration Services] User ${userId} is an attendant, checking for previous registrations`,
-      );
+      console.log(`[User Registration Services] User ${userId} is an attendant, checking for previous registrations`);
       registration = await getCongressRegistration(userId, congressId);
 
       if (!registration) {
-         console.error(
-            `[User Registration Services] No previous registration found for user ${userId}, creating new one`,
-         );
+         console.error(`[User Registration Services] No previous registration found for user ${userId}, creating new one`);
          registration = await createNewCongressRegistration(userId);
       }
    }
 
-   await pbServerClient
-      .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
-      .update(registration.id, {
-         paymentConfirmed: true,
-         payment: paymentId,
-      } as Partial<CongressRegistration>);
+   await pbServerClient.collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS).update(registration.id, {
+      paymentConfirmed: true,
+      payment: paymentId,
+   } as Partial<CongressRegistration>);
 }
 
-export async function setRegistrationAsCourtesyGuest(
-   userId: string,
-   congressId: string,
-) {
+export async function setRegistrationAsCourtesyGuest(userId: string, congressId: string) {
    const registrationId = await getCongressRegistration(userId, congressId);
 
    if (!registrationId) {
@@ -99,9 +80,7 @@ export async function setRegistrationAsCourtesyGuest(
       throw new Error("Congress registration not found");
    }
 
-   await pbServerClient
-      .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
-      .update(registrationId.id, {
-         registrationType: "courtesy",
-      });
+   await pbServerClient.collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS).update(registrationId.id, {
+      registrationType: "courtesy",
+   });
 }

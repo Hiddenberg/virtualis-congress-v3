@@ -4,11 +4,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { sendRecordingReminderEmailAction } from "../serverActions/recordingsActions";
 
-export default function SendRecordingReminderButton({
-   recordingId,
-}: {
-   recordingId: string;
-}) {
+export default function SendRecordingReminderButton({ recordingId }: { recordingId: string }) {
    const [isSending, startTransition] = useTransition();
 
    const handleSendReminder = () => {
@@ -24,11 +20,7 @@ export default function SendRecordingReminderButton({
    };
 
    return (
-      <Button
-         onClick={handleSendReminder}
-         disabled={isSending}
-         loading={isSending}
-      >
+      <Button onClick={handleSendReminder} disabled={isSending} loading={isSending}>
          {isSending ? "Enviando..." : "Enviar recordatorio"}
       </Button>
    );

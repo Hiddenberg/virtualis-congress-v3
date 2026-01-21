@@ -30,10 +30,7 @@ import ConferenceSchedule from "./adminConferenceCard/ConferenceSchedule";
 import SubCard from "./adminConferenceCard/SubCard";
 import DeleteConferenceButton from "./DeleteConferenceButton";
 
-const conferenceTypeStyles: Record<
-   CongressConference["conferenceType"],
-   string
-> = {
+const conferenceTypeStyles: Record<CongressConference["conferenceType"], string> = {
    "in-person": "bg-emerald-50 text-emerald-700 ring-emerald-600/20",
    livestream: "bg-blue-50 text-blue-700 ring-blue-600/20",
    "pre-recorded": "bg-amber-50 text-amber-700 ring-amber-600/20",
@@ -55,10 +52,7 @@ const statusTexts: Record<CongressConference["status"], string> = {
    canceled: "Cancelada",
 };
 
-const conferenceTypeTexts: Record<
-   CongressConference["conferenceType"],
-   string
-> = {
+const conferenceTypeTexts: Record<CongressConference["conferenceType"], string> = {
    "in-person": "Presencial",
    livestream: "En vivo",
    "pre-recorded": "Grabada",
@@ -66,31 +60,17 @@ const conferenceTypeTexts: Record<
    break: "Descanso",
 };
 
-export function ConferenceCardHeader({
-   conference,
-}: {
-   conference: CongressConferenceRecord;
-}) {
+export function ConferenceCardHeader({ conference }: { conference: CongressConferenceRecord }) {
    return (
       <div className="mb-3">
          <span className="text-gray-500 text-xs">id: {conference.id}</span>
-         <h3 className="font-semibold text-gray-900 text-lg line-clamp-2 leading-snug">
-            {conference.title}
-         </h3>
-         {conference.shortDescription && (
-            <p className="mt-1 text-gray-600 text-sm line-clamp-2">
-               {conference.shortDescription}
-            </p>
-         )}
+         <h3 className="font-semibold text-gray-900 text-lg line-clamp-2 leading-snug">{conference.title}</h3>
+         {conference.shortDescription && <p className="mt-1 text-gray-600 text-sm line-clamp-2">{conference.shortDescription}</p>}
       </div>
    );
 }
 
-export function ConferenceBadges({
-   conference,
-}: {
-   conference: CongressConferenceRecord;
-}) {
+export function ConferenceBadges({ conference }: { conference: CongressConferenceRecord }) {
    return (
       <div className="flex justify-between items-center mt-4">
          <div className="flex items-center gap-2">
@@ -99,9 +79,7 @@ export function ConferenceBadges({
             >
                {conferenceTypeTexts[conference.conferenceType]}
             </span>
-            <span
-               className={`px-2.5 py-1 ring-1 rounded-md font-medium capitalize text-xs ${statusStyles[conference.status]}`}
-            >
+            <span className={`px-2.5 py-1 ring-1 rounded-md font-medium capitalize text-xs ${statusStyles[conference.status]}`}>
                {statusTexts[conference.status]}
             </span>
          </div>
@@ -109,27 +87,17 @@ export function ConferenceBadges({
    );
 }
 
-export async function ConferenceSpeakersSection({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export async function ConferenceSpeakersSection({ conferenceId }: { conferenceId: string }) {
    const speakers = await getConferenceSpeakers(conferenceId);
 
    return (
-      <SubCard
-         title="Ponentes"
-         icon={<UsersIcon className="w-4 h-4 text-gray-600" />}
-      >
+      <SubCard title="Ponentes" icon={<UsersIcon className="w-4 h-4 text-gray-600" />}>
          {speakers.length === 0 ? (
             <p>No hay ponentes asignados a esta conferencia</p>
          ) : (
             <ul className="space-y-1">
                {speakers.map((speaker) => (
-                  <li
-                     key={speaker.id}
-                     className="flex items-center gap-2 text-gray-700 text-sm"
-                  >
+                  <li key={speaker.id} className="flex items-center gap-2 text-gray-700 text-sm">
                      <span className="bg-blue-400 rounded-full w-1.5 h-1.5" />
                      <span className="truncate">{speaker.displayName}</span>
                      {speaker.user ? (
@@ -138,9 +106,7 @@ export async function ConferenceSpeakersSection({
                            <span>Cuenta asociada</span>
                         </span>
                      ) : (
-                        <span className="text-gray-500 text-xs">
-                           No tiene cuenta asociada
-                        </span>
+                        <span className="text-gray-500 text-xs">No tiene cuenta asociada</span>
                      )}
                   </li>
                ))}
@@ -166,12 +132,8 @@ export async function ConferencePresentationSection({
             title="Presentación"
             icon={<FileTextIcon className="w-4 h-4 text-gray-600" />}
             footer={
-               <LinkButton
-                  href={`/congress-admin/conferences/${conferenceId}/presentation`}
-                  variant="blue"
-               >
-                  Administrar presentación{" "}
-                  <ArrowRightIcon className="w-4 h-4" />
+               <LinkButton href={`/congress-admin/conferences/${conferenceId}/presentation`} variant="blue">
+                  Administrar presentación <ArrowRightIcon className="w-4 h-4" />
                </LinkButton>
             }
          >
@@ -191,8 +153,7 @@ export async function ConferencePresentationSection({
                <CopyButton text={uploadLink} />
             </div>
             <p className="mt-1 text-gray-500 text-xs">
-               Comparte este link con el participante para que pueda subir su
-               presentación
+               Comparte este link con el participante para que pueda subir su presentación
             </p>
          </SubCard>
       );
@@ -202,10 +163,7 @@ export async function ConferencePresentationSection({
          title="Presentación"
          icon={<FileTextIcon className="w-4 h-4 text-emerald-700" />}
          footer={
-            <LinkButton
-               href={`/congress-admin/conferences/${conferenceId}/presentation`}
-               variant="blue"
-            >
+            <LinkButton href={`/congress-admin/conferences/${conferenceId}/presentation`} variant="blue">
                Administrar presentación <ArrowRightIcon className="w-4 h-4" />
             </LinkButton>
          }
@@ -215,15 +173,8 @@ export async function ConferencePresentationSection({
    );
 }
 
-function LinkedRecordingSummaryCard({
-   recording,
-}: {
-   recording: SimpleRecording;
-}) {
-   const statusConfig: Record<
-      SimpleRecording["status"],
-      { color: string; bgColor: string; label: string }
-   > = {
+function LinkedRecordingSummaryCard({ recording }: { recording: SimpleRecording }) {
+   const statusConfig: Record<SimpleRecording["status"], { color: string; bgColor: string; label: string }> = {
       ready: {
          color: "text-green-600",
          bgColor: "bg-green-500",
@@ -267,44 +218,29 @@ function LinkedRecordingSummaryCard({
       <div className="bg-white shadow-sm rounded-lg ring-1 ring-gray-200 overflow-hidden">
          <div className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-transparent px-3 py-2">
             <CheckIcon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-            <span className="font-medium text-blue-900 text-xs">
-               Grabación vinculada
-            </span>
+            <span className="font-medium text-blue-900 text-xs">Grabación vinculada</span>
             <div className="flex items-center gap-1.5 ml-auto">
-               <div
-                  className={`w-1.5 h-1.5 rounded-full ${status.bgColor} animate-pulse`}
-               />
-               <span className={`text-xs font-medium ${status.color}`}>
-                  {status.label}
-               </span>
+               <div className={`w-1.5 h-1.5 rounded-full ${status.bgColor} animate-pulse`} />
+               <span className={`text-xs font-medium ${status.color}`}>{status.label}</span>
             </div>
          </div>
          <div className="space-y-2 px-3 py-2.5">
             <div className="flex items-start gap-2">
                <FileTextIcon className="mt-0.5 w-3.5 h-3.5 text-gray-400 shrink-0" />
-               <p
-                  className="flex-1 text-gray-700 text-xs line-clamp-2 leading-relaxed"
-                  title={recording.title}
-               >
+               <p className="flex-1 text-gray-700 text-xs line-clamp-2 leading-relaxed" title={recording.title}>
                   {recording.title}
                </p>
             </div>
             <div className="flex items-center gap-2">
                <Clock className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-               <span className="font-medium text-gray-600 text-xs">
-                  {formatVideoTime(recording.durationSeconds)}
-               </span>
+               <span className="font-medium text-gray-600 text-xs">{formatVideoTime(recording.durationSeconds)}</span>
             </div>
          </div>
       </div>
    );
 }
 
-export async function ConferenceQuestionPollsSection({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export async function ConferenceQuestionPollsSection({ conferenceId }: { conferenceId: string }) {
    const polls = await getAllQuestionPollsForConference(conferenceId);
    const manageLink = `/preparation/${conferenceId}/question-polls`;
    const activeCount = polls.filter((p) => p.status === "active").length;
@@ -333,9 +269,7 @@ export async function ConferenceQuestionPollsSection({
                   {activeCount > 0 ? (
                      <span className="ml-1 text-green-700" />
                   ) : (
-                     <span className="ml-1 text-gray-600">
-                        • todas finalizadas
-                     </span>
+                     <span className="ml-1 text-gray-600">• todas finalizadas</span>
                   )}
                </p>
             </div>
@@ -344,11 +278,7 @@ export async function ConferenceQuestionPollsSection({
    );
 }
 
-export async function ConferenceRecordingsSection({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export async function ConferenceRecordingsSection({ conferenceId }: { conferenceId: string }) {
    const recordings = await getConferenceRecordings(conferenceId);
    const manageLink = `/congress-admin/conferences/${conferenceId}/recordings`;
 
@@ -374,24 +304,16 @@ export async function ConferenceRecordingsSection({
          ) : (
             <div className="flex items-center gap-2 bg-amber-50 px-3 py-2 rounded-md ring-1 ring-amber-100 text-amber-700 text-sm">
                <div className="bg-gray-300 rounded-full w-2 h-2" />
-               <p className="text-gray-500 text-sm">
-                  Sin presentación vinculada
-               </p>
+               <p className="text-gray-500 text-sm">Sin presentación vinculada</p>
             </div>
          )}
       </SubCard>
    );
 }
 
-export async function ConferenceLivestreamSection({
-   conference,
-}: {
-   conference: CongressConferenceRecord;
-}) {
+export async function ConferenceLivestreamSection({ conference }: { conference: CongressConferenceRecord }) {
    const manageLink = `/congress-admin/conferences/${conference.id}/livestream`;
-   const requiresLivestream =
-      conference.conferenceType === "in-person" ||
-      conference.conferenceType === "livestream";
+   const requiresLivestream = conference.conferenceType === "in-person" || conference.conferenceType === "livestream";
 
    return (
       <SubCard
@@ -404,24 +326,15 @@ export async function ConferenceLivestreamSection({
          }
       >
          {requiresLivestream ? (
-            <p className="text-gray-700 text-sm">
-               Esta conferencia requiere transmisión en vivo. Configúrala desde
-               el panel.
-            </p>
+            <p className="text-gray-700 text-sm">Esta conferencia requiere transmisión en vivo. Configúrala desde el panel.</p>
          ) : (
-            <p className="text-gray-500 text-sm">
-               Esta conferencia no requiere transmisión en vivo.
-            </p>
+            <p className="text-gray-500 text-sm">Esta conferencia no requiere transmisión en vivo.</p>
          )}
       </SubCard>
    );
 }
 
-export async function ConferenceQnASection({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export async function ConferenceQnASection({ conferenceId }: { conferenceId: string }) {
    const qnaSession = await getConferenceQnASession(conferenceId);
    const manageLink = `/congress-admin/conferences/${conferenceId}/qna`;
 
@@ -447,13 +360,7 @@ export async function ConferenceQnASection({
    );
 }
 
-export function AdminConferenceCardContainer({
-   conferenceId,
-   children,
-}: {
-   conferenceId: string;
-   children: ReactNode;
-}) {
+export function AdminConferenceCardContainer({ conferenceId, children }: { conferenceId: string; children: ReactNode }) {
    return (
       <div className="relative bg-white shadow-sm hover:shadow-md p-5 border border-gray-200 rounded-xl transition-all">
          <div className="top-1 right-1 absolute flex items-center gap-2">
@@ -470,13 +377,8 @@ export function AdminConferenceCardContainer({
    );
 }
 
-export async function SpeakerPresentationRecordingSection({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
-   const recording =
-      await getSpeakerPresentationRecordingByConferenceId(conferenceId);
+export async function SpeakerPresentationRecordingSection({ conferenceId }: { conferenceId: string }) {
+   const recording = await getSpeakerPresentationRecordingByConferenceId(conferenceId);
 
    const getStatusBadge = (status: string) => {
       const statusConfig = {
@@ -497,13 +399,7 @@ export async function SpeakerPresentationRecordingSection({
          label: status,
          className: "bg-gray-50 text-gray-700 ring-gray-600/20",
       };
-      return (
-         <span
-            className={`px-2 py-1 rounded-md text-xs font-medium ring-1 ${config.className}`}
-         >
-            {config.label}
-         </span>
-      );
+      return <span className={`px-2 py-1 rounded-md text-xs font-medium ring-1 ${config.className}`}>{config.label}</span>;
    };
 
    return (
@@ -512,10 +408,7 @@ export async function SpeakerPresentationRecordingSection({
          icon={<FilmIcon className="w-4 h-4 text-gray-600" />}
          badge={recording ? getStatusBadge(recording.status) : undefined}
          footer={
-            <LinkButton
-               href={`/congress-admin/conferences/${conferenceId}/speaker-presentation-recording`}
-               variant="blue"
-            >
+            <LinkButton href={`/congress-admin/conferences/${conferenceId}/speaker-presentation-recording`} variant="blue">
                Administrar presentación del ponente
                <ArrowRightIcon className="w-4 h-4" />
             </LinkButton>
@@ -526,30 +419,20 @@ export async function SpeakerPresentationRecordingSection({
          ) : (
             <div className="flex items-center gap-2 bg-amber-50 px-3 py-2 rounded-md ring-1 ring-amber-100 text-amber-700 text-sm">
                <div className="bg-gray-300 rounded-full w-2 h-2" />
-               <p className="text-gray-500 text-sm">
-                  Sin presentación vinculada
-               </p>
+               <p className="text-gray-500 text-sm">Sin presentación vinculada</p>
             </div>
          )}
       </SubCard>
    );
 }
 
-function GenericSubCardSkeleton({
-   title,
-   Icon,
-}: {
-   title: string;
-   Icon: LucideIcon;
-}) {
+function GenericSubCardSkeleton({ title, Icon }: { title: string; Icon: LucideIcon }) {
    return (
       <div className="flex flex-col bg-gray-50 p-3 rounded-lg ring-1 ring-gray-200 h-full animate-pulse">
          <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
                <Icon className="w-4 h-4 text-gray-400" />
-               <span className="font-semibold text-gray-900 text-sm">
-                  {title}
-               </span>
+               <span className="font-semibold text-gray-900 text-sm">{title}</span>
             </div>
          </div>
          <div className="flex-1 mt-2 text-gray-700 text-sm">
@@ -570,75 +453,36 @@ export default function AdminConferenceCard({
    conference: CongressConferenceRecord;
    presentation?: PresentationRecord;
 }) {
-   const requiresRecording =
-      conference.conferenceType === "pre-recorded" ||
-      conference.conferenceType === "simulated_livestream";
-   const requiresLivestream =
-      conference.conferenceType === "in-person" ||
-      conference.conferenceType === "livestream";
+   const requiresRecording = conference.conferenceType === "pre-recorded" || conference.conferenceType === "simulated_livestream";
+   const requiresLivestream = conference.conferenceType === "in-person" || conference.conferenceType === "livestream";
 
    return (
       <AdminConferenceCardContainer conferenceId={conference.id}>
          <ConferenceCardHeader conference={conference} />
-         <ConferenceSchedule
-            startTime={conference.startTime}
-            endTime={conference.endTime}
-         />
+         <ConferenceSchedule startTime={conference.startTime} endTime={conference.endTime} />
          <ConferenceBadges conference={conference} />
          {conference.conferenceType !== "break" ? (
             <div className="items-stretch gap-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-4">
-               <Suspense
-                  fallback={
-                     <GenericSubCardSkeleton
-                        title="Ponentes"
-                        Icon={UsersIcon}
-                     />
-                  }
-               >
+               <Suspense fallback={<GenericSubCardSkeleton title="Ponentes" Icon={UsersIcon} />}>
                   <ConferenceSpeakersSection conferenceId={conference.id} />
                </Suspense>
                <ConferenceQuestionPollsSection conferenceId={conference.id} />
-               <ConferencePresentationSection
-                  presentation={presentation}
-                  conferenceId={conference.id}
-               />
+               <ConferencePresentationSection presentation={presentation} conferenceId={conference.id} />
                {requiresRecording && (
-                  <Suspense
-                     fallback={
-                        <GenericSubCardSkeleton
-                           title="Grabaciones"
-                           Icon={FilmIcon}
-                        />
-                     }
-                  >
-                     <ConferenceRecordingsSection
-                        conferenceId={conference.id}
-                     />
+                  <Suspense fallback={<GenericSubCardSkeleton title="Grabaciones" Icon={FilmIcon} />}>
+                     <ConferenceRecordingsSection conferenceId={conference.id} />
                   </Suspense>
                )}
-               {requiresLivestream && (
-                  <ConferenceLivestreamSection conference={conference} />
-               )}
+               {requiresLivestream && <ConferenceLivestreamSection conference={conference} />}
                <ConferenceQnASection conferenceId={conference.id} />
-               <Suspense
-                  fallback={
-                     <GenericSubCardSkeleton
-                        title="Presentación del ponente"
-                        Icon={FilmIcon}
-                     />
-                  }
-               >
-                  <SpeakerPresentationRecordingSection
-                     conferenceId={conference.id}
-                  />
+               <Suspense fallback={<GenericSubCardSkeleton title="Presentación del ponente" Icon={FilmIcon} />}>
+                  <SpeakerPresentationRecordingSection conferenceId={conference.id} />
                </Suspense>
             </div>
          ) : (
             <div className="mt-4">
                <div className="flex flex-col justify-center items-center gap-2 bg-gray-50 p-3 rounded-lg ring-1 ring-gray-200">
-                  <span className="font-semibold text-gray-900 text-sm">
-                     Descanso
-                  </span>
+                  <span className="font-semibold text-gray-900 text-sm">Descanso</span>
                   <CoffeeIcon className="size-10 text-gray-600" />
                </div>
             </div>

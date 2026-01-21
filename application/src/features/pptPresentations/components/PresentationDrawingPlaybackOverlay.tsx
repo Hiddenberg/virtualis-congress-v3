@@ -8,11 +8,7 @@ interface Props {
    currentSlideIndex: number;
 }
 
-export default function PresentationDrawingPlaybackOverlay({
-   containerRef,
-   drawingEvents,
-   currentSlideIndex,
-}: Props) {
+export default function PresentationDrawingPlaybackOverlay({ containerRef, drawingEvents, currentSlideIndex }: Props) {
    const canvasRef = useRef<HTMLCanvasElement>(null);
    const contextRef = useRef<CanvasRenderingContext2D | null>(null);
 
@@ -51,9 +47,7 @@ export default function PresentationDrawingPlaybackOverlay({
 
    useEffect(() => {
       const container = containerRef.current;
-      const playerEl = container?.querySelector("mux-player") as
-         | HTMLMediaElement
-         | undefined;
+      const playerEl = container?.querySelector("mux-player") as HTMLMediaElement | undefined;
       if (!playerEl) return;
 
       const drawAtTime = (tMs: number) => {
@@ -115,9 +109,7 @@ export default function PresentationDrawingPlaybackOverlay({
    // Re-draw when slide changes even if time event hasn't fired yet
    useEffect(() => {
       const container = containerRef.current;
-      const playerEl = container?.querySelector("mux-player") as
-         | HTMLMediaElement
-         | undefined;
+      const playerEl = container?.querySelector("mux-player") as HTMLMediaElement | undefined;
       if (!playerEl) return;
       const currentTimeMs = (playerEl.currentTime || 0) * 1000;
       const canvas = canvasRef.current;
@@ -126,8 +118,7 @@ export default function PresentationDrawingPlaybackOverlay({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const events = eventsBySlide.get(currentSlideIndex) || [];
-      const activeLines: { x1: number; y1: number; x2: number; y2: number }[] =
-         [];
+      const activeLines: { x1: number; y1: number; x2: number; y2: number }[] = [];
       for (const ev of events) {
          if (ev.timestamp > currentTimeMs) break;
          if (ev.type === "clear") {
@@ -151,10 +142,5 @@ export default function PresentationDrawingPlaybackOverlay({
       }
    }, [currentSlideIndex, eventsBySlide, containerRef]);
 
-   return (
-      <canvas
-         ref={canvasRef}
-         className="pointer-events-none absolute inset-0 size-full"
-      />
-   );
+   return <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 size-full" />;
 }

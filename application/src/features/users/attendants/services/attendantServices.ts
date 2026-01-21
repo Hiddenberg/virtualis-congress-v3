@@ -1,10 +1,5 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getSingleDBRecord,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import "server-only";
 
 export async function createAttendantData({
@@ -16,14 +11,11 @@ export async function createAttendantData({
 }) {
    const organization = await getOrganizationFromSubdomain();
 
-   const attendantData = await createDBRecord<AttendantData>(
-      "ATTENDANTS_DATA",
-      {
-         organization: organization.id,
-         user: userId,
-         additionalData,
-      },
-   );
+   const attendantData = await createDBRecord<AttendantData>("ATTENDANTS_DATA", {
+      organization: organization.id,
+      user: userId,
+      additionalData,
+   });
 
    return attendantData;
 }
@@ -64,10 +56,7 @@ export async function getAttendantData(userId: UserRecord["id"]) {
          userId,
       },
    );
-   const attendantData = await getSingleDBRecord<AttendantData>(
-      "ATTENDANTS_DATA",
-      filter,
-   );
+   const attendantData = await getSingleDBRecord<AttendantData>("ATTENDANTS_DATA", filter);
 
    return attendantData;
 }
@@ -84,13 +73,9 @@ export async function updateAttendantData({
       throw new Error("Attendant data not found");
    }
 
-   const updatedAttendantData = await updateDBRecord<AttendantData>(
-      "ATTENDANTS_DATA",
-      existingAttendantData.id,
-      {
-         additionalData,
-      },
-   );
+   const updatedAttendantData = await updateDBRecord<AttendantData>("ATTENDANTS_DATA", existingAttendantData.id, {
+      additionalData,
+   });
 
    return updatedAttendantData;
 }

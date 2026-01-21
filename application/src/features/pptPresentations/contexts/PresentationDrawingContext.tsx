@@ -1,12 +1,5 @@
 "use client";
-import React, {
-   createContext,
-   useCallback,
-   useContext,
-   useMemo,
-   useRef,
-   useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { PresentationRecorderContext } from "../contexts/PresentationRecorderContext";
 import { savePresentationDrawingEventsAction } from "../serverActions/presentationDrawingActions";
@@ -27,26 +20,17 @@ interface PresentationDrawingContextType {
    saveDrawingEvents: () => Promise<void>;
 }
 
-export const PresentationDrawingContext =
-   createContext<PresentationDrawingContextType | null>(null);
+export const PresentationDrawingContext = createContext<PresentationDrawingContextType | null>(null);
 
 export function usePresentationDrawing() {
    const ctx = useContext(PresentationDrawingContext);
    if (!ctx) {
-      throw new Error(
-         "usePresentationDrawing must be used within PresentationDrawingProvider",
-      );
+      throw new Error("usePresentationDrawing must be used within PresentationDrawingProvider");
    }
    return ctx;
 }
 
-export function PresentationDrawingProvider({
-   presentationId,
-   children,
-}: {
-   presentationId: string;
-   children: React.ReactNode;
-}) {
+export function PresentationDrawingProvider({ presentationId, children }: { presentationId: string; children: React.ReactNode }) {
    const recorder = useContext(PresentationRecorderContext);
    const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false);
    const [lines, setLines] = useState<LineSegment[]>([]);
@@ -108,10 +92,7 @@ export function PresentationDrawingProvider({
    const saveDrawingEvents = useCallback(async () => {
       const events = drawingEventsRef.current;
       if (!events.length) return;
-      const res = await savePresentationDrawingEventsAction(
-         presentationIdMemo,
-         events,
-      );
+      const res = await savePresentationDrawingEventsAction(presentationIdMemo, events);
       if (!res.success) {
          toast.error(res.errorMessage);
          return;
@@ -129,19 +110,8 @@ export function PresentationDrawingProvider({
          clearLines,
          saveDrawingEvents,
       }),
-      [
-         isDrawingMode,
-         lines,
-         addLine,
-         clearLines,
-         saveDrawingEvents,
-         setDrawingMode,
-      ],
+      [isDrawingMode, lines, addLine, clearLines, saveDrawingEvents, setDrawingMode],
    );
 
-   return (
-      <PresentationDrawingContext.Provider value={ctxValue}>
-         {children}
-      </PresentationDrawingContext.Provider>
-   );
+   return <PresentationDrawingContext.Provider value={ctxValue}>{children}</PresentationDrawingContext.Provider>;
 }

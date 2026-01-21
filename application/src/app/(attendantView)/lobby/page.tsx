@@ -26,12 +26,7 @@ import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAu
 
 export default async function LobbyPage() {
    console.time("LobbyPage");
-   const [
-      userId,
-      organization,
-      congress,
-      programConferencesWithSpeakersAndDurations,
-   ] = await Promise.all([
+   const [userId, organization, congress, programConferencesWithSpeakersAndDurations] = await Promise.all([
       getLoggedInUserId(),
       getOrganizationFromSubdomain(),
       getLatestCongress(),
@@ -41,28 +36,18 @@ export default async function LobbyPage() {
    if (!paymentConfirmed) {
       redirect("/registration-confirmed");
    }
-   const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(
-      userId ?? "",
-      congress.id,
-   );
+   const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(userId ?? "", congress.id);
    console.timeEnd("LobbyPage");
    if (isBefore(new Date(), congress.startDate)) {
       return (
          <div className="flex flex-col justify-center items-center p-4 md:p-8 min-h-[calc(100vh-200px)]">
             <div className="w-full max-w-6xl">
-               <CountdownCard
-                  date={congress.startDate}
-                  title={congress.title}
-               />
+               <CountdownCard date={congress.startDate} title={congress.title} />
             </div>
 
             {organization.shortID === "CMIMCC" && (
                <div className="flex justify-center items-center p-4">
-                  <LinkButton
-                     variant="blue"
-                     href="/CMIMCC/files/programa-CMIMCC.pdf"
-                     target="_blank"
-                  >
+                  <LinkButton variant="blue" href="/CMIMCC/files/programa-CMIMCC.pdf" target="_blank">
                      <CalendarIcon className="w-4 h-4" />
                      Ver Programa
                   </LinkButton>
@@ -70,9 +55,7 @@ export default async function LobbyPage() {
             )}
 
             <div className="mt-6 w-full">
-               <LobbyConferencesPreview
-                  conferences={programConferencesWithSpeakersAndDurations}
-               />
+               <LobbyConferencesPreview conferences={programConferencesWithSpeakersAndDurations} />
             </div>
          </div>
       );
@@ -82,10 +65,7 @@ export default async function LobbyPage() {
       <div className="py-8">
          {congress.status === "finished" ? (
             <div>
-               <CongressEndedBanner
-                  congress={congress}
-                  hasAccessToRecordings={hasAccessToRecordings}
-               />
+               <CongressEndedBanner congress={congress} hasAccessToRecordings={hasAccessToRecordings} />
 
                <OrganizationSpecificComponent organizationShortID="HGEA">
                   <ClosingVideoBanner playbackId="nqg1GwpfTcggcS3Yn2UXbA4MIBAmP5rJvHXk4PkRiXs" />
@@ -94,9 +74,7 @@ export default async function LobbyPage() {
          ) : (
             <div className="mb-8 text-center">
                <div className="flex justify-center items-center gap-3 mb-4">
-                  <h1 className="font-bold text-slate-800 text-2xl md:text-3xl">
-                     {congress.title}
-                  </h1>
+                  <h1 className="font-bold text-slate-800 text-2xl md:text-3xl">{congress.title}</h1>
                </div>
                <div className="flex justify-center items-center gap-2 mb-2 text-slate-600">
                   <CalendarIcon className="w-4 h-4" />
@@ -116,11 +94,7 @@ export default async function LobbyPage() {
 
                <OrganizationSpecificComponent organizationShortID="HGEA">
                   {organization.shortID === "HGEA" &&
-                     (congress.showEndOfDayMessage ? (
-                        <DayCompletedBanner />
-                     ) : (
-                        <SecondDayBanner congressDayNumber={3} />
-                     ))}
+                     (congress.showEndOfDayMessage ? <DayCompletedBanner /> : <SecondDayBanner congressDayNumber={3} />)}
                </OrganizationSpecificComponent>
 
                <OrganizationSpecificComponent organizationShortID="ACP-MX">
@@ -128,11 +102,7 @@ export default async function LobbyPage() {
                </OrganizationSpecificComponent>
             </div>
          )}
-         <DynamicConferenceProgram
-            allCongressConferencesWithSpeakersAndDurations={
-               programConferencesWithSpeakersAndDurations
-            }
-         />
+         <DynamicConferenceProgram allCongressConferencesWithSpeakersAndDurations={programConferencesWithSpeakersAndDurations} />
       </div>
    );
 }

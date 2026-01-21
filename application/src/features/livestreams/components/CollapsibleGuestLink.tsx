@@ -1,24 +1,12 @@
 "use client";
 
-import {
-   ChevronDownIcon,
-   ChevronUpIcon,
-   LinkIcon,
-   TriangleAlertIcon,
-} from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon, LinkIcon, TriangleAlertIcon } from "lucide-react";
 import { useState } from "react";
 import { CopyButton } from "@/components/global/Buttons";
-import {
-   IS_DEV_ENVIRONMENT,
-   PLATFORM_BASE_DOMAIN,
-} from "@/data/constants/platformConstants";
+import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { useOrganizationContext } from "@/features/organizations/context/OrganizationContext";
 
-export default function CollapsibleGuestLink({
-   streamingRoute,
-}: {
-   streamingRoute: string;
-}) {
+export default function CollapsibleGuestLink({ streamingRoute }: { streamingRoute: string }) {
    const { organization } = useOrganizationContext();
    const [isOpen, setIsOpen] = useState(false);
 
@@ -40,12 +28,8 @@ export default function CollapsibleGuestLink({
                   <LinkIcon className="w-5 h-5 text-stone-700" />
                </div>
                <div>
-                  <h3 className="font-semibold text-stone-800 text-base">
-                     Link para Invitados
-                  </h3>
-                  <p className="text-stone-500 text-sm">
-                     Compartir acceso a la transmisión
-                  </p>
+                  <h3 className="font-semibold text-stone-800 text-base">Link para Invitados</h3>
+                  <p className="text-stone-500 text-sm">Compartir acceso a la transmisión</p>
                </div>
             </div>
             <div className="bg-stone-200 p-1 rounded-lg">
@@ -63,9 +47,7 @@ export default function CollapsibleGuestLink({
                <div className="bg-white p-4 border border-stone-200 rounded-xl">
                   <div className="flex justify-between items-center gap-3">
                      <div className="flex-1 min-w-0">
-                        <p className="text-stone-600 text-sm truncate">
-                           {guestLink}
-                        </p>
+                        <p className="text-stone-600 text-sm truncate">{guestLink}</p>
                      </div>
                      <CopyButton text={guestLink} />
                   </div>
@@ -76,12 +58,9 @@ export default function CollapsibleGuestLink({
                   <div className="flex items-start gap-3">
                      <TriangleAlertIcon className="mt-0.5 w-5 h-5 text-amber-600 shrink-0" />
                      <div>
-                        <h4 className="mb-1 font-medium text-amber-800 text-sm">
-                           Uso Restringido
-                        </h4>
+                        <h4 className="mb-1 font-medium text-amber-800 text-sm">Uso Restringido</h4>
                         <p className="text-amber-700 text-xs">
-                           Solo para administradores y presentadores. No
-                           compartir públicamente.
+                           Solo para administradores y presentadores. No compartir públicamente.
                         </p>
                      </div>
                   </div>

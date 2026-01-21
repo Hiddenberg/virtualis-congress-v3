@@ -2,13 +2,7 @@
 
 import { format } from "@formkit/tempo";
 import { useQuery } from "@tanstack/react-query";
-import {
-   CheckCircle2,
-   FilmIcon,
-   Home,
-   Loader2Icon,
-   MessageSquare,
-} from "lucide-react";
+import { CheckCircle2, FilmIcon, Home, Loader2Icon, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import backendFetcher from "@/features/backendFetcher/utils/backendFetcher";
 
@@ -21,18 +15,13 @@ function GoToQnASection({ conferenceId }: { conferenceId: string }) {
       queryKey: ["conference-qna", conferenceId],
       staleTime: 60 * 1000,
       queryFn: () =>
-         backendFetcher<{ qnaSession: LivestreamSessionRecord | null }>(
-            `/api/conferences/${conferenceId}/qna-session`,
-         ),
+         backendFetcher<{ qnaSession: LivestreamSessionRecord | null }>(`/api/conferences/${conferenceId}/qna-session`),
    });
 
    if (qnaSessionError) {
       return (
          <div>
-            <p>
-               Error al obtener la sesión de preguntas y respuestas:{" "}
-               {qnaSessionError.message}
-            </p>
+            <p>Error al obtener la sesión de preguntas y respuestas: {qnaSessionError.message}</p>
          </div>
       );
    }
@@ -85,18 +74,14 @@ export default function ConferenceFinishedScreen({
          <div className="flex items-center gap-2">
             <CheckCircle2 className="size-6 text-green-600" />
             <h2 className="font-semibold text-gray-900 text-lg">
-               {isQna
-                  ? "Sesión de preguntas y respuestas finalizada"
-                  : "La transmisión ha finalizado"}
+               {isQna ? "Sesión de preguntas y respuestas finalizada" : "La transmisión ha finalizado"}
             </h2>
          </div>
 
          {conferenceTitle && (
             <p className="mt-1 text-gray-700 text-center">
                {conferenceTitle}
-               {formattedStartTime
-                  ? ` se transmitió ${formattedStartTime}`
-                  : ""}
+               {formattedStartTime ? ` se transmitió ${formattedStartTime}` : ""}
             </p>
          )}
 

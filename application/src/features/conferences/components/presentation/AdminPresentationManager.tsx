@@ -35,9 +35,7 @@ export default function AdminPresentationManager({
          {presentation ? (
             <div className="flex justify-between items-center">
                <div className="min-w-0">
-                  <p className="font-medium text-gray-900 truncate">
-                     {presentation.name}
-                  </p>
+                  <p className="font-medium text-gray-900 truncate">{presentation.name}</p>
                </div>
                <DownloadPresentationFileButton presentation={presentation} />
                <button
@@ -49,9 +47,7 @@ export default function AdminPresentationManager({
                </button>
             </div>
          ) : (
-            <p className="text-gray-600 text-sm">
-               No hay presentación vinculada actualmente.
-            </p>
+            <p className="text-gray-600 text-sm">No hay presentación vinculada actualmente.</p>
          )}
       </div>
    );

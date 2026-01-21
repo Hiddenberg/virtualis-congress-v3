@@ -1,14 +1,6 @@
 "use client";
 
-import {
-   CalendarIcon,
-   ClockIcon,
-   LinkIcon,
-   MessagesSquareIcon,
-   PlayIcon,
-   TriangleAlertIcon,
-   Video,
-} from "lucide-react";
+import { CalendarIcon, ClockIcon, LinkIcon, MessagesSquareIcon, PlayIcon, TriangleAlertIcon, Video } from "lucide-react";
 import { useTransition } from "react";
 import { Button } from "@/components/global/Buttons";
 import { startPreparingLivestreamSessionAction } from "@/features/livestreams/serverActions/livestreamSessionActions";
@@ -21,12 +13,8 @@ function LivestreamSessionHeader() {
                <Video className="w-8 h-8 text-stone-800" />
             </div>
             <div>
-               <h1 className="font-bold text-stone-100 text-3xl">
-                  Transmisión Programada
-               </h1>
-               <p className="text-stone-300 text-lg">
-                  Prepara tu sesión en vivo
-               </p>
+               <h1 className="font-bold text-stone-100 text-3xl">Transmisión Programada</h1>
+               <p className="text-stone-300 text-lg">Prepara tu sesión en vivo</p>
             </div>
          </div>
       </div>
@@ -41,12 +29,8 @@ function QnASessionHeader() {
                <MessagesSquareIcon className="w-8 h-8 text-stone-800" />
             </div>
             <div>
-               <h1 className="font-bold text-stone-100 text-3xl">
-                  Sesión de preguntas programada
-               </h1>
-               <p className="text-stone-300 text-lg">
-                  Prepara tu sesión de preguntas y respuestas
-               </p>
+               <h1 className="font-bold text-stone-100 text-3xl">Sesión de preguntas programada</h1>
+               <p className="text-stone-300 text-lg">Prepara tu sesión de preguntas y respuestas</p>
             </div>
          </div>
       </div>
@@ -110,25 +94,19 @@ export default function AdminScheduledPage({
                      <div className="bg-stone-200 p-2 rounded-lg">
                         <LinkIcon className="w-5 h-5 text-stone-700" />
                      </div>
-                     <h3 className="font-semibold text-stone-800 text-lg">
-                        Link de Invitado
-                     </h3>
+                     <h3 className="font-semibold text-stone-800 text-lg">Link de Invitado</h3>
                   </div>
                   <p className="mb-4 text-stone-600 text-sm">
-                     Puede compartir este link para que alguien más pueda unirse
-                     a la transmisión
+                     Puede compartir este link para que alguien más pueda unirse a la transmisión
                   </p>
 
                   <div className="bg-gradient-to-r from-amber-50 to-amber-100 mb-4 p-4 border border-amber-200 rounded-xl">
                      <div className="flex items-start gap-3">
                         <TriangleAlertIcon className="mt-0.5 w-5 h-5 text-amber-600 shrink-0" />
                         <div>
-                           <p className="mb-1 font-medium text-amber-800 text-sm">
-                              ¡Importante!
-                           </p>
+                           <p className="mb-1 font-medium text-amber-800 text-sm">¡Importante!</p>
                            <p className="text-amber-700 text-xs">
-                              No comparta este link públicamente. Solo debe ser
-                              utilizado por personas que necesiten unirse a la
+                              No comparta este link públicamente. Solo debe ser utilizado por personas que necesiten unirse a la
                               transmisión como administradores o presentadores.
                            </p>
                         </div>
@@ -151,9 +129,7 @@ export default function AdminScheduledPage({
                      disabled={isPreparing}
                   >
                      <PlayIcon className="w-5 h-5" />
-                     {isPreparing
-                        ? "Iniciando..."
-                        : "Iniciar Preparación de Transmisión"}
+                     {isPreparing ? "Iniciando..." : "Iniciar Preparación de Transmisión"}
                   </Button>
                </div>
             </div>

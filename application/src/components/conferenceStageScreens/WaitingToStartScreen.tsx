@@ -42,10 +42,7 @@ export default function WaitingToStartScreen({
       return () => clearInterval(id);
    }, [offsetMs]);
 
-   const remainingSeconds = Math.max(
-      0,
-      Math.floor((startDate.getTime() - now.getTime()) / 1000),
-   );
+   const remainingSeconds = Math.max(0, Math.floor((startDate.getTime() - now.getTime()) / 1000));
 
    // Fire onTimeOut once at zero
    useEffect(() => {
@@ -74,14 +71,10 @@ export default function WaitingToStartScreen({
       <div className="flex flex-col justify-center items-center bg-blue-50 mb-4 p-4 border border-blue-200 rounded-lg aspect-video">
          <div className="flex items-center gap-2">
             <Clock className="text-blue-700 size-6" />
-            <h2 className="font-semibold text-blue-900 text-lg">
-               La transmisión comenzará pronto
-            </h2>
+            <h2 className="font-semibold text-blue-900 text-lg">La transmisión comenzará pronto</h2>
          </div>
 
-         {conferenceTitle && (
-            <p className="mt-1 text-blue-700 text-center">{conferenceTitle}</p>
-         )}
+         {conferenceTitle && <p className="mt-1 text-blue-700 text-center">{conferenceTitle}</p>}
 
          <div className="flex items-center gap-2 mt-2 text-blue-700">
             <CalendarDays className="size-4" />
@@ -95,9 +88,7 @@ export default function WaitingToStartScreen({
                <span className="tabular-nums">{minutes}m</span>
                <span className="tabular-nums">{seconds}s</span>
             </div>
-            <p className="mt-1 text-blue-700 text-center text-sm">
-               Tiempo restante
-            </p>
+            <p className="mt-1 text-blue-700 text-center text-sm">Tiempo restante</p>
          </div>
       </div>
    );

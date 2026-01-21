@@ -14,15 +14,9 @@ interface Props {
    initialSelectedIds: string[];
 }
 
-export default function RecordingsSelector({
-   conferenceId,
-   allRecordings,
-   initialSelectedIds,
-}: Props) {
+export default function RecordingsSelector({ conferenceId, allRecordings, initialSelectedIds }: Props) {
    const router = useRouter();
-   const [selectedId, setSelectedId] = useState<string | null>(
-      initialSelectedIds[0] ?? null,
-   );
+   const [selectedId, setSelectedId] = useState<string | null>(initialSelectedIds[0] ?? null);
    const [query, setQuery] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -31,12 +25,8 @@ export default function RecordingsSelector({
    };
 
    const selectedInitial = initialSelectedIds[0] ?? null;
-   const toLink =
-      selectedId && selectedId !== selectedInitial ? selectedId : null;
-   const toUnlink =
-      selectedInitial && (!selectedId || selectedId !== selectedInitial)
-         ? selectedInitial
-         : null;
+   const toLink = selectedId && selectedId !== selectedInitial ? selectedId : null;
+   const toUnlink = selectedInitial && (!selectedId || selectedId !== selectedInitial) ? selectedInitial : null;
 
    const filteredRecordings = useMemo(() => {
       const q = query.trim().toLowerCase();
@@ -96,9 +86,7 @@ export default function RecordingsSelector({
                      className="flex justify-between items-center gap-3 hover:bg-gray-50 p-2 rounded-md cursor-pointer"
                   >
                      <div className="min-w-0">
-                        <p className="text-gray-900 text-sm truncate">
-                           {rec.title}
-                        </p>
+                        <p className="text-gray-900 text-sm truncate">{rec.title}</p>
                         <p className="text-gray-500 text-xs truncate">
                            {rec.recorderName} • {rec.status}
                         </p>

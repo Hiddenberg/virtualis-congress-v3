@@ -9,16 +9,13 @@ export async function createFulfillmentErrorRecord({
 }: Omit<FulfilmentError, "organization" | "fixed">) {
    const organization = await getOrganizationFromSubdomain();
 
-   const fulfillmentError = await createDBRecord<FulfilmentError>(
-      "FULFILLMENT_ERRORS",
-      {
-         organization: organization.id,
-         stripeCheckoutSessionId,
-         errorMessage,
-         errorStack,
-         fixed: false,
-      },
-   );
+   const fulfillmentError = await createDBRecord<FulfilmentError>("FULFILLMENT_ERRORS", {
+      organization: organization.id,
+      stripeCheckoutSessionId,
+      errorMessage,
+      errorStack,
+      fixed: false,
+   });
 
    return fulfillmentError;
 }

@@ -93,8 +93,7 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
    "event-finished": EventFinishedTemplate({
       userName: "John Doe",
       congressTitle: "Congreso Virtualis",
-      recordingsLink:
-         "https://cmimcostachiapas.virtualis.app/congress-recordings",
+      recordingsLink: "https://cmimcostachiapas.virtualis.app/congress-recordings",
       organizationName: "CMIM",
       totalConferences: 12,
    }),
@@ -102,8 +101,7 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
       speakerName: "John Doe",
       academicTitle: "Dr.",
       congressTitle: "Congreso Virtualis",
-      certificateUrl:
-         "http://gea.localhost:3000/certificates/speaker-certificate",
+      certificateUrl: "http://gea.localhost:3000/certificates/speaker-certificate",
    }),
    "on-demand-reminder": OnDemandReminderTemplate({
       userName: "John Doe",
@@ -113,11 +111,7 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
    }),
 } as const;
 
-export default async function EmailPreview({
-   params,
-}: {
-   params: Promise<{ templateId: string }>;
-}) {
+export default async function EmailPreview({ params }: { params: Promise<{ templateId: string }> }) {
    const { templateId } = await params;
 
    const emailHtml = await render(emailTemplatesMap[templateId]);
@@ -133,11 +127,7 @@ export default async function EmailPreview({
                <h1 className="mb-4 font-bold">Email Templates</h1>
                <div className="space-y-2">
                   {Object.entries(emailTemplatesMap).map(([key]) => (
-                     <Link
-                        key={key}
-                        href={`/email-templates/${key}`}
-                        className="block p-2 border rounded-lg"
-                     >
+                     <Link key={key} href={`/email-templates/${key}`} className="block p-2 border rounded-lg">
                         <h2>{key}</h2>
                      </Link>
                   ))}
@@ -145,11 +135,7 @@ export default async function EmailPreview({
             </div>
             <div className="col-span-4">
                <h1 className="mb-4 font-bold text-2xl">Email Preview</h1>
-               <iframe
-                  srcDoc={emailHtml}
-                  className="border rounded-lg w-full h-[90dvh]"
-                  title="Email Preview"
-               />
+               <iframe srcDoc={emailHtml} className="border rounded-lg w-full h-[90dvh]" title="Email Preview" />
             </div>
          </div>
       </div>

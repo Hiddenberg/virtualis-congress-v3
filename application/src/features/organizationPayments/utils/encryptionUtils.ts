@@ -17,11 +17,7 @@ export function encrypt(text: string) {
    }
 
    const iv = crypto.randomBytes(IV_LENGTH);
-   const cipher = crypto.createCipheriv(
-      "aes-256-cbc",
-      ENCRYPTION_KEY.substring(0, 32),
-      iv,
-   );
+   const cipher = crypto.createCipheriv("aes-256-cbc", ENCRYPTION_KEY.substring(0, 32), iv);
    let encrypted = cipher.update(text, "utf8", "base64");
    encrypted += cipher.final("base64");
    return iv.toString("base64") + ":" + encrypted;

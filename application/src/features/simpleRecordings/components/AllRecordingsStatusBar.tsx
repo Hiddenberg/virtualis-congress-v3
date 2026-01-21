@@ -1,27 +1,11 @@
-import {
-   CheckCircleIcon,
-   ClockIcon,
-   TrendingUpIcon,
-   VideoIcon,
-} from "lucide-react";
+import { CheckCircleIcon, ClockIcon, TrendingUpIcon, VideoIcon } from "lucide-react";
 
-export default function AllRecordingsStatusBar({
-   allRecordings,
-}: {
-   allRecordings: SimpleRecording[];
-}) {
-   const completedRecordings = allRecordings.filter(
-      (recording) => recording.status === "ready",
-   );
-   const pendingRecordings = allRecordings.filter(
-      (recording) => recording.status !== "ready",
-   );
+export default function AllRecordingsStatusBar({ allRecordings }: { allRecordings: SimpleRecording[] }) {
+   const completedRecordings = allRecordings.filter((recording) => recording.status === "ready");
+   const pendingRecordings = allRecordings.filter((recording) => recording.status !== "ready");
    const totalRecordings = allRecordings.length;
 
-   const completionRate =
-      totalRecordings > 0
-         ? Math.round((completedRecordings.length / totalRecordings) * 100)
-         : 0;
+   const completionRate = totalRecordings > 0 ? Math.round((completedRecordings.length / totalRecordings) * 100) : 0;
 
    const statusMetrics = [
       {
@@ -69,12 +53,8 @@ export default function AllRecordingsStatusBar({
                            <metric.icon className={`size-5 ${metric.color}`} />
                         </div>
                         <div>
-                           <div className="font-medium text-gray-900 text-sm">
-                              {metric.value}
-                           </div>
-                           <div className="text-gray-500 text-xs">
-                              {metric.label}
-                           </div>
+                           <div className="font-medium text-gray-900 text-sm">{metric.value}</div>
+                           <div className="text-gray-500 text-xs">{metric.label}</div>
                         </div>
                      </div>
                   ))}
@@ -83,9 +63,7 @@ export default function AllRecordingsStatusBar({
                {/* Progress Bar */}
                <div className="flex items-center gap-3">
                   <div className="text-right">
-                     <div className="font-medium text-gray-900 text-sm">
-                        {completionRate}% completado
-                     </div>
+                     <div className="font-medium text-gray-900 text-sm">{completionRate}% completado</div>
                      <div className="text-gray-500 text-xs">
                         {completedRecordings.length} de {totalRecordings}
                      </div>

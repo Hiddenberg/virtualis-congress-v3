@@ -56,32 +56,18 @@ export function AddCoordinatorForm() {
                <div className="bg-white shadow-xl p-6 rounded-lg w-full max-w-md">
                   <div className="flex justify-between items-center mb-4">
                      <h2 className="font-bold text-xl">Add New Coordinator</h2>
-                     <button
-                        onClick={() => setIsOpen(false)}
-                        className="text-gray-500 hover:text-gray-700"
-                     >
+                     <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-gray-700">
                         ✕
                      </button>
                   </div>
 
-                  {error && (
-                     <div className="bg-red-100 mb-4 p-3 rounded-md text-red-700">
-                        {error}
-                     </div>
-                  )}
+                  {error && <div className="bg-red-100 mb-4 p-3 rounded-md text-red-700">{error}</div>}
 
-                  {success && (
-                     <div className="bg-green-100 mb-4 p-3 rounded-md text-green-700">
-                        {success}
-                     </div>
-                  )}
+                  {success && <div className="bg-green-100 mb-4 p-3 rounded-md text-green-700">{success}</div>}
 
                   <form onSubmit={handleSubmit}>
                      <div className="mb-4">
-                        <label
-                           htmlFor="coordinatorName"
-                           className="block mb-1 font-medium text-gray-700 text-sm"
-                        >
+                        <label htmlFor="coordinatorName" className="block mb-1 font-medium text-gray-700 text-sm">
                            Full Name
                         </label>
                         <input
@@ -95,10 +81,7 @@ export function AddCoordinatorForm() {
                      </div>
 
                      <div className="mb-4">
-                        <label
-                           htmlFor="coordinatorEmail"
-                           className="block mb-1 font-medium text-gray-700 text-sm"
-                        >
+                        <label htmlFor="coordinatorEmail" className="block mb-1 font-medium text-gray-700 text-sm">
                            Email
                         </label>
                         <input

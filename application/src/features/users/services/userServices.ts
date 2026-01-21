@@ -37,10 +37,7 @@ export async function createUser(userData: NewUserData) {
    return newUser;
 }
 
-export async function checkUserAuthorization(
-   userId: string,
-   rolesAllowed: RoleType[],
-) {
+export async function checkUserAuthorization(userId: string, rolesAllowed: RoleType[]) {
    if (rolesAllowed.length === 0) {
       throw new Error("No roles provided");
    }
@@ -57,13 +54,10 @@ export async function checkUserAuthorization(
 export async function getUserByEmail(email: string) {
    const organization = await getOrganizationFromSubdomain();
 
-   const filter = pbFilter(
-      "email = {:email} && organization = {:organizationId}",
-      {
-         email,
-         organizationId: organization.id,
-      },
-   );
+   const filter = pbFilter("email = {:email} && organization = {:organizationId}", {
+      email,
+      organizationId: organization.id,
+   });
    const userRecord = await getSingleDBRecord<User>("USERS", filter);
 
    return userRecord;
@@ -72,13 +66,10 @@ export async function getUserByEmail(email: string) {
 export async function getUserById(userId: string) {
    const organization = await getOrganizationFromSubdomain();
 
-   const filter = pbFilter(
-      "id = {:userId} && organization = {:organizationId}",
-      {
-         userId,
-         organizationId: organization.id,
-      },
-   );
+   const filter = pbFilter("id = {:userId} && organization = {:organizationId}", {
+      userId,
+      organizationId: organization.id,
+   });
    const userRecord = await getSingleDBRecord<User>("USERS", filter);
 
    return userRecord;
@@ -90,12 +81,9 @@ export async function getAllOrganizationUsers() {
       throw new Error("[getAllUsers] Organization not found");
    }
 
-   const filter = pbFilter(
-      "organization__user_roles_via_user.organization ?= {:organizationId}",
-      {
-         organizationId: organization.id,
-      },
-   );
+   const filter = pbFilter("organization__user_roles_via_user.organization ?= {:organizationId}", {
+      organizationId: organization.id,
+   });
    const users = await getFullDBRecordsList<User>("USERS", {
       filter,
    });

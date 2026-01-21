@@ -22,9 +22,7 @@ export default function SubSectionSelector() {
                   key={button.id}
                   onClick={() => setActiveButton(button.label)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                     activeButton === button.label
-                        ? "bg-gray-800 text-white"
-                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                     activeButton === button.label ? "bg-gray-800 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                   }`}
                >
                   {button.label}

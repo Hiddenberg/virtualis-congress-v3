@@ -15,10 +15,7 @@ import GoBackButton from "@/components/global/GoBackButton";
 import { getAllSimpleRecordingCampaigns } from "@/features/simpleRecordings/services/recordingCampaignsServices";
 import { getAllSimpleRecordings } from "@/features/simpleRecordings/services/recordingsServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
-import {
-   checkUserAuthorization,
-   getUserById,
-} from "@/features/users/services/userServices";
+import { checkUserAuthorization, getUserById } from "@/features/users/services/userServices";
 
 export const dynamic = "force-dynamic";
 
@@ -59,24 +56,19 @@ function CampaignCard({
                <div className="flex items-center gap-2">
                   <PlayIcon className="size-4 text-gray-500" />
                   <span className="text-gray-600 text-sm">
-                     {recordingsCount}{" "}
-                     {recordingsCount === 1 ? "Grabación" : "Grabaciones"}
+                     {recordingsCount} {recordingsCount === 1 ? "Grabación" : "Grabaciones"}
                   </span>
                </div>
                {recordingsCount > 0 && (
                   <div className="flex items-center gap-2">
                      <CheckCircleIcon className="size-4 text-green-500" />
-                     <span className="text-gray-600 text-sm">
-                        {completedCount} Completadas
-                     </span>
+                     <span className="text-gray-600 text-sm">{completedCount} Completadas</span>
                   </div>
                )}
                {recordingsCount > 0 && (
                   <div className="flex items-center gap-2">
                      <ClockIcon className="size-4 text-yellow-600" />
-                     <span className="text-gray-600 text-sm">
-                        {pendingCount} Pendinetes
-                     </span>
+                     <span className="text-gray-600 text-sm">{pendingCount} Pendinetes</span>
                   </div>
                )}
             </div>
@@ -107,12 +99,10 @@ function EmptyState() {
          <div className="bg-gray-100 mb-4 p-4 rounded-full">
             <VideoIcon className="size-8 text-gray-400" />
          </div>
-         <h3 className="mb-2 font-semibold text-gray-900 text-lg">
-            No hay campañas de grabación
-         </h3>
+         <h3 className="mb-2 font-semibold text-gray-900 text-lg">No hay campañas de grabación</h3>
          <p className="mb-6 max-w-md text-gray-500">
-            Aún no se han creado campañas de grabación. Las campañas te permiten
-            organizar y gestionar múltiples grabaciones de manera eficiente.
+            Aún no se han creado campañas de grabación. Las campañas te permiten organizar y gestionar múltiples grabaciones de
+            manera eficiente.
          </p>
          <LinkButton variant="blue" href="/recordings/campaign/create">
             <PlusIcon className="size-4" />
@@ -127,15 +117,12 @@ function PageHeader({ campaignsCount }: { campaignsCount: number }) {
    return (
       <div className="flex justify-between items-center mb-8">
          <div>
-            <h1 className="mb-2 font-bold text-gray-900 text-3xl">
-               Campañas de Grabación
-            </h1>
+            <h1 className="mb-2 font-bold text-gray-900 text-3xl">Campañas de Grabación</h1>
             <p className="text-gray-600">
                Gestiona y organiza tus grabaciones por campañas
                {campaignsCount > 0 && (
                   <span className="ml-2 text-gray-500">
-                     • {campaignsCount}{" "}
-                     {campaignsCount === 1 ? "campaña" : "campañas"}
+                     • {campaignsCount} {campaignsCount === 1 ? "campaña" : "campañas"}
                   </span>
                )}
             </p>
@@ -160,16 +147,9 @@ function CampaignOverview({
    allRecordings: SimpleRecording[];
 }) {
    const totalRecordings = allRecordings.length;
-   const completedRecordings = allRecordings.filter(
-      (r) => r.status === "ready",
-   ).length;
-   const pendingRecordings = allRecordings.filter(
-      (r) => r.status !== "ready",
-   ).length;
-   const completionRate =
-      totalRecordings > 0
-         ? Math.round((completedRecordings / totalRecordings) * 100)
-         : 0;
+   const completedRecordings = allRecordings.filter((r) => r.status === "ready").length;
+   const pendingRecordings = allRecordings.filter((r) => r.status !== "ready").length;
+   const completionRate = totalRecordings > 0 ? Math.round((completedRecordings / totalRecordings) * 100) : 0;
 
    const stats = [
       {
@@ -216,12 +196,8 @@ function CampaignOverview({
                         <stat.icon className={`size-5 ${stat.color}`} />
                      </div>
                      <div>
-                        <div className="font-medium text-gray-900 text-sm">
-                           {stat.value}
-                        </div>
-                        <div className="text-gray-500 text-xs">
-                           {stat.label}
-                        </div>
+                        <div className="font-medium text-gray-900 text-sm">{stat.value}</div>
+                        <div className="text-gray-500 text-xs">{stat.label}</div>
                      </div>
                   </div>
                ))}
@@ -230,9 +206,7 @@ function CampaignOverview({
             {totalRecordings > 0 && (
                <div className="flex items-center gap-3">
                   <div className="text-right">
-                     <div className="font-medium text-gray-900 text-sm">
-                        {completionRate}% completado
-                     </div>
+                     <div className="font-medium text-gray-900 text-sm">{completionRate}% completado</div>
                      <div className="text-gray-500 text-xs">
                         {completedRecordings} de {totalRecordings}
                      </div>
@@ -259,11 +233,7 @@ export default async function RecordingsPage() {
       return redirect("/login/?redirectTo=/recordings");
    }
 
-   const isUserAuthorized = await checkUserAuthorization(user.id, [
-      "super_admin",
-      "admin",
-      "coordinator",
-   ]);
+   const isUserAuthorized = await checkUserAuthorization(user.id, ["super_admin", "admin", "coordinator"]);
    if (!isUserAuthorized) {
       return redirect("/unauthorized?route=/recordings");
    }
@@ -273,15 +243,9 @@ export default async function RecordingsPage() {
 
    // Calculate recordings count per campaign
    const campaignsWithStats = allRecordingCampaigns.map((campaign) => {
-      const campaignRecordings = allRecordings.filter(
-         (recording) => recording.campaign === campaign.id,
-      );
-      const completedRecordings = campaignRecordings.filter(
-         (recording) => recording.status === "ready",
-      );
-      const pendingRecordings = campaignRecordings.filter(
-         (recording) => recording.status !== "ready",
-      );
+      const campaignRecordings = allRecordings.filter((recording) => recording.campaign === campaign.id);
+      const completedRecordings = campaignRecordings.filter((recording) => recording.status === "ready");
+      const pendingRecordings = campaignRecordings.filter((recording) => recording.status !== "ready");
 
       return {
          ...campaign,
@@ -301,10 +265,7 @@ export default async function RecordingsPage() {
 
          <PageHeader campaignsCount={allRecordingCampaigns.length} />
 
-         <CampaignOverview
-            campaigns={allRecordingCampaigns}
-            allRecordings={allRecordings}
-         />
+         <CampaignOverview campaigns={allRecordingCampaigns} allRecordings={allRecordings} />
 
          {allRecordingCampaigns.length === 0 ? (
             <EmptyState />

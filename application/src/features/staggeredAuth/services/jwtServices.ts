@@ -46,19 +46,13 @@ export async function generateRefreshToken(userId: string) {
 
 export async function verifyRefreshToken(refreshToken: string) {
    try {
-      await jwtVerify(
-         refreshToken,
-         new TextEncoder().encode(JWT_REFRESH_SECRET as string),
-      );
+      await jwtVerify(refreshToken, new TextEncoder().encode(JWT_REFRESH_SECRET as string));
 
       const filter = pbFilter("token = {:token}", {
          token: refreshToken,
       });
 
-      const storedRefreshToken = await getSingleDBRecord(
-         "USER_REFRESH_TOKENS",
-         filter,
-      );
+      const storedRefreshToken = await getSingleDBRecord("USER_REFRESH_TOKENS", filter);
 
       if (!storedRefreshToken) {
          return false;
@@ -73,10 +67,7 @@ export async function verifyRefreshToken(refreshToken: string) {
 
 export async function verifyUserAuthToken(authToken: string) {
    try {
-      await jwtVerify(
-         authToken,
-         new TextEncoder().encode(JWT_ACCESS_SECRET as string),
-      );
+      await jwtVerify(authToken, new TextEncoder().encode(JWT_ACCESS_SECRET as string));
       return true;
    } catch {
       console.error("[verifyUserAuthToken] User auth token is invalid");

@@ -1,14 +1,8 @@
 "use server";
 
-import {
-   convertPPTToImages,
-   type SlideImage,
-} from "../services/convertapiServices";
+import { convertPPTToImages, type SlideImage } from "../services/convertapiServices";
 
-export async function convertPPTToImageAction(
-   file: File,
-   format: "png" | "webp",
-): Promise<BackendResponse<SlideImage[]>> {
+export async function convertPPTToImageAction(file: File, format: "png" | "webp"): Promise<BackendResponse<SlideImage[]>> {
    try {
       if (!file) {
          return {

@@ -14,31 +14,17 @@ interface RealtimeCameraProps {
 }
 
 export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
-   const {
-      deviceId,
-      width = 1280,
-      height = 720,
-      mirror = false,
-      className = "",
-      onReady,
-      onError,
-   } = props;
+   const { deviceId, width = 1280, height = 720, mirror = false, className = "", onReady, onError } = props;
 
    const videoRef = useRef<HTMLVideoElement | null>(null);
    const streamRef = useRef<MediaStream | null>(null);
 
-   const [status, setStatus] = useState<
-      "idle" | "loading" | "streaming" | "error"
-   >("idle");
+   const [status, setStatus] = useState<"idle" | "loading" | "streaming" | "error">("idle");
    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
    // Devices handling
-   const [availableCameras, setAvailableCameras] = useState<MediaDeviceInfo[]>(
-      [],
-   );
-   const [selectedDeviceId, setSelectedDeviceId] = useState<string | undefined>(
-      undefined,
-   );
+   const [availableCameras, setAvailableCameras] = useState<MediaDeviceInfo[]>([]);
+   const [selectedDeviceId, setSelectedDeviceId] = useState<string | undefined>(undefined);
    const [isDeviceMenuOpen, setIsDeviceMenuOpen] = useState(false);
 
    const stopStream = useCallback(() => {
@@ -49,10 +35,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
    }, []);
 
    const startStream = useCallback(async () => {
-      if (
-         typeof navigator === "undefined" ||
-         !navigator.mediaDevices?.getUserMedia
-      ) {
+      if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
          const err = new Error("El navegador no soporta captura de cámara.");
          setStatus("error");
          setErrorMessage(err.message);
@@ -98,23 +81,16 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videos = devices.filter((d) => d.kind === "videoinput");
             setAvailableCameras(videos);
-            const trackDeviceId = stream.getVideoTracks()?.[0]?.getSettings()
-               ?.deviceId as string | undefined;
+            const trackDeviceId = stream.getVideoTracks()?.[0]?.getSettings()?.deviceId as string | undefined;
             if (!selectedDeviceId && trackDeviceId) {
                setSelectedDeviceId(trackDeviceId);
                try {
-                  localStorage.setItem(
-                     "vc.selectedCameraDeviceId",
-                     trackDeviceId,
-                  );
+                  localStorage.setItem("vc.selectedCameraDeviceId", trackDeviceId);
                } catch {}
             }
          } catch {}
       } catch (err) {
-         const error =
-            err instanceof Error
-               ? err
-               : new Error("No se pudo iniciar la cámara.");
+         const error = err instanceof Error ? err : new Error("No se pudo iniciar la cámara.");
          setStatus("error");
          setErrorMessage(error.message);
          onError?.(error);
@@ -128,10 +104,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
          return;
       }
       try {
-         const saved =
-            typeof window !== "undefined"
-               ? localStorage.getItem("vc.selectedCameraDeviceId")
-               : null;
+         const saved = typeof window !== "undefined" ? localStorage.getItem("vc.selectedCameraDeviceId") : null;
          if (saved) setSelectedDeviceId(saved);
       } catch {}
    }, [deviceId]);
@@ -146,28 +119,18 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
 
    // Keep camera list up to date and handle device removal
    useEffect(() => {
-      if (
-         typeof navigator === "undefined" ||
-         !navigator.mediaDevices?.enumerateDevices
-      )
-         return;
+      if (typeof navigator === "undefined" || !navigator.mediaDevices?.enumerateDevices) return;
       const handleDeviceChange = async () => {
          try {
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videos = devices.filter((d) => d.kind === "videoinput");
             setAvailableCameras(videos);
-            if (
-               selectedDeviceId &&
-               !videos.some((d) => d.deviceId === selectedDeviceId)
-            ) {
+            if (selectedDeviceId && !videos.some((d) => d.deviceId === selectedDeviceId)) {
                const fallback = videos[0]?.deviceId;
                setSelectedDeviceId(fallback);
                if (fallback) {
                   try {
-                     localStorage.setItem(
-                        "vc.selectedCameraDeviceId",
-                        fallback,
-                     );
+                     localStorage.setItem("vc.selectedCameraDeviceId", fallback);
                   } catch {}
                }
             }
@@ -176,27 +139,19 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
       // Subscribe
       const mediaDevices = navigator.mediaDevices;
       if (typeof mediaDevices.addEventListener === "function") {
-         mediaDevices.addEventListener(
-            "devicechange",
-            handleDeviceChange as EventListener,
-         );
+         mediaDevices.addEventListener("devicechange", handleDeviceChange as EventListener);
       }
       // Initial population
       handleDeviceChange();
       return () => {
          if (typeof mediaDevices.removeEventListener === "function") {
-            mediaDevices.removeEventListener(
-               "devicechange",
-               handleDeviceChange as EventListener,
-            );
+            mediaDevices.removeEventListener("devicechange", handleDeviceChange as EventListener);
          }
       };
    }, [selectedDeviceId]);
 
    return (
-      <div
-         className={`relative rounded-xl border border-slate-300 bg-black/30 ${className}`}
-      >
+      <div className={`relative rounded-xl border border-slate-300 bg-black/30 ${className}`}>
          {/* Camera selector */}
          <div className="-top-6 right-0 z-10 absolute">
             <div className="relative">
@@ -211,9 +166,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
                   <div className="right-0 absolute bg-white shadow-lg mt-1 border border-slate-200 rounded-md w-56 max-h-60 overflow-auto">
                      <div className="py-1">
                         {availableCameras.length === 0 && (
-                           <div className="px-3 py-2 text-slate-600 text-xs">
-                              No hay cámaras disponibles
-                           </div>
+                           <div className="px-3 py-2 text-slate-600 text-xs">No hay cámaras disponibles</div>
                         )}
                         {availableCameras.map((cam, idx) => {
                            const label = cam.label || `Cámara ${idx + 1}`;
@@ -225,10 +178,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
                                     setSelectedDeviceId(cam.deviceId);
                                     setIsDeviceMenuOpen(false);
                                     try {
-                                       localStorage.setItem(
-                                          "vc.selectedCameraDeviceId",
-                                          cam.deviceId,
-                                       );
+                                       localStorage.setItem("vc.selectedCameraDeviceId", cam.deviceId);
                                     } catch {}
                                  }}
                                  className={`w-full text-left px-3 py-2 text-xs ${isSelected ? "bg-slate-100 text-slate-900" : "text-slate-700 hover:bg-slate-50"}`}
@@ -254,24 +204,12 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
          {status !== "streaming" && (
             <div className="absolute inset-0 flex justify-center items-center bg-black/30">
                <div className="bg-white/90 px-4 py-3 rounded-lg text-slate-800 text-center">
-                  {status === "loading" && (
-                     <p className="font-medium text-sm">
-                        Solicitando acceso a la cámara…
-                     </p>
-                  )}
-                  {status === "idle" && (
-                     <p className="font-medium text-sm">Preparando cámara…</p>
-                  )}
+                  {status === "loading" && <p className="font-medium text-sm">Solicitando acceso a la cámara…</p>}
+                  {status === "idle" && <p className="font-medium text-sm">Preparando cámara…</p>}
                   {status === "error" && (
                      <div className="space-y-2">
-                        <p className="font-medium text-sm">
-                           No se pudo acceder a la cámara.
-                        </p>
-                        {errorMessage && (
-                           <p className="text-slate-600 text-xs">
-                              {errorMessage}
-                           </p>
-                        )}
+                        <p className="font-medium text-sm">No se pudo acceder a la cámara.</p>
+                        {errorMessage && <p className="text-slate-600 text-xs">{errorMessage}</p>}
                         <button
                            onClick={startStream}
                            className="inline-flex justify-center items-center bg-white hover:bg-slate-50 mt-1 px-3 py-1.5 border border-slate-300 rounded-md font-medium text-slate-800 text-xs"

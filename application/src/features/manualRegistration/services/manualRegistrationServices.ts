@@ -12,12 +12,7 @@ import {
    createUserPurchaseRecord,
 } from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import {
-   createDBRecord,
-   getFullDBRecordsList,
-   pbFilter,
-   updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { createDBRecord, getFullDBRecordsList, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 
 interface ManualPaymentInput {
    userId: UserRecord["id"];
@@ -33,9 +28,7 @@ function generateManualPaymentId(userId: string) {
    return `manual:${userId}:${Date.now()}:${rand}`;
 }
 
-export async function fulfillManualCongressRegistration(
-   params: ManualPaymentInput,
-) {
+export async function fulfillManualCongressRegistration(params: ManualPaymentInput) {
    if (!params.modality) {
       throw new Error("Debes seleccionar una modalidad de asistencia");
    }
@@ -48,15 +41,10 @@ export async function fulfillManualCongressRegistration(
 
    // Prevent modifying main purchase if already paid, but allow adding recordings if missing
    const alreadyPaid = await confirmUserCongressPayment(params.userId);
-   const hasRecordingsAlready = await checkIfUserHasAccessToRecordings(
-      params.userId,
-      congress.id,
-   );
+   const hasRecordingsAlready = await checkIfUserHasAccessToRecordings(params.userId, congress.id);
    if (alreadyPaid) {
       if (!params.grantRecordingsAccess) {
-         throw new Error(
-            "El usuario ya cuenta con un pago confirmado para el congreso",
-         );
+         throw new Error("El usuario ya cuenta con un pago confirmado para el congreso");
       }
       if (hasRecordingsAlready) {
          throw new Error("El usuario ya cuenta con acceso a las grabaciones");
@@ -165,9 +153,7 @@ export async function searchUsersRegisteredToCurrentCongress(query: string) {
          if (!normalizedQuery) return true;
          const name = u.name?.toLowerCase() ?? "";
          const email = u.email?.toLowerCase() ?? "";
-         return (
-            name.includes(normalizedQuery) || email.includes(normalizedQuery)
-         );
+         return name.includes(normalizedQuery) || email.includes(normalizedQuery);
       });
 
    // Decorate with payment status; limit to 25 to keep checks reasonable
@@ -179,10 +165,7 @@ export async function searchUsersRegisteredToCurrentCongress(query: string) {
    }> = [];
    for (const u of limitedUsers) {
       const hasPaid = await confirmUserCongressPayment(u.id);
-      const hasRecordings = await checkIfUserHasAccessToRecordings(
-         u.id,
-         congress.id,
-      );
+      const hasRecordings = await checkIfUserHasAccessToRecordings(u.id, congress.id);
       results.push({
          user: u,
          hasPaid,

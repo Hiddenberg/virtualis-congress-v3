@@ -16,9 +16,7 @@ export default function LinkSpeakerPresentationRecordingForm({
 }) {
    const [selectedCampaignId, setSelectedCampaignId] = useState<string>("all");
    const [searchQuery, setSearchQuery] = useState<string>("");
-   const [selectedRecordingId, setSelectedRecordingId] = useState<
-      string | null
-   >(null);
+   const [selectedRecordingId, setSelectedRecordingId] = useState<string | null>(null);
    const [isSubmitting, startTransition] = useTransition();
 
    const { conferenceId } = useParams<{ conferenceId: string }>();
@@ -39,9 +37,7 @@ export default function LinkSpeakerPresentationRecordingForm({
       }
       if (normalizedQuery.length > 0) {
          list = list.filter(
-            (r) =>
-               r.title.toLowerCase().includes(normalizedQuery) ||
-               r.recorderName.toLowerCase().includes(normalizedQuery),
+            (r) => r.title.toLowerCase().includes(normalizedQuery) || r.recorderName.toLowerCase().includes(normalizedQuery),
          );
       }
       // sort: ready first, then by title for nicer UX
@@ -64,9 +60,7 @@ export default function LinkSpeakerPresentationRecordingForm({
    const handleSubmit = () => {
       startTransition(async () => {
          if (!conferenceId || !selectedRecordingId) {
-            toast.error(
-               "Faltan datos para vincular la grabación de la presentación del ponente",
-            );
+            toast.error("Faltan datos para vincular la grabación de la presentación del ponente");
             return;
          }
 
@@ -79,20 +73,14 @@ export default function LinkSpeakerPresentationRecordingForm({
             return;
          }
 
-         toast.success(
-            "Grabación de la presentación del ponente vinculada correctamente",
-         );
-         router.push(
-            `/congress-admin/conferences/${conferenceId}/speaker-presentation-recording`,
-         );
+         toast.success("Grabación de la presentación del ponente vinculada correctamente");
+         router.push(`/congress-admin/conferences/${conferenceId}/speaker-presentation-recording`);
       });
    };
 
    return (
       <div className="mt-4">
-         <h2 className="mb-3 font-semibold text-gray-900 text-lg">
-            Selecciona la grabación de la presentación del ponente
-         </h2>
+         <h2 className="mb-3 font-semibold text-gray-900 text-lg">Selecciona la grabación de la presentación del ponente</h2>
 
          <div className="bg-white border border-gray-200 rounded-xl">
             {/* Controls */}
@@ -103,9 +91,7 @@ export default function LinkSpeakerPresentationRecordingForm({
                </div>
                <div className="gap-3 md:gap-4 grid grid-cols-1 md:grid-cols-3 w-full">
                   <div className="md:col-span-1">
-                     <label className="block mb-1 font-medium text-gray-700 text-sm">
-                        Campaña
-                     </label>
+                     <label className="block mb-1 font-medium text-gray-700 text-sm">Campaña</label>
                      <select
                         className="bg-white px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full text-gray-900 text-sm"
                         value={selectedCampaignId}
@@ -124,9 +110,7 @@ export default function LinkSpeakerPresentationRecordingForm({
                      </select>
                   </div>
                   <div className="md:col-span-2">
-                     <label className="block mb-1 font-medium text-gray-700 text-sm">
-                        Buscar grabación
-                     </label>
+                     <label className="block mb-1 font-medium text-gray-700 text-sm">Buscar grabación</label>
                      <div className="relative">
                         <Search className="top-1/2 left-3 absolute w-4 h-4 text-gray-500 -translate-y-1/2" />
                         <input
@@ -163,9 +147,7 @@ export default function LinkSpeakerPresentationRecordingForm({
                {filteredRecordings.length === 0 ? (
                   <div className="flex flex-col justify-center items-center gap-2 py-10 text-gray-500 text-center">
                      <Video className="w-6 h-6" />
-                     <p className="text-sm">
-                        No se encontraron grabaciones con los filtros actuales
-                     </p>
+                     <p className="text-sm">No se encontraron grabaciones con los filtros actuales</p>
                   </div>
                ) : (
                   <ul className="gap-2 grid grid-cols-1">
@@ -185,25 +167,16 @@ export default function LinkSpeakerPresentationRecordingForm({
                               >
                                  <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-1">
                                     <div className="min-w-0">
-                                       <p className="font-medium text-gray-900 truncate">
-                                          {rec.title}
-                                       </p>
+                                       <p className="font-medium text-gray-900 truncate">{rec.title}</p>
                                        <div className="flex flex-wrap items-center gap-2 text-gray-600 text-xs">
                                           <span>{rec.recorderName}</span>
-                                          <span className="hidden sm:inline text-gray-300">
-                                             •
-                                          </span>
-                                          <span className="truncate">
-                                             {campaignIdToTitle[rec.campaign] ??
-                                                ""}
-                                          </span>
+                                          <span className="hidden sm:inline text-gray-300">•</span>
+                                          <span className="truncate">{campaignIdToTitle[rec.campaign] ?? ""}</span>
                                        </div>
                                     </div>
                                     <div className="flex items-center gap-2 mt-2 sm:mt-0 shrink-0">
                                        <StatusBadge status={rec.status} />
-                                       {isSelected && (
-                                          <CheckCircle2 className="w-5 h-5 text-blue-600" />
-                                       )}
+                                       {isSelected && <CheckCircle2 className="w-5 h-5 text-blue-600" />}
                                     </div>
                                  </div>
                               </button>
@@ -218,16 +191,9 @@ export default function LinkSpeakerPresentationRecordingForm({
             <div className="flex justify-between items-center gap-3 p-4 border-gray-200 border-t">
                <div className="flex items-center gap-2 text-gray-600 text-xs">
                   <Link2 className="w-4 h-4" />
-                  <span>
-                     Vinculará la grabación seleccionada a esta conferencia
-                  </span>
+                  <span>Vinculará la grabación seleccionada a esta conferencia</span>
                </div>
-               <Button
-                  variant="blue"
-                  onClick={handleSubmit}
-                  disabled={!selectedRecordingId}
-                  loading={isSubmitting}
-               >
+               <Button variant="blue" onClick={handleSubmit} disabled={!selectedRecordingId} loading={isSubmitting}>
                   Vincular grabación
                </Button>
             </div>

@@ -1,16 +1,10 @@
 import { Sunrise, Zap } from "lucide-react";
 import { InaugurationVideoBanner } from "@/features/organizations/organizationSpecifics/HGEA/data/components/HGEALobbyVideoComponents";
 
-export default function SecondDayBanner({
-   congressDayNumber,
-}: {
-   congressDayNumber: 1 | 2 | 3 | 4 | 5 | 6;
-}) {
+export default function SecondDayBanner({ congressDayNumber }: { congressDayNumber: 1 | 2 | 3 | 4 | 5 | 6 }) {
    // If the day is the first day (base 0), we show the inauguration video
    if (congressDayNumber === 1) {
-      return (
-         <InaugurationVideoBanner playbackId="h00D6JrqlVF2eXWcktGg7qH6BGPa1KjKKtoATTAN8Qzo" />
-      );
+      return <InaugurationVideoBanner playbackId="h00D6JrqlVF2eXWcktGg7qH6BGPa1KjKKtoATTAN8Qzo" />;
    }
 
    // If the day is the second day (base 1), we show the second day message
@@ -43,9 +37,7 @@ export default function SecondDayBanner({
 
                   {/* Message */}
                   <div className="text-center">
-                     <h2 className="mb-3 font-bold text-slate-800 text-2xl md:text-3xl leading-tight">
-                        {message}
-                     </h2>
+                     <h2 className="mb-3 font-bold text-slate-800 text-2xl md:text-3xl leading-tight">{message}</h2>
                      <p className="mx-auto mb-2 max-w-2xl font-medium text-amber-700 text-lg md:text-xl leading-relaxed">
                         Continuamos con más aprendizaje y conocimiento
                      </p>

@@ -48,9 +48,7 @@ export default async function RootLayout({
                <StaggeredAuthContextProvider>
                   <OrganizationContextProvider organization={organization}>
                      <GlobalPopUpProvider>
-                        <div className="mx-auto w-full max-w-[1440px] min-h-dvh">
-                           {children}
-                        </div>
+                        <div className="mx-auto w-full max-w-[1440px] min-h-dvh">{children}</div>
                      </GlobalPopUpProvider>
                   </OrganizationContextProvider>
                </StaggeredAuthContextProvider>

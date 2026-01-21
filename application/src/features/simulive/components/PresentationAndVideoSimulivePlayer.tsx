@@ -6,10 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import PresentationDrawingPlaybackOverlay from "@/features/pptPresentations/components/PresentationDrawingPlaybackOverlay";
 import pbClient from "@/libs/pbClient";
 // import { isAfter, isBefore } from "@formkit/tempo"
-import {
-   getSimuliveVariables,
-   type SimuliveData,
-} from "../utils/simulivePlayerUtils";
+import { getSimuliveVariables, type SimuliveData } from "../utils/simulivePlayerUtils";
 import UnmuteOverlay from "./UnmuteOverlay";
 
 export default function PresentationAndVideoSimulivePlayer({
@@ -39,9 +36,7 @@ export default function PresentationAndVideoSimulivePlayer({
 
    // Precompute all slide image URLs and preload them on mount
    const slideImageUrls = useMemo(() => {
-      return presentationSlides.map((slide) =>
-         pbClient.files.getURL(slide, slide.image as string),
-      );
+      return presentationSlides.map((slide) => pbClient.files.getURL(slide, slide.image as string));
    }, [presentationSlides]);
 
    const preloadedUrlsRef = useRef<Set<string>>(new Set());
@@ -67,11 +62,7 @@ export default function PresentationAndVideoSimulivePlayer({
       const BATCH_SIZE = 10;
 
       const preloadAll = async () => {
-         for (
-            let i = 0;
-            i < slideImageUrls.length && !cancelled;
-            i += BATCH_SIZE
-         ) {
+         for (let i = 0; i < slideImageUrls.length && !cancelled; i += BATCH_SIZE) {
             const batch = slideImageUrls.slice(i, i + BATCH_SIZE);
             await Promise.all(batch.map(preloadImage));
          }
@@ -103,8 +94,7 @@ export default function PresentationAndVideoSimulivePlayer({
 
          const candidate = sortedSlideChanges[answerIndex]?.slideIndex ?? 0;
          if (candidate < 0) return 0;
-         if (candidate >= presentationSlides.length)
-            return presentationSlides.length - 1;
+         if (candidate >= presentationSlides.length) return presentationSlides.length - 1;
          return candidate;
       },
       [sortedSlideChanges, presentationSlides.length],
@@ -112,9 +102,7 @@ export default function PresentationAndVideoSimulivePlayer({
 
    useEffect(() => {
       // Attach listeners to the underlying <mux-player> element
-      const playerEl = containerRef.current?.querySelector("mux-player") as
-         | HTMLMediaElement
-         | undefined;
+      const playerEl = containerRef.current?.querySelector("mux-player") as HTMLMediaElement | undefined;
       if (!playerEl) return;
 
       const onEnded = () => {
@@ -125,9 +113,7 @@ export default function PresentationAndVideoSimulivePlayer({
       const updateFromPlayerTime = () => {
          const currentTimeMs = (playerEl.currentTime || 0) * 1000;
          const nextIndex = getSlideIndexForTime(currentTimeMs);
-         setCurrentSlideIndex((prev) =>
-            prev !== nextIndex ? nextIndex : prev,
-         );
+         setCurrentSlideIndex((prev) => (prev !== nextIndex ? nextIndex : prev));
       };
 
       // Initialize slide at t=0
@@ -148,10 +134,7 @@ export default function PresentationAndVideoSimulivePlayer({
    const currentSlide = presentationSlides[currentSlideIndex];
 
    // Convert server time to datetime
-   const { timeVideoShouldStart } = useMemo(
-      () => getSimuliveVariables(simuliveData),
-      [simuliveData],
-   );
+   const { timeVideoShouldStart } = useMemo(() => getSimuliveVariables(simuliveData), [simuliveData]);
 
    // if (isBefore(serverTimeDate, startDateTimeDate)) {
    //    return (
@@ -166,10 +149,7 @@ export default function PresentationAndVideoSimulivePlayer({
    // }
 
    return (
-      <div
-         ref={containerRef}
-         className="relative bg-white shadow-xl rounded-2xl w-full aspect-video overflow-hidden"
-      >
+      <div ref={containerRef} className="relative bg-white shadow-xl rounded-2xl w-full aspect-video overflow-hidden">
          <UnmuteOverlay isMuted={isMuted} onClick={() => setIsMuted(false)} />
 
          {/* Media area */}
@@ -190,9 +170,7 @@ export default function PresentationAndVideoSimulivePlayer({
                            />
                            <PresentationDrawingPlaybackOverlay
                               containerRef={containerRef}
-                              drawingEvents={
-                                 presentationRecording?.drawingEvents
-                              }
+                              drawingEvents={presentationRecording?.drawingEvents}
                               currentSlideIndex={currentSlideIndex}
                            />
                         </>

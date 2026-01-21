@@ -1,26 +1,21 @@
-import SponsorCarousel, {
-   type CarouselSponsor,
-} from "@/components/conference-zone/SponsorCarousel";
+import SponsorCarousel, { type CarouselSponsor } from "@/components/conference-zone/SponsorCarousel";
 import ConferenceGrid from "@/components/partners-demo/lobby/ConferenceGrid";
 import Hero from "@/components/partners-demo/lobby/Hero";
 
 const lobbySponsors: CarouselSponsor[] = [
    {
       name: "Virtualis",
-      logoURL:
-         "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1741919524/virtualis_congress_logo_qlmh6h.png",
+      logoURL: "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1741919524/virtualis_congress_logo_qlmh6h.png",
       background: "light",
    },
    {
       name: "Sanfer",
-      logoURL:
-         "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1759192946/897825fa-020d-44d2-9f08-17094034675a.webp",
+      logoURL: "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1759192946/897825fa-020d-44d2-9f08-17094034675a.webp",
       background: "light",
    },
    {
       name: "Abbott",
-      logoURL:
-         "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1759192890/c26b40ec-40ea-4357-b885-0235e84fd20c.webp",
+      logoURL: "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1759192890/c26b40ec-40ea-4357-b885-0235e84fd20c.webp",
       background: "dark",
    },
    {
@@ -68,11 +63,7 @@ export default function PartnersDemoLobbyPage() {
 
    return (
       <div className="flex flex-col gap-4 pb-6">
-         <Hero
-            eventName="Masterclass en diabetes"
-            congressTitle="Masterclass en diabetes"
-            congressSubtitle="Noviembre 2025"
-         />
+         <Hero eventName="Masterclass en diabetes" congressTitle="Masterclass en diabetes" congressSubtitle="Noviembre 2025" />
          <div className="px-6 md:px-10">
             <SponsorCarousel sponsors={lobbySponsors} />
          </div>

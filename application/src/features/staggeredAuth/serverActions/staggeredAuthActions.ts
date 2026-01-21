@@ -10,10 +10,7 @@ import {
    getUserById,
    type NewUserData,
 } from "@/features/users/services/userServices";
-import {
-   AUTH_COOKIE_KEY,
-   REFRESH_COOKIE_KEY,
-} from "../constants/authConstants";
+import { AUTH_COOKIE_KEY, REFRESH_COOKIE_KEY } from "../constants/authConstants";
 import {
    generateUserAuthToken,
    getUserIdFromAuthToken,
@@ -63,9 +60,7 @@ export async function refreshAuthTokenAction() {
    };
 }
 
-export async function getUserAndRoleAction(): Promise<
-   BackendResponse<{ authUser: UserRecord; userRole: RoleType }>
-> {
+export async function getUserAndRoleAction(): Promise<BackendResponse<{ authUser: UserRecord; userRole: RoleType }>> {
    const cookieStore = await cookies();
    const authToken = cookieStore.get(AUTH_COOKIE_KEY)?.value;
    if (!authToken) {
@@ -113,9 +108,7 @@ export async function getUserAndRoleAction(): Promise<
    };
 }
 
-export async function checkExistingUserAction(
-   email: string,
-): Promise<BackendResponse<{ exists: boolean }>> {
+export async function checkExistingUserAction(email: string): Promise<BackendResponse<{ exists: boolean }>> {
    try {
       const exists = await checkIfUserExists(email);
 
@@ -126,29 +119,22 @@ export async function checkExistingUserAction(
          },
       };
    } catch (error) {
-      console.error(
-         "[checkExistingUserAction] Error checking if user exists",
-         error,
-      );
+      console.error("[checkExistingUserAction] Error checking if user exists", error);
       return {
          success: false,
-         errorMessage:
-            "Ocurrió un error inesperado al verificar si el usuario existe",
+         errorMessage: "Ocurrió un error inesperado al verificar si el usuario existe",
       };
    }
 }
 
-export async function requestOTPCodeAction(
-   email: string,
-): Promise<BackendResponse<{ successMessage: string }>> {
+export async function requestOTPCodeAction(email: string): Promise<BackendResponse<{ successMessage: string }>> {
    try {
       const user = await getUserByEmail(email);
 
       if (!user) {
          return {
             success: false,
-            errorMessage:
-               "Este correo no está registrado por favor registrate para iniciar sesión",
+            errorMessage: "Este correo no está registrado por favor registrate para iniciar sesión",
          };
       }
 
@@ -171,8 +157,7 @@ export async function requestOTPCodeAction(
       }
       return {
          success: false,
-         errorMessage:
-            "Ocurrió un error inesperado al generar el código de verificación",
+         errorMessage: "Ocurrió un error inesperado al generar el código de verificación",
       };
    }
 }
@@ -180,14 +165,9 @@ export async function requestOTPCodeAction(
 export async function authenticateWithOTPCodeAction(
    email: string,
    otpCode: string,
-): Promise<
-   BackendResponse<{ token: string; user: UserRecord; userRole: RoleType }>
-> {
+): Promise<BackendResponse<{ token: string; user: UserRecord; userRole: RoleType }>> {
    try {
-      const authenticationResponse = await authenticateWithOTPCode(
-         email,
-         otpCode,
-      );
+      const authenticationResponse = await authenticateWithOTPCode(email, otpCode);
 
       await setRefreshTokenCookie(authenticationResponse.refreshToken);
       await setAuthTokenCookie(authenticationResponse.authToken);
@@ -201,10 +181,7 @@ export async function authenticateWithOTPCodeAction(
          },
       };
    } catch (error) {
-      console.error(
-         "[authenticateWithOTPCodeAction] Error authenticating with OTP code",
-         error,
-      );
+      console.error("[authenticateWithOTPCodeAction] Error authenticating with OTP code", error);
       if (error instanceof Error) {
          return {
             success: false,
@@ -221,9 +198,7 @@ export async function authenticateWithOTPCodeAction(
 export async function authenticateWithBirthDateAction(
    email: string,
    birthDate: string,
-): Promise<
-   BackendResponse<{ token: string; user: UserRecord; userRole: RoleType }>
-> {
+): Promise<BackendResponse<{ token: string; user: UserRecord; userRole: RoleType }>> {
    try {
       const authData = await authenticateWithBirthdate(email, birthDate);
 
@@ -239,10 +214,7 @@ export async function authenticateWithBirthDateAction(
          },
       };
    } catch (error) {
-      console.error(
-         "[authenticateWithBirthDateAction] Error authenticating with birthday",
-         error,
-      );
+      console.error("[authenticateWithBirthDateAction] Error authenticating with birthday", error);
       if (error instanceof Error) {
          return {
             success: false,
@@ -259,9 +231,7 @@ export async function authenticateWithBirthDateAction(
 export async function authenticateWithPhoneNumberAction(
    email: string,
    phoneNumber: string,
-): Promise<
-   BackendResponse<{ token: string; user: UserRecord; userRole: RoleType }>
-> {
+): Promise<BackendResponse<{ token: string; user: UserRecord; userRole: RoleType }>> {
    try {
       const authData = await authenticateWithPhoneNumber(email, phoneNumber);
 
@@ -277,10 +247,7 @@ export async function authenticateWithPhoneNumberAction(
          },
       };
    } catch (error) {
-      console.error(
-         "[authenticateWithPhoneNumberAction] Error authenticating with phone number",
-         error,
-      );
+      console.error("[authenticateWithPhoneNumberAction] Error authenticating with phone number", error);
       if (error instanceof Error) {
          return {
             success: false,
@@ -304,8 +271,7 @@ export async function signupAction(
       if (existingAuthUser) {
          return {
             success: false,
-            errorMessage:
-               "Este correo ya está registrado, por favor inicia sesión",
+            errorMessage: "Este correo ya está registrado, por favor inicia sesión",
          };
       }
 
@@ -341,9 +307,7 @@ export async function signupAction(
    }
 }
 
-export async function logoutAction(): Promise<
-   BackendResponse<{ successMessage: string }>
-> {
+export async function logoutAction(): Promise<BackendResponse<{ successMessage: string }>> {
    try {
       const cookieStore = await cookies();
       cookieStore.delete(AUTH_COOKIE_KEY);

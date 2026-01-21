@@ -5,11 +5,7 @@ import { Button } from "@/components/global/Buttons";
 import ZoomCallInterface from "@/features/livestreams/components/ZoomCallInterface";
 import RecordingLivestreamControlButtons from "../RecordingLivestreamControlButtons";
 
-export default function CameraOnlyRecorderInterface({
-   sessionTitle,
-}: {
-   sessionTitle: string;
-}) {
+export default function CameraOnlyRecorderInterface({ sessionTitle }: { sessionTitle: string }) {
    const [username, setUsername] = useState<string>("");
    const [usernameWasSet, setUsernameWasSet] = useState<boolean>(false);
 
@@ -24,16 +20,9 @@ export default function CameraOnlyRecorderInterface({
          <div className="!flex !flex-col !bg-white !shadow-md !mx-auto !p-8 !rounded-xl !max-w-md">
             <div className="!flex !flex-col !gap-4">
                <div className="!mb-2 !text-center">
-                  <h3 className="!font-semibold !text-gray-800 !text-xl">
-                     Bienvenido a la grabación
-                  </h3>
-                  <p className="!my-2 !font-bold !text-gray-600">
-                     {sessionTitle}
-                  </p>
-                  <p className="!mt-1 !text-gray-600">
-                     Ingresa tu nombre para que los demás participantes puedan
-                     identificarte
-                  </p>
+                  <h3 className="!font-semibold !text-gray-800 !text-xl">Bienvenido a la grabación</h3>
+                  <p className="!my-2 !font-bold !text-gray-600">{sessionTitle}</p>
+                  <p className="!mt-1 !text-gray-600">Ingresa tu nombre para que los demás participantes puedan identificarte</p>
                </div>
 
                <div className="!relative !flex !items-center">
@@ -56,8 +45,7 @@ export default function CameraOnlyRecorderInterface({
                   disabled={!username?.trim()}
                   className="!flex !justify-center !items-center !bg-green-500 !mt-2 !p-3 !rounded-lg !w-full !font-semibold !text-white !cursor-pointer"
                >
-                  Unirme a la transmisión{" "}
-                  <ArrowRight size={18} className="ml-1" />
+                  Unirme a la transmisión <ArrowRight size={18} className="ml-1" />
                </Button>
             </div>
          </div>
@@ -67,15 +55,9 @@ export default function CameraOnlyRecorderInterface({
    if (usernameWasSet && username) {
       return (
          <div>
-            <h1 className="!mb-4 !font-bold !text-gray-900 !text-2xl">
-               {sessionTitle}
-            </h1>
+            <h1 className="!mb-4 !font-bold !text-gray-900 !text-2xl">{sessionTitle}</h1>
             <RecordingLivestreamControlButtons sessionTitle={sessionTitle} />
-            <ZoomCallInterface
-               initialUsername={username}
-               allowScreenShare={true}
-               isHostByDefault={true}
-            />
+            <ZoomCallInterface initialUsername={username} allowScreenShare={true} isHostByDefault={true} />
          </div>
       );
    }

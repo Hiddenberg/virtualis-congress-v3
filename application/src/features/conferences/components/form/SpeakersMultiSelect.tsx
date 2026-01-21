@@ -8,11 +8,7 @@ interface SpeakersMultiSelectProps {
    onChange: (ids: string[]) => void;
 }
 
-export function SpeakersMultiSelect({
-   speakers,
-   valueIds,
-   onChange,
-}: SpeakersMultiSelectProps) {
+export function SpeakersMultiSelect({ speakers, valueIds, onChange }: SpeakersMultiSelectProps) {
    return (
       <Select
          isMulti
@@ -27,9 +23,7 @@ export function SpeakersMultiSelect({
             label: speakers.find((speaker) => speaker.id === id)?.name || id,
          }))}
          onChange={(options) => {
-            const ids = (options || []).map(
-               (opt) => (opt as { value: string; label: string }).value,
-            );
+            const ids = (options || []).map((opt) => (opt as { value: string; label: string }).value);
             onChange(ids);
          }}
          classNamePrefix="react-select"

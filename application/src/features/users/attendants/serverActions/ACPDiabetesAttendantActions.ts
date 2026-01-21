@@ -3,15 +3,9 @@
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { ACPMemberData } from "@/types/congress";
 
-export async function validateACPIDAction({
-   acpID,
-}: {
-   acpID: string;
-}): Promise<BackendResponse<{ isValid: boolean }>> {
+export async function validateACPIDAction({ acpID }: { acpID: string }): Promise<BackendResponse<{ isValid: boolean }>> {
    try {
-      const normalizedACPID = acpID.startsWith("0")
-         ? acpID.replace("0", "")
-         : acpID;
+      const normalizedACPID = acpID.startsWith("0") ? acpID.replace("0", "") : acpID;
 
       const filter = pbFilter(
          `
@@ -22,10 +16,7 @@ export async function validateACPIDAction({
          },
       );
 
-      const acpData = await getSingleDBRecord<ACPMemberData>(
-         "ACP_MEMBERS_DATA",
-         filter,
-      );
+      const acpData = await getSingleDBRecord<ACPMemberData>("ACP_MEMBERS_DATA", filter);
       // TODO: Add action to validate acp id
       return {
          success: true,

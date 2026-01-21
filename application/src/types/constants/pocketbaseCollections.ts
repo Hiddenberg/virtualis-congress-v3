@@ -9,8 +9,7 @@ const PB_COLLECTIONS = {
    CONGRESS_CERTIFICATE_DESIGNS: "congress__certificate_designs",
    CONGRESS_PRODUCT_PRICES: "congress__product__prices",
    CONGRESS_PRODUCTS: "congress__products",
-   CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS:
-      "conference__speaker_presentation_recordings",
+   CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS: "conference__speaker_presentation_recordings",
    CONFERENCE_PRESENTATIONS: "conference__presentations",
    CONFERENCE_SPEAKERS: "conference__speakers",
    CONFERENCE_QUESTION_POLLS: "conference__question_polls",

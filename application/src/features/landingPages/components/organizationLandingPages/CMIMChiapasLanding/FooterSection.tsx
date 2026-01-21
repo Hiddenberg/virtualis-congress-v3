@@ -6,9 +6,8 @@ export default function FooterSection() {
                <div>
                   <h3 className="mb-4 font-bold text-xl">CMIM Chiapas</h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                     Colegio de Medicina Interna Costa de Chiapas -
-                     Comprometidos con el conocimiento, guiados por la vocación
-                     en medicina interna.
+                     Colegio de Medicina Interna Costa de Chiapas - Comprometidos con el conocimiento, guiados por la vocación en
+                     medicina interna.
                   </p>
                </div>
 
@@ -33,8 +32,8 @@ export default function FooterSection() {
 
             <div className="mt-8 pt-8 border-gray-700 border-t text-center">
                <p className="text-gray-400 text-sm">
-                  © {new Date().getFullYear()} XXIX Congreso Anual de Medicina
-                  Interna Costa de Chiapas. Todos los derechos reservados.
+                  © {new Date().getFullYear()} XXIX Congreso Anual de Medicina Interna Costa de Chiapas. Todos los derechos
+                  reservados.
                </p>
             </div>
          </div>

@@ -5,11 +5,7 @@ import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { enableConferenceQnAAction } from "@/features/conferences/actions/conferenceQnAActions";
 
-export default function AdminQnASetup({
-   conferenceId,
-}: {
-   conferenceId: string;
-}) {
+export default function AdminQnASetup({ conferenceId }: { conferenceId: string }) {
    const [isEnabling, startTransition] = useTransition();
 
    const handleEnable = () => {
@@ -32,13 +28,8 @@ export default function AdminQnASetup({
                <MessageSquareIcon className="w-5 h-5 text-stone-700" />
             </div>
             <div>
-               <h2 className="font-semibold text-stone-900 text-base">
-                  ¿Deseas habilitar QnA?
-               </h2>
-               <p className="text-stone-600 text-sm">
-                  Crea una sesión de preguntas y respuestas para esta
-                  conferencia.
-               </p>
+               <h2 className="font-semibold text-stone-900 text-base">¿Deseas habilitar QnA?</h2>
+               <p className="text-stone-600 text-sm">Crea una sesión de preguntas y respuestas para esta conferencia.</p>
             </div>
          </div>
          <div className="flex gap-3">

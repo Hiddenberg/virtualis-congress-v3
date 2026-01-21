@@ -29,21 +29,12 @@ export default function PaymentMetricsGrid({
    // registrations,
    payments,
 }: PaymentMetricsGridProps) {
-   const successfulPayments = payments.filter(
-      (payment) => payment.fulfilledSuccessfully,
-   );
-   const failedPayments = payments.filter(
-      (payment) => !payment.fulfilledSuccessfully,
-   );
+   const successfulPayments = payments.filter((payment) => payment.fulfilledSuccessfully);
+   const failedPayments = payments.filter((payment) => !payment.fulfilledSuccessfully);
 
    const avgPaymentAmount =
       successfulPayments.length > 0
-         ? successfulPayments.reduce(
-              (sum, payment) => sum + (payment.totalAmount || 0),
-              0,
-           ) /
-           successfulPayments.length /
-           100
+         ? successfulPayments.reduce((sum, payment) => sum + (payment.totalAmount || 0), 0) / successfulPayments.length / 100
          : 0;
 
    const paymentMethods = successfulPayments.reduce(
@@ -63,12 +54,8 @@ export default function PaymentMetricsGrid({
    return (
       <div className="bg-white shadow-sm border border-gray-200 rounded-xl">
          <div className="p-6 border-gray-200 border-b">
-            <h2 className="font-semibold text-gray-900 text-xl">
-               Métricas de Pagos
-            </h2>
-            <p className="mt-1 text-gray-600">
-               Análisis detallado de transacciones
-            </p>
+            <h2 className="font-semibold text-gray-900 text-xl">Métricas de Pagos</h2>
+            <p className="mt-1 text-gray-600">Análisis detallado de transacciones</p>
          </div>
 
          <div className="p-6">
@@ -79,12 +66,8 @@ export default function PaymentMetricsGrid({
                      <TrendingUp className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                     <p className="font-medium text-gray-600 text-sm">
-                        Pago Promedio
-                     </p>
-                     <p className="font-bold text-gray-900 text-2xl">
-                        ${avgPaymentAmount.toFixed(2)}
-                     </p>
+                     <p className="font-medium text-gray-600 text-sm">Pago Promedio</p>
+                     <p className="font-bold text-gray-900 text-2xl">${avgPaymentAmount.toFixed(2)}</p>
                   </div>
                </div>
 
@@ -94,15 +77,9 @@ export default function PaymentMetricsGrid({
                      <CreditCard className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                     <p className="font-medium text-gray-600 text-sm">
-                        Método Más Usado
-                     </p>
-                     <p className="font-bold text-gray-900 text-lg">
-                        {mostUsedMethod[0]}
-                     </p>
-                     <p className="text-gray-500 text-sm">
-                        {mostUsedMethod[1]} usos
-                     </p>
+                     <p className="font-medium text-gray-600 text-sm">Método Más Usado</p>
+                     <p className="font-bold text-gray-900 text-lg">{mostUsedMethod[0]}</p>
+                     <p className="text-gray-500 text-sm">{mostUsedMethod[1]} usos</p>
                   </div>
                </div>
 
@@ -112,19 +89,10 @@ export default function PaymentMetricsGrid({
                      <AlertCircle className="w-5 h-5 text-red-600" />
                   </div>
                   <div>
-                     <p className="font-medium text-gray-600 text-sm">
-                        Pagos Fallidos
-                     </p>
-                     <p className="font-bold text-gray-900 text-2xl">
-                        {failedPayments.length}
-                     </p>
+                     <p className="font-medium text-gray-600 text-sm">Pagos Fallidos</p>
+                     <p className="font-bold text-gray-900 text-2xl">{failedPayments.length}</p>
                      <p className="text-gray-500 text-sm">
-                        {payments.length > 0
-                           ? Math.round(
-                                (failedPayments.length / payments.length) * 100,
-                             )
-                           : 0}
-                        % del total
+                        {payments.length > 0 ? Math.round((failedPayments.length / payments.length) * 100) : 0}% del total
                      </p>
                   </div>
                </div>

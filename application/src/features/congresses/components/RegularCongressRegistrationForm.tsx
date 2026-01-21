@@ -21,9 +21,7 @@ export default function RegularCongressRegistrationForm() {
          return;
       }
 
-      const response = await confirmCongressRegistrationAction(
-         userCreatedResponse.data.user.id,
-      );
+      const response = await confirmCongressRegistrationAction(userCreatedResponse.data.user.id);
 
       if (!response.success) {
          toast.error(response.errorMessage);

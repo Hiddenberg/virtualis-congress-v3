@@ -16,56 +16,44 @@ export interface QnALiveWithDetails extends LivestreamSession, RecordModel {
 export async function getAllQnALivesWithConferenceDetails() {
    try {
       // Get all QnA livestream sessions with expanded conference data
-      const qnaLivestreamSessions = await pbServerClient
-         .collection(PB_COLLECTIONS.LIVESTREAM_SESSIONS)
-         .getFullList<
-            LivestreamSession &
-               RecordModel & {
-                  expand: {
-                     conference: CongressConference &
-                        RecordModel & {
-                           expand: {
-                              speakers: (User & RecordModel)[];
-                              presenter?: User & RecordModel;
-                           };
+      const qnaLivestreamSessions = await pbServerClient.collection(PB_COLLECTIONS.LIVESTREAM_SESSIONS).getFullList<
+         LivestreamSession &
+            RecordModel & {
+               expand: {
+                  conference: CongressConference &
+                     RecordModel & {
+                        expand: {
+                           speakers: (User & RecordModel)[];
+                           presenter?: User & RecordModel;
                         };
-                  };
-               }
-         >({
-            filter: `sessionType="qna_live" && (conference.startTime >= "${tzDate(
-               "2025-04-10T00:00",
-               "America/Mexico_City",
-            )
-               .toISOString()
-               .replace("T", " ")}" && conference.startTime <"${tzDate(
-               "2025-04-13T00:00",
-               "America/Mexico_City",
-            )
-               .toISOString()
-               .replace("T", " ")}")`,
-            expand: "conference, conference.speakers, conference.presenter",
-            sort: "conference.startTime", // Sort by creation date descending (newest first)
-         });
+                     };
+               };
+            }
+      >({
+         filter: `sessionType="qna_live" && (conference.startTime >= "${tzDate("2025-04-10T00:00", "America/Mexico_City")
+            .toISOString()
+            .replace("T", " ")}" && conference.startTime <"${tzDate("2025-04-13T00:00", "America/Mexico_City")
+            .toISOString()
+            .replace("T", " ")}")`,
+         expand: "conference, conference.speakers, conference.presenter",
+         sort: "conference.startTime", // Sort by creation date descending (newest first)
+      });
 
       // Transform the data to include only what we need
-      const qnaLivesWithDetails: QnALiveWithDetails[] =
-         qnaLivestreamSessions.map((session) => {
-            const conference = session.expand?.conference;
+      const qnaLivesWithDetails: QnALiveWithDetails[] = qnaLivestreamSessions.map((session) => {
+         const conference = session.expand?.conference;
 
-            return {
-               ...session,
-               conferenceId: conference?.id,
-               conferenceTitle: conference?.title || "Unknown Conference",
-               conferenceStartTime: conference?.startTime,
-               conferenceEndTime: conference?.endTime,
-               speakersNames:
-                  conference?.expand?.speakers?.map(
-                     (speaker) => speaker.name,
-                  ) || [],
-               presenterName: conference?.expand?.presenter?.name,
-               expand: undefined, // Remove expand to keep the response clean
-            };
-         });
+         return {
+            ...session,
+            conferenceId: conference?.id,
+            conferenceTitle: conference?.title || "Unknown Conference",
+            conferenceStartTime: conference?.startTime,
+            conferenceEndTime: conference?.endTime,
+            speakersNames: conference?.expand?.speakers?.map((speaker) => speaker.name) || [],
+            presenterName: conference?.expand?.presenter?.name,
+            expand: undefined, // Remove expand to keep the response clean
+         };
+      });
 
       return qnaLivesWithDetails;
    } catch (error) {
@@ -73,10 +61,7 @@ export async function getAllQnALivesWithConferenceDetails() {
          return [];
       }
 
-      console.error(
-         "[Livestream Aggregator] Error getting QnA livestreams with conference details",
-         error,
-      );
+      console.error("[Livestream Aggregator] Error getting QnA livestreams with conference details", error);
       throw error;
    }
 }
@@ -96,29 +81,21 @@ export async function getQnALiveWithConferenceDetails(conferenceId: string) {
    try {
       const qnaLivestreamSession = await pbServerClient
          .collection(PB_COLLECTIONS.LIVESTREAM_SESSIONS)
-         .getFirstListItem<QnALiveWithConferenceDetails>(
-            `sessionType="qna_live" && conference.id="${conferenceId}"`,
-            {
-               expand: "conference.speakers, conference.presenter",
-            },
-         );
+         .getFirstListItem<QnALiveWithConferenceDetails>(`sessionType="qna_live" && conference.id="${conferenceId}"`, {
+            expand: "conference.speakers, conference.presenter",
+         });
 
       return {
          ...qnaLivestreamSession,
          conferenceTitle: qnaLivestreamSession.expand.conference.title,
-         conferenceShortDescription:
-            qnaLivestreamSession.expand.conference.shortDescription,
-         speakerDetails:
-            qnaLivestreamSession.expand.conference.expand.speakers.map(
-               (speaker) => {
-                  return {
-                     id: speaker.id,
-                     name: speaker.name,
-                  };
-               },
-            ),
-         presenterName:
-            qnaLivestreamSession.expand.conference.expand.presenter?.name,
+         conferenceShortDescription: qnaLivestreamSession.expand.conference.shortDescription,
+         speakerDetails: qnaLivestreamSession.expand.conference.expand.speakers.map((speaker) => {
+            return {
+               id: speaker.id,
+               name: speaker.name,
+            };
+         }),
+         presenterName: qnaLivestreamSession.expand.conference.expand.presenter?.name,
          expand: undefined,
       };
    } catch (error) {

@@ -1,17 +1,7 @@
 "use client";
 
 import { format, isAfter, isBefore } from "@formkit/tempo";
-import {
-   Calendar,
-   ChevronDown,
-   ChevronUp,
-   Clock,
-   Coffee,
-   Mic2,
-   Play,
-   Users,
-   Video,
-} from "lucide-react";
+import { Calendar, ChevronDown, ChevronUp, Clock, Coffee, Mic2, Play, Users, Video } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LinkButton } from "@/components/global/Buttons";
 import type { ConferenceWithSpeakersAndDurations } from "@/features/conferences/aggregators/conferenceAggregators";
@@ -59,11 +49,7 @@ function StatusBadge({ status }: { status: CongressConference["status"] }) {
    }
 }
 
-function ConferenceTypeIcon({
-   type,
-}: {
-   type: CongressConference["conferenceType"];
-}) {
+function ConferenceTypeIcon({ type }: { type: CongressConference["conferenceType"] }) {
    const iconProps = "w-4 h-4";
 
    switch (type) {
@@ -82,11 +68,7 @@ function ConferenceTypeIcon({
    }
 }
 
-function ConferenceTypeLabel({
-   type,
-}: {
-   type: CongressConference["conferenceType"];
-}) {
+function ConferenceTypeLabel({ type }: { type: CongressConference["conferenceType"] }) {
    switch (type) {
       case "in-person":
          return "Conferencia Presencial";
@@ -103,11 +85,7 @@ function ConferenceTypeLabel({
    }
 }
 
-function ConferenceItem({
-   conferenceWithSpeakersAndDurations,
-   isEnded,
-   currentDateTime,
-}: ConferenceItemProps) {
+function ConferenceItem({ conferenceWithSpeakersAndDurations, isEnded, currentDateTime }: ConferenceItemProps) {
    const conference = conferenceWithSpeakersAndDurations.conference;
    const startTime = format({
       date: conference.startTime,
@@ -133,17 +111,11 @@ function ConferenceItem({
    const isJoinDisabled = isEnded || conference.status === "canceled";
 
    const getPreRecordedConferenceStatus = useCallback(
-      (
-         conference: ConferenceWithSpeakersAndDurations,
-      ): CongressConference["status"] => {
+      (conference: ConferenceWithSpeakersAndDurations): CongressConference["status"] => {
          const conferenceType = conference.conference.conferenceType;
 
          // For livestream and in-person conferences, and for pre-recorded conferences without pre-recorded data, the status is the same as the conference status
-         if (
-            conferenceType === "livestream" ||
-            conferenceType === "in-person" ||
-            !conference.preRecordedData
-         ) {
+         if (conferenceType === "livestream" || conferenceType === "in-person" || !conference.preRecordedData) {
             return conference.conference.status;
          }
 
@@ -166,16 +138,12 @@ function ConferenceItem({
       [currentDateTime],
    );
 
-   const conferenceCardStatus = getPreRecordedConferenceStatus(
-      conferenceWithSpeakersAndDurations,
-   );
+   const conferenceCardStatus = getPreRecordedConferenceStatus(conferenceWithSpeakersAndDurations);
 
    return (
       <div
          className={`relative bg-white border rounded-xl p-3 sm:p-4 transition-all duration-200 hover:shadow-md ${
-            isEnded
-               ? "opacity-70 border-gray-200"
-               : "border-blue-100 hover:border-blue-200"
+            isEnded ? "opacity-70 border-gray-200" : "border-blue-100 hover:border-blue-200"
          }`}
       >
          {/* Status indicator */}
@@ -202,31 +170,20 @@ function ConferenceItem({
 
             {/* Title and description */}
             <div className="mb-3">
-               <h3 className="mb-1 font-semibold text-gray-900 text-lg">
-                  {conference.title}
-               </h3>
+               <h3 className="mb-1 font-semibold text-gray-900 text-lg">{conference.title}</h3>
                {conference.shortDescription && (
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                     {conference.shortDescription}
-                  </p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{conference.shortDescription}</p>
                )}
                {conferenceWithSpeakersAndDurations.speakers.length > 0 && (
                   <div className="flex flex-wrap items-center gap-2 mt-2">
-                     {conferenceWithSpeakersAndDurations.speakers.map(
-                        (speaker) => (
-                           <div
-                              key={speaker.id}
-                              className="flex items-center gap-2"
-                           >
-                              <Mic2 className="w-4 h-4" />{" "}
-                              <p>
-                                 {speaker.academicTitle
-                                    ? `${speaker.academicTitle} ${speaker.displayName}`
-                                    : speaker.displayName}
-                              </p>
-                           </div>
-                        ),
-                     )}
+                     {conferenceWithSpeakersAndDurations.speakers.map((speaker) => (
+                        <div key={speaker.id} className="flex items-center gap-2">
+                           <Mic2 className="w-4 h-4" />{" "}
+                           <p>
+                              {speaker.academicTitle ? `${speaker.academicTitle} ${speaker.displayName}` : speaker.displayName}
+                           </p>
+                        </div>
+                     ))}
                   </div>
                )}
             </div>
@@ -235,9 +192,7 @@ function ConferenceItem({
             {!isBreak && (
                <div className="mt-4">
                   <LinkButton
-                     variant={
-                        conferenceCardStatus === "active" ? "green" : "blue"
-                     }
+                     variant={conferenceCardStatus === "active" ? "green" : "blue"}
                      href={conferenceLink}
                      className={`w-full sm:w-auto text-sm block py-2 px-4 ${isJoinDisabled ? "opacity-75" : ""}`}
                      disabled={isJoinDisabled}
@@ -316,24 +271,15 @@ export default function DynamicConferenceProgram({
    const endedConferences = useMemo(() => {
       return filteredConferences.filter((conf) => {
          const conferenceType = conf.conference.conferenceType;
-         if (
-            conferenceType === "livestream" ||
-            conferenceType === "in-person"
-         ) {
-            return (
-               conf.conference.status === "finished" ||
-               conf.conference.status === "canceled"
-            );
+         if (conferenceType === "livestream" || conferenceType === "in-person") {
+            return conf.conference.status === "finished" || conf.conference.status === "canceled";
          }
 
          if (conferenceType === "break") {
             return isAfter(currentDateTime, conf.conference.endTime);
          }
          // For pre-recorded conferences, we need to check the real end date
-         if (
-            conferenceType === "simulated_livestream" ||
-            conferenceType === "pre-recorded"
-         ) {
+         if (conferenceType === "simulated_livestream" || conferenceType === "pre-recorded") {
             if (!conf.preRecordedData) {
                return isAfter(currentDateTime, conf.conference.endTime);
             }
@@ -348,9 +294,7 @@ export default function DynamicConferenceProgram({
    });
 
    // Group conferences by date
-   const groupConferencesByDate = (
-      conferences: ConferenceWithSpeakersAndDurations[],
-   ) => {
+   const groupConferencesByDate = (conferences: ConferenceWithSpeakersAndDurations[]) => {
       const grouped = conferences.reduce(
          (acc, conf) => {
             const dateKey = format({
@@ -367,11 +311,7 @@ export default function DynamicConferenceProgram({
 
       // Sort conferences within each date by start time
       Object.keys(grouped).forEach((date) => {
-         grouped[date].sort(
-            (a, b) =>
-               new Date(a.conference.startTime).getTime() -
-               new Date(b.conference.startTime).getTime(),
-         );
+         grouped[date].sort((a, b) => new Date(a.conference.startTime).getTime() - new Date(b.conference.startTime).getTime());
       });
 
       return grouped;
@@ -382,28 +322,20 @@ export default function DynamicConferenceProgram({
 
    // Sort dates
    const sortedActiveDates = Object.keys(groupedActiveConferences).sort();
-   const sortedEndedDates = Object.keys(groupedEndedConferences)
-      .sort()
-      .reverse();
+   const sortedEndedDates = Object.keys(groupedEndedConferences).sort().reverse();
 
    return (
       <div className="mx-auto p-4 w-full max-w-4xl">
          {/* Header */}
          <div className="mb-6">
-            <h2 className="mb-2 font-bold text-gray-900 text-2xl md:text-3xl">
-               Programa de Conferencias
-            </h2>
-            <p className="text-gray-600">
-               Horarios y enlaces para todas las conferencias del congreso
-            </p>
+            <h2 className="mb-2 font-bold text-gray-900 text-2xl md:text-3xl">Programa de Conferencias</h2>
+            <p className="text-gray-600">Horarios y enlaces para todas las conferencias del congreso</p>
          </div>
 
          {/* Date Filter Buttons */}
          {uniqueDates.length > 1 && (
             <div className="mb-6">
-               <h3 className="mb-3 font-medium text-gray-900 text-sm">
-                  Filtrar por día:
-               </h3>
+               <h3 className="mb-3 font-medium text-gray-900 text-sm">Filtrar por día:</h3>
                <div className="flex flex-wrap gap-2">
                   {/* <button
                      onClick={() => setSelectedDate(null)}
@@ -420,9 +352,7 @@ export default function DynamicConferenceProgram({
                         key={date}
                         onClick={() => setSelectedDate(date)}
                         className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
-                           selectedDate === date
-                              ? "bg-blue-500 text-white"
-                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                           selectedDate === date ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                         }`}
                      >
                         {date}
@@ -441,9 +371,7 @@ export default function DynamicConferenceProgram({
                >
                   <div className="flex items-center gap-2">
                      <div className="bg-gray-400 rounded-full w-3 h-3" />
-                     <span className="font-semibold text-gray-700">
-                        Conferencias Finalizadas ({endedConferences.length})
-                     </span>
+                     <span className="font-semibold text-gray-700">Conferencias Finalizadas ({endedConferences.length})</span>
                   </div>
                   {showEndedConferences ? (
                      <ChevronUp className="w-5 h-5 text-gray-500" />
@@ -460,28 +388,21 @@ export default function DynamicConferenceProgram({
                            <div className="flex items-center gap-3 pb-2 border-gray-200 border-b">
                               <Calendar className="w-5 h-5 text-gray-500" />
                               <span className="bg-gray-100 px-2 py-1 rounded-full font-medium text-gray-600 text-xs">
-                                 {groupedEndedConferences[date].length}{" "}
-                                 conferencia
-                                 {groupedEndedConferences[date].length !== 1
-                                    ? "s"
-                                    : ""}
+                                 {groupedEndedConferences[date].length} conferencia
+                                 {groupedEndedConferences[date].length !== 1 ? "s" : ""}
                               </span>
                            </div>
 
                            {/* Conferences for this date */}
                            <div className="space-y-4 pl-8">
-                              {groupedEndedConferences[date].map(
-                                 (conference) => (
-                                    <ConferenceItem
-                                       key={conference.conference.id}
-                                       conferenceWithSpeakersAndDurations={
-                                          conference
-                                       }
-                                       isEnded={true}
-                                       currentDateTime={currentDateTime}
-                                    />
-                                 ),
-                              )}
+                              {groupedEndedConferences[date].map((conference) => (
+                                 <ConferenceItem
+                                    key={conference.conference.id}
+                                    conferenceWithSpeakersAndDurations={conference}
+                                    isEnded={true}
+                                    currentDateTime={currentDateTime}
+                                 />
+                              ))}
                            </div>
                         </div>
                      ))}
@@ -503,21 +424,14 @@ export default function DynamicConferenceProgram({
                      <div key={date} className="space-y-4">
                         {/* Conferences for this date */}
                         <div className="space-y-4">
-                           {groupedActiveConferences[date].map(
-                              (conferenceWithSpeakersAndDurations) => (
-                                 <ConferenceItem
-                                    key={
-                                       conferenceWithSpeakersAndDurations
-                                          .conference.id
-                                    }
-                                    conferenceWithSpeakersAndDurations={
-                                       conferenceWithSpeakersAndDurations
-                                    }
-                                    isEnded={false}
-                                    currentDateTime={currentDateTime}
-                                 />
-                              ),
-                           )}
+                           {groupedActiveConferences[date].map((conferenceWithSpeakersAndDurations) => (
+                              <ConferenceItem
+                                 key={conferenceWithSpeakersAndDurations.conference.id}
+                                 conferenceWithSpeakersAndDurations={conferenceWithSpeakersAndDurations}
+                                 isEnded={false}
+                                 currentDateTime={currentDateTime}
+                              />
+                           ))}
                         </div>
                      </div>
                   ))}
@@ -543,14 +457,8 @@ export default function DynamicConferenceProgram({
                <div className="text-blue-800 text-sm">
                   <p className="mb-1 font-medium">Información importante:</p>
                   <ul className="space-y-1 text-blue-700">
-                     <li>
-                        • Las grabaciones estarán disponibles al terminar el
-                        evento
-                     </li>
-                     <li>
-                        • Los horarios están en zona horaria de México
-                        (America/Mexico_City)
-                     </li>
+                     <li>• Las grabaciones estarán disponibles al terminar el evento</li>
+                     <li>• Los horarios están en zona horaria de México (America/Mexico_City)</li>
                   </ul>
                </div>
             </div>

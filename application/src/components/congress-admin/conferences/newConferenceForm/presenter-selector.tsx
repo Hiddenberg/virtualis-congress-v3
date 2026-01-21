@@ -15,12 +15,7 @@ interface PresenterSelectorProps {
    required?: boolean;
 }
 
-export function PresenterSelector({
-   presenters,
-   selectedId,
-   onChange,
-   required = false,
-}: PresenterSelectorProps) {
+export function PresenterSelector({ presenters, selectedId, onChange, required = false }: PresenterSelectorProps) {
    const [isOpen, setIsOpen] = useState(false);
    const [searchQuery, setSearchQuery] = useState("");
 
@@ -47,20 +42,13 @@ export function PresenterSelector({
       e.stopPropagation();
    };
 
-   const filteredPresenters = presenters.filter((presenter) =>
-      presenter.name.toLowerCase().includes(searchQuery.toLowerCase()),
-   );
+   const filteredPresenters = presenters.filter((presenter) => presenter.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
-   const selectedPresenter = selectedId
-      ? presenters.find((presenter) => presenter.id === selectedId)
-      : null;
+   const selectedPresenter = selectedId ? presenters.find((presenter) => presenter.id === selectedId) : null;
 
    return (
       <fieldset className="flex flex-col gap-1">
-         <label
-            htmlFor="presenter"
-            className="flex items-center gap-2 font-medium text-sm"
-         >
+         <label htmlFor="presenter" className="flex items-center gap-2 font-medium text-sm">
             <User className="w-4 h-4" />
             Presentador{required && <span className="text-red-500">*</span>}
          </label>
@@ -79,9 +67,7 @@ export function PresenterSelector({
                   {selectedPresenter ? (
                      <span>{selectedPresenter.name}</span>
                   ) : (
-                     <span className="text-gray-500">
-                        Seleccionar un presentador
-                     </span>
+                     <span className="text-gray-500">Seleccionar un presentador</span>
                   )}
                </div>
                <div className="flex items-center gap-1">
@@ -97,9 +83,7 @@ export function PresenterSelector({
                         <X className="w-3 h-3" />
                      </button>
                   )}
-                  <ChevronDown
-                     className={`w-4 h-4 transition-transform ${isOpen ? "transform rotate-180" : ""}`}
-                  />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "transform rotate-180" : ""}`} />
                </div>
             </div>
 
@@ -108,10 +92,7 @@ export function PresenterSelector({
                   className="z-10 absolute bg-white ring-opacity-5 shadow-lg mt-1 py-1 rounded-md focus:outline-none ring-1 ring-black w-full max-h-60 overflow-auto"
                   role="listbox"
                >
-                  <div
-                     className="top-0 sticky bg-white px-3 py-2 border-b"
-                     onClick={handleSearchClick}
-                  >
+                  <div className="top-0 sticky bg-white px-3 py-2 border-b" onClick={handleSearchClick}>
                      <div className="relative">
                         <Search className="top-1/2 left-2 absolute w-4 h-4 text-gray-400 -translate-y-1/2 transform" />
                         <input
@@ -136,28 +117,18 @@ export function PresenterSelector({
                            }`}
                         >
                            <span>{presenter.name}</span>
-                           {selectedId === presenter.id && (
-                              <Check className="w-4 h-4 text-blue-500" />
-                           )}
+                           {selectedId === presenter.id && <Check className="w-4 h-4 text-blue-500" />}
                         </li>
                      ))
                   ) : (
-                     <li className="px-3 py-2 text-gray-500">
-                        No se encontraron presentadores
-                     </li>
+                     <li className="px-3 py-2 text-gray-500">No se encontraron presentadores</li>
                   )}
 
-                  {presenters.length === 0 && (
-                     <li className="px-3 py-2 text-gray-500">
-                        No hay presentadores disponibles
-                     </li>
-                  )}
+                  {presenters.length === 0 && <li className="px-3 py-2 text-gray-500">No hay presentadores disponibles</li>}
                </ul>
             )}
          </div>
-         <p className="mt-1 text-gray-500 text-sm">
-            El presentador introducirá la conferencia antes de que comience
-         </p>
+         <p className="mt-1 text-gray-500 text-sm">El presentador introducirá la conferencia antes de que comience</p>
       </fieldset>
    );
 }

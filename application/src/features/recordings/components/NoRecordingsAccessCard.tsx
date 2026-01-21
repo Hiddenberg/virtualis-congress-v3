@@ -9,9 +9,7 @@ export default function NoRecordingsAccessCard() {
                <div className="flex justify-center items-center bg-blue-100 rounded-full w-12 h-12 text-blue-700">
                   <Lock className="w-6 h-6" />
                </div>
-               <h1 className="font-bold text-slate-800 text-2xl md:text-3xl">
-                  Sin acceso a grabaciones
-               </h1>
+               <h1 className="font-bold text-slate-800 text-2xl md:text-3xl">Sin acceso a grabaciones</h1>
             </div>
             <p className="mb-6 text-slate-600 text-base md:text-lg text-center">
                Para acceder a las grabaciones del congreso, adquiere tu acceso.
@@ -24,8 +22,7 @@ export default function NoRecordingsAccessCard() {
             </div>
 
             <p className="mt-4 text-slate-500 text-sm text-center">
-               Si ya compraste, serás redirigido automáticamente después del
-               pago.
+               Si ya compraste, serás redirigido automáticamente después del pago.
             </p>
          </div>
       </div>

@@ -8,9 +8,7 @@ function TutorialContent() {
    const { closePopUp } = useGlobalPopUpContext();
    return (
       <div className="flex flex-col gap-4">
-         <h1 className="font-bold text-2xl text-center">
-            Como ingresar a la plataforma
-         </h1>
+         <h1 className="font-bold text-2xl text-center">Como ingresar a la plataforma</h1>
          <iframe
             className="rounded-lg w-full aspect-video"
             src="https://drive.google.com/file/d/1Ae6rm-qgRaJ4sefcUMLKs_Wbp7VBjFkV/preview"

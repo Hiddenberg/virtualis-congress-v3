@@ -17,11 +17,7 @@ import {
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import type { SpeakerDataRecord } from "@/types/congress";
 import { updateUserRole } from "../../services/userRoleServices";
-import {
-   checkIfUserExists,
-   createUser,
-   getUserByEmail,
-} from "../../services/userServices";
+import { checkIfUserExists, createUser, getUserByEmail } from "../../services/userServices";
 import {
    createSpeakerDataRecord,
    getSpeakerDataByUserId,
@@ -33,10 +29,7 @@ export async function registerSpeakerFromAdminFormAction(
    speakerRegistrationInfo: NewSpeakerData,
 ): Promise<BackendResponse<SpeakerDataRecord>> {
    try {
-      const isUserAuthorized = await checkAuthorizedUserFromServer([
-         "admin",
-         "super_admin",
-      ]);
+      const isUserAuthorized = await checkAuthorizedUserFromServer(["admin", "super_admin"]);
 
       if (!isUserAuthorized) {
          return {
@@ -98,8 +91,7 @@ export async function registerSpeakerUserAction(
    if (conferenceSpeakerData.user) {
       return {
          success: false,
-         errorMessage:
-            "Este ponente ya tiene una cuenta asociada, por favor inicia sesión con tu correo electrónico",
+         errorMessage: "Este ponente ya tiene una cuenta asociada, por favor inicia sesión con tu correo electrónico",
       };
    }
 
@@ -119,8 +111,7 @@ export async function registerSpeakerUserAction(
       if (speakerData) {
          return {
             success: false,
-            errorMessage:
-               "Este correo ya está registrado como ponente, por favor inicia sesión con este correo",
+            errorMessage: "Este correo ya está registrado como ponente, por favor inicia sesión con este correo",
          };
       }
 

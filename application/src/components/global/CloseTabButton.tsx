@@ -15,18 +15,11 @@ export default function CloseTabButton({ className }: { className?: string }) {
 
    return (
       <div className={className}>
-         <Button
-            onClick={handleClose}
-            variant="blue"
-            className="inline-flex items-center gap-2"
-         >
+         <Button onClick={handleClose} variant="blue" className="inline-flex items-center gap-2">
             <X className="w-4 h-4" />
             <span>Cerrar pestaña</span>
          </Button>
-         <p className="mt-2 text-gray-500 text-xs">
-            Si no se cierra automáticamente, puedes cerrar esta pestaña
-            manualmente.
-         </p>
+         <p className="mt-2 text-gray-500 text-xs">Si no se cierra automáticamente, puedes cerrar esta pestaña manualmente.</p>
       </div>
    );
 }

@@ -13,12 +13,7 @@ export default async function ACPLandingPage() {
 
    return (
       <div className="bg-white min-h-screen">
-         <ACPHeroSection
-            userId={userId}
-            organization={organization}
-            congress={congress}
-            conferences={conferencesWithSpeakers}
-         />
+         <ACPHeroSection userId={userId} organization={organization} congress={congress} conferences={conferencesWithSpeakers} />
          <ACPPricingInfo userId={userId} />
       </div>
    );

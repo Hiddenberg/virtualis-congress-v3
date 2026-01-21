@@ -49,9 +49,7 @@ export default function TopBrandsNav({ active = "Todos" }: TopBrandsNavProps) {
                const isDisabled = !b.href;
                const className = [
                   "px-4 py-2 rounded-full text-sm transition-colors",
-                  isActive
-                     ? "bg-gray-900 text-white"
-                     : "bg-gray-100 text-gray-700 hover:bg-gray-200",
+                  isActive ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200",
                   isDisabled ? "opacity-60 pointer-events-none" : "",
                ].join(" ");
                const content = <span>{b.label}</span>;
