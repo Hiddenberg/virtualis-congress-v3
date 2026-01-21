@@ -16,7 +16,7 @@ export default async function AdminProductPricesPage({ params }: { params: Promi
 
    return (
       <div>
-         <h1 className="font-bold text-gray-900 text-2xl">{product.name}</h1>
+         <h1 className="font-bold text-gray-900 text-2xl">Precios para {product.name}</h1>
          <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
             {productPrices.length > 0 ? (
                productPrices.map((price) => (
