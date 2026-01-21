@@ -12,8 +12,8 @@ export interface ProductPrice {
    stripePriceId: string;
    requiresCredentialValidation: boolean;
    credentialValidationInstructions?: string;
+   archived: boolean;
 }
 
 export type ProductPriceRecord = DBRecordItem<ProductPrice>;
-
-export type NewProductPriceData = Omit<ProductPrice, "organization" | "congress" | "stripePriceId">;
+export type NewProductPriceData = Omit<ProductPrice, "organization" | "congress" | "stripePriceId" | "archived">;

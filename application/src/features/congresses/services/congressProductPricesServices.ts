@@ -1,8 +1,8 @@
 import "server-only";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { createDBRecord, getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
-import { NewProductPriceData, ProductPrice } from "../types/congressProductPricesTypes";
+import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
+import { NewProductPriceData, ProductPrice, ProductPriceRecord } from "../types/congressProductPricesTypes";
 import { CongressProductRecord } from "../types/congressProductsTypes";
 import { getCongressProductById } from "./congressProductsServices";
 import { getLatestCongress } from "./congressServices";
@@ -35,10 +35,28 @@ export async function createCongressProductPrice(newCongressProductPriceData: Ne
       organization: organization.id,
       congress: congress.id,
       stripePriceId: newStripePrice.id,
+      archived: false,
       ...newCongressProductPriceData,
    });
 
    return newCongressProductPrice;
+}
+
+export async function getCongressProductPriceById(productPriceId: ProductPriceRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      id = {:productPriceId}
+   `,
+      {
+         organizationId: organization.id,
+         productPriceId,
+      },
+   );
+   const productPrice = await getSingleDBRecord<ProductPrice>("CONGRESS_PRODUCT_PRICES", filter);
+   return productPrice;
 }
 
 export async function getCongressProductPrices(productId: CongressProductRecord["id"]) {
@@ -61,4 +79,10 @@ export async function getCongressProductPrices(productId: CongressProductRecord[
    });
 
    return prices;
+}
+
+export async function updateCongressProductPriceRecord(productPriceId: ProductPriceRecord["id"], newData: Partial<ProductPrice>) {
+   const updatedProductPrice = await updateDBRecord<ProductPrice>("CONGRESS_PRODUCT_PRICES", productPriceId, newData);
+
+   return updatedProductPrice;
 }

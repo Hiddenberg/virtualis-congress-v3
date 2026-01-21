@@ -1,5 +1,6 @@
 import { CheckCircleIcon, HashIcon, InfoIcon, ShieldCheckIcon } from "lucide-react";
 import { ProductPriceRecord } from "../../types/congressProductPricesTypes";
+import ToggleArchiveProductPriceButton from "./ToggleArchiveProductPriceButton";
 
 function formatPrice(amount: number, currency: "mxn" | "usd"): string {
    return new Intl.NumberFormat(currency === "mxn" ? "es-MX" : "en-US", {
@@ -23,9 +24,8 @@ export default function AdminProductPriceCard({ price }: { price: ProductPriceRe
    return (
       <div className="flex flex-col bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl h-full transition-all duration-200">
          <div className="flex justify-between items-start gap-4 mb-4">
-            <div className="flex-1 min-w-0">
-               <h3 className="mb-2 font-semibold text-gray-900 text-lg line-clamp-2 leading-snug">{price.name}</h3>
-            </div>
+            <h3 className="mb-2 font-semibold text-gray-900 text-lg line-clamp-2 leading-snug">{price.name}</h3>
+            <ToggleArchiveProductPriceButton productPrice={price} />
          </div>
 
          <div className="mb-4">
