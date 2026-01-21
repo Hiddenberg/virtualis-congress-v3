@@ -8,7 +8,7 @@ const variantClasses = {
    primary: "bg-yellow-400 hover:bg-amber-400 text-black",
    destructive: "bg-red-500 hover:bg-red-600 text-white",
    green: "bg-green-500 hover:bg-green-600 text-white",
-   secondary: `bg-white hover:bg-gray-100 text-black`,
+   secondary: `bg-white hover:bg-gray-100 text-black border border-gray-200`,
    white: `bg-white hover:bg-gray-100 text-black`,
    dark: "bg-[#222] hover:bg-gray-700 text-white",
    outline: `bg-transparent`,

@@ -1,4 +1,4 @@
-import { CircleDollarSignIcon, GlobeIcon, HashIcon, TagIcon, VideoIcon } from "lucide-react";
+import { CheckCircleIcon, CircleDollarSignIcon, GlobeIcon, HashIcon, ShieldCheckIcon, TagIcon, VideoIcon } from "lucide-react";
 import { LinkButton } from "@/components/global/Buttons";
 import { getCongressProductPrices } from "../../services/congressProductPricesServices";
 import { CongressProductRecord } from "../../types/congressProductsTypes";
@@ -51,11 +51,27 @@ async function ProductPricesSection({ productId }: { productId: string }) {
          {productPrices.length > 0 ? (
             <div className="gap-3 grid grid-cols-1">
                {productPrices.map((price) => (
-                  <div
-                     key={price.id}
-                     className="flex justify-between items-center bg-gray-50 px-3 py-2 border border-gray-200 rounded-lg"
-                  >
-                     <span className="font-medium text-gray-900 text-sm">{price.name}</span>
+                  <div key={price.id} className="space-y-2 bg-gray-50 px-3 py-2 border border-gray-200 rounded-lg">
+                     {price.requiresCredentialValidation ? (
+                        <div className="inline-flex items-center gap-1.5 bg-amber-50 px-2.5 py-1 rounded-md ring-1 ring-amber-600/20 ring-inset font-medium text-amber-700 text-xs">
+                           <ShieldCheckIcon className="w-3 h-3" />
+                           Requiere validación de credenciales
+                        </div>
+                     ) : (
+                        <div className="inline-flex items-center gap-1.5 bg-green-50 px-2.5 py-1 rounded-md ring-1 ring-green-600/20 ring-inset font-medium text-gray-700 text-xs">
+                           <CheckCircleIcon className="w-3 h-3" />
+                           Sin validación de credenciales
+                        </div>
+                     )}
+                     <div className="flex justify-between items-center gap-2 w-full">
+                        <span className="font-medium text-gray-900 text-sm">{price.name}</span>
+                        <div>
+                           <span className="mr-2 font-medium text-gray-900 text-sm">${price.priceAmount}</span>
+                           <span className="inline-flex items-center bg-gray-50 px-2.5 py-1 rounded-md ring-1 ring-gray-600/20 ring-inset font-medium text-gray-700 text-xs">
+                              {price.currency.toUpperCase()}
+                           </span>
+                        </div>
+                     </div>
                   </div>
                ))}
             </div>
