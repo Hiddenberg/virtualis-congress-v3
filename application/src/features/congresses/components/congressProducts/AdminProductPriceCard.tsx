@@ -19,7 +19,7 @@ function getCurrencyBadgeColor(currency: "mxn" | "usd") {
 
 function ProductStatusBadge({ archived }: { archived: boolean }) {
    const statusText = archived ? "Archivado" : "Activo";
-   const statusColor = archived ? "bg-gray-50 text-gray-700" : "bg-green-50 text-green-700";
+   const statusColor = archived ? "bg-gray-100 text-gray-700" : "bg-green-50 text-green-700";
    return (
       <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-xs font-medium ring-1 ring-inset ${statusColor}`}>
          {statusText}
@@ -32,7 +32,9 @@ export default function AdminProductPriceCard({ price }: { price: ProductPriceRe
    const formattedPrice = formatPrice(price.priceAmount, price.currency);
 
    return (
-      <div className="flex flex-col bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl h-full transition-all duration-200">
+      <div
+         className={`flex flex-col shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl h-full transition-all duration-200 ${price.archived ? "bg-gray-50" : "bg-white"}`}
+      >
          <div className="flex justify-between items-start gap-4 mb-4">
             <div className="space-y-1">
                <ProductStatusBadge archived={price.archived} />

@@ -1,6 +1,7 @@
-import { CircleDollarSignIcon } from "lucide-react";
+import { CircleDollarSignIcon, PlusIcon } from "lucide-react";
 import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
 import { LinkButton } from "@/components/global/Buttons";
+import GenericExpandableSection from "@/components/global/GenericExpandableSection";
 import GoBackButton from "@/components/global/GoBackButton";
 import AdminProductPriceCard from "@/features/congresses/components/congressProducts/AdminProductPriceCard";
 import { getCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
@@ -19,6 +20,9 @@ export default async function AdminProductPricesPage({ params }: { params: Promi
 
    const productPrices = await getCongressProductPrices(productId);
 
+   const activeProductPrices = productPrices.filter((price) => !price.archived);
+   const archivedProductPrices = productPrices.filter((price) => price.archived);
+
    return (
       <div>
          <GoBackButton backURL="/congress-admin/products" backButtonText="Volver a productos" className="mb-4" />
@@ -32,17 +36,27 @@ export default async function AdminProductPricesPage({ params }: { params: Promi
                   variant="blue"
                   className="justify-center w-full"
                >
-                  <CircleDollarSignIcon className="size-4" />
+                  <PlusIcon className="size-4" />
                   Agregar precio
                </LinkButton>
             }
          />
 
          {productPrices.length > 0 ? (
-            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-               {productPrices.map((price) => (
-                  <AdminProductPriceCard key={price.id} price={price} />
-               ))}
+            <div className="space-y-6">
+               <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                  {activeProductPrices.map((price) => (
+                     <AdminProductPriceCard key={price.id} price={price} />
+                  ))}
+               </div>
+
+               <GenericExpandableSection title={`Precios archivados (${archivedProductPrices.length})`}>
+                  <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                     {archivedProductPrices.map((price) => (
+                        <AdminProductPriceCard key={price.id} price={price} />
+                     ))}
+                  </div>
+               </GenericExpandableSection>
             </div>
          ) : (
             <div className="bg-white shadow-sm p-12 border border-gray-200 rounded-xl">
