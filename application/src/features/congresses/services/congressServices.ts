@@ -6,11 +6,11 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import pbServerClient from "@/libs/pbServerClient";
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
-import { Congress } from "../types/congressTypes";
+import { Congress, CongressRecord } from "../types/congressTypes";
 
 export async function getCongressById(congressId: string) {
    try {
-      const congress = await pbServerClient.collection(PB_COLLECTIONS.CONGRESSES).getOne<Congress & RecordModel>(congressId);
+      const congress = await pbServerClient.collection(PB_COLLECTIONS.CONGRESSES).getOne<CongressRecord>(congressId);
       return congress;
    } catch (error) {
       if (error instanceof ClientResponseError && error.status === 404) {

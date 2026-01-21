@@ -1,5 +1,16 @@
 import { format } from "@formkit/tempo";
-import { ArrowDownUp, BarChart3, Calendar, CreditCard, GiftIcon, GlobeIcon, HomeIcon, Users, VideoIcon } from "lucide-react";
+import {
+   ArrowDownUp,
+   BarChart3,
+   Calendar,
+   CreditCard,
+   GiftIcon,
+   GlobeIcon,
+   HomeIcon,
+   ShoppingCartIcon,
+   UsersIcon,
+   VideoIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { CopyButton } from "@/components/global/Buttons";
@@ -46,10 +57,19 @@ const adminSections: AdminLink[] = [
       title: "Ponentes",
       description: "Agregar, editar y administrar ponentes de conferencias",
       href: "/congress-admin/speakers",
-      icon: Users,
+      icon: UsersIcon,
       color: "bg-purple-500",
       lightColor: "bg-purple-50",
       textColor: "text-purple-600",
+   },
+   {
+      title: "Precios y Productos de Congreso",
+      description: "Agregar, editar y administrar precios y productos de congreso",
+      href: "/congress-admin/products",
+      icon: ShoppingCartIcon,
+      color: "bg-sky-500",
+      lightColor: "bg-sky-50",
+      textColor: "text-sky-600",
    },
    {
       title: "Estadísticas de Conferencias",
@@ -122,7 +142,7 @@ const hybridCongressSections: AdminLink[] = [
       title: "Control de Presentación",
       description: "Controla el avance de diapositivas y presentaciones en vivo",
       href: "/congress-admin/presentation-controller",
-      icon: Users,
+      icon: UsersIcon,
       color: "bg-teal-500",
       lightColor: "bg-teal-50",
       textColor: "text-teal-600",

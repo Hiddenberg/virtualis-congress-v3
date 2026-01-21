@@ -2,7 +2,7 @@ import "server-only";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
-import { CongressProduct, NewCongressProductData } from "../types/congressProductsTypes";
+import { CongressProduct, CongressProductRecord, NewCongressProductData } from "../types/congressProductsTypes";
 import { CongressRecord } from "../types/congressTypes";
 import { getCongressById } from "./congressServices";
 
@@ -41,13 +41,13 @@ export async function createDefaultCongressProducts(congressId: CongressRecord["
 
    const defaultCongressProducts: NewCongressProductData[] = [
       {
-         name: `${congress.name} - Acceso Online`,
+         name: `${congress.title} - Acceso Online`,
          description: "Acceso en linea a los contenidos del congreso",
          congress: congress.id,
          productType: "congress_online_access",
       },
       {
-         name: `${congress.name} - Acceso a Grabaciones`,
+         name: `${congress.title} - Acceso a Grabaciones`,
          description: "Acceso a las grabaciones del congreso una vez finalizado el evento",
          congress: congress.id,
          productType: "congress_recordings",
@@ -57,12 +57,14 @@ export async function createDefaultCongressProducts(congressId: CongressRecord["
    // If the congress is hybrid, add the in-person access product
    if (congress.modality === "hybrid") {
       defaultCongressProducts.push({
-         name: `${congress.name} - Acceso Presencial`,
+         name: `${congress.title} - Acceso Presencial`,
          description: "Acceso presencial al congreso",
          congress: congress.id,
          productType: "congress_in_person_access",
       });
    }
+
+   const createdProducts = [];
 
    for (const defaultCongressProduct of defaultCongressProducts) {
       // Check if the product already exists
@@ -88,9 +90,12 @@ export async function createDefaultCongressProducts(congressId: CongressRecord["
       }
 
       // If the product doesn't exist, create it
-      await createCongressProduct(defaultCongressProduct);
+      const createdProduct = await createCongressProduct(defaultCongressProduct);
+      createdProducts.push(createdProduct);
       console.log(`[createDefaultCongressProducts] Created product: ${defaultCongressProduct.name}`);
    }
+
+   return createdProducts;
 }
 
 export async function getAllCongressProducts(congressId: CongressRecord["id"]) {
@@ -112,4 +117,23 @@ export async function getAllCongressProducts(congressId: CongressRecord["id"]) {
    });
 
    return congressProducts;
+}
+
+export async function getCongressProductById(productId: CongressProductRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      id = {:productId}
+   `,
+      {
+         organizationId: organization.id,
+         productId,
+      },
+   );
+
+   const product = await getSingleDBRecord<CongressProduct>("CONGRESS_PRODUCTS", filter);
+
+   return product;
 }
