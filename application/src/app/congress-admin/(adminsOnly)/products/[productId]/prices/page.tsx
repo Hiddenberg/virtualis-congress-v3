@@ -1,3 +1,8 @@
+import { CircleDollarSignIcon } from "lucide-react";
+import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
+import { LinkButton } from "@/components/global/Buttons";
+import GoBackButton from "@/components/global/GoBackButton";
+import AdminProductPriceCard from "@/features/congresses/components/congressProducts/AdminProductPriceCard";
 import { getCongressProductPrices } from "@/features/congresses/services/congressPricesServices";
 import { getCongressProductById } from "@/features/congresses/services/congressProductsServices";
 
@@ -16,20 +21,51 @@ export default async function AdminProductPricesPage({ params }: { params: Promi
 
    return (
       <div>
-         <h1 className="font-bold text-gray-900 text-2xl">Precios para {product.name}</h1>
-         <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
-            {productPrices.length > 0 ? (
-               productPrices.map((price) => (
-                  <div key={price.id}>
-                     <h2 className="font-bold text-gray-900 text-xl">{price.name}</h2>
+         <GoBackButton backURL="/congress-admin/products" backButtonText="Volver a productos" className="mb-4" />
+         <AdminSubPageHeader
+            title={`Precios para ${product.name}`}
+            Icon={CircleDollarSignIcon}
+            description={`Administra los precios disponibles para el producto "${product.name}"`}
+            sideElement={
+               <LinkButton
+                  href={`/congress-admin/products/${productId}/prices/create`}
+                  variant="blue"
+                  className="justify-center w-full"
+               >
+                  <CircleDollarSignIcon className="size-4" />
+                  Agregar precio
+               </LinkButton>
+            }
+         />
+
+         {productPrices.length > 0 ? (
+            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+               {productPrices.map((price) => (
+                  <AdminProductPriceCard key={price.id} price={price} />
+               ))}
+            </div>
+         ) : (
+            <div className="bg-white shadow-sm p-12 border border-gray-200 rounded-xl">
+               <div className="flex flex-col justify-center items-center text-center">
+                  <div className="flex justify-center items-center bg-gray-100 mb-4 rounded-full w-16 h-16">
+                     <CircleDollarSignIcon className="w-8 h-8 text-gray-400" />
                   </div>
-               ))
-            ) : (
-               <div className="flex justify-center items-center h-full">
-                  <p className="text-gray-500 text-sm">No hay precios para este producto</p>
+                  <h3 className="mb-2 font-semibold text-gray-900 text-lg">No hay precios configurados</h3>
+                  <p className="mb-6 max-w-md text-gray-600 text-sm">
+                     Comienza agregando el primer precio para este producto. Los usuarios podrán seleccionar entre las diferentes
+                     opciones de precio disponibles.
+                  </p>
+                  <LinkButton
+                     href={`/congress-admin/products/${productId}/prices/create`}
+                     variant="blue"
+                     className="justify-center"
+                  >
+                     <CircleDollarSignIcon className="size-4" />
+                     Agregar primer precio
+                  </LinkButton>
                </div>
-            )}
-         </div>
+            </div>
+         )}
       </div>
    );
 }

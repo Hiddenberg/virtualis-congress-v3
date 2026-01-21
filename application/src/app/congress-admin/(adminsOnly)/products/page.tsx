@@ -1,4 +1,5 @@
 import { ShoppingCartIcon } from "lucide-react";
+import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
 import CongressProductAdminCard from "@/features/congresses/components/congressProducts/CongressProductAdminCard";
 import CreateDefaultProductsButton from "@/features/congresses/components/congressProducts/CreateDefaultProductsButton";
 import { getAllCongressProducts } from "@/features/congresses/services/congressProductsServices";
@@ -10,21 +11,11 @@ export default async function AdminProductsPage() {
 
    return (
       <div>
-         <div className="mb-8">
-            <div className="flex items-center gap-3 mb-3">
-               <div className="flex justify-center items-center bg-sky-50 rounded-lg w-12 h-12">
-                  <ShoppingCartIcon className="w-6 h-6 text-sky-600" />
-               </div>
-               <div>
-                  <h1 className="font-bold text-gray-900 text-3xl">Productos del Congreso</h1>
-                  <p className="mt-1 text-gray-600 text-base">{congress.title}</p>
-               </div>
-            </div>
-            <p className="mt-4 text-gray-600 text-sm leading-relaxed">
-               Administra los productos y precios disponibles para este congreso. Cada producto puede tener múltiples opciones de
-               precio.
-            </p>
-         </div>
+         <AdminSubPageHeader
+            title="Productos del Congreso"
+            Icon={ShoppingCartIcon}
+            description={`Administra los productos y precios disponibles para el congreso "${congress.title}"`}
+         />
 
          {products.length > 0 ? (
             <div className="gap-6 grid grid-cols-1 md:grid-cols-2">
