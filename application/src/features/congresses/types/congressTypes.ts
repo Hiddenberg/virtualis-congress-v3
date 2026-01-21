@@ -1,5 +1,5 @@
 import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
-import { CongressPrice } from "./congressPricesTypes";
+import { ProductPrice } from "./congressPricesTypes";
 
 export interface Congress {
    organization: OrganizationRecord["id"];
@@ -15,6 +15,6 @@ export interface Congress {
 export type CongressRecord = DBRecordItem<Congress>;
 
 export type NewCongressPriceData = Omit<
-   CongressPrice,
+   ProductPrice,
    "organization" | "congress" | "stripePriceId"
 >;

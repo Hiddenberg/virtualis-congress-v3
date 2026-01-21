@@ -1,16 +1,17 @@
 import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import { CongressProductRecord } from "./congressProductsTypes";
 import { CongressRecord } from "./congressTypes";
 
-export interface CongressPrice {
+export interface ProductPrice {
    organization: OrganizationRecord["id"];
    congress: CongressRecord["id"];
+   product: CongressProductRecord["id"];
    name: string;
    priceAmount: number;
    currency: "mxn" | "usd";
-   accessType: "virtual" | "in-person";
    stripePriceId: string;
    requiresCredentialValidation: boolean;
    credentialValidationInstructions?: string;
 }
 
-export type CongressPriceRecord = DBRecordItem<CongressPrice>;
+export type ProductPriceRecord = DBRecordItem<ProductPrice>;

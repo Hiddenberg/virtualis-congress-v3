@@ -7,19 +7,13 @@
    },
    "files": {
       "ignoreUnknown": true,
-      "includes": [
-         "**",
-         "!node_modules",
-         "!.next",
-         "!dist",
-         "!build",
-         "!**/*.d.ts"
-      ]
+      "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!**/*.d.ts"]
    },
    "formatter": {
       "enabled": true,
       "indentStyle": "space",
-      "indentWidth": 3
+      "indentWidth": 3,
+      "lineWidth": 130
    },
    "linter": {
       "enabled": true,
