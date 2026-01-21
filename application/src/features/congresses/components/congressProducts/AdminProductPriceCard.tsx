@@ -1,5 +1,5 @@
 import { CheckCircleIcon, HashIcon, InfoIcon, ShieldCheckIcon } from "lucide-react";
-import { ProductPriceRecord } from "../../types/congressPricesTypes";
+import { ProductPriceRecord } from "../../types/congressProductPricesTypes";
 
 function formatPrice(amount: number, currency: "mxn" | "usd"): string {
    return new Intl.NumberFormat(currency === "mxn" ? "es-MX" : "en-US", {
@@ -22,9 +22,9 @@ export default function AdminProductPriceCard({ price }: { price: ProductPriceRe
 
    return (
       <div className="flex flex-col bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl h-full transition-all duration-200">
-         <div className="flex items-start justify-between gap-4 mb-4">
+         <div className="flex justify-between items-start gap-4 mb-4">
             <div className="flex-1 min-w-0">
-               <h3 className="font-semibold text-gray-900 text-lg line-clamp-2 leading-snug mb-2">{price.name}</h3>
+               <h3 className="mb-2 font-semibold text-gray-900 text-lg line-clamp-2 leading-snug">{price.name}</h3>
             </div>
          </div>
 
@@ -42,12 +42,12 @@ export default function AdminProductPriceCard({ price }: { price: ProductPriceRe
          <div className="flex flex-col gap-3 mb-4">
             <div className="flex items-center gap-2">
                {price.requiresCredentialValidation ? (
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-600/20">
+                  <div className="inline-flex items-center gap-1.5 bg-amber-50 px-2.5 py-1 rounded-md ring-1 ring-amber-600/20 ring-inset font-medium text-amber-700 text-xs">
                      <ShieldCheckIcon className="w-3 h-3" />
                      Requiere validación
                   </div>
                ) : (
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-50 text-gray-700 ring-1 ring-inset ring-gray-600/20">
+                  <div className="inline-flex items-center gap-1.5 bg-gray-50 px-2.5 py-1 rounded-md ring-1 ring-gray-600/20 ring-inset font-medium text-gray-700 text-xs">
                      <CheckCircleIcon className="w-3 h-3" />
                      Sin validación
                   </div>
@@ -56,13 +56,13 @@ export default function AdminProductPriceCard({ price }: { price: ProductPriceRe
 
             {price.requiresCredentialValidation && price.credentialValidationInstructions && (
                <div className="flex items-start gap-2 bg-amber-50 px-3 py-2 border border-amber-200 rounded-lg">
-                  <InfoIcon className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <InfoIcon className="mt-0.5 w-4 h-4 text-amber-600 shrink-0" />
                   <p className="text-amber-800 text-sm leading-relaxed">{price.credentialValidationInstructions}</p>
                </div>
             )}
          </div>
 
-         <div className="mt-auto pt-4 border-t border-gray-200">
+         <div className="mt-auto pt-4 border-gray-200 border-t">
             <div className="flex items-center gap-2 text-gray-500">
                <HashIcon className="w-3.5 h-3.5" />
                <span className="font-mono text-xs truncate" title={price.stripePriceId}>

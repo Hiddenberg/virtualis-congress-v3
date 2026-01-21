@@ -3,7 +3,7 @@ import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
 import { LinkButton } from "@/components/global/Buttons";
 import GoBackButton from "@/components/global/GoBackButton";
 import AdminProductPriceCard from "@/features/congresses/components/congressProducts/AdminProductPriceCard";
-import { getCongressProductPrices } from "@/features/congresses/services/congressPricesServices";
+import { getCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
 import { getCongressProductById } from "@/features/congresses/services/congressProductsServices";
 
 export default async function AdminProductPricesPage({ params }: { params: Promise<{ productId: string }> }) {

@@ -1,6 +1,6 @@
 import { CircleDollarSignIcon, GlobeIcon, HashIcon, TagIcon, VideoIcon } from "lucide-react";
 import { LinkButton } from "@/components/global/Buttons";
-import { getCongressProductPrices } from "../../services/congressPricesServices";
+import { getCongressProductPrices } from "../../services/congressProductPricesServices";
 import { CongressProductRecord } from "../../types/congressProductsTypes";
 
 function getProductTypeIcon(productType: string) {

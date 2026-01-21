@@ -15,3 +15,5 @@ export interface ProductPrice {
 }
 
 export type ProductPriceRecord = DBRecordItem<ProductPrice>;
+
+export type NewProductPriceData = Omit<ProductPrice, "organization" | "congress" | "stripePriceId">;
