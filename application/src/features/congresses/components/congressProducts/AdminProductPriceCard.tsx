@@ -17,6 +17,16 @@ function getCurrencyBadgeColor(currency: "mxn" | "usd") {
       : { bg: "bg-blue-50", text: "text-blue-700", ring: "ring-blue-600/20" };
 }
 
+function ProductStatusBadge({ archived }: { archived: boolean }) {
+   const statusText = archived ? "Archivado" : "Activo";
+   const statusColor = archived ? "bg-gray-50 text-gray-700" : "bg-green-50 text-green-700";
+   return (
+      <span className={`inline-flex items-center px-2.5 py-1 rounded-xl text-xs font-medium ring-1 ring-inset ${statusColor}`}>
+         {statusText}
+      </span>
+   );
+}
+
 export default function AdminProductPriceCard({ price }: { price: ProductPriceRecord }) {
    const currencyColors = getCurrencyBadgeColor(price.currency);
    const formattedPrice = formatPrice(price.priceAmount, price.currency);
@@ -24,7 +34,12 @@ export default function AdminProductPriceCard({ price }: { price: ProductPriceRe
    return (
       <div className="flex flex-col bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl h-full transition-all duration-200">
          <div className="flex justify-between items-start gap-4 mb-4">
-            <h3 className="mb-2 font-semibold text-gray-900 text-lg line-clamp-2 leading-snug">{price.name}</h3>
+            <div className="space-y-1">
+               <ProductStatusBadge archived={price.archived} />
+               <h3 className="mb-2 font-semibold text-gray-900 text-lg line-clamp-2 leading-snug" title={price.name}>
+                  {price.name}
+               </h3>
+            </div>
             <ToggleArchiveProductPriceButton productPrice={price} />
          </div>
 
