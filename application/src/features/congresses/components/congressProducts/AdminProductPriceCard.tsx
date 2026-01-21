@@ -1,5 +1,5 @@
 import { CheckCircleIcon, HashIcon, InfoIcon, ShieldCheckIcon } from "lucide-react";
-import { ProductPriceRecord } from "../../types/congressProductPricesTypes";
+import type { ProductPriceRecord } from "../../types/congressProductPricesTypes";
 import ToggleArchiveProductPriceButton from "./ToggleArchiveProductPriceButton";
 
 function formatPrice(amount: number, currency: "mxn" | "usd"): string {

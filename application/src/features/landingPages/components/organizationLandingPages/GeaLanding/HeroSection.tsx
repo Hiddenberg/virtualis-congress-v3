@@ -4,7 +4,7 @@ import { tzDate } from "@formkit/tempo";
 import { CalendarDays, DoorOpenIcon, Monitor, Play } from "lucide-react";
 import Link from "next/link";
 import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
-import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import ConferencesPreview from "./ConferencesPreview";
 

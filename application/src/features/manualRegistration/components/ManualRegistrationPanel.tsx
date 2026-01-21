@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
-import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import { registerManualPaymentAction, searchRegisteredUsersAction } from "../serverActions/manualRegistrationActions";
 
 interface UserListItemProps {

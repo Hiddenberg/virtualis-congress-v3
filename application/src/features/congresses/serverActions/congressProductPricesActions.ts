@@ -7,7 +7,7 @@ import {
    getCongressProductPriceById,
    updateCongressProductPriceRecord,
 } from "../services/congressProductPricesServices";
-import { NewProductPriceData, ProductPriceRecord } from "../types/congressProductPricesTypes";
+import type { NewProductPriceData, ProductPriceRecord } from "../types/congressProductPricesTypes";
 
 export async function createCongressProductPriceAction(
    newCongressProductPricesData: NewProductPriceData,

@@ -45,21 +45,18 @@ export function getAccumulatedGainsPerDay(allPayments: (UserPayment & RecordMode
                  }, 0);
 
          if (prev.length === 0) {
-            return [
-               {
-                  date: currDate,
-                  accumulatedGains: accumulatedGainsForDate,
-               },
-            ];
-         }
-
-         return [
-            ...prev,
-            {
+            prev.push({
+               date: currDate,
+               accumulatedGains: accumulatedGainsForDate,
+            });
+         } else {
+            prev.push({
                date: currDate,
                accumulatedGains: prev[prev.length - 1].accumulatedGains + accumulatedGainsForDate,
-            },
-         ];
+            });
+         }
+
+         return prev;
       },
       [] as { date: string; accumulatedGains: number }[],
    );

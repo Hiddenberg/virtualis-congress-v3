@@ -1,7 +1,7 @@
 import { CheckCircleIcon, CircleDollarSignIcon, GlobeIcon, HashIcon, ShieldCheckIcon, TagIcon, VideoIcon } from "lucide-react";
 import { LinkButton } from "@/components/global/Buttons";
-import { getCongressProductPrices } from "../../services/congressProductPricesServices";
-import { CongressProductRecord } from "../../types/congressProductsTypes";
+import { getActiveCongressProductPrices } from "../../services/congressProductPricesServices";
+import type { CongressProductRecord } from "../../types/congressProductsTypes";
 
 function getProductTypeIcon(productType: string) {
    if (productType.includes("online") || productType.includes("access")) {
@@ -36,7 +36,7 @@ function getProductTypeColor(productType: string) {
 }
 
 async function ProductPricesSection({ productId }: { productId: string }) {
-   const productPrices = await getCongressProductPrices(productId);
+   const productPrices = await getActiveCongressProductPrices(productId);
 
    return (
       <div className="mt-6 pt-6 border-gray-200 border-t">

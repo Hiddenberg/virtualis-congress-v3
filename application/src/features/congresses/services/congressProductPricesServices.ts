@@ -2,8 +2,8 @@ import "server-only";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
-import { NewProductPriceData, ProductPrice, ProductPriceRecord } from "../types/congressProductPricesTypes";
-import { CongressProductRecord } from "../types/congressProductsTypes";
+import type { NewProductPriceData, ProductPrice, ProductPriceRecord } from "../types/congressProductPricesTypes";
+import type { CongressProductRecord } from "../types/congressProductsTypes";
 import { getCongressProductById } from "./congressProductsServices";
 import { getLatestCongress } from "./congressServices";
 
@@ -59,13 +59,36 @@ export async function getCongressProductPriceById(productPriceId: ProductPriceRe
    return productPrice;
 }
 
-export async function getCongressProductPrices(productId: CongressProductRecord["id"]) {
+export async function getAllCongressProductPrices(productId: CongressProductRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
 
    const filter = pbFilter(
       `
       organization = {:organizationId} &&
       product = {:productId}
+   `,
+      {
+         organizationId: organization.id,
+         productId,
+      },
+   );
+
+   const prices = await getFullDBRecordsList<ProductPrice>("CONGRESS_PRODUCT_PRICES", {
+      filter,
+      sort: "-created",
+   });
+
+   return prices;
+}
+
+export async function getActiveCongressProductPrices(productId: CongressProductRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      product = {:productId} &&
+      archived = false
    `,
       {
          organizationId: organization.id,

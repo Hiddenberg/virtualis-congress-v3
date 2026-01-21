@@ -2,8 +2,8 @@ import "server-only";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
-import { CongressProduct, CongressProductRecord, NewCongressProductData } from "../types/congressProductsTypes";
-import { CongressRecord } from "../types/congressTypes";
+import type { CongressProduct, CongressProductRecord, NewCongressProductData } from "../types/congressProductsTypes";
+import type { CongressRecord } from "../types/congressTypes";
 import { getCongressById } from "./congressServices";
 
 export async function createCongressProductRecord(newCongressProduct: CongressProduct) {

@@ -21,6 +21,7 @@ export default function GenericExpandableSection({
    return (
       <div className="space-y-4">
          <button
+            type="button"
             className="flex items-center gap-2 bg-white shadow-sm hover:shadow-md p-6 border border-gray-200 rounded-xl w-full h-full transition-all duration-200"
             onClick={handleToggleExpanded}
          >

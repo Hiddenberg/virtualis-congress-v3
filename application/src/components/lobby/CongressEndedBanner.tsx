@@ -1,5 +1,5 @@
 import { Award, PartyPopper, VideoIcon } from "lucide-react";
-import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import { LinkButton } from "../global/Buttons";
 
 interface CongressEndedBannerProps {

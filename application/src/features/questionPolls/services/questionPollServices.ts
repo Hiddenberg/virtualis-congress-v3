@@ -1,7 +1,7 @@
 import "server-only";
 
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import {
    createDBRecord,

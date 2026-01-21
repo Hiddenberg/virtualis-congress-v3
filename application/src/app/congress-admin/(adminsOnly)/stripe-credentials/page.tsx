@@ -30,7 +30,7 @@ export default async function StripeCredentialsAdminPage() {
 
             {/* Security Warning */}
             <div className="flex items-start gap-3 bg-amber-50 p-4 border border-amber-200 rounded-lg">
-               <AlertTriangle className="flex-shrink-0 mt-0.5 w-5 h-5 text-amber-600" />
+               <AlertTriangle className="mt-0.5 w-5 h-5 text-amber-600 shrink-0" />
                <div>
                   <h3 className="mb-1 font-semibold text-amber-800">Información Sensible</h3>
                   <p className="text-amber-700 text-sm">
@@ -59,20 +59,20 @@ export default async function StripeCredentialsAdminPage() {
                   <div className="gap-4 grid md:grid-cols-2">
                      <div className="space-y-4">
                         <div>
-                           <label className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
+                           <div className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
                               <Key className="w-4 h-4" />
                               Clave API
-                           </label>
+                           </div>
                            <div className="bg-gray-50 p-3 border border-gray-200 rounded-lg">
                               <code className="font-mono text-gray-600 text-sm">{credentialsSaved.apiKey}</code>
                            </div>
                         </div>
 
                         <div>
-                           <label className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
+                           <div className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
                               <Shield className="w-4 h-4" />
                               Webhook Secret
-                           </label>
+                           </div>
                            <div className="bg-gray-50 p-3 border border-gray-200 rounded-lg">
                               <code className="font-mono text-gray-600 text-sm">{credentialsSaved.webhookSecret}</code>
                            </div>
@@ -81,10 +81,10 @@ export default async function StripeCredentialsAdminPage() {
 
                      <div className="space-y-4">
                         <div>
-                           <label className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
+                           <div className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
                               <Globe className="w-4 h-4" />
                               Estado del Entorno
-                           </label>
+                           </div>
                            <div className="flex items-center gap-2">
                               <div className="bg-blue-50 px-3 py-1 rounded-full font-medium text-blue-700 text-sm">
                                  Configurado
@@ -116,15 +116,15 @@ export default async function StripeCredentialsAdminPage() {
                   </h3>
                   <ul className="space-y-2 text-blue-800 text-sm">
                      <li className="flex items-start gap-2">
-                        <div className="flex-shrink-0 bg-blue-600 mt-2 rounded-full w-1.5 h-1.5" />
+                        <div className="bg-blue-600 mt-2 rounded-full w-1.5 h-1.5 shrink-0" />
                         Las credenciales están encriptadas y almacenadas de forma segura
                      </li>
                      <li className="flex items-start gap-2">
-                        <div className="flex-shrink-0 bg-blue-600 mt-2 rounded-full w-1.5 h-1.5" />
+                        <div className="bg-blue-600 mt-2 rounded-full w-1.5 h-1.5 shrink-0" />
                         Solo los super administradores pueden ver y modificar estas credenciales
                      </li>
                      <li className="flex items-start gap-2">
-                        <div className="flex-shrink-0 bg-blue-600 mt-2 rounded-full w-1.5 h-1.5" />
+                        <div className="bg-blue-600 mt-2 rounded-full w-1.5 h-1.5 shrink-0" />
                         Los valores mostrados están parcialmente ocultos por seguridad
                      </li>
                   </ul>
@@ -149,7 +149,7 @@ export default async function StripeCredentialsAdminPage() {
                      <h3 className="mb-3 font-semibold text-gray-900">Antes de comenzar:</h3>
                      <ol className="space-y-2 text-gray-700 text-sm">
                         <li className="flex items-start gap-2">
-                           <span className="flex flex-shrink-0 justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs">
+                           <span className="flex justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs shrink-0">
                               1
                            </span>
                            Crea una cuenta en{" "}
@@ -163,19 +163,19 @@ export default async function StripeCredentialsAdminPage() {
                            </a>
                         </li>
                         <li className="flex items-start gap-2">
-                           <span className="flex flex-shrink-0 justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs">
+                           <span className="flex justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs shrink-0">
                               2
                            </span>
                            Obtén tu clave API desde el panel de Stripe
                         </li>
                         <li className="flex items-start gap-2">
-                           <span className="flex flex-shrink-0 justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs">
+                           <span className="flex justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs shrink-0">
                               3
                            </span>
                            Configura los webhooks y obtén el webhook secret
                         </li>
                         <li className="flex items-start gap-2">
-                           <span className="flex flex-shrink-0 justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs">
+                           <span className="flex justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs shrink-0">
                               4
                            </span>
                            Define las URLs de éxito, cancelación y retorno

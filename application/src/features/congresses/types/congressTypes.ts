@@ -1,5 +1,5 @@
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
-import { ProductPrice } from "./congressProductPricesTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { ProductPrice } from "./congressProductPricesTypes";
 
 export interface Congress {
    organization: OrganizationRecord["id"];

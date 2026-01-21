@@ -4,7 +4,7 @@ import { LinkButton } from "@/components/global/Buttons";
 import GenericExpandableSection from "@/components/global/GenericExpandableSection";
 import GoBackButton from "@/components/global/GoBackButton";
 import AdminProductPriceCard from "@/features/congresses/components/congressProducts/AdminProductPriceCard";
-import { getCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
+import { getAllCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
 import { getCongressProductById } from "@/features/congresses/services/congressProductsServices";
 
 export default async function AdminProductPricesPage({ params }: { params: Promise<{ productId: string }> }) {
@@ -18,7 +18,7 @@ export default async function AdminProductPricesPage({ params }: { params: Promi
       );
    }
 
-   const productPrices = await getCongressProductPrices(productId);
+   const productPrices = await getAllCongressProductPrices(productId);
 
    const activeProductPrices = productPrices.filter((price) => !price.archived);
    const archivedProductPrices = productPrices.filter((price) => price.archived);

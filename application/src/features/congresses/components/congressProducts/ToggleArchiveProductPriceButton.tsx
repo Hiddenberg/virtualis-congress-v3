@@ -5,7 +5,7 @@ import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { toggleArchiveProductPriceAction } from "../../serverActions/congressProductPricesActions";
-import { ProductPriceRecord } from "../../types/congressProductPricesTypes";
+import type { ProductPriceRecord } from "../../types/congressProductPricesTypes";
 
 export default function ToggleArchiveProductPriceButton({ productPrice }: { productPrice: ProductPriceRecord }) {
    const [isPending, startTransition] = useTransition();

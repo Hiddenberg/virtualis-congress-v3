@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import { Button } from "@/components/global/Buttons";
 import { createCongressProductPriceAction } from "../../serverActions/congressProductPricesActions";
-import { NewProductPriceData } from "../../types/congressProductPricesTypes";
-import { CongressProductRecord } from "../../types/congressProductsTypes";
+import type { NewProductPriceData } from "../../types/congressProductPricesTypes";
+import type { CongressProductRecord } from "../../types/congressProductsTypes";
 
 const productPriceSchema = z.object({
    name: z

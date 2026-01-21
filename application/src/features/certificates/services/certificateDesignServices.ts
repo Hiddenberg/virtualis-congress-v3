@@ -1,7 +1,7 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
-import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { CertificateDesign, CongressCertificate } from "../types/certificatesTypes";
 
 export async function getCertificateDesign({

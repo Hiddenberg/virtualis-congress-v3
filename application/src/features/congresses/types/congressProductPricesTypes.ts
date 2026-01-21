@@ -1,6 +1,6 @@
-import { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
-import { CongressProductRecord } from "./congressProductsTypes";
-import { CongressRecord } from "./congressTypes";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { CongressProductRecord } from "./congressProductsTypes";
+import type { CongressRecord } from "./congressTypes";
 
 export interface ProductPrice {
    organization: OrganizationRecord["id"];

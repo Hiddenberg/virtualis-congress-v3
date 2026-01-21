@@ -15,7 +15,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { CopyButton } from "@/components/global/Buttons";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import { getOrganizationBaseUrl } from "@/features/organizations/services/organizationServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
