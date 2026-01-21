@@ -1,6 +1,7 @@
 import { CircleDollarSignIcon } from "lucide-react";
 import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
 import GoBackButton from "@/components/global/GoBackButton";
+import ProductPriceForm from "@/features/congresses/components/congressProducts/ProductPriceForm";
 import { getCongressProductById } from "@/features/congresses/services/congressProductsServices";
 
 export default async function AdminCreateProductPricePage({ params }: { params: Promise<{ productId: string }> }) {
@@ -27,6 +28,9 @@ export default async function AdminCreateProductPricePage({ params }: { params: 
             Icon={CircleDollarSignIcon}
             description={`Agrega un nuevo precio para el producto "${product.name}"`}
          />
+         <div className="mt-6">
+            <ProductPriceForm productId={productId} />
+         </div>
       </div>
    );
 }
