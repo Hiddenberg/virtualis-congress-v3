@@ -57,25 +57,13 @@ export default async function StripeCredentialsAdminPage() {
                   </div>
 
                   <div className="gap-4 grid md:grid-cols-2">
-                     <div className="space-y-4">
-                        <div>
-                           <div className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
-                              <Key className="w-4 h-4" />
-                              Clave API
-                           </div>
-                           <div className="bg-gray-50 p-3 border border-gray-200 rounded-lg">
-                              <code className="font-mono text-gray-600 text-sm">{credentialsSaved.apiKey}</code>
-                           </div>
+                     <div>
+                        <div className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
+                           <Key className="w-4 h-4" />
+                           Clave API
                         </div>
-
-                        <div>
-                           <div className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
-                              <Shield className="w-4 h-4" />
-                              Webhook Secret
-                           </div>
-                           <div className="bg-gray-50 p-3 border border-gray-200 rounded-lg">
-                              <code className="font-mono text-gray-600 text-sm">{credentialsSaved.webhookSecret}</code>
-                           </div>
+                        <div className="bg-gray-50 p-3 border border-gray-200 rounded-lg">
+                           <code className="font-mono text-gray-600 text-sm">{credentialsSaved.apiKey}</code>
                         </div>
                      </div>
 
@@ -167,18 +155,6 @@ export default async function StripeCredentialsAdminPage() {
                               2
                            </span>
                            Obtén tu clave API desde el panel de Stripe
-                        </li>
-                        <li className="flex items-start gap-2">
-                           <span className="flex justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs shrink-0">
-                              3
-                           </span>
-                           Configura los webhooks y obtén el webhook secret
-                        </li>
-                        <li className="flex items-start gap-2">
-                           <span className="flex justify-center items-center bg-emerald-100 rounded-full w-5 h-5 font-semibold text-emerald-700 text-xs shrink-0">
-                              4
-                           </span>
-                           Define las URLs de éxito, cancelación y retorno
                         </li>
                      </ol>
                   </div>

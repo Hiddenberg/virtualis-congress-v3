@@ -54,11 +54,17 @@ export async function assignQnALivestreamSessionsToAllConferencesAction() {
             const livestreamSession = await createLivestreamSession(conference.id);
 
             const muxLiveStream = await createMuxLiveStream(`Live for conf: ${conference.id}`);
+
+            const livestreamPlaybackId = muxLiveStream.playback_ids?.[0].id;
+            if (!livestreamPlaybackId) {
+               throw new Error("No livestream playback id found");
+            }
+
             await createLivestreamMuxAsset({
                conferenceId: conference.id,
                livestreamSessionId: livestreamSession.id,
                muxLivestreamId: muxLiveStream.id,
-               livestreamPlaybackId: muxLiveStream.playback_ids?.[0].id,
+               livestreamPlaybackId,
                streamKey: muxLiveStream.stream_key,
             });
 

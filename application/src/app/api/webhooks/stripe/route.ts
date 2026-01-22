@@ -1,4 +1,5 @@
 import type Stripe from "stripe";
+import { IS_DEV_ENVIRONMENT } from "@/data/constants/platformConstants";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { createFulfillmentErrorRecord } from "@/features/organizationPayments/services/fulfillmentErrorLoggerServices";
 import {
@@ -27,6 +28,7 @@ export async function POST(request: Request) {
 
    const signature = request.headers.get("stripe-signature");
    if (!signature) {
+      console.error("[Stripe Webhook] No signature header");
       return new Response("Webhook Error: No signature header", {
          status: 400,
       });
@@ -34,10 +36,20 @@ export async function POST(request: Request) {
 
    let event: Stripe.Event | null = null;
    try {
-      event = stripe.webhooks.constructEvent(body, signature, credentials.webhookSecret);
+      const webhookSecret = IS_DEV_ENVIRONMENT ? credentials.webhookSecret : process.env.STRIPE_DEV_WEBHOOK_SECRET;
+
+      if (!webhookSecret) {
+         console.error("[Stripe Webhook] No webhook secret");
+         return new Response("Webhook Error: No webhook secret", {
+            status: 400,
+         });
+      }
+
+      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
    } catch (err) {
       // console.log(err)
       if (err instanceof Error) {
+         console.error(`[Stripe Webhook] Error constructing event: ${err.message}`);
          return new Response(`Webhook Error: ${err.message}`, {
             status: 400,
          });

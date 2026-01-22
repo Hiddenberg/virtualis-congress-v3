@@ -1,22 +1,64 @@
-import { PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
+import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
+import Stripe from "stripe";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { decrypt, encrypt } from "../utils/encryptionUtils";
 
-export async function createOrganizationStripeCredentials(credentials: NewOrganizationStripeCredentialsData) {
+export async function configureOrganizationStripeCredentials(credentials: NewOrganizationStripeCredentialsData) {
    const organization = await getOrganizationFromSubdomain();
 
    if (!organization) {
       throw new Error("Organization not found");
    }
-   const protocol = credentials.environment === "development" ? "http://" : "https://";
 
+   let webhookEndpointURL: string | undefined;
+
+   let webhookSecret: string | undefined;
+   if (!IS_DEV_ENVIRONMENT) {
+      const webhookEndpointURL = `https://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/api/webhook/stripe`;
+      // Check if the webhook endpoint already exists
+      const stripe = new Stripe(credentials.apiKey);
+      const stripeWebhookEndpoints = await stripe.webhookEndpoints.list({
+         limit: 100,
+      });
+
+      const requiredEvents: Stripe.WebhookEndpointCreateParams.EnabledEvent[] = [
+         "checkout.session.async_payment_failed",
+         "checkout.session.async_payment_succeeded",
+         "checkout.session.completed",
+         "checkout.session.expired",
+      ];
+
+      const existingWebhookEndpoint = stripeWebhookEndpoints.data.find((endpoint) => endpoint.url === webhookEndpointURL);
+
+      if (existingWebhookEndpoint) {
+         // Make sure the webhook endpoint is configured with the required events
+         await stripe.webhookEndpoints.update(existingWebhookEndpoint.id, {
+            enabled_events: requiredEvents,
+         });
+
+         // The webhook secrete can not be retrieved from the api, we need to manually configure it
+      } else {
+         // If the webhook endpoint does not exist create and configure it
+
+         const newStripeWebhookEndpoint = await stripe.webhookEndpoints.create({
+            url: webhookEndpointURL,
+            enabled_events: requiredEvents,
+            description: "Auto-generated webhook endpoint for virtualis congress payments",
+         });
+
+         webhookSecret = newStripeWebhookEndpoint.secret;
+      }
+   }
+
+   const protocol = credentials.environment === "development" ? "http://" : "https://";
    const encryptedCredentials: OrganizationStripeCredentials = {
       ...credentials,
       organization: organization.id,
       apiKey: encrypt(credentials.apiKey),
-      webhookSecret: encrypt(credentials.webhookSecret),
+      webhookSecret: webhookSecret ? encrypt(webhookSecret) : undefined,
+      webhookEndpointURL,
       successURL: `${protocol}${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/payment/confirmed`,
       cancelURL: `${protocol}${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/payment/canceled`,
       returnURL: `${protocol}${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/payment/return`,
@@ -54,7 +96,7 @@ export async function getOrganizationStripeCredentials() {
    const decryptedCredentials: OrganizationStripeCredentialsRecord = {
       ...credentials,
       apiKey: decrypt(credentials.apiKey),
-      webhookSecret: decrypt(credentials.webhookSecret),
+      webhookSecret: credentials.webhookSecret ? decrypt(credentials.webhookSecret) : undefined,
    };
 
    return decryptedCredentials;
@@ -70,7 +112,7 @@ export async function getBlurredOrganizationStripeCredentials() {
    const blurredCredentials: OrganizationStripeCredentialsRecord = {
       ...credentials,
       apiKey: `${credentials.apiKey.slice(0, 12)}********`,
-      webhookSecret: `${credentials.webhookSecret.slice(0, 12)}********`,
+      webhookSecret: credentials.webhookSecret ? `${credentials.webhookSecret.slice(0, 12)}********` : undefined,
    };
 
    return blurredCredentials;

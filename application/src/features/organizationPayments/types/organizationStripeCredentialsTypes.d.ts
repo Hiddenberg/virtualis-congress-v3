@@ -2,7 +2,8 @@ interface OrganizationStripeCredentials {
    organization: OrganizationRecord["id"];
    environment: "production" | "development";
    apiKey: string;
-   webhookSecret: string;
+   webhookEndpointURL?: string;
+   webhookSecret?: string;
    successURL: string;
    cancelURL: string;
    returnURL: string;
@@ -11,7 +12,7 @@ type OrganizationStripeCredentialsRecord =
    DBRecordItem<OrganizationStripeCredentials>;
 type NewOrganizationStripeCredentialsData = Omit<
    OrganizationStripeCredentials,
-   "organization" | "successURL" | "cancelURL" | "returnURL"
+   "organization" | "successURL" | "cancelURL" | "returnURL" | "webhookSecret" | "webhookEndpointURL"
 >;
 
 interface UserPayment {

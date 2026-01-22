@@ -10,11 +10,9 @@ export default function CMIMCCCredentialsForm() {
    const [credentialsForm, setCredentialsForm] = useState<NewOrganizationStripeCredentialsData>({
       environment: IS_DEV_ENVIRONMENT ? "development" : "production",
       apiKey: "",
-      webhookSecret: "",
    });
    const [isSubmitting, startTransition] = useTransition();
    const [showApiKey, setShowApiKey] = useState(false);
-   const [showWebhookSecret, setShowWebhookSecret] = useState(false);
 
    const handleInputChange = (field: keyof OrganizationStripeCredentials, value: string) => {
       setCredentialsForm((prev) => ({
@@ -102,33 +100,6 @@ export default function CMIMCCCredentialsForm() {
             </p>
          </div>
 
-         {/* Webhook Secret */}
-         <div>
-            <label htmlFor="webhook-secret-input" className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
-               <Shield className="w-4 h-4" />
-               Webhook Secret
-            </label>
-            <div className="relative">
-               <input
-                  id="webhook-secret-input"
-                  type={showWebhookSecret ? "text" : "password"}
-                  value={credentialsForm.webhookSecret}
-                  onChange={(e) => handleInputChange("webhookSecret", e.target.value)}
-                  placeholder="whsec_..."
-                  className="px-4 py-3 pr-12 border border-gray-200 focus:border-emerald-500 rounded-lg focus:ring-2 focus:ring-emerald-500 w-full transition-colors"
-                  required
-               />
-               <button
-                  type="button"
-                  onClick={() => setShowWebhookSecret(!showWebhookSecret)}
-                  className="top-1/2 right-3 absolute text-gray-400 hover:text-gray-600 transition-colors -translate-y-1/2 transform"
-               >
-                  {showWebhookSecret ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-               </button>
-            </div>
-            <p className="mt-1 text-gray-500 text-xs">Encuentra el webhook secret en Stripe → Desarrolladores → Webhooks</p>
-         </div>
-
          {/* Submit Button */}
          <div className="pt-6 border-t">
             <button
@@ -144,7 +115,7 @@ export default function CMIMCCCredentialsForm() {
                ) : (
                   <>
                      <CheckCircle className="w-4 h-4" />
-                     Guardar Credenciales
+                     Configurar stripe para recibir pagos
                   </>
                )}
             </button>

@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
 import {
-   createOrganizationStripeCredentials,
+   configureOrganizationStripeCredentials,
    deleteOrganizationStripeCredentials,
 } from "../services/organizationStripeCredentialsServices";
 
@@ -29,7 +29,7 @@ export async function createOrganizationCredentialsAction(
          };
       }
 
-      await createOrganizationStripeCredentials(credentials);
+      await configureOrganizationStripeCredentials(credentials);
       revalidatePath("/congress-admin/stripe-credentials");
 
       return {
