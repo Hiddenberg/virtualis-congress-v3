@@ -54,7 +54,7 @@ function IsACPMemberForm({ setFormStage }: { setFormStage: (stage: FormStage) =>
                      className="group bg-linear-to-br from-blue-50 to-indigo-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-blue-200 hover:border-blue-400 rounded-lg sm:rounded-xl transition-all duration-200"
                   >
                      <div className="flex items-center gap-3 sm:gap-4">
-                        <div className="flex flex-shrink-0 justify-center items-center bg-blue-100 group-hover:bg-blue-200 rounded-full w-10 sm:w-12 h-10 sm:h-12 transition-colors">
+                        <div className="flex justify-center items-center bg-blue-100 group-hover:bg-blue-200 rounded-full w-10 sm:w-12 h-10 sm:h-12 transition-colors shrink-0">
                            <CheckCircleIcon className="w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
                         </div>
                         <div className="flex-1 min-w-0 text-left">
@@ -70,7 +70,7 @@ function IsACPMemberForm({ setFormStage }: { setFormStage: (stage: FormStage) =>
                      className="group bg-linear-to-br from-gray-50 to-slate-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-gray-200 hover:border-gray-400 rounded-lg sm:rounded-xl transition-all duration-200"
                   >
                      <div className="flex items-center gap-3 sm:gap-4">
-                        <div className="flex flex-shrink-0 justify-center items-center bg-gray-100 group-hover:bg-gray-200 rounded-full w-10 sm:w-12 h-10 sm:h-12 transition-colors">
+                        <div className="flex justify-center items-center bg-gray-100 group-hover:bg-gray-200 rounded-full w-10 sm:w-12 h-10 sm:h-12 transition-colors shrink-0">
                            <UserIcon className="w-5 sm:w-6 h-5 sm:h-6 text-gray-600" />
                         </div>
                         <div className="flex-1 min-w-0 text-left">
@@ -295,7 +295,7 @@ function UploadACPIDScreenshotForm({ setFormStage }: { setFormStage: (stage: For
                <div className="space-y-1.5 sm:space-y-2">
                   {steps.map((step) => (
                      <div key={step.text} className="flex items-start gap-2 sm:gap-3">
-                        <span className="flex-shrink-0 mt-0.5 text-base sm:text-lg">{step.icon}</span>
+                        <span className="mt-0.5 text-base sm:text-lg shrink-0">{step.icon}</span>
                         <span className="text-blue-800 text-xs sm:text-sm">{step.text}</span>
                      </div>
                   ))}
@@ -503,7 +503,7 @@ function SelectACPAffiliatedRoleForm({
                      >
                         <div className="flex items-center gap-3 sm:gap-4">
                            <div
-                              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 ${
                                  isSelected ? "bg-green-100" : "bg-gray-100 group-hover:bg-gray-200"
                               } transition-colors`}
                            >
@@ -524,7 +524,7 @@ function SelectACPAffiliatedRoleForm({
                               </p>
                            </div>
                            <div
-                              className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                              className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
                                  isSelected ? "border-green-400 bg-green-400" : "border-gray-300"
                               }`}
                            >
@@ -674,7 +674,7 @@ function SelectNoAffiliatedRoleForm({ setFormStage }: { setFormStage: (stage: Fo
                      >
                         <div className="flex items-center gap-3 sm:gap-4">
                            <div
-                              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 ${
                                  isSelected ? "bg-purple-100" : "bg-gray-100 group-hover:bg-gray-200"
                               } transition-colors`}
                            >
@@ -695,7 +695,7 @@ function SelectNoAffiliatedRoleForm({ setFormStage }: { setFormStage: (stage: Fo
                               </p>
                            </div>
                            <div
-                              className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                              className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
                                  isSelected ? "border-purple-400 bg-purple-400" : "border-gray-300"
                               }`}
                            >

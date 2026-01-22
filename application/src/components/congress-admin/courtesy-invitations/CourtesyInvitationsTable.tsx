@@ -99,6 +99,7 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: (CourtesyInvit
                   <option value="unused">Unused</option>
                </select>
                <button
+                  type="button"
                   className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-white"
                   onClick={exportToCSV}
                >
@@ -150,6 +151,7 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: (CourtesyInvit
                               <div className="flex items-center">
                                  <span className="font-medium">{invitation.stripePromotionCode}</span>
                                  <button
+                                    type="button"
                                     onClick={() => copyPromoCode(invitation.stripePromotionCode)}
                                     className="ml-2 focus:outline-none text-gray-400 hover:text-gray-600"
                                     aria-label={`Copy promo code ${invitation.stripePromotionCode}`}

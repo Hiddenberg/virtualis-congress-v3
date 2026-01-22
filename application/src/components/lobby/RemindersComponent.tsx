@@ -71,7 +71,7 @@ export default function RemindersComponent() {
          <div className="space-y-4">
             {currentReminders.map((reminder) => (
                <div key={reminder.id} className="flex items-start">
-                  <div className="flex-shrink-0 w-12 text-center">
+                  <div className="shrink-0 w-12 text-center">
                      <div className="font-bold text-2xl">{reminder.date.split(" ")[0]}</div>
                      <div className="text-gray-500 text-sm">{reminder.date.split(" ")[1]}</div>
                   </div>

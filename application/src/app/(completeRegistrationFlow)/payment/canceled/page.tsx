@@ -32,7 +32,7 @@ export default function PaymentCanceledPage() {
                {/* Header */}
                <div className="bg-linear-to-r from-red-600 to-orange-600 p-4 sm:p-6 text-white">
                   <div className="flex items-center gap-2 sm:gap-3">
-                     <CreditCard className="flex-shrink-0 w-5 sm:w-6 h-5 sm:h-6" />
+                     <CreditCard className="shrink-0 w-5 sm:w-6 h-5 sm:h-6" />
                      <div className="flex-1 min-w-0">
                         <h2 className="font-semibold text-lg sm:text-xl">Proceso de Pago Interrumpido</h2>
                         <p className="text-red-100 text-xs sm:text-sm">No se ha realizado ningún cargo</p>
@@ -44,7 +44,7 @@ export default function PaymentCanceledPage() {
                <div className="space-y-4 sm:space-y-6 p-4 sm:p-6">
                   <div className="bg-orange-50 p-3 sm:p-4 border border-orange-200 rounded-lg">
                      <div className="flex items-start gap-2 sm:gap-3">
-                        <XCircle className="flex-shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-orange-600" />
+                        <XCircle className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-orange-600" />
                         <div className="flex-1 min-w-0">
                            <h3 className="mb-1 font-semibold text-orange-800 text-sm sm:text-base">Pago No Completado</h3>
                            <p className="text-orange-700 text-xs sm:text-sm">
@@ -57,24 +57,24 @@ export default function PaymentCanceledPage() {
                   {/* Possible Reasons */}
                   <div className="pt-4 sm:pt-6 border-gray-200 border-t">
                      <h3 className="flex items-center gap-2 mb-3 sm:mb-4 font-semibold text-gray-900 text-base sm:text-lg">
-                        <HelpCircle className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5" />
+                        <HelpCircle className="shrink-0 w-4 sm:w-5 h-4 sm:h-5" />
                         Posibles Razones
                      </h3>
                      <div className="space-y-2 sm:space-y-3 text-gray-600 text-xs sm:text-sm">
                         <div className="flex items-start gap-2">
-                           <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
+                           <div className="shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
                            <span>Cancelaste el proceso de pago voluntariamente</span>
                         </div>
                         <div className="flex items-start gap-2">
-                           <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
+                           <div className="shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
                            <span>Hubo un problema de conexión durante el proceso</span>
                         </div>
                         <div className="flex items-start gap-2">
-                           <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
+                           <div className="shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
                            <span>El navegador se cerró inesperadamente</span>
                         </div>
                         <div className="flex items-start gap-2">
-                           <div className="flex-shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
+                           <div className="shrink-0 bg-gray-400 mt-2 rounded-full w-1.5 h-1.5" />
                            <span>Decidiste revisar más información antes de proceder</span>
                         </div>
                      </div>
@@ -85,12 +85,12 @@ export default function PaymentCanceledPage() {
             {/* Next Steps */}
             <div className="bg-white shadow-lg mb-4 sm:mb-6 p-4 sm:p-6 border border-gray-100 rounded-xl sm:rounded-2xl">
                <h3 className="flex items-center gap-2 mb-3 sm:mb-4 font-semibold text-gray-900 text-base sm:text-lg">
-                  <RefreshCw className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
+                  <RefreshCw className="shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
                   ¿Qué puedes hacer ahora?
                </h3>
                <div className="space-y-3 sm:space-y-4">
                   <div className="flex items-start gap-2 sm:gap-3 bg-green-50 p-3 rounded-lg">
-                     <CreditCard className="flex-shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-green-600" />
+                     <CreditCard className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-green-600" />
                      <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-green-900 text-sm sm:text-base">Intentar el pago nuevamente</h4>
                         <p className="mt-1 text-green-700 text-xs sm:text-sm">
@@ -100,7 +100,7 @@ export default function PaymentCanceledPage() {
                   </div>
 
                   <div className="flex items-start gap-2 sm:gap-3 bg-blue-50 p-3 rounded-lg">
-                     <HelpCircle className="flex-shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
+                     <HelpCircle className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
                      <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-blue-900 text-sm sm:text-base">Revisar información del congreso</h4>
                         <p className="mt-1 text-blue-700 text-xs sm:text-sm">
@@ -110,7 +110,7 @@ export default function PaymentCanceledPage() {
                   </div>
 
                   <div className="flex items-start gap-2 sm:gap-3 bg-purple-50 p-3 rounded-lg">
-                     <Mail className="flex-shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-purple-600" />
+                     <Mail className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-purple-600" />
                      <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-purple-900 text-sm sm:text-base">Contactar soporte</h4>
                         <p className="mt-1 text-purple-700 text-xs sm:text-sm">

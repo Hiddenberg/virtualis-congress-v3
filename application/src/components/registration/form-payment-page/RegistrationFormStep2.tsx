@@ -51,8 +51,11 @@ export default function RegistrationFormStep2({ setInputValue }: { setInputValue
             </div>
 
             <div>
-               <label className="block mb-2">Años de experiencia (opcional)</label>
+               <label htmlFor="experience" className="block mb-2">
+                  Años de experiencia (opcional)
+               </label>
                <select
+                  id="experience"
                   onChange={(e) => {
                      const { name, value } = e.target;
 

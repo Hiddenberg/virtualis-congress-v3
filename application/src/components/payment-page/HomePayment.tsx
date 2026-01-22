@@ -6,6 +6,7 @@ export default function HomePayment() {
          <div className="items-center mx-auto px-4 pt-20 max-w-2xl text-center">
             <div className="mb-8">
                <svg viewBox="0 0 24 24" className="opacity-80 mx-auto w-16 h-16 text-blue-900" fill="currentColor">
+                  <title>Checkmark icon</title>
                   <CheckCircle />
                </svg>
             </div>

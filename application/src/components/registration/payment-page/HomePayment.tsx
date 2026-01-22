@@ -14,7 +14,7 @@ export default function HomePayment() {
 
    useEffect(() => {
       const checkUserPayment = async () => {
-         let congressRegistration;
+         let congressRegistration: (CongressRegistration & RecordModel) | null = null;
          try {
             congressRegistration = await pbClient
                .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
@@ -38,6 +38,7 @@ export default function HomePayment() {
          <div className="items-center md:bg-[#F5F6FA] mx-auto md:mt-10 md:p-12 px-4 pt-20 md:rounded-3xl max-w-2xl text-center">
             <div className="mb-8">
                <svg viewBox="0 0 24 24" className="opacity-80 mx-auto w-16 h-16 text-blue-900" fill="currentColor">
+                  <title>Checkmark icon</title>
                   <CheckCircle />
                </svg>
             </div>

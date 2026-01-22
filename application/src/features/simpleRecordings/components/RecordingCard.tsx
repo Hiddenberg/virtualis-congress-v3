@@ -185,7 +185,7 @@ export default async function RecordingCard({ recording, organization }: Recordi
                <div>
                   <RecordingStatusBadge status={recording.status} />
                </div>
-               <div className="flex-shrink-0 ml-2">
+               <div className="shrink-0 ml-2">
                   <RecordingActions recording={recording} recordingLink={recordingLink} />
                </div>
             </div>
@@ -239,7 +239,7 @@ export default async function RecordingCard({ recording, organization }: Recordi
                   </div>
 
                   <div className="flex items-center gap-2 bg-white p-2 border border-blue-200 rounded-md">
-                     <LinkIcon className="flex-shrink-0 size-4 text-blue-500" />
+                     <LinkIcon className="shrink-0 size-4 text-blue-500" />
                      <code className="flex-1 font-mono text-blue-700 text-sm truncate">{recordingLink}</code>
                      <CopyButton text={recordingLink} />
                   </div>

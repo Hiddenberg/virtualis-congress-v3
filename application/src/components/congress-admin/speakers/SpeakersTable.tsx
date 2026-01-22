@@ -40,7 +40,7 @@ function Avatar({ src, name, size = "md" }: { src?: string; name: string; size?:
    };
 
    return (
-      <div className={`relative flex-shrink-0 rounded-full overflow-hidden bg-gray-100 ${sizeClasses[size]}`}>
+      <div className={`relative shrink-0 rounded-full overflow-hidden bg-gray-100 ${sizeClasses[size]}`}>
          {src ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -358,7 +358,7 @@ export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, e
                               <div className="flex items-center text-sm">
                                  <Mail
                                     size={14}
-                                    className={`flex-shrink-0 mr-1 ${speaker.email ? "text-gray-500" : "text-gray-300"}`}
+                                    className={`shrink-0 mr-1 ${speaker.email ? "text-gray-500" : "text-gray-300"}`}
                                  />
                                  {speaker.email ? (
                                     <span className="max-w-[200px] text-gray-500 truncate">{speaker.email}</span>
@@ -368,7 +368,7 @@ export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, e
                               </div>
                               {speaker.phoneNumber && (
                                  <div className="flex items-center mt-1 text-gray-500 text-sm">
-                                    <Phone size={14} className="flex-shrink-0 mr-1" />
+                                    <Phone size={14} className="shrink-0 mr-1" />
                                     <span>{speaker.phoneNumber}</span>
                                  </div>
                               )}

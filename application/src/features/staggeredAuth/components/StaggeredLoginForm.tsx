@@ -121,7 +121,7 @@ function BirthdayLoginForm({
          {incorrectBirthday && (
             <div className="bg-red-50 p-4 border border-red-200 rounded-xl">
                <div className="flex items-start gap-3">
-                  <AlertCircle className="flex-shrink-0 mt-0.5 w-5 h-5 text-red-500" />
+                  <AlertCircle className="mt-0.5 w-5 h-5 text-red-500 shrink-0" />
                   <div>
                      <p className="font-semibold text-red-700 text-sm">Fecha de nacimiento incorrecta</p>
                      <p className="mt-1 text-red-600 text-sm">
@@ -278,7 +278,7 @@ function PhoneLoginForm({
          {incorrectPhoneNumber && (
             <div className="bg-red-50 p-4 border border-red-200 rounded-xl">
                <div className="flex items-start gap-3">
-                  <AlertCircle className="flex-shrink-0 mt-0.5 w-5 h-5 text-red-500" />
+                  <AlertCircle className="mt-0.5 w-5 h-5 text-red-500 shrink-0" />
                   <div>
                      <p className="font-semibold text-red-700 text-sm">Número de teléfono incorrecto</p>
                      <p className="mt-1 text-red-600 text-sm">
@@ -449,7 +449,7 @@ export default function StaggeredLoginForm() {
             {/* Email Help Message */}
             <div className="bg-blue-50 shadow-lg p-4 border border-blue-200 rounded-xl">
                <div className="flex items-start gap-3">
-                  <Mail className="flex-shrink-0 mt-0.5 w-5 h-5 text-blue-600" />
+                  <Mail className="mt-0.5 w-5 h-5 text-blue-600 shrink-0" />
                   <div className="space-y-2">
                      <p className="font-semibold text-gray-800 text-sm">Consejos para encontrar tu código:</p>
                      <div className="space-y-1 text-gray-700 text-sm">

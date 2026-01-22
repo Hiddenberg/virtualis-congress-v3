@@ -30,7 +30,7 @@ export default function FinishedPhase({ classTitle = "Esta clase" }: FinishedPha
 
             {/* <div className="bg-white/70 backdrop-blur-sm p-4 border border-amber-200 rounded-xl">
                <div className="flex items-center gap-3 mb-2">
-                  <Clock className="flex-shrink-0 w-5 h-5 text-amber-600" />
+                  <Clock className="w-5 h-5 text-amber-600 shrink-0" />
                   <p className="font-medium text-stone-700 text-sm">
                      Grabación disponible próximamente
                   </p>

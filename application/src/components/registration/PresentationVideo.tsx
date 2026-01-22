@@ -12,7 +12,7 @@ export function PresentationVideo() {
 
    return (
       <div className="fixed inset-0 w-screen h-screen">
-         <div className="bg-[#17181E] mx-auto -mt-10 px-4 pt-10 w-screen max-w-screen-xl h-screen">
+         <div className="bg-[#17181E] mx-auto -mt-10 px-4 pt-10 w-screen max-w-7xl h-screen">
             <h1 className="mx-auto mb-20 w-max text-white text-3xl">
                <strong>Virtualis</strong> congress
             </h1>
@@ -22,6 +22,7 @@ export function PresentationVideo() {
             </h2>
 
             <iframe
+               title="Presentation Video"
                className="mb-10 w-full h-auto aspect-video"
                src="https://drive.google.com/file/d/1npB5KT8VWZJNXdlMSd8mjwK3O83ZECuN/preview"
                width="640"

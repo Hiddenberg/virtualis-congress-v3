@@ -66,9 +66,9 @@ export default function PartnerCard({
                {description ? <p className="opacity-80 mt-2 text-gray-700 text-xs">{description}</p> : null}
 
                <div className="flex sm:flex-row flex-col sm:flex-wrap gap-2 mt-3">
-                  {actions.map((a, idx) => (
+                  {actions.map((a) => (
                      <span
-                        key={idx}
+                        key={a.label}
                         className="inline-flex justify-center items-center bg-white/70 shadow-sm px-3 py-2 rounded-md font-medium text-gray-700 text-xs"
                      >
                         {a.label}

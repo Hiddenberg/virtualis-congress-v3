@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
 "use client";
 
 import {
@@ -179,7 +180,7 @@ export default function CMIMCCAttendantDataForm() {
          {/* Pricing Information Banner */}
          <div className="bg-linear-to-r from-blue-50 to-cyan-50 p-4 sm:p-6 border border-blue-200 rounded-xl sm:rounded-2xl">
             <div className="flex items-start gap-3 sm:gap-4">
-               <div className="flex flex-shrink-0 justify-center items-center bg-blue-100 rounded-full w-10 sm:w-12 h-10 sm:h-12">
+               <div className="flex justify-center items-center bg-blue-100 rounded-full w-10 sm:w-12 h-10 sm:h-12 shrink-0">
                   <Info className="w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
                </div>
                <div className="flex-1 min-w-0">
@@ -187,7 +188,7 @@ export default function CMIMCCAttendantDataForm() {
                   <div className="gap-4 sm:gap-6 grid md:grid-cols-2">
                      <div>
                         <h4 className="flex items-center gap-2 mb-2 font-semibold text-gray-700 text-sm sm:text-base">
-                           <DollarSign className="flex-shrink-0 w-3 sm:w-4 h-3 sm:h-4 text-blue-600" />
+                           <DollarSign className="w-3 sm:w-4 h-3 sm:h-4 text-blue-600 shrink-0" />
                            Modalidad Presencial
                         </h4>
                         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
@@ -197,7 +198,7 @@ export default function CMIMCCAttendantDataForm() {
                      </div>
                      <div>
                         <h4 className="flex items-center gap-2 mb-2 font-semibold text-gray-700 text-sm sm:text-base">
-                           <Monitor className="flex-shrink-0 w-3 sm:w-4 h-3 sm:h-4 text-pink-600" />
+                           <Monitor className="w-3 sm:w-4 h-3 sm:h-4 text-pink-600 shrink-0" />
                            Modalidad Virtual
                         </h4>
                         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
@@ -223,7 +224,7 @@ export default function CMIMCCAttendantDataForm() {
          <div className="space-y-4 sm:space-y-6">
             <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-2">
                <h2 className="flex items-center gap-2 sm:gap-3 font-bold text-gray-800 text-xl sm:text-2xl">
-                  <DollarSign className="flex-shrink-0 w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
+                  <DollarSign className="w-5 sm:w-6 h-5 sm:h-6 text-blue-600 shrink-0" />
                   Categoría Profesional
                </h2>
                <div className="font-medium text-gray-500 text-xs sm:text-sm">Precios para modalidad presencial</div>
@@ -235,7 +236,8 @@ export default function CMIMCCAttendantDataForm() {
                   const isSelected = selectedRole === role.id;
 
                   return (
-                     <div
+                     <button
+                        type="button"
                         key={role.id}
                         onClick={() => setSelectedRole(role.id)}
                         className={`relative cursor-pointer rounded-xl sm:rounded-2xl border-2 p-4 sm:p-6 transition-all duration-300 hover:shadow-lg ${
@@ -251,7 +253,7 @@ export default function CMIMCCAttendantDataForm() {
 
                         <div className="flex items-start gap-3 sm:gap-4">
                            <div
-                              className={`w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br ${role.color} rounded-full flex items-center justify-center flex-shrink-0`}
+                              className={`w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br ${role.color} rounded-full flex items-center justify-center shrink-0`}
                            >
                               <IconComponent className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
                            </div>
@@ -278,7 +280,7 @@ export default function CMIMCCAttendantDataForm() {
                               </div>
                            </div>
                         )}
-                     </div>
+                     </button>
                   );
                })}
             </div>
@@ -289,7 +291,7 @@ export default function CMIMCCAttendantDataForm() {
             <div className="space-y-4 sm:space-y-6">
                <div className="bg-amber-50 p-4 sm:p-6 border border-amber-200 rounded-lg sm:rounded-xl">
                   <div className="flex items-start gap-2 sm:gap-3">
-                     <AlertCircle className="flex-shrink-0 mt-0.5 w-5 sm:w-6 h-5 sm:h-6 text-amber-600" />
+                     <AlertCircle className="mt-0.5 w-5 sm:w-6 h-5 sm:h-6 text-amber-600 shrink-0" />
                      <div className="flex-1 min-w-0">
                         <h3 className="mb-2 font-semibold text-amber-800 text-sm sm:text-base">Verificación Requerida</h3>
                         <p className="text-amber-700 text-xs sm:text-sm leading-relaxed">
@@ -302,7 +304,7 @@ export default function CMIMCCAttendantDataForm() {
 
                <div className="space-y-3 sm:space-y-4">
                   <h3 className="flex items-center gap-2 sm:gap-3 font-bold text-gray-800 text-lg sm:text-xl">
-                     <FileText className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
+                     <FileText className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600 shrink-0" />
                      Subir Documento de Verificación
                   </h3>
 

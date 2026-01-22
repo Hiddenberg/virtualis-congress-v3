@@ -29,7 +29,7 @@ export default function ConferenceItem({
             <div className="flex flex-col items-start gap-4">
                {/* Time Badge */}
                <div
-                  className={`flex-shrink-0 rounded-lg px-3 py-2 text-sm font-semibold ${
+                  className={`shrink-0 rounded-lg px-3 py-2 text-sm font-semibold ${
                      isBreak ? "bg-amber-100 text-amber-800" : "bg-blue-100 text-blue-800"
                   }`}
                >
@@ -59,7 +59,7 @@ export default function ConferenceItem({
                   {speakerName && !isBreak && (
                      <div className="flex md:flex-row flex-col items-center gap-3 bg-gray-50 p-3 rounded-lg w-full">
                         {/* Speaker Image Placeholder */}
-                        <div className="flex-shrink-0">
+                        <div className="shrink-0">
                            <div className="flex justify-center items-center bg-linear-to-br from-blue-400 to-blue-600 rounded-full w-12 h-12">
                               <User className="w-6 h-6 text-white" />
                            </div>

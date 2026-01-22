@@ -108,8 +108,8 @@ export default function AbbottPartnerPageContent() {
          </div>
 
          <div className="gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-            {actions.map((a, i) => (
-               <ActionCard key={i} {...a} />
+            {actions.map((a) => (
+               <ActionCard key={a.title} {...a} />
             ))}
          </div>
 

@@ -52,7 +52,7 @@ export default function ConferenceTitleSection({
          {/* Conference Header */}
          <div className="flex items-start gap-4">
             {/* Conference Icon */}
-            <div className="flex-shrink-0 bg-linear-to-br from-blue-500 to-blue-600 p-3 rounded-xl">
+            <div className="bg-linear-to-br from-blue-500 to-blue-600 p-3 rounded-xl shrink-0">
                <Users className="w-6 h-6 text-white" />
             </div>
 
@@ -96,7 +96,7 @@ export default function ConferenceTitleSection({
                   </div>
 
                   {/* Status Badge */}
-                  {/* <div className="flex-shrink-0">
+                  {/* <div className="shrink-0">
                      <span className="inline-flex items-center bg-green-100 px-3 py-1 rounded-full font-medium text-green-800 text-sm">
                         En vivo
                      </span>

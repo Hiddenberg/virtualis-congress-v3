@@ -41,7 +41,7 @@ const events: Event[] = [
 function EventCard({ event }: { event: Event }) {
    return (
       <div className="flex items-center space-x-4 py-4">
-         <div className="flex-shrink-0 w-14 text-center">
+         <div className="w-14 text-center shrink-0">
             <div className="font-bold text-3xl">{event.date}</div>
             <div className="text-gray-500 text-sm">{event.month}</div>
          </div>

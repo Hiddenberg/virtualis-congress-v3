@@ -22,7 +22,7 @@ export default function RecordingHeader({ recordingsCount }: RecordingHeaderProp
             </p>
          </div>
 
-         <LinkButton href="/recordings/create" className="flex-shrink-0">
+         <LinkButton href="/recordings/create" className="shrink-0">
             <PlusIcon className="size-5" />
             Programar grabación
          </LinkButton>

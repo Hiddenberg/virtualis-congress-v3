@@ -65,7 +65,7 @@ export default function HGEAPaymentForm() {
                <div className="flex-1 min-w-0 text-gray-800 text-xs sm:text-sm">
                   La moneda se seleccionará automáticamente en la platforma de pago según tu ubicación.
                </div>
-               <div className="flex flex-shrink-0 justify-center items-center bg-green-100 rounded-full w-6 sm:w-7 h-6 sm:h-7">
+               <div className="flex shrink-0 justify-center items-center bg-green-100 rounded-full w-6 sm:w-7 h-6 sm:h-7">
                   <LockIcon className="w-3 sm:w-4 h-3 sm:h-4 text-green-600" />
                </div>
             </div>

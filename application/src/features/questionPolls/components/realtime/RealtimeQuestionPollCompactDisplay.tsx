@@ -68,7 +68,7 @@ export default function RealtimeQuestionPollCompactDisplay() {
                <h3 className="flex-1 font-semibold text-slate-900 text-base line-clamp-2" title={questionPoll.question}>
                   {questionPoll.question}
                </h3>
-               <div className="flex flex-shrink-0 items-center gap-1 bg-blue-50/80 px-2 py-1 border border-blue-200/50 rounded-full">
+               <div className="flex items-center gap-1 bg-blue-50/80 px-2 py-1 border border-blue-200/50 rounded-full shrink-0">
                   <div className="bg-blue-500 rounded-full w-2 h-2 animate-pulse" />
                   <span className="font-medium text-blue-700 text-xs">En vivo</span>
                </div>

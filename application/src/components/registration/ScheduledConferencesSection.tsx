@@ -100,7 +100,7 @@ export default function ScheduledConferencesSection({ congressDates, conferences
 
                               {/* Speakers section */}
                               <div className="flex items-start gap-2">
-                                 <Users size={18} className="flex-shrink-0 mt-1 text-blue-700" />
+                                 <Users size={18} className="shrink-0 mt-1 text-blue-700" />
                                  <div className="flex flex-col">
                                     <span className="font-medium text-blue-800 text-sm">
                                        {conference.speakers?.length > 1 ? "Ponentes:" : "Ponente:"}

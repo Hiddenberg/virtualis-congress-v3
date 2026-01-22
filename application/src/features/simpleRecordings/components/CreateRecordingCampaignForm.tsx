@@ -34,7 +34,7 @@ export default function CreateRecordingCampaignForm() {
          {/* Information Card */}
          <div className="bg-blue-50 mb-6 p-4 border border-blue-200 rounded-lg">
             <div className="flex items-start gap-3">
-               <div className="flex-shrink-0 bg-blue-100 p-2 rounded-full">
+               <div className="shrink-0 bg-blue-100 p-2 rounded-full">
                   <InfoIcon className="size-5 text-blue-600" />
                </div>
                <div>

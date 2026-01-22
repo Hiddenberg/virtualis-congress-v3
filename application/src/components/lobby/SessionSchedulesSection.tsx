@@ -81,7 +81,7 @@ function ConferenceCard({ conference, colorIndex }: { conference: LobbyConferenc
             <p className="mb-2 text-gray-600 text-xs sm:text-sm line-clamp-2">{conference.shortDescription}</p>
          )}
          <div className="flex items-center mt-auto text-gray-600">
-            <Mic className="flex-shrink-0 mr-1 w-3 sm:w-4 h-3 sm:h-4" />
+            <Mic className="shrink-0 mr-1 w-3 sm:w-4 h-3 sm:h-4" />
             <span className="text-xs sm:text-sm line-clamp-1">{conference.speakerNames.join(", ")}</span>
          </div>
       </Link>
@@ -94,7 +94,7 @@ function ConferenceCard({ conference, colorIndex }: { conference: LobbyConferenc
 function DayHeader({ date, dayIndex }: { date: Date; dayIndex: number }) {
    return (
       <div className="flex items-center bg-white px-2 sm:px-0 py-2">
-         <Clock className="flex-shrink-0 mr-2 w-4 sm:w-5 h-4 sm:h-5 text-teal-600" />
+         <Clock className="shrink-0 mr-2 w-4 sm:w-5 h-4 sm:h-5 text-teal-600" />
          <h2 className="font-semibold text-teal-600 text-base sm:text-xl truncate">
             {format({
                date: date,

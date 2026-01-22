@@ -455,7 +455,7 @@ export default function DynamicConferenceProgram({
          {/* Footer info */}
          <div className="bg-blue-50 mt-8 p-4 border border-blue-200 rounded-lg">
             <div className="flex items-start gap-3">
-               <div className="flex-shrink-0 mt-0.5">
+               <div className="mt-0.5 shrink-0">
                   <div className="bg-blue-400 rounded-full w-2 h-2" />
                </div>
                <div className="text-blue-800 text-sm">

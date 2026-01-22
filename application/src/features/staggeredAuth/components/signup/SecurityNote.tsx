@@ -17,7 +17,7 @@ export default function SecurityNote() {
          className={`bg-linear-to-r from-blue-50 to-gray-50 p-6 border-2 border-blue-200 rounded-xl ${pulsing ? "animate-pulse" : ""} shadow-sm`}
       >
          <div className="flex items-start space-x-4">
-            <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg">
+            <div className="bg-blue-100 p-2 rounded-lg shrink-0">
                <Shield className="w-6 h-6 text-blue-700" />
             </div>
             <div>

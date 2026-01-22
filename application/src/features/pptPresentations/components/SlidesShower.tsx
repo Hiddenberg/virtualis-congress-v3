@@ -238,7 +238,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                      type="button"
                      key={slide.fileName}
                      onClick={() => goToSlide(index)}
-                     className={`flex-shrink-0 relative border-2 rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${
+                     className={`shrink-0 relative border-2 rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${
                         index === currentSlide ? "border-yellow-400 shadow-lg" : "border-gray-300 hover:border-gray-400"
                      }`}
                   >
