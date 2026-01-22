@@ -326,7 +326,7 @@ export default async function CongressAdminPage() {
          )}
 
          {/* Quick Stats Section */}
-         {/* <div className="bg-gradient-to-br from-gray-50 to-gray-100 mt-12 p-6 rounded-xl">
+         {/* <div className="bg-linear-to-br from-gray-50 to-gray-100 mt-12 p-6 rounded-xl">
             <h2 className="mb-4 font-semibold text-gray-900 text-xl">Vista Rápida</h2>
             <div className="gap-4 grid grid-cols-1 md:grid-cols-3">
                <div className="bg-white p-4 rounded-lg text-center">

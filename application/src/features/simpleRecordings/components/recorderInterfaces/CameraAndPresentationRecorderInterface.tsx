@@ -93,7 +93,7 @@ export default function CameraAndPresentationRecorderInterface({
 
    if (recorderStage === "join_session") {
       return (
-         <div className="!flex !justify-center !items-center !bg-gradient-to-br !from-blue-50 !to-indigo-50 !p-4 !min-h-screen">
+         <div className="!flex !justify-center !items-center !bg-linear-to-br !from-blue-50 !to-indigo-50 !p-4 !min-h-screen">
             <div className="!flex !flex-col !bg-white !shadow-xl !mx-auto !p-8 !rounded-2xl !w-full !max-w-md">
                <div className="!flex !flex-col !gap-6">
                   <div className="!text-center">
@@ -138,7 +138,7 @@ export default function CameraAndPresentationRecorderInterface({
 
    if (recorderStage === "presentation_info") {
       return (
-         <div className="!flex !justify-center !items-center !bg-gradient-to-br !from-purple-50 !to-pink-50 !p-4 !min-h-screen">
+         <div className="!flex !justify-center !items-center !bg-linear-to-br !from-purple-50 !to-pink-50 !p-4 !min-h-screen">
             <div className="!flex !flex-col !bg-white !shadow-xl !mx-auto !p-8 !rounded-2xl !w-full !max-w-lg">
                <div className="!flex !flex-col !gap-6">
                   <div className="!text-center">

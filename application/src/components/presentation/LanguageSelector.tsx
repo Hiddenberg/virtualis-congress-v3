@@ -36,7 +36,7 @@ export default function LanguageSelect() {
    return (
       <div className="mx-auto w-full max-w-2xl text-center">
          <div className="space-y-4">
-            <h2 className="mb-8 font-light text-white/80 text-xl h-20">
+            <h2 className="mb-8 h-20 font-light text-white/80 text-xl">
                {hoveredLanguage
                   ? languages.find((l) => l.code === hoveredLanguage)?.welcome
                   : selectedLanguage
@@ -90,7 +90,10 @@ export default function LanguageSelect() {
 
          {selectedLanguage && (
             <div className="opacity-0 mt-12 animate-fade-in">
-               <button className="inline-flex items-center bg-white hover:bg-white/90 px-8 py-3 rounded-full font-medium text-[#1C1C1C] transition-colors duration-200">
+               <button
+                  type="button"
+                  className="inline-flex items-center bg-white hover:bg-white/90 px-8 py-3 rounded-full font-medium text-[#1C1C1C] transition-colors duration-200"
+               >
                   Continue
                   <ArrowRight className="ml-2 w-4 h-4" />
                </button>

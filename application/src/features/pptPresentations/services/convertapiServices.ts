@@ -1,5 +1,5 @@
 import "server-only";
-import { Readable } from "stream";
+import { Readable } from "node:stream";
 import convertapi from "@/libs/convertapi";
 
 export interface SlideImage {

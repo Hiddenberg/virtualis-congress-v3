@@ -95,7 +95,7 @@ export default function LivestreamTransmissionInterface({
    isQna,
 }: LivestreamTransmissionInterfaceProps) {
    return (
-      <div className="bg-gradient-to-br from-blue-50 to-white px-2 py-4 min-h-screen">
+      <div className="bg-linear-to-br from-blue-50 to-white px-2 py-4 min-h-screen">
          <div className="mx-auto max-w-7xl">
             {/* Header Section */}
             <LiveTransmissionHeader isQna={isQna} conference={conference} />

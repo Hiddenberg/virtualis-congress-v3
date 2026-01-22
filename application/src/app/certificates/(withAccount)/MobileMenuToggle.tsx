@@ -1,7 +1,6 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import React from "react";
 
 interface MobileMenuToggleProps {
    isCloseButton?: boolean;
@@ -19,6 +18,7 @@ export default function MobileMenuToggle({ isCloseButton = false }: MobileMenuTo
 
    return (
       <button
+         type="button"
          className={`text-indigo-700 ${isCloseButton ? "md:hidden" : ""}`}
          aria-label={isCloseButton ? "Close menu" : "Toggle menu"}
          id={isCloseButton ? undefined : "mobile-menu-toggle"}

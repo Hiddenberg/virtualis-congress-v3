@@ -1,6 +1,6 @@
 import { getSimpleRecordingById, updateSimpleRecording } from "@/features/simpleRecordings/services/recordingsServices";
 
-export async function GET(request: Request, { params }: { params: Promise<{ recordingId: string }> }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ recordingId: string }> }) {
    const { recordingId } = await params;
 
    const pixel = Buffer.from(

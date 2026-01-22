@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getConferenceQnASession } from "@/features/conferences/services/conferenceQnASessionsServices";
 
 export async function GET(
-   request: NextRequest,
+   _request: NextRequest,
    { params }: { params: Promise<{ conferenceId: string }> },
 ): Promise<NextResponse<BackendResponse<{ qnaSession: LivestreamSessionRecord | null }>>> {
    try {

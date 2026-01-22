@@ -18,7 +18,7 @@ export default function CollapsibleGuestLink({ streamingRoute }: { streamingRout
    const guestLink = `${protocol}://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/${streamingRoute}`;
 
    return (
-      <div className="bg-gradient-to-r from-stone-50 to-stone-100 border border-stone-200 rounded-xl overflow-hidden">
+      <div className="bg-linear-to-r from-stone-50 to-stone-100 border border-stone-200 rounded-xl overflow-hidden">
          <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex justify-between items-center hover:bg-stone-100 p-4 w-full text-left transition-colors duration-200"
@@ -54,7 +54,7 @@ export default function CollapsibleGuestLink({ streamingRoute }: { streamingRout
                </div>
 
                {/* Warning */}
-               <div className="bg-gradient-to-r from-amber-50 to-amber-100 p-4 border border-amber-200 rounded-xl">
+               <div className="bg-linear-to-r from-amber-50 to-amber-100 p-4 border border-amber-200 rounded-xl">
                   <div className="flex items-start gap-3">
                      <TriangleAlertIcon className="mt-0.5 w-5 h-5 text-amber-600 shrink-0" />
                      <div>

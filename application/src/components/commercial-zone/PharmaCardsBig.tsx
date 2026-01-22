@@ -15,29 +15,32 @@ function CompanyCard({ name, logo, description, backgroundColor, buttonColor }: 
    return (
       <div className={`rounded-lg grow p-6 ${backgroundColor} flex items-end`}>
          <div className="flex-1 pr-6">
-            <div className="flex items-center w-48 h-40 mb-4 p-6 bg-white rounded-lg justify-center">
+            <div className="flex justify-center items-center bg-white mb-4 p-6 rounded-lg w-48 h-40">
                <Image src={logo} alt={`${name} logo`} width={80} height={80} />
             </div>
             <div className="ml-4">
-               <h2 className="text-2xl font-bold">{name}</h2>
-               <Link href="#" className="text-sm text-blue-600 hover:underline">
+               <h2 className="font-bold text-2xl">{name}</h2>
+               <Link href="#" className="text-blue-600 text-sm hover:underline">
                   Ver más
                </Link>
                <p className="mb-6 text-sm">{description}</p>
             </div>
          </div>
-         <div className="w-64 space-y-2 flex flex-col justify-center">
+         <div className="flex flex-col justify-center space-y-2 w-64">
             <button
+               type="button"
                className={`w-full py-2 px-4 rounded-lg text-white font-medium ${buttonColor} hover:opacity-90 transition-opacity`}
             >
                Descarga nuestro eBook gratis
             </button>
             <button
+               type="button"
                className={`w-full py-2 px-4 rounded-lg text-white font-medium ${buttonColor} hover:opacity-90 transition-opacity`}
             >
                Recibe muestras de producto
             </button>
             <button
+               type="button"
                className={`w-full py-2 px-4 rounded-lg text-white font-medium ${buttonColor} hover:opacity-90 transition-opacity`}
             >
                Sorteo de kits de bienestar

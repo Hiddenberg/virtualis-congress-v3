@@ -43,7 +43,7 @@ export default function UploadPresentationForm({
          return false;
       }
 
-      const fileExtension = "." + file.name.split(".").pop()?.toLowerCase();
+      const fileExtension = `.${file.name.split(".").pop()?.toLowerCase()}`;
       if (!validExtensions.includes(fileExtension) && !validTypes.includes(file.type)) {
          setError("Formato de archivo no válido. Solo se permiten archivos .ppt y .pptx.");
          return false;
@@ -175,12 +175,12 @@ export default function UploadPresentationForm({
       const k = 1024;
       const sizes = ["Bytes", "KB", "MB", "GB"];
       const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / k ** i).toFixed(2)) + " " + sizes[i];
+      return `${parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
    };
 
    if (slideImages) {
       return (
-         <div className="!bg-gradient-to-br !from-gray-50 !to-gray-100 !py-4 !min-h-screen">
+         <div className="!bg-linear-to-br !from-gray-50 !to-gray-100 !py-4 !min-h-screen">
             <div className="!mx-auto !px-6 !max-w-7xl">
                {/* Save presentation section */}
                <div className="!bg-white !shadow-xl !mb-4 !p-6 !border !border-gray-200 !rounded-2xl">

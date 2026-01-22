@@ -51,6 +51,7 @@ export default function ACPIDCheckButton() {
    return (
       <>
          <button
+            type="button"
             onClick={handleCheckACPID}
             disabled={!acpID || loading}
             className="bg-yellow-400 disabled:bg-gray-400 mt-4 p-2 rounded-xl text-black transition-colors"

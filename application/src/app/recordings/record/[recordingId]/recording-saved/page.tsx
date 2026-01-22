@@ -25,7 +25,7 @@ export default async function RecordingSavedPage({ params }: { params: Promise<{
    });
 
    return (
-      <div className="flex justify-center items-center bg-gradient-to-br from-green-50 to-blue-50 p-4 min-h-screen">
+      <div className="flex justify-center items-center bg-linear-to-br from-green-50 to-blue-50 p-4 min-h-screen">
          <div className="bg-white shadow-2xl rounded-2xl w-full max-w-2xl overflow-hidden">
             {/* Header with success animation */}
             <div className="bg-gradient-to-r from-green-500 to-green-600 p-8 text-center">

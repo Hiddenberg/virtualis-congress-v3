@@ -45,12 +45,12 @@ export default function CSVUploadForm() {
 
             if (missingColumns.length > 0) {
                setIsValid(false);
-               alert("Faltan las siguientes columnas: " + missingColumns.join(", "));
+               alert(`Faltan las siguientes columnas: ${missingColumns.join(", ")}`);
                return;
             }
 
             const cleanedRows = rows.map((row) => {
-               const cleanACPID = row["CustomerID"].replace(/^0+/, "");
+               const cleanACPID = row.CustomerID.replace(/^0+/, "");
                return {
                   ...row,
                   CustomerID: cleanACPID,
@@ -74,7 +74,7 @@ export default function CSVUploadForm() {
             fields: "acpID",
          });
 
-      const membersToUpdate = csvRows.filter((row) => !allACPMemberIds.some((member) => member.acpID === row["CustomerID"]));
+      const membersToUpdate = csvRows.filter((row) => !allACPMemberIds.some((member) => member.acpID === row.CustomerID));
 
       if (membersToUpdate.length === 0) {
          setIsUpdating(false);
@@ -86,12 +86,12 @@ export default function CSVUploadForm() {
       const membersAdded = [];
       for (const newMember of membersToUpdate) {
          const newMemberData: ACPMemberData = {
-            acpID: newMember["CustomerID"],
-            fullName: `${newMember["FirstName"]} ${newMember["LastName"]}`,
-            email: newMember["Email"],
-            age: newMember["BirthYear"] ? 2025 - parseInt(newMember["BirthYear"]) : 0,
-            city: newMember["City"],
-            acpMemberClass: newMember["MemberClass"],
+            acpID: newMember.CustomerID,
+            fullName: `${newMember.FirstName} ${newMember.LastName}`,
+            email: newMember.Email,
+            age: newMember.BirthYear ? 2025 - parseInt(newMember.BirthYear, 10) : 0,
+            city: newMember.City,
+            acpMemberClass: newMember.MemberClass,
             isBlackListed: false,
          };
 

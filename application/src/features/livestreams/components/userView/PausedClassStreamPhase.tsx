@@ -33,7 +33,7 @@ export default function PausedClassStreamPhase() {
    const isOverFiveMinutes = elapsedTime >= 300; // 5 minutes
 
    return (
-      <div className="flex flex-col justify-center items-center bg-gradient-to-br from-amber-50 to-orange-50 p-8 w-full min-h-[500px]">
+      <div className="flex flex-col justify-center items-center bg-linear-to-br from-amber-50 to-orange-50 p-8 w-full min-h-[500px]">
          <div className="space-y-8 mx-auto w-full max-w-lg text-center">
             <div className="flex flex-col items-center space-y-4">
                <div className="relative bg-amber-100 p-4 rounded-full">

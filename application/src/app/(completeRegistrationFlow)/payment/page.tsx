@@ -48,7 +48,7 @@ export default async function PaymentPage() {
       };
 
       return (
-         <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-4 sm:py-6 md:py-8 min-h-screen">
+         <div className="bg-linear-to-br from-gray-50 to-gray-100 py-4 sm:py-6 md:py-8 min-h-screen">
             <div className="mx-auto px-2 sm:px-4 max-w-4xl container">
                {/* Header */}
                <div className="mb-4 sm:mb-6 md:mb-8 text-center">
@@ -72,7 +72,7 @@ export default async function PaymentPage() {
 
    if (organization.shortID === "HGEA") {
       return (
-         <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-4 sm:py-6 md:py-8 min-h-screen">
+         <div className="bg-linear-to-br from-gray-50 to-gray-100 py-4 sm:py-6 md:py-8 min-h-screen">
             <div className="mx-auto px-2 sm:px-4 max-w-3xl container">
                <div className="mb-4 sm:mb-6 md:mb-8 text-center">
                   <h1 className="mb-2 sm:mb-3 md:mb-4 px-2 font-bold text-gray-800 text-2xl sm:text-3xl md:text-4xl">

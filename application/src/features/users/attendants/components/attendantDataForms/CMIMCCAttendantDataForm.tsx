@@ -170,8 +170,8 @@ export default function CMIMCCAttendantDataForm() {
       <div className="space-y-4 sm:space-y-6 md:space-y-8 mx-auto p-3 sm:p-4 md:p-6 max-w-4xl">
          {/* Header */}
          <div className="text-center">
-            <h1 className="mb-2 sm:mb-3 md:mb-4 font-bold text-gray-800 text-2xl sm:text-3xl px-2">Información de Registro</h1>
-            <p className="text-gray-600 text-base sm:text-lg leading-relaxed px-2">
+            <h1 className="mb-2 sm:mb-3 md:mb-4 px-2 font-bold text-gray-800 text-2xl sm:text-3xl">Información de Registro</h1>
+            <p className="px-2 text-gray-600 text-base sm:text-lg leading-relaxed">
                Selecciona tu categoría profesional para tu registro al congreso
             </p>
          </div>
@@ -179,15 +179,15 @@ export default function CMIMCCAttendantDataForm() {
          {/* Pricing Information Banner */}
          <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 sm:p-6 border border-blue-200 rounded-xl sm:rounded-2xl">
             <div className="flex items-start gap-3 sm:gap-4">
-               <div className="flex flex-shrink-0 justify-center items-center bg-blue-100 rounded-full w-10 h-10 sm:w-12 sm:h-12">
-                  <Info className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
+               <div className="flex flex-shrink-0 justify-center items-center bg-blue-100 rounded-full w-10 sm:w-12 h-10 sm:h-12">
+                  <Info className="w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
                </div>
                <div className="flex-1 min-w-0">
                   <h3 className="mb-2 sm:mb-3 font-bold text-gray-800 text-lg sm:text-xl">Información sobre Precios</h3>
                   <div className="gap-4 sm:gap-6 grid md:grid-cols-2">
                      <div>
                         <h4 className="flex items-center gap-2 mb-2 font-semibold text-gray-700 text-sm sm:text-base">
-                           <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0" />
+                           <DollarSign className="flex-shrink-0 w-3 sm:w-4 h-3 sm:h-4 text-blue-600" />
                            Modalidad Presencial
                         </h4>
                         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
@@ -197,7 +197,7 @@ export default function CMIMCCAttendantDataForm() {
                      </div>
                      <div>
                         <h4 className="flex items-center gap-2 mb-2 font-semibold text-gray-700 text-sm sm:text-base">
-                           <Monitor className="w-3 h-3 sm:w-4 sm:h-4 text-pink-600 flex-shrink-0" />
+                           <Monitor className="flex-shrink-0 w-3 sm:w-4 h-3 sm:h-4 text-pink-600" />
                            Modalidad Virtual
                         </h4>
                         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
@@ -221,9 +221,9 @@ export default function CMIMCCAttendantDataForm() {
 
          {/* Medical Role Selection */}
          <div className="space-y-4 sm:space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-2">
                <h2 className="flex items-center gap-2 sm:gap-3 font-bold text-gray-800 text-xl sm:text-2xl">
-                  <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 flex-shrink-0" />
+                  <DollarSign className="flex-shrink-0 w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
                   Categoría Profesional
                </h2>
                <div className="font-medium text-gray-500 text-xs sm:text-sm">Precios para modalidad presencial</div>
@@ -244,16 +244,16 @@ export default function CMIMCCAttendantDataForm() {
                      >
                         {/* Verification Badge */}
                         {role.requiresVerification && (
-                           <div className="-top-1 -right-1 sm:-top-2 sm:-right-2 absolute bg-amber-500 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-bold text-white text-xs">
+                           <div className="-top-1 sm:-top-2 -right-1 sm:-right-2 absolute bg-amber-500 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full font-bold text-white text-xs">
                               Requiere verificación
                            </div>
                         )}
 
                         <div className="flex items-start gap-3 sm:gap-4">
                            <div
-                              className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${role.color} rounded-full flex items-center justify-center flex-shrink-0`}
+                              className={`w-10 h-10 sm:w-12 sm:h-12 bg-linear-to-br ${role.color} rounded-full flex items-center justify-center flex-shrink-0`}
                            >
-                              <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                              <IconComponent className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
                            </div>
 
                            <div className="flex-1 min-w-0">
@@ -272,9 +272,9 @@ export default function CMIMCCAttendantDataForm() {
 
                         {/* Selection Indicator */}
                         {isSelected && (
-                           <div className="top-2 right-2 sm:top-4 sm:right-4 absolute">
-                              <div className="flex justify-center items-center bg-blue-500 rounded-full w-5 h-5 sm:w-6 sm:h-6">
-                                 <div className="bg-white rounded-full w-1.5 h-1.5 sm:w-2 sm:h-2" />
+                           <div className="top-2 sm:top-4 right-2 sm:right-4 absolute">
+                              <div className="flex justify-center items-center bg-blue-500 rounded-full w-5 sm:w-6 h-5 sm:h-6">
+                                 <div className="bg-white rounded-full w-1.5 sm:w-2 h-1.5 sm:h-2" />
                               </div>
                            </div>
                         )}
@@ -289,8 +289,8 @@ export default function CMIMCCAttendantDataForm() {
             <div className="space-y-4 sm:space-y-6">
                <div className="bg-amber-50 p-4 sm:p-6 border border-amber-200 rounded-lg sm:rounded-xl">
                   <div className="flex items-start gap-2 sm:gap-3">
-                     <AlertCircle className="flex-shrink-0 mt-0.5 w-5 h-5 sm:w-6 sm:h-6 text-amber-600" />
-                     <div className="min-w-0 flex-1">
+                     <AlertCircle className="flex-shrink-0 mt-0.5 w-5 sm:w-6 h-5 sm:h-6 text-amber-600" />
+                     <div className="flex-1 min-w-0">
                         <h3 className="mb-2 font-semibold text-amber-800 text-sm sm:text-base">Verificación Requerida</h3>
                         <p className="text-amber-700 text-xs sm:text-sm leading-relaxed">
                            Para acceder a la tarifa de <strong>{selectedRoleData.title}</strong>, necesitas subir un documento que
@@ -302,7 +302,7 @@ export default function CMIMCCAttendantDataForm() {
 
                <div className="space-y-3 sm:space-y-4">
                   <h3 className="flex items-center gap-2 sm:gap-3 font-bold text-gray-800 text-lg sm:text-xl">
-                     <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
+                     <FileText className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
                      Subir Documento de Verificación
                   </h3>
 
@@ -342,8 +342,8 @@ export default function CMIMCCAttendantDataForm() {
                   >
                      {selectedFile ? (
                         <div className="space-y-3 sm:space-y-4">
-                           <div className="flex justify-center items-center bg-green-100 mx-auto rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
-                              <FileText className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-green-600" />
+                           <div className="flex justify-center items-center bg-green-100 mx-auto rounded-full w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16">
+                              <FileText className="w-6 sm:w-7 md:w-8 h-6 sm:h-7 md:h-8 text-green-600" />
                            </div>
                            <div>
                               <p className="font-semibold text-green-800 text-sm sm:text-base break-words">{selectedFile.name}</p>
@@ -357,14 +357,14 @@ export default function CMIMCCAttendantDataForm() {
                         </div>
                      ) : (
                         <div className="space-y-3 sm:space-y-4">
-                           <div className="flex justify-center items-center bg-gray-200 mx-auto rounded-full w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
-                              <Upload className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-gray-500" />
+                           <div className="flex justify-center items-center bg-gray-200 mx-auto rounded-full w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16">
+                              <Upload className="w-6 sm:w-7 md:w-8 h-6 sm:h-7 md:h-8 text-gray-500" />
                            </div>
                            <div>
-                              <p className="mb-2 font-semibold text-gray-700 text-base sm:text-lg px-2">
+                              <p className="mb-2 px-2 font-semibold text-gray-700 text-base sm:text-lg">
                                  Arrastra tu archivo aquí o haz clic para seleccionar
                               </p>
-                              <p className="text-gray-500 text-xs sm:text-sm px-2">
+                              <p className="px-2 text-gray-500 text-xs sm:text-sm">
                                  Formatos aceptados: PDF, JPG, PNG (máx. 5MB)
                               </p>
                            </div>
@@ -395,7 +395,7 @@ export default function CMIMCCAttendantDataForm() {
 
                <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                   <div className="flex justify-between items-center gap-2">
-                     <div className="min-w-0 flex-1">
+                     <div className="flex-1 min-w-0">
                         <p className="text-gray-600 text-xs sm:text-sm">Categoría seleccionada:</p>
                         <p className="font-semibold text-gray-900 text-sm sm:text-base">{selectedRoleData?.title}</p>
                      </div>

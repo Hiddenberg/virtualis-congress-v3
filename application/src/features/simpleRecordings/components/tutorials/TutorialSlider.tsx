@@ -43,7 +43,7 @@ export default function TutorialSlider({ title, steps, onFinish, lastButtonText 
    };
 
    return (
-      <div className="flex justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-50 p-2 sm:p-4">
+      <div className="flex justify-center items-center bg-linear-to-br from-blue-50 to-indigo-50 p-2 sm:p-4">
          <div className="flex flex-col bg-white shadow-2xl mx-auto rounded-2xl sm:rounded-3xl w-full max-w-5xl overflow-hidden">
             {/* Header */}
             <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5">

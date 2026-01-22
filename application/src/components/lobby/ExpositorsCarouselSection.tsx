@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { nanoid } from "nanoid";
 import Image, { type StaticImageData } from "next/image";
 import { useState } from "react";
 import expositorImage1 from "@/assets/expositor1.png";
@@ -59,18 +60,19 @@ function ParticipantCard({
    onClick: () => void;
 }) {
    return (
-      <div
-         className={`relative transition-all duration-300 ease-in-out cursor-pointer w-56 h-80
+      <button
+         type="button"
+         className={`relative transition-all duration-300 ease-in-out cursor-pointer w-56 h-80 border-0 bg-transparent p-0
         ${isActive ? "scale-105 z-10" : "scale-90 opacity-70"}`}
          onClick={onClick}
       >
-         <Image src={participant.image} alt={participant.name} className="w-full h-full object-cover rounded-lg shadow-lg" />
+         <Image src={participant.image} alt={participant.name} className="shadow-lg rounded-lg w-full h-full object-cover" />
          {isActive && (
-            <button className="absolute bg-white text-green-800 bottom-4 left-4 bg-primary text-primary-foreground px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary/90 transition-colors">
+            <span className="bottom-4 left-4 absolute bg-primary bg-white hover:bg-primary/90 px-4 py-2 rounded-full font-semibold text-green-800 text-primary-foreground text-sm transition-colors">
                Ver CV
-            </button>
+            </span>
          )}
-      </div>
+      </button>
    );
 }
 
@@ -86,9 +88,9 @@ export default function ExpositorsCarouselSection() {
    };
 
    return (
-      <div className="w-full h-max mx-auto px-4 py-8">
+      <div className="mx-auto px-4 py-8 w-full h-max">
          <div className="relative">
-            <div className="flex items-center justify-center space-x-4 overflow-hidden">
+            <div className="flex justify-center items-center space-x-4 overflow-hidden">
                {participants.map((participant, index) => (
                   <ParticipantCard
                      key={participant.id}
@@ -99,24 +101,29 @@ export default function ExpositorsCarouselSection() {
                ))}
             </div>
             <button
+               type="button"
                onClick={prevSlide}
-               className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+               className="top-1/2 left-0 absolute bg-black/50 p-2 rounded-full text-white -translate-y-1/2 transform"
             >
                <ChevronLeft className="w-6 h-6" />
             </button>
             <button
+               type="button"
                onClick={nextSlide}
-               className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
+               className="top-1/2 right-0 absolute bg-black/50 p-2 rounded-full text-white -translate-y-1/2 transform"
             >
                <ChevronRight className="w-6 h-6" />
             </button>
          </div>
-         <div className="text-center mt-6">
-            <h2 className="text-2xl font-bold">{participants[activeIndex].name}</h2>
+         <div className="mt-6 text-center">
+            <h2 className="font-bold text-2xl">{participants[activeIndex].name}</h2>
             <p className="text-muted-foreground">{participants[activeIndex].title}</p>
             <div className="flex justify-center space-x-2 mt-2">
                {participants.map((_, index) => (
-                  <div key={index} className={`w-2 h-2 rounded-full ${index === activeIndex ? "bg-primary" : "bg-gray-300"}`} />
+                  <div
+                     key={nanoid()}
+                     className={`w-2 h-2 rounded-full ${index === activeIndex ? "bg-primary" : "bg-gray-300"}`}
+                  />
                ))}
             </div>
          </div>

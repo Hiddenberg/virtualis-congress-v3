@@ -91,15 +91,17 @@ export default function LinkSpeakerPresentationRecordingForm({
                </div>
                <div className="gap-3 md:gap-4 grid grid-cols-1 md:grid-cols-3 w-full">
                   <div className="md:col-span-1">
-                     <label className="block mb-1 font-medium text-gray-700 text-sm">Campaña</label>
+                     <label htmlFor="campaign-select" className="block mb-1 font-medium text-gray-700 text-sm">
+                        Campaña
+                     </label>
                      <select
+                        id="campaign-select"
                         className="bg-white px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full text-gray-900 text-sm"
                         value={selectedCampaignId}
                         onChange={(e) => {
                            setSelectedCampaignId(e.target.value);
                            setSelectedRecordingId(null);
                         }}
-                        aria-label="Seleccionar campaña"
                      >
                         <option value="all">Todas las campañas</option>
                         {campaigns.map((c) => (
@@ -110,16 +112,18 @@ export default function LinkSpeakerPresentationRecordingForm({
                      </select>
                   </div>
                   <div className="md:col-span-2">
-                     <label className="block mb-1 font-medium text-gray-700 text-sm">Buscar grabación</label>
+                     <label htmlFor="search-recording" className="block mb-1 font-medium text-gray-700 text-sm">
+                        Buscar grabación
+                     </label>
                      <div className="relative">
                         <Search className="top-1/2 left-3 absolute w-4 h-4 text-gray-500 -translate-y-1/2" />
                         <input
+                           id="search-recording"
                            type="text"
                            className="bg-white py-2 pr-3 pl-9 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full text-gray-900 placeholder:text-gray-400 text-sm"
                            placeholder="Buscar por título o nombre del ponente"
                            value={searchQuery}
                            onChange={(e) => setSearchQuery(e.target.value)}
-                           aria-label="Buscar grabación"
                         />
                      </div>
                   </div>

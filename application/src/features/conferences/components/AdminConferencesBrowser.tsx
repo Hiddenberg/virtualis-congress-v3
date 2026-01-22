@@ -2,6 +2,7 @@
 
 import { format } from "@formkit/tempo";
 import { Search } from "lucide-react";
+import { nanoid } from "nanoid";
 import { Children, useMemo, useState } from "react";
 
 interface AdminConferencesBrowserProps {
@@ -79,7 +80,7 @@ export default function AdminConferencesBrowser({ conferences, children }: Admin
          ) : (
             <div className="gap-6 grid grid-cols-1">
                {childrenArray.map((child, index) => (
-                  <div key={index} className={visibilityByIndex[index] ? "contents" : "hidden"}>
+                  <div key={nanoid()} className={visibilityByIndex[index] ? "contents" : "hidden"}>
                      {child}
                   </div>
                ))}

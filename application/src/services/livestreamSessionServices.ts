@@ -49,7 +49,7 @@ export async function prepareQnALivestreamSessionForConference(conferenceId: str
          conferenceId: conferenceId,
          livestreamSessionId: livestreamSession.id,
          muxLivestreamId: muxLiveStream.id,
-         livestreamPlaybackId: muxLiveStream.playback_ids![0].id,
+         livestreamPlaybackId: muxLiveStream.playback_ids?.[0].id,
          streamKey: muxLiveStream.stream_key,
       });
 

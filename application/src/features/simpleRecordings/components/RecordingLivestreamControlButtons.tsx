@@ -64,7 +64,7 @@ function StartRecordingButton({
    return (
       <Button
          variant="none"
-         className="!flex !justify-center !items-center !gap-3 !bg-gradient-to-r !from-green-500 hover:!from-green-600 !to-green-600 hover:!to-green-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+         className="!flex !justify-center !items-center !gap-3 !bg-linear-to-r !from-green-500 hover:!from-green-600 !to-green-600 hover:!to-green-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
          loading={starting}
          onClick={handleStartRecording}
       >
@@ -129,7 +129,7 @@ function StopRecordingButton({ handleBeforeUnload }: { handleBeforeUnload: (e: B
    return (
       <Button
          variant="none"
-         className="!flex !justify-center !items-center !gap-3 !bg-gradient-to-r !from-red-500 hover:!from-red-600 !to-red-600 hover:!to-red-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+         className="!flex !justify-center !items-center !gap-3 !bg-linear-to-r !from-red-500 hover:!from-red-600 !to-red-600 hover:!to-red-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
          loading={stopping}
          onClick={handleStopRecording}
       >
@@ -179,7 +179,7 @@ function ResumeRecordingButton({
    return (
       <Button
          variant="none"
-         className="!flex !justify-center !items-center !gap-3 !bg-gradient-to-r !from-green-500 hover:!from-green-600 !to-green-600 hover:!to-green-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+         className="!flex !justify-center !items-center !gap-3 !bg-linear-to-r !from-green-500 hover:!from-green-600 !to-green-600 hover:!to-green-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
          onClick={handleResumeRecording}
       >
          <PlayIcon className="!size-5" />

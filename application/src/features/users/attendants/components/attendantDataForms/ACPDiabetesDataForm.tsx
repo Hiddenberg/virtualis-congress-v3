@@ -49,7 +49,7 @@ function IsACPMemberForm({ setFormStage }: { setFormStage: (stage: FormStage) =>
                <div className="gap-3 sm:gap-4 grid grid-cols-1 md:grid-cols-2">
                   <button
                      onClick={() => setFormStage("validate_acp_id")}
-                     className="group bg-gradient-to-br from-blue-50 to-indigo-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-blue-200 hover:border-blue-400 rounded-lg sm:rounded-xl transition-all duration-200"
+                     className="group bg-linear-to-br from-blue-50 to-indigo-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-blue-200 hover:border-blue-400 rounded-lg sm:rounded-xl transition-all duration-200"
                   >
                      <div className="flex items-center gap-3 sm:gap-4">
                         <div className="flex flex-shrink-0 justify-center items-center bg-blue-100 group-hover:bg-blue-200 rounded-full w-10 sm:w-12 h-10 sm:h-12 transition-colors">
@@ -64,7 +64,7 @@ function IsACPMemberForm({ setFormStage }: { setFormStage: (stage: FormStage) =>
 
                   <button
                      onClick={() => setFormStage("select_no_affiliated_role")}
-                     className="group bg-gradient-to-br from-gray-50 to-slate-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-gray-200 hover:border-gray-400 rounded-lg sm:rounded-xl transition-all duration-200"
+                     className="group bg-linear-to-br from-gray-50 to-slate-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-gray-200 hover:border-gray-400 rounded-lg sm:rounded-xl transition-all duration-200"
                   >
                      <div className="flex items-center gap-3 sm:gap-4">
                         <div className="flex flex-shrink-0 justify-center items-center bg-gray-100 group-hover:bg-gray-200 rounded-full w-10 sm:w-12 h-10 sm:h-12 transition-colors">
@@ -233,13 +233,13 @@ function UploadACPIDScreenshotForm({ setFormStage }: { setFormStage: (stage: For
       e.stopPropagation();
       setDragActive(false);
 
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      if (e.dataTransfer.files?.[0]) {
          setSelectedFile(e.dataTransfer.files[0]);
       }
    };
 
    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files && e.target.files[0]) {
+      if (e.target.files?.[0]) {
          setSelectedFile(e.target.files[0]);
       }
    };
@@ -774,13 +774,13 @@ function UploadStudentProofForm({ setFormStage }: { setFormStage: (stage: FormSt
       e.stopPropagation();
       setDragActive(false);
 
-      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      if (e.dataTransfer.files?.[0]) {
          setSelectedFile(e.dataTransfer.files[0]);
       }
    };
 
    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files && e.target.files[0]) {
+      if (e.target.files?.[0]) {
          setSelectedFile(e.target.files[0]);
       }
    };

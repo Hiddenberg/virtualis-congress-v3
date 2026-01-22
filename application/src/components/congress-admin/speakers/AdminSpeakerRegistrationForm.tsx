@@ -106,7 +106,7 @@ function AdminSpeakerRegistrationForm({ closePopUp }: { closePopUp: () => void }
 
    function handlePhotoChange(e: ChangeEvent<HTMLInputElement>): void {
       const files = e.target.files;
-      if (files && files[0]) {
+      if (files?.[0]) {
          const file = files[0];
          setFormData({
             ...formData,
@@ -152,7 +152,7 @@ function AdminSpeakerRegistrationForm({ closePopUp }: { closePopUp: () => void }
          const fieldErrors = parsed.error.flatten().fieldErrors;
          const newErrors: FormErrors = {};
          for (const [key, messages] of Object.entries(fieldErrors)) {
-            if (messages && messages[0]) newErrors[key as keyof NewSpeakerData] = messages[0];
+            if (messages?.[0]) newErrors[key as keyof NewSpeakerData] = messages[0];
          }
          setErrors(newErrors);
          return;
@@ -182,7 +182,7 @@ function AdminSpeakerRegistrationForm({ closePopUp }: { closePopUp: () => void }
          const fieldErrors = parsed.error.flatten().fieldErrors;
          const newErrors: FormErrors = {};
          for (const [key, messages] of Object.entries(fieldErrors)) {
-            if (messages && messages[0]) newErrors[key as keyof NewSpeakerData] = messages[0];
+            if (messages?.[0]) newErrors[key as keyof NewSpeakerData] = messages[0];
          }
          setErrors(newErrors);
          return;
@@ -282,7 +282,9 @@ function AdminSpeakerRegistrationForm({ closePopUp }: { closePopUp: () => void }
             />
 
             <fieldset className="space-y-2">
-               <label className="block font-medium text-gray-700 text-sm">Foto de presentación</label>
+               <label htmlFor="presentationPhoto" className="block font-medium text-gray-700 text-sm">
+                  Foto de presentación
+               </label>
 
                {photoPreview ? (
                   <figure className="relative mb-2 w-32 h-32">
@@ -302,12 +304,15 @@ function AdminSpeakerRegistrationForm({ closePopUp }: { closePopUp: () => void }
                      </button>
                   </figure>
                ) : (
-                  <label className="flex flex-col justify-center items-center hover:bg-gray-50 border-2 border-gray-300 border-dashed rounded-md w-full h-32 cursor-pointer">
+                  <label
+                     htmlFor="presentationPhoto"
+                     className="flex flex-col justify-center items-center hover:bg-gray-50 border-2 border-gray-300 border-dashed rounded-md w-full h-32 cursor-pointer"
+                  >
                      <div className="flex flex-col justify-center items-center pt-5 pb-6">
                         <Upload className="mb-1 w-8 h-8 text-gray-400" />
                         <p className="text-gray-500 text-sm">Click to upload a photo</p>
                      </div>
-                     <input type="file" className="hidden" accept="image/*" onChange={handlePhotoChange} />
+                     <input id="presentationPhoto" type="file" className="hidden" accept="image/*" onChange={handlePhotoChange} />
                   </label>
                )}
             </fieldset>

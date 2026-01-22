@@ -2,7 +2,6 @@
 
 import { CheckCircle, Clock, Copy, Download, Search } from "lucide-react";
 import type { RecordModel } from "pocketbase";
-import type React from "react";
 import { useMemo, useState } from "react";
 import type { CourtesyInvitation } from "@/types/congress";
 

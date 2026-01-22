@@ -142,8 +142,8 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
                      <div
                         className={`w-12 h-12 rounded-full flex items-center justify-center ${
                            activeDay === 1
-                              ? "bg-gradient-to-br from-blue-500 to-blue-600"
-                              : "bg-gradient-to-br from-cyan-500 to-cyan-600"
+                              ? "bg-linear-to-br from-blue-500 to-blue-600"
+                              : "bg-linear-to-br from-cyan-500 to-cyan-600"
                         }`}
                      >
                         <span className="font-bold text-white text-lg">{activeDay}</span>

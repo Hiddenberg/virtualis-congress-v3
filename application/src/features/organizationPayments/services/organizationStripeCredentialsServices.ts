@@ -69,8 +69,8 @@ export async function getBlurredOrganizationStripeCredentials() {
 
    const blurredCredentials: OrganizationStripeCredentialsRecord = {
       ...credentials,
-      apiKey: credentials.apiKey.slice(0, 12) + "********",
-      webhookSecret: credentials.webhookSecret.slice(0, 12) + "********",
+      apiKey: `${credentials.apiKey.slice(0, 12)}********`,
+      webhookSecret: `${credentials.webhookSecret.slice(0, 12)}********`,
    };
 
    return blurredCredentials;

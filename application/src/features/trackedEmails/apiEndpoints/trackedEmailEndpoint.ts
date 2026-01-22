@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getTrackedEmailById, updateTrackedEmailRecord } from "../services/trackedEmailServices";
 
-export async function trackedEmailEndpoint(req: NextRequest, { params }: { params: Promise<{ trackedEmailId: string }> }) {
+export async function trackedEmailEndpoint(_req: NextRequest, { params }: { params: Promise<{ trackedEmailId: string }> }) {
    const { trackedEmailId } = await params;
 
    const trackedEmail = await getTrackedEmailById(trackedEmailId);

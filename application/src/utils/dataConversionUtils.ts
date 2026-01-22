@@ -107,7 +107,7 @@ export function getPaymentsCollected(
       const additionalData: ACPAdditionalData = attendantData.additionalData;
 
       return {
-         isACPMember: additionalData.acpId ? true : false,
+         isACPMember: !!additionalData.acpId,
          amountPaid: attendantPayment.totalAmount === 0 ? 0 : (attendantPayment.totalAmount ?? 0 / 100),
          studiesGrade: additionalData.studiesGrade,
          name: attendantData.expand.user.name,

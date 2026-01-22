@@ -34,7 +34,7 @@ export function AbbottHeader() {
 
 export function SanferHeader() {
    return (
-      <div className="flex justify-between items-center gap-2 border-x-2 border-red-400 border-b-2 rounded-b-lg text-gray-500 text-sm">
+      <div className="flex justify-between items-center gap-2 border-red-400 border-x-2 border-b-2 rounded-b-lg text-gray-500 text-sm">
          <img src={PARTNERS_DEMO_CONSTANTS.SANFER_LOGO_URL} alt="FreeStyle Logo" className="w-20 md:w-40" />
 
          <Image src={ACPLogoImage} className="w-20 md:w-40" alt="ACP Logo" width={1024} />
@@ -83,7 +83,7 @@ export default function Hero({ eventName, congressTitle, congressSubtitle }: Her
 
             <Link
                href="/partners-demo/commercial-zone"
-               className="group relative bg-gradient-to-br from-blue-600 to-indigo-400 shadow-md p-6 border border-blue-100 rounded-2xl overflow-hidden text-white"
+               className="group relative bg-linear-to-br from-blue-600 to-indigo-400 shadow-md p-6 border border-blue-100 rounded-2xl overflow-hidden text-white"
             >
                <div className="top-[-40px] right-[-40px] z-20 absolute bg-white/10 blur-3xl rounded-full w-56 h-56" />
                <Store className="mb-4 size-10" />

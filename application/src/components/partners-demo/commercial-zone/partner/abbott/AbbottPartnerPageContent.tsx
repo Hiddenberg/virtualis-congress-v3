@@ -15,7 +15,7 @@ interface ActionItem {
 
 function VideoPlaceholder() {
    return (
-      <div className="relative bg-yellow-300 bg-gradient-to-br from-amber-300 via-amber-200 to-amber-100 border-2 border-amber-200 rounded-2xl w-full aspect-video overflow-hidden">
+      <div className="relative bg-yellow-300 bg-linear-to-br from-amber-300 via-amber-200 to-amber-100 border-2 border-amber-200 rounded-2xl w-full aspect-video overflow-hidden">
          <div className="absolute inset-0 place-items-center grid">
             <div className="place-items-center grid bg-white/90 shadow p-6 rounded-full">
                <Play className="text-gray-900" size={36} />

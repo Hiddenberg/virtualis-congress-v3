@@ -4,7 +4,7 @@ export default function RecordingsComingSoonBanner() {
    return (
       <div className="flex flex-col justify-center items-center p-4 md:p-8">
          <div className="w-full max-w-3xl">
-            <div className="bg-gradient-to-br from-blue-50 to-white shadow-sm p-6 md:p-8 border border-blue-100 rounded-2xl text-center">
+            <div className="bg-linear-to-br from-blue-50 to-white shadow-sm p-6 md:p-8 border border-blue-100 rounded-2xl text-center">
                <div className="flex justify-center mb-4">
                   <div className="flex justify-center items-center bg-blue-100 rounded-full w-12 h-12 text-blue-700">
                      <VideoIcon className="w-6 h-6" />

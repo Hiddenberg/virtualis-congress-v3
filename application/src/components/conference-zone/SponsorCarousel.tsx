@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { nanoid } from "nanoid";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -57,6 +58,7 @@ export default function SponsorCarousel({
          <div className="relative">
             <div className="flex justify-between items-center">
                <button
+                  type="button"
                   onClick={prevPage}
                   className="top-1/2 left-0 z-10 absolute bg-white hover:bg-gray-100 shadow-md p-2 rounded-full transition-colors -translate-y-1/2 transform"
                >
@@ -65,7 +67,7 @@ export default function SponsorCarousel({
                <div className="flex justify-center items-center space-x-10 w-full overflow-hidden">
                   {currentSponsors.map((sponsor, index) => (
                      <Link
-                        key={index}
+                        key={`${sponsor.name}-${index}`}
                         href={sponsor.url || "#"}
                         target={sponsor.url ? "_blank" : undefined}
                         className={`size-36 ${sponsor.background === "dark" ? "bg-gray-800" : "bg-white"} ${sponsor.url ? "cursor-pointer" : "cursor-default pointer-events-none"} rounded-lg shadow-md flex items-center justify-center p-4 transition-all duration-300 ${
@@ -83,6 +85,7 @@ export default function SponsorCarousel({
                   ))}
                </div>
                <button
+                  type="button"
                   onClick={nextPage}
                   className="top-1/2 right-0 z-10 absolute bg-white hover:bg-gray-100 shadow-md p-2 rounded-full transition-colors -translate-y-1/2 transform"
                >
@@ -92,7 +95,7 @@ export default function SponsorCarousel({
          </div>
          <div className="flex justify-center space-x-2 mt-6">
             {[...Array(totalPages)].map((_, index) => (
-               <div key={index} className={`size-2 rounded-full ${index === currentPage ? "bg-blue-500" : "bg-gray-300"}`} />
+               <div key={nanoid()} className={`size-2 rounded-full ${index === currentPage ? "bg-blue-500" : "bg-gray-300"}`} />
             ))}
          </div>
       </div>

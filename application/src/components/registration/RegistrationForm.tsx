@@ -1,5 +1,6 @@
 "use client";
 import { ArrowUpRight, ChevronLeft, HelpCircle } from "lucide-react";
+import { nanoid } from "nanoid";
 import Link from "next/link";
 import { useDynamicFormContext } from "@/contexts/DynamicFormContext";
 import { useCountryCode } from "@/customHooks/useCountryCode";
@@ -32,12 +33,13 @@ function NotFromMexicoButton() {
    const { isPending, countryCode } = useCountryCode();
    const { isFirstSection, skipCmimSection } = useDynamicFormContext();
 
-   if (isPending || !isFirstSection || countryCode == "MX") {
+   if (isPending || !isFirstSection || countryCode === "MX") {
       return null;
    }
 
    return (
       <button
+         type="button"
          className="bg-white px-4 py-3 rounded-xl w-64 font-medium text-black"
          onClick={() => {
             skipCmimSection();
@@ -111,8 +113,8 @@ function FormInputsSection() {
             </p>
          )}
          <div className="space-y-4">
-            {currentSectionInputs.map((question, index) => (
-               <RegisterFormInput registrationInput={question} key={index} />
+            {currentSectionInputs.map((question) => (
+               <RegisterFormInput registrationInput={question} key={nanoid()} />
             ))}
          </div>
 

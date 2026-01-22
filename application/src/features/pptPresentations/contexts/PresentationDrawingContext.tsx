@@ -72,7 +72,7 @@ export function PresentationDrawingProvider({ presentationId, children }: { pres
    );
 
    const clearLines = useCallback(
-      (slideIndex: number, reason: "manual" | "slide_change" = "manual") => {
+      (slideIndex: number, _reason: "manual" | "slide_change" = "manual") => {
          setLines([]);
          if (isRecording) {
             drawingEventsRef.current.push({

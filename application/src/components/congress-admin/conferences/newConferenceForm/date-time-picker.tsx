@@ -2,6 +2,7 @@
 
 import { format } from "@formkit/tempo";
 import { Calendar, Clock } from "lucide-react";
+import { nanoid } from "nanoid";
 import { useEffect, useRef, useState } from "react";
 
 interface DateTimePickerProps {
@@ -18,8 +19,8 @@ export function DateTimePicker({ id, label, value, onChange, required = false }:
 
    // Parse the input value into date and time parts
    const date = value ? new Date(value) : new Date();
-   const formattedDate = !isNaN(date.getTime()) ? format(date, "YYYY-MM-DD") : format(new Date(), "YYYY-MM-DD");
-   const formattedTime = !isNaN(date.getTime()) ? format(date, "HH:mm") : "";
+   const formattedDate = !Number.isNaN(date.getTime()) ? format(date, "YYYY-MM-DD") : format(new Date(), "YYYY-MM-DD");
+   const formattedTime = !Number.isNaN(date.getTime()) ? format(date, "HH:mm") : "";
 
    // Close the date picker when clicking outside
    useEffect(() => {
@@ -140,7 +141,7 @@ export function DateTimePicker({ id, label, value, onChange, required = false }:
    };
 
    // Format for display
-   const displayDate = !isNaN(date.getTime()) ? format(date, "DD MMM YYYY") : "Seleccionar fecha";
+   const displayDate = !Number.isNaN(date.getTime()) ? format(date, "DD MMM YYYY") : "Seleccionar fecha";
 
    return (
       <fieldset className="flex flex-col gap-1">
@@ -150,7 +151,8 @@ export function DateTimePicker({ id, label, value, onChange, required = false }:
          <div className="flex flex-col gap-2">
             <div className="relative" ref={datePickerRef}>
                {/* Date input - visible */}
-               <div
+               <button
+                  type="button"
                   className="relative flex items-center px-3 py-2 border border-gray-300 rounded-md cursor-pointer"
                   onClick={() => setIsDatePickerOpen(!isDatePickerOpen)}
                >
@@ -158,7 +160,7 @@ export function DateTimePicker({ id, label, value, onChange, required = false }:
                   <span className={!displayDate || displayDate === "Seleccionar fecha" ? "text-gray-400" : "text-gray-900"}>
                      {displayDate}
                   </span>
-               </div>
+               </button>
 
                {/* Hidden date input for form submission */}
                <input type="date" className="sr-only" value={formattedDate} onChange={handleDateChange} required={required} />
@@ -196,9 +198,9 @@ export function DateTimePicker({ id, label, value, onChange, required = false }:
 
                      {/* Calendar days */}
                      <div className="grid grid-cols-7">
-                        {calendar.map((day, index) => (
+                        {calendar.map((day) => (
                            <button
-                              key={index}
+                              key={nanoid()}
                               type="button"
                               onClick={() => handleDateSelect(day.date)}
                               className={`

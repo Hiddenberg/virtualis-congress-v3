@@ -24,6 +24,7 @@ export default function AssignQnASessionsToAllConferencesButton() {
 
    return (
       <button
+         type="button"
          onClick={handleClick}
          disabled={isLoading}
          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 px-4 py-2 rounded-md text-white transition-colors disabled:animate-pulse disabled:cursor-not-allowed"

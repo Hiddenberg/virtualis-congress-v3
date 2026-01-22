@@ -124,6 +124,7 @@ function DayConferencesList({ dayConferences, dayIndex }: { dayConferences: DayC
          className="mb-4 sm:mb-6"
       >
          <button
+            type="button"
             className="flex justify-between items-center mb-2 p-2 md:px-4 border border-gray-200 rounded-lg w-full"
             onClick={() => setIsExpanded(!isExpanded)}
          >

@@ -9,7 +9,7 @@ export interface GuestScheduledPageProps {
 
 export default function GuestScheduledPage({ title, description, startTime }: GuestScheduledPageProps) {
    return (
-      <div className="flex justify-center items-center bg-gradient-to-br from-stone-50 to-stone-100 p-4 min-h-screen">
+      <div className="flex justify-center items-center bg-linear-to-br from-stone-50 to-stone-100 p-4 min-h-screen">
          <div className="w-full max-w-2xl">
             {/* Header Section */}
             <div className="bg-gradient-to-r from-stone-800 to-stone-900 shadow-lg mb-6 p-8 rounded-2xl">

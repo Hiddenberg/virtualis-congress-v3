@@ -125,7 +125,7 @@ export default function CMIMCCPaymentSelectionForm({
          {/* User Category Info */}
          <div className="bg-white shadow-sm p-4 sm:p-6 border border-gray-200 rounded-xl sm:rounded-2xl">
             <h2 className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 font-bold text-gray-800 text-lg sm:text-xl">
-               <UsersIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
+               <UsersIcon className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
                Tu Categoría Profesional
             </h2>
             <div className="bg-blue-50 p-3 sm:p-4 border border-blue-200 rounded-lg sm:rounded-xl">
@@ -139,7 +139,7 @@ export default function CMIMCCPaymentSelectionForm({
          {/* Modality Selection */}
          <div className="bg-white shadow-sm p-4 sm:p-6 border border-gray-200 rounded-xl sm:rounded-2xl">
             <h2 className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 font-bold text-gray-800 text-lg sm:text-xl">
-               <CalendarIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
+               <CalendarIcon className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
                Modalidad de Participación
             </h2>
 
@@ -158,19 +158,19 @@ export default function CMIMCCPaymentSelectionForm({
                      >
                         {/* Selection Indicator */}
                         {isSelected && (
-                           <div className="top-2 right-2 sm:top-4 sm:right-4 absolute">
-                              <div className="flex justify-center items-center bg-blue-500 rounded-full w-5 h-5 sm:w-6 sm:h-6">
-                                 <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                           <div className="top-2 sm:top-4 right-2 sm:right-4 absolute">
+                              <div className="flex justify-center items-center bg-blue-500 rounded-full w-5 sm:w-6 h-5 sm:h-6">
+                                 <CheckIcon className="w-3 sm:w-4 h-3 sm:h-4 text-white" />
                               </div>
                            </div>
                         )}
 
                         <div className="space-y-3 sm:space-y-4">
                            <div className="flex items-center gap-2 sm:gap-3">
-                              <div className="flex justify-center items-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-full w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
-                                 <IconComponent className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                              <div className="flex flex-shrink-0 justify-center items-center bg-linear-to-br from-blue-500 to-blue-600 rounded-full w-10 sm:w-12 h-10 sm:h-12">
+                                 <IconComponent className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
                               </div>
-                              <div className="min-w-0 flex-1">
+                              <div className="flex-1 min-w-0">
                                  <h3 className="font-bold text-gray-900 text-sm sm:text-base">{option.title}</h3>
                                  <p className="text-gray-600 text-xs sm:text-sm">{option.description}</p>
                               </div>
@@ -185,7 +185,7 @@ export default function CMIMCCPaymentSelectionForm({
                            <ul className="space-y-1.5 sm:space-y-2">
                               {option.features.map((feature, index) => (
                                  <li key={index} className="flex items-start gap-2 text-gray-700 text-xs sm:text-sm">
-                                    <CheckIcon className="flex-shrink-0 w-3 h-3 sm:w-4 sm:h-4 text-green-500 mt-0.5" />
+                                    <CheckIcon className="flex-shrink-0 mt-0.5 w-3 sm:w-4 h-3 sm:h-4 text-green-500" />
                                     <span>{feature}</span>
                                  </li>
                               ))}
@@ -200,7 +200,7 @@ export default function CMIMCCPaymentSelectionForm({
          {/* Recordings Add-on */}
          <div className="bg-white shadow-sm p-4 sm:p-6 border border-gray-200 rounded-xl sm:rounded-2xl">
             <h2 className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 font-bold text-gray-800 text-lg sm:text-xl">
-               <PlayCircleIcon className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 flex-shrink-0" />
+               <PlayCircleIcon className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-purple-600" />
                Complementos Opcionales
             </h2>
 
@@ -216,11 +216,11 @@ export default function CMIMCCPaymentSelectionForm({
                         includeRecordings ? "bg-purple-500 border-purple-500" : "border-gray-300"
                      }`}
                   >
-                     {includeRecordings && <CheckIcon className="w-3 h-3 sm:w-4 sm:h-4 text-white" />}
+                     {includeRecordings && <CheckIcon className="w-3 sm:w-4 h-3 sm:h-4 text-white" />}
                   </div>
 
                   <div className="flex-1 min-w-0">
-                     <div className="flex justify-between items-center mb-2 gap-2">
+                     <div className="flex justify-between items-center gap-2 mb-2">
                         <h3 className="font-bold text-gray-900 text-sm sm:text-base">Acceso a Grabaciones</h3>
                         <span className="font-bold text-gray-900 text-lg sm:text-xl whitespace-nowrap">
                            +${recordingsAddon.price} {recordingsAddon.currency}
@@ -232,7 +232,7 @@ export default function CMIMCCPaymentSelectionForm({
                      <ul className="space-y-1">
                         {recordingsAddon.features.map((feature, index) => (
                            <li key={index} className="flex items-start gap-2 text-gray-700 text-xs sm:text-sm">
-                              <CheckIcon className="flex-shrink-0 w-3 h-3 text-green-500 mt-0.5" />
+                              <CheckIcon className="flex-shrink-0 mt-0.5 w-3 h-3 text-green-500" />
                               <span>{feature}</span>
                            </li>
                         ))}
@@ -246,7 +246,7 @@ export default function CMIMCCPaymentSelectionForm({
          {selectedModalityData && (
             <div className="bg-white shadow-lg p-4 sm:p-6 border border-gray-200 rounded-xl sm:rounded-2xl">
                <h3 className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 font-bold text-gray-800 text-lg sm:text-xl">
-                  <DollarSignIcon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0" />
+                  <DollarSignIcon className="flex-shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
                   Resumen de Pago
                </h3>
 
@@ -257,11 +257,11 @@ export default function CMIMCCPaymentSelectionForm({
                         <h4 className="mb-2 font-semibold text-gray-800 text-sm sm:text-base">XXIX Congreso Anual</h4>
                         <div className="space-y-1 text-gray-600 text-xs sm:text-sm">
                            <div className="flex items-center gap-2">
-                              <CalendarIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <CalendarIcon className="flex-shrink-0 w-3 sm:w-4 h-3 sm:h-4" />
                               <span>5-6 Septiembre 2025</span>
                            </div>
                            <div className="flex items-center gap-2">
-                              <MapPinIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                              <MapPinIcon className="flex-shrink-0 w-3 sm:w-4 h-3 sm:h-4" />
                               <span>Hotel Holiday Inn Tapachula</span>
                            </div>
                         </div>
@@ -270,7 +270,7 @@ export default function CMIMCCPaymentSelectionForm({
                      {/* Security Note */}
                      <div className="bg-green-50 p-2.5 sm:p-3 border border-green-200 rounded-lg">
                         <div className="flex items-center gap-2">
-                           <LockIcon className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                           <LockIcon className="flex-shrink-0 w-3 sm:w-4 h-3 sm:h-4 text-green-600" />
                            <span className="font-medium text-green-800 text-xs sm:text-sm">Pago 100% Seguro</span>
                         </div>
                         <p className="mt-1 text-green-700 text-xs">Tus datos están protegidos con encriptación SSL</p>
@@ -280,12 +280,12 @@ export default function CMIMCCPaymentSelectionForm({
                   {/* Right - Pricing Breakdown */}
                   <div className="space-y-3 sm:space-y-4">
                      <div className="space-y-2 sm:space-y-3">
-                        <div className="flex justify-between items-center py-2 border-gray-200 border-b gap-2">
+                        <div className="flex justify-between items-center gap-2 py-2 border-gray-200 border-b">
                            <span className="text-gray-700 text-xs sm:text-sm">Categoría:</span>
                            <span className="font-medium text-gray-900 text-xs sm:text-sm text-right">{userCategory}</span>
                         </div>
 
-                        <div className="flex justify-between items-center py-2 border-gray-200 border-b gap-2">
+                        <div className="flex justify-between items-center gap-2 py-2 border-gray-200 border-b">
                            <span className="text-gray-700 text-xs sm:text-sm">{selectedModalityData.title}:</span>
                            <span className="font-medium text-gray-900 text-xs sm:text-sm whitespace-nowrap">
                               ${selectedModalityData.price} {selectedModalityData.currency}
@@ -293,7 +293,7 @@ export default function CMIMCCPaymentSelectionForm({
                         </div>
 
                         {includeRecordings && (
-                           <div className="flex justify-between items-center py-2 border-gray-200 border-b gap-2">
+                           <div className="flex justify-between items-center gap-2 py-2 border-gray-200 border-b">
                               <span className="text-gray-700 text-xs sm:text-sm">Grabaciones:</span>
                               <span className="font-medium text-gray-900 text-xs sm:text-sm whitespace-nowrap">
                                  +${recordingsAddon.price} {recordingsAddon.currency}

@@ -20,7 +20,7 @@ export default function ACPPricingInfo({ userId }: { userId?: string }) {
             <div className="gap-6 grid md:grid-cols-2 lg:grid-cols-5 mx-auto max-w-6xl">
                {/* General Doctors */}
                <div className="flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-teal-300 to-teal-400 mb-4 rounded-full w-12 h-12">
+                  <div className="flex justify-center items-center bg-linear-to-br from-teal-300 to-teal-400 mb-4 rounded-full w-12 h-12">
                      <CreditCard className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="mb-1 font-bold text-gray-900 text-base text-center">Médicos en general</h3>
@@ -33,7 +33,7 @@ export default function ACPPricingInfo({ userId }: { userId?: string }) {
 
                {/* Membership */}
                <div className="flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-emerald-300 to-emerald-400 mb-4 rounded-full w-12 h-12">
+                  <div className="flex justify-center items-center bg-linear-to-br from-emerald-300 to-emerald-400 mb-4 rounded-full w-12 h-12">
                      <CreditCard className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="mb-1 font-bold text-gray-900 text-base text-center">Membresía ACP</h3>
@@ -46,7 +46,7 @@ export default function ACPPricingInfo({ userId }: { userId?: string }) {
 
                {/* Nurses */}
                <div className="flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-green-300 to-green-400 mb-4 rounded-full w-12 h-12">
+                  <div className="flex justify-center items-center bg-linear-to-br from-green-300 to-green-400 mb-4 rounded-full w-12 h-12">
                      <CreditCard className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="mb-1 font-bold text-gray-900 text-base text-center">Enfermeras y estudiantes no afiliados</h3>
@@ -58,7 +58,7 @@ export default function ACPPricingInfo({ userId }: { userId?: string }) {
                </div>
 
                <div className="flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-green-300 to-green-400 mb-4 rounded-full w-12 h-12">
+                  <div className="flex justify-center items-center bg-linear-to-br from-green-300 to-green-400 mb-4 rounded-full w-12 h-12">
                      <CreditCard className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="mb-1 font-bold text-gray-900 text-base text-center">Extranjeros</h3>
@@ -70,8 +70,8 @@ export default function ACPPricingInfo({ userId }: { userId?: string }) {
                </div>
 
                {/* Students and Residents ACP Members */}
-               <div className="flex flex-col items-center bg-gradient-to-br from-lime-50 to-green-50 hover:shadow-lg p-6 border-2 border-lime-200 hover:border-lime-300 rounded-2xl transition-all duration-300">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-lime-300 to-green-400 mb-4 rounded-full w-12 h-12">
+               <div className="flex flex-col items-center bg-linear-to-br from-lime-50 to-green-50 hover:shadow-lg p-6 border-2 border-lime-200 hover:border-lime-300 rounded-2xl transition-all duration-300">
+                  <div className="flex justify-center items-center bg-linear-to-br from-lime-300 to-green-400 mb-4 rounded-full w-12 h-12">
                      <CreditCard className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="mb-1 font-bold text-gray-900 text-base text-center">

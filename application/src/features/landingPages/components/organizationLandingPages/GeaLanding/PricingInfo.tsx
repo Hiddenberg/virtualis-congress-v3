@@ -19,7 +19,7 @@ export default function PricingInfo({ userId }: { userId?: string }) {
 
             <div className="gap-6 grid md:grid-cols-3 mx-auto max-w-5xl">
                {/* Online only card */}
-               <div className="relative bg-gradient-to-br from-blue-50 to-cyan-50 p-8 border-2 border-blue-200 rounded-2xl">
+               <div className="relative bg-linear-to-br from-blue-50 to-cyan-50 p-8 border-2 border-blue-200 rounded-2xl">
                   <div className="top-4 right-4 absolute opacity-10">
                      <Wifi className="w-12 h-12 text-blue-400" />
                   </div>
@@ -27,7 +27,7 @@ export default function PricingInfo({ userId }: { userId?: string }) {
                      SOLO EN LÍNEA
                   </div>
                   <div className="z-10 relative text-center">
-                     <div className="flex justify-center items-center bg-gradient-to-br from-blue-300 to-cyan-400 mx-auto mb-4 rounded-full w-16 h-16">
+                     <div className="flex justify-center items-center bg-linear-to-br from-blue-300 to-cyan-400 mx-auto mb-4 rounded-full w-16 h-16">
                         <Video className="w-8 h-8 text-white" />
                      </div>
                      <div className="bg-blue-100 mx-auto mb-2 px-4 py-2 rounded-full w-max font-semibold text-blue-700 text-sm">
@@ -42,7 +42,7 @@ export default function PricingInfo({ userId }: { userId?: string }) {
 
                {/* Mexico price */}
                <div className="flex flex-col items-center bg-white hover:shadow-lg p-8 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-blue-300 to-blue-400 mb-4 rounded-full w-12 h-12">
+                  <div className="flex justify-center items-center bg-linear-to-br from-blue-300 to-blue-400 mb-4 rounded-full w-12 h-12">
                      <CreditCard className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="mb-1 font-bold text-gray-900 text-base">Participantes en México</h3>
@@ -55,7 +55,7 @@ export default function PricingInfo({ userId }: { userId?: string }) {
 
                {/* Foreigners price */}
                <div className="flex flex-col items-center bg-white hover:shadow-lg p-8 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
-                  <div className="flex justify-center items-center bg-gradient-to-br from-indigo-300 to-indigo-400 mb-4 rounded-full w-12 h-12">
+                  <div className="flex justify-center items-center bg-linear-to-br from-indigo-300 to-indigo-400 mb-4 rounded-full w-12 h-12">
                      <Globe className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="mb-1 font-bold text-gray-900 text-base">Participantes extranjeros</h3>

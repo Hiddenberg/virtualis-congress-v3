@@ -1,4 +1,5 @@
 "use client";
+import { nanoid } from "nanoid";
 import Link from "next/link";
 import { useState } from "react";
 import RegistrationFormStep1 from "./RegistrationFormStep1";
@@ -36,13 +37,13 @@ export default function RegistrationForm() {
    return (
       <div className="text-white">
          <h1 className="mb-2">
-            <span className="font-bold text-2xl text-yellow-400">PASO {currentStage + 1}:</span>
+            <span className="font-bold text-yellow-400 text-2xl">PASO {currentStage + 1}:</span>
             <span className="text-yellow-400">{stages[currentStage].title}</span>
          </h1>
          <div className="flex flex-col">
             <h2 className="mb-2 text-xl">¿Ya completaste tu registro?</h2>
             <p>
-               <button className="border-yellow-400 border-b text-yellow-300">
+               <button type="button" className="border-yellow-400 border-b text-yellow-300">
                   <Link href="/registration-home/registrationpaymentpage">Haz clic aquí</Link>
                </button>{" "}
                para proceder al pago y asegurar tu participación.
@@ -74,8 +75,9 @@ export default function RegistrationForm() {
          <div className="flex justify-center space-x-2 mt-6">
             {stages.map((_, index) => (
                <button
+                  type="button"
                   onClick={() => setCurrentStage(index)}
-                  key={index}
+                  key={nanoid()}
                   className={`rounded-full w-2 h-2 ${index === currentStage ? "bg-white" : "bg-gray-500"}`}
                />
             ))}

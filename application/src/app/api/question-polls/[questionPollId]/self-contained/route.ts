@@ -5,7 +5,7 @@ import {
    getQuestionPollOptions,
 } from "@/features/questionPolls/services/questionPollServices";
 
-export async function GET(request: Request, { params }: { params: Promise<{ questionPollId: string }> }) {
+export async function GET(_request: Request, { params }: { params: Promise<{ questionPollId: string }> }) {
    const { questionPollId } = await params;
 
    const [questionPoll, questionPollOptions, questionPollAnswers] = await Promise.all([

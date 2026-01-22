@@ -48,7 +48,7 @@ export interface PerformanceMetrics {
  * Generate a unique session ID for tracking user interactions
  */
 export function generateSessionId(): string {
-   return Date.now().toString() + "-" + Math.random().toString(36).substring(2, 9);
+   return `${Date.now().toString()}-${Math.random().toString(36).substring(2, 9)}`;
 }
 
 /**

@@ -286,6 +286,8 @@ export default function DynamicConferenceProgram({
 
             return isAfter(currentDateTime, conf.preRecordedData.realEndDate);
          }
+
+         return false;
       });
    }, [filteredConferences, currentDateTime]);
 
@@ -349,6 +351,7 @@ export default function DynamicConferenceProgram({
                   </button> */}
                   {uniqueDates.map((date) => (
                      <button
+                        type="button"
                         key={date}
                         onClick={() => setSelectedDate(date)}
                         className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
@@ -366,6 +369,7 @@ export default function DynamicConferenceProgram({
          {endedConferences.length > 0 && (
             <div className="pt-6 border-gray-200 border-t">
                <button
+                  type="button"
                   onClick={() => setShowEndedConferences(!showEndedConferences)}
                   className="flex justify-between items-center bg-gray-50 hover:bg-gray-100 mb-4 p-4 rounded-lg w-full transition-colors duration-200"
                >

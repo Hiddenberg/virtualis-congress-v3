@@ -62,7 +62,7 @@ export default function LobbyConferencesPreview({ conferences }: LobbyConference
    return (
       <section aria-label="Próximas conferencias" className="w-full max-w-6xl">
          <div className="bg-white shadow-sm border border-blue-100 rounded-2xl overflow-hidden">
-            <div className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-cyan-50 px-4 md:px-6 py-4">
+            <div className="flex items-center gap-2 bg-linear-to-r from-blue-50 to-cyan-50 px-4 md:px-6 py-4">
                <Calendar className="w-4 h-4 text-blue-700" />
                <h3 className="font-semibold text-slate-800 text-base md:text-lg">Próximas conferencias</h3>
             </div>
@@ -72,6 +72,7 @@ export default function LobbyConferencesPreview({ conferences }: LobbyConference
                <div className="flex gap-2 px-4 md:px-6 pt-4 overflow-x-auto">
                   {formattedDays.map((d, idx) => (
                      <button
+                        type="button"
                         key={d.dateISO}
                         onClick={() => setActiveIdx(idx)}
                         className={`px-3 md:px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-colors whitespace-nowrap ${idx === activeIdx ? "bg-blue-100 text-blue-800 border border-blue-200" : "text-blue-700 hover:bg-blue-50 border border-transparent"}`}

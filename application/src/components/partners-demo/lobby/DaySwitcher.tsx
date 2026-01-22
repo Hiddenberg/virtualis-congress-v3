@@ -21,12 +21,14 @@ export default function DaySwitcher({ days }: DaySwitcherProps) {
          </div>
          <div className="flex items-center gap-2">
             <button
+               type="button"
                onClick={goPrev}
                className="inline-flex justify-center items-center bg-white hover:bg-gray-50 shadow-sm border border-gray-200 rounded-full w-9 h-9 text-gray-700"
             >
                <ChevronLeft size={18} />
             </button>
             <button
+               type="button"
                onClick={goNext}
                className="inline-flex justify-center items-center bg-white hover:bg-gray-50 shadow-sm border border-gray-200 rounded-full w-9 h-9 text-gray-700"
             >

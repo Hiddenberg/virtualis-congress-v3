@@ -2,6 +2,7 @@
 
 import { format, isEqual } from "@formkit/tempo";
 import { CalendarClock, Clock, Users } from "lucide-react";
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import type { ConferenceWithSpeakerNamesAndPhones } from "@/features/conferences/services/conferenceServices";
 
@@ -52,6 +53,7 @@ export default function ScheduledConferencesSection({ congressDates, conferences
                <div className="flex flex-wrap justify-center gap-2 mb-8">
                   {congressDates.map((day) => (
                      <button
+                        type="button"
                         key={format(day, "DD-MM-YYYY")}
                         onClick={() => handleDaySelect(day)}
                         className={`px-4 py-2 rounded-full text-sm font-medium border border-blue-400 transition-colors ${
@@ -105,8 +107,11 @@ export default function ScheduledConferencesSection({ congressDates, conferences
                                     </span>
                                     <div className="flex flex-wrap gap-1 mt-1">
                                        {conference.speakers && conference.speakers.length > 0 ? (
-                                          conference.speakersDetails.map((speaker, index) => (
-                                             <span key={index} className="bg-blue-50 px-2 py-1 rounded-md text-blue-700 text-xs">
+                                          conference.speakersDetails.map((speaker) => (
+                                             <span
+                                                key={nanoid()}
+                                                className="bg-blue-50 px-2 py-1 rounded-md text-blue-700 text-xs"
+                                             >
                                                 {speaker.name}
                                              </span>
                                           ))

@@ -3,7 +3,6 @@ import {
    CalendarIcon,
    // Sparkles, Users, ArrowRight, Play
 } from "lucide-react";
-import { redirect } from "next/navigation";
 import { LinkButton } from "@/components/global/Buttons";
 import ClosingConferenceBanner from "@/components/lobby/ClosingConferenceBanner";
 import CongressEndedBanner from "@/components/lobby/CongressEndedBanner";
@@ -14,15 +13,12 @@ import LobbyConferencesPreview from "@/components/lobby/LobbyConferencesPreview"
 import SecondDayBanner from "@/components/lobby/SecondDayBanner";
 import { getAllProgramConferencesWithSpeakersAndDurations } from "@/features/conferences/aggregators/conferenceAggregators";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
-import { checkIfUserHasAccessToRecordings } from "@/features/organizationPayments/services/userPurchaseServices";
 import OrganizationSpecificComponent from "@/features/organizations/components/OrganizationSpecificComponent";
 import {
    ClosingVideoBanner,
    InaugurationVideoBanner,
 } from "@/features/organizations/organizationSpecifics/HGEA/data/components/HGEALobbyVideoComponents";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 
 export default async function LobbyPage() {
    console.time("LobbyPage");

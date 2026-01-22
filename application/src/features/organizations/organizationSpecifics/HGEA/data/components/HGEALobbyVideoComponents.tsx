@@ -7,7 +7,7 @@ export function InaugurationVideoBanner({ playbackId }: { playbackId: string }) 
          <div className="w-full max-w-4xl">
             <div className="bg-white shadow-lg border border-slate-200 rounded-2xl overflow-hidden">
                {/* Header */}
-               <div className="bg-gradient-to-r from-blue-50 to-slate-50 px-6 py-4 border-slate-200 border-b">
+               <div className="bg-linear-to-r from-blue-50 to-slate-50 px-6 py-4 border-slate-200 border-b">
                   <div className="flex justify-center items-center gap-3">
                      <div className="flex justify-center items-center bg-blue-100 rounded-full w-10 h-10">
                         <Video className="w-5 h-5 text-blue-700" />
@@ -34,7 +34,7 @@ export function ClosingVideoBanner({ playbackId }: { playbackId: string }) {
          <div className="w-full max-w-4xl">
             <div className="bg-white shadow-lg border border-slate-200 rounded-2xl overflow-hidden">
                {/* Header */}
-               <div className="bg-gradient-to-r from-blue-50 to-slate-50 px-6 py-4 border-slate-200 border-b">
+               <div className="bg-linear-to-r from-blue-50 to-slate-50 px-6 py-4 border-slate-200 border-b">
                   <div className="flex justify-center items-center gap-3">
                      <div className="flex justify-center items-center bg-blue-100 rounded-full w-10 h-10">
                         <Video className="w-5 h-5 text-blue-700" />

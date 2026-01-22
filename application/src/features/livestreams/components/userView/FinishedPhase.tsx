@@ -13,7 +13,7 @@ export default function FinishedPhase({ classTitle = "Esta clase" }: FinishedPha
    // const { organizationBasePath } = useOrganizationContext()
 
    return (
-      <div className="flex flex-col justify-center items-center bg-gradient-to-br from-emerald-50 to-green-50 p-8 w-full min-h-[500px]">
+      <div className="flex flex-col justify-center items-center bg-linear-to-br from-emerald-50 to-green-50 p-8 w-full min-h-[500px]">
          <div className="space-y-8 mx-auto w-full max-w-lg text-center">
             <div className="flex flex-col items-center space-y-4">
                <div className="bg-emerald-100 p-4 rounded-full">

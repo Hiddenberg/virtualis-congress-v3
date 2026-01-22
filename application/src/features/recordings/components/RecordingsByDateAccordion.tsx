@@ -70,7 +70,7 @@ export default function RecordingsByDateAccordion({ items }: { items: RecordingW
                items: [],
             });
          }
-         map.get(key)!.items.push(item);
+         map.get(key)?.items.push(item);
       }
 
       // sort items inside each group by recordingTitle

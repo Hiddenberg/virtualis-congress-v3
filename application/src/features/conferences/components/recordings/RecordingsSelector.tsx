@@ -104,6 +104,7 @@ export default function RecordingsSelector({ conferenceId, allRecordings, initia
          </div>
          <div className="flex justify-end mt-4">
             <button
+               type="button"
                onClick={handleSave}
                disabled={isSubmitting || (!toLink && !toUnlink)}
                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 px-4 py-2 rounded-md text-white text-sm"

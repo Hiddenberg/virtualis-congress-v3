@@ -216,7 +216,7 @@ function LinkedRecordingSummaryCard({ recording }: { recording: SimpleRecording 
 
    return (
       <div className="bg-white shadow-sm rounded-lg ring-1 ring-gray-200 overflow-hidden">
-         <div className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-transparent px-3 py-2">
+         <div className="flex items-center gap-2 bg-linear-to-r from-blue-50 to-transparent px-3 py-2">
             <CheckIcon className="w-3.5 h-3.5 text-blue-600 shrink-0" />
             <span className="font-medium text-blue-900 text-xs">Grabación vinculada</span>
             <div className="flex items-center gap-1.5 ml-auto">

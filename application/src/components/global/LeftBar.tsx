@@ -45,7 +45,10 @@ function LeftBar() {
          </div>
 
          <div className="flex flex-col justify-center items-center space-y-4 h-32">
-            <button className="flex justify-center items-center bg-white hover:bg-slate-50 p-2 border border-slate-200 rounded-xl transition-colors">
+            <button
+               type="button"
+               className="flex justify-center items-center bg-white hover:bg-slate-50 p-2 border border-slate-200 rounded-xl transition-colors"
+            >
                <Bell className="size-5 text-slate-600" />
             </button>
             <LogoutButton />

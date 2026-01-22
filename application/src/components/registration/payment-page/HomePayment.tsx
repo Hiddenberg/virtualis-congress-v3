@@ -18,7 +18,7 @@ export default function HomePayment() {
          try {
             congressRegistration = await pbClient
                .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
-               .getFirstListItem<CongressRegistration & RecordModel>(`userRegistered.id = "${user!.id}"`);
+               .getFirstListItem<CongressRegistration & RecordModel>(`userRegistered.id = "${user?.id}"`);
          } catch (error) {
             if (error instanceof ClientResponseError && error.status === 404) {
                congressRegistration = null;

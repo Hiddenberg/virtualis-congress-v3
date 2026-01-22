@@ -8,7 +8,6 @@ import { useZoomSession } from "../contexts/ZoomSessionContext";
 import { getZoomTokenAction } from "../serverActions/ZoomSessionActions";
 
 import "@/app/zoomStyles.css";
-import { User, UserIcon } from "lucide-react";
 import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
 
 function UsernameInput({ onUserNameSubmit }: { onUserNameSubmit: (username: string) => void }) {

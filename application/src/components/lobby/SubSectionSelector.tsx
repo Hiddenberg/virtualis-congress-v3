@@ -19,6 +19,7 @@ export default function SubSectionSelector() {
          <div className="flex space-x-2 p-4">
             {buttons.map((button) => (
                <button
+                  type="button"
                   key={button.id}
                   onClick={() => setActiveButton(button.label)}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${

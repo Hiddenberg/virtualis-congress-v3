@@ -1,6 +1,6 @@
 import "server-only";
 import { addDay, date, diffDays } from "@formkit/tempo";
-import { ClientResponseError, type RecordModel } from "pocketbase";
+import { ClientResponseError } from "pocketbase";
 import { cache } from "react";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import pbServerClient from "@/libs/pbServerClient";

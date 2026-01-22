@@ -39,6 +39,7 @@ export default function AdminPresentationManager({
                </div>
                <DownloadPresentationFileButton presentation={presentation} />
                <button
+                  type="button"
                   onClick={handleUnlink}
                   disabled={isUnlinking}
                   className="bg-red-600 hover:bg-red-700 disabled:bg-red-300 px-3 py-2 rounded-md text-white text-sm"

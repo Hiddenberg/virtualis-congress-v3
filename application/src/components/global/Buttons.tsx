@@ -66,7 +66,12 @@ interface LinkButtonProps extends ButtonProps {
 export function LinkButton({ children, className, href, variant = "primary", target, title, disabled }: LinkButtonProps) {
    if (disabled) {
       return (
-         <button title={title} disabled className={`${baseButtonClassName} ${variantClasses[variant]} ${className}`}>
+         <button
+            type="button"
+            title={title}
+            disabled
+            className={`${baseButtonClassName} ${variantClasses[variant]} ${className}`}
+         >
             {children}
          </button>
       );
@@ -97,6 +102,7 @@ export function CopyButton({ text }: { text: string }) {
 
    return (
       <button
+         type="button"
          onClick={handleCopy}
          className="flex justify-center items-center bg-gray-100 hover:bg-gray-200 rounded-full w-7 h-7 hover:scale-105 active:scale-95 transition-all duration-200"
       >

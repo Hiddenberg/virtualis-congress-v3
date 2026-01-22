@@ -11,10 +11,11 @@ export default function SponsorSelector() {
 
    return (
       <div className="flex flex-col">
-         <div className="w-full overflow-x-auto mb-2">
+         <div className="mb-2 w-full overflow-x-auto">
             <nav className="flex space-x-4 whitespace-nowrap">
                {companies.map((company) => (
                   <button
+                     type="button"
                      key={company}
                      onClick={() => setSelectedTab(company)}
                      className={`px-4 py-2 font-medium rounded-lg ${

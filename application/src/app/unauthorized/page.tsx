@@ -19,7 +19,7 @@ export default async function UnauthorizedPage({ searchParams }: UnauthorizedPag
    const user = await getUserById(userId ?? "");
 
    return (
-      <div className="flex flex-col bg-gradient-to-br from-blue-50 to-white min-h-screen">
+      <div className="flex flex-col bg-linear-to-br from-blue-50 to-white min-h-screen">
          {/* Header with logo */}
          <div className="w-full">
             <VirtualisCongressLogoHeader />
@@ -39,7 +39,7 @@ export default async function UnauthorizedPage({ searchParams }: UnauthorizedPag
                <h1 className="mb-4 font-bold text-gray-900 text-3xl">Acceso No Autorizado</h1>
 
                {/* User info section */}
-               {user && user.email ? (
+               {user?.email ? (
                   <div className="bg-blue-50 mb-6 p-4 border border-blue-200 rounded-lg">
                      <div className="flex justify-center items-center gap-2 text-blue-700">
                         <User className="w-4 h-4" />

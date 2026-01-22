@@ -60,7 +60,7 @@ export default function ConferenceItem({
                      <div className="flex md:flex-row flex-col items-center gap-3 bg-gray-50 p-3 rounded-lg w-full">
                         {/* Speaker Image Placeholder */}
                         <div className="flex-shrink-0">
-                           <div className="flex justify-center items-center bg-gradient-to-br from-blue-400 to-blue-600 rounded-full w-12 h-12">
+                           <div className="flex justify-center items-center bg-linear-to-br from-blue-400 to-blue-600 rounded-full w-12 h-12">
                               <User className="w-6 h-6 text-white" />
                            </div>
                         </div>

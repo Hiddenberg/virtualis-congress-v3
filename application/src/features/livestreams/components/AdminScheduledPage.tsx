@@ -55,7 +55,7 @@ export default function AdminScheduledPage({
    };
 
    return (
-      <div className="flex justify-center items-center bg-gradient-to-br from-stone-50 to-stone-100 p-4 min-h-screen">
+      <div className="flex justify-center items-center bg-linear-to-br from-stone-50 to-stone-100 p-4 min-h-screen">
          <div className="w-full max-w-2xl">
             {/* Header Section */}
             {isQnASession ? <QnASessionHeader /> : <LivestreamSessionHeader />}

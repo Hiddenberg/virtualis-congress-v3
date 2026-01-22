@@ -138,6 +138,7 @@ function StepsSlider({ language = "es-MX", type = "macUpdate" }: { language?: st
 
          <div className="flex justify-between items-center">
             <button
+               type="button"
                onClick={previousStep}
                disabled={currentStep === 0}
                className={`px-4 py-2 rounded-md ${
@@ -152,6 +153,7 @@ function StepsSlider({ language = "es-MX", type = "macUpdate" }: { language?: st
             </span>
 
             <button
+               type="button"
                onClick={nextStep}
                disabled={currentStep === steps.length - 1}
                className={`px-4 py-2 rounded-md ${

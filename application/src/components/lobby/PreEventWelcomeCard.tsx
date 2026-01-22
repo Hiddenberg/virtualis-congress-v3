@@ -15,6 +15,7 @@ export function CopyLinkButton() {
    };
    return (
       <button
+         type="button"
          onClick={handleCopyLink}
          className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 px-6 py-2 rounded-xl font-semibold"
       >

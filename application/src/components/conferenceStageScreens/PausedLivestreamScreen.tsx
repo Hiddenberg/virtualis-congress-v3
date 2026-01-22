@@ -33,7 +33,7 @@ export default function PausedLivestreamScreen() {
    const isOverFiveMinutes = elapsedTime >= 300; // 5 minutes
 
    return (
-      <div className="flex flex-col justify-center items-center bg-gradient-to-br from-amber-50 to-orange-50 p-8 w-full aspect-video">
+      <div className="flex flex-col justify-center items-center bg-linear-to-br from-amber-50 to-orange-50 p-8 w-full aspect-video">
          <div className="space-y-8 mx-auto w-full max-w-lg text-center">
             <div className="flex flex-col items-center space-y-4">
                <div className="relative bg-amber-100 p-4 rounded-full">

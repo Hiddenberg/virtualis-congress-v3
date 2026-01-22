@@ -8,7 +8,7 @@ interface BuyRecordingsCardProps {
 export default function BuyRecordingsCard({ priceId }: BuyRecordingsCardProps) {
    return (
       <div className="mx-auto w-full max-w-3xl">
-         <div className="bg-gradient-to-br from-blue-50 to-white shadow-sm p-6 md:p-8 border border-blue-100 rounded-2xl">
+         <div className="bg-linear-to-br from-blue-50 to-white shadow-sm p-6 md:p-8 border border-blue-100 rounded-2xl">
             <div className="flex justify-center items-center gap-3 mb-4">
                <div className="flex justify-center items-center bg-blue-100 rounded-full w-12 h-12 text-blue-700">
                   <VideoIcon className="w-6 h-6" />

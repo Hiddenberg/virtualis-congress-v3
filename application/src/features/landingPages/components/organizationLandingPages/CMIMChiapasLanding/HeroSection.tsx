@@ -18,7 +18,7 @@ export default function HeroSection({
    userId,
 }: HeroSectionProps) {
    return (
-      <div className="relative bg-gradient-to-br from-blue-900 via-blue-700 to-cyan-600 min-h-dvh">
+      <div className="relative bg-linear-to-br from-blue-900 via-blue-700 to-cyan-600 min-h-dvh">
          {/* Subtle Background Elements */}
          <div className="absolute inset-0 opacity-50 w-full overflow-hidden">
             {Array.from({
@@ -107,7 +107,7 @@ export default function HeroSection({
                         <div className="mb-1 font-bold text-white text-2xl">30+</div>
                         <div className="font-medium text-cyan-200 text-sm">Ponencias</div>
                      </div>
-                     <div className="col-span-2 lg:col-span-1 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-sm p-4 border-2 border-cyan-300/30 rounded-xl">
+                     <div className="col-span-2 lg:col-span-1 bg-linear-to-br from-cyan-500/20 to-blue-500/20 backdrop-blur-sm p-4 border-2 border-cyan-300/30 rounded-xl">
                         <div className="flex items-center gap-2 mb-1">
                            <Users className="w-5 h-5 text-cyan-300" />
                            <div className="font-bold text-white text-lg">Híbrido</div>
@@ -131,7 +131,7 @@ export default function HeroSection({
 
                            <Link
                               href="/lobby"
-                              className="flex items-center gap-2 justify-center bg-white hover:bg-cyan-50 shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold text-blue-900 text-lg text-center hover:scale-105 transition-all duration-300 transform"
+                              className="flex justify-center items-center gap-2 bg-white hover:bg-cyan-50 shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold text-blue-900 text-lg text-center hover:scale-105 transition-all duration-300 transform"
                            >
                               <DoorOpenIcon className="w-5 h-5" />
                               Entrar con mi cuenta
@@ -153,7 +153,7 @@ export default function HeroSection({
                </div>
 
                {/* Right Column - Flyer Image (Main Focus) */}
-               <div className="flex justify-center sticky top-4 h-max w-full">
+               <div className="top-4 sticky flex justify-center w-full h-max">
                   <div className="group relative">
                      <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400 to-blue-400 opacity-30 group-hover:opacity-50 rounded-3xl transition duration-1000 group-hover:duration-200 blur" />
 

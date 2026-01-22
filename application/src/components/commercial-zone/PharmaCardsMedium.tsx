@@ -16,16 +16,17 @@ type CompanyCardProps = {
 function CompanyCard({ name, logo, backgroundColor, buttonColor, actions, textColor }: CompanyCardProps) {
    return (
       <div className={`rounded-lg p-6 ${backgroundColor} flex flex-col items-center grow`}>
-         <div className="bg-white rounded-lg p-4 mb-4">
+         <div className="bg-white mb-4 p-4 rounded-lg">
             <Image src={logo} alt={`${name} logo`} width={120} height={60} />
          </div>
          <h2 className={`text-2xl font-bold mb-1 ${buttonColor.replace("bg-", "text-")}`}>{name}</h2>
-         <Link href="#" className="text-sm text-blue-600 hover:underline mb-6">
+         <Link href="#" className="mb-6 text-blue-600 text-sm hover:underline">
             Ver más
          </Link>
-         {actions.map((action, index) => (
+         {actions.map((action) => (
             <button
-               key={index}
+               type="button"
+               key={`${name}-${action}`}
                className={`w-full py-2 px-4 rounded-lg text-${buttonColor.includes("white") ? "gray-800" : "white"} font-medium ${buttonColor} ${textColor} hover:opacity-90 transition-opacity mb-2`}
             >
                {action}
@@ -37,7 +38,7 @@ function CompanyCard({ name, logo, backgroundColor, buttonColor, actions, textCo
 
 export default function PharmaCardsMedium() {
    return (
-      <div className="flex gap-6 w-full mx-auto p-4">
+      <div className="flex gap-6 mx-auto p-4 w-full">
          <CompanyCard
             name="Johnson & Johnson"
             logo={jandjLogo}

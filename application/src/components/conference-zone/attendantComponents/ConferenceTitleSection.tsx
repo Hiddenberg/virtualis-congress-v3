@@ -52,7 +52,7 @@ export default function ConferenceTitleSection({
          {/* Conference Header */}
          <div className="flex items-start gap-4">
             {/* Conference Icon */}
-            <div className="flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-600 p-3 rounded-xl">
+            <div className="flex-shrink-0 bg-linear-to-br from-blue-500 to-blue-600 p-3 rounded-xl">
                <Users className="w-6 h-6 text-white" />
             </div>
 

@@ -20,7 +20,7 @@ export function encrypt(text: string) {
    const cipher = crypto.createCipheriv("aes-256-cbc", ENCRYPTION_KEY.substring(0, 32), iv);
    let encrypted = cipher.update(text, "utf8", "base64");
    encrypted += cipher.final("base64");
-   return iv.toString("base64") + ":" + encrypted;
+   return `${iv.toString("base64")}:${encrypted}`;
 }
 
 export function decrypt(encryptedText: string) {

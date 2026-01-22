@@ -22,6 +22,7 @@ export default function GoBackButton({ className = "", backURL, backButtonText, 
 
    return (
       <button
+         type="button"
          onClick={handleGoBack}
          className={`${className} flex justify-center items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg font-semibold text-gray-700 transition-colors duration-200`}
       >

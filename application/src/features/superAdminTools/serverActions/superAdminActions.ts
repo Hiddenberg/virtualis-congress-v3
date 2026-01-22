@@ -441,7 +441,7 @@ export async function sendNewEventDayAboutToStartEmailToAllUsersAction(
          };
       }
 
-      const eventDayNumber = parseInt(eventDayNumberString);
+      const eventDayNumber = parseInt(eventDayNumberString, 10);
 
       if (eventDayNumber < 1 || eventDayNumber > 6) {
          return {

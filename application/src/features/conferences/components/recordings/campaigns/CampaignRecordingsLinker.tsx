@@ -120,6 +120,7 @@ export default function CampaignRecordingsLinker({
                ) : (
                   campaigns.map((c) => (
                      <button
+                        type="button"
                         key={c.id}
                         onClick={() => setActiveCampaignId(c.id)}
                         className={`w-full text-left px-3 py-2 rounded-md transition-colors ${activeCampaignId === c.id ? "bg-blue-50 text-blue-700 ring-1 ring-blue-200" : "hover:bg-gray-50 text-gray-700"}`}
@@ -154,6 +155,7 @@ export default function CampaignRecordingsLinker({
                         </div>
                      </div>
                      <button
+                        type="button"
                         onClick={handleUnassign}
                         disabled={isSubmitting}
                         className="inline-flex items-center gap-1 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-md ring-1 ring-red-200 text-red-700 text-xs"
@@ -225,6 +227,7 @@ export default function CampaignRecordingsLinker({
 
             <div className="flex justify-end mt-4">
                <button
+                  type="button"
                   onClick={handleSave}
                   disabled={isSubmitting || (!toLink && !toUnlink)}
                   className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 px-4 py-2 rounded-md text-white text-sm"

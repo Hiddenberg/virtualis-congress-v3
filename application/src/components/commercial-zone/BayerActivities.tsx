@@ -8,13 +8,13 @@ type PromoCardProps = {
 
 function PromoCard({ title, description, icon }: PromoCardProps) {
    return (
-      <div className="bg-[#10384F] text-white rounded-3xl p-6 flex flex-col h-full">
+      <div className="flex flex-col bg-[#10384F] p-6 rounded-3xl h-full text-white">
          <div className="flex items-center mb-4">
-            <div className="bg-white p-2 rounded-full mr-4">{icon}</div>
-            <h2 className="text-xl font-bold">{title}</h2>
+            <div className="bg-white mr-4 p-2 rounded-full">{icon}</div>
+            <h2 className="font-bold text-xl">{title}</h2>
          </div>
-         <p className="flex-grow mb-4">{description}</p>
-         <button className="self-end bg-green-400 hover:bg-green-500 text-white rounded-full p-2 transition-colors">
+         <p className="mb-4 grow">{description}</p>
+         <button type="button" className="self-end bg-green-400 hover:bg-green-500 p-2 rounded-full text-white transition-colors">
             <ArrowRight className="w-6 h-6" />
          </button>
       </div>
@@ -23,7 +23,7 @@ function PromoCard({ title, description, icon }: PromoCardProps) {
 
 export default function BayerActivities() {
    return (
-      <div className="w-full mx-auto py-4">
+      <div className="mx-auto py-4 w-full">
          <div className="flex justify-between gap-10 mb-8">
             <PromoCard
                title="¡Descubre tus Descuentos Exclusivos!"
@@ -42,9 +42,12 @@ export default function BayerActivities() {
             />
          </div>
          <div className="text-center">
-            <button className="text-primary hover:text-primary-dark font-medium flex items-center justify-center mx-auto transition-colors">
+            <button
+               type="button"
+               className="flex justify-center items-center mx-auto font-medium text-primary hover:text-primary-dark transition-colors"
+            >
                Conocer más
-               <ChevronDown className="w-4 h-4 ml-1" />
+               <ChevronDown className="ml-1 w-4 h-4" />
             </button>
          </div>
       </div>

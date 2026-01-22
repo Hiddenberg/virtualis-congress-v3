@@ -23,13 +23,14 @@ function ConferenceNotification({ conferenceTitle, conferenceId }: ConferenceNot
    return (
       <div className="flex items-center gap-4 p-1 min-w-[320px]">
          <button
+            type="button"
             className="top-2 right-2 absolute hover:bg-gray-100 p-1.5 rounded-md text-gray-500"
             onClick={() => toast.dismiss()}
          >
             <XIcon strokeWidth={3} className="size-5 text-red-500" />
          </button>
          {/* Icon container with gradient background */}
-         <div className="bg-gradient-to-br from-blue-500 to-blue-600 shadow-md p-3 rounded-xl shrink-0">
+         <div className="bg-linear-to-br from-blue-500 to-blue-600 shadow-md p-3 rounded-xl shrink-0">
             <BellRingIcon className="size-4 text-white" />
          </div>
 

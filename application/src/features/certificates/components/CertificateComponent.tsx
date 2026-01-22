@@ -98,7 +98,7 @@ function CertificateDesignContainer({
    displayName: string;
 }) {
    // A4 aspect ratio is 1.414 (width:height), but for landscape it's the inverse
-   const { containerRef, dimensions } = useAspectRatio(1.414);
+   const { containerRef, dimensions } = useAspectRatio(Math.SQRT2);
    const [fontSize, setFontSize] = useState("24px");
    const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 

@@ -165,7 +165,7 @@ export default function StaggeredAuthSignupForm({
    };
 
    return (
-      <div className="flex justify-center items-center bg-gradient-to-br from-gray-50 to-gray-100 p-4 w-full min-h-screen">
+      <div className="flex justify-center items-center bg-linear-to-br from-gray-50 to-gray-100 p-4 w-full min-h-screen">
          <div className="bg-white shadow-xl p-8 md:p-10 border border-gray-200 rounded-2xl w-full max-w-lg">
             <ProgressIndicator currentStep={currentStep} totalSteps={2} />
             <StepHeader currentStep={currentStep} welcomeMessage={welcomeMessage} welcomeDescription={welcomeDescription} />

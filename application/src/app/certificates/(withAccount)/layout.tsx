@@ -16,7 +16,7 @@ export default async function CertificatesLayout({ children }: { children: React
    return (
       <div className="flex md:flex-row flex-col mx-auto max-w-screen-2xl h-full min-h-screen">
          {/* Mobile Menu Button - Only visible on mobile */}
-         <div className="md:hidden flex justify-between items-center bg-gradient-to-br from-[#DEEDFD] to-[#F1EAFB] p-4">
+         <div className="md:hidden flex justify-between items-center bg-linear-to-br from-[#DEEDFD] to-[#F1EAFB] p-4">
             <div className="flex items-center">
                <h1 className="font-bold text-indigo-700 text-xl leading-none">virtualis</h1>
                <p className="ml-2 font-light text-indigo-700 text-sm">Certificates</p>
@@ -27,7 +27,7 @@ export default async function CertificatesLayout({ children }: { children: React
          {/* Sidebar */}
          <aside
             id="sidebar"
-            className="hidden top-0 left-0 z-50 fixed md:relative md:flex flex-col bg-gradient-to-br from-[#DEEDFD] to-[#F1EAFB] shadow-md w-full md:w-64 h-screen md:h-auto"
+            className="hidden top-0 left-0 z-50 fixed md:relative md:flex flex-col bg-linear-to-br from-[#DEEDFD] to-[#F1EAFB] shadow-md w-full md:w-64 h-screen md:h-auto"
          >
             <div className="md:block flex justify-between items-center p-4 md:p-6">
                <div className="md:flex md:flex-col md:items-center md:mb-8">
@@ -91,7 +91,7 @@ export default async function CertificatesLayout({ children }: { children: React
          </aside>
 
          {/* Main Content */}
-         <main className="flex-1 bg-gradient-to-br from-[#D6E8FC] to-[#EDD9E9] overflow-auto">
+         <main className="flex-1 bg-linear-to-br from-[#D6E8FC] to-[#EDD9E9] overflow-auto">
             {/* Navigation */}
             <div className="flex sm:flex-row flex-col items-start sm:items-center gap-4 sm:gap-0 p-4 sm:p-6">
                <div className="flex items-center">

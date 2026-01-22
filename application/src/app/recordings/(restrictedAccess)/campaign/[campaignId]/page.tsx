@@ -98,7 +98,7 @@ function CampaignStats({ recordings }: { recordings: SimpleRecordingRecord[] }) 
                   </div>
                   <div className="bg-gray-200 rounded-full w-24 h-3">
                      <div
-                        className="bg-gradient-to-r from-green-500 to-green-600 rounded-full h-3 transition-all duration-500"
+                        className="bg-linear-to-r from-green-500 to-green-600 rounded-full h-3 transition-all duration-500"
                         style={{
                            width: `${completionRate}%`,
                         }}

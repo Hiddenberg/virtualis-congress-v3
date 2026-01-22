@@ -45,11 +45,11 @@ function Avatar({ src, name, size = "md" }: { src?: string; name: string; size?:
             // eslint-disable-next-line @next/next/no-img-element
             <img
                src={src || "/placeholder.svg"}
-               alt={`${name}'s photo`}
+               alt={`${name}`}
                className="w-full h-full object-cover"
                onError={(e) => {
                   e.currentTarget.style.display = "none";
-                  e.currentTarget.parentElement!.setAttribute("data-error", "true");
+                  e.currentTarget.parentElement?.setAttribute("data-error", "true");
                }}
             />
          ) : null}
@@ -145,6 +145,7 @@ function EmptyState() {
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                >
+                  <title>No hay ponentes registrados</title>
                   <path
                      strokeLinecap="round"
                      strokeLinejoin="round"
@@ -222,9 +223,9 @@ export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, e
             (speaker) =>
                speaker.name.toLowerCase().includes(query) ||
                speaker.email?.toLowerCase().includes(query) ||
-               (speaker.specialityDetails && speaker.specialityDetails.toLowerCase().includes(query)) ||
-               (speaker.phoneNumber && speaker.phoneNumber.includes(query)) ||
-               (speaker.bio && speaker.bio.toLowerCase().includes(query)),
+               speaker.specialityDetails?.toLowerCase().includes(query) ||
+               speaker.phoneNumber?.includes(query) ||
+               speaker.bio?.toLowerCase().includes(query),
          );
       }
 
@@ -276,6 +277,7 @@ export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, e
                <div className="flex items-center gap-2 ml-auto">
                   {exportable && (
                      <button
+                        type="button"
                         onClick={() => exportToCSV(filteredAndSortedSpeakers)}
                         className="inline-flex items-center bg-white hover:bg-gray-50 shadow-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-medium text-gray-700 text-sm leading-4"
                      >

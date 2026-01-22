@@ -22,7 +22,7 @@ function ReSendCodeButton({ handleSendOTP }: { handleSendOTP: () => void }) {
             handleSendOTP();
             setWasResent(true);
          }}
-         className="!bg-gray-100 hover:!bg-gray-200 disabled:bg-green-50 shadow-sm py-2.5 border disabled:border-green-200 border-blue-300 rounded-xl w-full font-semibold text-blue-800 disabled:text-green-600 text-sm transition-all duration-200"
+         className="!bg-gray-100 hover:!bg-gray-200 disabled:bg-green-50 shadow-sm py-2.5 border border-blue-300 disabled:border-green-200 rounded-xl w-full font-semibold text-blue-800 disabled:text-green-600 text-sm transition-all duration-200"
       >
          {wasResent ? "Enviado!" : "Reenviar código"}
       </Button>
@@ -111,7 +111,7 @@ function BirthdayLoginForm({
          </div>
 
          {/* Email reminder */}
-         <div className="bg-gradient-to-r from-blue-50 to-gray-50 p-4 border border-blue-200 rounded-xl">
+         <div className="bg-linear-to-r from-blue-50 to-gray-50 p-4 border border-blue-200 rounded-xl">
             <p className="text-gray-700 text-sm">
                Verificando acceso para: <strong className="text-blue-700">{email}</strong>
             </p>
@@ -154,7 +154,7 @@ function BirthdayLoginForm({
          <Button
             type="submit"
             disabled={!birthday || isLoading}
-            className="!bg-gradient-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+            className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
          >
             {isLoading ? (
                <div className="flex items-center gap-2">
@@ -268,7 +268,7 @@ function PhoneLoginForm({
          </div>
 
          {/* Email reminder */}
-         <div className="bg-gradient-to-r from-blue-50 to-gray-50 p-4 border border-blue-200 rounded-xl">
+         <div className="bg-linear-to-r from-blue-50 to-gray-50 p-4 border border-blue-200 rounded-xl">
             <p className="text-gray-700 text-sm">
                Verificando acceso para: <strong className="text-blue-700">{email}</strong>
             </p>
@@ -312,7 +312,7 @@ function PhoneLoginForm({
          <Button
             type="submit"
             disabled={!phoneNumber || isLoading}
-            className="!bg-gradient-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+            className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
          >
             {isLoading ? (
                <div className="flex items-center gap-2">
@@ -487,7 +487,7 @@ export default function StaggeredLoginForm() {
                   <Button
                      type="submit"
                      disabled={!otpCode || isValidatingOTP}
-                     className="!bg-gradient-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+                     className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
                   >
                      {isValidatingOTP ? (
                         <div className="flex items-center gap-2">
@@ -554,7 +554,7 @@ export default function StaggeredLoginForm() {
          <Button
             type="submit"
             disabled={!email || isSendingOTP}
-            className="!bg-gradient-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+            className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
          >
             {isSendingOTP ? (
                <div className="flex items-center gap-2">

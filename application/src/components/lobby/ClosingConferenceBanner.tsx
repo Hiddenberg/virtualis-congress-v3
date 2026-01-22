@@ -26,7 +26,7 @@ export default async function ClosingConferenceBanner() {
    return (
       <div className="flex justify-center mb-4 sm:mb-6 px-3 sm:px-4">
          <div className="w-full max-w-4xl">
-            <div className="relative bg-gradient-to-br from-purple-50 via-indigo-50 to-white shadow-lg p-4 sm:p-6 md:p-8 border border-purple-200 rounded-xl sm:rounded-2xl overflow-hidden">
+            <div className="relative bg-linear-to-br from-purple-50 via-indigo-50 to-white shadow-lg p-4 sm:p-6 md:p-8 border border-purple-200 rounded-xl sm:rounded-2xl overflow-hidden">
                {/* Decorative background elements */}
                <div className="top-0 right-0 absolute opacity-5">
                   <Play className="w-24 sm:w-32 md:w-40 h-24 sm:h-32 md:h-40 text-purple-600" />
@@ -56,7 +56,7 @@ export default async function ClosingConferenceBanner() {
 
                   {/* Date and Time Info */}
                   <div className="flex sm:flex-row flex-col justify-center items-stretch sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                     <div className="flex justify-center items-center gap-2 bg-gradient-to-r from-red-400 via-red-500 to-red-600 shadow-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg w-full sm:w-auto">
+                     <div className="flex justify-center items-center gap-2 bg-linear-to-r from-red-400 via-red-500 to-red-600 shadow-sm px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg w-full sm:w-auto">
                         <Radio className="w-4 sm:w-5 h-4 sm:h-5 text-white shrink-0" />
                         <span className="font-semibold text-white text-sm sm:text-base md:text-lg">En vivo</span>
                      </div>

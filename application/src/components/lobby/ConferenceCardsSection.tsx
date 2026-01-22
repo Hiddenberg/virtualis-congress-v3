@@ -28,7 +28,7 @@ function ConferenceCardsSection() {
 
             {/* Right Card */}
             {/* <CountdownCard date={new Date("2025-04-10T14:00:00.000Z")} /> */}
-            {/* <div className="bg-gradient-to-r from-[#008066] to-[#E5F3D2] rounded-xl md:w-1/3 overflow-hidden">
+            {/* <div className="bg-linear-to-r from-[#008066] to-[#E5F3D2] rounded-xl md:w-1/3 overflow-hidden">
                <div className="relative flex flex-col justify-between p-6 h-64">
                   <div className="top-4 right-4 absolute">
                      <div className="flex justify-center items-center bg-white bg-opacity-20 rounded-full w-12 h-12">

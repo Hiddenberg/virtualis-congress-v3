@@ -203,7 +203,7 @@ html,
 
 /* scope container utilities to the toolkit */
 .\!container {
-   width: 100% !important;
+   width: 100%;
 }
 
 .container {
@@ -212,7 +212,7 @@ html,
 
 @media (min-width: 640px) {
    .\!container {
-      max-width: 640px !important;
+      max-width: 640px;
    }
 
    .container {
@@ -222,7 +222,7 @@ html,
 
 @media (min-width: 768px) {
    .\!container {
-      max-width: 768px !important;
+      max-width: 768px;
    }
 
    .container {
@@ -232,7 +232,7 @@ html,
 
 @media (min-width: 1024px) {
    .\!container {
-      max-width: 1024px !important;
+      max-width: 1024px;
    }
 
    .container {
@@ -242,7 +242,7 @@ html,
 
 @media (min-width: 1280px) {
    .\!container {
-      max-width: 1280px !important;
+      max-width: 1280px;
    }
 
    .container {
@@ -252,7 +252,7 @@ html,
 
 @media (min-width: 1536px) {
    .\!container {
-      max-width: 1536px !important;
+      max-width: 1536px;
    }
 
    .container {
@@ -2128,7 +2128,7 @@ html,
    background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
-.zoom-ui-toolkit-root .bg-gradient-to-br {
+.zoom-ui-toolkit-root .bg-linear-to-br {
    background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
 
@@ -4140,7 +4140,7 @@ html,
 
 /* replace with scoped selector */
 .zoom-ui-toolkit-root .\!container {
-   width: 100% !important;
+   width: 100%;
 }
 
 /* replace with scoped selector */
@@ -4151,7 +4151,7 @@ html,
 @media (min-width: 640px) {
    /* replace with scoped selector */
    .zoom-ui-toolkit-root .\!container {
-      max-width: 640px !important;
+      max-width: 640px;
    }
 
    /* replace with scoped selector */
@@ -4163,7 +4163,7 @@ html,
 @media (min-width: 768px) {
    /* replace with scoped selector */
    .zoom-ui-toolkit-root .\!container {
-      max-width: 768px !important;
+      max-width: 768px;
    }
 
    /* replace with scoped selector */
@@ -4175,7 +4175,7 @@ html,
 @media (min-width: 1024px) {
    /* replace with scoped selector */
    .zoom-ui-toolkit-root .\!container {
-      max-width: 1024px !important;
+      max-width: 1024px;
    }
 
    /* replace with scoped selector */
@@ -4187,7 +4187,7 @@ html,
 @media (min-width: 1280px) {
    /* replace with scoped selector */
    .zoom-ui-toolkit-root .\!container {
-      max-width: 1280px !important;
+      max-width: 1280px;
    }
 
    /* replace with scoped selector */
@@ -4199,7 +4199,7 @@ html,
 @media (min-width: 1536px) {
    /* replace with scoped selector */
    .zoom-ui-toolkit-root .\!container {
-      max-width: 1536px !important;
+      max-width: 1536px;
    }
 
    /* replace with scoped selector */

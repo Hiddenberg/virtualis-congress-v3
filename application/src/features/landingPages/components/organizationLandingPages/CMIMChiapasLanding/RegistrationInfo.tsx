@@ -174,7 +174,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                               className="flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300"
                            >
                               <div
-                                 className={`w-12 h-12 bg-gradient-to-br ${tier.color} rounded-full flex items-center justify-center mb-4`}
+                                 className={`w-12 h-12 bg-linear-to-br ${tier.color} rounded-full flex items-center justify-center mb-4`}
                               >
                                  <IconComponent className="w-6 h-6 text-white" />
                               </div>
@@ -196,7 +196,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                <div className="mb-12">
                   <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">Modalidad Virtual</h3>
                   <div className="mx-auto max-w-md">
-                     <div className="relative bg-gradient-to-br from-pink-50 to-rose-50 p-8 border-2 border-pink-200 rounded-2xl">
+                     <div className="relative bg-linear-to-br from-pink-50 to-rose-50 p-8 border-2 border-pink-200 rounded-2xl">
                         {/* Background decoration */}
                         <div className="top-4 right-4 absolute opacity-10">
                            <Wifi className="w-16 h-16 text-pink-600" />
@@ -209,7 +209,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
 
                         <div className="z-10 relative text-center">
                            <div
-                              className={`w-16 h-16 bg-gradient-to-br ${virtualTier.color} rounded-full flex items-center justify-center mx-auto mb-4`}
+                              className={`w-16 h-16 bg-linear-to-br ${virtualTier.color} rounded-full flex items-center justify-center mx-auto mb-4`}
                            >
                               <Video className="w-8 h-8 text-white" />
                            </div>
@@ -261,7 +261,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                               </div>
                            )}
                            <div
-                              className={`w-12 h-12 bg-gradient-to-br ${tier.color} rounded-full flex items-center justify-center mb-4`}
+                              className={`w-12 h-12 bg-linear-to-br ${tier.color} rounded-full flex items-center justify-center mb-4`}
                            >
                               <IconComponent className="w-6 h-6 text-white" />
                            </div>

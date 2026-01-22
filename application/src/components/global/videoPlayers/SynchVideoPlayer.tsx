@@ -220,6 +220,7 @@ function UnifiedControlsBar({
                {/* Playback controls */}
                <div className="flex items-center space-x-4">
                   <button
+                     type="button"
                      className="hover:bg-gray-200 p-2 border rounded-full transition-colors"
                      onClick={handleSkipBackward}
                      aria-label="Skip backward 10 seconds"
@@ -229,6 +230,7 @@ function UnifiedControlsBar({
 
                   {isPlaying ? (
                      <button
+                        type="button"
                         className="bg-white hover:bg-gray-100 p-3 border rounded-full transition-colors"
                         onClick={handlePause}
                         aria-label="Pause"
@@ -237,6 +239,7 @@ function UnifiedControlsBar({
                      </button>
                   ) : (
                      <button
+                        type="button"
                         className="bg-white hover:bg-gray-100 p-3 border rounded-full transition-colors"
                         onClick={handlePlay}
                         aria-label="Play"
@@ -246,6 +249,7 @@ function UnifiedControlsBar({
                   )}
 
                   <button
+                     type="button"
                      className="hover:bg-gray-200 p-2 border rounded-full transition-colors"
                      onClick={handleSkipForward}
                      aria-label="Skip forward 10 seconds"

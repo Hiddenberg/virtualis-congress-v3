@@ -41,7 +41,7 @@ export default function StepOne({ email, name, errors, onEmailChange, onNameChan
          <button
             type="button"
             onClick={onNext}
-            className="flex justify-center items-center space-x-3 bg-gradient-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-6 py-4 rounded-xl w-full font-bold text-white transition-all hover:-translate-y-0.5 duration-200"
+            className="flex justify-center items-center space-x-3 bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-6 py-4 rounded-xl w-full font-bold text-white transition-all hover:-translate-y-0.5 duration-200"
          >
             <span>Continuar</span>
             <ArrowRight className="w-5 h-5" />

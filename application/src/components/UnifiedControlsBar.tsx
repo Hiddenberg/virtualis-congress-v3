@@ -212,6 +212,7 @@ export function UnifiedControlsBar({ playerRefs, title, containerRef, isSmall = 
             <div className="flex flex-1 justify-center">
                {isPlaying ? (
                   <button
+                     type="button"
                      className={`bg-black hover:bg-gray-800 shadow-lg rounded-full focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2 text-white hover:scale-105 transition-all duration-200 ${isSmall ? "p-2" : "p-3"}`}
                      onClick={handlePause}
                      aria-label="Pause"
@@ -221,6 +222,7 @@ export function UnifiedControlsBar({ playerRefs, title, containerRef, isSmall = 
                   </button>
                ) : (
                   <button
+                     type="button"
                      className={`bg-black hover:bg-gray-800 shadow-lg rounded-full focus:outline-none focus:ring-2 focus:ring-black/20 focus:ring-offset-2 text-white hover:scale-105 transition-all duration-200 ${isSmall ? "p-2" : "p-3"}`}
                      onClick={handlePlay}
                      aria-label="Play"
@@ -234,6 +236,7 @@ export function UnifiedControlsBar({ playerRefs, title, containerRef, isSmall = 
             {/* Fullscreen button */}
             <div className="flex justify-end">
                <button
+                  type="button"
                   className={`hover:bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 text-gray-600 hover:text-gray-800 transition-all duration-200 ${isSmall ? "p-1.5" : "p-2.5"}`}
                   onClick={toggleFullscreen}
                   aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}

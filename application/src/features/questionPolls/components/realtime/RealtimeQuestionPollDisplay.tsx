@@ -80,7 +80,7 @@ export default function RealtimeQuestionPollDisplay() {
    }
 
    return (
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 shadow-xl mx-auto p-8 rounded-2xl w-full max-w-4xl">
+      <div className="bg-linear-to-br from-blue-50 to-indigo-100 shadow-xl mx-auto p-8 rounded-2xl w-full max-w-4xl">
          <div className="mb-8 text-center">
             <div className="inline-flex items-center gap-3 bg-white/80 shadow-sm backdrop-blur-sm mb-4 px-6 py-3 rounded-full">
                <BarChart3 className="w-6 h-6 text-blue-600" />
@@ -121,9 +121,7 @@ export default function RealtimeQuestionPollDisplay() {
                      <div className="relative bg-gray-200 rounded-full h-4 overflow-hidden">
                         <div
                            className={`absolute top-0 left-0 h-full rounded-full transition-all duration-1000 ease-out ${
-                              isLeading
-                                 ? "bg-gradient-to-r from-blue-500 to-blue-600"
-                                 : "bg-gradient-to-r from-gray-400 to-gray-500"
+                              isLeading ? "bg-linear-to-r from-blue-500 to-blue-600" : "bg-linear-to-r from-gray-400 to-gray-500"
                            }`}
                            style={{
                               width: `${result.percentage}%`,

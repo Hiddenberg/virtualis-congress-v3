@@ -17,7 +17,10 @@ export default function SessionHeader() {
             <div className="inline-flex items-center gap-2 bg-gray-100 ml-auto px-3 py-1 rounded-full text-gray-700 text-xs">
                <Eye size={14} /> 657
             </div>
-            <button className="bg-gray-900 hover:brightness-110 px-4 py-2 rounded-lg font-medium text-white text-sm">
+            <button
+               type="button"
+               className="bg-gray-900 hover:brightness-110 px-4 py-2 rounded-lg font-medium text-white text-sm"
+            >
                Ver CV
             </button>
          </div>

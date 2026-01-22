@@ -21,7 +21,7 @@ export default function CountdownCard({
 
    useEffect(() => {
       const timer = setInterval(() => {
-         const now = new Date().getTime();
+         const now = Date.now();
          const distance =
             new Date(date) // Convert ISO string to Date
                .getTime() - now;
@@ -82,7 +82,7 @@ export default function CountdownCard({
          {/* Countdown Card */}
          <div className="bg-white shadow-lg border border-slate-200 rounded-2xl overflow-hidden">
             {/* Card Header */}
-            <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 border-slate-200 border-b">
+            <div className="bg-linear-to-r from-slate-50 to-slate-100 px-6 py-4 border-slate-200 border-b">
                <p className="font-medium text-slate-700 text-center">Tiempo restante para el inicio</p>
             </div>
 
@@ -121,7 +121,7 @@ export default function CountdownCard({
 
                   {/* Seconds */}
                   <div className="text-center">
-                     <div className="bg-gradient-to-br from-slate-100 to-slate-200 hover:shadow-md mb-3 p-4 md:p-6 border border-slate-300 rounded-xl transition-all">
+                     <div className="bg-linear-to-br from-slate-100 to-slate-200 hover:shadow-md mb-3 p-4 md:p-6 border border-slate-300 rounded-xl transition-all">
                         <div className="font-mono font-bold text-slate-800 text-3xl md:text-4xl lg:text-5xl animate-pulse">
                            {formatNumber(timeLeft.seconds)}
                         </div>

@@ -86,6 +86,7 @@ export default function AttendantConferenceViewer({
          <div className="flex flex-wrap justify-center gap-2">
             {featureButtons.map(({ key, label, icon: Icon, onClick }) => (
                <button
+                  type="button"
                   key={key}
                   onClick={onClick}
                   className="bg-blue-50 hover:bg-blue-100 px-3 py-2 border border-blue-200 rounded-xl font-medium text-blue-700 text-sm transition-colors"
@@ -135,6 +136,7 @@ export default function AttendantConferenceViewer({
                               </span>
                            </div>
                            <button
+                              type="button"
                               className="hover:bg-gray-100 p-1.5 rounded-md text-gray-500"
                               onClick={() => setActiveOverlay(null)}
                               aria-label="Cerrar panel"

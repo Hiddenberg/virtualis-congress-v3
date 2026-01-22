@@ -53,11 +53,11 @@ export default async function RegistrationConfirmedPage() {
    const nextSteps = organizationNextSteps[organization.shortID] ?? [];
 
    return (
-      <div className="flex justify-center items-center bg-gradient-to-br from-gray-50 to-gray-100 p-2 sm:p-4 w-full min-h-screen">
+      <div className="flex justify-center items-center bg-linear-to-br from-gray-50 to-gray-100 p-2 sm:p-4 w-full min-h-screen">
          <div className="bg-white shadow-xl p-4 sm:p-6 md:p-8 lg:p-10 border border-gray-200 rounded-xl sm:rounded-2xl w-full max-w-2xl">
             {/* Success Icon */}
             <div className="space-y-2 mb-4 sm:mb-8 text-center">
-               <div className="inline-flex justify-center items-center bg-gradient-to-br from-green-500 to-green-600 mb-2 sm:mb-6 rounded-full size-14 md:size-18">
+               <div className="inline-flex justify-center items-center bg-linear-to-br from-green-500 to-green-600 mb-2 sm:mb-6 rounded-full size-14 md:size-18">
                   <CheckCircle className="size-8 md:size-12 text-white" />
                </div>
 

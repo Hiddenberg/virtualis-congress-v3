@@ -94,7 +94,7 @@ export default function RealtimeQuestionPollCompactDisplay() {
                   </div>
                   <div className="bg-slate-200/80 shadow-inner rounded-full h-2.5 overflow-hidden">
                      <div
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 shadow-sm rounded-full h-full transition-all duration-500 ease-out"
+                        className="bg-linear-to-r from-blue-500 to-blue-600 shadow-sm rounded-full h-full transition-all duration-500 ease-out"
                         style={{
                            width: `${r.pct}%`,
                         }}

@@ -58,7 +58,7 @@ export async function assignQnALivestreamSessionsToAllConferencesAction() {
                conferenceId: conference.id,
                livestreamSessionId: livestreamSession.id,
                muxLivestreamId: muxLiveStream.id,
-               livestreamPlaybackId: muxLiveStream.playback_ids![0].id,
+               livestreamPlaybackId: muxLiveStream.playback_ids?.[0].id,
                streamKey: muxLiveStream.stream_key,
             });
 

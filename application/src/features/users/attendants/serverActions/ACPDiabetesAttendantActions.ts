@@ -21,7 +21,7 @@ export async function validateACPIDAction({ acpID }: { acpID: string }): Promise
       return {
          success: true,
          data: {
-            isValid: acpData ? true : false,
+            isValid: !!acpData,
          },
       };
    } catch (error) {

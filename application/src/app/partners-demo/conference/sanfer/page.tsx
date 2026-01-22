@@ -7,7 +7,7 @@ import { SanferHeader } from "@/components/partners-demo/lobby/Hero";
 
 export default function SanferConferencePage() {
    return (
-      <div className="flex flex-col gap-4 bg-gradient-to-br px-6 md:px-10 py-6 pt-0 pb-10">
+      <div className="flex flex-col gap-4 bg-linear-to-br px-6 md:px-10 py-6 pt-0 pb-10">
          <SanferHeader />
          <div className="gap-4 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px]">
             <div>

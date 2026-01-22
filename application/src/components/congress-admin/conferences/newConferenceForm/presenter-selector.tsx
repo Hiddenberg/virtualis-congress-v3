@@ -88,10 +88,7 @@ export function PresenterSelector({ presenters, selectedId, onChange, required =
             </div>
 
             {isOpen && (
-               <ul
-                  className="z-10 absolute bg-white ring-opacity-5 shadow-lg mt-1 py-1 rounded-md focus:outline-none ring-1 ring-black w-full max-h-60 overflow-auto"
-                  role="listbox"
-               >
+               <ul className="z-10 absolute bg-white ring-opacity-5 shadow-lg mt-1 py-1 rounded-md focus:outline-none ring-1 ring-black w-full max-h-60 overflow-auto">
                   <div className="top-0 sticky bg-white px-3 py-2 border-b" onClick={handleSearchClick}>
                      <div className="relative">
                         <Search className="top-1/2 left-2 absolute w-4 h-4 text-gray-400 -translate-y-1/2 transform" />
@@ -109,7 +106,6 @@ export function PresenterSelector({ presenters, selectedId, onChange, required =
                      filteredPresenters.map((presenter) => (
                         <li
                            key={presenter.id}
-                           role="option"
                            aria-selected={selectedId === presenter.id}
                            onClick={() => handlePresenterSelect(presenter.id)}
                            className={`flex cursor-pointer items-center justify-between px-3 py-2 hover:bg-blue-50 ${

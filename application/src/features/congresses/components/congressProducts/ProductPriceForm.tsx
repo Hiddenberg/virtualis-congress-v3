@@ -89,7 +89,7 @@ export default function ProductPriceForm({ productId }: { productId: CongressPro
          }
       } else if (name === "priceAmount") {
          const numValue = parseFloat(value);
-         setPriceFormData({ ...priceFormData, [name]: isNaN(numValue) ? 0 : numValue });
+         setPriceFormData({ ...priceFormData, [name]: Number.isNaN(numValue) ? 0 : numValue });
       } else {
          setPriceFormData({ ...priceFormData, [name]: value });
       }

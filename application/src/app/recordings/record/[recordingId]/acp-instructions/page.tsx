@@ -6,7 +6,7 @@ export default async function AcpInstructionsPage({ params }: { params: Promise<
    const { recordingId } = await params;
 
    return (
-      <div className="bg-gradient-to-br from-green-50 to-emerald-50 py-8 min-h-screen">
+      <div className="bg-linear-to-br from-green-50 to-emerald-50 py-8 min-h-screen">
          <div className="mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
             {/* Header */}
             <div className="mb-8 text-center">

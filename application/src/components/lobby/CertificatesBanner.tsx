@@ -4,7 +4,7 @@ import { LinkButton } from "@/components/global/Buttons";
 
 export default function CertificatesBanner() {
    return (
-      <div className="relative bg-gradient-to-r from-gray-100 to-gray-50 shadow-md px-4 sm:px-6 md:px-8 py-6 sm:py-8 border-2 border-purple-500 rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden">
+      <div className="relative bg-linear-to-r from-gray-100 to-gray-50 shadow-md px-4 sm:px-6 md:px-8 py-6 sm:py-8 border-2 border-purple-500 rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden">
          <div
             className="absolute inset-0 pointer-events-none"
             style={{

@@ -6,7 +6,7 @@ export async function getZoomSignature(sessionName: string, userIdentity: string
       throw new Error("Missing Zoom SDK credentials");
    }
 
-   const issuedAt = Math.round(new Date().getTime() / 1000) - 30;
+   const issuedAt = Math.round(Date.now() / 1000) - 30;
    const exp = issuedAt + 60 * 60 * 2;
    const tokenHeader = {
       alg: "HS256",
