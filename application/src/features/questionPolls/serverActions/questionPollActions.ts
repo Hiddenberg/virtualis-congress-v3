@@ -126,9 +126,15 @@ export async function deleteQuestionPollAction({
       // Batch delete: answers, options, links, then poll itself
       const batch = dbBatch();
 
-      answerRecords.forEach((r) => batch.collection(PB_COLLECTIONS.QUESTION_POLL_ANSWERS).delete(r.id));
-      optionRecords.forEach((r) => batch.collection(PB_COLLECTIONS.QUESTION_POLL_OPTIONS).delete(r.id));
-      linkRecords.forEach((r) => batch.collection(PB_COLLECTIONS.CONFERENCE_QUESTION_POLLS).delete(r.id));
+      for (const r of answerRecords) {
+         batch.collection(PB_COLLECTIONS.QUESTION_POLL_ANSWERS).delete(r.id);
+      }
+      for (const r of optionRecords) {
+         batch.collection(PB_COLLECTIONS.QUESTION_POLL_OPTIONS).delete(r.id);
+      }
+      for (const r of linkRecords) {
+         batch.collection(PB_COLLECTIONS.CONFERENCE_QUESTION_POLLS).delete(r.id);
+      }
       batch.collection(PB_COLLECTIONS.QUESTION_POLLS).delete(pollId);
 
       await batch.send();

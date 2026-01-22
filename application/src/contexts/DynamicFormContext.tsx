@@ -8,7 +8,8 @@ function useDynamicFormState(formSteps: FormSection[]) {
    const [currentFormSection, setCurrentFormSection] = useState(0);
    const [inputValues, setInputValues] = useState<DynamicFormInput[]>(() => {
       return formSteps.reduce((prev, formSection) => {
-         return [...prev, ...formSection.questions];
+         prev.push(...formSection.questions);
+         return prev;
       }, [] as DynamicFormInput[]);
    });
    const [cmimFile, setCMIMFile] = useState<File | null>(null);
@@ -47,12 +48,13 @@ function useDynamicFormState(formSteps: FormSection[]) {
    );
 
    const getInputValuesObject = useCallback(() => {
-      const inputValuesObject: Record<string, InputValueType> = inputValues.reduce((prev, input) => {
-         return {
-            ...prev,
-            [input.name]: input.value ?? null,
-         };
-      }, {});
+      const inputValuesObject: Record<string, InputValueType> = inputValues.reduce(
+         (prev, input) => {
+            prev[input.name] = input.value ?? null;
+            return prev;
+         },
+         {} as Record<string, InputValueType>,
+      );
 
       return inputValuesObject;
    }, [inputValues]);

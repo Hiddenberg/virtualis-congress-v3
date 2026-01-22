@@ -14,8 +14,8 @@ if (!STRIPE_CANCEL_URL) {
 
 export async function createSinglePaymentCheckoutSession(priceId: string) {
    const checkoutSession = await stripe.checkout.sessions.create({
-      success_url: STRIPE_SUCCESS_URL!,
-      cancel_url: STRIPE_CANCEL_URL!,
+      success_url: STRIPE_SUCCESS_URL,
+      cancel_url: STRIPE_CANCEL_URL,
       line_items: [
          {
             price: priceId,
@@ -37,8 +37,8 @@ export async function createBankPaymentCheckoutSession(priceId: string, customer
    }
 
    const checkoutSession = await stripe.checkout.sessions.create({
-      success_url: STRIPE_SUCCESS_URL!,
-      cancel_url: STRIPE_CANCEL_URL!,
+      success_url: STRIPE_SUCCESS_URL,
+      cancel_url: STRIPE_CANCEL_URL,
       line_items: [
          {
             price: priceId,
@@ -120,7 +120,7 @@ export async function getPromotionCodesUsed(checkoutSession: Stripe.Checkout.Ses
       throw new Error("No se encontró line items");
    }
 
-   const discountObjects = lineItems.data[0].discounts!;
+   const discountObjects = lineItems.data[0].discounts ?? [];
 
    const promotionCodesUsed = [];
    for (const discountObject of discountObjects) {

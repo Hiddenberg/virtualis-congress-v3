@@ -13,8 +13,12 @@ export default function RealtimeQuestionPollCompactDisplay() {
 
    const results = useMemo(() => {
       const map = new Map<string, number>();
-      questionPollOptions.forEach((o) => map.set(o.id, 0));
-      questionPollAnswers.forEach((a) => map.set(a.optionSelected, (map.get(a.optionSelected) ?? 0) + 1));
+      for (const o of questionPollOptions) {
+         map.set(o.id, 0);
+      }
+      for (const a of questionPollAnswers) {
+         map.set(a.optionSelected, (map.get(a.optionSelected) ?? 0) + 1);
+      }
 
       return questionPollOptions.map((o) => {
          const votes = map.get(o.id) ?? 0;

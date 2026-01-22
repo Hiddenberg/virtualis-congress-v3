@@ -78,7 +78,7 @@ export default async function ReviewRecordingPage({ params }: { params: Promise<
                         {(recording.recordingType === "only_camera" ||
                            (recording.recordingType === "camera_and_presentation" && !presentationRecording)) && (
                            <MuxPlayer
-                              className="w-full h-full !aspect-video"
+                              className="w-full h-full aspect-video!"
                               playbackId={recording.muxPlaybackId}
                               metadata={{
                                  title: recording.title,
@@ -94,7 +94,7 @@ export default async function ReviewRecordingPage({ params }: { params: Promise<
                            <PresentationAndVideoPlayer
                               muxPlaybackId={recording.muxPlaybackId || ""}
                               presentationSlides={presentationSlides}
-                              presentationRecording={presentationRecording!}
+                              presentationRecording={presentationRecording}
                            />
                         )}
                      </div>

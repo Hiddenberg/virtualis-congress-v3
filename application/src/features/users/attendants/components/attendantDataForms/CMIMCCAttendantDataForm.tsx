@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: false positive */
 "use client";
 
 import {
@@ -348,7 +348,9 @@ export default function CMIMCCAttendantDataForm() {
                               <FileText className="w-6 sm:w-7 md:w-8 h-6 sm:h-7 md:h-8 text-green-600" />
                            </div>
                            <div>
-                              <p className="font-semibold text-green-800 text-sm sm:text-base break-words">{selectedFile.name}</p>
+                              <p className="font-semibold text-green-800 text-sm sm:text-base wrap-break-word">
+                                 {selectedFile.name}
+                              </p>
                               <p className="text-green-600 text-xs sm:text-sm">
                                  {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                               </p>
@@ -436,7 +438,7 @@ export default function CMIMCCAttendantDataForm() {
                <Button
                   disabled={selectedRoleData?.requiresVerification && !selectedFile}
                   loading={isSubmitting}
-                  className="bg-linear-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl !w-full font-bold text-white disabled:text-white text-base sm:text-lg transition-all duration-300 disabled:cursor-not-allowed transform"
+                  className="bg-linear-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl w-full! font-bold text-white disabled:text-white text-base sm:text-lg transition-all duration-300 disabled:cursor-not-allowed transform"
                   onClick={handleSubmitt}
                >
                   {selectedRoleData?.requiresVerification && !selectedFile

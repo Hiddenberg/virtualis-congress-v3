@@ -52,8 +52,9 @@ export default function EmailStatusItem({ trackedEmail }: EmailStatusItemProps) 
    const StatusIcon = status.icon;
 
    return (
-      <div
-         className={`${status.bgColor} border ${status.borderColor} rounded-lg overflow-hidden transition-all duration-200 hover:shadow-sm cursor-pointer`}
+      <button
+         type="button"
+         className={`w-full text-left ${status.bgColor} border ${status.borderColor} rounded-lg overflow-hidden transition-all duration-200 hover:shadow-sm cursor-pointer`}
          onClick={() => setIsExpanded(!isExpanded)}
       >
          {/* Compact View - Always Visible */}
@@ -122,6 +123,6 @@ export default function EmailStatusItem({ trackedEmail }: EmailStatusItemProps) 
                </div>
             </div>
          )}
-      </div>
+      </button>
    );
 }

@@ -44,8 +44,11 @@ export default function QuestionPollForm({ conferenceId }: { conferenceId: Congr
    return (
       <form onSubmit={handleSubmit} className="space-y-6">
          <div>
-            <label className="block mb-2 font-medium text-gray-900 text-sm">Pregunta</label>
+            <label htmlFor="question" className="block mb-2 font-medium text-gray-900 text-sm">
+               Pregunta
+            </label>
             <textarea
+               id="question"
                value={question}
                onChange={(e) => setQuestion(e.target.value)}
                placeholder="Escribe la pregunta de la encuesta"
@@ -55,12 +58,15 @@ export default function QuestionPollForm({ conferenceId }: { conferenceId: Congr
          </div>
 
          <div>
-            <label className="block mb-2 font-medium text-gray-900 text-sm">Opciones</label>
+            <label htmlFor="options" className="block mb-2 font-medium text-gray-900 text-sm">
+               Opciones
+            </label>
             <div className="space-y-3">
                {options.map((opt, index) => (
                   <div key={nanoid()} className="flex items-center gap-2">
                      <input
                         type="text"
+                        id={`option-${index}`}
                         value={opt}
                         onChange={(e) => updateOption(index, e.target.value)}
                         placeholder={`Opción ${index + 1}`}

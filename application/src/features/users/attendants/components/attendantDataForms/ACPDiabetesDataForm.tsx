@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: false positive */
 "use client";
 
 import {

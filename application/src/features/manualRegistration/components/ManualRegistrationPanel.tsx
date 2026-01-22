@@ -2,7 +2,7 @@
 
 import { AlertCircle, CheckCircle, CreditCard, Plus, Search, User, Users } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useEffect, useId, useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
@@ -176,6 +176,9 @@ function PaymentSection({
    congress: CongressRecord;
 }) {
    const isPaidSelected = !!selectedInfo?.hasPaid;
+   const amountId = useId();
+   const discountId = useId();
+   const currencyId = useId();
 
    const modalityOptions =
       congress.modality === "online"
@@ -216,7 +219,7 @@ function PaymentSection({
          <div className="space-y-6 p-6">
             {/* Usuario Seleccionado */}
             <div>
-               <label className="block mb-2 font-medium text-gray-700 text-sm">Usuario Seleccionado</label>
+               <div className="block mb-2 font-medium text-gray-700 text-sm">Usuario Seleccionado</div>
                <div className="bg-gray-50 p-4 border rounded-lg">
                   {selectedUser ? (
                      <div className="flex items-center gap-3">
@@ -247,7 +250,7 @@ function PaymentSection({
 
             {/* Modalidad */}
             <div>
-               <label className="block mb-3 font-medium text-gray-700 text-sm">Modalidad de Asistencia</label>
+               <div className="block mb-3 font-medium text-gray-700 text-sm">Modalidad de Asistencia</div>
                <div className="gap-3 grid grid-cols-1 sm:grid-cols-3">
                   {modalityOptions.map((option) => (
                      <button
@@ -296,8 +299,11 @@ function PaymentSection({
             {/* Montos */}
             <div className="gap-4 grid grid-cols-1 sm:grid-cols-3">
                <div className="sm:col-span-2">
-                  <label className="block mb-2 font-medium text-gray-700 text-sm">Monto Total</label>
+                  <label htmlFor={amountId} className="block mb-2 font-medium text-gray-700 text-sm">
+                     Monto Total
+                  </label>
                   <input
+                     id={amountId}
                      inputMode="decimal"
                      value={amount}
                      onChange={(e) => setAmount(e.target.value)}
@@ -306,8 +312,11 @@ function PaymentSection({
                   />
                </div>
                <div>
-                  <label className="block mb-2 font-medium text-gray-700 text-sm">Descuento</label>
+                  <label htmlFor={discountId} className="block mb-2 font-medium text-gray-700 text-sm">
+                     Descuento
+                  </label>
                   <input
+                     id={discountId}
                      inputMode="decimal"
                      value={discount}
                      onChange={(e) => setDiscount(e.target.value)}
@@ -319,8 +328,11 @@ function PaymentSection({
 
             {/* Moneda */}
             <div>
-               <label className="block mb-2 font-medium text-gray-700 text-sm">Moneda</label>
+               <label htmlFor={currencyId} className="block mb-2 font-medium text-gray-700 text-sm">
+                  Moneda
+               </label>
                <select
+                  id={currencyId}
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
                   className="px-4 py-3 border border-gray-300 focus:border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 w-full transition-colors"

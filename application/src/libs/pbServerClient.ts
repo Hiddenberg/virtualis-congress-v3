@@ -13,6 +13,6 @@ if (!process.env.PB_SERVER_TOKEN) {
 const pbServerClient = new Pocketbase(process.env.POCKETBASE_SERVER_URL);
 
 pbServerClient.autoCancellation(false);
-pbServerClient.authStore.save(process.env.PB_SERVER_TOKEN!);
+pbServerClient.authStore.save(process.env.PB_SERVER_TOKEN);
 
 export default pbServerClient;

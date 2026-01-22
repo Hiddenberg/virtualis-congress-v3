@@ -159,7 +159,7 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
                   </div>
 
                   <div className="space-y-4 max-h-[80dvh] overflow-y-auto">
-                     {currentConferences.map((conference, index) => (
+                     {currentConferences.map((conference) => (
                         <ConferenceItem key={conference.title} {...conference} isBreak={isBreakSession(conference.title)} />
                      ))}
                   </div>

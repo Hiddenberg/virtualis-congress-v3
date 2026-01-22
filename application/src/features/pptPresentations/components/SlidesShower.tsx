@@ -221,6 +221,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
 
                {/* Next button */}
                <button
+                  type="button"
                   onClick={goToNextSlide}
                   className="right-4 z-10 absolute bg-black/50 hover:bg-black/70 p-3 rounded-full text-white hover:scale-110 transition-all duration-200"
                   disabled={slideImages.length <= 1}
@@ -243,7 +244,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                      }`}
                   >
                      <img src={slide.url} alt={`Miniatura ${index + 1}`} className="w-24 h-16 object-cover" />
-                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+                     <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
                         <span className="bottom-1 left-1 absolute font-medium text-white text-xs">{index + 1}</span>
                      </div>
                      {index === currentSlide && (

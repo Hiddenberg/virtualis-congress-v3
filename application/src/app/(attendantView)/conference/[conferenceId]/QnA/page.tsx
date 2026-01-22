@@ -16,10 +16,18 @@ export default async function AttendantConferenceQnAPage({ params }: { params: P
    const conferenceRecording = await getConferenceRecording(conferenceId);
    const conferenceQnaLivestreamSession = await getConferenceQnASession(conferenceId);
 
+   if (!conference) {
+      return (
+         <div>
+            <h1>Conferencia no encontrada</h1>
+         </div>
+      );
+   }
+
    return (
       <AttendantConferenceViewer
          conferencePresentationId={conferencePresentation}
-         conference={conference!}
+         conference={conference}
          conferenceRecording={conferenceRecording}
          conferenceQuestionPollId={conferenceQuestionPoll?.id ?? null}
          serverTime={new Date().toISOString()}

@@ -81,7 +81,14 @@ export default function RecordingActions({
          )}
 
          {/* Click Outside to Close */}
-         {showMoreActions && <div className="z-[5] fixed inset-0" onClick={() => setShowMoreActions(false)} />}
+         {showMoreActions && (
+            <button
+               type="button"
+               className="z-5 fixed inset-0 bg-transparent p-0 border-0 cursor-default"
+               onClick={() => setShowMoreActions(false)}
+               aria-label="Cerrar menú de acciones"
+            />
+         )}
       </div>
    );
 }

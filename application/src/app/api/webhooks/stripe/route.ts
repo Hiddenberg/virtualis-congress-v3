@@ -1,3 +1,4 @@
+import type Stripe from "stripe";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { createFulfillmentErrorRecord } from "@/features/organizationPayments/services/fulfillmentErrorLoggerServices";
 import {
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
       });
    }
 
-   let event;
+   let event: Stripe.Event | null = null;
    try {
       event = stripe.webhooks.constructEvent(body, signature, credentials.webhookSecret);
    } catch (err) {

@@ -30,7 +30,9 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
    const stopStream = useCallback(() => {
       const activeStream = streamRef.current;
       if (!activeStream) return;
-      activeStream.getTracks().forEach((track) => track.stop());
+      for (const track of activeStream.getTracks()) {
+         track.stop();
+      }
       streamRef.current = null;
    }, []);
 

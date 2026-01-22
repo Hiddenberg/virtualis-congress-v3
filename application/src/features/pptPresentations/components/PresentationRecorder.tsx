@@ -158,6 +158,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
 
                {/* Next button */}
                <button
+                  type="button"
                   onClick={goToNextSlide}
                   className="right-4 z-10 absolute bg-black/50 hover:bg-black/70 p-3 rounded-full text-white hover:scale-110 transition-all duration-200"
                   disabled={presentationSlides.length <= 1}

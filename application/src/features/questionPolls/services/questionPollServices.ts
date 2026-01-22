@@ -236,7 +236,9 @@ export async function getQuestionPollResults(pollId: QuestionPollRecord["id"]) {
 
    const totalVotes = answers.length;
    const votesByOption = new Map<string, number>();
-   options.forEach((option) => votesByOption.set(option.id, 0));
+   for (const option of options) {
+      votesByOption.set(option.id, 0);
+   }
    answers.forEach((answer) => {
       const current = votesByOption.get(answer.optionSelected) ?? 0;
       votesByOption.set(answer.optionSelected, current + 1);

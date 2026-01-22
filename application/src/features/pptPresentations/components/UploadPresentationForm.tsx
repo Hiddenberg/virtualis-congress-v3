@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: false positive */
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: false positive */
 "use client";
 
 import { AlertCircle, Check, FileText, Loader2, TrashIcon, Upload } from "lucide-react";
@@ -332,7 +334,7 @@ export default function UploadPresentationForm({
             {/* Has Video Question */}
             {presentationFile && (
                <div className="!mx-6 !mt-10 !mb-4">
-                  <label className="!block !mb-2 !font-semibold !text-gray-700 !text-lg !text-center">
+                  <label htmlFor="has-video" className="!block !mb-2 !font-semibold !text-gray-700 !text-lg !text-center">
                      ¿Tu diapositiva incluye videos?
                   </label>
                   <div className="!flex !justify-center !gap-2">
