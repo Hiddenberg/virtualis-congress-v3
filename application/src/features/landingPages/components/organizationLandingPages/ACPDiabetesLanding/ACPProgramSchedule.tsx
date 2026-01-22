@@ -114,7 +114,7 @@ export default function ACPProgramSchedule({
                            onClick={() => setActiveIdx(idx)}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               idx === activeIdx
-                                 ? "bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-md"
+                                 ? "bg-linear-to-r from-teal-500 to-teal-600 text-white shadow-md"
                                  : "text-gray-600 hover:text-teal-600 hover:bg-teal-50"
                            }`}
                         >
@@ -174,7 +174,7 @@ export default function ACPProgramSchedule({
                                     )}
                                  </div>
                               </div>
-                              <div className="bg-gradient-to-r from-teal-400 via-emerald-400 to-green-500 h-1" />
+                              <div className="bg-linear-to-r from-teal-400 via-emerald-400 to-green-500 h-1" />
                            </div>
                         ))}
                         {current.conferences.length === 0 && (

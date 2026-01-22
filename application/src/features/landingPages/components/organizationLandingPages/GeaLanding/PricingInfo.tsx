@@ -23,7 +23,7 @@ export default function PricingInfo({ userId }: { userId?: string }) {
                   <div className="top-4 right-4 absolute opacity-10">
                      <Wifi className="w-12 h-12 text-blue-400" />
                   </div>
-                  <div className="-top-3 left-1/2 absolute bg-gradient-to-r from-blue-400 to-cyan-400 shadow px-4 py-1.5 rounded-full font-bold text-white text-xs -translate-x-1/2 transform">
+                  <div className="-top-3 left-1/2 absolute bg-linear-to-r from-blue-400 to-cyan-400 shadow px-4 py-1.5 rounded-full font-bold text-white text-xs -translate-x-1/2 transform">
                      SOLO EN LÍNEA
                   </div>
                   <div className="z-10 relative text-center">
@@ -68,7 +68,7 @@ export default function PricingInfo({ userId }: { userId?: string }) {
             </div>
 
             {/* CTA */}
-            <div className="bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400 mt-12 p-8 rounded-2xl text-white text-center">
+            <div className="bg-linear-to-r from-blue-600 via-blue-400 to-cyan-400 mt-12 p-8 rounded-2xl text-white text-center">
                <h3 className="mb-4 font-bold text-3xl">¡Inscríbete ya!</h3>
                <p className="mb-6 text-blue-100">Asegura tu acceso al congreso en línea del Hospital Gea</p>
                <div className="flex sm:flex-row flex-col justify-center gap-4">

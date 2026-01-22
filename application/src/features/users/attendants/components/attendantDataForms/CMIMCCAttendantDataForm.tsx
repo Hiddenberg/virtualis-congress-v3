@@ -177,7 +177,7 @@ export default function CMIMCCAttendantDataForm() {
          </div>
 
          {/* Pricing Information Banner */}
-         <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-4 sm:p-6 border border-blue-200 rounded-xl sm:rounded-2xl">
+         <div className="bg-linear-to-r from-blue-50 to-cyan-50 p-4 sm:p-6 border border-blue-200 rounded-xl sm:rounded-2xl">
             <div className="flex items-start gap-3 sm:gap-4">
                <div className="flex flex-shrink-0 justify-center items-center bg-blue-100 rounded-full w-10 sm:w-12 h-10 sm:h-12">
                   <Info className="w-5 sm:w-6 h-5 sm:h-6 text-blue-600" />
@@ -434,7 +434,7 @@ export default function CMIMCCAttendantDataForm() {
                <Button
                   disabled={selectedRoleData?.requiresVerification && !selectedFile}
                   loading={isSubmitting}
-                  className="bg-gradient-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl !w-full font-bold text-white disabled:text-white text-base sm:text-lg transition-all duration-300 disabled:cursor-not-allowed transform"
+                  className="bg-linear-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl !w-full font-bold text-white disabled:text-white text-base sm:text-lg transition-all duration-300 disabled:cursor-not-allowed transform"
                   onClick={handleSubmitt}
                >
                   {selectedRoleData?.requiresVerification && !selectedFile

@@ -36,7 +36,7 @@ function GoToQnASessionSection({
 function LiveTransmissionHeader({ isQna, conference }: { isQna: boolean; conference: CongressConferenceRecord }) {
    return (
       <div
-         className={`bg-gradient-to-r flex justify-between items-center shadow-lg mb-6 p-2 px-4 rounded-2xl ${isQna ? "from-green-600 to-green-700" : "from-blue-600 to-blue-700"}`}
+         className={`bg-linear-to-r flex justify-between items-center shadow-lg mb-6 p-2 px-4 rounded-2xl ${isQna ? "from-green-600 to-green-700" : "from-blue-600 to-blue-700"}`}
       >
          <div className="flex items-center gap-3">
             <div className={`p-3 rounded-xl ${isQna ? "bg-green-500" : "bg-blue-500"}`}>

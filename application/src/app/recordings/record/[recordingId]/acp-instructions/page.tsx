@@ -123,7 +123,7 @@ export default async function AcpInstructionsPage({ params }: { params: Promise<
                </div>
 
                {/* Call to Action */}
-               <div className="bg-gradient-to-r from-green-100 to-emerald-100 shadow-sm border border-green-300 rounded-lg">
+               <div className="bg-linear-to-r from-green-100 to-emerald-100 shadow-sm border border-green-300 rounded-lg">
                   <div className="p-6 text-center">
                      <h3 className="mb-3 font-semibold text-gray-900 text-xl">¡Listo para compartir tu historia!</h3>
                      <p className="mb-6 text-gray-700">

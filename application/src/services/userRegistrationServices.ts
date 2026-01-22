@@ -1,17 +1,16 @@
-import { ClientResponseError, type RecordModel } from "pocketbase";
+import { ClientResponseError } from "pocketbase";
 import pbServerClient from "@/libs/pbServerClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
-import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressRegistration, CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
 import { getUserById } from "@/features/users/services/userServices";
+import { createDBRecord, getSingleDBRecord } from "@/libs/pbServerClientNew";
 
 async function getCongressRegistration(userId: string, congressId: string) {
    try {
       const filter = `userRegistered = "${userId}" && congress = "${congressId}"`;
-      const congressRegistration = await pbServerClient
-         .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
-         .getFirstListItem<CongressRegistration & RecordModel>(filter);
+      const congressRegistration = await getSingleDBRecord<CongressRegistrationRecord>("CONGRESS_REGISTRATIONS", filter);
 
       return congressRegistration;
    } catch (error) {
@@ -32,9 +31,10 @@ export async function createNewCongressRegistration(userId: string) {
       hasAccessToRecordings: false,
    };
 
-   const newCongressRegistration = await pbServerClient
-      .collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS)
-      .create<CongressRegistration & RecordModel>(newCongressRegistrationData);
+   const newCongressRegistration = await createDBRecord<CongressRegistration>(
+      "CONGRESS_REGISTRATIONS",
+      newCongressRegistrationData,
+   );
 
    return newCongressRegistration;
 }
@@ -47,7 +47,7 @@ export async function confirmUserRegistrationPayment(userId: string, congressId:
       throw new Error("User not found");
    }
 
-   let registration;
+   let registration: CongressRegistrationRecord | null;
    if (user.role !== "attendant") {
       console.log(`[User Registration Services] User ${userId} has ${user.role} role, checking for previoius registrations`);
       registration = await getCongressRegistration(userId, congressId);

@@ -103,7 +103,7 @@ export default async function RegistrationConfirmedPage() {
             </div>
 
             {/* Important Note */}
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 mb-2 sm:mb-8 p-4 sm:p-6 border border-amber-200 rounded-lg sm:rounded-xl">
+            <div className="bg-linear-to-r from-amber-50 to-orange-50 mb-2 sm:mb-8 p-4 sm:p-6 border border-amber-200 rounded-lg sm:rounded-xl">
                <div className="flex items-start gap-2 sm:gap-3">
                   <div className="flex flex-shrink-0 justify-center items-center bg-amber-500 mt-0.5 rounded-full w-5 sm:w-6 h-5 sm:h-6">
                      <span className="font-bold text-white text-xs">!</span>
@@ -122,7 +122,7 @@ export default async function RegistrationConfirmedPage() {
             <div className="space-y-2 sm:space-y-4">
                <Link
                   href={organizaztionContinueLink[organization.shortID] ?? "/profile"}
-                  className="flex justify-center items-center gap-2 sm:gap-3 bg-gradient-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl w-full font-bold text-white text-base sm:text-lg hover:scale-105 transition-all duration-300 transform"
+                  className="flex justify-center items-center gap-2 sm:gap-3 bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl w-full font-bold text-white text-base sm:text-lg hover:scale-105 transition-all duration-300 transform"
                >
                   <User className="w-4 sm:w-5 h-4 sm:h-5" />
                   Ir a la sección de pago
@@ -133,7 +133,7 @@ export default async function RegistrationConfirmedPage() {
                   <Link
                      href="/CMIMCC/files/programa-CMIMCC.pdf"
                      target="_blank"
-                     className="flex justify-center items-center gap-2 sm:gap-3 bg-gradient-to-r from-indigo-600 hover:from-indigo-700 to-indigo-700 hover:to-indigo-800 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl w-full font-bold text-white text-base sm:text-lg hover:scale-105 transition-all duration-300 transform"
+                     className="flex justify-center items-center gap-2 sm:gap-3 bg-linear-to-r from-indigo-600 hover:from-indigo-700 to-indigo-700 hover:to-indigo-800 shadow-lg hover:shadow-xl px-4 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl w-full font-bold text-white text-base sm:text-lg hover:scale-105 transition-all duration-300 transform"
                   >
                      <Calendar1Icon className="w-4 sm:w-5 h-4 sm:h-5" />
                      Ver Programa

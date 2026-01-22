@@ -17,7 +17,9 @@ export default function RealtimeQuestionPollDisplay() {
       const totalAnswers = questionPollAnswers.length;
       const optionIdToVotesMap = new Map<string, number>();
 
-      questionPollOptions.forEach((option) => optionIdToVotesMap.set(option.id, 0));
+      questionPollOptions.forEach((option) => {
+         optionIdToVotesMap.set(option.id, 0);
+      });
       questionPollAnswers.forEach((answer) => {
          optionIdToVotesMap.set(answer.optionSelected, (optionIdToVotesMap.get(answer.optionSelected) ?? 0) + 1);
       });

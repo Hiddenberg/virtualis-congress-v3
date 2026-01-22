@@ -86,7 +86,7 @@ export default function ACPPricingInfo({ userId }: { userId?: string }) {
             </div>
 
             {/* CTA */}
-            <div className="bg-gradient-to-r from-teal-600 via-emerald-500 to-green-400 mt-12 p-8 rounded-2xl text-white text-center">
+            <div className="bg-linear-to-r from-teal-600 via-emerald-500 to-green-400 mt-12 p-8 rounded-2xl text-white text-center">
                <h3 className="mb-4 font-bold text-3xl">¡Inscríbete ya!</h3>
                <p className="mb-6 text-teal-100">Asegura tu acceso al congreso en línea del Hospital Gea</p>
                <div className="flex sm:flex-row flex-col justify-center gap-4">

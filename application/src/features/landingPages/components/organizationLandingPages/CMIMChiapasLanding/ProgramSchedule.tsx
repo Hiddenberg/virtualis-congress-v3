@@ -79,7 +79,7 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
                            onClick={() => setActiveDay(1)}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeDay === 1
-                                 ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
+                                 ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-md"
                                  : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                            }`}
                         >
@@ -103,7 +103,7 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
                            onClick={() => setActiveDay(2)}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeDay === 2
-                                 ? "bg-gradient-to-r from-cyan-500 to-cyan-600 text-white shadow-md"
+                                 ? "bg-linear-to-r from-cyan-500 to-cyan-600 text-white shadow-md"
                                  : "text-gray-600 hover:text-cyan-600 hover:bg-cyan-50"
                            }`}
                         >
@@ -168,7 +168,7 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
 
             {/* Call to Action */}
             <div className="mt-12 text-center">
-               <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-8 rounded-2xl text-white">
+               <div className="bg-linear-to-r from-blue-600 to-cyan-600 p-8 rounded-2xl text-white">
                   <h3 className="mb-4 font-bold text-2xl">¿Listo para participar?</h3>
                   <p className="mb-6 text-blue-100">No te pierdas esta oportunidad única de actualización en medicina interna</p>
                   <div className="flex justify-center items-center gap-4">

@@ -315,7 +315,7 @@ export default function CMIMCCPaymentSelectionForm({
                         onClick={handleCompletePayment}
                         disabled={!selectedModality}
                         loading={gettingCheckoutLink}
-                        className="bg-gradient-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl !w-full font-bold text-white text-base sm:text-lg disabled:hover:scale-100 transition-all duration-300 disabled:cursor-not-allowed transform"
+                        className="bg-linear-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl !w-full font-bold text-white text-base sm:text-lg disabled:hover:scale-100 transition-all duration-300 disabled:cursor-not-allowed transform"
                      >
                         {gettingCheckoutLink ? "Procesando Pago..." : "Proceder al Pago"}
                      </Button>

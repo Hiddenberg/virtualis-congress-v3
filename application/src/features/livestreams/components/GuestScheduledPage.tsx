@@ -12,7 +12,7 @@ export default function GuestScheduledPage({ title, description, startTime }: Gu
       <div className="flex justify-center items-center bg-linear-to-br from-stone-50 to-stone-100 p-4 min-h-screen">
          <div className="w-full max-w-2xl">
             {/* Header Section */}
-            <div className="bg-gradient-to-r from-stone-800 to-stone-900 shadow-lg mb-6 p-8 rounded-2xl">
+            <div className="bg-linear-to-r from-stone-800 to-stone-900 shadow-lg mb-6 p-8 rounded-2xl">
                <div className="flex items-center gap-4 mb-4">
                   <div className="bg-amber-100 p-4 rounded-xl">
                      <Video className="w-8 h-8 text-stone-800" />
@@ -26,13 +26,13 @@ export default function GuestScheduledPage({ title, description, startTime }: Gu
 
             {/* Class Info Section */}
             <div className="bg-white shadow-lg mb-6 p-8 border border-stone-200 rounded-2xl">
-               <div className="bg-gradient-to-r from-amber-50 to-amber-100 mb-6 p-6 rounded-xl">
+               <div className="bg-linear-to-r from-amber-50 to-amber-100 mb-6 p-6 rounded-xl">
                   <h2 className="mb-2 font-semibold text-amber-800 text-2xl capitalize">{title}</h2>
                   {description && <p className="text-stone-600 text-base leading-relaxed">{description}</p>}
                </div>
 
                {/* Schedule Info */}
-               <div className="bg-gradient-to-r from-stone-50 to-stone-100 mb-6 p-6 rounded-xl">
+               <div className="bg-linear-to-r from-stone-50 to-stone-100 mb-6 p-6 rounded-xl">
                   <div className="flex items-center gap-3 mb-4">
                      <div className="bg-stone-200 p-2 rounded-lg">
                         <Clock className="w-5 h-5 text-stone-700" />
@@ -63,7 +63,7 @@ export default function GuestScheduledPage({ title, description, startTime }: Gu
                </div>
 
                {/* Wait Message */}
-               <div className="bg-gradient-to-r from-amber-50 to-amber-100 p-6 border border-amber-200 rounded-xl text-center">
+               <div className="bg-linear-to-r from-amber-50 to-amber-100 p-6 border border-amber-200 rounded-xl text-center">
                   <div className="flex justify-center items-center gap-3 mb-3">
                      <div className="bg-amber-200 p-3 rounded-full">
                         <Users className="w-6 h-6 text-amber-700" />

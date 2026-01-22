@@ -126,7 +126,7 @@ export default function CameraAndPresentationRecorderInterface({
                      variant="blue"
                      onClick={handleJoinSessionContinue}
                      disabled={!username?.trim()}
-                     className="!flex !justify-center !items-center !gap-2 !bg-gradient-to-r !from-blue-500 hover:!from-blue-600 !to-blue-600 hover:!to-blue-700 !py-4 !rounded-xl !w-full !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+                     className="!flex !justify-center !items-center !gap-2 !bg-linear-to-r !from-blue-500 hover:!from-blue-600 !to-blue-600 hover:!to-blue-700 !py-4 !rounded-xl !w-full !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
                   >
                      Continuar <ArrowRight size={20} />
                   </Button>
@@ -306,7 +306,7 @@ export default function CameraAndPresentationRecorderInterface({
                         variant="purple"
                         onClick={handlePresentationInfoContinue}
                         disabled={selectedPresentationOption === null}
-                        className="!flex !justify-center !items-center !gap-2 !bg-gradient-to-r !from-purple-500 hover:!from-purple-600 !to-purple-600 hover:!to-purple-700 !py-3 !rounded-xl !w-full !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+                        className="!flex !justify-center !items-center !gap-2 !bg-linear-to-r !from-purple-500 hover:!from-purple-600 !to-purple-600 hover:!to-purple-700 !py-3 !rounded-xl !w-full !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
                      >
                         Continuar <ArrowRight size={20} />
                      </Button>

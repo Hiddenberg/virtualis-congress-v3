@@ -21,7 +21,7 @@ export default function ConferenceItem({
       <div
          className={`rounded-xl overflow-hidden border transition-all duration-300 hover:shadow-lg ${
             isBreak
-               ? "bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200"
+               ? "bg-linear-to-r from-amber-50 to-orange-50 border-amber-200"
                : "bg-white border-gray-200 hover:border-blue-300"
          }`}
       >
@@ -79,7 +79,7 @@ export default function ConferenceItem({
 
                   {/* Special Session Styling */}
                   {!speakerName && !isBreak && (
-                     <div className="flex items-center gap-2 bg-gradient-to-r from-purple-50 to-indigo-50 p-3 border border-purple-100 rounded-lg">
+                     <div className="flex items-center gap-2 bg-linear-to-r from-purple-50 to-indigo-50 p-3 border border-purple-100 rounded-lg">
                         <div className="bg-purple-400 rounded-full w-3 h-3" />
                         <span className="font-medium text-purple-700 text-sm">Sesión Especial</span>
                      </div>
@@ -89,7 +89,7 @@ export default function ConferenceItem({
          </div>
 
          {/* Bottom Accent Line */}
-         {!isBreak && <div className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 h-1" />}
+         {!isBreak && <div className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 h-1" />}
       </div>
    );
 }

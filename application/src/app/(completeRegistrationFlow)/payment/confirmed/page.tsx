@@ -70,7 +70,7 @@ export default async function PaymentConfirmationPage() {
             {/* Main Confirmation Card */}
             <div className="bg-white shadow-lg mb-4 sm:mb-6 border border-gray-100 rounded-xl sm:rounded-2xl overflow-hidden">
                {/* Header with gradient */}
-               <div className="bg-gradient-to-r from-green-600 to-emerald-600 p-4 sm:p-6 text-white">
+               <div className="bg-linear-to-r from-green-600 to-emerald-600 p-4 sm:p-6 text-white">
                   <div className="flex items-center gap-2 sm:gap-3">
                      <Calendar className="flex-shrink-0 w-5 sm:w-6 h-5 sm:h-6" />
                      <div className="flex-1 min-w-0">

@@ -81,7 +81,7 @@ export default function HeroSection({
                   </div>
 
                   {/* Hybrid Congress Highlight */}
-                  <div className="bg-gradient-to-r from-cyan-400/20 to-blue-400/20 backdrop-blur-sm p-4 border-2 border-cyan-300/40 rounded-2xl">
+                  <div className="bg-linear-to-r from-cyan-400/20 to-blue-400/20 backdrop-blur-sm p-4 border-2 border-cyan-300/40 rounded-2xl">
                      <div className="flex items-center gap-3 mb-2">
                         <div className="bg-cyan-300 p-2 rounded-full">
                            <Monitor className="w-5 h-5 text-blue-900" />
@@ -155,7 +155,7 @@ export default function HeroSection({
                {/* Right Column - Flyer Image (Main Focus) */}
                <div className="top-4 sticky flex justify-center w-full h-max">
                   <div className="group relative">
-                     <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400 to-blue-400 opacity-30 group-hover:opacity-50 rounded-3xl transition duration-1000 group-hover:duration-200 blur" />
+                     <div className="absolute -inset-4 bg-linear-to-r from-cyan-400 to-blue-400 opacity-30 group-hover:opacity-50 rounded-3xl transition duration-1000 group-hover:duration-200 blur" />
 
                      <video
                         className="relative shadow-2xl border-4 border-white/30 rounded-2xl w-full h-auto max-h-[90dvh] group-hover:scale-102 transition-all duration-500 transform"

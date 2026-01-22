@@ -114,7 +114,7 @@ export default function ProgramSchedule({
                            onClick={() => setActiveIdx(idx)}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               idx === activeIdx
-                                 ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
+                                 ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-md"
                                  : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                            }`}
                         >
@@ -174,7 +174,7 @@ export default function ProgramSchedule({
                                     )}
                                  </div>
                               </div>
-                              <div className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 h-1" />
+                              <div className="bg-linear-to-r from-blue-400 via-cyan-400 to-blue-500 h-1" />
                            </div>
                         ))}
                         {current.conferences.length === 0 && (

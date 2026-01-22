@@ -110,7 +110,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            onClick={() => setActiveMode("presencial")}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeMode === "presencial"
-                                 ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
+                                 ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-md"
                                  : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                            }`}
                         >
@@ -136,7 +136,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            onClick={() => setActiveMode("virtual")}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeMode === "virtual"
-                                 ? "bg-gradient-to-r from-pink-500 to-pink-600 text-white shadow-md"
+                                 ? "bg-linear-to-r from-pink-500 to-pink-600 text-white shadow-md"
                                  : "text-gray-600 hover:text-pink-600 hover:bg-pink-50"
                            }`}
                         >
@@ -205,7 +205,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                         </div>
 
                         {/* Online Only Badge */}
-                        <div className="-top-3 left-1/2 absolute bg-gradient-to-r from-pink-500 to-rose-500 shadow-lg px-4 py-2 rounded-full font-bold text-white text-xs -translate-x-1/2 transform">
+                        <div className="-top-3 left-1/2 absolute bg-linear-to-r from-pink-500 to-rose-500 shadow-lg px-4 py-2 rounded-full font-bold text-white text-xs -translate-x-1/2 transform">
                            🌐 SOLO EN LÍNEA
                         </div>
 
@@ -258,7 +258,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                            className="relative flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300"
                         >
                            {tier.subtitle && (
-                              <div className="-top-3 right-4 absolute bg-gradient-to-r from-orange-400 to-red-400 px-3 py-1 rounded-full font-bold text-white text-xs">
+                              <div className="-top-3 right-4 absolute bg-linear-to-r from-orange-400 to-red-400 px-3 py-1 rounded-full font-bold text-white text-xs">
                                  {tier.subtitle}
                               </div>
                            )}
@@ -283,7 +283,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
             </div>
 
             {/* Important Notes */}
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 mb-12 p-6 border border-blue-100 rounded-2xl">
+            <div className="bg-linear-to-r from-blue-50 to-cyan-50 mb-12 p-6 border border-blue-100 rounded-2xl">
                <h4 className="flex items-center gap-2 mb-3 font-bold text-gray-900">
                   <CreditCard className="w-5 h-5 text-blue-600" />
                   Información Importante
@@ -314,8 +314,8 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
             <div
                className={`rounded-2xl p-8 text-white text-center mb-12 ${
                   activeMode === "presencial"
-                     ? "bg-gradient-to-r from-blue-900 via-blue-700 to-cyan-600"
-                     : "bg-gradient-to-r from-pink-600 via-rose-600 to-pink-700"
+                     ? "bg-linear-to-r from-blue-900 via-blue-700 to-cyan-600"
+                     : "bg-linear-to-r from-pink-600 via-rose-600 to-pink-700"
                }`}
             >
                <h3 className="mb-4 font-bold text-3xl">¡INSCRÍBETE YA!</h3>

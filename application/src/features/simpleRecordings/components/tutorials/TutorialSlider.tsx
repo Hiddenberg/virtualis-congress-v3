@@ -2,6 +2,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight, InfoIcon } from "lucide-react";
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import { Button } from "@/components/global/Buttons";
 
@@ -46,7 +47,7 @@ export default function TutorialSlider({ title, steps, onFinish, lastButtonText 
       <div className="flex justify-center items-center bg-linear-to-br from-blue-50 to-indigo-50 p-2 sm:p-4">
          <div className="flex flex-col bg-white shadow-2xl mx-auto rounded-2xl sm:rounded-3xl w-full max-w-5xl overflow-hidden">
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5">
+            <div className="bg-linear-to-r from-blue-500 to-indigo-600 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-5">
                <h1 className="font-bold text-white text-xl sm:text-2xl lg:text-3xl text-center">{title}</h1>
                <p className="mt-1 sm:mt-2 font-medium text-blue-100 text-sm text-center">
                   Paso {currentStep + 1} de {totalSteps}
@@ -100,7 +101,7 @@ export default function TutorialSlider({ title, steps, onFinish, lastButtonText 
                <div className="flex justify-center items-center gap-2 bg-white px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
                   {steps.map((_, index) => (
                      <div
-                        key={index}
+                        key={nanoid()}
                         className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                            index === currentStep
                               ? "bg-blue-500 w-10 sm:w-12"
