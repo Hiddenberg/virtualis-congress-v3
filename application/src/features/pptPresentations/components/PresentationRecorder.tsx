@@ -94,6 +94,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
 
                <div className="flex items-center gap-2 min-h-[1.5rem]">
                   <button
+                     type="button"
                      onClick={() => drawing?.setDrawingMode(!drawing?.isDrawingMode)}
                      className={`px-3 py-1.5 rounded-md border text-sm ${
                         drawing?.isDrawingMode
@@ -106,6 +107,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
                      </span>
                   </button>
                   <button
+                     type="button"
                      onClick={() => drawing?.clearLines(currentSlide, "manual")}
                      className="bg-red-400 hover:bg-red-500 px-3 py-1.5 border border-gray-300 rounded-md text-white text-sm"
                   >
@@ -128,6 +130,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
             <div className={`flex items-center justify-center`}>
                {/* Previous button */}
                <button
+                  type="button"
                   onClick={goToPrevSlide}
                   className="left-4 z-10 absolute bg-black/50 hover:bg-black/70 p-3 rounded-full text-white hover:scale-110 transition-all duration-200"
                   disabled={presentationSlides.length <= 1}
@@ -169,6 +172,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
             <div className="flex gap-3 pb-2 overflow-x-auto">
                {presentationSlides.map((slide, index) => (
                   <button
+                     type="button"
                      key={slide.id}
                      onClick={() => goToSlide(index)}
                      className={`flex-shrink-0 relative border-2 rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${

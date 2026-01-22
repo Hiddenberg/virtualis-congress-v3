@@ -62,6 +62,7 @@ export default function ACPConferencesPreview({ conferences }: { conferences: Co
          <div className="gap-2 grid grid-cols-3 mb-4">
             {formattedDays.map((d, idx) => (
                <button
+                  type="button"
                   key={d.dateISO}
                   onClick={() => setActiveIdx(idx)}
                   className={`px-4 py-2 capitalize rounded-lg border border-white/20 text-sm font-semibold whitespace-nowrap bg-white/20 transition-all duration-300 ${idx === activeIdx ? "bg-white/50 text-white shadow" : "text-teal-100 hover:bg-white/10"}`}

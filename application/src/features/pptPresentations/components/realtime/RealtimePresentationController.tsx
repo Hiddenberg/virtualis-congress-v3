@@ -132,6 +132,7 @@ export default function RealtimePresentationController({ presentationId }: { pre
             <div className={`flex items-center justify-center h-[600px]`}>
                {/* Previous button */}
                <button
+                  type="button"
                   onClick={goToPrevSlide}
                   className="left-4 z-10 absolute bg-black/50 hover:bg-black/70 p-3 rounded-full text-white hover:scale-110 transition-all duration-200"
                   disabled={presentationSlides.length <= 1}
@@ -167,6 +168,7 @@ export default function RealtimePresentationController({ presentationId }: { pre
 
                {/* Next button */}
                <button
+                  type="button"
                   onClick={goToNextSlide}
                   className="right-4 z-10 absolute bg-black/50 hover:bg-black/70 p-3 rounded-full text-white hover:scale-110 transition-all duration-200"
                   disabled={presentationSlides.length <= 1}
@@ -181,6 +183,7 @@ export default function RealtimePresentationController({ presentationId }: { pre
             <div className="flex gap-3 pb-2 overflow-x-auto">
                {presentationSlides.map((slide, index) => (
                   <button
+                     type="button"
                      key={slide.id}
                      onClick={() => goToSlide(index)}
                      className={`flex-shrink-0 relative border-2 rounded-lg overflow-hidden transition-all duration-200 hover:scale-105 ${

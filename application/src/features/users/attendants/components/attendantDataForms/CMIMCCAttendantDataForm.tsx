@@ -351,7 +351,11 @@ export default function CMIMCCAttendantDataForm() {
                                  {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                               </p>
                            </div>
-                           <button onClick={removeFile} className="text-red-600 hover:text-red-800 text-xs sm:text-sm underline">
+                           <button
+                              type="button"
+                              onClick={removeFile}
+                              className="text-red-600 hover:text-red-800 text-xs sm:text-sm underline"
+                           >
                               Remover archivo
                            </button>
                         </div>

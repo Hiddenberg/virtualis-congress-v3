@@ -20,6 +20,7 @@ export default function CollapsibleGuestLink({ streamingRoute }: { streamingRout
    return (
       <div className="bg-linear-to-r from-stone-50 to-stone-100 border border-stone-200 rounded-xl overflow-hidden">
          <button
+            type="button"
             onClick={() => setIsOpen(!isOpen)}
             className="flex justify-between items-center hover:bg-stone-100 p-4 w-full text-left transition-colors duration-200"
          >

@@ -106,6 +106,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                   <div className="bg-white shadow-lg p-2 border border-gray-200 rounded-xl">
                      <div className="flex gap-2">
                         <button
+                           type="button"
                            onClick={() => setActiveMode("presencial")}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeMode === "presencial"
@@ -131,6 +132,7 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                         </button>
 
                         <button
+                           type="button"
                            onClick={() => setActiveMode("virtual")}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeMode === "virtual"
@@ -166,11 +168,11 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
                <div className="mb-12">
                   <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">Modalidad Presencial</h3>
                   <div className="gap-6 grid md:grid-cols-2 lg:grid-cols-4">
-                     {pricingTiers.map((tier, index) => {
+                     {pricingTiers.map((tier) => {
                         const IconComponent = tier.icon;
                         return (
                            <div
-                              key={index}
+                              key={tier.category}
                               className="flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300"
                            >
                               <div
@@ -248,11 +250,11 @@ export default function RegistrationInfo({ userId }: { userId?: string }) {
             <div className="mb-12">
                <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">Opciones Adicionales</h3>
                <div className="gap-6 grid md:grid-cols-2 mx-auto max-w-3xl">
-                  {specialTiers.map((tier, index) => {
+                  {specialTiers.map((tier) => {
                      const IconComponent = tier.icon;
                      return (
                         <div
-                           key={index}
+                           key={tier.category}
                            className="relative flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300"
                         >
                            {tier.subtitle && (

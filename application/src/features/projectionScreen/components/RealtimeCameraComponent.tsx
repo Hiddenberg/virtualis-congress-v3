@@ -156,6 +156,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
          <div className="-top-6 right-0 z-10 absolute">
             <div className="relative">
                <button
+                  type="button"
                   onClick={() => setIsDeviceMenuOpen((v) => !v)}
                   className="inline-flex justify-center items-center bg-white/90 hover:bg-white shadow-sm px-2.5 py-1 border border-slate-300 rounded-md font-medium text-slate-800 text-xs"
                   title="Cambiar cámara"
@@ -173,6 +174,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
                            const isSelected = cam.deviceId === selectedDeviceId;
                            return (
                               <button
+                                 type="button"
                                  key={cam.deviceId || `${idx}`}
                                  onClick={() => {
                                     setSelectedDeviceId(cam.deviceId);
@@ -211,6 +213,7 @@ export default function RealtimeCameraComponent(props: RealtimeCameraProps) {
                         <p className="font-medium text-sm">No se pudo acceder a la cámara.</p>
                         {errorMessage && <p className="text-slate-600 text-xs">{errorMessage}</p>}
                         <button
+                           type="button"
                            onClick={startStream}
                            className="inline-flex justify-center items-center bg-white hover:bg-slate-50 mt-1 px-3 py-1.5 border border-slate-300 rounded-md font-medium text-slate-800 text-xs"
                         >

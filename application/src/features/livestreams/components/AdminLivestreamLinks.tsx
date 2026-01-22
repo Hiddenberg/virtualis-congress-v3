@@ -61,7 +61,7 @@ export default function AdminLivestreamLinks({ conferenceId, livestreamSessionSt
          <div className="space-y-6 max-w-3xl">
             {/* Header with Back and Status */}
             <div className="flex justify-between items-center">
-               <button onClick={() => router.back()} className="text-stone-700 hover:text-stone-900 text-sm">
+               <button type="button" onClick={() => router.back()} className="text-stone-700 hover:text-stone-900 text-sm">
                   ← Volver
                </button>
                <StatusBadge status={livestreamSessionStatus} />

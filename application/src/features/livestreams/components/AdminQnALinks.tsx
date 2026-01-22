@@ -79,7 +79,7 @@ export default function AdminQnALinks({ conferenceId, sessionStatus }: AdminQnAL
       <div className="p-6">
          <div className="space-y-6 max-w-3xl">
             <div className="flex justify-between items-center">
-               <button onClick={() => router.back()} className="text-stone-700 hover:text-stone-900 text-sm">
+               <button type="button" onClick={() => router.back()} className="text-stone-700 hover:text-stone-900 text-sm">
                   ← Volver
                </button>
                <StatusBadge status={sessionStatus} />
@@ -146,6 +146,7 @@ export default function AdminQnALinks({ conferenceId, sessionStatus }: AdminQnAL
                   Si ya no necesitas esta sesión, puedes eliminarla. Esto también eliminará los recursos asociados.
                </p>
                <button
+                  type="button"
                   onClick={handleDisable}
                   disabled={isDisabling}
                   className="bg-red-600 hover:bg-red-700 disabled:bg-red-300 px-4 py-2 rounded-md text-white text-sm"

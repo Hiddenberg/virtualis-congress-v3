@@ -75,6 +75,7 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
                   <div className="bg-white shadow-lg p-2 border border-gray-200 rounded-xl">
                      <div className="flex gap-2">
                         <button
+                           type="button"
                            onClick={() => setActiveDay(1)}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeDay === 1
@@ -98,6 +99,7 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
                         </button>
 
                         <button
+                           type="button"
                            onClick={() => setActiveDay(2)}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
                               activeDay === 2
@@ -158,7 +160,7 @@ export default function ProgramSchedule({ conferencesDay1, conferencesDay2, user
 
                   <div className="space-y-4 max-h-[80dvh] overflow-y-auto">
                      {currentConferences.map((conference, index) => (
-                        <ConferenceItem key={index} {...conference} isBreak={isBreakSession(conference.title)} />
+                        <ConferenceItem key={conference.title} {...conference} isBreak={isBreakSession(conference.title)} />
                      ))}
                   </div>
                </div>

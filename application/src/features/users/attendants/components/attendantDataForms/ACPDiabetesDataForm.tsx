@@ -63,6 +63,7 @@ function IsACPMemberForm({ setFormStage }: { setFormStage: (stage: FormStage) =>
                   </button>
 
                   <button
+                     type="button"
                      onClick={() => setFormStage("select_no_affiliated_role")}
                      className="group bg-linear-to-br from-gray-50 to-slate-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-gray-200 hover:border-gray-400 rounded-lg sm:rounded-xl transition-all duration-200"
                   >
@@ -489,6 +490,7 @@ function SelectACPAffiliatedRoleForm({
 
                   return (
                      <button
+                        type="button"
                         key={role.id}
                         onClick={() => setSelectedRole(role.id)}
                         className={`group w-full p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl border-2 transition-all duration-200 ${
@@ -659,6 +661,7 @@ function SelectNoAffiliatedRoleForm({ setFormStage }: { setFormStage: (stage: Fo
 
                   return (
                      <button
+                        type="button"
                         key={role.id}
                         onClick={() => setSelectedRole(role.id)}
                         className={`group w-full p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl border-2 transition-all duration-200 ${

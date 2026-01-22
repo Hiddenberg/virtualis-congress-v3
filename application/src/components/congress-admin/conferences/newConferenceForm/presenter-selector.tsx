@@ -42,6 +42,13 @@ export function PresenterSelector({ presenters, selectedId, onChange, required =
       e.stopPropagation();
    };
 
+   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "Enter" || e.key === " ") {
+         e.preventDefault();
+         toggleDropdown();
+      }
+   };
+
    const filteredPresenters = presenters.filter((presenter) => presenter.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
    const selectedPresenter = selectedId ? presenters.find((presenter) => presenter.id === selectedId) : null;
@@ -56,6 +63,7 @@ export function PresenterSelector({ presenters, selectedId, onChange, required =
             <div
                className="flex justify-between items-center bg-white px-3 py-2 border border-gray-300 focus:border-blue-500 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 w-full cursor-pointer"
                onClick={toggleDropdown}
+               onKeyDown={handleKeyDown}
                role="combobox"
                aria-controls="presenter-dropdown"
                aria-expanded={isOpen}
@@ -89,13 +97,14 @@ export function PresenterSelector({ presenters, selectedId, onChange, required =
 
             {isOpen && (
                <ul className="z-10 absolute bg-white ring-opacity-5 shadow-lg mt-1 py-1 rounded-md focus:outline-none ring-1 ring-black w-full max-h-60 overflow-auto">
-                  <div className="top-0 sticky bg-white px-3 py-2 border-b" onClick={handleSearchClick}>
+                  <div className="top-0 sticky bg-white px-3 py-2 border-b">
                      <div className="relative">
                         <Search className="top-1/2 left-2 absolute w-4 h-4 text-gray-400 -translate-y-1/2 transform" />
                         <input
                            type="text"
                            value={searchQuery}
                            onChange={handleSearchChange}
+                           onClick={handleSearchClick}
                            placeholder="Buscar presentador..."
                            className="px-3 py-1 pl-8 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 w-full text-sm"
                         />
@@ -104,9 +113,9 @@ export function PresenterSelector({ presenters, selectedId, onChange, required =
 
                   {filteredPresenters.length > 0 ? (
                      filteredPresenters.map((presenter) => (
-                        <li
+                        <button
                            key={presenter.id}
-                           aria-selected={selectedId === presenter.id}
+                           type="button"
                            onClick={() => handlePresenterSelect(presenter.id)}
                            className={`flex cursor-pointer items-center justify-between px-3 py-2 hover:bg-blue-50 ${
                               selectedId === presenter.id ? "bg-blue-50" : ""
@@ -114,7 +123,7 @@ export function PresenterSelector({ presenters, selectedId, onChange, required =
                         >
                            <span>{presenter.name}</span>
                            {selectedId === presenter.id && <Check className="w-4 h-4 text-blue-500" />}
-                        </li>
+                        </button>
                      ))
                   ) : (
                      <li className="px-3 py-2 text-gray-500">No se encontraron presentadores</li>

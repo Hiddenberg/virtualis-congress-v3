@@ -31,8 +31,9 @@ export default function SendCampaignInvitesButton({ campaignId, pendingCount }: 
    const disabled = isPending || pendingCount === 0;
 
    return (
-      <div className="flex flex-col gap-2 items-start">
+      <div className="flex flex-col items-start gap-2">
          <button
+            type="button"
             onClick={onClick}
             disabled={disabled}
             className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors border ${disabled ? "bg-gray-100 text-gray-400 border-gray-200" : "bg-blue-600 hover:bg-blue-700 text-white border-blue-700"}`}
@@ -41,7 +42,7 @@ export default function SendCampaignInvitesButton({ campaignId, pendingCount }: 
             <MailsIcon className="size-4" />
             {isPending ? "Enviando..." : `Enviar todas las invitaciones (${pendingCount})`}
          </button>
-         {lastResult && <span className="text-xs text-gray-500">{lastResult}</span>}
+         {lastResult && <span className="text-gray-500 text-xs">{lastResult}</span>}
       </div>
    );
 }

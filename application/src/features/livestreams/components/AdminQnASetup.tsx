@@ -34,6 +34,7 @@ export default function AdminQnASetup({ conferenceId }: { conferenceId: string }
          </div>
          <div className="flex gap-3">
             <button
+               type="button"
                disabled={isEnabling}
                onClick={handleEnable}
                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 px-4 py-2 rounded-md text-white text-sm"

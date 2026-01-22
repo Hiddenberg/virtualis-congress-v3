@@ -318,7 +318,11 @@ export default function UploadPresentationForm({
                            </div>
                         </div>
                      </div>
-                     <button onClick={removeFile} className="!mt-3 !text-gray-500 hover:!text-gray-700 !text-sm !underline">
+                     <button
+                        type="button"
+                        onClick={removeFile}
+                        className="!mt-3 !text-gray-500 hover:!text-gray-700 !text-sm !underline"
+                     >
                         Seleccionar otro archivo
                      </button>
                   </div>
@@ -371,6 +375,7 @@ export default function UploadPresentationForm({
                <div className="!flex !justify-center !gap-3">
                   {presentationFile && (
                      <button
+                        type="button"
                         onClick={handleConvertPresentation}
                         disabled={converting || !presentationFile || hasVideo === null}
                         className="!flex !justify-center !items-center !gap-2 !bg-green-600 hover:!bg-green-700 disabled:!bg-gray-300 !px-8 !py-3 !rounded-md focus:!outline-none !focus:ring-2 !focus:ring-green-500 !focus:ring-offset-2 !min-w-[200px] !font-semibold !text-white !text-lg !transition-colors cursor-not-allowed"

@@ -109,6 +109,7 @@ export default function ACPProgramSchedule({
                   <div className="flex gap-2">
                      {formattedDays.map((d, idx) => (
                         <button
+                           type="button"
                            key={d.dateISO}
                            onClick={() => setActiveIdx(idx)}
                            className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${
