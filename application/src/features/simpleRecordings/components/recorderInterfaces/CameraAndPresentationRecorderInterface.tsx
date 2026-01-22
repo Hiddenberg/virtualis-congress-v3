@@ -277,7 +277,7 @@ export default function CameraAndPresentationRecorderInterface({
                      {presentationHasVideo !== null && (
                         <div className="!bg-amber-50 !mt-4 !p-4 !border !border-amber-200 !rounded-xl">
                            <div className="!flex !items-start !gap-3">
-                              <div className="!shrink-0 !bg-amber-200 !p-1 !rounded-full">
+                              <div className="!bg-amber-200 !p-1 !rounded-full !shrink-0">
                                  <Video className="!size-4 !text-amber-700" />
                               </div>
                               <div>

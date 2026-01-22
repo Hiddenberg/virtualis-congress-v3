@@ -100,7 +100,7 @@ export default async function CertificatesLayout({ children }: { children: React
                      />
                   </div>
                   
-                  <button className="flex shrink-0 justify-center items-center bg-gray-200 rounded-full w-8 h-8 text-gray-600">
+                  <button className="flex justify-center items-center bg-gray-200 rounded-full w-8 h-8 text-gray-600 shrink-0">
                      <User size={16} />
                   </button>
                </div> */}

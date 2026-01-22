@@ -368,7 +368,7 @@ export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, e
                               </div>
                               {speaker.phoneNumber && (
                                  <div className="flex items-center mt-1 text-gray-500 text-sm">
-                                    <Phone size={14} className="shrink-0 mr-1" />
+                                    <Phone size={14} className="mr-1 shrink-0" />
                                     <span>{speaker.phoneNumber}</span>
                                  </div>
                               )}

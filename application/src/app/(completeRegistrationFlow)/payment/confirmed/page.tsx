@@ -72,7 +72,7 @@ export default async function PaymentConfirmationPage() {
                {/* Header with gradient */}
                <div className="bg-linear-to-r from-green-600 to-emerald-600 p-4 sm:p-6 text-white">
                   <div className="flex items-center gap-2 sm:gap-3">
-                     <Calendar className="shrink-0 w-5 sm:w-6 h-5 sm:h-6" />
+                     <Calendar className="w-5 sm:w-6 h-5 sm:h-6 shrink-0" />
                      <div className="flex-1 min-w-0">
                         <h2 className="font-semibold text-lg sm:text-xl">{congress.title}</h2>
                         <p className="text-green-100 text-xs sm:text-sm">Congreso Hibrido</p>
@@ -84,7 +84,7 @@ export default async function PaymentConfirmationPage() {
                <div className="space-y-4 sm:space-y-6 p-4 sm:p-6">
                   <div className="bg-green-50 p-3 sm:p-4 border border-green-200 rounded-lg">
                      <div className="flex items-start gap-2 sm:gap-3">
-                        <CheckCircle className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-green-600" />
+                        <CheckCircle className="mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-green-600 shrink-0" />
                         <div className="flex-1 min-w-0">
                            <h3 className="mb-1 font-semibold text-green-800 text-sm sm:text-base">Registro Completado</h3>
                            <p className="text-green-700 text-xs sm:text-sm">
@@ -98,14 +98,14 @@ export default async function PaymentConfirmationPage() {
                   {/* Payment Summary */}
                   <div className="pt-4 sm:pt-6 border-gray-200 border-t">
                      <h3 className="flex items-center gap-2 mb-3 sm:mb-4 font-semibold text-gray-900 text-base sm:text-lg">
-                        <CreditCard className="shrink-0 w-4 sm:w-5 h-4 sm:h-5" />
+                        <CreditCard className="w-4 sm:w-5 h-4 sm:h-5 shrink-0" />
                         Resumen de Compra
                      </h3>
                      <div className="space-y-2 sm:space-y-3">
                         <div className="flex justify-between items-center gap-2 py-2">
                            <span className="text-gray-600 text-xs sm:text-sm">Estado del pago:</span>
                            <div className="flex items-center gap-2">
-                              <div className="shrink-0 bg-green-500 rounded-full w-2 h-2" />
+                              <div className="bg-green-500 rounded-full w-2 h-2 shrink-0" />
                               <span className="font-medium text-green-700 text-xs sm:text-sm">Pagado</span>
                            </div>
                         </div>
@@ -120,12 +120,12 @@ export default async function PaymentConfirmationPage() {
                            <div className="flex items-center gap-2">
                               {hasAccessToRecordings ? (
                                  <>
-                                    <CheckCircle className="shrink-0 w-3 sm:w-4 h-3 sm:h-4 text-green-600" />
+                                    <CheckCircle className="w-3 sm:w-4 h-3 sm:h-4 text-green-600 shrink-0" />
                                     <span className="font-medium text-green-700 text-xs sm:text-sm">Incluido</span>
                                  </>
                               ) : (
                                  <>
-                                    <Video className="shrink-0 w-3 sm:w-4 h-3 sm:h-4 text-gray-400" />
+                                    <Video className="w-3 sm:w-4 h-3 sm:h-4 text-gray-400 shrink-0" />
                                     <span className="font-medium text-gray-500 text-xs sm:text-sm">No incluido</span>
                                  </>
                               )}
@@ -150,12 +150,12 @@ export default async function PaymentConfirmationPage() {
             {/* Next Steps */}
             <div className="bg-white shadow-lg mb-4 sm:mb-6 p-4 sm:p-6 border border-gray-100 rounded-xl sm:rounded-2xl">
                <h3 className="flex items-center gap-2 mb-3 sm:mb-4 font-semibold text-gray-900 text-base sm:text-lg">
-                  <ArrowRight className="shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
+                  <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600 shrink-0" />
                   Próximos Pasos
                </h3>
                <div className="space-y-3 sm:space-y-4">
                   <div className="flex items-start gap-2 sm:gap-3 bg-blue-50 p-3 rounded-lg">
-                     <Mail className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
+                     <Mail className="mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-blue-600 shrink-0" />
                      <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-blue-900 text-sm sm:text-base">Revisa tu correo electrónico</h4>
                         <p className="mt-1 text-blue-700 text-xs sm:text-sm">
@@ -165,7 +165,7 @@ export default async function PaymentConfirmationPage() {
                   </div>
 
                   <div className="flex items-start gap-2 sm:gap-3 bg-purple-50 p-3 rounded-lg">
-                     <Users className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-purple-600" />
+                     <Users className="mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-purple-600 shrink-0" />
                      <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-purple-900 text-sm sm:text-base">Acceso a la plataforma</h4>
                         <p className="mt-1 text-purple-700 text-xs sm:text-sm">
@@ -175,7 +175,7 @@ export default async function PaymentConfirmationPage() {
                   </div>
 
                   <div className="flex items-start gap-2 sm:gap-3 bg-amber-50 p-3 rounded-lg">
-                     <Download className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-amber-600" />
+                     <Download className="mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-amber-600 shrink-0" />
                      <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-amber-900 text-sm sm:text-base">Certificados</h4>
                         <p className="mt-1 text-amber-700 text-xs sm:text-sm">
@@ -186,7 +186,7 @@ export default async function PaymentConfirmationPage() {
 
                   {hasAccessToRecordings && (
                      <div className="flex items-start gap-2 sm:gap-3 bg-indigo-50 p-3 rounded-lg">
-                        <Video className="shrink-0 mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-indigo-600" />
+                        <Video className="mt-0.5 w-4 sm:w-5 h-4 sm:h-5 text-indigo-600 shrink-0" />
                         <div className="flex-1 min-w-0">
                            <h4 className="font-medium text-indigo-900 text-sm sm:text-base">Acceso a Grabaciones</h4>
                            <p className="mt-1 text-indigo-700 text-xs sm:text-sm">

@@ -48,7 +48,7 @@ export default async function RecordingSavedPage({ params }: { params: Promise<{
                {/* Process steps */}
                <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-4 bg-green-50 p-4 border border-green-200 rounded-lg">
-                     <div className="shrink-0 bg-green-500 p-2 rounded-full">
+                     <div className="bg-green-500 p-2 rounded-full shrink-0">
                         <CheckCircle2 className="size-5 text-white" />
                      </div>
                      <div>
@@ -58,7 +58,7 @@ export default async function RecordingSavedPage({ params }: { params: Promise<{
                   </div>
 
                   <div className="flex items-center gap-4 bg-blue-50 p-4 border border-blue-200 rounded-lg">
-                     <div className="shrink-0 bg-blue-500 p-2 rounded-full animate-pulse">
+                     <div className="bg-blue-500 p-2 rounded-full animate-pulse shrink-0">
                         <Clock className="size-5 text-white" />
                      </div>
                      <div>
@@ -71,7 +71,7 @@ export default async function RecordingSavedPage({ params }: { params: Promise<{
 
                   {isConferenceRecording && speakerCertificateDesign && (
                      <div className="flex items-center gap-4 bg-amber-50 p-4 border border-amber-200 rounded-lg">
-                        <div className="shrink-0 bg-amber-500 p-2 rounded-full">
+                        <div className="bg-amber-500 p-2 rounded-full shrink-0">
                            <AwardIcon className="size-5 text-white" />
                         </div>
                         <div>

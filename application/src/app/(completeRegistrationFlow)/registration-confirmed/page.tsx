@@ -86,12 +86,12 @@ export default async function RegistrationConfirmedPage() {
                            key={step.title}
                            className="flex items-start gap-3 sm:gap-4 bg-blue-50 p-3 sm:p-4 border border-blue-200 rounded-lg sm:rounded-xl"
                         >
-                           <div className="flex shrink-0 justify-center items-center bg-blue-600 rounded-full w-7 sm:w-8 h-7 sm:h-8">
+                           <div className="flex justify-center items-center bg-blue-600 rounded-full w-7 sm:w-8 h-7 sm:h-8 shrink-0">
                               <span className="font-bold text-white text-xs sm:text-sm">{index + 1}</span>
                            </div>
                            <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1 sm:mb-2">
-                                 <step.icon className="shrink-0 w-4 sm:w-5 h-4 sm:h-5 text-blue-600" />
+                                 <step.icon className="w-4 sm:w-5 h-4 sm:h-5 text-blue-600 shrink-0" />
                                  <h3 className="font-semibold text-gray-800 text-sm sm:text-base">{step.title}</h3>
                               </div>
                               <p className="text-gray-700 text-xs sm:text-sm">{step.description}</p>
@@ -105,7 +105,7 @@ export default async function RegistrationConfirmedPage() {
             {/* Important Note */}
             <div className="bg-linear-to-r from-amber-50 to-orange-50 mb-2 sm:mb-8 p-4 sm:p-6 border border-amber-200 rounded-lg sm:rounded-xl">
                <div className="flex items-start gap-2 sm:gap-3">
-                  <div className="flex shrink-0 justify-center items-center bg-amber-500 mt-0.5 rounded-full w-5 sm:w-6 h-5 sm:h-6">
+                  <div className="flex justify-center items-center bg-amber-500 mt-0.5 rounded-full w-5 sm:w-6 h-5 sm:h-6 shrink-0">
                      <span className="font-bold text-white text-xs">!</span>
                   </div>
                   <div className="flex-1 min-w-0">

@@ -177,7 +177,7 @@ export default async function CampaignPage({ params }: { params: Promise<{ campa
          {/* Campaign Header */}
          <div className="flex lg:flex-row flex-col lg:justify-between lg:items-start gap-6 mb-8">
             <div className="flex items-start gap-4">
-               <div className="shrink-0 bg-yellow-100 p-3 rounded-xl">
+               <div className="bg-yellow-100 p-3 rounded-xl shrink-0">
                   <FolderIcon className="size-8 text-yellow-600" />
                </div>
                <div>
@@ -192,7 +192,7 @@ export default async function CampaignPage({ params }: { params: Promise<{ campa
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col shrink-0 gap-3">
+            <div className="flex flex-col gap-3 shrink-0">
                <LinkButton
                   variant="primary"
                   href={`/recordings/campaign/${campaignId}/recordings/create`}
