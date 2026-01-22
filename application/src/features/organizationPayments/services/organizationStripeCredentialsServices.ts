@@ -39,9 +39,10 @@ export async function configureOrganizationStripeCredentials(credentials: NewOrg
          });
 
          // The webhook secrete can not be retrieved from the api, we need to manually configure it
+         console.log("[Stripe Credentials] Webhook endpoint already exists, updating with required events");
       } else {
          // If the webhook endpoint does not exist create and configure it
-
+         console.log("[Stripe Credentials] Webhook endpoint does not exist, creating and configuring");
          const newStripeWebhookEndpoint = await stripe.webhookEndpoints.create({
             url: webhookEndpointURL,
             enabled_events: requiredEvents,
