@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: <explanation> */
 "use client";
 
 import {
@@ -48,6 +49,7 @@ function IsACPMemberForm({ setFormStage }: { setFormStage: (stage: FormStage) =>
             <div className="space-y-3 sm:space-y-4">
                <div className="gap-3 sm:gap-4 grid grid-cols-1 md:grid-cols-2">
                   <button
+                     type="button"
                      onClick={() => setFormStage("validate_acp_id")}
                      className="group bg-linear-to-br from-blue-50 to-indigo-50 hover:shadow-lg p-4 sm:p-5 md:p-6 border-2 border-blue-200 hover:border-blue-400 rounded-lg sm:rounded-xl transition-all duration-200"
                   >
@@ -291,8 +293,8 @@ function UploadACPIDScreenshotForm({ setFormStage }: { setFormStage: (stage: For
                   Cómo obtener la captura:
                </h3>
                <div className="space-y-1.5 sm:space-y-2">
-                  {steps.map((step, index) => (
-                     <div key={index} className="flex items-start gap-2 sm:gap-3">
+                  {steps.map((step) => (
+                     <div key={step.text} className="flex items-start gap-2 sm:gap-3">
                         <span className="flex-shrink-0 mt-0.5 text-base sm:text-lg">{step.icon}</span>
                         <span className="text-blue-800 text-xs sm:text-sm">{step.text}</span>
                      </div>

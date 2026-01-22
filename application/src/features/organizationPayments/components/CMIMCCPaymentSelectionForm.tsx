@@ -183,8 +183,8 @@ export default function CMIMCCPaymentSelectionForm({
                            </div>
 
                            <ul className="space-y-1.5 sm:space-y-2">
-                              {option.features.map((feature, index) => (
-                                 <li key={index} className="flex items-start gap-2 text-gray-700 text-xs sm:text-sm">
+                              {option.features.map((feature) => (
+                                 <li key={feature} className="flex items-start gap-2 text-gray-700 text-xs sm:text-sm">
                                     <CheckIcon className="flex-shrink-0 mt-0.5 w-3 sm:w-4 h-3 sm:h-4 text-green-500" />
                                     <span>{feature}</span>
                                  </li>
@@ -230,8 +230,8 @@ export default function CMIMCCPaymentSelectionForm({
                         Obtén acceso completo a todas las grabaciones del congreso por 3 meses
                      </p>
                      <ul className="space-y-1">
-                        {recordingsAddon.features.map((feature, index) => (
-                           <li key={index} className="flex items-start gap-2 text-gray-700 text-xs sm:text-sm">
+                        {recordingsAddon.features.map((feature) => (
+                           <li key={feature} className="flex items-start gap-2 text-gray-700 text-xs sm:text-sm">
                               <CheckIcon className="flex-shrink-0 mt-0.5 w-3 h-3 text-green-500" />
                               <span>{feature}</span>
                            </li>

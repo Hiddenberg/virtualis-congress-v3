@@ -47,8 +47,8 @@ export default function AllRecordingsStatusBar({ allRecordings }: { allRecording
          <div className="p-4">
             <div className="flex justify-between items-center">
                <div className="flex items-center gap-6">
-                  {statusMetrics.map((metric, index) => (
-                     <div key={index} className="flex items-center gap-3">
+                  {statusMetrics.map((metric) => (
+                     <div key={metric.label} className="flex items-center gap-3">
                         <div className={`${metric.bgColor} p-2 rounded-lg`}>
                            <metric.icon className={`size-5 ${metric.color}`} />
                         </div>

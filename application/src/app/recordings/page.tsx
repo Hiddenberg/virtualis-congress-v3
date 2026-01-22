@@ -190,8 +190,8 @@ function CampaignOverview({
       <div className="bg-white shadow-sm mb-8 p-6 border border-gray-200 rounded-xl">
          <div className="flex justify-between items-center">
             <div className="flex items-center gap-6">
-               {stats.map((stat, index) => (
-                  <div key={index} className="flex items-center gap-3">
+               {stats.map((stat) => (
+                  <div key={stat.label} className="flex items-center gap-3">
                      <div className={`${stat.bgColor} p-2 rounded-lg`}>
                         <stat.icon className={`size-5 ${stat.color}`} />
                      </div>

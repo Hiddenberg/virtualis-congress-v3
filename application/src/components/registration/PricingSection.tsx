@@ -56,10 +56,10 @@ export default function PricingSection() {
             </div>
 
             {isMobile ? (
-               <div className="grid gap-6">
-                  {pricingData.map((item, index) => (
-                     <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
-                        <div className="bg-[#1a237e] text-white p-4">
+               <div className="gap-6 grid">
+                  {pricingData.map((item) => (
+                     <div key={item.category} className="bg-white shadow-md rounded-lg overflow-hidden">
+                        <div className="bg-[#1a237e] p-4 text-white">
                            <h3 className="font-semibold text-lg">{item.category}</h3>
                         </div>
                         <div className="p-4">
@@ -86,7 +86,7 @@ export default function PricingSection() {
                      <tbody>
                         {pricingData.map((row, index, array) => (
                            <tr
-                              key={index}
+                              key={row.category}
                               className={`
                                  border-b border-gray-200
                                  ${index === array.length - 1 ? "last:border-b-0" : ""}

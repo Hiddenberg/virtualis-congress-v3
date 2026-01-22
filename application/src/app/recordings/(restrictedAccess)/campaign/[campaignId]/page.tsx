@@ -76,8 +76,8 @@ function CampaignStats({ recordings }: { recordings: SimpleRecordingRecord[] }) 
          <div className="flex lg:flex-row flex-col lg:justify-between lg:items-center gap-6">
             {/* Stats Grid */}
             <div className="lg:flex lg:items-center gap-6 grid grid-cols-2">
-               {stats.map((stat, index) => (
-                  <div key={index} className="flex items-center gap-3">
+               {stats.map((stat) => (
+                  <div key={stat.label} className="flex items-center gap-3">
                      <div className={`${stat.bgColor} p-2 rounded-lg`}>
                         <stat.icon className={`size-5 ${stat.color}`} />
                      </div>

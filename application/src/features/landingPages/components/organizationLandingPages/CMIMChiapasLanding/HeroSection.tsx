@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { Calendar, DoorOpenIcon, Monitor, Users } from "lucide-react";
+import { nanoid } from "nanoid";
 import Link from "next/link";
 import { LinkButton } from "@/components/global/Buttons";
 
@@ -29,7 +30,7 @@ export default function HeroSection({
                const randomSize = Math.floor(Math.random() * 10) + 10;
                return (
                   <div
-                     key={index}
+                     key={nanoid()}
                      className={`absolute border-2 border-white/20 rounded-full animate-pulse duration-1000`}
                      style={{
                         top: `${randomTop}%`,

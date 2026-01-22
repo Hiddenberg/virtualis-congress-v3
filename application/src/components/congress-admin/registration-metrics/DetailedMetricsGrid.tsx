@@ -99,8 +99,8 @@ export default function DetailedMetricsGrid({ registrations, payments }: Detaile
 
          <div className="p-6">
             <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-               {metrics.map((metric, index) => (
-                  <div key={index} className={`p-4 rounded-lg ${metric.bgColor}`}>
+               {metrics.map((metric) => (
+                  <div key={metric.title} className={`p-4 rounded-lg ${metric.bgColor}`}>
                      <div className="flex justify-between items-center mb-3">
                         <div className={`p-2 rounded-lg bg-white ${metric.color}`}>
                            <metric.icon className="w-5 h-5" />

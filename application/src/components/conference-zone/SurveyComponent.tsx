@@ -9,27 +9,27 @@ export default function SurveyComponent() {
    const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
    return (
-      <div className="w-full mx-auto bg-gray-100 rounded-xl p-6 shadow-md">
+      <div className="bg-gray-100 shadow-md mx-auto p-6 rounded-xl w-full">
          <div className="flex items-center mb-4">
-            <BarChart2 className="w-6 h-6 mr-2 text-gray-700" />
-            <h2 className="text-xl font-semibold">Encuesta</h2>
+            <BarChart2 className="mr-2 w-6 h-6 text-gray-700" />
+            <h2 className="font-semibold text-xl">Encuesta</h2>
          </div>
          <div className="mb-4">
-            <h3 className="text-lg font-medium">
+            <h3 className="font-medium text-lg">
                ¿Cuál es el mayor desafío en la implementación de la nanotecnología en medicamentos?
             </h3>
          </div>
          <form>
-            {surveyOptions.map((option, index) => (
-               <div key={index} className="mb-2">
-                  <label className="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+            {surveyOptions.map((option) => (
+               <div key={option} className="mb-2">
+                  <label className="flex items-center bg-white hover:bg-gray-50 p-3 rounded-lg transition-colors cursor-pointer">
                      <input
                         type="radio"
                         name="survey"
                         value={option}
                         checked={selectedOption === option}
                         onChange={() => setSelectedOption(option)}
-                        className="form-radio h-5 w-5 text-blue-600"
+                        className="w-5 h-5 text-blue-600 form-radio"
                      />
                      <span className="ml-2 text-gray-700">{option}</span>
                   </label>

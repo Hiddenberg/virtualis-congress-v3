@@ -47,8 +47,8 @@ export default function PricingSection() {
             <div className="md:hidden space-y-6">
                <div className="border border-gray-200 rounded-lg overflow-hidden">
                   <div className="divide-y divide-gray-200">
-                     {pricingData.map((item, index) => (
-                        <div key={index} className="p-4">
+                     {pricingData.map((item) => (
+                        <div key={item.category} className="p-4">
                            <h3 className="mb-3 font-medium text-gray-900">{item.category}</h3>
                            {item.hasDifferentPrices ? (
                               <div className="space-y-2">
@@ -100,8 +100,8 @@ export default function PricingSection() {
                         </tr>
                      </thead>
                      <tbody className="divide-y divide-gray-200">
-                        {pricingData.map((item, index) => (
-                           <tr key={index} className="hover:bg-gray-50">
+                        {pricingData.map((item) => (
+                           <tr key={item.category} className="hover:bg-gray-50">
                               <td className="px-6 py-4 text-gray-900">{item.category}</td>
                               {item.hasDifferentPrices ? (
                                  <>

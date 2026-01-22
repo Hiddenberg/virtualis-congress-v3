@@ -42,7 +42,7 @@ export default function ConferenceCarousel() {
    ];
 
    return (
-      <div className="relative mx-auto rounded-3xl w-full h-[35rem] overflow-hidden">
+      <div className="relative mx-auto rounded-3xl w-full h-140 overflow-hidden">
          {/* Background Image */}
          <Image src={slides[currentSlide].image} alt="" className="absolute inset-0 w-full h-full object-cover" />
 
@@ -57,9 +57,10 @@ export default function ConferenceCarousel() {
 
             {/* Progress Indicators */}
             <div className="flex gap-2">
-               {slides.map((_, index) => (
+               {slides.map((slide, index) => (
                   <button
-                     key={index}
+                     key={slide.title}
+                     type="button"
                      onClick={() => setCurrentSlide(index)}
                      className="p-4 px-2"
                      aria-label={`Go to slide ${index + 1}`}

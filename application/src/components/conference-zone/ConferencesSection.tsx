@@ -9,18 +9,18 @@ type SessionCardProps = {
 
 function SessionCard({ title, viewers }: SessionCardProps) {
    return (
-      <div className="flex items-center bg-white rounded-lg overflow-hidden shadow-md p-2">
+      <div className="flex items-center bg-white shadow-md p-2 rounded-lg overflow-hidden">
          <Image
             src={conferenceImage2}
             alt={title}
             width={120}
             height={90}
-            className="object-cover w-30 h-20 round-lg overflow-hidden"
+            className="w-30 h-20 object-cover overflow-hidden round-lg"
          />
          <div className="flex-grow p-4">
-            <h3 className="text-sm font-semibold mb-2">{title}</h3>
-            <div className="flex items-center bg-yellow-400 text-yellow-800 rounded-full px-2 py-1 text-xs font-semibold w-fit">
-               <Eye className="w-3 h-3 mr-1" />
+            <h3 className="mb-2 font-semibold text-sm">{title}</h3>
+            <div className="flex items-center bg-yellow-400 px-2 py-1 rounded-full w-fit font-semibold text-yellow-800 text-xs">
+               <Eye className="mr-1 w-3 h-3" />
                {viewers}
             </div>
          </div>
@@ -48,17 +48,17 @@ export default function ConferencesSection() {
    ];
 
    return (
-      <div className="w-full mx-auto bg-gray-100 p-6 rounded-xl">
-         <h2 className="text-2xl font-bold mb-4">En vivo</h2>
+      <div className="bg-gray-100 mx-auto p-6 rounded-xl w-full">
+         <h2 className="mb-4 font-bold text-2xl">En vivo</h2>
          <div className="space-y-4">
-            {sessions.map((session, index) => (
-               <SessionCard key={index} title={session.title} viewers={session.viewers} />
+            {sessions.map((session) => (
+               <SessionCard key={session.title} title={session.title} viewers={session.viewers} />
             ))}
          </div>
-         <div className="flex justify-center mt-4 space-x-2">
-            <div className="w-2 h-2 rounded-full bg-blue-500" />
-            <div className="w-2 h-2 rounded-full bg-gray-300" />
-            <div className="w-2 h-2 rounded-full bg-gray-300" />
+         <div className="flex justify-center space-x-2 mt-4">
+            <div className="bg-blue-500 rounded-full w-2 h-2" />
+            <div className="bg-gray-300 rounded-full w-2 h-2" />
+            <div className="bg-gray-300 rounded-full w-2 h-2" />
          </div>
       </div>
    );

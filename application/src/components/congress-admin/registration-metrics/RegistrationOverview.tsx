@@ -142,8 +142,8 @@ export default function RegistrationOverview({ registrations, payments }: Regist
 
    return (
       <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-         {stats.map((stat, index) => (
-            <div key={index} className="bg-white shadow-sm p-6 border border-gray-200 rounded-xl">
+         {stats.map((stat) => (
+            <div key={stat.title} className="bg-white shadow-sm p-6 border border-gray-200 rounded-xl">
                <div className="flex justify-between items-center">
                   <div className="min-w-0">
                      <p className="font-medium text-gray-600 text-sm">{stat.title}</p>

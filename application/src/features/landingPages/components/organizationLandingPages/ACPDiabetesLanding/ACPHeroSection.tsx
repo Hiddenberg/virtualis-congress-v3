@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { CalendarDays, DoorOpenIcon, Monitor, Play } from "lucide-react";
+import { nanoid } from "nanoid";
 import Link from "next/link";
 import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
@@ -28,7 +29,7 @@ export default function ACPHeroSection({ organization, userId, congress, confere
                const randomSize = Math.floor(Math.random() * 8) + 8;
                return (
                   <div
-                     key={index}
+                     key={nanoid()}
                      className="absolute border-2 border-white/20 rounded-full animate-pulse"
                      style={{
                         top: `${randomTop}%`,

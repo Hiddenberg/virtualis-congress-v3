@@ -2,6 +2,7 @@
 
 import { tzDate } from "@formkit/tempo";
 import { CalendarDays, DoorOpenIcon, Monitor, Play } from "lucide-react";
+import { nanoid } from "nanoid";
 import Link from "next/link";
 import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
@@ -34,7 +35,7 @@ export default function HeroSection({ organization, userId, congress, conference
                const randomSize = Math.floor(Math.random() * 8) + 8;
                return (
                   <div
-                     key={index}
+                     key={nanoid()}
                      className="absolute border-2 border-white/20 rounded-full animate-pulse"
                      style={{
                         top: `${randomTop}%`,

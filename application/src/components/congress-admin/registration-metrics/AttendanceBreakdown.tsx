@@ -53,8 +53,8 @@ export default function AttendanceBreakdown({ registrations }: AttendanceBreakdo
 
          <div className="p-6">
             <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-               {attendanceData.map((item, index) => (
-                  <div key={index} className="text-center">
+               {attendanceData.map((item) => (
+                  <div key={item.title} className="text-center">
                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${item.color}`}>
                         <item.icon className="w-8 h-8" />
                      </div>

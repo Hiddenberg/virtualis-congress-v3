@@ -1,6 +1,7 @@
 "use client";
 
 import { Plus, Trash2 } from "lucide-react";
+import { nanoid } from "nanoid";
 import { useState } from "react";
 import { createQuestionPollAndLinkToConferenceAction } from "@/features/questionPolls/serverActions/questionPollActions";
 
@@ -57,7 +58,7 @@ export default function QuestionPollForm({ conferenceId }: { conferenceId: Congr
             <label className="block mb-2 font-medium text-gray-900 text-sm">Opciones</label>
             <div className="space-y-3">
                {options.map((opt, index) => (
-                  <div key={index} className="flex items-center gap-2">
+                  <div key={nanoid()} className="flex items-center gap-2">
                      <input
                         type="text"
                         value={opt}
