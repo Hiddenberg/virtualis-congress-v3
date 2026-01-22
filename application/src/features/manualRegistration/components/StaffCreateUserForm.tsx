@@ -3,7 +3,7 @@
 import { AlertCircle, ArrowLeft, Calendar, CheckCircle, Mail, Phone, User, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import React, { useId, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { staffCreateAttendantUserAction } from "../serverActions/manualRegistrationActions";
@@ -17,14 +17,15 @@ interface FormFieldProps {
 }
 
 function FormField({ label, icon, required = false, children, error }: FormFieldProps) {
+   const id = useId();
    return (
       <div>
-         <label className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
+         <label htmlFor={id} className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
             {icon}
             {label}
             {required && <span className="text-red-500">*</span>}
          </label>
-         {children}
+         {React.isValidElement(children) ? React.cloneElement(children as React.ReactElement<{ id?: string }>, { id }) : children}
          {error && (
             <p className="flex items-center gap-1 mt-1 text-red-600 text-xs">
                <AlertCircle size={12} />

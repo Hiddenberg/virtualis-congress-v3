@@ -43,10 +43,10 @@ export default function CMIMCCCredentialsForm() {
       <form onSubmit={handleSubmit} className="space-y-6">
          {/* Environment Selection */}
          <div>
-            <label className="flex items-center gap-2 mb-3 font-medium text-gray-700 text-sm">
+            <div className="flex items-center gap-2 mb-3 font-medium text-gray-700 text-sm">
                <Globe className="w-4 h-4" />
                Entorno
-            </label>
+            </div>
             <div className="gap-3 grid grid-cols-2">
                <button
                   type="button"
@@ -75,12 +75,13 @@ export default function CMIMCCCredentialsForm() {
 
          {/* API Key */}
          <div>
-            <label className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
+            <label htmlFor="api-key-input" className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
                <Key className="w-4 h-4" />
                Clave API de Stripe
             </label>
             <div className="relative">
                <input
+                  id="api-key-input"
                   type={showApiKey ? "text" : "password"}
                   value={credentialsForm.apiKey}
                   onChange={(e) => handleInputChange("apiKey", e.target.value)}
@@ -103,12 +104,13 @@ export default function CMIMCCCredentialsForm() {
 
          {/* Webhook Secret */}
          <div>
-            <label className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
+            <label htmlFor="webhook-secret-input" className="flex items-center gap-2 mb-2 font-medium text-gray-700 text-sm">
                <Shield className="w-4 h-4" />
                Webhook Secret
             </label>
             <div className="relative">
                <input
+                  id="webhook-secret-input"
                   type={showWebhookSecret ? "text" : "password"}
                   value={credentialsForm.webhookSecret}
                   onChange={(e) => handleInputChange("webhookSecret", e.target.value)}

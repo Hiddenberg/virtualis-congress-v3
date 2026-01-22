@@ -29,8 +29,8 @@ export default async function PresentationVideo({ params }: { params: Promise<{ 
    };
 
    return (
-      <div className="mx-auto px-8 max-w-screen-xl">
-         <h2 className="block md:mx-auto mb-10 px-4 w-full md:w-[40rem] font-bold text-[#A4A1B1] text-xl md:text-2xl text-center">
+      <div className="mx-auto px-8 max-w-7xl">
+         <h2 className="block md:mx-auto mb-10 px-4 w-full md:w-160 font-bold text-[#A4A1B1] text-xl md:text-2xl text-center">
             {mainTexts[language]}
          </h2>
 
@@ -40,6 +40,7 @@ export default async function PresentationVideo({ params }: { params: Promise<{ 
 
          <div className="block relative mb-6 rounded-xl w-full aspect-video overflow-hidden">
             <iframe
+               title="Presentation Video"
                src={videoUrls[language]}
                className="absolute inset-0 border-none w-full h-full"
                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
