@@ -8,6 +8,7 @@ export interface Congress {
    finishDate: string;
    status: "active" | "finished";
    modality: "online" | "hybrid";
+   congressLocation?: string; // Shown if the congress is hybrid
    showEndOfDayMessage: boolean;
    showClosingConferenceBanner: boolean;
 }

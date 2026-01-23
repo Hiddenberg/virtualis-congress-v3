@@ -1,5 +1,5 @@
 import { format } from "@formkit/tempo";
-import { CalendarDaysIcon, DoorOpenIcon, MonitorIcon, PlayIcon } from "lucide-react";
+import { CalendarDaysIcon, DoorOpenIcon, FilmIcon, MapPinIcon, MonitorIcon, PlayIcon } from "lucide-react";
 import { nanoid } from "nanoid";
 import Link from "next/link";
 import type { ConferenceWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
@@ -151,17 +151,32 @@ export default function GenericHeroSection({
                            <CalendarDaysIcon className="w-4 h-4 text-cyan-200" />
                            <span className="font-semibold text-white text-xl">Fechas</span>
                         </div>
-                        <div className="text-cyan-100 capitalize">
+                        <div className="capitalize">
                            {formattedStartDate} - {formattedEndDate} {formattedYear}
                         </div>
                      </div>
                      <div className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 rounded-xl">
-                        <div className="mb-1 font-bold text-white text-xl"> Grabaciones</div>
-                        <div className="font-medium text-cyan-200">A demanda por 3 meses</div>
+                        <span className="flex items-center gap-2 mb-1 font-bold text-white text-xl">
+                           <FilmIcon className="size-4 text-cyan-200" /> Grabaciones
+                        </span>
+                        <div className="font-medium">A demanda por 3 meses</div>
                      </div>
+                     {congress.modality === "hybrid" && congress.congressLocation && (
+                        <div className="col-span-2 bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
+                           <div className="flex items-center gap-2 mb-1">
+                              <MapPinIcon className="w-4 h-4 text-cyan-200" />
+                              <span className="font-semibold text-white text-xl">Ubicación</span>
+                           </div>
+                           <div className="mb-2 text-cyan-100">{congress.congressLocation}</div>
+                           <div className="flex items-center gap-1 text-cyan-200 text-sm">
+                              <MonitorIcon className="size-4" />
+                              <span className="font-bold">También disponible en línea</span>
+                           </div>
+                        </div>
+                     )}
                   </div>
 
-                  {/* CTAs */}
+                  {/* CTA Buttons */}
                   <div className="space-y-3">
                      <div className="flex sm:flex-row flex-col gap-3">
                         {!userId && (
