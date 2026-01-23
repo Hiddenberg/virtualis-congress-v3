@@ -5,6 +5,7 @@ export interface CongressLandingConfiguration {
    organization: OrganizationRecord["id"];
    congress: CongressRecord["id"];
    colorScheme: "green" | "blue" | "purple";
+   heroDescription?: string;
    additionalLogosURLs?: string[];
 }
 

@@ -93,13 +93,14 @@ export default function GenericHeroSection({
       locale: "es-MX",
       tz: "America/Mexico_City",
    });
-
    const formattedYear = format({
       date: congress.startDate,
       format: "YYYY",
       locale: "es-MX",
       tz: "America/Mexico_City",
    });
+
+   // const totalConferences = conferences.length;
 
    return (
       <section className={`relative flex items-center min-h-dvh ${colorClasses[color].heroBgClass}`}>
@@ -114,33 +115,33 @@ export default function GenericHeroSection({
 
                   <div className="space-y-4">
                      <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 border border-white/30 rounded-full font-semibold text-cyan-100 text-xs">
-                        <MonitorIcon className="w-4 h-4" /> Congreso 100% en línea
+                        <MonitorIcon className="w-4 h-4" />{" "}
+                        {congress.modality === "online" ? "Congreso 100% en línea" : "Congreso híbrido"}
                      </div>
                      <h1 className="font-bold text-4xl lg:text-5xl leading-tight">
                         <span className="text-white">Bienvenidos al evento:</span>
                         <br />
                         <span className={colorClasses[color].heroTextAccentClass}>{congress.title}</span>
                      </h1>
-                     <p className="max-w-xl text-blue-100 text-lg">
-                        Actualízate con las mejores conferencias en un formato digital accesible, sin traslados y desde cualquier
-                        dispositivo.
-                     </p>
-                     <div className="gap-3 grid sm:grid-cols-3">
-                        {/* <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
+                     {landingConfiguration.heroDescription && (
+                        <p className="max-w-xl text-blue-100 text-lg">{landingConfiguration.heroDescription}</p>
+                     )}
+                     {/* <div className="gap-3 grid sm:grid-cols-3">
+                        <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
                            <div className="flex items-center gap-2 mb-1">
-                              <Calendar className="w-4 h-4 text-cyan-200" />
+                              <CalendarIcon className="w-4 h-4 text-cyan-200" />
                               <span className="font-semibold text-white text-sm">Conferencias</span>
                            </div>
                            <div className="text-cyan-100 text-xs">{totalConferences} en total</div>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
                            <div className="flex items-center gap-2 mb-1">
-                              <Film className="w-4 h-4 text-cyan-200" />
+                              <FilmIcon className="w-4 h-4 text-cyan-200" />
                               <span className="font-semibold text-white text-sm">Grabaciones</span>
                            </div>
                            <div className="text-cyan-100 text-xs">Incluidas</div>
-                        </div> */}
-                     </div>
+                        </div>
+                     </div> */}
                   </div>
 
                   {/* Highlights */}
