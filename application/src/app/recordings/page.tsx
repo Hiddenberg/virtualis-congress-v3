@@ -17,8 +17,6 @@ import { getAllSimpleRecordings } from "@/features/simpleRecordings/services/rec
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { checkUserAuthorization, getUserById } from "@/features/users/services/userServices";
 
-export const dynamic = "force-dynamic";
-
 // Campaign Card Component
 function CampaignCard({
    campaign,

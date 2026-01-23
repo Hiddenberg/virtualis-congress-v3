@@ -1,8 +1,6 @@
 import CourtesyInvitationsTable from "@/components/congress-admin/courtesy-invitations/CourtesyInvitationsTable";
 import { getAllCourtesyInvitations } from "@/services/courtesyInvitationServices";
 
-export const dynamic = "force-dynamic";
-
 export default async function CourtesyInvitationsPage() {
    const invitations = await getAllCourtesyInvitations();
    return (

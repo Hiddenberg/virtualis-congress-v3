@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { getConferencePresentation } from "@/features/conferences/services/conferencePresentationsServices";
 import PresentationAndVideoPlayer from "@/features/pptPresentations/components/PresentationAndVideoPlayer";
 import { getPresentationRecordingByPresentationId } from "@/features/pptPresentations/services/presentationRecordingServices";
@@ -6,6 +7,7 @@ import mux from "@/libs/mux";
 import { getFullDBRecordsList } from "@/libs/pbServerClientNew";
 
 export default async function CongressRecordingsPage() {
+   await connection();
    const conferenceLivestreams = await getFullDBRecordsList<
       ConferenceLivestream & {
          expand: {
@@ -27,7 +29,7 @@ export default async function CongressRecordingsPage() {
       <div>
          <h1>Congress Recordings {conferenceLivestreams.length}</h1>
 
-         <div className="grid grid-cols-3 gap-4 p-4">
+         <div className="gap-4 grid grid-cols-3 p-4">
             {conferenceLivestreams.map(async (conferenceLivestream) => {
                const muxLivestreamId =
                   conferenceLivestream.expand.livestreamSession.expand.livestream__mux_livestream_via_livestreamSession[0]
@@ -44,7 +46,7 @@ export default async function CongressRecordingsPage() {
                const presentationSlides = await getPresentationSlidesById(conferencePresentation?.id ?? "");
 
                return (
-                  <div key={conferenceLivestream.id} className="border border-gray-300 p-4 rounded-md">
+                  <div key={conferenceLivestream.id} className="p-4 border border-gray-300 rounded-md">
                      <h2>{conference.title}</h2>
                      <p>{livestreamSession.status}</p>
                      <p className="truncate">{muxLivestreamId}</p>
@@ -70,7 +72,7 @@ export default async function CongressRecordingsPage() {
                                  <h3>Presentation Recording:</h3>
                                  <p className="truncate">{presentationRecording.id}</p>
                                  <p>slideChanges</p>
-                                 <div className="overflow-y-auto max-h-[200px]">
+                                 <div className="max-h-[200px] overflow-y-auto">
                                     <code className="text-xs">{JSON.stringify(presentationRecording.slideChanges, null, 2)}</code>
                                  </div>
                                  <div>

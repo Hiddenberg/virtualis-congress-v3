@@ -3,8 +3,6 @@ import { getConferenceById } from "@/features/conferences/services/conferenceSer
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getAllSpeakerNamesAndIds } from "@/features/users/speakers/services/speakerServices";
 
-export const dynamic = "force-dynamic";
-
 export default async function EditConferencePage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 

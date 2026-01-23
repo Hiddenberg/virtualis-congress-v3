@@ -223,7 +223,7 @@ function CertificateDesignContainer({
             </div>
          </div>
 
-         <Button onClick={generatePDF} disabled={isGeneratingPDF} className="!bg-purple-400 hover:!bg-purple-500 text-white">
+         <Button onClick={generatePDF} disabled={isGeneratingPDF} className="bg-purple-400! hover:bg-purple-500! text-white">
             {isGeneratingPDF ? "Generando PDF..." : "Descargar PDF"}
          </Button>
       </div>

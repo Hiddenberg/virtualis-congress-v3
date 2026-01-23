@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import VirtualisLogo from "@/assets/virtualisLogo.svg";
 
@@ -12,11 +11,6 @@ function RecordingsHeader() {
       </div>
    );
 }
-
-export const metadata: Metadata = {
-   title: "Virtualis Recordings",
-   description: "Recordings",
-};
 
 export default function RecordingsLayout({ children }: { children: React.ReactNode }) {
    return (

@@ -4,8 +4,6 @@ import ConferenceInfoSection from "@/components/registration/ConferenceInfoSecti
 import NewPricingSection from "@/components/registration/NewPricingSection";
 import RegistrationHeroSection from "@/components/registration/RegistrationHerosection";
 
-export const dynamic = "force-dynamic";
-
 export default function RegistrationHomepage() {
    return (
       <div className="relative flex flex-col space-y-5 bg-white">

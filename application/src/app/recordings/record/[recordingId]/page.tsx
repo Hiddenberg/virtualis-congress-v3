@@ -8,8 +8,6 @@ import { getRecordingLivestreamSessionByRecordingId } from "@/features/simpleRec
 import { getRecordingPresentationByRecordingId } from "@/features/simpleRecordings/services/recordingPresentationsServices";
 import { getSimpleRecordingById } from "@/features/simpleRecordings/services/recordingsServices";
 
-export const dynamic = "force-dynamic";
-
 export default async function RecordingPage({ params }: { params: Promise<{ recordingId: string }> }) {
    const { recordingId } = await params;
 

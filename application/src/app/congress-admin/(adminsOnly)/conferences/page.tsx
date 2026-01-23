@@ -6,8 +6,6 @@ import { getAllConferencePresentations } from "@/features/conferences/services/c
 import { getAllCongressConferences } from "@/features/conferences/services/conferenceServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 
-export const dynamic = "force-dynamic";
-
 export default async function ConferencesPage() {
    const congress = await getLatestCongress();
    const conferences = await getAllCongressConferences(congress.id);
