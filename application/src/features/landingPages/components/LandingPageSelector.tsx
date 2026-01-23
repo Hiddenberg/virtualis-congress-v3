@@ -2,6 +2,7 @@ import type { OrganizationRecord } from "@/features/organizations/types/organiza
 import ACPLandingPage from "./organizationLandingPages/ACPDiabetesLandingPage";
 import CMIMChiapasLandingPage from "./organizationLandingPages/CMIMChiapasLandingPage";
 import GeaLandingPage from "./organizationLandingPages/GeaLandingPage";
+import GenericCongressLandingPage from "./organizationLandingPages/GenericCongressLandingPage";
 
 export default function LandingPageSelector({ organization }: { organization: OrganizationRecord }) {
    const landingPagesMap: Record<string, React.ReactNode> = {
@@ -12,11 +13,7 @@ export default function LandingPageSelector({ organization }: { organization: Or
    const LandingPage = landingPagesMap[organization.shortID];
 
    if (!LandingPage) {
-      return (
-         <div>
-            <h1>Landing Page not found for {organization.shortID}</h1>
-         </div>
-      );
+      return <GenericCongressLandingPage organization={organization} />;
    }
 
    return LandingPage;

@@ -1,0 +1,28 @@
+import { getAllProgramConferencesWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
+import { getCongressLandingConfigurationByCongressId } from "@/features/congresses/services/congressLandingConfigurationServices";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import GenericHeroSection from "./GenericCongressLanding/GenericHeroSection";
+
+export default async function GenericCongressLandingPage({ organization }: { organization: OrganizationRecord }) {
+   const congress = await getLatestCongress();
+   const [conferencesWithSpeakers, congressLandingConfiguration] = await Promise.all([
+      getAllProgramConferencesWithSpeakers(),
+      getCongressLandingConfigurationByCongressId(congress.id),
+   ]);
+
+   if (!congressLandingConfiguration) {
+      throw new Error("Congress landing configuration not found");
+   }
+
+   return (
+      <div>
+         <GenericHeroSection
+            landingConfiguration={congressLandingConfiguration}
+            conferences={conferencesWithSpeakers}
+            congress={congress}
+            organization={organization}
+         />
+      </div>
+   );
+}
