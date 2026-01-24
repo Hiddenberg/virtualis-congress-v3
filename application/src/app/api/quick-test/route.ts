@@ -1,22 +1,11 @@
 import { NextResponse } from "next/server";
-import { getFullDBRecordsList } from "@/libs/pbServerClientNew";
+import { getAllCongressProductsWithPrices } from "@/features/congresses/services/congressProductsServices";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
 
 export async function GET() {
-   const conferenceLivestreams = await getFullDBRecordsList<
-      ConferenceLivestream & {
-         expand: {
-            livestreamSession: LivestreamSessionRecord & {
-               expand: {
-                  livestream__mux_livestream_via_livestreamSession: LivestreamMuxAssetRecord[];
-               };
-            };
-            conference: CongressConferenceRecord;
-         };
-      }
-   >("CONFERENCE_LIVESTREAMS", {
-      expand: "livestreamSession, conference, livestreamSession.livestream__mux_livestream_via_livestreamSession",
-   });
+   const congress = await getLatestCongress();
+   const productsWithPrices = await getAllCongressProductsWithPrices(congress.id);
    return NextResponse.json({
-      conferenceLivestreams: conferenceLivestreams[0],
+      productsWithPrices,
    });
 }

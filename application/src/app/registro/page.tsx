@@ -21,7 +21,7 @@ export default function RegistrationHomepage() {
                      internacional.
                   </h1>
 
-                  <LinkButton className="mx-auto md:!px-24 text-xl" href="/registro/formulario">
+                  <LinkButton className="mx-auto md:px-24! text-xl" href="/registro/formulario">
                      Regístrate ahora
                   </LinkButton>
                </div>

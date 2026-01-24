@@ -3,6 +3,7 @@ import { getCongressLandingConfigurationByCongressId } from "@/features/congress
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import GenericHeroSection from "./GenericCongressLanding/GenericHeroSection";
+import GenericPricesSection from "./GenericCongressLanding/GenericPricesSection";
 
 export default async function GenericCongressLandingPage({ organization }: { organization: OrganizationRecord }) {
    const congress = await getLatestCongress();
@@ -23,6 +24,7 @@ export default async function GenericCongressLandingPage({ organization }: { org
             congress={congress}
             organization={organization}
          />
+         <GenericPricesSection congress={congress} />
       </div>
    );
 }

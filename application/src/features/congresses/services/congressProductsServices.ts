@@ -2,7 +2,13 @@ import "server-only";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
-import type { CongressProduct, CongressProductRecord, NewCongressProductData } from "../types/congressProductsTypes";
+import type { ProductPriceRecord } from "../types/congressProductPricesTypes";
+import type {
+   CongressProduct,
+   CongressProductRecord,
+   CongressProductWithPrices,
+   NewCongressProductData,
+} from "../types/congressProductsTypes";
 import type { CongressRecord } from "../types/congressTypes";
 import { getCongressById } from "./congressServices";
 
@@ -117,6 +123,52 @@ export async function getAllCongressProducts(congressId: CongressRecord["id"]) {
    });
 
    return congressProducts;
+}
+
+export async function getAllCongressProductsWithPrices(congressId: CongressRecord["id"]): Promise<CongressProductWithPrices[]> {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId} &&
+      congress__product__prices_via_product.archived = false
+   `,
+      {
+         organizationId: organization.id,
+         congressId,
+      },
+   );
+
+   const expandedCongressProducts = await getFullDBRecordsList<
+      CongressProduct & {
+         expand?: {
+            congress__product__prices_via_product: ProductPriceRecord[];
+         };
+      }
+   >("CONGRESS_PRODUCTS", {
+      filter,
+      expand: "congress__product__prices_via_product",
+   });
+
+   const productsWithPrices: CongressProductWithPrices[] = expandedCongressProducts.map((expandedProduct) => ({
+      product: {
+         id: expandedProduct.id,
+         name: expandedProduct.name,
+         description: expandedProduct.description,
+         productType: expandedProduct.productType,
+         congress: expandedProduct.congress,
+         organization: expandedProduct.organization,
+         stripeProductId: expandedProduct.stripeProductId,
+         collectionId: expandedProduct.collectionId,
+         collectionName: expandedProduct.collectionName,
+         created: expandedProduct.created,
+         updated: expandedProduct.updated,
+      },
+      prices: expandedProduct.expand?.congress__product__prices_via_product || [],
+   }));
+
+   return productsWithPrices;
 }
 
 export async function getCongressProductById(productId: CongressProductRecord["id"]) {
