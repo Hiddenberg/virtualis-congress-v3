@@ -1,0 +1,18 @@
+services:
+  virtualis-congress-v3-db:
+    build: ./database
+    volumes:
+      - ./database/:/db/
+    networks:
+      - proxynetwork
+    restart: always
+
+  virtualis-congress-v3:
+    build: ./application
+    networks:
+      - proxynetwork
+    restart: always
+
+networks:
+  proxynetwork:
+    external: true

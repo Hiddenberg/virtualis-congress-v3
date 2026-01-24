@@ -19,7 +19,6 @@ services:
     ports:
      - 3000:3000
 
-
 networks:
   proxynetwork:
     external: true
