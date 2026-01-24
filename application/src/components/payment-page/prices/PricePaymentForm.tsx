@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, PlayCircle, ShieldCheck, Upload } from "lucide-react";
+import { CheckCircle, FileText, PlayCircle, ShieldCheck, Upload } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
@@ -108,8 +108,8 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
          {/* Recordings Add-on Section */}
          {recordingsPrice && (
             <div
-               className={`bg-white shadow-sm p-6 sm:p-8 border-2 rounded-xl sm:rounded-2xl transition-all duration-300 ${
-                  includeRecordings ? "border-purple-300 bg-purple-50" : "border-gray-200 hover:border-purple-200"
+               className={`bg-white shadow-md p-6 sm:p-8 border-2 rounded-xl sm:rounded-2xl transition-all duration-300 ${
+                  includeRecordings ? "border-purple-300 bg-purple-50 shadow-purple-100" : "border-gray-200 hover:border-purple-200 hover:shadow-lg"
                }`}
             >
                <div className="flex items-start gap-4">
@@ -159,8 +159,13 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
          )}
 
          {/* Price Summary Card */}
-         <div className="bg-white shadow-sm p-6 sm:p-8 border border-gray-200 rounded-xl sm:rounded-2xl">
-            <h2 className="mb-6 font-bold text-gray-900 text-xl sm:text-2xl">Resumen del pago</h2>
+         <div className="bg-white shadow-md p-6 sm:p-8 border-2 border-gray-200/50 rounded-xl sm:rounded-2xl backdrop-blur-sm">
+            <div className="flex items-center gap-3 mb-6">
+               <div className="flex justify-center items-center bg-linear-to-br from-gray-500 to-gray-600 rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+               </div>
+               <h2 className="font-bold text-gray-900 text-xl sm:text-2xl">Resumen del pago</h2>
+            </div>
             <div className="space-y-4">
                <div className="flex justify-between items-center pb-4 border-gray-200 border-b">
                   <span className="text-gray-700 text-base sm:text-lg">{price.name}</span>
@@ -185,9 +190,9 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
 
          {/* Credential Validation Section */}
          {price.requiresCredentialValidation && (
-            <div className="bg-white shadow-sm p-6 sm:p-8 border border-gray-200 rounded-xl sm:rounded-2xl">
+            <div className="bg-white shadow-md p-6 sm:p-8 border-2 border-amber-200/50 rounded-xl sm:rounded-2xl backdrop-blur-sm">
                <div className="flex items-start gap-3 mb-6">
-                  <div className="flex justify-center items-center bg-amber-100 rounded-full w-10 sm:w-12 h-10 sm:h-12 shrink-0">
+                  <div className="flex justify-center items-center bg-amber-100 rounded-full w-10 sm:w-12 h-10 sm:h-12 shrink-0 shadow-lg shadow-amber-200/50">
                      <ShieldCheck className="w-5 sm:w-6 h-5 sm:h-6 text-amber-600" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -271,13 +276,13 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
          )}
 
          {/* Payment Button */}
-         <div className="flex justify-center">
+         <div className="flex justify-center pt-4">
             <Button
                variant="primary"
                onClick={handlePay}
                disabled={!canProceed || isLoading}
                loading={isLoading}
-               className="px-8 py-3 w-full sm:w-auto min-w-[200px] text-base sm:text-lg"
+               className="px-10 py-4 w-full sm:w-auto min-w-[240px] text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
                {isLoading ? "Procesando..." : "Continuar al pago"}
             </Button>

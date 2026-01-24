@@ -33,7 +33,7 @@ export default function ModalityCard({ title, description, icon: Icon, features,
    return (
       <Link
          href={href}
-         className={`group relative bg-white hover:shadow-lg p-6 sm:p-8 border-2 border-gray-200 ${colors.hoverBorder} rounded-xl sm:rounded-2xl text-left transition-all duration-300 cursor-pointer`}
+         className={`group relative bg-white hover:shadow-xl p-6 sm:p-8 border-2 border-gray-200 ${colors.hoverBorder} rounded-xl sm:rounded-2xl text-left transition-all duration-300 cursor-pointer hover:-translate-y-1`}
       >
          <div className="space-y-4 sm:space-y-6">
             <div className="flex items-center gap-4">

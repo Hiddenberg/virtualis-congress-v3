@@ -66,15 +66,15 @@ export default function ProductInfoCard({ product }: ProductInfoCardProps) {
    const colors = getProductTypeColors(product.productType);
 
    return (
-      <div className="bg-white shadow-sm p-6 sm:p-8 border border-gray-200 rounded-xl sm:rounded-2xl">
+      <div className="bg-white shadow-md p-6 sm:p-8 border-2 border-gray-200/50 rounded-xl sm:rounded-2xl backdrop-blur-sm">
          <div className="flex items-start gap-4">
-            <div className={`flex justify-center items-center ${colors.iconBg} rounded-full w-14 h-14 sm:w-16 sm:h-16 shrink-0`}>
+            <div className={`flex justify-center items-center ${colors.iconBg} rounded-full w-14 h-14 sm:w-16 sm:h-16 shrink-0 shadow-lg`}>
                <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
             </div>
             <div className="flex-1 min-w-0">
                <div className="flex flex-wrap items-center gap-2 mb-2">
                   <h1 className="font-bold text-gray-900 text-xl sm:text-2xl">{product.name}</h1>
-                  <span className={`${colors.badgeBg} ${colors.badgeText} px-2.5 py-1 rounded-md text-xs font-medium`}>
+                  <span className={`${colors.badgeBg} ${colors.badgeText} px-3 py-1 rounded-md text-xs font-semibold shadow-sm`}>
                      {typeLabel}
                   </span>
                </div>

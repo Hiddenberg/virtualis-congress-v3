@@ -31,13 +31,13 @@ export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) 
    return (
       <Link
          href={`/payment/prices/${price.id}/pay`}
-         className="group relative flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300"
+         className="group relative flex flex-col items-center bg-white hover:shadow-xl p-6 border-2 border-gray-100 hover:border-blue-300 rounded-2xl transition-all duration-300 hover:-translate-y-1"
       >
          <div className={`w-12 h-12 bg-linear-to-br ${colors.gradient} rounded-full flex items-center justify-center mb-4`}>
             <MonitorIcon className="w-6 h-6 text-white" />
          </div>
          <h3 className="mb-2 font-bold text-gray-900 text-sm text-center leading-tight">{price.name}</h3>
-         <div className={`text-center py-2 px-4 rounded-full font-semibold ${colors.text} ${colors.bg} mb-2`}>
+         <div className={`text-center py-2.5 px-5 rounded-full font-bold ${colors.text} ${colors.bg} mb-2 shadow-sm`}>
             {formatPrice(price.priceAmount, price.currency)}
          </div>
          {price.requiresCredentialValidation && (
