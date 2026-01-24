@@ -1,4 +1,5 @@
 import GoBackButton from "@/components/global/GoBackButton";
+import PricePaymentForm from "@/components/payment-page/prices/PricePaymentForm";
 import { getCongressProductPriceById } from "@/features/congresses/services/congressProductPricesServices";
 import { getCongressProductByPriceId } from "@/features/congresses/services/congressProductsServices";
 
@@ -19,10 +20,10 @@ export default async function PayPricePage({ params }: { params: Promise<{ price
    return (
       <div>
          <GoBackButton backButtonText="Volver a la lista de precios" />
-         <h1>PayPricePage</h1>
-         <p>{product.name}</p>
-         <p>{price.priceAmount}</p>
-         <p>{price.currency}</p>
+         {/* Show product and price details */}
+
+         {/* If the product is in person, show the congress location */}
+         <PricePaymentForm price={price} />
       </div>
    );
 }
