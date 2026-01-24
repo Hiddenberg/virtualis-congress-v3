@@ -1,5 +1,5 @@
-import { ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { formatPrice } from "./utils";
 
 interface FeaturedPriceCardProps {
@@ -56,7 +56,9 @@ export default function FeaturedPriceCard({
             )}
 
             {/* Badge */}
-            <div className={`-top-3 left-1/2 absolute bg-linear-to-r ${badgeGradientFrom} ${badgeGradientTo} shadow-lg px-4 py-2 rounded-full font-bold text-white text-xs -translate-x-1/2 transform`}>
+            <div
+               className={`-top-3 left-1/2 absolute bg-linear-to-r ${badgeGradientFrom} ${badgeGradientTo} shadow-lg px-4 py-2 rounded-full font-bold text-white text-xs -translate-x-1/2 transform`}
+            >
                {badge}
             </div>
 
@@ -72,7 +74,9 @@ export default function FeaturedPriceCard({
                      )}
                   </div>
                )}
-               <div className={`w-16 h-16 bg-linear-to-br ${gradientFrom} ${gradientTo} rounded-full flex items-center justify-center mx-auto mb-4`}>
+               <div
+                  className={`w-16 h-16 bg-linear-to-br ${gradientFrom} ${gradientTo} rounded-full flex items-center justify-center mx-auto mb-4`}
+               >
                   <Icon className="w-8 h-8 text-white" />
                </div>
                <div className="mb-3 font-bold text-gray-900 text-3xl">{formatPrice(priceAmount, currency)}</div>

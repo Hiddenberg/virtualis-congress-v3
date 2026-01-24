@@ -4,7 +4,6 @@ import ImportantNotes from "./ImportantNotes";
 import InPersonAccessSection from "./InPersonAccessSection";
 import OnlineAccessSection from "./OnlineAccessSection";
 import RecordingsSection from "./RecordingsSection";
-import RegistrationCTA from "./RegistrationCTA";
 import SectionHeader from "./SectionHeader";
 
 interface GenericPricesSectionProps {
@@ -12,7 +11,7 @@ interface GenericPricesSectionProps {
    userId?: string;
 }
 
-export default async function GenericPricesSection({ congress, userId }: GenericPricesSectionProps) {
+export default async function GenericPricesSection({ congress }: GenericPricesSectionProps) {
    const productsWithPrices = await getAllCongressProductsWithPrices(congress.id);
 
    // Group products by type
@@ -32,30 +31,23 @@ export default async function GenericPricesSection({ congress, userId }: Generic
    }
 
    return (
-      <div className="bg-white py-16">
-         <div className="mx-auto px-4 container">
-            <SectionHeader
-               title="Cuotas de Recuperación"
-               subtitle="Elige la modalidad que mejor se adapte a tus necesidades"
-            />
+      <div className="bg-white mx-auto px-4 py-16 container">
+         <SectionHeader title="Cuotas de Recuperación" subtitle="Elige la modalidad que mejor se adapte a tus necesidades" />
 
-            {onlineAccessProduct && <OnlineAccessSection product={onlineAccessProduct} />}
+         {onlineAccessProduct && <OnlineAccessSection product={onlineAccessProduct} />}
 
-            {congress.modality === "hybrid" && inPersonAccessProduct && (
-               <InPersonAccessSection congress={congress} product={inPersonAccessProduct} />
-            )}
+         {congress.modality === "hybrid" && inPersonAccessProduct && (
+            <InPersonAccessSection congress={congress} product={inPersonAccessProduct} />
+         )}
 
-            {recordingsProduct && <RecordingsSection product={recordingsProduct} />}
+         {recordingsProduct && <RecordingsSection product={recordingsProduct} />}
 
-            <ImportantNotes
-               congress={congress}
-               onlineAccessProduct={onlineAccessProduct}
-               inPersonAccessProduct={inPersonAccessProduct}
-               recordingsProduct={recordingsProduct}
-            />
-
-            <RegistrationCTA userId={userId} />
-         </div>
+         <ImportantNotes
+            congress={congress}
+            onlineAccessProduct={onlineAccessProduct}
+            inPersonAccessProduct={inPersonAccessProduct}
+            recordingsProduct={recordingsProduct}
+         />
       </div>
    );
 }

@@ -1,6 +1,6 @@
 import { CreditCard } from "lucide-react";
-import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { CongressProductWithPrices } from "@/features/congresses/types/congressProductsTypes";
+import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 
 interface ImportantNotesProps {
    congress: CongressRecord;
@@ -43,8 +43,8 @@ export default function ImportantNotes({
                )}
                {congress.modality === "hybrid" && (
                   <p>
-                     <strong>Modalidad Híbrida:</strong> Puedes asistir presencialmente o seguir el evento en línea desde cualquier
-                     lugar.
+                     <strong>Modalidad Híbrida:</strong> Puedes asistir presencialmente o seguir el evento en línea desde
+                     cualquier lugar.
                   </p>
                )}
             </div>

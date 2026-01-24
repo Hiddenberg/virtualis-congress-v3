@@ -5,6 +5,7 @@ import type { OrganizationRecord } from "@/features/organizations/types/organiza
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import GenericHeroSection from "./GenericCongressLanding/GenericHeroSection";
 import GenericPricesSection from "./GenericCongressLanding/genericPricesSection/GenericPricesSection";
+import RegistrationCTA from "./GenericCongressLanding/genericPricesSection/RegistrationCTA";
 
 export default async function GenericCongressLandingPage({ organization }: { organization: OrganizationRecord }) {
    const userId = (await getLoggedInUserId()) ?? undefined;
@@ -27,7 +28,8 @@ export default async function GenericCongressLandingPage({ organization }: { org
             organization={organization}
             userId={userId}
          />
-         <GenericPricesSection congress={congress} userId={userId} />
+         <GenericPricesSection congress={congress} />
+         <RegistrationCTA userId={userId} colorScheme={congressLandingConfiguration.colorScheme} />
       </div>
    );
 }
