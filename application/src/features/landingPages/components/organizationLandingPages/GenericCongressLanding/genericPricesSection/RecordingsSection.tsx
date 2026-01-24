@@ -18,7 +18,6 @@ export default function RecordingsSection({ product }: RecordingsSectionProps) {
             {product.prices.map((price, index) => (
                <PriceCard
                   key={price.id}
-                  priceId={price.id}
                   priceName={price.name}
                   priceAmount={price.priceAmount}
                   currency={price.currency}
@@ -26,6 +25,8 @@ export default function RecordingsSection({ product }: RecordingsSectionProps) {
                   index={index + 2}
                   badge="Adicional"
                   description={product.product.description}
+                  requiresCredentialValidation={price.requiresCredentialValidation}
+                  credentialValidationInstructions={price.credentialValidationInstructions}
                   footer={<p className="text-gray-500 text-xs text-center">Se suma a cualquier modalidad</p>}
                />
             ))}

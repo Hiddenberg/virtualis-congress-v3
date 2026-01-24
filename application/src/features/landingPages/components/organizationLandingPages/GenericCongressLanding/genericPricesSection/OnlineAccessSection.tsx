@@ -33,6 +33,8 @@ export default function OnlineAccessSection({ product }: OnlineAccessSectionProp
                dotColor="bg-pink-400"
                backgroundDecorationIcon={Wifi}
                backgroundDecorationColor="text-pink-600"
+               requiresCredentialValidation={product.prices[0].requiresCredentialValidation}
+               credentialValidationInstructions={product.prices[0].credentialValidationInstructions}
             />
          ) : (
             <div className="gap-6 grid md:grid-cols-2 lg:grid-cols-3">
@@ -44,6 +46,8 @@ export default function OnlineAccessSection({ product }: OnlineAccessSectionProp
                      currency={price.currency}
                      icon={MonitorIcon}
                      index={index}
+                     requiresCredentialValidation={price.requiresCredentialValidation}
+                     credentialValidationInstructions={price.credentialValidationInstructions}
                   />
                ))}
             </div>

@@ -1,5 +1,20 @@
 import type { LucideIcon } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { formatPrice, getPriceColorClasses } from "./utils";
+
+function CredentialValidationBanner({ credentialValidationInstructions }: { credentialValidationInstructions?: string }) {
+   return (
+      <div className="bg-amber-50 mt-3 p-2 border border-amber-200 rounded-lg w-full">
+         <div className="flex justify-center items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-amber-600" />
+            <span className="font-semibold text-amber-800 text-xs">Requiere validación de credenciales</span>
+         </div>
+         {credentialValidationInstructions && (
+            <p className="mt-1 text-amber-700 text-xs text-center">{credentialValidationInstructions}</p>
+         )}
+      </div>
+   );
+}
 
 interface PriceCardProps {
    priceName: string;
@@ -10,6 +25,8 @@ interface PriceCardProps {
    badge?: string;
    description?: string;
    footer?: React.ReactNode;
+   requiresCredentialValidation?: boolean;
+   credentialValidationInstructions?: string;
 }
 
 export default function PriceCard({
@@ -21,6 +38,8 @@ export default function PriceCard({
    badge,
    description,
    footer,
+   requiresCredentialValidation,
+   credentialValidationInstructions,
 }: PriceCardProps) {
    const colors = getPriceColorClasses(index);
 
@@ -40,6 +59,9 @@ export default function PriceCard({
          </div>
          {description && <p className="mt-2 text-gray-500 text-xs text-center">{description}</p>}
          {footer && <div className="mt-3">{footer}</div>}
+         {requiresCredentialValidation && (
+            <CredentialValidationBanner credentialValidationInstructions={credentialValidationInstructions} />
+         )}
       </div>
    );
 }

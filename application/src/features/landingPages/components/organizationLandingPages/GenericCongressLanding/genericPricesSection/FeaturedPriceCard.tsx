@@ -1,3 +1,4 @@
+import { ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { formatPrice } from "./utils";
 
@@ -19,6 +20,8 @@ interface FeaturedPriceCardProps {
    dotColor: string;
    backgroundDecorationIcon?: LucideIcon;
    backgroundDecorationColor?: string;
+   requiresCredentialValidation?: boolean;
+   credentialValidationInstructions?: string;
 }
 
 export default function FeaturedPriceCard({
@@ -39,6 +42,8 @@ export default function FeaturedPriceCard({
    dotColor,
    backgroundDecorationIcon: BackgroundIcon,
    backgroundDecorationColor,
+   requiresCredentialValidation,
+   credentialValidationInstructions,
 }: FeaturedPriceCardProps) {
    return (
       <div className="mx-auto max-w-md">
@@ -56,6 +61,17 @@ export default function FeaturedPriceCard({
             </div>
 
             <div className="z-10 relative text-center">
+               {requiresCredentialValidation && (
+                  <div className="w-full mb-4 bg-amber-50 border border-amber-200 rounded-lg p-2">
+                     <div className="flex items-center gap-2 justify-center">
+                        <ShieldCheck className="w-4 h-4 text-amber-600" />
+                        <span className="font-semibold text-amber-800 text-xs">Requiere validación de credenciales</span>
+                     </div>
+                     {credentialValidationInstructions && (
+                        <p className="mt-1 text-amber-700 text-xs text-center">{credentialValidationInstructions}</p>
+                     )}
+                  </div>
+               )}
                <div className={`w-16 h-16 bg-linear-to-br ${gradientFrom} ${gradientTo} rounded-full flex items-center justify-center mx-auto mb-4`}>
                   <Icon className="w-8 h-8 text-white" />
                </div>
