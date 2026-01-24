@@ -16,7 +16,7 @@ export async function configureOrganizationStripeCredentials(credentials: NewOrg
 
    let webhookSecret: string | undefined;
    if (!IS_DEV_ENVIRONMENT) {
-      const webhookEndpointURL = `https://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/api/webhook/stripe`;
+      const webhookEndpointURL = `https://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/api/webhooks/stripe`;
       // Check if the webhook endpoint already exists
       const stripe = new Stripe(credentials.apiKey);
       const stripeWebhookEndpoints = await stripe.webhookEndpoints.list({

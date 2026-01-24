@@ -10,6 +10,7 @@ import {
 import { getOrganizationStripeCredentials } from "@/features/organizationPayments/services/organizationStripeCredentialsServices";
 
 export async function POST(request: Request) {
+   console.log("stripe webhook request received");
    const credentials = await getOrganizationStripeCredentials();
    if (!credentials) {
       return new Response("Webhook Error: No credentials", {
