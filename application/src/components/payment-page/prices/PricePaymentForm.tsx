@@ -109,7 +109,9 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
          {recordingsPrice && (
             <div
                className={`bg-white shadow-md p-6 sm:p-8 border-2 rounded-xl sm:rounded-2xl transition-all duration-300 ${
-                  includeRecordings ? "border-purple-300 bg-purple-50 shadow-purple-100" : "border-gray-200 hover:border-purple-200 hover:shadow-lg"
+                  includeRecordings
+                     ? "border-purple-300 bg-purple-50 shadow-purple-100"
+                     : "border-gray-200 hover:border-purple-200 hover:shadow-lg"
                }`}
             >
                <div className="flex items-start gap-4">

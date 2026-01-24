@@ -68,7 +68,9 @@ export default function ProductInfoCard({ product }: ProductInfoCardProps) {
    return (
       <div className="bg-white shadow-md p-6 sm:p-8 border-2 border-gray-200/50 rounded-xl sm:rounded-2xl backdrop-blur-sm">
          <div className="flex items-start gap-4">
-            <div className={`flex justify-center items-center ${colors.iconBg} rounded-full w-14 h-14 sm:w-16 sm:h-16 shrink-0 shadow-lg`}>
+            <div
+               className={`flex justify-center items-center ${colors.iconBg} rounded-full w-14 h-14 sm:w-16 sm:h-16 shrink-0 shadow-lg`}
+            >
                <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
             </div>
             <div className="flex-1 min-w-0">
