@@ -237,7 +237,7 @@ export async function confirmUserCongressPayment(userId: UserRecord["id"]) {
 
 export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
    const stripe = await getOrganizationStripeInstance();
-   const organization = await getOrganizationFromSubdomain();
+   // const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
    if (!congress) {
       throw new Error(`[fulfillCongressRegistrationV2] No congress found`);

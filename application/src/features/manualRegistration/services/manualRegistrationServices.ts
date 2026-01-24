@@ -1,18 +1,25 @@
 import "server-only";
-import {
-   getCongressRegistrationByUserId,
-   registerUserToLatestCongress,
-   updateCongressRegistration,
-} from "@/features/congresses/services/congressRegistrationServices";
+// import { getOnlineCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
+// import { getOnlineCongressProduct } from "@/features/congresses/services/congressProductsServices";
+// import {
+//    getCongressRegistrationByUserId,
+//    registerUserToLatestCongress,
+//    updateCongressRegistration,
+// } from "@/features/congresses/services/congressRegistrationServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { sendPaymentConfirmationEmail } from "@/features/emails/services/emailSendingServices";
+// import { sendPaymentConfirmationEmail } from "@/features/emails/services/emailSendingServices";
 import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
 import {
    checkIfUserHasAccessToRecordings,
-   createUserPurchaseRecord,
+   // createUserPurchaseRecord,
 } from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { createDBRecord, getFullDBRecordsList, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
+import {
+   //  createDBRecord,
+   getFullDBRecordsList,
+   pbFilter,
+   // updateDBRecord,
+} from "@/libs/pbServerClientNew";
 
 interface ManualPaymentInput {
    userId: UserRecord["id"];
@@ -23,16 +30,16 @@ interface ManualPaymentInput {
    currency?: string;
 }
 
-function generateManualPaymentId(userId: string) {
-   const rand = Math.random().toString(36).slice(2, 8);
-   return `manual:${userId}:${Date.now()}:${rand}`;
-}
+// function generateManualPaymentId(userId: string) {
+//    const rand = Math.random().toString(36).slice(2, 8);
+//    return `manual:${userId}:${Date.now()}:${rand}`;
+// }
 
 export async function fulfillManualCongressRegistration(params: ManualPaymentInput) {
    if (!params.modality) {
       throw new Error("Debes seleccionar una modalidad de asistencia");
    }
-   const organization = await getOrganizationFromSubdomain();
+   // const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
 
    if (!congress) {
@@ -51,76 +58,87 @@ export async function fulfillManualCongressRegistration(params: ManualPaymentInp
       }
    }
 
+   throw new Error("PENDING NEW IMPLEMENTATION");
+
    // Ensure the user has a congress registration
-   let registration = await getCongressRegistrationByUserId(params.userId);
-   if (!registration) {
-      registration = await registerUserToLatestCongress(params.userId);
-   }
+   // let registration = await getCongressRegistrationByUserId(params.userId);
+   // if (!registration) {
+   //    registration = await registerUserToLatestCongress(params.userId);
+   // }
 
-   // Create the manual user payment record (mirrors USER_PAYMENTS schema)
-   const userPayment = await createDBRecord<UserPayment>("USER_PAYMENTS", {
-      organization: organization.id,
-      user: params.userId,
-      stripeCheckoutSessionId: generateManualPaymentId(params.userId),
-      checkoutSessionStatus: "complete",
-      fulfilledSuccessfully: false,
-      currency: params.currency ?? "mxn",
-      totalAmount: params.totalAmount,
-      discount: params.discount ?? 0,
-      paymentMethod: "cash",
-   });
+   // // Create the manual user payment record (mirrors USER_PAYMENTS schema)
+   // const userPayment = await createDBRecord<UserPayment>("USER_PAYMENTS", {
+   //    organization: organization.id,
+   //    user: params.userId,
+   //    stripeCheckoutSessionId: generateManualPaymentId(params.userId),
+   //    checkoutSessionStatus: "complete",
+   //    fulfilledSuccessfully: false,
+   //    currency: params.currency ?? "mxn",
+   //    totalAmount: params.totalAmount,
+   //    discount: params.discount ?? 0,
+   //    paymentMethod: "cash",
+   // });
 
-   // Create purchases according to selection
-   if (!alreadyPaid) {
-      if (params.modality === "virtual") {
-         await createUserPurchaseRecord({
-            userId: params.userId,
-            congressId: congress.id,
-            productType: "virtual_congress",
-         });
-         await updateCongressRegistration(registration.id, {
-            attendanceModality: "virtual",
-         });
-      } else if (params.modality === "in-person") {
-         await createUserPurchaseRecord({
-            userId: params.userId,
-            congressId: congress.id,
-            productType: "in-person_congress",
-         });
-         await updateCongressRegistration(registration.id, {
-            attendanceModality: "in-person",
-         });
-      }
-   }
+   // // Create purchases according to selection
+   // if (!alreadyPaid) {
+   //    if (params.modality === "virtual") {
+   //       const virtualProduct = await getOnlineCongressProduct();
+   //       if (!virtualProduct) {
+   //          throw new Error("[ManualRegistration] Virtual product not found");
+   //       }
+   //       const prices = await getOnlineCongressProductPrices();
+   //       if (prices.length === 0) {
+   //          throw new Error("[ManualRegistration] Price not found");
+   //       }
+   //       await createUserPurchaseRecord({
+   //          user: params.userId,
+   //          congress: congress.id,
+   //          product: virtualProduct.id,
+   //          price: prices[0].id,
+   //       });
+   //       await updateCongressRegistration(registration.id, {
+   //          attendanceModality: "virtual",
+   //       });
+   //    } else if (params.modality === "in-person") {
+   //       await createUserPurchaseRecord({
+   //          userId: params.userId,
+   //          congressId: congress.id,
+   //          productType: "in-person_congress",
+   //       });
+   //       await updateCongressRegistration(registration.id, {
+   //          attendanceModality: "in-person",
+   //       });
+   //    }
+   // }
 
-   if (params.grantRecordingsAccess) {
-      await createUserPurchaseRecord({
-         userId: params.userId,
-         congressId: congress.id,
-         productType: "recordings_access",
-      });
-      await updateCongressRegistration(registration.id, {
-         hasAccessToRecordings: true,
-      });
-   }
+   // if (params.grantRecordingsAccess) {
+   //    await createUserPurchaseRecord({
+   //       userId: params.userId,
+   //       congressId: congress.id,
+   //       productType: "recordings_access",
+   //    });
+   //    await updateCongressRegistration(registration.id, {
+   //       hasAccessToRecordings: true,
+   //    });
+   // }
 
-   if (!alreadyPaid) {
-      await updateCongressRegistration(registration.id, {
-         paymentConfirmed: true,
-         payment: userPayment.id,
-      });
-   }
+   // if (!alreadyPaid) {
+   //    await updateCongressRegistration(registration.id, {
+   //       paymentConfirmed: true,
+   //       payment: userPayment.id,
+   //    });
+   // }
 
-   await updateDBRecord<UserPayment>("USER_PAYMENTS", userPayment.id, {
-      fulfilledSuccessfully: true,
-      fulfilledAt: new Date().toISOString(),
-   });
+   // await updateDBRecord<UserPayment>("USER_PAYMENTS", userPayment.id, {
+   //    fulfilledSuccessfully: true,
+   //    fulfilledAt: new Date().toISOString(),
+   // });
 
-   await sendPaymentConfirmationEmail(params.userId);
+   // await sendPaymentConfirmationEmail(params.userId);
 
-   return {
-      userPaymentId: userPayment.id,
-   };
+   // return {
+   //    userPaymentId: userPayment.id,
+   // };
 }
 
 export async function searchUsersRegisteredToCurrentCongress(query: string) {

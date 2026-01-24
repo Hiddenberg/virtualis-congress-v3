@@ -3,7 +3,10 @@ import { render } from "@react-email/components";
 import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { getAllCongressConferences, getConferenceById } from "@/features/conferences/services/conferenceServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { getAllUserPurchases, getUserPurchasedModality } from "@/features/organizationPayments/services/userPurchaseServices";
+import {
+   checkIfUserHasAccessToRecordings,
+   getUserPurchasedModality,
+} from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationBaseUrl, getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getSimpleRecordingById } from "@/features/simpleRecordings/services/recordingsServices";
 import { createRecordingTrackedEmailRecord } from "@/features/simpleRecordings/services/recordingTrackedEmailsServices";
@@ -231,12 +234,7 @@ export async function sendPaymentConfirmationEmail(userId: UserRecord["id"]) {
       throw new Error("[EmailSendingServices] Congress not found");
    }
 
-   const userPurchases = await getAllUserPurchases({
-      userId: user.id,
-      congressId: congress.id,
-   });
-
-   const hasAccessToRecordings = userPurchases.some((purchase) => purchase.productType === "recordings_access");
+   const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(user.id, congress.id);
 
    const modalitySelected = await getUserPurchasedModality(user.id, congress.id);
 

@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { registerUserToLatestCongress } from "@/features/congresses/services/congressRegistrationServices";
 import { checkIfUserExists, createUser, type NewUserData } from "@/features/users/services/userServices";
 import {
-   fulfillManualCongressRegistration,
+   // fulfillManualCongressRegistration,
    searchUsersRegisteredToCurrentCongress,
 } from "../services/manualRegistrationServices";
 
@@ -49,25 +49,27 @@ export interface ManualPaymentFormData {
 }
 
 export async function registerManualPaymentAction(
-   form: ManualPaymentFormData,
+   _form: ManualPaymentFormData,
 ): Promise<BackendResponse<{ userPaymentId: string }>> {
    try {
-      const result = await fulfillManualCongressRegistration({
-         userId: form.userId,
-         modality: form.modality,
-         grantRecordingsAccess: form.grantRecordingsAccess,
-         totalAmount: form.totalAmount !== 0 ? form.totalAmount * 100 : 0, // Convert to cents
-         discount: form.discount !== 0 ? (form.discount !== undefined ? form.discount * 100 : 0) : 0, // Convert to cents
-         currency: form.currency,
-      });
+      // const result = await fulfillManualCongressRegistration({
+      //    userId: form.userId,
+      //    modality: form.modality,
+      //    grantRecordingsAccess: form.grantRecordingsAccess,
+      //    totalAmount: form.totalAmount !== 0 ? form.totalAmount * 100 : 0, // Convert to cents
+      //    discount: form.discount !== 0 ? (form.discount !== undefined ? form.discount * 100 : 0) : 0, // Convert to cents
+      //    currency: form.currency,
+      // });
 
-      revalidatePath("/manual-registration");
-      return {
-         success: true,
-         data: {
-            userPaymentId: result.userPaymentId,
-         },
-      };
+      throw new Error("PENDING NEW IMPLEMENTATION");
+
+      // revalidatePath("/manual-registration");
+      // return {
+      //    success: true,
+      //    data: {
+      //       userPaymentId: result.userPaymentId,
+      //    },
+      // };
    } catch (error) {
       if (error instanceof Error) {
          return {
