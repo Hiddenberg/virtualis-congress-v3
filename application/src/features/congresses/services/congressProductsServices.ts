@@ -125,6 +125,33 @@ export async function getAllCongressProducts(congressId: CongressRecord["id"]) {
    return congressProducts;
 }
 
+export async function getCongressProductByPriceId(priceId: ProductPriceRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      id = {:priceId}
+      `,
+      {
+         organizationId: organization.id,
+         priceId,
+      },
+   );
+
+   const expandedProductPrice = await getSingleDBRecord<
+      ProductPriceRecord & {
+         expand: {
+            product: CongressProductRecord;
+         };
+      }
+   >("CONGRESS_PRODUCT_PRICES", filter, {
+      expand: "product",
+   });
+
+   return expandedProductPrice?.expand.product ?? null;
+}
+
 export async function getInPersonCongressProduct() {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
