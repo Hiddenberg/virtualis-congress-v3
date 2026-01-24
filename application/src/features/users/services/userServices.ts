@@ -64,10 +64,16 @@ export async function getUserByEmail(email: string) {
 
    const normalizedEmail = email.toLowerCase().trim();
 
-   const filter = pbFilter("email:lower = {:normalizedEmail} && organization = {:organizationId}", {
-      email: normalizedEmail,
-      organizationId: organization.id,
-   });
+   const filter = pbFilter(
+      `
+         organization = {:organizationId} &&
+         email:lower = {:normalizedEmail}
+      `,
+      {
+         organizationId: organization.id,
+         normalizedEmail,
+      },
+   );
    const userRecord = await getSingleDBRecord<User>("USERS", filter);
 
    return userRecord;
