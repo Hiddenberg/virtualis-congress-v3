@@ -3,7 +3,7 @@ import { IS_DEV_ENVIRONMENT } from "@/data/constants/platformConstants";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { createFulfillmentErrorRecord } from "@/features/organizationPayments/services/fulfillmentErrorLoggerServices";
 import {
-   fulfillCongressRegistrationV2,
+   fulfillCongressRegistrationV3,
    getUserPaymentRecord,
    updateUserPaymentRecord,
 } from "@/features/organizationPayments/services/organizationPaymentsServices";
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
       const checkoutSession = event.data.object;
 
       try {
-         await fulfillCongressRegistrationV2(checkoutSession.id);
+         await fulfillCongressRegistrationV3(checkoutSession.id);
       } catch (error) {
          console.error(`[Webhook] Error fulfilling congress registration: `, error);
          if (error instanceof Error) {

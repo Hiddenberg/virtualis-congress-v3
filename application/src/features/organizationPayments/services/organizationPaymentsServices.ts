@@ -10,9 +10,7 @@ import { getUserById } from "@/features/users/services/userServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import type { UserStripeData } from "@/types/congress";
 import { getOrganizationStripeInstance } from "../lib/stripe";
-import { getCMIMCCStripeProducts } from "./CMIMCCPaymentServices";
-import { getHGEAStripeProducts } from "./HGEAPaymentServices";
-import { createUserPurchaseRecord, getAllUserPurchases } from "./userPurchaseServices";
+import { createUserPurchaseRecord, getUserPurchaseByProductType } from "./userPurchaseServices";
 
 export async function getUserStripeCustomerId(userId: string) {
    const organization = await getOrganizationFromSubdomain();
@@ -128,17 +126,17 @@ export async function getPaymentMethod(paymentIntentId?: string) {
 
 export async function confirmUserCongressPayment(userId: UserRecord["id"]) {
    const congress = await getLatestCongress();
-   const userPurchases = await getAllUserPurchases({
+
+   const inPersonPurchase = await getUserPurchaseByProductType({
       userId,
       congressId: congress.id,
+      productType: "congress_in_person_access",
    });
-
-   if (userPurchases.length === 0) {
-      return false;
-   }
-
-   const inPersonPurchase = userPurchases.find((purchase) => purchase.productType === "in-person_congress");
-   const virtualPurchase = userPurchases.find((purchase) => purchase.productType === "virtual_congress");
+   const virtualPurchase = await getUserPurchaseByProductType({
+      userId,
+      congressId: congress.id,
+      productType: "congress_online_access",
+   });
 
    if (inPersonPurchase || virtualPurchase) {
       return true;
@@ -147,37 +145,97 @@ export async function confirmUserCongressPayment(userId: UserRecord["id"]) {
    return false;
 }
 
-// export async function fulfillRecordingsOnlyPurchase (checkoutSessionId: string) {
-//    const stripe = await getOrganizationStripeInstance()
-//    const checkoutSession = await stripe.checkout.sessions.retrieve(checkoutSessionId)
-//    if (!checkoutSession) {
-//       throw new Error(`[OrganizationPaymentsServices] Checkout session not found for checkout session ${checkoutSessionId}`)
+// export async function fulfillCongressRegistrationV2(checkoutSessionId: string) {
+//    const stripe = await getOrganizationStripeInstance();
+//    const organization = await getOrganizationFromSubdomain();
+//    const congress = await getLatestCongress();
+//    if (!congress) {
+//       throw new Error(`[fulfillCongressRegistrationV2] No congress found`);
 //    }
 
-//    const userPayment = await getUserPaymentRecord(checkoutSessionId)
+//    // TODO: Make this function safe to run multiple times,
+//    // even concurrently, with the same session ID
+
+//    // TODO: Make sure fulfillment hasn't already been
+//    // performed for this Checkout Session
+//    const userPayment = await getUserPaymentRecord(checkoutSessionId);
 //    if (!userPayment) {
-//       throw new Error(`[OrganizationPaymentsServices] User payment record not found for checkout session ${checkoutSessionId}`)
+//       throw new Error(`[fulfillCongressRegistrationV2] User payment record not found for checkout session ${checkoutSessionId}`);
 //    }
-
-//    const congressRegistration = await getCongressRegistrationByUserId(userPayment.user)
-//    if (!congressRegistration) {
-//       throw new Error(`[OrganizationPaymentsServices] Congress registration not found for user ${userPayment.user}`)
-//    }
-
 //    if (userPayment.fulfilledSuccessfully) {
-//       console.log(`[OrganizationPaymentsServices] User payment already fulfilled for checkout session ${checkoutSessionId}`)
-//       return
+//       console.log(`[fulfillCongressRegistrationV2] User payment already fulfilled for checkout session ${checkoutSessionId}`);
+//       return;
 //    }
 
+//    const userCongressRegistration = await getCongressRegistrationByUserId(userPayment.user);
+//    if (!userCongressRegistration) {
+//       throw new Error(`[fulfillCongressRegistrationV2] User congress registration not found for user ${userPayment.user}`);
+//    }
+
+//    // Retrieve the Checkout Session from the API with line_items expanded
+//    const checkoutSession = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
+//       expand: ["line_items", "customer"],
+//    });
 //    // Check the Checkout Session's payment_status property
 //    // to determine if fulfillment should be performed
 //    if (checkoutSession.payment_status === "unpaid") {
-//       console.log(`[OrganizationPaymentsServices] Payment not paid for checkout session ${checkoutSessionId}`)
-//       return
+//       console.log(`[fulfillCongressRegistrationV2] Payment not paid for checkout session ${checkoutSessionId}`);
+//       return;
 //    }
+//    // TODO: Perform fulfillment of the line items
+//    const lineItems = checkoutSession.line_items;
+//    if (!lineItems) {
+//       throw new Error(`[fulfillCongressRegistrationV2] No line items found for checkout session ${checkoutSessionId}`);
+//    }
+
+//    // TODO: Create user purchases for the line items
+//    for (const item of lineItems.data) {
+//       const productId = item.price?.product;
+//       const priceId = item.price?.id;
+//       if (!productId || !priceId) {
+//          console.error(`[fulfillCongressRegistrationV2] No product id or price id found for item ${item.id}`);
+//          continue;
+//       }
+
+//       if (typeof productId !== "string") {
+//          console.error(`[fulfillCongressRegistrationV2] Product id is not a string for item ${item.id}`);
+//          continue;
+//       }
+
+//       if (typeof priceId !== "string") {
+//          console.error(`[fulfillCongressRegistrationV2] Price id is not a string for item ${item.id}`);
+//          continue;
+//       }
+
+//       await createUserPurchaseRecord({
+//          congress: congress.id,
+//          user: userPayment.user,
+//          product: productId,
+//          price: priceId,
+//       });
+//    }
+
+//    // TODO: Record/save fulfillment status for this
+//    // Checkout Session
+//    // PENDING: check if this could be removed
+//    await updateCongressRegistration(userCongressRegistration.id, {
+//       paymentConfirmed: true,
+//       payment: userPayment.id,
+//    });
+//    await updateUserPaymentRecord(userPayment.id, {
+//       fulfilledSuccessfully: true,
+//       fulfilledAt: new Date().toISOString(),
+//       checkoutSessionStatus: checkoutSession.status ?? "open",
+//       currency: checkoutSession.currency ?? undefined,
+//       totalAmount: checkoutSession.amount_total ?? 0,
+//       paymentMethod: await getPaymentMethod(checkoutSession.payment_intent?.toString() ?? undefined),
+//       discount: checkoutSession.total_details?.breakdown?.discounts?.reduce((acc, discount) => acc + discount.amount, 0) ?? 0,
+//    });
+
+//    await sendPaymentConfirmationEmail(userPayment.user);
 // }
 
-export async function fulfillCongressRegistrationV2(checkoutSessionId: string) {
+export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
    const stripe = await getOrganizationStripeInstance();
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
@@ -220,117 +278,31 @@ export async function fulfillCongressRegistrationV2(checkoutSessionId: string) {
       throw new Error(`[fulfillCongressRegistrationV2] No line items found for checkout session ${checkoutSessionId}`);
    }
 
-   if (organization.shortID === "HGEA") {
-      // for this organization we only have one product, it includes access to the virtual congress and recordings
-      const GeaStripeProducts = await getHGEAStripeProducts();
-      const congressAndRecordingsProductId = GeaStripeProducts["Virtual-Congress"].productId;
-
-      for (const lineItem of lineItems.data) {
-         const itemPriceDetails = lineItem.price;
-         if (!itemPriceDetails) {
-            throw new Error(`[fulfillCongressRegistrationV2] No price details found for line item ${lineItem.id}`);
-         }
-
-         const lineItemProductId = itemPriceDetails.product;
-
-         if (typeof lineItemProductId !== "string") {
-            throw new Error(`[fulfillCongressRegistrationV2] Line item product ID is not a string for line item ${lineItem.id}`);
-         }
-
-         if (lineItemProductId !== congressAndRecordingsProductId) {
-            throw new Error(
-               `[fulfillCongressRegistrationV2] Line item product ID ${lineItemProductId} is not the expected product ID ${congressAndRecordingsProductId}`,
-            );
-         }
-
-         await createUserPurchaseRecord({
-            userId: userPayment.user,
-            congressId: congress.id,
-            productType: "virtual_congress",
-         });
-         await createUserPurchaseRecord({
-            userId: userPayment.user,
-            congressId: congress.id,
-            productType: "recordings_access",
-         });
-         await updateCongressRegistration(userCongressRegistration.id, {
-            attendanceModality: "virtual",
-            hasAccessToRecordings: true,
-         });
-         console.log(
-            `[fulfillCongressRegistrationV2] User purchase registered for organization ${organization.shortID}, user ${userPayment.user} for congress ${congress.id} and product type virtual_congress and recordings_access`,
-         );
+   // TODO: Create user purchases for the line items
+   for (const item of lineItems.data) {
+      const productId = item.price?.product;
+      const priceId = item.price?.id;
+      if (!productId || !priceId) {
+         console.error(`[fulfillCongressRegistrationV2] No product id or price id found for item ${item.id}`);
+         continue;
       }
-   } else if (organization.shortID === "CMIMCC") {
-      const CMIMCCStripeProducts = await getCMIMCCStripeProducts();
-      for (const lineItem of lineItems.data) {
-         const itemPriceDetails = lineItem.price;
-         if (!itemPriceDetails) {
-            throw new Error(`[fulfillCongressRegistrationV2] No price details found for line item ${lineItem.id}`);
-         }
 
-         const virtualCongressProductId = CMIMCCStripeProducts["XXIX-Congress-Virtual"].productId;
-         const inPersonCongressProductId = CMIMCCStripeProducts["XXIX-Congress-In-Person"].productId;
-         const recordingsProductId = CMIMCCStripeProducts["Recordings-Access"].productId;
-
-         const lineItemProductId = itemPriceDetails.product;
-
-         if (typeof lineItemProductId !== "string") {
-            throw new Error(`[fulfillCongressRegistrationV2] Line item product ID is not a string for line item ${lineItem.id}`);
-         }
-
-         if (lineItemProductId === virtualCongressProductId) {
-            await createUserPurchaseRecord({
-               userId: userPayment.user,
-               congressId: congress.id,
-               productType: "virtual_congress",
-            });
-            await updateCongressRegistration(userCongressRegistration.id, {
-               attendanceModality: "virtual",
-            });
-         } else if (lineItemProductId === inPersonCongressProductId) {
-            await createUserPurchaseRecord({
-               userId: userPayment.user,
-               congressId: congress.id,
-               productType: "in-person_congress",
-            });
-            await updateCongressRegistration(userCongressRegistration.id, {
-               attendanceModality: "in-person",
-            });
-         } else if (lineItemProductId === recordingsProductId) {
-            await createUserPurchaseRecord({
-               userId: userPayment.user,
-               congressId: congress.id,
-               productType: "recordings_access",
-            });
-            await updateCongressRegistration(userCongressRegistration.id, {
-               hasAccessToRecordings: true,
-            });
-         } else {
-            throw new Error(`[fulfillCongressRegistrationV2] Unknown line item product ID ${lineItemProductId}`);
-         }
+      if (typeof productId !== "string") {
+         console.error(`[fulfillCongressRegistrationV2] Product id is not a string for item ${item.id}`);
+         continue;
       }
-   } else if (organization.shortID === "ACP-MX") {
-      console.log("[fulfillCongressRegistrationV2] ACP-MX organization found");
+
+      if (typeof priceId !== "string") {
+         console.error(`[fulfillCongressRegistrationV2] Price id is not a string for item ${item.id}`);
+         continue;
+      }
+
       await createUserPurchaseRecord({
-         userId: userPayment.user,
-         congressId: congress.id,
-         productType: "virtual_congress",
+         congress: congress.id,
+         user: userPayment.user,
+         product: productId,
+         price: priceId,
       });
-      await createUserPurchaseRecord({
-         userId: userPayment.user,
-         congressId: congress.id,
-         productType: "recordings_access",
-      });
-      await updateCongressRegistration(userCongressRegistration.id, {
-         attendanceModality: "virtual",
-         hasAccessToRecordings: true,
-      });
-      console.log(
-         `[fulfillCongressRegistrationV2] User purchase registered for organization ${organization.shortID}, user ${userPayment.user} for congress ${congress.id} and product type virtual_congress and recordings_access`,
-      );
-   } else {
-      throw new Error(`[fulfillCongressRegistrationV2] Organization ${organization.shortID} not supported`);
    }
 
    // TODO: Record/save fulfillment status for this
