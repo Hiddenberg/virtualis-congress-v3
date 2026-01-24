@@ -4,7 +4,7 @@ import { getLatestCongress } from "@/features/congresses/services/congressServic
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import GenericHeroSection from "./GenericCongressLanding/GenericHeroSection";
-import GenericPricesSection from "./GenericCongressLanding/GenericPricesSection";
+import GenericPricesSection from "./GenericCongressLanding/genericPricesSection/GenericPricesSection";
 
 export default async function GenericCongressLandingPage({ organization }: { organization: OrganizationRecord }) {
    const userId = (await getLoggedInUserId()) ?? undefined;

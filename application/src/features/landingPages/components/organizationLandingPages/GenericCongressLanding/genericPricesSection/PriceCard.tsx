@@ -1,0 +1,45 @@
+import type { LucideIcon } from "lucide-react";
+import { formatPrice, getPriceColorClasses } from "./utils";
+
+interface PriceCardProps {
+   priceName: string;
+   priceAmount: number;
+   currency: "mxn" | "usd";
+   icon: LucideIcon;
+   index: number;
+   badge?: string;
+   description?: string;
+   footer?: React.ReactNode;
+}
+
+export default function PriceCard({
+   priceName,
+   priceAmount,
+   currency,
+   icon: Icon,
+   index,
+   badge,
+   description,
+   footer,
+}: PriceCardProps) {
+   const colors = getPriceColorClasses(index);
+
+   return (
+      <div className="relative flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
+         {badge && (
+            <div className="-top-3 right-4 absolute bg-linear-to-r from-orange-400 to-red-400 px-3 py-1 rounded-full font-bold text-white text-xs">
+               {badge}
+            </div>
+         )}
+         <div className={`w-12 h-12 bg-linear-to-br ${colors.gradient} rounded-full flex items-center justify-center mb-4`}>
+            <Icon className="w-6 h-6 text-white" />
+         </div>
+         <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight">{priceName}</h3>
+         <div className={`text-center py-2 px-4 rounded-full font-semibold ${colors.text} ${colors.bg}`}>
+            {formatPrice(priceAmount, currency)}
+         </div>
+         {description && <p className="mt-2 text-gray-500 text-xs text-center">{description}</p>}
+         {footer && <div className="mt-3">{footer}</div>}
+      </div>
+   );
+}
