@@ -20,9 +20,9 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
       <div className="flex justify-center items-center bg-linear-to-br from-blue-50 to-indigo-50 p-4 min-h-screen">
          <div className="bg-white shadow-xl rounded-3xl w-full max-w-2xl overflow-hidden">
             {/* Header with friendly icon */}
-            <div className="bg-linear-to-r from-blue-500 to-indigo-600 p-8 text-center">
+            <div className="bg-linear-to-r from-blue-500 to-indigo-600 p-8 py-2 text-center">
                <div className="mb-4">
-                  <Coffee className="mx-auto mb-4 size-16 text-white" />
+                  <Coffee className="mx-auto mb-4 size-10 text-white" />
                </div>
                <h1 className="mb-2 font-bold text-white text-2xl">¡Ups! Algo no salió como esperábamos</h1>
                <p className="text-blue-100 text-base">
@@ -31,7 +31,14 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
             </div>
 
             {/* Main content */}
-            <div className="p-8">
+            <div className="p-4">
+               {/* Development error details - hidden in production */}
+               <div className="bg-gray-50 mb-6 p-4 border border-gray-200 rounded-lg">
+                  <p className="mb-2 font-medium text-gray-700 hover:text-gray-900 cursor-pointer">Detalles técnicos</p>
+                  <code className="block bg-white p-2 border rounded text-red-600 text-xs break-all">{error.message}</code>
+                  {error.digest && <p className="mt-2 text-gray-500 text-xs">ID: {error.digest}</p>}
+               </div>
+
                {/* Friendly action options */}
                <div className="space-y-6 mb-8">
                   <h3 className="mb-4 font-semibold text-gray-800 text-base text-center">¿Qué te gustaría hacer?</h3>
@@ -80,13 +87,6 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
                   <div className="flex justify-center mt-4 w-full">
                      <HelpButton />
                   </div>
-               </div>
-
-               {/* Development error details - hidden in production */}
-               <div className="bg-gray-50 mt-6 p-4 border border-gray-200 rounded-lg">
-                  <p className="mb-2 font-medium text-gray-700 hover:text-gray-900 cursor-pointer">Detalles técnicos</p>
-                  <code className="block bg-white p-2 border rounded text-red-600 text-xs break-all">{error.message}</code>
-                  {error.digest && <p className="mt-2 text-gray-500 text-xs">ID: {error.digest}</p>}
                </div>
 
                {/* Footer message */}
