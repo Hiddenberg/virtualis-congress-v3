@@ -1,7 +1,10 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { sendOTPCodeEmail } from "@/features/emails/services/emailSendingServices";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
+import { sendOTPCodeEmail, sendPlatformRegistrationConfirmationEmail } from "@/features/emails/services/emailSendingServices";
+import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getUserRole } from "@/features/users/services/userRoleServices";
 import {
    checkIfUserExists,
@@ -10,6 +13,8 @@ import {
    getUserById,
    type NewUserData,
 } from "@/features/users/services/userServices";
+import { dbBatch } from "@/libs/pbServerClientNew";
+import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import { AUTH_COOKIE_KEY, REFRESH_COOKIE_KEY } from "../constants/authConstants";
 import {
    generateUserAuthToken,
@@ -27,6 +32,7 @@ import {
    setAuthTokenCookie,
    setRefreshTokenCookie,
 } from "../services/staggeredAuthServices";
+import { generateRandomId } from "../utils/passwordsGenerator";
 
 export async function refreshAuthTokenAction() {
    const cookieStore = await cookies();
@@ -303,6 +309,77 @@ export async function signupAction(
       return {
          success: false,
          errorMessage: "Ocurrió un error inesperado al registrar el usuario",
+      };
+   }
+}
+
+export async function signupToCongressAction(newUserData: Omit<NewUserData, "role">): Promise<BackendResponse<null>> {
+   try {
+      // Check existing users
+      const existingUser = await checkIfUserExists(newUserData.email);
+
+      if (existingUser) {
+         return {
+            success: false,
+            errorMessage: "Este correo ya está registrado, por favor inicia sesión",
+         };
+      }
+
+      const organization = await getOrganizationFromSubdomain();
+      const congress = await getLatestCongress();
+
+      // In a transaction, create the user and register them to the congress, then send the registration confirmation email
+      const newUserId = generateRandomId();
+      const batch = dbBatch();
+
+      const normalizedEmail = newUserData.email.toLowerCase().trim();
+
+      // Create the user record
+      batch.collection(PB_COLLECTIONS.USERS).create({
+         organization: organization.id,
+         id: newUserId,
+         email: normalizedEmail,
+         name: newUserData.name,
+         role: "attendant",
+         dateOfBirth: newUserData.dateOfBirth,
+         phoneNumber: newUserData.phoneNumber,
+      } satisfies User & { id: string });
+
+      // Register the user to the congress
+      const userRegistrationId = generateRandomId();
+      batch.collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS).create({
+         id: userRegistrationId,
+         organization: organization.id,
+         user: newUserId,
+         congress: congress.id,
+         hasAccessToRecordings: false,
+         paymentConfirmed: false,
+         registrationType: "regular",
+      } satisfies CongressRegistration & { id: string });
+
+      await batch.send();
+
+      // Send the registration confirmation email
+      await sendPlatformRegistrationConfirmationEmail(newUserId);
+
+      const authData = await createUserAuthData(newUserId);
+      await setRefreshTokenCookie(authData.refreshToken);
+      await setAuthTokenCookie(authData.authToken);
+
+      return {
+         success: true,
+         data: null,
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "Ocurrió un error inesperado al registrar el usuario al congreso",
       };
    }
 }

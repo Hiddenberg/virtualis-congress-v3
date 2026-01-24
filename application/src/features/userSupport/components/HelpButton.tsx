@@ -19,7 +19,8 @@ export default function HelpButton() {
    const whatsappLink = getWhatsappLink(organizationShortID);
 
    if (!whatsappLink) {
-      return <div className="flex justify-center items-center h-full font-bold text-red-500">Enlace de ayuda no encontrado</div>;
+      return null;
+      // return <div className="flex justify-center items-center h-full font-bold text-red-500">Enlace de ayuda no encontrado</div>;
    }
 
    return (

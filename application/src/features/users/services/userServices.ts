@@ -25,10 +25,12 @@ export async function createUser(userData: NewUserData) {
       throw new Error("Organization not found");
    }
 
+   const normalizedEmail = userData.email.toLowerCase().trim();
+
    const newUser = await createDBRecord<User>("USERS", {
       organization: organization.id,
       name: userData.name,
-      email: userData.email,
+      email: normalizedEmail,
       role: userData.role,
       dateOfBirth: userData.dateOfBirth,
       phoneNumber: userData.phoneNumber,
@@ -37,6 +39,12 @@ export async function createUser(userData: NewUserData) {
    return newUser;
 }
 
+/**
+ * Checks if the user has any of the roles allowed to access the resource
+ * @param userId
+ * @param rolesAllowed
+ * @returns
+ */
 export async function checkUserAuthorization(userId: string, rolesAllowed: RoleType[]) {
    if (rolesAllowed.length === 0) {
       throw new Error("No roles provided");
@@ -54,8 +62,10 @@ export async function checkUserAuthorization(userId: string, rolesAllowed: RoleT
 export async function getUserByEmail(email: string) {
    const organization = await getOrganizationFromSubdomain();
 
-   const filter = pbFilter("email = {:email} && organization = {:organizationId}", {
-      email,
+   const normalizedEmail = email.toLowerCase().trim();
+
+   const filter = pbFilter("email:lower = {:normalizedEmail} && organization = {:organizationId}", {
+      email: normalizedEmail,
       organizationId: organization.id,
    });
    const userRecord = await getSingleDBRecord<User>("USERS", filter);
@@ -91,7 +101,21 @@ export async function getAllOrganizationUsers() {
 }
 
 export async function checkIfUserExists(email: string) {
-   const existingUser = await getUserByEmail(email);
+   const organization = await getOrganizationFromSubdomain();
+   const normalizedEmail = email.toLowerCase().trim();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      email:lower = {:normalizedEmail}
+      `,
+      {
+         organizationId: organization.id,
+         normalizedEmail,
+      },
+   );
+
+   const existingUser = await getSingleDBRecord<User>("USERS", filter);
 
    return existingUser !== null;
 }
@@ -104,45 +128,3 @@ export async function updateUser(userId: string, newUserData: Partial<User>) {
    const userUpdated = await updateDBRecord<User>("USERS", userId, newUserData);
    return userUpdated;
 }
-
-// STRIPE FUNCTIONS
-// export async function getStripeCustomerId (userId: string) {
-//    try {
-//       const stripeCustomerData = await pbServerClient.collection(PB_COLLECTIONS.USERS_STRIPE_DATA)
-//          .getFirstListItem<RecordModel & {stripeCustomerId: UserStripeData["stripeCustomerId"]}>(`user = "${userId}"`, {
-//             fields: "stripeCustomerId"
-//          })
-
-//       return stripeCustomerData.stripeCustomerId
-//    } catch (error) {
-//       if (error instanceof ClientResponseError && error.status === 404) {
-//          return null
-//       }
-//       throw error
-//    }
-// }
-
-// export async function saveStripeCustomerId (user: User & RecordModel, stripeCustomerId: string) {
-//    await pbServerClient.collection(PB_COLLECTIONS.USERS_STRIPE_DATA)
-//       .create({
-//          organization: user.organization,
-//          user: user.id,
-//          stripeCustomerId
-//       }as UserStripeData)
-// }
-
-// export async function getUserByStripeCustomerId (stripeCustomerId: string) {
-//    try {
-//       const response = await pbServerClient.collection(PB_COLLECTIONS.USERS_STRIPE_DATA)
-//          .getFirstListItem<RecordModel & {expand: {user: User & RecordModel}}>(`stripeCustomerId = "${stripeCustomerId}"`,{
-//             expand: "user",
-//             fields: "expand.user"
-//          })
-//       return response.expand.user
-//    } catch (error) {
-//       if (error instanceof ClientResponseError && error.status === 404) {
-//          return null
-//       }
-//       throw error
-//    }
-// }

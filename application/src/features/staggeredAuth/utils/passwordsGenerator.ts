@@ -24,7 +24,7 @@ export function generateRandomPassword(length: number = 20): string {
 
 export function generateRandomId() {
    const idLenght = 15;
-   // Define the character set (uppercase, lowercase, digits, symbols).
+   // Define the character set.
    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
 
    // Generate a random byte array of the desired length.

@@ -5,8 +5,7 @@ import toast from "react-hot-toast";
 import StaggeredAuthSignupForm, {
    type NewUserFormData,
 } from "@/features/staggeredAuth/components/signup/StaggeredAuthSignupForm";
-import { signupAction } from "@/features/staggeredAuth/serverActions/staggeredAuthActions";
-import { confirmCongressRegistrationAction } from "../serverActions/congressRegistrationActions";
+import { signupToCongressAction } from "@/features/staggeredAuth/serverActions/staggeredAuthActions";
 
 export default function RegularCongressRegistrationForm() {
    const router = useRouter();
@@ -14,21 +13,14 @@ export default function RegularCongressRegistrationForm() {
    const redirectTo = useSearchParams().get("redirectTo");
 
    const handleUserCreated = async (newUserData: NewUserFormData) => {
-      const userCreatedResponse = await signupAction(newUserData);
+      const signedUpResponse = await signupToCongressAction(newUserData);
 
-      if (!userCreatedResponse.success) {
-         toast.error(userCreatedResponse.errorMessage);
+      if (!signedUpResponse.success) {
+         toast.error(signedUpResponse.errorMessage);
          return;
       }
 
-      const response = await confirmCongressRegistrationAction(userCreatedResponse.data.user.id);
-
-      if (!response.success) {
-         toast.error(response.errorMessage);
-         return;
-      }
-
-      toast.success(response.data.successMessage);
+      toast.success("Usuario registrado correctamente");
 
       if (redirectTo) {
          router.push(redirectTo);
