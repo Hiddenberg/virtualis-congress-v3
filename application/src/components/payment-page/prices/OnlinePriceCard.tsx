@@ -1,7 +1,10 @@
 import { ChevronRightIcon, MonitorIcon, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import type { ProductPriceRecord } from "@/features/congresses/types/congressProductPricesTypes";
-import { formatPrice, getPriceColorClasses } from "@/features/landingPages/components/organizationLandingPages/GenericCongressLanding/genericPricesSection/utils";
+import {
+   formatPrice,
+   getPriceColorClasses,
+} from "@/features/landingPages/components/organizationLandingPages/GenericCongressLanding/genericPricesSection/utils";
 
 interface OnlinePriceCardProps {
    price: ProductPriceRecord;
@@ -27,20 +30,20 @@ export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) 
 
    return (
       <Link
-         href={`/payment/prices/pay/${price.id}`}
+         href={`/payment/prices/${price.id}/pay`}
          className="group relative flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300"
       >
          <div className={`w-12 h-12 bg-linear-to-br ${colors.gradient} rounded-full flex items-center justify-center mb-4`}>
             <MonitorIcon className="w-6 h-6 text-white" />
          </div>
-         <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight text-center">{price.name}</h3>
+         <h3 className="mb-2 font-bold text-gray-900 text-sm text-center leading-tight">{price.name}</h3>
          <div className={`text-center py-2 px-4 rounded-full font-semibold ${colors.text} ${colors.bg} mb-2`}>
             {formatPrice(price.priceAmount, price.currency)}
          </div>
          {price.requiresCredentialValidation && (
             <CredentialValidationBanner credentialValidationInstructions={price.credentialValidationInstructions} />
          )}
-         <div className="mt-4 flex justify-center items-center gap-2 text-gray-600 group-hover:text-gray-900 transition-colors">
+         <div className="flex justify-center items-center gap-2 mt-4 text-gray-600 group-hover:text-gray-900 transition-colors">
             <span className="font-semibold text-sm">Seleccionar</span>
             <ChevronRightIcon className="w-4 h-4" />
          </div>
