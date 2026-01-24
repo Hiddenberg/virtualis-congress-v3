@@ -28,7 +28,7 @@ export default async function onlinePricesPage() {
             </div>
          )}
 
-         <OnlinePricesHeader />
+         <OnlinePricesHeader congressTitle={congress.title} />
 
          <OnlinePricesGrid prices={onlinePrices} />
       </div>

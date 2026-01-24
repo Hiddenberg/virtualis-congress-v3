@@ -29,7 +29,7 @@ export default async function inPersonPricesPage() {
             </div>
          )}
 
-         <InPersonPricesHeader />
+         <InPersonPricesHeader congressTitle={congress.title} />
 
          {congress.congressLocation && <InPersonLocationCard location={congress.congressLocation} />}
 

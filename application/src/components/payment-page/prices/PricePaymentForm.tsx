@@ -126,7 +126,7 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
                   </div>
                   <div className="flex-1 min-w-0">
                      <div className="flex items-center gap-2 mb-2">
-                        <h2 className="font-bold text-gray-900 text-lg sm:text-xl">Acceso a Grabaciones</h2>
+                        <h2 className="font-bold text-gray-900 text-lg sm:text-xl">Agregar acceso a Grabaciones</h2>
                         <span className="bg-purple-100 px-2 py-0.5 rounded font-medium text-purple-700 text-xs">Adicional</span>
                      </div>
                      <p className="mb-4 text-gray-600 text-sm sm:text-base">
