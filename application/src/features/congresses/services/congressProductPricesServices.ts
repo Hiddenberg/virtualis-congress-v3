@@ -4,7 +4,12 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import type { NewProductPriceData, ProductPrice, ProductPriceRecord } from "../types/congressProductPricesTypes";
 import type { CongressProductRecord } from "../types/congressProductsTypes";
-import { getCongressProductById } from "./congressProductsServices";
+import {
+   getCongressProductById,
+   getInPersonCongressProduct,
+   getOnlineCongressProduct,
+   getRecordingsCongressProduct,
+} from "./congressProductsServices";
 import { getLatestCongress } from "./congressServices";
 
 export async function createCongressProductPriceRecord(congressPrice: ProductPrice) {
@@ -76,6 +81,90 @@ export async function getAllCongressProductPrices(productId: CongressProductReco
    const prices = await getFullDBRecordsList<ProductPrice>("CONGRESS_PRODUCT_PRICES", {
       filter,
       sort: "-created",
+   });
+
+   return prices;
+}
+
+export async function getInPersonCongressProductPrices() {
+   const organization = await getOrganizationFromSubdomain();
+   const inPersonProduct = await getInPersonCongressProduct();
+
+   if (!inPersonProduct) {
+      throw new Error("In person product not found");
+   }
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      product = {:productId} &&
+      archived = false
+   `,
+      {
+         organizationId: organization.id,
+         productId: inPersonProduct.id,
+      },
+   );
+
+   const prices = await getFullDBRecordsList<ProductPrice>("CONGRESS_PRODUCT_PRICES", {
+      filter,
+      sort: "-priceAmount",
+   });
+
+   return prices;
+}
+
+export async function getOnlineCongressProductPrices() {
+   const organization = await getOrganizationFromSubdomain();
+   const onlineProduct = await getOnlineCongressProduct();
+
+   if (!onlineProduct) {
+      throw new Error("Online product not found");
+   }
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      product = {:productId} &&
+      archived = false
+   `,
+      {
+         organizationId: organization.id,
+         productId: onlineProduct.id,
+      },
+   );
+
+   const prices = await getFullDBRecordsList<ProductPrice>("CONGRESS_PRODUCT_PRICES", {
+      filter,
+      sort: "-priceAmount",
+   });
+
+   return prices;
+}
+
+export async function getRecordingsCongressProductPrices() {
+   const organization = await getOrganizationFromSubdomain();
+   const recordingsProduct = await getRecordingsCongressProduct();
+
+   if (!recordingsProduct) {
+      throw new Error("Recordings product not found");
+   }
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      product = {:productId} &&
+      archived = false
+   `,
+      {
+         organizationId: organization.id,
+         productId: recordingsProduct.id,
+      },
+   );
+
+   const prices = await getFullDBRecordsList<ProductPrice>("CONGRESS_PRODUCT_PRICES", {
+      filter,
+      sort: "-priceAmount",
    });
 
    return prices;

@@ -10,7 +10,7 @@ import type {
    NewCongressProductData,
 } from "../types/congressProductsTypes";
 import type { CongressRecord } from "../types/congressTypes";
-import { getCongressById } from "./congressServices";
+import { getCongressById, getLatestCongress } from "./congressServices";
 
 export async function createCongressProductRecord(newCongressProduct: CongressProduct) {
    const createdCongressProduct = await createDBRecord<CongressProduct>("CONGRESS_PRODUCTS", newCongressProduct);
@@ -123,6 +123,72 @@ export async function getAllCongressProducts(congressId: CongressRecord["id"]) {
    });
 
    return congressProducts;
+}
+
+export async function getInPersonCongressProduct() {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId} &&
+      productType = {:productType}
+   `,
+      {
+         organizationId: organization.id,
+         congressId: congress.id,
+         productType: "congress_in_person_access",
+      },
+   );
+
+   const product = await getSingleDBRecord<CongressProduct>("CONGRESS_PRODUCTS", filter);
+
+   return product;
+}
+
+export async function getOnlineCongressProduct() {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId} &&
+      productType = {:productType}
+   `,
+      {
+         organizationId: organization.id,
+         congressId: congress.id,
+         productType: "congress_online_access",
+      },
+   );
+
+   const product = await getSingleDBRecord<CongressProduct>("CONGRESS_PRODUCTS", filter);
+
+   return product;
+}
+
+export async function getRecordingsCongressProduct() {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId} &&
+      productType = {:productType}
+   `,
+      {
+         organizationId: organization.id,
+         congressId: congress.id,
+         productType: "congress_recordings",
+      },
+   );
+
+   const product = await getSingleDBRecord<CongressProduct>("CONGRESS_PRODUCTS", filter);
+
+   return product;
 }
 
 export async function getAllCongressProductsWithPrices(congressId: CongressRecord["id"]): Promise<CongressProductWithPrices[]> {
