@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
    let event: Stripe.Event | null = null;
    try {
-      const webhookSecret = IS_DEV_ENVIRONMENT ? credentials.webhookSecret : process.env.STRIPE_DEV_WEBHOOK_SECRET;
+      const webhookSecret = IS_DEV_ENVIRONMENT ? process.env.STRIPE_DEV_WEBHOOK_SECRET : credentials.webhookSecret;
 
       if (!webhookSecret) {
          console.error("[Stripe Webhook] No webhook secret");

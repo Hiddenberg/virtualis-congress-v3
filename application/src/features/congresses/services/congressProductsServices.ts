@@ -218,6 +218,25 @@ export async function getRecordingsCongressProduct() {
    return product;
 }
 
+export async function getCongressProductByStripeProductId(stripeProductId: string) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      stripeProductId = {:stripeProductId}
+   `,
+      {
+         organizationId: organization.id,
+         stripeProductId,
+      },
+   );
+
+   const product = await getSingleDBRecord<CongressProduct>("CONGRESS_PRODUCTS", filter);
+
+   return product;
+}
+
 export async function getAllCongressProductsWithPrices(congressId: CongressRecord["id"]): Promise<CongressProductWithPrices[]> {
    const organization = await getOrganizationFromSubdomain();
 

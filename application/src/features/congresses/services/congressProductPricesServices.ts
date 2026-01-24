@@ -64,6 +64,24 @@ export async function getCongressProductPriceById(productPriceId: ProductPriceRe
    return productPrice;
 }
 
+export async function getCongressProductPriceByStripePriceId(stripePriceId: string) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      stripePriceId = {:stripePriceId}
+   `,
+      {
+         organizationId: organization.id,
+         stripePriceId,
+      },
+   );
+
+   const productPrice = await getSingleDBRecord<ProductPrice>("CONGRESS_PRODUCT_PRICES", filter);
+   return productPrice;
+}
+
 export async function getAllCongressProductPrices(productId: CongressProductRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
 

@@ -1,5 +1,7 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import "server-only";
+import { getCongressProductPriceByStripePriceId } from "@/features/congresses/services/congressProductPricesServices";
+import { getCongressProductByStripeProductId } from "@/features/congresses/services/congressProductsServices";
 import {
    getCongressRegistrationByUserId,
    updateCongressRegistration,
@@ -240,7 +242,7 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
    // const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
    if (!congress) {
-      throw new Error(`[fulfillCongressRegistrationV2] No congress found`);
+      throw new Error(`[fulfillCongressRegistrationV3] No congress found`);
    }
 
    // TODO: Make this function safe to run multiple times,
@@ -250,16 +252,11 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
    // performed for this Checkout Session
    const userPayment = await getUserPaymentRecord(checkoutSessionId);
    if (!userPayment) {
-      throw new Error(`[fulfillCongressRegistrationV2] User payment record not found for checkout session ${checkoutSessionId}`);
+      throw new Error(`[fulfillCongressRegistrationV3] User payment record not found for checkout session ${checkoutSessionId}`);
    }
    if (userPayment.fulfilledSuccessfully) {
-      console.log(`[fulfillCongressRegistrationV2] User payment already fulfilled for checkout session ${checkoutSessionId}`);
+      console.log(`[fulfillCongressRegistrationV3] User payment already fulfilled for checkout session ${checkoutSessionId}`);
       return;
-   }
-
-   const userCongressRegistration = await getCongressRegistrationByUserId(userPayment.user);
-   if (!userCongressRegistration) {
-      throw new Error(`[fulfillCongressRegistrationV2] User congress registration not found for user ${userPayment.user}`);
    }
 
    // Retrieve the Checkout Session from the API with line_items expanded
@@ -269,49 +266,72 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
    // Check the Checkout Session's payment_status property
    // to determine if fulfillment should be performed
    if (checkoutSession.payment_status === "unpaid") {
-      console.log(`[fulfillCongressRegistrationV2] Payment not paid for checkout session ${checkoutSessionId}`);
-      return;
+      throw new Error(`[fulfillCongressRegistrationV3] Payment not paid for checkout session ${checkoutSessionId}`);
    }
+
    // TODO: Perform fulfillment of the line items
    const lineItems = checkoutSession.line_items;
    if (!lineItems) {
-      throw new Error(`[fulfillCongressRegistrationV2] No line items found for checkout session ${checkoutSessionId}`);
+      throw new Error(`[fulfillCongressRegistrationV3] No line items found for checkout session ${checkoutSessionId}`);
    }
 
    // TODO: Create user purchases for the line items
    for (const item of lineItems.data) {
-      const productId = item.price?.product;
-      const priceId = item.price?.id;
-      if (!productId || !priceId) {
-         console.error(`[fulfillCongressRegistrationV2] No product id or price id found for item ${item.id}`);
+      const stripeProductId = item.price?.product;
+      const stripePriceId = item.price?.id;
+      if (!stripeProductId) {
+         console.error(`[fulfillCongressRegistrationV3] No stripe product id found for item ${item.id}`);
          continue;
       }
 
-      if (typeof productId !== "string") {
-         console.error(`[fulfillCongressRegistrationV2] Product id is not a string for item ${item.id}`);
+      if (!stripePriceId) {
+         console.error(`[fulfillCongressRegistrationV3] No price id found for item ${item.id}`);
          continue;
       }
 
-      if (typeof priceId !== "string") {
-         console.error(`[fulfillCongressRegistrationV2] Price id is not a string for item ${item.id}`);
+      if (typeof stripeProductId !== "string") {
+         console.error(`[fulfillCongressRegistrationV3] Product id is not a string for item ${item.id}`);
+         continue;
+      }
+
+      if (typeof stripePriceId !== "string") {
+         console.error(`[fulfillCongressRegistrationV3] Price id is not a string for item ${item.id}`);
+         continue;
+      }
+
+      const congressProduct = await getCongressProductByStripeProductId(stripeProductId);
+      if (!congressProduct) {
+         console.error(`[fulfillCongressRegistrationV3] No congress product found for stripe product id ${stripeProductId}`);
+         continue;
+      }
+
+      const congressProductPrice = await getCongressProductPriceByStripePriceId(stripePriceId);
+      if (!congressProductPrice) {
+         console.error(`[fulfillCongressRegistrationV3] No congress product price found for stripe price id ${stripePriceId}`);
          continue;
       }
 
       await createUserPurchaseRecord({
          congress: congress.id,
          user: userPayment.user,
-         product: productId,
-         price: priceId,
+         product: congressProduct.id,
+         price: congressProductPrice.id,
       });
    }
 
    // TODO: Record/save fulfillment status for this
    // Checkout Session
    // PENDING: check if this could be removed
-   await updateCongressRegistration(userCongressRegistration.id, {
-      paymentConfirmed: true,
-      payment: userPayment.id,
-   });
+   const userCongressRegistration = await getCongressRegistrationByUserId(userPayment.user);
+   if (!userCongressRegistration) {
+      console.error(`[fulfillCongressRegistrationV3] User congress registration not found for user ${userPayment.user}`);
+   } else {
+      await updateCongressRegistration(userCongressRegistration.id, {
+         paymentConfirmed: true,
+         payment: userPayment.id,
+      });
+   }
+
    await updateUserPaymentRecord(userPayment.id, {
       fulfilledSuccessfully: true,
       fulfilledAt: new Date().toISOString(),
