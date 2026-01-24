@@ -14,7 +14,7 @@ export default function RecordingsSection({ product }: RecordingsSectionProps) {
    return (
       <div className="mb-12">
          <h3 className="mb-6 font-bold text-gray-900 text-2xl text-center">Acceso a Grabaciones</h3>
-         <div className="gap-6 grid md:grid-cols-2 mx-auto max-w-3xl">
+         <div className="flex flex-wrap *:flex-1 justify-center gap-6 *:min-w-90 lg:*:max-w-1/3">
             {product.prices.map((price, index) => (
                <PriceCard
                   key={price.id}

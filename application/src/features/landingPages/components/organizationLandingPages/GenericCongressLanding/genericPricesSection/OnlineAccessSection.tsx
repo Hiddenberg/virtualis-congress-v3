@@ -37,7 +37,7 @@ export default function OnlineAccessSection({ product }: OnlineAccessSectionProp
                credentialValidationInstructions={product.prices[0].credentialValidationInstructions}
             />
          ) : (
-            <div className="gap-6 grid md:grid-cols-2 lg:grid-cols-3">
+            <div className="flex flex-wrap *:flex-1 justify-center gap-6 *:min-w-90 lg:*:max-w-1/3">
                {product.prices.map((price, index) => (
                   <PriceCard
                      key={price.id}
