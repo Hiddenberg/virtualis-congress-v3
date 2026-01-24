@@ -1,4 +1,6 @@
 import GoBackButton from "@/components/global/GoBackButton";
+import OnlinePricesGrid from "@/components/payment-page/prices/OnlinePricesGrid";
+import OnlinePricesHeader from "@/components/payment-page/prices/OnlinePricesHeader";
 import { getOnlineCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
 import { getOnlineCongressProduct } from "@/features/congresses/services/congressProductsServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
@@ -19,12 +21,16 @@ export default async function onlinePricesPage() {
    }
 
    return (
-      <div>
+      <div className="mx-auto p-4 sm:p-6 md:p-8 max-w-6xl min-h-dvh">
          {congressModality === "hybrid" && (
-            <GoBackButton backURL="/payment" backButtonText="Volver a la selección de modalidad" />
+            <div className="mb-6">
+               <GoBackButton backURL="/payment" backButtonText="Volver a la selección de modalidad" />
+            </div>
          )}
 
-         <h1>Online Prices Page</h1>
+         <OnlinePricesHeader />
+
+         <OnlinePricesGrid prices={onlinePrices} />
       </div>
    );
 }
