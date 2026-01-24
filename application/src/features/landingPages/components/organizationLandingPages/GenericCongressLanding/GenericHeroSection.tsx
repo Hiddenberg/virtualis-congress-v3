@@ -11,6 +11,7 @@ import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import ConferencesPreview from "../GeaLanding/ConferencesPreview";
 import GenericLandingLogos from "./GenericLandingLogos";
+import ModalityBadge from "./ModalityBadge";
 
 interface GenericHeroSectionProps {
    landingConfiguration: CongressLandingConfigurationRecord;
@@ -114,10 +115,7 @@ export default function GenericHeroSection({
                   <GenericLandingLogos organization={organization} additionalLogosURLs={additionalLogosURLs} />
 
                   <div className="space-y-4">
-                     <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 border border-white/30 rounded-full font-semibold text-cyan-100 text-xs">
-                        <MonitorIcon className="w-4 h-4" />{" "}
-                        {congress.modality === "online" ? "Congreso 100% en línea" : "Congreso híbrido"}
-                     </div>
+                     <ModalityBadge modality={congress.modality} colorScheme={color} />
                      <h1 className="font-bold text-4xl lg:text-5xl leading-tight">
                         <span className="text-white">Bienvenidos al evento:</span>
                         <br />
