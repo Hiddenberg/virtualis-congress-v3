@@ -1,21 +1,47 @@
-import { ArrowRight, Mail, User } from "lucide-react";
+import { ArrowRightIcon, Loader2Icon, Mail, User } from "lucide-react";
+import { Button } from "@/components/global/Buttons";
 import InputField from "./InputField";
 
 interface StepOneProps {
    email: string;
+   emailVerification: string;
    name: string;
    errors: {
       email: string;
+      emailVerification: string;
       name: string;
    };
+   isSubmitting: boolean;
    onEmailChange: (value: string) => void;
+   onEmailVerificationChange: (value: string) => void;
    onNameChange: (value: string) => void;
    onNext: () => void;
 }
 
-export default function StepOne({ email, name, errors, onEmailChange, onNameChange, onNext }: StepOneProps) {
+export default function StepOne({
+   email,
+   emailVerification,
+   isSubmitting,
+   name,
+   errors,
+   onEmailChange,
+   onEmailVerificationChange,
+   onNameChange,
+   onNext,
+}: StepOneProps) {
    return (
       <div className="space-y-8">
+         <InputField
+            id="name"
+            label="Nombre completo"
+            type="text"
+            value={name}
+            onChange={onNameChange}
+            placeholder="Tu nombre completo"
+            error={errors.name}
+            icon={<User className="w-5 h-5 text-gray-500" />}
+         />
+
          <InputField
             id="email"
             label="Correo electrónico"
@@ -28,24 +54,21 @@ export default function StepOne({ email, name, errors, onEmailChange, onNameChan
          />
 
          <InputField
-            id="name"
-            label="Nombre completo"
-            type="text"
-            value={name}
-            onChange={onNameChange}
-            placeholder="Tu nombre completo"
-            error={errors.name}
-            icon={<User className="w-5 h-5 text-gray-500" />}
+            id="emailVerification"
+            label="Confirma tu correo electrónico"
+            type="email"
+            value={emailVerification}
+            onChange={onEmailVerificationChange}
+            placeholder="tu@email.com"
+            error={errors.emailVerification}
+            icon={<Mail className="w-5 h-5 text-gray-500" />}
+            disablePaste={true}
          />
 
-         <button
-            type="button"
-            onClick={onNext}
-            className="flex justify-center items-center space-x-3 bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-6 py-4 rounded-xl w-full font-bold text-white transition-all hover:-translate-y-0.5 duration-200"
-         >
-            <span>Continuar</span>
-            <ArrowRight className="w-5 h-5" />
-         </button>
+         <Button loading={isSubmitting} onClick={onNext} variant="blue" className="p-4! w-full!">
+            {isSubmitting ? "Verificando..." : "Continuar"}
+            {isSubmitting ? <Loader2Icon className="w-5 h-5 animate-spin" /> : <ArrowRightIcon className="w-5 h-5" />}
+         </Button>
       </div>
    );
 }

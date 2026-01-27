@@ -1,6 +1,7 @@
 "use client";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
+import { checkExistingUserAction } from "../../serverActions/staggeredAuthActions";
 import { ProgressIndicator, SignUpFooter, StepHeader, StepOne, StepTwo } from ".";
 
 export interface NewUserFormData {
@@ -27,8 +28,11 @@ export default function StaggeredAuthSignupForm({
       phoneNumber: "",
    });
 
+   const [emailVerification, setEmailVerification] = useState("");
+
    const [errors, setErrors] = useState({
       email: "",
+      emailVerification: "",
       name: "",
       dateOfBirth: "",
       phoneNumber: "",
@@ -55,6 +59,16 @@ export default function StaggeredAuthSignupForm({
          isValid = false;
       } else {
          newErrors.email = "";
+      }
+
+      if (!emailVerification) {
+         newErrors.emailVerification = "Confirma tu email";
+         isValid = false;
+      } else if (emailVerification !== newUserData.email) {
+         newErrors.emailVerification = "Los emails no coinciden";
+         isValid = false;
+      } else {
+         newErrors.emailVerification = "";
       }
 
       if (!newUserData.name.trim()) {
@@ -109,7 +123,20 @@ export default function StaggeredAuthSignupForm({
 
    const handleNext = () => {
       if (validateStep1()) {
-         setCurrentStep(2);
+         startTransition(async () => {
+            const userExistsResponse = await checkExistingUserAction(newUserData.email);
+            if (!userExistsResponse.success) {
+               toast.error(userExistsResponse.errorMessage);
+               return;
+            }
+
+            if (userExistsResponse.data.exists) {
+               toast.error("Este correo electrónico ya está registrado, por favor inicia sesión");
+               return;
+            }
+
+            setCurrentStep(2);
+         });
       }
    };
 
@@ -146,6 +173,24 @@ export default function StaggeredAuthSignupForm({
             [field]: "",
          }));
       }
+      // Clear email verification error when email changes
+      if (field === "email" && errors.emailVerification) {
+         setErrors((prev) => ({
+            ...prev,
+            emailVerification: "",
+         }));
+      }
+   };
+
+   const handleEmailVerificationChange = (value: string) => {
+      setEmailVerification(value);
+      // Clear error when user starts typing
+      if (errors.emailVerification) {
+         setErrors((prev) => ({
+            ...prev,
+            emailVerification: "",
+         }));
+      }
    };
 
    const handlePhoneInputChange = (value: string) => {
@@ -174,14 +219,18 @@ export default function StaggeredAuthSignupForm({
             {currentStep === 1 && (
                <StepOne
                   email={newUserData.email}
+                  emailVerification={emailVerification}
                   name={newUserData.name}
                   errors={{
                      email: errors.email,
+                     emailVerification: errors.emailVerification,
                      name: errors.name,
                   }}
                   onEmailChange={(value) => handleInputChange("email", value)}
+                  onEmailVerificationChange={handleEmailVerificationChange}
                   onNameChange={(value) => handleInputChange("name", value)}
                   onNext={handleNext}
+                  isSubmitting={isSubmitting}
                />
             )}
 

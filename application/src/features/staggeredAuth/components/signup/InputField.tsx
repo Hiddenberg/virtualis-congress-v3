@@ -9,9 +9,28 @@ interface InputFieldProps {
    placeholder?: string;
    error?: string;
    icon?: ReactNode;
+   disablePaste?: boolean;
 }
 
-export default function InputField({ id, label, type, value, onChange, placeholder, error, icon }: InputFieldProps) {
+export default function InputField({ id, label, type, value, onChange, placeholder, error, icon, disablePaste }: InputFieldProps) {
+   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+      if (disablePaste) {
+         e.preventDefault();
+      }
+   };
+
+   const handleCopy = (e: React.ClipboardEvent<HTMLInputElement>) => {
+      if (disablePaste) {
+         e.preventDefault();
+      }
+   };
+
+   const handleCut = (e: React.ClipboardEvent<HTMLInputElement>) => {
+      if (disablePaste) {
+         e.preventDefault();
+      }
+   };
+
    return (
       <div>
          <label htmlFor={id} className="block mb-2 font-medium text-gray-700 text-sm">
@@ -26,6 +45,9 @@ export default function InputField({ id, label, type, value, onChange, placehold
                type={type}
                value={value}
                onChange={(e) => onChange(e.target.value)}
+               onPaste={handlePaste}
+               onCopy={handleCopy}
+               onCut={handleCut}
                className={`block w-full ${icon ? "pl-11" : "pl-3"} pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
                   error ? "border-red-300 bg-red-50" : "border-gray-300 bg-white"
                }`}
