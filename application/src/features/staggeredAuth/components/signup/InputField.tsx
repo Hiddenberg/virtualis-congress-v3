@@ -13,7 +13,18 @@ interface InputFieldProps {
    required?: boolean;
 }
 
-export default function InputField({ id, label, type, value, onChange, placeholder, error, icon, disablePaste, required }: InputFieldProps) {
+export default function InputField({
+   id,
+   label,
+   type,
+   value,
+   onChange,
+   placeholder,
+   error,
+   icon,
+   disablePaste,
+   required,
+}: InputFieldProps) {
    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
       if (disablePaste) {
          e.preventDefault();

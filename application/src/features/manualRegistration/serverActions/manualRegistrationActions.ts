@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { registerUserToLatestCongress } from "@/features/congresses/services/congressRegistrationServices";
 import { checkIfUserExists, createUser, type NewUserData } from "@/features/users/services/userServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import {
    // fulfillManualCongressRegistration,
    searchUsersRegisteredToCurrentCongress,

@@ -3,6 +3,7 @@ import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } fro
 import "server-only";
 import type { CongressProductRecord } from "@/features/congresses/types/congressProductsTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import type { NewUserPurchase, UserPurchase } from "../types/userPurchasesTypes";
 
 export async function createUserPurchaseRecord({ congress, user, price, product }: NewUserPurchase) {

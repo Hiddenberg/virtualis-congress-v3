@@ -2,6 +2,7 @@ import "server-only";
 import { ClientResponseError, type RecordModel } from "pocketbase";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import pbServerClient from "@/libs/pbServerClient";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import type { CourtesyInvitation } from "@/types/congress";
@@ -70,7 +71,7 @@ export async function getCourtesyInvitationByStryipePromoCode(stripePromotionCod
    }
 }
 
-export async function redeemCourtesyInvitationCode(stripePromotionCode: string, user: User & RecordModel) {
+export async function redeemCourtesyInvitationCode(stripePromotionCode: string, user: UserRecord) {
    const courtesyInvitation = await getCourtesyInvitationByStryipePromoCode(stripePromotionCode);
    if (!courtesyInvitation) {
       return;

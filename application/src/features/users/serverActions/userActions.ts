@@ -13,6 +13,7 @@ import {
    type NewUserData,
    updateUser,
 } from "@/features/users/services/userServices";
+import type { RoleType, User } from "../types/userTypes";
 
 export async function getUserByIdAction(userId: string) {
    try {

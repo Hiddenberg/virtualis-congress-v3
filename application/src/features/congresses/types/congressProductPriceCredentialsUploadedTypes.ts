@@ -1,4 +1,5 @@
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import type { ProductPriceRecord } from "./congressProductPricesTypes";
 import type { CongressRecord } from "./congressTypes";
 

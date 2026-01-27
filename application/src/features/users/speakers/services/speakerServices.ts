@@ -6,6 +6,7 @@ import "server-only";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
+import type { User, UserRecord } from "../../types/userTypes";
 
 export async function getSpeakerDataByUserId(userId: string) {
    const organization = await getOrganizationFromSubdomain();

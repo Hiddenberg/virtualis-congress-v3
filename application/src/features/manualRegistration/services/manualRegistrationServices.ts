@@ -14,6 +14,7 @@ import {
    // createUserPurchaseRecord,
 } from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import {
    //  createDBRecord,
    getFullDBRecordsList,

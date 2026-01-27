@@ -3,6 +3,7 @@ import { format } from "@formkit/tempo";
 import { cookies } from "next/headers";
 import { getUserRole } from "@/features/users/services/userRoleServices";
 import { getUserByEmail } from "@/features/users/services/userServices";
+import type { User } from "@/features/users/types/userTypes";
 import { createDBRecord, getDBRecordById } from "@/libs/pbServerClientNew";
 import { AUTH_COOKIE_KEY, REFRESH_COOKIE_KEY } from "../constants/authConstants";
 import { generateRefreshToken, generateUserAuthToken, getUserIdFromAuthToken, verifyUserAuthToken } from "./jwtServices";

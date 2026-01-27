@@ -13,6 +13,7 @@ import {
    getUserById,
    type NewUserData,
 } from "@/features/users/services/userServices";
+import type { RoleType, User, UserRecord } from "@/features/users/types/userTypes";
 import { dbBatch } from "@/libs/pbServerClientNew";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import { AUTH_COOKIE_KEY, REFRESH_COOKIE_KEY } from "../constants/authConstants";
@@ -182,7 +183,7 @@ export async function authenticateWithOTPCodeAction(
          success: true,
          data: {
             token: authenticationResponse.authToken,
-            user: authenticationResponse.authUser as User & DBRecord,
+            user: authenticationResponse.authUser as UserRecord,
             userRole: authenticationResponse.userRole,
          },
       };
@@ -215,7 +216,7 @@ export async function authenticateWithBirthDateAction(
          success: true,
          data: {
             token: authData.authToken,
-            user: authData.authUser as User & DBRecord,
+            user: authData.authUser as UserRecord,
             userRole: authData.userRole,
          },
       };
@@ -248,7 +249,7 @@ export async function authenticateWithPhoneNumberAction(
          success: true,
          data: {
             token: authData.authToken,
-            user: authData.authUser as User & DBRecord,
+            user: authData.authUser as UserRecord,
             userRole: authData.userRole,
          },
       };

@@ -3,6 +3,7 @@ import "server-only";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import {
    createDBRecord,
    dbBatch,

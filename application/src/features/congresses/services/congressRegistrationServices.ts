@@ -1,5 +1,6 @@
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import type { CongressRegistration } from "../types/congressRegistrationTypes";
 import { getLatestCongress } from "./congressServices";

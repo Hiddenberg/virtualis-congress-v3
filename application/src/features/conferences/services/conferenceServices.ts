@@ -2,6 +2,7 @@ import { dayEnd, dayStart } from "@formkit/tempo";
 import { ClientResponseError, type RecordModel } from "pocketbase";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { User } from "@/features/users/types/userTypes";
 import pbServerClient from "@/libs/pbServerClient";
 import {
    createDBRecord,

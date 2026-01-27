@@ -6,6 +6,7 @@ import { useEffect, useId, useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import { registerManualPaymentAction, searchRegisteredUsersAction } from "../serverActions/manualRegistrationActions";
 
 interface UserListItemProps {

@@ -1,5 +1,6 @@
 "use server";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
+import type { UserRecord } from "../../types/userTypes";
 import { createOrUpdateAttendantData } from "../services/attendantServices";
 
 export async function createAttendantAdditionalDataAction<T>({

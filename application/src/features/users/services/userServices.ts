@@ -9,6 +9,7 @@ import {
    pbFilter,
    updateDBRecord,
 } from "@/libs/pbServerClientNew";
+import type { RoleType, User } from "../types/userTypes";
 import { getUserRole } from "./userRoleServices";
 
 export interface NewUserData {

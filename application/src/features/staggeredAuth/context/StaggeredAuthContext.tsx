@@ -5,6 +5,7 @@ import { createContext, type ReactNode, useCallback, useContext, useEffect, useS
 import toast from "react-hot-toast";
 import GlobalLoadingPage from "@/components/global/GlobalLoadingPage";
 import type { NewUserData } from "@/features/users/services/userServices";
+import type { RoleType, UserRecord } from "@/features/users/types/userTypes";
 import {
    authenticateWithBirthDateAction,
    authenticateWithOTPCodeAction,

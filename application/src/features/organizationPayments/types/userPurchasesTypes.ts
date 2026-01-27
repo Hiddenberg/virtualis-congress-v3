@@ -2,6 +2,7 @@ import type { ProductPriceRecord } from "@/features/congresses/types/congressPro
 import type { CongressProductRecord } from "@/features/congresses/types/congressProductsTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { UserRecord } from "@/features/users/types/userTypes";
 
 export interface UserPurchase {
    organization: OrganizationRecord["id"];

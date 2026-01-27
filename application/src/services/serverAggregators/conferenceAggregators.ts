@@ -1,5 +1,6 @@
 import { ClientResponseError, type RecordModel } from "pocketbase";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import pbServerClient from "@/libs/pbServerClient";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import type { SpeakerData } from "@/types/congress";
@@ -7,12 +8,11 @@ import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 interface ExpandedLobbyConference extends CongressConference, RecordModel {
    expand: {
-      speakers: (User &
-         RecordModel & {
-            expand: {
-               speakers_data_via_user: (SpeakerData & RecordModel)[];
-            };
-         })[];
+      speakers: (UserRecord & {
+         expand: {
+            speakers_data_via_user: (SpeakerData & RecordModel)[];
+         };
+      })[];
    };
 }
 

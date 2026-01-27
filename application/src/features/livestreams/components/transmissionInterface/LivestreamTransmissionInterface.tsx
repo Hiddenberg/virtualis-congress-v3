@@ -5,6 +5,7 @@ import GoToQnaButton from "@/features/conferences/components/GoToQnaButton";
 import LivestreamPresentationRecorderWrapper from "@/features/pptPresentations/components/realtime/LivestreamPresentationRecorderWrapper";
 import RealtimePresentationController from "@/features/pptPresentations/components/realtime/RealtimePresentationController";
 import SelfContainedRealtimeQuestionPollDisplay from "@/features/questionPolls/components/realtime/SelfContainedRealtimeQuestionPollDisplay";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import { RealtimeLivestreamStatusProvider } from "../../contexts/RealtimeLivestreamStatusProvider";
 import { ZoomSessionProvider } from "../../contexts/ZoomSessionContext";
 import CollapsibleGuestLink from "../CollapsibleGuestLink";
@@ -55,7 +56,7 @@ function LiveTransmissionHeader({ isQna, conference }: { isQna: boolean; confere
                <h1 className="font-bold text-white text-2xl capitalize">{conference.title}</h1>
             </div>
          </div>
-         <div className="flex flex-col gap-2 p-2 !border !border-white rounded-lg *:w-full">
+         <div className="flex flex-col gap-2 p-2 border-white! rounded-lg *:w-full border!">
             <div className="flex justify-center items-center gap-2">
                <EyeIcon className="w-6 h-6 text-white shrink-0" />
                <p className="font-semibold text-white text-sm">Ver como asistente</p>

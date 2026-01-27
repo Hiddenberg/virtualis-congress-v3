@@ -1,5 +1,5 @@
-import type { RecordModel } from "pocketbase";
 import { getAllCoordinatorUsers } from "@/features/users/coordinators/services/coordinatorUserServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import { AddCoordinatorForm } from "./AddCoordinatorForm";
 
 export default async function CoordinatorsPage() {
@@ -22,7 +22,7 @@ export default async function CoordinatorsPage() {
                   </tr>
                </thead>
                <tbody className="bg-white divide-y divide-gray-200">
-                  {coordinators.map((coordinator: User & RecordModel) => (
+                  {coordinators.map((coordinator: UserRecord) => (
                      <tr key={coordinator.id}>
                         <td className="px-6 py-4 font-medium text-gray-900 text-sm whitespace-nowrap">{coordinator.name}</td>
                         <td className="px-6 py-4 text-gray-500 text-sm whitespace-nowrap">{coordinator.email}</td>

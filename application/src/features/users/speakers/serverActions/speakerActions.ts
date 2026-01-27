@@ -18,6 +18,7 @@ import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import type { SpeakerDataRecord } from "@/types/congress";
 import { updateUserRole } from "../../services/userRoleServices";
 import { checkIfUserExists, createUser, getUserByEmail } from "../../services/userServices";
+import type { UserRecord } from "../../types/userTypes";
 import {
    createSpeakerDataRecord,
    getSpeakerDataByUserId,

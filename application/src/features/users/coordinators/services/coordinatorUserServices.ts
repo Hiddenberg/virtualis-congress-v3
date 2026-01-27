@@ -2,6 +2,7 @@ import { getLatestCongress } from "@/features/congresses/services/congressServic
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
+import type { User } from "../../types/userTypes";
 
 export async function getAllCoordinatorUsers() {
    const organization = await getOrganizationFromSubdomain();

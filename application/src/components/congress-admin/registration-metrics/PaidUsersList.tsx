@@ -1,5 +1,6 @@
 import { format } from "@formkit/tempo";
 import { CheckCircle2, DollarSign, Users } from "lucide-react";
+import type { UserRecord } from "@/features/users/types/userTypes";
 
 interface UserPaymentRecord {
    id: string;

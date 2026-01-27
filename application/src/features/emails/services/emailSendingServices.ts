@@ -13,6 +13,7 @@ import { createRecordingTrackedEmailRecord } from "@/features/simpleRecordings/s
 import { getRecordingLink } from "@/features/simpleRecordings/utils/recordingUtils";
 import { createTrackedEmailRecord, updateTrackedEmailRecord } from "@/features/trackedEmails/services/trackedEmailServices";
 import { getUserById } from "@/features/users/services/userServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import transporter from "@/libs/nodeMailer";
 import SENDER_EMAILS from "../constants/emailConstants";
 import AboutToStartEventTemplate from "../templates/AboutToStartEventTemplate";

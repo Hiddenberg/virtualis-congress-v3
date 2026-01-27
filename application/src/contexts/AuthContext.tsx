@@ -1,20 +1,21 @@
 "use client";
 
-import { ClientResponseError, type RecordModel } from "pocketbase";
+import { ClientResponseError } from "pocketbase";
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { removeTokenCookieAction, setTokenCookieAction } from "@/actions/userActions";
 import GlobalLoadingPage from "@/components/global/GlobalLoadingPage";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import pbClient from "@/libs/pbClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 function usePBAuth() {
    const [isLoading, setIsLoading] = useState(true);
-   const [user, setUser] = useState<(User & RecordModel) | null>(null);
+   const [user, setUser] = useState<UserRecord | null>(null);
    const [authToken, setAuthToken] = useState<string | null>(null);
 
    useEffect(() => {
       if (pbClient.authStore.isValid) {
-         setUser(pbClient.authStore.record as User & RecordModel);
+         setUser(pbClient.authStore.record as UserRecord);
          setAuthToken(pbClient.authStore.token);
       }
 
@@ -28,7 +29,7 @@ function usePBAuth() {
 
          await setTokenCookieAction(token);
 
-         setUser(record as User & RecordModel);
+         setUser(record as UserRecord);
          setAuthToken(token);
       });
 

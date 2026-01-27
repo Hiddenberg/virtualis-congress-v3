@@ -1,5 +1,6 @@
 import { addDay, diffDays, format } from "@formkit/tempo";
 import type { RecordModel } from "pocketbase";
+import type { UserRecord } from "@/features/users/types/userTypes";
 
 export function getAccumulatedGainsPerDay(allPayments: (UserPayment & RecordModel)[]) {
    const initialDate = format({
@@ -93,7 +94,7 @@ export function getNewRegistrationsPerDay(allAttendantsRegistered: (AttendantDat
 }
 
 export function getPaymentsCollected(
-   attendatsWithPaymentConfirmedData: (AttendantData & RecordModel & { expand: { user: User & RecordModel } })[],
+   attendatsWithPaymentConfirmedData: (AttendantData & RecordModel & { expand: { user: UserRecord } })[],
    allPayments: (UserPayment & RecordModel)[],
 ) {
    const usersWithPayments = attendatsWithPaymentConfirmedData.map((attendantData) => {

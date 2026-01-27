@@ -1,6 +1,7 @@
 import "server-only";
 import { tzDate } from "@formkit/tempo";
 import { ClientResponseError, type RecordModel } from "pocketbase";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import pbServerClient from "@/libs/pbServerClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
@@ -23,8 +24,8 @@ export async function getAllQnALivesWithConferenceDetails() {
                   conference: CongressConference &
                      RecordModel & {
                         expand: {
-                           speakers: (User & RecordModel)[];
-                           presenter?: User & RecordModel;
+                           speakers: UserRecord[];
+                           presenter?: UserRecord;
                         };
                      };
                };
@@ -71,8 +72,8 @@ interface QnALiveWithConferenceDetails extends LivestreamSession, RecordModel {
       conference: CongressConference &
          RecordModel & {
             expand: {
-               speakers: (User & RecordModel)[];
-               presenter?: User & RecordModel;
+               speakers: UserRecord[];
+               presenter?: UserRecord;
             };
          };
    };

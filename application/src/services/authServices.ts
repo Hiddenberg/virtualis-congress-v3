@@ -1,6 +1,7 @@
 import "server-only";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
+import type { User } from "@/features/users/types/userTypes";
 
 /**
  * This function checks if the user is authorized to access the page or perform a server action
