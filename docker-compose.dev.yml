@@ -9,7 +9,7 @@ services:
       - proxynetwork
 
   virtualis-congress-v3-dev:
-    image: oven/bun:alpine
+    image: oven/bun
     working_dir: /usr/src/app
     volumes:
       - ./application/:/usr/src/app/
