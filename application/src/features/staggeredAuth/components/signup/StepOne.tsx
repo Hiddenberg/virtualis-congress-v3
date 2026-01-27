@@ -40,6 +40,7 @@ export default function StepOne({
             placeholder="Tu nombre completo"
             error={errors.name}
             icon={<User className="w-5 h-5 text-gray-500" />}
+            required={true}
          />
 
          <InputField
@@ -51,6 +52,7 @@ export default function StepOne({
             placeholder="tu@email.com"
             error={errors.email}
             icon={<Mail className="w-5 h-5 text-gray-500" />}
+            required={true}
          />
 
          <InputField
@@ -63,6 +65,7 @@ export default function StepOne({
             error={errors.emailVerification}
             icon={<Mail className="w-5 h-5 text-gray-500" />}
             disablePaste={true}
+            required={true}
          />
 
          <Button loading={isSubmitting} onClick={onNext} variant="blue" className="p-4! w-full!">

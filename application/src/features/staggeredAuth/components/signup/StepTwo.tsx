@@ -38,6 +38,7 @@ export default function StepTwo({
             onChange={onDateOfBirthChange}
             error={errors.dateOfBirth}
             icon={<Calendar className="w-5 h-5 text-gray-500" />}
+            required={true}
          />
 
          <InputField
@@ -49,6 +50,7 @@ export default function StepTwo({
             placeholder="5555555555"
             error={errors.phoneNumber}
             icon={<Phone className="w-5 h-5 text-gray-500" />}
+            required={true}
          />
 
          <div className="flex space-x-4">

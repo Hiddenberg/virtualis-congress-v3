@@ -10,9 +10,10 @@ interface InputFieldProps {
    error?: string;
    icon?: ReactNode;
    disablePaste?: boolean;
+   required?: boolean;
 }
 
-export default function InputField({ id, label, type, value, onChange, placeholder, error, icon, disablePaste }: InputFieldProps) {
+export default function InputField({ id, label, type, value, onChange, placeholder, error, icon, disablePaste, required }: InputFieldProps) {
    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
       if (disablePaste) {
          e.preventDefault();
@@ -35,6 +36,7 @@ export default function InputField({ id, label, type, value, onChange, placehold
       <div>
          <label htmlFor={id} className="block mb-2 font-medium text-gray-700 text-sm">
             {label}
+            {required && <span className="text-red-500 ml-1">*</span>}
          </label>
          <div className="relative">
             {icon && (
