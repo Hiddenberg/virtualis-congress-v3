@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import toast from "react-hot-toast";
 
 interface InputFieldProps {
    id: string;
@@ -28,6 +29,7 @@ export default function InputField({
    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
       if (disablePaste) {
          e.preventDefault();
+         toast.error("No puedes pegar en este campo.\nPor favor vuelve a escribir tu correo para verificar que esté correcto");
       }
    };
 
@@ -47,7 +49,7 @@ export default function InputField({
       <div>
          <label htmlFor={id} className="block mb-2 font-medium text-gray-700 text-sm">
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span className="ml-1 text-red-500">*</span>}
          </label>
          <div className="relative">
             {icon && (
@@ -64,6 +66,7 @@ export default function InputField({
                className={`block w-full ${icon ? "pl-11" : "pl-3"} pr-3 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
                   error ? "border-red-300 bg-red-50" : "border-gray-300 bg-white"
                }`}
+               autoComplete={disablePaste ? "off" : "on"}
                placeholder={placeholder}
             />
          </div>

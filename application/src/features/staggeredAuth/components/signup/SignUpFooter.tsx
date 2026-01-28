@@ -8,7 +8,7 @@ export default function SignUpFooter() {
    const loginUrl = redirectTo ? `/login?redirectTo=${redirectTo}` : "/login";
 
    return (
-      <div className="mt-10">
+      <div className="mt-4">
          {/* Divider */}
          <div className="flex items-center my-8">
             <div className="flex-1 border-gray-300 border-t" />

@@ -41,8 +41,8 @@ export default function ProgressIndicator({ currentStep, totalSteps }: ProgressI
    const steps = Array.from({ length: totalSteps }, (_, index) => index + 1);
 
    return (
-      <div className="mb-10">
-         <div className="flex justify-between items-center mb-6">
+      <div className="mb-4">
+         <div className="flex justify-between items-center mb-2">
             {steps.flatMap((stepNumber, index) => {
                const isLastStep = index === steps.length - 1;
                const isConnectorCompleted = currentStep > stepNumber;
@@ -53,7 +53,7 @@ export default function ProgressIndicator({ currentStep, totalSteps }: ProgressI
                ];
             })}
          </div>
-         <p className="font-medium text-gray-600 text-sm text-center">
+         <p className="font-medium text-gray-600 text-xs text-center">
             Paso {currentStep} de {totalSteps}
          </p>
       </div>

@@ -6,7 +6,7 @@ interface StepHeaderProps {
 
 export default function StepHeader({ currentStep, welcomeMessage, welcomeDescription }: StepHeaderProps) {
    return (
-      <div className="mb-10 text-center">
+      <div className="mb-4 text-center">
          <h1 className="mb-3 font-bold text-gray-800 text-3xl tracking-tight">
             {currentStep === 1 && (welcomeMessage || "¡Bienvenido a la plataforma!")}
             {currentStep === 2 && "Correos adicionales"}
