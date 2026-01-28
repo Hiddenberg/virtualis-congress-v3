@@ -43,7 +43,7 @@ export default async function RegistrationMetricsPage() {
             <RegisteredPeopleList registrations={congressRegistrations} registrationsDetails={congressRegistrationsDetails} />
 
             {/* Paid Users List */}
-            <PaidUsersList registrationsDetails={congressRegistrationsDetails} />
+            <PaidUsersList registrationsDetails={congressRegistrationsDetails} payments={completedPayments} />
          </div>
       </div>
    );

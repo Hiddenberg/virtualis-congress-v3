@@ -1,13 +1,58 @@
-import { CheckCircle2, Monitor, Users, Video } from "lucide-react";
+import { format } from "@formkit/tempo";
+import { CheckCircle2, DollarSign, Monitor, Users, Video } from "lucide-react";
 import type { CongressUserRegistrationDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
+
+interface UserPaymentRecord {
+   id: string;
+   organization: string;
+   user: string;
+   stripeCheckoutSessionId: string;
+   checkoutSessionStatus: "open" | "complete" | "expired";
+   fulfilledSuccessfully: boolean;
+   fulfilledAt?: string;
+   totalAmount?: number; // cents
+   discount?: number; // cents
+   currency?: string; // e.g., "mxn", "usd"
+   paymentMethod?: string;
+   created: string;
+   updated: string;
+   expand?: {
+      user?: UserRecord;
+   };
+}
 
 interface PaidUsersListProps {
    registrationsDetails: CongressUserRegistrationDetails[];
+   payments: UserPaymentRecord[];
 }
 
-export default function PaidUsersList({ registrationsDetails }: PaidUsersListProps) {
+const formatMoney = (amountCents: number | undefined, currency?: string) => {
+   const amount = (amountCents ?? 0) / 100;
+   const code = (currency ?? "USD").toUpperCase();
+   try {
+      return new Intl.NumberFormat(undefined, {
+         style: "currency",
+         currency: code,
+         maximumFractionDigits: 2,
+      }).format(amount);
+   } catch {
+      return `$${amount.toFixed(2)}`;
+   }
+};
+
+export default function PaidUsersList({ registrationsDetails, payments }: PaidUsersListProps) {
    const paidUsers = registrationsDetails.filter((detail) => detail.hasPaid);
    const hasAny = paidUsers.length > 0;
+
+   // Create a map of payments by user ID for quick lookup
+   const paymentsByUserId = new Map<string, UserPaymentRecord>();
+   payments
+      .filter((p) => p.fulfilledSuccessfully)
+      .forEach((payment) => {
+         paymentsByUserId.set(payment.user, payment);
+      });
+
    const sorted = [...paidUsers].sort((a, b) => {
       const aName = a.user.name?.toLowerCase() ?? "";
       const bName = b.user.name?.toLowerCase() ?? "";
@@ -45,12 +90,16 @@ export default function PaidUsersList({ registrationsDetails }: PaidUsersListPro
                      <tr>
                         <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Nombre</th>
                         <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Email</th>
-                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Pago</th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Monto</th>
                         <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">
                            Modalidad
                         </th>
                         <th className="px-6 py-3 font-medium text-gray-600 text-xs text-center uppercase tracking-wider">
                            Grabaciones
+                        </th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">Método</th>
+                        <th className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider">
+                           Fecha de Pago
                         </th>
                      </tr>
                   </thead>
@@ -58,6 +107,17 @@ export default function PaidUsersList({ registrationsDetails }: PaidUsersListPro
                      {sorted.map((detail) => {
                         const name = detail.user.name ?? "—";
                         const email = detail.user.email ?? "—";
+                        const payment = paymentsByUserId.get(detail.user.id);
+                        const amount = payment ? formatMoney(payment.totalAmount, payment.currency) : "—";
+                        const method = payment?.paymentMethod ? payment.paymentMethod.replace(/_/g, " ") : "—";
+                        const paidAt = payment
+                           ? format({
+                                date: payment.fulfilledAt ?? payment.created,
+                                format: "DD/MM/YYYY hh:mm A",
+                                locale: "es-MX",
+                                tz: "America/Mexico_City",
+                             })
+                           : "—";
                         const modality =
                            detail.attendanceModality === "in-person"
                               ? "Presencial"
@@ -75,9 +135,9 @@ export default function PaidUsersList({ registrationsDetails }: PaidUsersListPro
                                  <div className="text-gray-700 text-sm">{email}</div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
-                                 <div className="flex items-center gap-2">
-                                    <CheckCircle2 className="w-4 h-4 text-green-600" />
-                                    <span className="text-green-700 text-sm">Confirmado</span>
+                                 <div className="flex items-center gap-2 text-green-700 text-sm">
+                                    <DollarSign className="w-4 h-4" />
+                                    {amount}
                                  </div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
@@ -106,6 +166,15 @@ export default function PaidUsersList({ registrationsDetails }: PaidUsersListPro
                                  ) : (
                                     <span className="text-gray-400 text-sm">—</span>
                                  )}
+                              </td>
+                              <td className="px-6 py-3 whitespace-nowrap">
+                                 <span className="text-gray-700 text-sm capitalize">{method}</span>
+                              </td>
+                              <td className="px-6 py-3 whitespace-nowrap">
+                                 <div className="flex items-center gap-2 text-gray-700 text-sm">
+                                    <CheckCircle2 className="w-4 h-4 text-green-600" />
+                                    {paidAt}
+                                 </div>
                               </td>
                            </tr>
                         );
