@@ -1,4 +1,4 @@
-import { ArrowRightIcon, Info, Loader2Icon, Mail } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, Info, Loader2Icon, Mail } from "lucide-react";
 import { Button } from "@/components/global/Buttons";
 import InputField from "./InputField";
 
@@ -38,7 +38,7 @@ export default function StepTwo({
 
          <InputField
             id="additionalEmail1"
-            label="Correo electrónico adicional 1"
+            label="Correo electrónico adicional 1 (opcional)"
             type="email"
             value={additionalEmail1}
             onChange={onAdditionalEmail1Change}
@@ -49,7 +49,7 @@ export default function StepTwo({
 
          <InputField
             id="additionalEmail2"
-            label="Correo electrónico adicional 2"
+            label="Correo electrónico adicional 2 (opcional)"
             type="email"
             value={additionalEmail2}
             onChange={onAdditionalEmail2Change}
@@ -64,6 +64,7 @@ export default function StepTwo({
                onClick={onBack}
                className="flex flex-1 justify-center items-center space-x-2 bg-gray-200 hover:bg-gray-300 shadow-sm hover:shadow-md px-4 py-4 rounded-xl font-semibold text-gray-700 transition-all duration-200"
             >
+               <ArrowLeftIcon className="w-5 h-5" />
                <span>Atrás</span>
             </button>
             <Button loading={isSubmitting} onClick={onNext} variant="blue" className="p-4! w-full!">
