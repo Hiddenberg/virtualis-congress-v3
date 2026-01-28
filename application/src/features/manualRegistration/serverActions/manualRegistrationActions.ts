@@ -53,6 +53,7 @@ export interface ManualPaymentFormData {
    totalAmount: number;
    discount?: number;
    currency?: string;
+   productPriceId?: string;
 }
 
 export async function registerManualPaymentAction(

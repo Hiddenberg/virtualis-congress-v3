@@ -1,10 +1,12 @@
 import { CreditCard } from "lucide-react";
 import { Button } from "@/components/global/Buttons";
+import type { CongressProductWithPrices } from "@/features/congresses/types/congressProductsTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { UserRecord } from "@/features/users/types/userTypes";
 import type { CongressUserRegistrationDetails } from "../services/manualRegistrationServices";
 import { ModalitySelector } from "./ModalitySelector";
 import { PaymentAmountFields } from "./PaymentAmountFields";
+import { ProductPriceSelector } from "./ProductPriceSelector";
 import { RecordingsAccessToggle } from "./RecordingsAccessToggle";
 import { SelectedUserDisplay } from "./SelectedUserDisplay";
 
@@ -15,8 +17,10 @@ interface PaymentSectionProps {
    setModality: (value: "in-person" | "virtual" | "") => void;
    grantRecordingsAccess: boolean;
    setGrantRecordingsAccess: (value: boolean) => void;
-   amount: string;
-   setAmount: (value: string) => void;
+   selectedPriceId: string;
+   setSelectedPriceId: (value: string) => void;
+   customPrice: string;
+   setCustomPrice: (value: string) => void;
    discount: string;
    setDiscount: (value: string) => void;
    currency: string;
@@ -25,6 +29,7 @@ interface PaymentSectionProps {
    isPending: boolean;
    onSubmit: () => void;
    congress: CongressRecord;
+   congressProducts: CongressProductWithPrices[];
 }
 
 export function PaymentSection({
@@ -34,8 +39,10 @@ export function PaymentSection({
    setModality,
    grantRecordingsAccess,
    setGrantRecordingsAccess,
-   amount,
-   setAmount,
+   selectedPriceId,
+   setSelectedPriceId,
+   customPrice,
+   setCustomPrice,
    discount,
    setDiscount,
    currency,
@@ -44,6 +51,7 @@ export function PaymentSection({
    isPending,
    onSubmit,
    congress,
+   congressProducts,
 }: PaymentSectionProps) {
    const isPaidSelected = !!selectedInfo?.hasPaid;
 
@@ -66,20 +74,32 @@ export function PaymentSection({
 
             <ModalitySelector modality={modality} setModality={setModality} isPaidSelected={isPaidSelected} congress={congress} />
 
+            <ProductPriceSelector
+               modality={modality}
+               congressProducts={congressProducts}
+               selectedPriceId={selectedPriceId}
+               setSelectedPriceId={setSelectedPriceId}
+               customPrice={customPrice}
+               setCustomPrice={setCustomPrice}
+               isPaidSelected={isPaidSelected}
+            />
+
             <RecordingsAccessToggle
                grantRecordingsAccess={grantRecordingsAccess}
                setGrantRecordingsAccess={setGrantRecordingsAccess}
                isPaidSelected={isPaidSelected}
             />
 
-            <PaymentAmountFields
-               amount={amount}
-               setAmount={setAmount}
-               discount={discount}
-               setDiscount={setDiscount}
-               currency={currency}
-               setCurrency={setCurrency}
-            />
+            {selectedPriceId === "custom" && (
+               <PaymentAmountFields
+                  amount={customPrice}
+                  setAmount={setCustomPrice}
+                  discount={discount}
+                  setDiscount={setDiscount}
+                  currency={currency}
+                  setCurrency={setCurrency}
+               />
+            )}
 
             <div className="pt-4 border-gray-100 border-t">
                <Button

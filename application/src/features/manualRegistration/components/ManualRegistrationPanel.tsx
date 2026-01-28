@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
+import type { CongressProductWithPrices } from "@/features/congresses/types/congressProductsTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { UserRecord } from "@/features/users/types/userTypes";
 import { registerManualPaymentAction } from "../serverActions/manualRegistrationActions";
@@ -14,15 +15,18 @@ import { SearchSection } from "./SearchSection";
 export default function ManualRegistrationPanel({
    congress,
    userRegistrationDetails,
+   congressProducts,
 }: {
    congress: CongressRecord;
    userRegistrationDetails: CongressUserRegistrationDetails[];
+   congressProducts: CongressProductWithPrices[];
 }) {
    const [search, setSearch] = useState("");
    const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
    const [modality, setModality] = useState<"in-person" | "virtual" | "">("");
    const [grantRecordingsAccess, setGrantRecordingsAccess] = useState(false);
-   const [amount, setAmount] = useState<string>("0");
+   const [selectedPriceId, setSelectedPriceId] = useState<string>("");
+   const [customPrice, setCustomPrice] = useState<string>("");
    const [discount, setDiscount] = useState<string>("0");
    const [currency, setCurrency] = useState<string>("mxn");
    const [isPending, startTransition] = useTransition();
@@ -48,39 +52,77 @@ export default function ManualRegistrationPanel({
    }, [userRegistrationDetails, selectedUser]);
    const isPaidSelected = !!selectedInfo?.hasPaid;
 
+   const selectedPrice = useMemo(() => {
+      if (selectedPriceId === "custom" || !selectedPriceId) return null;
+      for (const product of congressProducts) {
+         const price = product.prices.find((p) => p.id === selectedPriceId);
+         if (price) return price;
+      }
+      return null;
+   }, [selectedPriceId, congressProducts]);
+
    const canSubmit = useMemo(() => {
       if (!selectedUser) return false;
-      const parsedAmount = Number(amount);
-      if (!Number.isFinite(parsedAmount) || parsedAmount < 0) return false;
+      if (!selectedPriceId) return false;
+
+      if (selectedPriceId === "custom") {
+         const parsedCustomPrice = Number(customPrice);
+         if (!Number.isFinite(parsedCustomPrice) || parsedCustomPrice < 0) return false;
+      }
+
       if (isPaidSelected && !grantRecordingsAccess) return false;
       return true;
-   }, [selectedUser, amount, isPaidSelected, grantRecordingsAccess]);
+   }, [selectedUser, selectedPriceId, customPrice, isPaidSelected, grantRecordingsAccess]);
 
    const submit = () => {
       if (!modality) {
          toast.error("Debes seleccionar una modalidad de asistencia");
          return;
       }
+      if (!selectedPriceId) {
+         toast.error("Debes seleccionar un producto/precio");
+         return;
+      }
       if (!selectedUser) return;
+
       const confirm = window.confirm("¿Estás seguro de querer registrar este pago?");
       if (!confirm) return;
-      const parsedAmount = Number(amount);
+
       const parsedDiscount = Number(discount || 0);
+      let totalAmount: number;
+      let finalCurrency: string;
+      let productPriceId: string | undefined;
+
+      if (selectedPriceId === "custom") {
+         totalAmount = Number(customPrice);
+         finalCurrency = currency;
+         productPriceId = undefined;
+      } else if (selectedPrice) {
+         totalAmount = selectedPrice.priceAmount / 100;
+         finalCurrency = selectedPrice.currency;
+         productPriceId = selectedPrice.id;
+      } else {
+         toast.error("Error al obtener el precio seleccionado");
+         return;
+      }
+
       startTransition(async () => {
          const res = await registerManualPaymentAction({
             userId: selectedUser.id,
             modality: modality || undefined,
             grantRecordingsAccess,
-            totalAmount: parsedAmount,
+            totalAmount,
             discount: Number.isFinite(parsedDiscount) ? parsedDiscount : 0,
-            currency: currency || undefined,
+            currency: finalCurrency || undefined,
+            productPriceId,
          });
          if (res.success) {
             toast.success("Pago manual registrado exitosamente");
             setSelectedUser(null);
             setModality("");
             setGrantRecordingsAccess(false);
-            setAmount("");
+            setSelectedPriceId("");
+            setCustomPrice("");
             setDiscount("0");
             window.location.reload();
          } else {
@@ -126,8 +168,10 @@ export default function ManualRegistrationPanel({
                   setModality={setModality}
                   grantRecordingsAccess={grantRecordingsAccess}
                   setGrantRecordingsAccess={setGrantRecordingsAccess}
-                  amount={amount}
-                  setAmount={setAmount}
+                  selectedPriceId={selectedPriceId}
+                  setSelectedPriceId={setSelectedPriceId}
+                  customPrice={customPrice}
+                  setCustomPrice={setCustomPrice}
                   discount={discount}
                   setDiscount={setDiscount}
                   currency={currency}
@@ -136,6 +180,7 @@ export default function ManualRegistrationPanel({
                   isPending={isPending}
                   onSubmit={submit}
                   congress={congress}
+                  congressProducts={congressProducts}
                />
             </div>
          </div>
