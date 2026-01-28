@@ -5,5 +5,5 @@ export { default as SecurityNote } from "./SecurityNote";
 export { default as SignUpFooter } from "./SignUpFooter";
 export { default as StepHeader } from "./StepHeader";
 export { default as StepOne } from "./StepOne";
-export { default as StepTwo } from "./StepTwo";
 export { default as StepThree } from "./StepThree";
+export { default as StepTwo } from "./StepTwo";

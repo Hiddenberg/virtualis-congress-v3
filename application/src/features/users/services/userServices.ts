@@ -74,7 +74,7 @@ export async function getUserByEmail(email: string) {
    const filter = pbFilter(
       `
          organization = {:organizationId} &&
-         email:lower = {:normalizedEmail}
+         email:lower = {:normalizedEmail} || additionalEmail1:lower = {:normalizedEmail} || additionalEmail2:lower = {:normalizedEmail}
       `,
       {
          organizationId: organization.id,

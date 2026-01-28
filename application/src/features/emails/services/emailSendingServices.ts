@@ -12,7 +12,7 @@ import { getSimpleRecordingById } from "@/features/simpleRecordings/services/rec
 import { createRecordingTrackedEmailRecord } from "@/features/simpleRecordings/services/recordingTrackedEmailsServices";
 import { getRecordingLink } from "@/features/simpleRecordings/utils/recordingUtils";
 import { createTrackedEmailRecord, updateTrackedEmailRecord } from "@/features/trackedEmails/services/trackedEmailServices";
-import { getUserById } from "@/features/users/services/userServices";
+import { getUserByEmail, getUserById } from "@/features/users/services/userServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
 import transporter from "@/libs/nodeMailer";
 import SENDER_EMAILS from "../constants/emailConstants";
@@ -192,8 +192,8 @@ export async function sendSpeakerRegistrationConfirmationEmail(userId: string) {
    // PENDING: SEND EMAIL HERE
 }
 
-export async function sendOTPCodeEmail(userId: string, otpCode: string) {
-   const user = await getUserById(userId);
+export async function sendOTPCodeEmail(email: string, otpCode: string) {
+   const user = await getUserByEmail(email);
    if (!user) {
       throw new Error("[EmailSendingServices] User not found");
    }
@@ -207,13 +207,13 @@ export async function sendOTPCodeEmail(userId: string, otpCode: string) {
       OTPCodeTemplate({
          otpCode,
          organizationName: "Virtualis Congress",
-         userEmail: user.email,
+         userEmail: email,
       }),
    );
 
    await sendNotificationEmail(
       `${organization.name} | Virtualis Congress`,
-      user.email,
+      email,
       "Código de verificación para Virtualis Congress",
       template,
    );

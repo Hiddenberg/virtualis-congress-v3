@@ -22,7 +22,7 @@ function ReSendCodeButton({ handleSendOTP }: { handleSendOTP: () => void }) {
             handleSendOTP();
             setWasResent(true);
          }}
-         className="!bg-gray-100 hover:!bg-gray-200 disabled:bg-green-50 shadow-sm py-2.5 border border-blue-300 disabled:border-green-200 rounded-xl w-full font-semibold text-blue-800 disabled:text-green-600 text-sm transition-all duration-200"
+         className="bg-gray-100! hover:bg-gray-200! disabled:bg-green-50 shadow-sm py-2.5 border border-blue-300 disabled:border-green-200 rounded-xl w-full font-semibold text-blue-800 disabled:text-green-600 text-sm transition-all duration-200"
       >
          {wasResent ? "Enviado!" : "Reenviar código"}
       </Button>
@@ -34,7 +34,7 @@ function CodeNotReceivedButton({ onClick }: { onClick: () => void }) {
       <Button
          type="button"
          variant="outline"
-         className="hover:!bg-gray-100 mx-auto border border-gray-300 w-full text-gray-700 hover:text-gray-800 transition-all duration-200"
+         className="hover:bg-gray-100! mx-auto border border-gray-300 w-full text-gray-700 hover:text-gray-800 transition-all duration-200"
          onClick={onClick}
       >
          No encuentro el código en mi correo
@@ -154,7 +154,7 @@ function BirthdayLoginForm({
          <Button
             type="submit"
             disabled={!birthday || isLoading}
-            className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+            className="bg-linear-to-r! from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold text-white! transition-all duration-200"
          >
             {isLoading ? (
                <div className="flex items-center gap-2">
@@ -178,7 +178,7 @@ function BirthdayLoginForm({
                   type="button"
                   onClick={() => setStage("phone_login")}
                   variant="outline"
-                  className="!bg-gray-50 hover:!bg-gray-100 shadow-sm hover:shadow-md mx-auto py-3 !border-gray-300 rounded-xl w-full font-semibold !text-gray-700 transition-all duration-200"
+                  className="bg-gray-50! hover:bg-gray-100! shadow-sm hover:shadow-md mx-auto py-3 border-gray-300! rounded-xl w-full font-semibold text-gray-700! transition-all duration-200"
                >
                   Ingresar con número de teléfono
                </Button>
@@ -312,7 +312,7 @@ function PhoneLoginForm({
          <Button
             type="submit"
             disabled={!phoneNumber || isLoading}
-            className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+            className="bg-linear-to-r! from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg mx-auto py-3 rounded-xl w-full font-bold text-white! transition-all duration-200"
          >
             {isLoading ? (
                <div className="flex items-center gap-2">
@@ -487,7 +487,7 @@ export default function StaggeredLoginForm() {
                   <Button
                      type="submit"
                      disabled={!otpCode || isValidatingOTP}
-                     className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+                     className="bg-linear-to-r! from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold text-white! transition-all duration-200"
                   >
                      {isValidatingOTP ? (
                         <div className="flex items-center gap-2">
@@ -554,7 +554,7 @@ export default function StaggeredLoginForm() {
          <Button
             type="submit"
             disabled={!email || isSendingOTP}
-            className="!bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold !text-white transition-all duration-200"
+            className="bg-linear-to-r! from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold text-white! transition-all duration-200"
          >
             {isSendingOTP ? (
                <div className="flex items-center gap-2">
