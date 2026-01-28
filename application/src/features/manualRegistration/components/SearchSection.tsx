@@ -1,6 +1,7 @@
 import { Search, Users } from "lucide-react";
 import type { UserRecord } from "@/features/users/types/userTypes";
 import type { CongressUserRegistrationDetails } from "../services/manualRegistrationServices";
+import { RefreshUserRegistrationDetailsButton } from "./RefreshUserRegistrationDetailsButton";
 import { UserListItem } from "./UserListItem";
 
 interface SearchSectionProps {
@@ -15,14 +16,18 @@ export function SearchSection({ search, setSearch, userRegistrationDetails, sele
    return (
       <div className="bg-white shadow-sm border border-gray-200 rounded-xl">
          <div className="p-6 border-gray-100 border-b">
-            <div className="flex items-center gap-3 mb-4">
-               <div className="flex justify-center items-center bg-blue-100 rounded-lg w-10 h-10">
-                  <Search className="text-blue-600" size={20} />
+            <div className="flex justify-between items-center">
+               <div className="flex items-center gap-3 mb-4">
+                  <div className="flex justify-center items-center bg-blue-100 rounded-lg w-10 h-10">
+                     <Search className="text-blue-600" size={20} />
+                  </div>
+                  <div>
+                     <h2 className="font-semibold text-gray-900 text-lg">Buscar Usuario</h2>
+                     <p className="text-gray-600 text-sm">Encuentra al asistente registrado</p>
+                  </div>
                </div>
-               <div>
-                  <h2 className="font-semibold text-gray-900 text-lg">Buscar Usuario</h2>
-                  <p className="text-gray-600 text-sm">Encuentra al asistente registrado</p>
-               </div>
+
+               <RefreshUserRegistrationDetailsButton />
             </div>
 
             <div className="relative">

@@ -186,3 +186,24 @@ export async function staffCreateAttendantUserAction(form: StaffNewUserFormData)
       };
    }
 }
+
+export async function refreshCongressUserRegistrationDetailsAction(): Promise<BackendResponse<null>> {
+   try {
+      revalidatePath("/manual-registration", "page");
+      return {
+         success: true,
+         data: null,
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "Error desconocido",
+      };
+   }
+}
