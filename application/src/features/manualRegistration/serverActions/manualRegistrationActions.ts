@@ -134,16 +134,20 @@ export async function staffCreateAttendantUserAction(form: StaffNewUserFormData)
       const congress = await getLatestCongress();
       const batch = dbBatch();
 
+      const normalizedEmail = form.email.toLowerCase().trim();
+      const normalizedAdditionalEmail1 = form.additionalEmail1?.toLowerCase().trim();
+      const normalizedAdditionalEmail2 = form.additionalEmail2?.toLowerCase().trim();
+
       const newUserId = generateRandomId();
       batch.collection(PB_COLLECTIONS.USERS).create({
          id: newUserId,
          organization: organization.id,
          name: form.name,
-         email: form.email,
+         email: normalizedEmail,
          phoneNumber: form.phoneNumber,
          dateOfBirth: form.dateOfBirth,
-         additionalEmail1: form.additionalEmail1,
-         additionalEmail2: form.additionalEmail2,
+         additionalEmail1: normalizedAdditionalEmail1,
+         additionalEmail2: normalizedAdditionalEmail2,
          role: "attendant",
       } satisfies User & { id: string });
 
