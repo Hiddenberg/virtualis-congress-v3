@@ -1,13 +1,15 @@
 import { format } from "@formkit/tempo";
 import { CheckCircle2, Users, XCircle } from "lucide-react";
 import type { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressUserRegistrationDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
 
 interface RegisteredPeopleListProps {
    registrations: CongressRegistrationRecord[];
+   registrationsDetails: CongressUserRegistrationDetails[];
 }
 
-export default function RegisteredPeopleList({ registrations }: RegisteredPeopleListProps) {
+export default function RegisteredPeopleList({ registrations, registrationsDetails }: RegisteredPeopleListProps) {
    const hasAny = registrations.length > 0;
 
    const sorted = [...registrations].sort((a, b) => {
@@ -61,13 +63,13 @@ export default function RegisteredPeopleList({ registrations }: RegisteredPeople
                            scope="col"
                            className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider"
                         >
-                           Pago
+                           Emails Adicionales
                         </th>
                         <th
                            scope="col"
                            className="px-6 py-3 font-medium text-gray-600 text-xs text-left uppercase tracking-wider"
                         >
-                           Modalidad
+                           Pago
                         </th>
                         <th
                            scope="col"
@@ -82,13 +84,8 @@ export default function RegisteredPeopleList({ registrations }: RegisteredPeople
                         const user = (reg as unknown as { expand?: { user?: UserRecord } })?.expand?.user;
                         const name = user?.name ?? "—";
                         const email = user?.email ?? "—";
-                        const isPaid = !!reg.paymentConfirmed;
-                        const modality =
-                           reg.attendanceModality === "in-person"
-                              ? "Presencial"
-                              : reg.attendanceModality === "virtual"
-                                ? "Virtual"
-                                : "No especificada";
+                        const additionalEmails =
+                           [user?.additionalEmail1, user?.additionalEmail2].filter(Boolean).join(", ") || "—";
                         const createdAt = new Date(reg.created);
                         const createdLabel = format({
                            date: createdAt,
@@ -97,6 +94,10 @@ export default function RegisteredPeopleList({ registrations }: RegisteredPeople
                            tz: "America/Mexico_City",
                         });
 
+                        const registrationDetail = registrationsDetails.find((detail) => detail.user.id === reg.user);
+
+                        const isPaid = registrationDetail?.hasPaid;
+
                         return (
                            <tr key={reg.id} className="hover:bg-gray-50">
                               <td className="px-6 py-3 whitespace-nowrap">
@@ -104,6 +105,11 @@ export default function RegisteredPeopleList({ registrations }: RegisteredPeople
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
                                  <div className="text-gray-700 text-sm">{email}</div>
+                              </td>
+                              <td className="px-6 py-3">
+                                 <div className="max-w-xs text-gray-700 text-sm truncate" title={additionalEmails}>
+                                    {additionalEmails}
+                                 </div>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
                                  <div className="flex items-center gap-2">
@@ -119,9 +125,6 @@ export default function RegisteredPeopleList({ registrations }: RegisteredPeople
                                        </>
                                     )}
                                  </div>
-                              </td>
-                              <td className="px-6 py-3 whitespace-nowrap">
-                                 <span className="text-gray-700 text-sm">{modality}</span>
                               </td>
                               <td className="px-6 py-3 whitespace-nowrap">
                                  <span className="text-gray-700 text-sm">{createdLabel}</span>

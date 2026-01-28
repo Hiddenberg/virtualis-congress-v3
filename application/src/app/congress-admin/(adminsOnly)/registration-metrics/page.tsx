@@ -5,11 +5,18 @@ import PaymentMetricsGrid from "@/components/congress-admin/registration-metrics
 import RegisteredPeopleList from "@/components/congress-admin/registration-metrics/RegisteredPeopleList";
 import RegistrationOverview from "@/components/congress-admin/registration-metrics/RegistrationOverview";
 import { getAllCongressRegistrationsWithUsers } from "@/features/congresses/services/congressRegistrationServices";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { getCongressUserRegistrationsDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
 import { getAllOrganizationCompletedPaymentsWithUsers } from "@/features/organizationPayments/services/organizationPaymentsServices";
 
 export default async function RegistrationMetricsPage() {
-   const congressRegistrations = await getAllCongressRegistrationsWithUsers();
-   const completedPayments = await getAllOrganizationCompletedPaymentsWithUsers();
+   const congress = await getLatestCongress();
+
+   const [congressRegistrations, completedPayments, congressRegistrationsDetails] = await Promise.all([
+      getAllCongressRegistrationsWithUsers(),
+      getAllOrganizationCompletedPaymentsWithUsers(),
+      getCongressUserRegistrationsDetails(congress.id),
+   ]);
 
    return (
       <div className="bg-gray-50 p-6 min-h-screen">
@@ -27,16 +34,16 @@ export default async function RegistrationMetricsPage() {
             <PaymentMetricsGrid registrations={congressRegistrations} payments={completedPayments} />
 
             {/* Attendance Breakdown */}
-            <AttendanceBreakdown registrations={congressRegistrations} />
+            <AttendanceBreakdown registrationsDetails={congressRegistrationsDetails} />
 
             {/* Detailed Metrics */}
             <DetailedMetricsGrid registrations={congressRegistrations} payments={completedPayments} />
 
             {/* Registered People List */}
-            <RegisteredPeopleList registrations={congressRegistrations} />
+            <RegisteredPeopleList registrations={congressRegistrations} registrationsDetails={congressRegistrationsDetails} />
 
             {/* Paid Users List */}
-            <PaidUsersList payments={completedPayments} />
+            <PaidUsersList registrationsDetails={congressRegistrationsDetails} />
          </div>
       </div>
    );

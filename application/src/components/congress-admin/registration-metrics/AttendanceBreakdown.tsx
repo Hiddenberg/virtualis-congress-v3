@@ -1,17 +1,17 @@
 import { CheckCircle, Monitor, Users, Video } from "lucide-react";
-import type { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
+import type { CongressUserRegistrationDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
 
 interface AttendanceBreakdownProps {
-   registrations: CongressRegistrationRecord[];
+   registrationsDetails: CongressUserRegistrationDetails[];
 }
 
-export default function AttendanceBreakdown({ registrations }: AttendanceBreakdownProps) {
-   const paidRegistrations = registrations.filter((reg) => reg.paymentConfirmed);
+export default function AttendanceBreakdown({ registrationsDetails }: AttendanceBreakdownProps) {
+   const paidRegistrations = registrationsDetails.filter((detail) => detail.hasPaid);
 
-   const inPersonCount = paidRegistrations.filter((reg) => reg.attendanceModality === "in-person").length;
-   const virtualCount = paidRegistrations.filter((reg) => reg.attendanceModality === "virtual").length;
-   // const unspecifiedCount = paidRegistrations.filter(reg => !reg.attendanceModality).length;
-   const recordingAccessCount = paidRegistrations.filter((reg) => reg.hasAccessToRecordings).length;
+   const inPersonCount = paidRegistrations.filter((detail) => detail.attendanceModality === "in-person").length;
+   const virtualCount = paidRegistrations.filter((detail) => detail.attendanceModality === "virtual").length;
+   // const unspecifiedCount = paidRegistrations.filter(detail => !detail.attendanceModality).length;
+   const recordingAccessCount = paidRegistrations.filter((detail) => detail.hasAccessToRecordings).length;
 
    const attendanceData = [
       {

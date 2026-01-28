@@ -108,7 +108,7 @@ export default function ManualRegistrationPanel({
          finalCurrency = currency;
          productPriceId = undefined;
       } else if (selectedPrice) {
-         totalAmount = selectedPrice.priceAmount / 100;
+         totalAmount = selectedPrice.priceAmount;
          finalCurrency = selectedPrice.currency;
          productPriceId = selectedPrice.id;
       }
