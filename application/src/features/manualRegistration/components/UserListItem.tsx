@@ -1,15 +1,24 @@
-import { AlertCircle, CheckCircle, Mail, User } from "lucide-react";
+import { AlertCircle, CheckCircle, Mail, Monitor, User, Users } from "lucide-react";
+import type { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
 import type { UserRecord } from "@/features/users/types/userTypes";
 
 interface UserListItemProps {
    user: UserRecord;
    hasPaid: boolean;
    hasAccessToRecordings: boolean;
+   attendanceModality?: AttendanceModality;
    selected: boolean;
    onSelect: (user: UserRecord) => void;
 }
 
-export function UserListItem({ user, hasPaid, hasAccessToRecordings, selected, onSelect }: UserListItemProps) {
+export function UserListItem({
+   user,
+   hasPaid,
+   hasAccessToRecordings,
+   attendanceModality,
+   selected,
+   onSelect,
+}: UserListItemProps) {
    const isSelectable = !hasPaid || (hasPaid && !hasAccessToRecordings);
 
    const hasAdditionalEmails = user.additionalEmail1 || user.additionalEmail2;
@@ -68,7 +77,7 @@ export function UserListItem({ user, hasPaid, hasAccessToRecordings, selected, o
                   </div>
                )}
 
-               <div className="flex items-center gap-3 mt-2">
+               <div className="flex flex-wrap items-center gap-2 mt-2">
                   {hasPaid ? (
                      <div className="flex items-center gap-1 bg-green-100 px-2 py-1 rounded-full text-green-700 text-xs">
                         <CheckCircle size={12} />
@@ -78,6 +87,18 @@ export function UserListItem({ user, hasPaid, hasAccessToRecordings, selected, o
                      <div className="flex items-center gap-1 bg-red-100 px-2 py-1 rounded-full text-red-700 text-xs">
                         <AlertCircle size={12} />
                         Pago pendiente
+                     </div>
+                  )}
+
+                  {hasPaid && attendanceModality && (
+                     <div
+                        className={`
+                        flex items-center gap-1 text-xs px-2 py-1 rounded-full
+                        ${attendanceModality === "in-person" ? "bg-indigo-100 text-indigo-700" : "bg-cyan-100 text-cyan-700"}
+                     `}
+                     >
+                        {attendanceModality === "in-person" ? <Users size={12} /> : <Monitor size={12} />}
+                        {attendanceModality === "in-person" ? "Presencial" : "Virtual"}
                      </div>
                   )}
 

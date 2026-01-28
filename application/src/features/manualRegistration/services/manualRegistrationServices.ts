@@ -1,30 +1,16 @@
 import "server-only";
 import { getAllCongressRegistrations } from "@/features/congresses/services/congressRegistrationServices";
-// import { getOnlineCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
-// import { getOnlineCongressProduct } from "@/features/congresses/services/congressProductsServices";
-// import {
-//    getCongressRegistrationByUserId,
-//    registerUserToLatestCongress,
-//    updateCongressRegistration,
-// } from "@/features/congresses/services/congressRegistrationServices";
 import { getCongressById, getLatestCongress } from "@/features/congresses/services/congressServices";
 import type { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
-// import { sendPaymentConfirmationEmail } from "@/features/emails/services/emailSendingServices";
 import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
 import {
    checkIfUserHasAccessToRecordings,
    getUserPurchasedModality,
-   // createUserPurchaseRecord,
 } from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getUserById } from "@/features/users/services/userServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
-import {
-   //  createDBRecord,
-   getFullDBRecordsList,
-   pbFilter,
-   // updateDBRecord,
-} from "@/libs/pbServerClientNew";
+import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 
 export async function searchUsersRegisteredToCurrentCongress(query: string) {
    const organization = await getOrganizationFromSubdomain();

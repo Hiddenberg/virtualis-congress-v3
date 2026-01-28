@@ -42,7 +42,7 @@ export function SearchSection({ search, setSearch, userRegistrationDetails, sele
          </div>
 
          <div className="p-6">
-            <div className="space-y-3 max-h-120 overflow-auto">
+            <div className="space-y-3 max-h-140 overflow-auto">
                {userRegistrationDetails.length === 0 ? (
                   <div className="py-8 text-gray-500 text-center">
                      <Users className="mx-auto mb-2 text-gray-400" size={24} />
@@ -55,6 +55,7 @@ export function SearchSection({ search, setSearch, userRegistrationDetails, sele
                         user={item.user}
                         hasPaid={item.hasPaid}
                         hasAccessToRecordings={item.hasAccessToRecordings}
+                        attendanceModality={item.attendanceModality}
                         selected={selectedUser?.id === item.user.id}
                         onSelect={setSelectedUser}
                      />
