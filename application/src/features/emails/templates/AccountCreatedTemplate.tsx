@@ -42,7 +42,7 @@ export default function AccountCreatedTemplate({
                      <Heading style={congressTitleStyle}>Información del Congreso</Heading>
 
                      <Text style={congressDetailStyle}>
-                        <strong style={labelStyle}>Congreso:</strong> {congressTitle}
+                        <strong style={labelStyle}>Evento:</strong> {congressTitle}
                      </Text>
 
                      <Text style={congressDetailStyle}>
@@ -65,11 +65,6 @@ export default function AccountCreatedTemplate({
                      <Section style={stepContainerStyle}>
                         <Text style={stepItemStyle}>
                            <span style={stepNumberStyle}>1.</span>
-                           <strong>Selecciona tu rol profesional</strong> en la plataforma para personalizar tu experiencia
-                        </Text>
-
-                        <Text style={stepItemStyle}>
-                           <span style={stepNumberStyle}>2.</span>
                            <strong>Completa tu pago</strong> para confirmar tu participación en el congreso
                         </Text>
                      </Section>

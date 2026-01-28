@@ -5,8 +5,6 @@ services:
       - 8080:8080
     volumes:
       - ./database/:/db/
-    networks:
-      - proxynetwork
 
   virtualis-congress-v3-dev:
     image: oven/bun
@@ -14,11 +12,5 @@ services:
     volumes:
       - ./application/:/usr/src/app/
     command: bun run dev
-    networks:
-      - proxynetwork
     ports:
      - 3000:3000
-
-networks:
-  proxynetwork:
-    external: true
