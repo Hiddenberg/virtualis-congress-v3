@@ -105,7 +105,7 @@ export function PaymentSection({
                <Button
                   type="button"
                   onClick={onSubmit}
-                  disabled={!canSubmit || isPending || !modality}
+                  disabled={!canSubmit || isPending}
                   loading={isPending}
                   variant="blue"
                   className="w-full"

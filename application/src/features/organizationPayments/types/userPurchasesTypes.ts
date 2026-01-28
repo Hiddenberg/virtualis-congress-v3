@@ -10,6 +10,7 @@ export interface UserPurchase {
    congress: CongressRecord["id"];
    product: CongressProductRecord["id"];
    price: ProductPriceRecord["id"];
+   wasCustomPrice?: boolean; // This is used to indicate that the purchase was made with a custom price (manual registration)
 }
 
 export type UserPurchaseRecord = DBRecordItem<UserPurchase>;

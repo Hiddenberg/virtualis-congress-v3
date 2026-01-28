@@ -26,5 +26,6 @@ interface UserPayment {
    discount?: number;
    currency?: string;
    paymentMethod?: string;
+   wasCustomPrice?: boolean; // This is used to indicate that the payment was made with a custom price (manual registration)
 }
 type UserPaymentRecord = DBRecordItem<UserPayment>;

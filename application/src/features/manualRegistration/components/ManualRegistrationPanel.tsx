@@ -61,8 +61,14 @@ export default function ManualRegistrationPanel({
       return null;
    }, [selectedPriceId, congressProducts]);
 
+   const grantingAccessOnlyToRecordings = useMemo(() => {
+      return isPaidSelected && grantRecordingsAccess && !selectedPriceId;
+   }, [isPaidSelected, grantRecordingsAccess, selectedPriceId]);
+
    const canSubmit = useMemo(() => {
       if (!selectedUser) return false;
+      if (grantingAccessOnlyToRecordings) return true;
+
       if (!selectedPriceId) return false;
 
       if (selectedPriceId === "custom") {
@@ -70,20 +76,24 @@ export default function ManualRegistrationPanel({
          if (!Number.isFinite(parsedCustomPrice) || parsedCustomPrice < 0) return false;
       }
 
-      if (isPaidSelected && !grantRecordingsAccess) return false;
       return true;
-   }, [selectedUser, selectedPriceId, customPrice, isPaidSelected, grantRecordingsAccess]);
+   }, [selectedUser, selectedPriceId, customPrice, grantingAccessOnlyToRecordings]);
 
    const submit = () => {
-      if (!modality) {
-         toast.error("Debes seleccionar una modalidad de asistencia");
+      if (!grantingAccessOnlyToRecordings) {
+         if (!modality) {
+            toast.error("Debes seleccionar una modalidad de asistencia");
+            return;
+         }
+         if (!selectedPriceId) {
+            toast.error("Debes seleccionar un producto/precio");
+            return;
+         }
+      }
+      if (!selectedUser) {
+         toast.error("Debes seleccionar un usuario");
          return;
       }
-      if (!selectedPriceId) {
-         toast.error("Debes seleccionar un producto/precio");
-         return;
-      }
-      if (!selectedUser) return;
 
       const confirm = window.confirm("¿Estás seguro de querer registrar este pago?");
       if (!confirm) return;
@@ -101,6 +111,11 @@ export default function ManualRegistrationPanel({
          totalAmount = selectedPrice.priceAmount / 100;
          finalCurrency = selectedPrice.currency;
          productPriceId = selectedPrice.id;
+      }
+      if (grantingAccessOnlyToRecordings) {
+         totalAmount = 0;
+         finalCurrency = "mxn";
+         productPriceId = undefined;
       } else {
          toast.error("Error al obtener el precio seleccionado");
          return;
@@ -109,25 +124,27 @@ export default function ManualRegistrationPanel({
       startTransition(async () => {
          const res = await registerManualPaymentAction({
             userId: selectedUser.id,
-            modality: modality || undefined,
+            modality: grantingAccessOnlyToRecordings ? "virtual" : modality,
             grantRecordingsAccess,
             totalAmount,
             discount: Number.isFinite(parsedDiscount) ? parsedDiscount : 0,
-            currency: finalCurrency || undefined,
+            currency: finalCurrency,
             productPriceId,
          });
-         if (res.success) {
-            toast.success("Pago manual registrado exitosamente");
-            setSelectedUser(null);
-            setModality("");
-            setGrantRecordingsAccess(false);
-            setSelectedPriceId("");
-            setCustomPrice("");
-            setDiscount("0");
-            window.location.reload();
-         } else {
+
+         if (!res.success) {
             toast.error(res.errorMessage);
+            return;
          }
+
+         toast.success("Pago manual registrado exitosamente");
+         setSelectedUser(null);
+         setModality("");
+         setGrantRecordingsAccess(false);
+         setSelectedPriceId("");
+         setCustomPrice("");
+         setDiscount("0");
+         window.location.reload();
       });
    };
 

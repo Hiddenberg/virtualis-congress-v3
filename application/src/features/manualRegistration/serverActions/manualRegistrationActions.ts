@@ -1,12 +1,27 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import {
+   getCongressProductPriceById,
+   getInPersonCongressProductPrices,
+   getOnlineCongressProductPrices,
+   getRecordingsCongressProductPrices,
+} from "@/features/congresses/services/congressProductPricesServices";
+import { getCongressRegistrationByUserId } from "@/features/congresses/services/congressRegistrationServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import type { ProductPriceRecord } from "@/features/congresses/types/congressProductPricesTypes";
+import type { CongressProductRecord } from "@/features/congresses/types/congressProductsTypes";
 import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
-import { sendPlatformRegistrationConfirmationEmail } from "@/features/emails/services/emailSendingServices";
+import {
+   sendPaymentConfirmationEmail,
+   sendPlatformRegistrationConfirmationEmail,
+} from "@/features/emails/services/emailSendingServices";
+import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
+import { checkIfUserHasAccessToRecordings } from "@/features/organizationPayments/services/userPurchaseServices";
+import type { UserPurchase } from "@/features/organizationPayments/types/userPurchasesTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { generateRandomId } from "@/features/staggeredAuth/utils/passwordsGenerator";
-import { checkIfUserExists } from "@/features/users/services/userServices";
+import { checkIfUserExists, getUserById } from "@/features/users/services/userServices";
 import type { User, UserRecord } from "@/features/users/types/userTypes";
 import { dbBatch } from "@/libs/pbServerClientNew";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
@@ -48,36 +63,242 @@ export async function searchRegisteredUsersAction(query: string): Promise<
 
 export interface ManualPaymentFormData {
    userId: string;
-   modality?: "in-person" | "virtual";
+   modality: "in-person" | "virtual" | "";
    grantRecordingsAccess?: boolean;
    totalAmount: number;
    discount?: number;
-   currency?: string;
+   currency: string;
    productPriceId?: string;
+   isCustomPrice?: boolean;
 }
 
-export async function registerManualPaymentAction(
-   _form: ManualPaymentFormData,
-): Promise<BackendResponse<{ userPaymentId: string }>> {
+export async function registerManualPaymentAction(form: ManualPaymentFormData): Promise<BackendResponse<null>> {
    try {
-      // const result = await fulfillManualCongressRegistration({
-      //    userId: form.userId,
-      //    modality: form.modality,
-      //    grantRecordingsAccess: form.grantRecordingsAccess,
-      //    totalAmount: form.totalAmount !== 0 ? form.totalAmount * 100 : 0, // Convert to cents
-      //    discount: form.discount !== 0 ? (form.discount !== undefined ? form.discount * 100 : 0) : 0, // Convert to cents
-      //    currency: form.currency,
-      // });
+      const congress = await getLatestCongress();
+      const recordingsPrices = await getRecordingsCongressProductPrices();
+      if (recordingsPrices.length === 0) {
+         return {
+            success: false,
+            errorMessage: "Precio de grabaciones no encontrado",
+         };
+      }
+      const recordingsPrice = recordingsPrices[0];
 
-      throw new Error("PENDING NEW IMPLEMENTATION");
+      // Check if the user is already registered to the congress
+      const userRegistration = await getCongressRegistrationByUserId(form.userId);
+      const organization = await getOrganizationFromSubdomain();
+      const user = await getUserById(form.userId);
 
-      // revalidatePath("/manual-registration");
-      // return {
-      //    success: true,
-      //    data: {
-      //       userPaymentId: result.userPaymentId,
-      //    },
-      // };
+      if (!userRegistration) {
+         return {
+            success: false,
+            errorMessage: "El usuario no está registrado al congreso",
+         };
+      }
+      if (!user) {
+         return {
+            success: false,
+            errorMessage: "Usuario no encontrado",
+         };
+      }
+
+      // Check if the user has already paid for the congress
+      const userHasPaid = await confirmUserCongressPayment(form.userId);
+      if (userHasPaid) {
+         if (form.grantRecordingsAccess) {
+            // Check if the user has already access to the recordings
+            const userHasAccessToRecordings = await checkIfUserHasAccessToRecordings(form.userId, congress.id);
+            if (userHasAccessToRecordings) {
+               return {
+                  success: false,
+                  errorMessage:
+                     "El usuario ya tiene acceso a las grabaciones, por favor actualice la página para ver los cambios",
+               };
+            }
+
+            // Create user purchase record for recordings access
+            const recordingsOnlyBatch = dbBatch();
+
+            // Create user purchase record for recordings access
+            recordingsOnlyBatch.collection(PB_COLLECTIONS.USER_PURCHASES).create({
+               id: generateRandomId(),
+               organization: organization.id,
+               user: form.userId,
+               congress: congress.id,
+               product: recordingsPrice.product,
+               price: recordingsPrice.id,
+            } satisfies UserPurchase & { id: string });
+
+            // Update congress registration
+            recordingsOnlyBatch.collection(PB_COLLECTIONS.CONGRESS_REGISTRATIONS).update(userRegistration.id, {
+               hasAccessToRecordings: true,
+            } satisfies Partial<CongressRegistration>);
+
+            // Create user payment record
+            recordingsOnlyBatch.collection(PB_COLLECTIONS.USER_PAYMENTS).create({
+               id: generateRandomId(),
+               organization: organization.id,
+               user: form.userId,
+               wasCustomPrice: form.isCustomPrice,
+               checkoutSessionStatus: "complete",
+               fulfilledSuccessfully: true,
+               stripeCheckoutSessionId: "manual-payment",
+               currency: recordingsPrice.currency,
+               totalAmount: recordingsPrice.priceAmount,
+               discount: form.discount ?? 0,
+               paymentMethod: "cash",
+               fulfilledAt: new Date().toISOString(),
+            } satisfies UserPayment & { id: string });
+
+            await recordingsOnlyBatch.send();
+
+            revalidatePath("/manual-registration", "page");
+
+            return {
+               success: true,
+               data: null,
+               successMessage: "Se ha brindado acceso a las grabaciones al usuario exitosamente",
+            };
+         }
+         return {
+            success: false,
+            errorMessage: "El usuario ya ha pagado para el congreso, por favor actualice la página para ver los cambios",
+         };
+      }
+
+      if (form.grantRecordingsAccess) {
+         // Check if the user has already access to the recordings
+         const userHasAccessToRecordings = await checkIfUserHasAccessToRecordings(form.userId, congress.id);
+         if (userHasAccessToRecordings) {
+            return {
+               success: false,
+               errorMessage: "El usuario ya tiene acceso a las grabaciones",
+            };
+         }
+      }
+
+      if (form.modality === "") {
+         return {
+            success: false,
+            errorMessage: "Debes seleccionar una modalidad de asistencia",
+         };
+      }
+
+      // Create user purchase record for the selected modality
+      const batch = dbBatch();
+
+      async function getProductId(): Promise<CongressProductRecord["id"]> {
+         if (form.isCustomPrice) {
+            if (form.modality === "virtual") {
+               const onlineProductPrices = await getOnlineCongressProductPrices();
+               if (onlineProductPrices.length === 0) {
+                  throw new Error("Online product price not found");
+               }
+               return onlineProductPrices[0].product;
+            } else if (form.modality === "in-person") {
+               const inPersonProductPrices = await getInPersonCongressProductPrices();
+               if (inPersonProductPrices.length === 0) {
+                  throw new Error("In-person product price not found");
+               }
+               return inPersonProductPrices[0].product;
+            }
+         }
+
+         if (!form.productPriceId) {
+            throw new Error("Product price ID not found");
+         }
+         const price = await getCongressProductPriceById(form.productPriceId);
+
+         if (!price) {
+            throw new Error("Price not found");
+         }
+
+         return price.product;
+      }
+
+      async function getPriceId(): Promise<ProductPriceRecord["id"]> {
+         if (form.isCustomPrice) {
+            if (form.modality === "virtual") {
+               const onlineProductPrices = await getOnlineCongressProductPrices();
+               if (onlineProductPrices.length === 0) {
+                  throw new Error("Online product price not found");
+               }
+               return onlineProductPrices[0].id;
+            } else if (form.modality === "in-person") {
+               const inPersonProductPrices = await getInPersonCongressProductPrices();
+               if (inPersonProductPrices.length === 0) {
+                  throw new Error("In-person product price not found");
+               }
+               return inPersonProductPrices[0].id;
+            }
+         }
+
+         if (!form.productPriceId) {
+            throw new Error("Product price ID not found");
+         }
+
+         const price = await getCongressProductPriceById(form.productPriceId);
+         if (!price) {
+            throw new Error("Price not found");
+         }
+
+         return price.id;
+      }
+
+      // Create user purchase record for the selected modality
+      batch.collection(PB_COLLECTIONS.USER_PURCHASES).create({
+         id: generateRandomId(),
+         organization: organization.id,
+         user: form.userId,
+         congress: congress.id,
+         product: await getProductId(),
+         price: await getPriceId(),
+         wasCustomPrice: form.isCustomPrice,
+      } satisfies UserPurchase & { id: string });
+
+      if (form.grantRecordingsAccess) {
+         // Create user purchase record for recordings access
+         batch.collection(PB_COLLECTIONS.USER_PURCHASES).create({
+            id: generateRandomId(),
+            organization: organization.id,
+            user: form.userId,
+            congress: congress.id,
+            product: recordingsPrice.product,
+            price: recordingsPrice.id,
+            wasCustomPrice: form.isCustomPrice,
+         } satisfies UserPurchase & { id: string });
+      }
+
+      // Create user payment record
+      batch.collection(PB_COLLECTIONS.USER_PAYMENTS).create({
+         id: generateRandomId(),
+         organization: organization.id,
+         user: form.userId,
+         checkoutSessionStatus: "complete",
+         fulfilledSuccessfully: true,
+         stripeCheckoutSessionId: "manual-payment",
+         currency: form.currency,
+         totalAmount: form.totalAmount,
+         discount: form.discount ?? 0,
+         paymentMethod: "cash",
+         fulfilledAt: new Date().toISOString(),
+         wasCustomPrice: form.isCustomPrice,
+      } satisfies UserPayment & { id: string });
+
+      await batch.send();
+      await sendPaymentConfirmationEmail(user.id);
+
+      revalidatePath("/manual-registration", "page");
+
+      const successMessage = form.grantRecordingsAccess
+         ? "Se ha brindado acceso a las grabaciones al usuario exitosamente"
+         : "Se ha registrado el pago al usuario exitosamente";
+
+      return {
+         success: true,
+         data: null,
+         successMessage: successMessage,
+      };
    } catch (error) {
       if (error instanceof Error) {
          return {
