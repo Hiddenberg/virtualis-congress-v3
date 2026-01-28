@@ -173,7 +173,52 @@ export default function StaggeredAuthSignupForm({
 
    const handleStep2Next = () => {
       if (validateStep2()) {
-         setCurrentStep(3);
+         startTransition(async () => {
+            if (!newUserData.additionalEmail1 && !newUserData.additionalEmail2) {
+               setCurrentStep(3);
+               return;
+            }
+
+            if (newUserData.additionalEmail1 === newUserData.email || newUserData.additionalEmail2 === newUserData.email) {
+               toast.error("No puedes usar tu correo electrónico como correo adicional");
+               return;
+            }
+
+            if (newUserData.additionalEmail1 === newUserData.additionalEmail2) {
+               toast.error("No puedes usar el mismo correo electrónico como correo adicional dos veces");
+               return;
+            }
+
+            if (newUserData.additionalEmail1) {
+               const userExistsResponse = await checkExistingUserAction(newUserData.additionalEmail1);
+               if (!userExistsResponse.success) {
+                  toast.error(userExistsResponse.errorMessage);
+                  return;
+               }
+               if (userExistsResponse.data.exists) {
+                  toast.error(
+                     `El correo electrónico ${newUserData.additionalEmail1} ya está registrado, no puedes usarlo como correo adicional por favor inicia sesión`,
+                  );
+                  return;
+               }
+            }
+
+            if (newUserData.additionalEmail2) {
+               const userExistsResponse = await checkExistingUserAction(newUserData.additionalEmail2);
+               if (!userExistsResponse.success) {
+                  toast.error(userExistsResponse.errorMessage);
+                  return;
+               }
+               if (userExistsResponse.data.exists) {
+                  toast.error(
+                     `El correo electrónico ${newUserData.additionalEmail2} ya está registrado, no puedes usarlo como correo adicional por favor inicia sesión`,
+                  );
+                  return;
+               }
+            }
+
+            setCurrentStep(3);
+         });
       }
    };
 
@@ -284,6 +329,7 @@ export default function StaggeredAuthSignupForm({
                      additionalEmail1: errors.additionalEmail1,
                      additionalEmail2: errors.additionalEmail2,
                   }}
+                  isSubmitting={isSubmitting}
                   onAdditionalEmail1Change={(value) => handleInputChange("additionalEmail1", value)}
                   onAdditionalEmail2Change={(value) => handleInputChange("additionalEmail2", value)}
                   onNext={handleStep2Next}

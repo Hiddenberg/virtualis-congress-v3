@@ -1,4 +1,5 @@
-import { ArrowRight, Info, Mail } from "lucide-react";
+import { ArrowRightIcon, Info, Loader2Icon, Mail } from "lucide-react";
+import { Button } from "@/components/global/Buttons";
 import InputField from "./InputField";
 
 interface StepTwoProps {
@@ -8,6 +9,7 @@ interface StepTwoProps {
       additionalEmail1: string;
       additionalEmail2: string;
    };
+   isSubmitting: boolean;
    onAdditionalEmail1Change: (value: string) => void;
    onAdditionalEmail2Change: (value: string) => void;
    onNext: () => void;
@@ -18,6 +20,7 @@ export default function StepTwo({
    additionalEmail1,
    additionalEmail2,
    errors,
+   isSubmitting,
    onAdditionalEmail1Change,
    onAdditionalEmail2Change,
    onNext,
@@ -63,14 +66,10 @@ export default function StepTwo({
             >
                <span>Atrás</span>
             </button>
-            <button
-               type="button"
-               onClick={onNext}
-               className="flex flex-2 justify-center items-center space-x-3 bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-6 py-4 rounded-xl font-bold text-white transition-all hover:-translate-y-0.5 duration-200"
-            >
-               <span>Continuar</span>
-               <ArrowRight className="w-5 h-5" />
-            </button>
+            <Button loading={isSubmitting} onClick={onNext} variant="blue" className="p-4! w-full!">
+               {isSubmitting ? "Verificando..." : "Continuar"}
+               {isSubmitting ? <Loader2Icon className="w-5 h-5 animate-spin" /> : <ArrowRightIcon className="w-5 h-5" />}
+            </Button>
          </div>
       </div>
    );
