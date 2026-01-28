@@ -146,7 +146,7 @@ export async function requestOTPCodeAction(email: string): Promise<BackendRespon
       }
 
       const otpCode = await generateOTPCode(user.id);
-      await sendOTPCodeEmail(user.email, otpCode);
+      await sendOTPCodeEmail(email, otpCode);
 
       return {
          success: true,
