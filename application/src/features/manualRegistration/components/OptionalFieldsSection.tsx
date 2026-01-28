@@ -52,8 +52,8 @@ export function OptionalFieldsSection({
             <div className="flex items-start space-x-3 bg-blue-50 p-4 border border-blue-200 rounded-lg">
                <Info className="mt-0.5 w-5 h-5 text-blue-600 shrink-0" size={16} />
                <p className="text-blue-800 text-sm leading-relaxed">
-                  Puedes agregar correos electrónicos adicionales. Podrás iniciar sesión y recibir notificaciones con cualquiera
-                  de estos correos.
+                  Puedes agregar correos electrónicos adicionales. El usuario podrá iniciar sesión y recibir notificaciones con
+                  cualquiera de estos correos.
                </p>
             </div>
 

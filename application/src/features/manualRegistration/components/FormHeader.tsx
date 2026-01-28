@@ -1,16 +1,17 @@
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { LinkButton } from "@/components/global/Buttons";
 
 export function FormHeader() {
    return (
       <div className="mb-8">
-         <Link
+         <LinkButton
             href="/manual-registration"
+            variant="secondary"
             className="inline-flex items-center gap-2 mb-4 text-gray-600 hover:text-gray-800 transition-colors"
          >
             <ArrowLeft size={16} />
             Volver al registro manual
-         </Link>
+         </LinkButton>
 
          <h1 className="mb-2 font-bold text-gray-900 text-3xl">Crear Nuevo Usuario</h1>
          <p className="text-gray-600 text-lg">
