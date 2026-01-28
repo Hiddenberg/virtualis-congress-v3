@@ -18,6 +18,8 @@ export interface NewUserData {
    role: RoleType;
    dateOfBirth?: string;
    phoneNumber?: string;
+   additionalEmail1?: string;
+   additionalEmail2?: string;
 }
 export async function createUser(userData: NewUserData) {
    const organization = await getOrganizationFromSubdomain();
@@ -27,6 +29,8 @@ export async function createUser(userData: NewUserData) {
    }
 
    const normalizedEmail = userData.email.toLowerCase().trim();
+   const normalizedAdditionalEmail1 = userData.additionalEmail1?.toLowerCase().trim();
+   const normalizedAdditionalEmail2 = userData.additionalEmail2?.toLowerCase().trim();
 
    const newUser = await createDBRecord<User>("USERS", {
       organization: organization.id,
@@ -35,6 +39,8 @@ export async function createUser(userData: NewUserData) {
       role: userData.role,
       dateOfBirth: userData.dateOfBirth,
       phoneNumber: userData.phoneNumber,
+      additionalEmail1: normalizedAdditionalEmail1,
+      additionalEmail2: normalizedAdditionalEmail2,
    });
 
    return newUser;

@@ -334,7 +334,8 @@ export async function signupToCongressAction(newUserData: Omit<NewUserData, "rol
       const batch = dbBatch();
 
       const normalizedEmail = newUserData.email.toLowerCase().trim();
-
+      const normalizedAdditionalEmail1 = newUserData.additionalEmail1?.toLowerCase().trim();
+      const normalizedAdditionalEmail2 = newUserData.additionalEmail2?.toLowerCase().trim();
       // Create the user record
       batch.collection(PB_COLLECTIONS.USERS).create({
          organization: organization.id,
@@ -344,6 +345,8 @@ export async function signupToCongressAction(newUserData: Omit<NewUserData, "rol
          role: "attendant",
          dateOfBirth: newUserData.dateOfBirth,
          phoneNumber: newUserData.phoneNumber,
+         additionalEmail1: normalizedAdditionalEmail1,
+         additionalEmail2: normalizedAdditionalEmail2,
       } satisfies User & { id: string });
 
       // Register the user to the congress

@@ -2,11 +2,13 @@
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { checkExistingUserAction } from "../../serverActions/staggeredAuthActions";
-import { ProgressIndicator, SignUpFooter, StepHeader, StepOne, StepTwo } from ".";
+import { ProgressIndicator, SignUpFooter, StepHeader, StepOne, StepThree, StepTwo } from ".";
 
 export interface NewUserFormData {
    email: string;
    name: string;
+   additionalEmail1: string;
+   additionalEmail2: string;
    dateOfBirth: string;
    phoneNumber: string;
 }
@@ -24,6 +26,8 @@ export default function StaggeredAuthSignupForm({
    const [newUserData, setNewUserData] = useState<NewUserFormData>({
       email: "",
       name: "",
+      additionalEmail1: "",
+      additionalEmail2: "",
       dateOfBirth: "",
       phoneNumber: "",
    });
@@ -34,6 +38,8 @@ export default function StaggeredAuthSignupForm({
       email: "",
       emailVerification: "",
       name: "",
+      additionalEmail1: "",
+      additionalEmail2: "",
       dateOfBirth: "",
       phoneNumber: "",
    });
@@ -91,6 +97,31 @@ export default function StaggeredAuthSignupForm({
       };
       let isValid = true;
 
+      // Additional emails are optional, but if provided, must be valid
+      if (newUserData.additionalEmail1 && !validateEmail(newUserData.additionalEmail1)) {
+         newErrors.additionalEmail1 = "Ingresa un email válido";
+         isValid = false;
+      } else {
+         newErrors.additionalEmail1 = "";
+      }
+
+      if (newUserData.additionalEmail2 && !validateEmail(newUserData.additionalEmail2)) {
+         newErrors.additionalEmail2 = "Ingresa un email válido";
+         isValid = false;
+      } else {
+         newErrors.additionalEmail2 = "";
+      }
+
+      setErrors(newErrors);
+      return isValid;
+   };
+
+   const validateStep3 = () => {
+      const newErrors = {
+         ...errors,
+      };
+      let isValid = true;
+
       if (!newUserData.dateOfBirth) {
          newErrors.dateOfBirth = "La fecha de nacimiento es requerida";
          isValid = false;
@@ -140,12 +171,22 @@ export default function StaggeredAuthSignupForm({
       }
    };
 
+   const handleStep2Next = () => {
+      if (validateStep2()) {
+         setCurrentStep(3);
+      }
+   };
+
    const handleBack = () => {
-      setCurrentStep(1);
+      if (currentStep === 3) {
+         setCurrentStep(2);
+      } else if (currentStep === 2) {
+         setCurrentStep(1);
+      }
    };
 
    const handleSubmit = async () => {
-      if (validateStep2()) {
+      if (validateStep3()) {
          startTransition(async () => {
             try {
                await onSubmit(newUserData);
@@ -212,7 +253,7 @@ export default function StaggeredAuthSignupForm({
    return (
       <div className="flex justify-center items-center bg-linear-to-br from-gray-50 to-gray-100 p-4 w-full min-h-screen">
          <div className="bg-white shadow-xl p-8 md:p-10 border border-gray-200 rounded-2xl w-full max-w-lg">
-            <ProgressIndicator currentStep={currentStep} totalSteps={2} />
+            <ProgressIndicator currentStep={currentStep} totalSteps={3} />
             <StepHeader currentStep={currentStep} welcomeMessage={welcomeMessage} welcomeDescription={welcomeDescription} />
 
             {/* Step 1: Email and Name */}
@@ -234,9 +275,25 @@ export default function StaggeredAuthSignupForm({
                />
             )}
 
-            {/* Step 2: Date of Birth and Phone */}
+            {/* Step 2: Additional Emails */}
             {currentStep === 2 && (
                <StepTwo
+                  additionalEmail1={newUserData.additionalEmail1}
+                  additionalEmail2={newUserData.additionalEmail2}
+                  errors={{
+                     additionalEmail1: errors.additionalEmail1,
+                     additionalEmail2: errors.additionalEmail2,
+                  }}
+                  onAdditionalEmail1Change={(value) => handleInputChange("additionalEmail1", value)}
+                  onAdditionalEmail2Change={(value) => handleInputChange("additionalEmail2", value)}
+                  onNext={handleStep2Next}
+                  onBack={handleBack}
+               />
+            )}
+
+            {/* Step 3: Date of Birth and Phone */}
+            {currentStep === 3 && (
+               <StepThree
                   dateOfBirth={newUserData.dateOfBirth}
                   phoneNumber={newUserData.phoneNumber}
                   errors={{

@@ -1,56 +1,58 @@
-import { ArrowLeft, Calendar, Check, Loader2, Phone } from "lucide-react";
+import { ArrowRight, Info, Mail } from "lucide-react";
 import InputField from "./InputField";
-import SecurityNote from "./SecurityNote";
 
 interface StepTwoProps {
-   dateOfBirth: string;
-   phoneNumber: string;
+   additionalEmail1: string;
+   additionalEmail2: string;
    errors: {
-      dateOfBirth: string;
-      phoneNumber: string;
+      additionalEmail1: string;
+      additionalEmail2: string;
    };
-   isSubmitting: boolean;
-   onDateOfBirthChange: (value: string) => void;
-   onPhoneNumberChange: (value: string) => void;
+   onAdditionalEmail1Change: (value: string) => void;
+   onAdditionalEmail2Change: (value: string) => void;
+   onNext: () => void;
    onBack: () => void;
-   onSubmit: () => void;
 }
 
 export default function StepTwo({
-   dateOfBirth,
-   phoneNumber,
+   additionalEmail1,
+   additionalEmail2,
    errors,
-   isSubmitting,
-   onDateOfBirthChange,
-   onPhoneNumberChange,
+   onAdditionalEmail1Change,
+   onAdditionalEmail2Change,
+   onNext,
    onBack,
-   onSubmit,
 }: StepTwoProps) {
    return (
-      <div className="space-y-8">
-         <SecurityNote />
+      <div className="space-y-4">
+         <div className="flex items-start space-x-3 bg-blue-50 p-4 border border-blue-200 rounded-lg">
+            <Info className="mt-0.5 w-5 h-5 text-blue-600 shrink-0" />
+            <p className="text-blue-800 text-sm leading-relaxed">
+               Puedes agregar correos electrónicos adicionales. Podrás iniciar sesión y recibir notificaciones con cualquiera de
+               estos correos.
+            </p>
+         </div>
 
          <InputField
-            id="dateOfBirth"
-            label="Fecha de nacimiento"
-            type="date"
-            value={dateOfBirth}
-            onChange={onDateOfBirthChange}
-            error={errors.dateOfBirth}
-            icon={<Calendar className="w-5 h-5 text-gray-500" />}
-            required={true}
+            id="additionalEmail1"
+            label="Correo electrónico adicional 1"
+            type="email"
+            value={additionalEmail1}
+            onChange={onAdditionalEmail1Change}
+            placeholder="correo1@ejemplo.com (opcional)"
+            error={errors.additionalEmail1}
+            icon={<Mail className="w-5 h-5 text-gray-500" />}
          />
 
          <InputField
-            id="phoneNumber"
-            label="Número de teléfono (solo números)"
-            type="tel"
-            value={phoneNumber}
-            onChange={onPhoneNumberChange}
-            placeholder="5555555555"
-            error={errors.phoneNumber}
-            icon={<Phone className="w-5 h-5 text-gray-500" />}
-            required={true}
+            id="additionalEmail2"
+            label="Correo electrónico adicional 2"
+            type="email"
+            value={additionalEmail2}
+            onChange={onAdditionalEmail2Change}
+            placeholder="correo2@ejemplo.com (opcional)"
+            error={errors.additionalEmail2}
+            icon={<Mail className="w-5 h-5 text-gray-500" />}
          />
 
          <div className="flex space-x-4">
@@ -59,17 +61,15 @@ export default function StepTwo({
                onClick={onBack}
                className="flex flex-1 justify-center items-center space-x-2 bg-gray-200 hover:bg-gray-300 shadow-sm hover:shadow-md px-4 py-4 rounded-xl font-semibold text-gray-700 transition-all duration-200"
             >
-               <ArrowLeft className="w-4 h-4" />
                <span>Atrás</span>
             </button>
             <button
                type="button"
-               onClick={onSubmit}
-               disabled={isSubmitting}
-               className="flex flex-2 justify-center items-center space-x-3 bg-linear-to-r from-blue-600 hover:from-blue-700 disabled:from-gray-400 to-blue-700 hover:to-blue-800 disabled:to-gray-500 shadow-lg hover:shadow-xl disabled:hover:shadow-lg px-6 py-4 rounded-xl font-bold text-white transition-all hover:-translate-y-0.5 disabled:hover:translate-y-0 duration-200"
+               onClick={onNext}
+               className="flex flex-2 justify-center items-center space-x-3 bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-6 py-4 rounded-xl font-bold text-white transition-all hover:-translate-y-0.5 duration-200"
             >
-               <span>{isSubmitting ? "Registrando..." : "Registrarme"}</span>
-               {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Check className="w-5 h-5" />}
+               <span>Continuar</span>
+               <ArrowRight className="w-5 h-5" />
             </button>
          </div>
       </div>

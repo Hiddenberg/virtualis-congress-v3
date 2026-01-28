@@ -9,5 +9,7 @@ export interface User {
    dateOfBirth?: string;
    phoneNumber?: string;
    role: RoleType;
+   additionalEmail1?: string;
+   additionalEmail2?: string;
 }
 export type UserRecord = DBRecordItem<User>;

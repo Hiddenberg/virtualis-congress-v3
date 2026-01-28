@@ -30,7 +30,7 @@ export default function StepOne({
    onNext,
 }: StepOneProps) {
    return (
-      <div className="space-y-8">
+      <div className="space-y-4">
          <InputField
             id="name"
             label="Nombre completo"
