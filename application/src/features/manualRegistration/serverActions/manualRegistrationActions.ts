@@ -90,6 +90,8 @@ export interface StaffNewUserFormData {
    email: string;
    phoneNumber?: string;
    dateOfBirth?: string;
+   additionalEmail1?: string;
+   additionalEmail2?: string;
 }
 
 export async function staffCreateAttendantUserAction(form: StaffNewUserFormData): Promise<BackendResponse<{ user: UserRecord }>> {
@@ -107,6 +109,8 @@ export async function staffCreateAttendantUserAction(form: StaffNewUserFormData)
          email: form.email,
          phoneNumber: form.phoneNumber,
          dateOfBirth: form.dateOfBirth,
+         additionalEmail1: form.additionalEmail1,
+         additionalEmail2: form.additionalEmail2,
          role: "attendant",
       } as NewUserData);
 
