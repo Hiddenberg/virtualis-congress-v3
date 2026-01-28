@@ -2,17 +2,23 @@
 
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { UserRecord } from "@/features/users/types/userTypes";
-import { registerManualPaymentAction, searchRegisteredUsersAction } from "../serverActions/manualRegistrationActions";
+import { registerManualPaymentAction } from "../serverActions/manualRegistrationActions";
+import type { CongressUserRegistrationDetails } from "../services/manualRegistrationServices";
 import { PaymentSection } from "./PaymentSection";
 import { SearchSection } from "./SearchSection";
 
-export default function ManualRegistrationPanel({ congress }: { congress: CongressRecord }) {
+export default function ManualRegistrationPanel({
+   congress,
+   userRegistrationDetails,
+}: {
+   congress: CongressRecord;
+   userRegistrationDetails: CongressUserRegistrationDetails[];
+}) {
    const [search, setSearch] = useState("");
-   const [users, setUsers] = useState<Array<{ user: UserRecord; hasPaid: boolean; hasRecordings: boolean }>>([]);
    const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
    const [modality, setModality] = useState<"in-person" | "virtual" | "">("");
    const [grantRecordingsAccess, setGrantRecordingsAccess] = useState(false);
@@ -21,22 +27,25 @@ export default function ManualRegistrationPanel({ congress }: { congress: Congre
    const [currency, setCurrency] = useState<string>("mxn");
    const [isPending, startTransition] = useTransition();
 
-   useEffect(() => {
-      const controller = new AbortController();
-      const q = search.trim();
-      startTransition(async () => {
-         const res = await searchRegisteredUsersAction(q);
-         if (res.success) {
-            setUsers(res.data.users);
-         }
-      });
-      return () => controller.abort();
+   const normalizedSearch = useMemo(() => {
+      return search.toLowerCase().trim();
    }, [search]);
+
+   const filteredUserRegistrationDetails = useMemo(() => {
+      return userRegistrationDetails.filter((detail) => {
+         return (
+            detail.user.name.toLowerCase().includes(normalizedSearch) ||
+            detail.user.email.toLowerCase().includes(normalizedSearch) ||
+            detail.user.additionalEmail1?.toLowerCase().includes(normalizedSearch) ||
+            detail.user.additionalEmail2?.toLowerCase().includes(normalizedSearch)
+         );
+      });
+   }, [userRegistrationDetails, normalizedSearch]);
 
    const selectedInfo = useMemo(() => {
       if (!selectedUser) return null;
-      return users.find((item) => item.user.id === selectedUser.id) ?? null;
-   }, [users, selectedUser]);
+      return userRegistrationDetails.find((item) => item.user.id === selectedUser.id) ?? null;
+   }, [userRegistrationDetails, selectedUser]);
    const isPaidSelected = !!selectedInfo?.hasPaid;
 
    const canSubmit = useMemo(() => {
@@ -105,7 +114,7 @@ export default function ManualRegistrationPanel({ congress }: { congress: Congre
                <SearchSection
                   search={search}
                   setSearch={setSearch}
-                  users={users}
+                  userRegistrationDetails={filteredUserRegistrationDetails}
                   selectedUser={selectedUser}
                   setSelectedUser={setSelectedUser}
                />

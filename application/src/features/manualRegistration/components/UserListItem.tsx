@@ -4,13 +4,13 @@ import type { UserRecord } from "@/features/users/types/userTypes";
 interface UserListItemProps {
    user: UserRecord;
    hasPaid: boolean;
-   hasRecordings: boolean;
+   hasAccessToRecordings: boolean;
    selected: boolean;
    onSelect: (user: UserRecord) => void;
 }
 
-export function UserListItem({ user, hasPaid, hasRecordings, selected, onSelect }: UserListItemProps) {
-   const isSelectable = !hasPaid || (hasPaid && !hasRecordings);
+export function UserListItem({ user, hasPaid, hasAccessToRecordings, selected, onSelect }: UserListItemProps) {
+   const isSelectable = !hasPaid || (hasPaid && !hasAccessToRecordings);
 
    return (
       <button
@@ -54,11 +54,11 @@ export function UserListItem({ user, hasPaid, hasRecordings, selected, onSelect 
                   <div
                      className={`
                      flex items-center gap-1 text-xs px-2 py-1 rounded-full
-                     ${hasRecordings ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"}
+                     ${hasAccessToRecordings ? "bg-green-100 text-green-700" : "bg-blue-100 text-blue-700"}
                   `}
                   >
-                     <div className={`w-2 h-2 rounded-full ${hasRecordings ? "bg-green-500" : "bg-blue-500"}`} />
-                     {hasRecordings ? "Con grabaciones" : "Sin grabaciones"}
+                     <div className={`w-2 h-2 rounded-full ${hasAccessToRecordings ? "bg-green-500" : "bg-blue-500"}`} />
+                     {hasAccessToRecordings ? "Con grabaciones" : "Sin grabaciones"}
                   </div>
                </div>
             </div>

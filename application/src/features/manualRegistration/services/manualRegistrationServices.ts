@@ -1,4 +1,5 @@
 import "server-only";
+import { getAllCongressRegistrations } from "@/features/congresses/services/congressRegistrationServices";
 // import { getOnlineCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
 // import { getOnlineCongressProduct } from "@/features/congresses/services/congressProductsServices";
 // import {
@@ -6,14 +7,17 @@ import "server-only";
 //    registerUserToLatestCongress,
 //    updateCongressRegistration,
 // } from "@/features/congresses/services/congressRegistrationServices";
-import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { getCongressById, getLatestCongress } from "@/features/congresses/services/congressServices";
+import type { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
 // import { sendPaymentConfirmationEmail } from "@/features/emails/services/emailSendingServices";
 import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
 import {
    checkIfUserHasAccessToRecordings,
+   getUserPurchasedModality,
    // createUserPurchaseRecord,
 } from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import { getUserById } from "@/features/users/services/userServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
 import {
    //  createDBRecord,
@@ -193,4 +197,44 @@ export async function searchUsersRegisteredToCurrentCongress(query: string) {
    }
 
    return results;
+}
+
+export interface CongressUserRegistrationDetails {
+   user: UserRecord;
+   hasPaid: boolean;
+   hasAccessToRecordings: boolean;
+   attendanceModality?: AttendanceModality;
+}
+
+export async function getCongressUserRegistrationsDetails(congressId: string): Promise<CongressUserRegistrationDetails[]> {
+   const congress = await getCongressById(congressId);
+   if (!congress) {
+      throw new Error("No se encontró el congreso");
+   }
+
+   const congressRegistrations = await getAllCongressRegistrations();
+
+   const details: CongressUserRegistrationDetails[] = await Promise.all(
+      congressRegistrations.map(async (registration) => {
+         const [user, hasPaid, hasAccessToRecordings, attendanceModality] = await Promise.all([
+            getUserById(registration.user),
+            confirmUserCongressPayment(registration.user),
+            checkIfUserHasAccessToRecordings(registration.user, congressId),
+            getUserPurchasedModality(registration.user, congressId),
+         ]);
+
+         if (!user) {
+            throw new Error("User not found");
+         }
+
+         return {
+            user,
+            hasPaid,
+            hasAccessToRecordings,
+            attendanceModality: attendanceModality ?? undefined,
+         };
+      }),
+   );
+
+   return details;
 }

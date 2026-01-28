@@ -2,6 +2,7 @@ import { CreditCard } from "lucide-react";
 import { Button } from "@/components/global/Buttons";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { UserRecord } from "@/features/users/types/userTypes";
+import type { CongressUserRegistrationDetails } from "../services/manualRegistrationServices";
 import { ModalitySelector } from "./ModalitySelector";
 import { PaymentAmountFields } from "./PaymentAmountFields";
 import { RecordingsAccessToggle } from "./RecordingsAccessToggle";
@@ -9,11 +10,7 @@ import { SelectedUserDisplay } from "./SelectedUserDisplay";
 
 interface PaymentSectionProps {
    selectedUser: UserRecord | null;
-   selectedInfo: {
-      user: UserRecord;
-      hasPaid: boolean;
-      hasRecordings: boolean;
-   } | null;
+   selectedInfo: CongressUserRegistrationDetails | null;
    modality: "in-person" | "virtual" | "";
    setModality: (value: "in-person" | "virtual" | "") => void;
    grantRecordingsAccess: boolean;

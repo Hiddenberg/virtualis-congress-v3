@@ -1,16 +1,17 @@
 import { Search, Users } from "lucide-react";
 import type { UserRecord } from "@/features/users/types/userTypes";
+import type { CongressUserRegistrationDetails } from "../services/manualRegistrationServices";
 import { UserListItem } from "./UserListItem";
 
 interface SearchSectionProps {
    search: string;
    setSearch: (value: string) => void;
-   users: Array<{ user: UserRecord; hasPaid: boolean; hasRecordings: boolean }>;
+   userRegistrationDetails: CongressUserRegistrationDetails[];
    selectedUser: UserRecord | null;
    setSelectedUser: (user: UserRecord | null) => void;
 }
 
-export function SearchSection({ search, setSearch, users, selectedUser, setSelectedUser }: SearchSectionProps) {
+export function SearchSection({ search, setSearch, userRegistrationDetails, selectedUser, setSelectedUser }: SearchSectionProps) {
    return (
       <div className="bg-white shadow-sm border border-gray-200 rounded-xl">
          <div className="p-6 border-gray-100 border-b">
@@ -37,18 +38,18 @@ export function SearchSection({ search, setSearch, users, selectedUser, setSelec
 
          <div className="p-6">
             <div className="space-y-3 max-h-96 overflow-auto">
-               {users.length === 0 ? (
+               {userRegistrationDetails.length === 0 ? (
                   <div className="py-8 text-gray-500 text-center">
                      <Users className="mx-auto mb-2 text-gray-400" size={24} />
                      <p className="text-sm">{search.trim() ? "No se encontraron usuarios" : "Escribe para buscar usuarios"}</p>
                   </div>
                ) : (
-                  users.map((item) => (
+                  userRegistrationDetails.map((item) => (
                      <UserListItem
                         key={item.user.id}
                         user={item.user}
                         hasPaid={item.hasPaid}
-                        hasRecordings={item.hasRecordings}
+                        hasAccessToRecordings={item.hasAccessToRecordings}
                         selected={selectedUser?.id === item.user.id}
                         onSelect={setSelectedUser}
                      />
