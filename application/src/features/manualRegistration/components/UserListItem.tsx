@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle, User } from "lucide-react";
+import { AlertCircle, CheckCircle, Mail, User } from "lucide-react";
 import type { UserRecord } from "@/features/users/types/userTypes";
 
 interface UserListItemProps {
@@ -11,6 +11,8 @@ interface UserListItemProps {
 
 export function UserListItem({ user, hasPaid, hasAccessToRecordings, selected, onSelect }: UserListItemProps) {
    const isSelectable = !hasPaid || (hasPaid && !hasAccessToRecordings);
+
+   const hasAdditionalEmails = user.additionalEmail1 || user.additionalEmail2;
 
    return (
       <button
@@ -37,6 +39,34 @@ export function UserListItem({ user, hasPaid, hasAccessToRecordings, selected, o
             <div className="flex-1 min-w-0">
                <div className="font-semibold text-gray-900 truncate">{user.name}</div>
                <div className="mt-1 text-gray-600 text-sm truncate">{user.email}</div>
+
+               {hasAdditionalEmails ? (
+                  <div className="space-y-1 mt-2">
+                     <div className="flex items-center gap-1 font-medium text-gray-700 text-xs">
+                        <Mail size={12} className="text-gray-500" />
+                        <span>Correos adicionales:</span>
+                     </div>
+                     <div className="space-y-0.5 pl-4">
+                        {user.additionalEmail1 && (
+                           <div className="flex items-center gap-1.5">
+                              <div className="bg-blue-500 rounded-full w-1 h-1 shrink-0" />
+                              <span className="text-gray-600 text-xs truncate">{user.additionalEmail1}</span>
+                           </div>
+                        )}
+                        {user.additionalEmail2 && (
+                           <div className="flex items-center gap-1.5">
+                              <div className="bg-blue-500 rounded-full w-1 h-1 shrink-0" />
+                              <span className="text-gray-600 text-xs truncate">{user.additionalEmail2}</span>
+                           </div>
+                        )}
+                     </div>
+                  </div>
+               ) : (
+                  <div className="flex items-center gap-1 bg-gray-100 mt-2 px-2 py-1 rounded-full w-fit">
+                     <Mail size={10} className="text-gray-500" />
+                     <span className="text-gray-600 text-xs">Sin correos adicionales</span>
+                  </div>
+               )}
 
                <div className="flex items-center gap-3 mt-2">
                   {hasPaid ? (

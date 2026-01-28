@@ -50,7 +50,7 @@ export function PaymentSection({
    return (
       <div className="bg-white shadow-sm border border-gray-200 rounded-xl">
          <div className="p-6 border-gray-100 border-b">
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3">
                <div className="flex justify-center items-center bg-green-100 rounded-lg w-10 h-10">
                   <CreditCard className="text-green-600" size={20} />
                </div>
