@@ -54,7 +54,6 @@ function BirthdayLoginForm({
    const [isLoading, setIsLoading] = useState(false);
    const [birthday, setBirthday] = useState<string>();
    const [incorrectBirthday, setIncorrectBirthday] = useState(false);
-   const router = useRouter();
 
    const { loginWithBirthdate } = useStaggeredAuthContext();
 
@@ -78,9 +77,9 @@ function BirthdayLoginForm({
 
       if (loginResult === true) {
          if (redirectTo) {
-            router.push(redirectTo);
+            window.location.href = redirectTo;
          } else {
-            router.push("/lobby");
+            window.location.href = "/lobby";
          }
       }
    };
@@ -213,7 +212,6 @@ function PhoneLoginForm({
    const [isLoading, setIsLoading] = useState(false);
    const [phoneNumber, setPhoneNumber] = useState<string>();
    const [incorrectPhoneNumber, setIncorrectPhoneNumber] = useState(false);
-   const router = useRouter();
 
    const { loginWithPhoneNumber } = useStaggeredAuthContext();
 
@@ -235,9 +233,9 @@ function PhoneLoginForm({
 
       if (loginResult === true) {
          if (redirectTo) {
-            router.push(redirectTo);
+            window.location.href = redirectTo;
          } else {
-            router.push("/lobby");
+            window.location.href = "/lobby";
          }
       }
    };
