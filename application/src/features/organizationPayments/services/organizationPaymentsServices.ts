@@ -99,6 +99,25 @@ export async function getUserPaymentRecord(checkoutSessionId: string) {
    return userPayment;
 }
 
+export async function getUserPaymentRecordByUserId(userId: UserRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      user = {:userId}
+   `,
+      {
+         organizationId: organization.id,
+         userId,
+      },
+   );
+
+   const userPayment = await getSingleDBRecord<UserPayment>("USER_PAYMENTS", filter);
+
+   return userPayment;
+}
+
 export async function updateUserPaymentRecord(userPaymentId: UserPaymentRecord["id"], data: Partial<UserPayment>) {
    const updatedUserPayment = await updateDBRecord<UserPayment>("USER_PAYMENTS", userPaymentId, data);
 

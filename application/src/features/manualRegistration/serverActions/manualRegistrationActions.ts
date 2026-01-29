@@ -16,7 +16,10 @@ import {
    sendPaymentConfirmationEmail,
    sendPlatformRegistrationConfirmationEmail,
 } from "@/features/emails/services/emailSendingServices";
-import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
+import {
+   confirmUserCongressPayment,
+   getUserPaymentRecordByUserId,
+} from "@/features/organizationPayments/services/organizationPaymentsServices";
 import { checkIfUserHasAccessToRecordings } from "@/features/organizationPayments/services/userPurchaseServices";
 import type { UserPurchase } from "@/features/organizationPayments/types/userPurchasesTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
@@ -116,6 +119,14 @@ export async function registerManualPaymentAction(form: ManualPaymentFormData): 
                };
             }
 
+            const userPayment = await getUserPaymentRecordByUserId(form.userId);
+            if (!userPayment) {
+               return {
+                  success: false,
+                  errorMessage: "El usuario no ha pagado para el congreso, por favor actualice la página para ver los cambios",
+               };
+            }
+
             // Create user purchase record for recordings access
             const recordingsOnlyBatch = dbBatch();
 
@@ -134,21 +145,14 @@ export async function registerManualPaymentAction(form: ManualPaymentFormData): 
                hasAccessToRecordings: true,
             } satisfies Partial<CongressRegistration>);
 
-            // Create user payment record
-            recordingsOnlyBatch.collection(PB_COLLECTIONS.USER_PAYMENTS).create({
-               id: generateRandomId(),
-               organization: organization.id,
-               user: form.userId,
-               wasCustomPrice: form.isCustomPrice,
-               checkoutSessionStatus: "complete",
-               fulfilledSuccessfully: true,
-               stripeCheckoutSessionId: "manual-payment",
-               currency: recordingsPrice.currency,
-               totalAmount: recordingsPrice.priceAmount,
-               discount: form.discount ?? 0,
-               paymentMethod: "cash",
-               fulfilledAt: new Date().toISOString(),
-            } satisfies UserPayment & { id: string });
+            // Update user payment record
+            const recordingsPriceInCents = recordingsPrice.priceAmount * 100;
+            const userPaymentAmountInCents = userPayment.totalAmount ?? 0;
+            const newTotalAmountInCents = userPaymentAmountInCents + recordingsPriceInCents;
+
+            recordingsOnlyBatch.collection(PB_COLLECTIONS.USER_PAYMENTS).update(userPayment.id, {
+               totalAmount: newTotalAmountInCents,
+            } satisfies Partial<UserPayment>);
 
             await recordingsOnlyBatch.send();
 
@@ -269,6 +273,17 @@ export async function registerManualPaymentAction(form: ManualPaymentFormData): 
          } satisfies UserPurchase & { id: string });
       }
 
+      let totalAmountInCents: number | undefined;
+      if (form.grantRecordingsAccess) {
+         const congressAccessPriceInCents = form.totalAmount * 100;
+         const recordingsPriceInCents = recordingsPrice.priceAmount * 100;
+         totalAmountInCents = congressAccessPriceInCents + recordingsPriceInCents;
+      } else {
+         totalAmountInCents = form.totalAmount * 100;
+      }
+
+      const discountInCents = (form.discount ?? 0) * 100;
+
       // Create user payment record
       batch.collection(PB_COLLECTIONS.USER_PAYMENTS).create({
          id: generateRandomId(),
@@ -278,8 +293,8 @@ export async function registerManualPaymentAction(form: ManualPaymentFormData): 
          fulfilledSuccessfully: true,
          stripeCheckoutSessionId: "manual-payment",
          currency: form.currency,
-         totalAmount: form.totalAmount,
-         discount: form.discount ?? 0,
+         totalAmount: totalAmountInCents,
+         discount: discountInCents,
          paymentMethod: "cash",
          fulfilledAt: new Date().toISOString(),
          wasCustomPrice: form.isCustomPrice,
