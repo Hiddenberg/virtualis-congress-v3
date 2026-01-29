@@ -42,6 +42,7 @@ export function ConferenceForm({ speakersAvailable, mode, conference, conference
                format: "YYYY-MM-DDTHH:mm",
             }),
             conferenceType: conference.conferenceType,
+            selectedSpeakerIds: (conferenceSpeakers || []).map((s) => s.id),
          };
       }
 
@@ -53,12 +54,9 @@ export function ConferenceForm({ speakersAvailable, mode, conference, conference
          conferenceType: "in-person",
          selectedSpeakerIds: [],
       };
-   }, [mode, conference]);
+   }, [mode, conference, conferenceSpeakers]);
 
-   const [formData, setFormData] = useState<FormState>({
-      ...initialFormState,
-      selectedSpeakerIds: (conferenceSpeakers || []).map((s) => s.id),
-   });
+   const [formData, setFormData] = useState<FormState>(initialFormState);
    const [formErrors, setFormErrors] = useState<Partial<Record<keyof FormState, string>>>({});
    const [isSaving, startTransition] = useTransition();
    const router = useRouter();
@@ -294,7 +292,7 @@ export function ConferenceForm({ speakersAvailable, mode, conference, conference
             </div>
          </div>
 
-         {mode === "create" && formData.conferenceType !== "break" && (
+         {formData.conferenceType !== "break" && (
             <div className="mt-6">
                <FormField label="Ponentes (opcional)">
                   <SpeakersMultiSelect
