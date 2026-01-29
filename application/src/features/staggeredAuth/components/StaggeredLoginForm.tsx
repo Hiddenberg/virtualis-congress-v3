@@ -452,7 +452,7 @@ export default function StaggeredLoginForm() {
                         <p>
                            • Busca un email con el asunto{" "}
                            <strong className="text-gray-900">&quot;Código de verificación&quot;</strong> o{" "}
-                           <strong className="text-gray-900">&quot;Virtualis Courses&quot;</strong>
+                           <strong className="text-gray-900">&quot;Virtualis Congress&quot;</strong>
                         </p>
                         <p>• El código puede tardar hasta 2 minutos en llegar</p>
                      </div>
