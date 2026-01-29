@@ -3,7 +3,7 @@
 import { AlertCircle, ArrowLeft, LoaderCircle, Mail } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import type React from "react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 // import validator from "validator"
 import { z } from "zod";
@@ -344,10 +344,12 @@ export default function StaggeredLoginForm() {
    const [email, setEmail] = useState<string>("");
    const [otpCode, setOtpCode] = useState<string>("");
    const [stage, setStage] = useState<"login" | "otp_verification" | "birthday_login" | "phone_login">("login");
-   const [isSendingOTP, setIsSendingOTP] = useState(false);
    const [isValidatingOTP, setIsValidatingOTP] = useState(false);
    const router = useRouter();
    const [codeFailed, setCodeFailed] = useState(false);
+
+   const [isSendingOtp, startSendingOtpTransition] = useTransition();
+   const [isValidatingOtp, startValidatingOtpTransition] = useTransition();
 
    const { loginWithOTPCode, requestOTPCode } = useStaggeredAuthContext();
 
@@ -357,46 +359,42 @@ export default function StaggeredLoginForm() {
 
    const handleSendOTP = async (e?: React.FormEvent<HTMLFormElement>) => {
       e?.preventDefault();
-      if (!email || isSendingOTP) {
-         return;
-      }
-
-      setIsSendingOTP(true);
-
-      // Validate email
-      const emailSchema = z.string().email();
-      if (!emailSchema.safeParse(email).success) {
+      if (!email) {
          toast.error("Ingresa un correo válido");
-         setIsSendingOTP(false);
          return;
       }
 
-      try {
-         const userExistsResponse = await checkExistingUserAction(email);
+      startSendingOtpTransition(async () => {
+         try {
+            // Validate email
+            const emailSchema = z.string().email();
+            if (!emailSchema.safeParse(email).success) {
+               toast.error("Ingresa un correo válido");
+               return;
+            }
 
-         if (!userExistsResponse.success) {
-            toast.error(userExistsResponse.errorMessage);
-            setIsSendingOTP(false);
-            return;
+            const userExistsResponse = await checkExistingUserAction(email);
+
+            if (!userExistsResponse.success) {
+               toast.error(userExistsResponse.errorMessage);
+               return;
+            }
+
+            if (!userExistsResponse.data.exists) {
+               toast.error("Este correo aun no está registrado, por favor registrate para poder iniciar sesión");
+               return;
+            }
+
+            const requestOTPCodeResult = await requestOTPCode(email);
+
+            if (requestOTPCodeResult === true) {
+               setStage("otp_verification");
+            }
+         } catch (error) {
+            console.error("Error sending OTP:", error);
+            toast.error("Error al enviar el código. Intenta nuevamente.");
          }
-
-         if (!userExistsResponse.data.exists) {
-            toast.error("Este correo aun no está registrado, por favor registrate para poder iniciar sesión");
-            setIsSendingOTP(false);
-            return;
-         }
-
-         const requestOTPCodeResult = await requestOTPCode(email);
-
-         if (requestOTPCodeResult === true) {
-            setStage("otp_verification");
-         }
-      } catch (error) {
-         console.error("Error sending OTP:", error);
-         toast.error("Error al enviar el código. Intenta nuevamente.");
-      } finally {
-         setIsSendingOTP(false);
-      }
+      });
    };
 
    const handleValidateOTP = async (e?: React.FormEvent<HTMLFormElement>) => {
@@ -553,10 +551,10 @@ export default function StaggeredLoginForm() {
 
          <Button
             type="submit"
-            disabled={!email || isSendingOTP}
+            disabled={!email || isSendingOtp}
             className="bg-linear-to-r! from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold text-white! transition-all duration-200"
          >
-            {isSendingOTP ? (
+            {isSendingOtp ? (
                <div className="flex items-center gap-2">
                   <LoaderCircle className="w-4 h-4 animate-spin" />
                   Enviando código...
