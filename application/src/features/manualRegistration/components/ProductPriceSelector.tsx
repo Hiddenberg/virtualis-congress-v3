@@ -54,6 +54,10 @@ export function ProductPriceSelector({
       setSelectedPriceId("custom");
    };
 
+   if (isPaidSelected) {
+      return null;
+   }
+
    if (!modality) {
       return (
          <div className="bg-blue-50 p-4 border border-blue-200 rounded-lg">

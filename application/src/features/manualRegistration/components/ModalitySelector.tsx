@@ -31,6 +31,14 @@ export function ModalitySelector({ modality, setModality, isPaidSelected, congre
               },
            ];
 
+   if (isPaidSelected) {
+      return (
+         <div className="bg-blue-50 p-4 border border-blue-200 rounded-lg">
+            <p className="text-blue-800 text-sm">No se puede cambiar la modalidad de usuarios ya pagados</p>
+         </div>
+      );
+   }
+
    return (
       <div>
          <div className="block mb-3 font-medium text-gray-700 text-sm">Modalidad de Asistencia</div>

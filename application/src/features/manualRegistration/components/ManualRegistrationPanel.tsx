@@ -2,7 +2,7 @@
 
 import { Plus } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState, useTransition } from "react";
+import { useCallback, useMemo, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import type { CongressProductWithPrices } from "@/features/congresses/types/congressProductsTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
@@ -79,6 +79,24 @@ export default function ManualRegistrationPanel({
       return true;
    }, [selectedUser, selectedPriceId, customPrice, grantingAccessOnlyToRecordings]);
 
+   const resetForm = useCallback(() => {
+      setSelectedUser(null);
+      setModality("");
+      setGrantRecordingsAccess(false);
+      setSelectedPriceId("");
+      setCustomPrice("");
+      setDiscount("0");
+      setCurrency("mxn");
+   }, []);
+
+   const onUserSelectionChange = useCallback(
+      (user: UserRecord) => {
+         resetForm();
+         setSelectedUser(user);
+      },
+      [resetForm],
+   );
+
    const submit = () => {
       if (!grantingAccessOnlyToRecordings) {
          if (!modality) {
@@ -111,8 +129,7 @@ export default function ManualRegistrationPanel({
          totalAmount = selectedPrice.priceAmount;
          finalCurrency = selectedPrice.currency;
          productPriceId = selectedPrice.id;
-      }
-      if (grantingAccessOnlyToRecordings) {
+      } else if (grantingAccessOnlyToRecordings) {
          totalAmount = 0;
          finalCurrency = "mxn";
          productPriceId = undefined;
@@ -175,7 +192,7 @@ export default function ManualRegistrationPanel({
                   setSearch={setSearch}
                   userRegistrationDetails={filteredUserRegistrationDetails}
                   selectedUser={selectedUser}
-                  setSelectedUser={setSelectedUser}
+                  onUserSelectionChange={onUserSelectionChange}
                />
 
                <PaymentSection

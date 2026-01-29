@@ -9,10 +9,16 @@ interface SearchSectionProps {
    setSearch: (value: string) => void;
    userRegistrationDetails: CongressUserRegistrationDetails[];
    selectedUser: UserRecord | null;
-   setSelectedUser: (user: UserRecord | null) => void;
+   onUserSelectionChange: (user: UserRecord) => void;
 }
 
-export function SearchSection({ search, setSearch, userRegistrationDetails, selectedUser, setSelectedUser }: SearchSectionProps) {
+export function SearchSection({
+   search,
+   setSearch,
+   userRegistrationDetails,
+   selectedUser,
+   onUserSelectionChange,
+}: SearchSectionProps) {
    return (
       <div className="bg-white shadow-sm border border-gray-200 rounded-xl">
          <div className="p-6 border-gray-100 border-b">
@@ -57,7 +63,7 @@ export function SearchSection({ search, setSearch, userRegistrationDetails, sele
                         hasAccessToRecordings={item.hasAccessToRecordings}
                         attendanceModality={item.attendanceModality}
                         selected={selectedUser?.id === item.user.id}
-                        onSelect={setSelectedUser}
+                        onSelect={onUserSelectionChange}
                      />
                   ))
                )}
