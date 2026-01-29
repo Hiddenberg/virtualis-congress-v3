@@ -344,7 +344,6 @@ export default function StaggeredLoginForm() {
    const [email, setEmail] = useState<string>("");
    const [otpCode, setOtpCode] = useState<string>("");
    const [stage, setStage] = useState<"login" | "otp_verification" | "birthday_login" | "phone_login">("login");
-   const [isValidatingOTP, setIsValidatingOTP] = useState(false);
    const router = useRouter();
    const [codeFailed, setCodeFailed] = useState(false);
 
@@ -399,35 +398,33 @@ export default function StaggeredLoginForm() {
 
    const handleValidateOTP = async (e?: React.FormEvent<HTMLFormElement>) => {
       e?.preventDefault();
-      if (!otpCode || !email || isValidatingOTP) {
+      if (!otpCode || !email || isValidatingOtp) {
+         toast.error("Ingresa un código");
          return;
       }
 
-      setIsValidatingOTP(true);
-      setCodeFailed(false);
-
-      try {
-         const loginResult = await loginWithOTPCode(email, otpCode);
-         console.log(loginResult);
-         if (loginResult === true) {
-            if (redirectTo) {
-               router.push(redirectTo);
+      startValidatingOtpTransition(async () => {
+         try {
+            setCodeFailed(false);
+            const loginResult = await loginWithOTPCode(email, otpCode);
+            if (loginResult === true) {
+               if (redirectTo) {
+                  router.push(redirectTo);
+               } else {
+                  router.push("/lobby");
+               }
             } else {
-               router.push("/lobby");
+               setCodeFailed(true);
             }
-         } else {
+         } catch (error) {
+            console.error("Error validating OTP:", error);
             setCodeFailed(true);
+            toast.error("Error al validar el código. Intenta nuevamente.");
          }
-      } catch (error) {
-         console.error("Error validating OTP:", error);
-         setCodeFailed(true);
-         toast.error("Error al validar el código. Intenta nuevamente.");
-      } finally {
-         setIsValidatingOTP(false);
-      }
+      });
    };
 
-   if (isValidatingOTP) {
+   if (isValidatingOtp) {
       return (
          <div className="flex justify-center items-center py-10 w-full">
             <LoaderCircle className="w-10 h-10 text-blue-500 animate-spin" />
@@ -484,10 +481,10 @@ export default function StaggeredLoginForm() {
                <div className="flex gap-2">
                   <Button
                      type="submit"
-                     disabled={!otpCode || isValidatingOTP}
+                     disabled={!otpCode || isValidatingOtp}
                      className="bg-linear-to-r! from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 disabled:opacity-50 shadow-lg py-3 rounded-xl w-full font-bold text-white! transition-all duration-200"
                   >
-                     {isValidatingOTP ? (
+                     {isValidatingOtp ? (
                         <div className="flex items-center gap-2">
                            <LoaderCircle className="w-4 h-4 animate-spin" />
                            Verificando...
