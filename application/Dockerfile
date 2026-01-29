@@ -10,7 +10,7 @@ RUN mkdir -p /temp/dev
 COPY package.json bun.lock /temp/dev/
 RUN cd /temp/dev && bun install --frozen-lockfile
 
-from base as prod-installer
+FROM base as prod-installer
 # install with --production (exclude devDependencies)
 RUN mkdir -p /temp/prod
 COPY package.json bun.lock /temp/prod/
