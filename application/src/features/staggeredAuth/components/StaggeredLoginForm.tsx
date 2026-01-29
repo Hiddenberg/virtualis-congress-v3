@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, ArrowLeft, LoaderCircle, Mail } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import type React from "react";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
@@ -342,7 +342,6 @@ export default function StaggeredLoginForm() {
    const [email, setEmail] = useState<string>("");
    const [otpCode, setOtpCode] = useState<string>("");
    const [stage, setStage] = useState<"login" | "otp_verification" | "birthday_login" | "phone_login">("login");
-   const router = useRouter();
    const [codeFailed, setCodeFailed] = useState(false);
 
    const [isSendingOtp, startSendingOtpTransition] = useTransition();
@@ -407,9 +406,9 @@ export default function StaggeredLoginForm() {
             const loginResult = await loginWithOTPCode(email, otpCode);
             if (loginResult === true) {
                if (redirectTo) {
-                  router.push(redirectTo);
+                  window.location.href = redirectTo;
                } else {
-                  router.push("/lobby");
+                  window.location.href = "/lobby";
                }
             } else {
                setCodeFailed(true);
