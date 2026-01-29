@@ -110,7 +110,7 @@ export default function RegistrationOverview({ registrations, payments }: Regist
          currencyTotals: revenueByCurrency,
       },
       {
-         title: "Registrados sin pago",
+         title: "Registrados que aun no pagan",
          value: (totalRegistrations - totalPaidRegistrations).toLocaleString(),
          icon: Calendar,
          color: "bg-orange-50 text-orange-600",
