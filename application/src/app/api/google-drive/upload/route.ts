@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
 
       const fileId = await uploadFileToDrive({
          file,
+         driveFolderId,
       });
 
       return NextResponse.json({

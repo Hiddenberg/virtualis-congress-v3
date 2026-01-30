@@ -14,7 +14,7 @@
         "@react-email/components": "^1.0.4",
         "@tanstack/react-query": "^5.90.19",
         "@zoom/videosdk-ui-toolkit": "^2.3.5-1",
-        "axios": "^1.13.2",
+        "axios": "^1.13.4",
         "convertapi": "^1.15.0",
         "googleapis": "^171.0.0",
         "html2canvas": "^1.4.1",

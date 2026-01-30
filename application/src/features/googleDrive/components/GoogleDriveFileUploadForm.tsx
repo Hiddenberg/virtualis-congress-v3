@@ -4,6 +4,7 @@
 import { Check, CloudUpload, X } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
+import { uploadFileToDriveAction } from "../serverActions/googleDriveActions";
 
 interface GoogleDriveFileUploadFormProps {
    driveFolderId: string;
@@ -57,17 +58,11 @@ export default function GoogleDriveFileUploadForm({ driveFolderId, onUploadSucce
       startTransition(async () => {
          toast.loading("Uploading file...");
 
-         const formData = new FormData();
-         formData.append("file", selectedFile);
-         formData.append("driveFolderId", driveFolderId);
-
          try {
-            const response = await fetch("/api/google-drive/upload", {
-               method: "POST",
-               body: formData,
+            const result = await uploadFileToDriveAction({
+               file: selectedFile,
+               driveFolderId,
             });
-
-            const result: BackendResponse<{ fileId: string }> = await response.json();
 
             toast.dismiss();
 
@@ -85,7 +80,7 @@ export default function GoogleDriveFileUploadForm({ driveFolderId, onUploadSucce
             if (onUploadSuccess && result.data) {
                onUploadSuccess(result.data.fileId);
             }
-         } catch (error) {
+         } catch {
             toast.dismiss();
             toast.error("Failed to upload file. Please try again.");
          }

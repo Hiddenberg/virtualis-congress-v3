@@ -1,11 +1,4 @@
-import process from "node:process";
 import { google } from "googleapis";
-
-// The scope for reading file metadata.
-// const SCOPES = ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.file"];
-
-// const GOOGLE_SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-// const GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
 
 const GOOGLE_OAUTH2_CLIENT_ID = process.env.GOOGLE_OAUTH2_CLIENT_ID;
 const GOOGLE_OAUTH2_CLIENT_SECRET = process.env.GOOGLE_OAUTH2_CLIENT_SECRET;
@@ -29,4 +22,22 @@ export async function getDriveServerClient() {
       version: "v3",
       auth: auth,
    });
+}
+
+export async function getDriveAccessToken() {
+   const auth = new google.auth.OAuth2({
+      clientId: GOOGLE_OAUTH2_CLIENT_ID,
+      clientSecret: GOOGLE_OAUTH2_CLIENT_SECRET,
+   });
+
+   auth.setCredentials({
+      refresh_token: GOOGLE_OAUTH2_REFRESH_TOKEN,
+   });
+
+   const accessToken = await auth.getAccessToken();
+   if (!accessToken?.token) {
+      throw new Error("Failed to obtain Google Drive access token");
+   }
+
+   return accessToken.token;
 }

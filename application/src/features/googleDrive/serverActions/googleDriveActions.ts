@@ -26,12 +26,13 @@ export async function uploadFileToDriveAction({
 
       const fileId = await uploadFileToDrive({
          file,
+         driveFolderId,
       });
 
       if (!fileId) {
          return {
             success: false,
-            errorMessage: "Failed to upload file to Google Drive",
+            errorMessage: "Failed to upload file to Google Drive the id could not be obtained",
          };
       }
 

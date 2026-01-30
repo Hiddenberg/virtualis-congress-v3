@@ -1,5 +1,6 @@
-import { Readable } from "node:stream";
-import { getDriveServerClient } from "@/libs/googleDrive";
+import { randomUUID } from "node:crypto";
+import axios from "axios";
+import { getDriveAccessToken, getDriveServerClient } from "@/libs/googleDrive";
 import "server-only";
 
 /**
@@ -25,39 +26,38 @@ export async function listDriveFiles() {
    return files;
 }
 
-export async function uploadFileToDrive({ file }: { file: File }) {
-   const drive = await getDriveServerClient();
-
-   const driveFolderId = "19siBoAY6IQJfr1OEFOsZRWFkdqyjcWzn";
-
-   // Check if the service account has access to the drive folder
-   const driveFolder = await drive.files.get({
-      fileId: driveFolderId,
-      fields: "id, name, capabilities",
-   });
-   if (!driveFolder) {
-      throw new Error("Drive folder not found");
-   }
-
-   console.log("driveFolder", driveFolder.data);
-
-   // 1. Obtener el buffer del archivo
+export async function uploadFileToDrive({ file, driveFolderId }: { file: File; driveFolderId: string }) {
    const arrayBuffer = await file.arrayBuffer();
    const buffer = Buffer.from(arrayBuffer);
 
-   // 2. Crear un Stream compatible con la librería de Google
-   // Importante: No uses readableStream.push(), usa Readable.from()
-   const mediaStream = Readable.from(buffer);
+   const accessToken = await getDriveAccessToken();
+   const boundary = `upload_${randomUUID()}`;
+   const metadata = {
+      name: file.name,
+      parents: [driveFolderId],
+   };
+   const fileMimeType = file.type || "application/octet-stream";
 
-   const result = await drive.files.create({
-      requestBody: {
-         name: file.name,
-         parents: [driveFolderId],
+   const multipartBody = Buffer.concat([
+      Buffer.from(`--${boundary}\r\n`),
+      Buffer.from("Content-Type: application/json; charset=UTF-8\r\n\r\n"),
+      Buffer.from(`${JSON.stringify(metadata)}\r\n`),
+      Buffer.from(`--${boundary}\r\n`),
+      Buffer.from(`Content-Type: ${fileMimeType}\r\n\r\n`),
+      buffer,
+      Buffer.from(`\r\n--${boundary}--\r\n`),
+   ]);
+
+   const response = await axios.post("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", multipartBody, {
+      headers: {
+         Authorization: `Bearer ${accessToken}`,
+         "Content-Type": `multipart/related; boundary=${boundary}`,
       },
-      media: {
-         body: mediaStream, // Ahora es un stream real de Node.js
-      },
+      maxBodyLength: Number.POSITIVE_INFINITY,
+      maxContentLength: Number.POSITIVE_INFINITY,
    });
 
-   return result.data.id;
+   console.log("response", response.data);
+
+   return response.data?.id as string | undefined;
 }
