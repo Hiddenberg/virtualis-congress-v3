@@ -2,22 +2,27 @@ import process from "node:process";
 import { google } from "googleapis";
 
 // The scope for reading file metadata.
-const SCOPES = ["https://www.googleapis.com/auth/drive"];
+// const SCOPES = ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/drive.file"];
 
-const GOOGLE_SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-const GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
+// const GOOGLE_SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+// const GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY;
 
-if (!GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY) {
-   throw new Error("GOOGLE_SERVICE_ACCOUNT_EMAIL or GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY is not set");
+const GOOGLE_OAUTH2_CLIENT_ID = process.env.GOOGLE_OAUTH2_CLIENT_ID;
+const GOOGLE_OAUTH2_CLIENT_SECRET = process.env.GOOGLE_OAUTH2_CLIENT_SECRET;
+const GOOGLE_OAUTH2_REFRESH_TOKEN = process.env.GOOGLE_OAUTH2_REFRESH_TOKEN;
+
+if (!GOOGLE_OAUTH2_CLIENT_ID || !GOOGLE_OAUTH2_CLIENT_SECRET || !GOOGLE_OAUTH2_REFRESH_TOKEN) {
+   throw new Error("GOOGLE_OAUTH2_CLIENT_ID or GOOGLE_OAUTH2_CLIENT_SECRET or GOOGLE_OAUTH2_REFRESH_TOKEN is not set");
 }
 
 export async function getDriveServerClient() {
-   const auth = new google.auth.GoogleAuth({
-      credentials: {
-         client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-         private_key: GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-      },
-      scopes: SCOPES,
+   const auth = new google.auth.OAuth2({
+      clientId: GOOGLE_OAUTH2_CLIENT_ID,
+      clientSecret: GOOGLE_OAUTH2_CLIENT_SECRET,
+   });
+
+   auth.setCredentials({
+      refresh_token: GOOGLE_OAUTH2_REFRESH_TOKEN,
    });
 
    return google.drive({
