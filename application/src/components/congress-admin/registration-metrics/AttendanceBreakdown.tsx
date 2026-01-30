@@ -1,4 +1,9 @@
-import { CheckCircle, Monitor, Users, Video } from "lucide-react";
+import {
+   CheckCircleIcon,
+   MonitorIcon,
+   UsersIcon,
+   //  Video
+} from "lucide-react";
 import type { CongressUserRegistrationDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
 
 interface AttendanceBreakdownProps {
@@ -11,20 +16,20 @@ export default function AttendanceBreakdown({ registrationsDetails }: Attendance
    const inPersonCount = paidRegistrations.filter((detail) => detail.attendanceModality === "in-person").length;
    const virtualCount = paidRegistrations.filter((detail) => detail.attendanceModality === "virtual").length;
    // const unspecifiedCount = paidRegistrations.filter(detail => !detail.attendanceModality).length;
-   const recordingAccessCount = paidRegistrations.filter((detail) => detail.hasAccessToRecordings).length;
+   // const recordingAccessCount = paidRegistrations.filter((detail) => detail.hasAccessToRecordings).length;
 
    const attendanceData = [
       {
          title: "Asistencia Presencial",
          count: inPersonCount,
-         icon: Users,
+         icon: UsersIcon,
          color: "bg-blue-50 text-blue-600",
          bgColor: "bg-blue-500",
       },
       {
          title: "Asistencia Virtual",
          count: virtualCount,
-         icon: Monitor,
+         icon: MonitorIcon,
          color: "bg-green-50 text-green-600",
          bgColor: "bg-green-500",
       },
@@ -35,13 +40,13 @@ export default function AttendanceBreakdown({ registrationsDetails }: Attendance
       //    color: "bg-gray-50 text-gray-600",
       //    bgColor: "bg-gray-500"
       // },
-      {
-         title: "Acceso a Grabaciones",
-         count: recordingAccessCount,
-         icon: Video,
-         color: "bg-purple-50 text-purple-600",
-         bgColor: "bg-purple-500",
-      },
+      // {
+      //    title: "Acceso a Grabaciones",
+      //    count: recordingAccessCount,
+      //    icon: Video,
+      //    color: "bg-purple-50 text-purple-600",
+      //    bgColor: "bg-purple-500",
+      // },
    ];
 
    return (
@@ -52,7 +57,7 @@ export default function AttendanceBreakdown({ registrationsDetails }: Attendance
          </div>
 
          <div className="p-6">
-            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="gap-6 grid grid-cols-2">
                {attendanceData.map((item) => (
                   <div key={item.title} className="text-center">
                      <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${item.color}`}>
@@ -72,7 +77,7 @@ export default function AttendanceBreakdown({ registrationsDetails }: Attendance
             {paidRegistrations.length > 0 && (
                <div className="bg-gray-50 mt-8 p-4 rounded-lg">
                   <div className="flex justify-center items-center space-x-2 text-gray-600 text-sm">
-                     <CheckCircle className="w-4 h-4 text-green-500" />
+                     <CheckCircleIcon className="w-4 h-4 text-green-500" />
                      <span>Datos basados en {paidRegistrations.length} registros con pago confirmado</span>
                   </div>
                </div>
