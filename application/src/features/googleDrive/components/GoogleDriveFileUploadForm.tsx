@@ -4,7 +4,6 @@
 import { Check, CloudUpload, X } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
-import { uploadFileToDriveAction } from "../serverActions/googleDriveActions";
 
 interface GoogleDriveFileUploadFormProps {
    driveFolderId: string;
@@ -58,26 +57,37 @@ export default function GoogleDriveFileUploadForm({ driveFolderId, onUploadSucce
       startTransition(async () => {
          toast.loading("Uploading file...");
 
-         const response = await uploadFileToDriveAction({
-            file: selectedFile,
-            driveFolderId,
-         });
+         const formData = new FormData();
+         formData.append("file", selectedFile);
+         formData.append("driveFolderId", driveFolderId);
 
-         toast.dismiss();
+         try {
+            const response = await fetch("/api/google-drive/upload", {
+               method: "POST",
+               body: formData,
+            });
 
-         if (!response.success) {
-            toast.error(response.errorMessage);
-            return;
-         }
+            const result: BackendResponse<{ fileId: string }> = await response.json();
 
-         toast.success("File uploaded successfully");
-         setSelectedFile(null);
-         if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-         }
+            toast.dismiss();
 
-         if (onUploadSuccess && response.data) {
-            onUploadSuccess(response.data.fileId);
+            if (!result.success) {
+               toast.error(result.errorMessage);
+               return;
+            }
+
+            toast.success("File uploaded successfully");
+            setSelectedFile(null);
+            if (fileInputRef.current) {
+               fileInputRef.current.value = "";
+            }
+
+            if (onUploadSuccess && result.data) {
+               onUploadSuccess(result.data.fileId);
+            }
+         } catch (error) {
+            toast.dismiss();
+            toast.error("Failed to upload file. Please try again.");
          }
       });
    };
