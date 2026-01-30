@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
-import { getAllCongressProductsWithPrices } from "@/features/congresses/services/congressProductsServices";
-import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { listDriveFiles } from "@/libs/googleDrive";
 
 export async function GET() {
-   const congress = await getLatestCongress();
-   const productsWithPrices = await getAllCongressProductsWithPrices(congress.id);
+   const files = await listDriveFiles();
    return NextResponse.json({
-      productsWithPrices,
+      files,
    });
 }
