@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { listDriveFiles } from "@/libs/googleDrive";
+import { listDriveFiles } from "@/features/googleDrive/services/googleDriveServices";
 
 export async function GET() {
    const files = await listDriveFiles();
