@@ -1,6 +1,6 @@
 "use server";
 
-import { uploadFileToDrive } from "../services/googleDriveServices";
+import { uploadFileToDriveWithClient } from "../services/googleDriveServices";
 
 export async function uploadFileToDriveAction({
    file,
@@ -24,7 +24,7 @@ export async function uploadFileToDriveAction({
          };
       }
 
-      const fileId = await uploadFileToDrive({
+      const fileId = await uploadFileToDriveWithClient({
          file,
          driveFolderId,
       });

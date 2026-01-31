@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { uploadFileToDrive } from "@/features/googleDrive/services/googleDriveServices";
+import { uploadFileToDriveWithClient } from "@/features/googleDrive/services/googleDriveServices";
 
 export async function POST(req: NextRequest) {
    try {
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
          );
       }
 
-      const fileId = await uploadFileToDrive({
+      const fileId = await uploadFileToDriveWithClient({
          file,
          driveFolderId,
       });
