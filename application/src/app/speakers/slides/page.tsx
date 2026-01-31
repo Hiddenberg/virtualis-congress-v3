@@ -1,5 +1,6 @@
 import { getAllProgramConferencesWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { ConferenceList } from "@/features/speakerSlidesV2/components/ConferenceList";
 import { getAllSpeakerSlidesFilesByCongressId } from "@/features/speakerSlidesV2/services/speakerSlidesFilesServices";
 
 export default async function PresentationUploadPage() {
@@ -7,12 +8,16 @@ export default async function PresentationUploadPage() {
    const speakerSlidesFiles = await getAllSpeakerSlidesFilesByCongressId(congress.id);
 
    return (
-      <div>
-         <h1>Speaker Slides</h1>
-         <div>
-            <h2>Congress: {congress.title}</h2>
-            <h2>Conferences: {conferencesWithSpeakers.length}</h2>
-            <h2>Speaker Slides: {speakerSlidesFiles.length}</h2>
+      <div className="bg-gray-50 px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
+         <div className="mx-auto max-w-7xl">
+            <div className="mb-8">
+               <h1 className="mb-2 font-bold text-gray-900 md:text-3xl text-4xl">{congress.title}</h1>
+               <p className="text-gray-600 text-lg">
+                  Gestión de Presentaciones - Sube o reemplaza las presentaciones para tu conferencias
+               </p>
+            </div>
+
+            <ConferenceList conferencesWithSpeakers={conferencesWithSpeakers} speakerSlidesFiles={speakerSlidesFiles} />
          </div>
       </div>
    );
