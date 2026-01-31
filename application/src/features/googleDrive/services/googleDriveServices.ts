@@ -130,5 +130,9 @@ export async function uploadFileToDriveWithClient({ file, driveFolderId }: { fil
       },
    );
 
-   return result.data?.id as string | undefined;
+   if (!result.data?.id) {
+      throw new Error("Failed to upload file to Google Drive the id could not be obtained");
+   }
+
+   return result.data.id;
 }

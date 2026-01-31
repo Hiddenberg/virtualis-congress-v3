@@ -1,7 +1,10 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
+import { IS_DEV_ENVIRONMENT } from "@/data/constants/platformConstants";
+import { getConferenceById } from "@/features/conferences/services/conferenceServices";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
+import { uploadFileToDriveWithClient } from "@/features/googleDrive/services/googleDriveServices";
 import type { NewSpeakerSlidesFileData, SpeakerSlidesFile } from "../types/speakerSlidesTypes";
 
 export async function createSpeakerSlidesFileRecord(newSpeakerSlidesFileData: NewSpeakerSlidesFileData) {
@@ -13,6 +16,39 @@ export async function createSpeakerSlidesFileRecord(newSpeakerSlidesFileData: Ne
    });
 
    return newSpeakerSlidesFileRecord;
+}
+
+export async function uploadSpeakerSlidesFile({
+   fileName,
+   conferenceId,
+   file,
+}: {
+   fileName: string;
+   conferenceId: CongressConferenceRecord["id"];
+   file: File;
+}) {
+   const conference = await getConferenceById(conferenceId);
+   if (!conference) {
+      throw new Error("Conference not found");
+   }
+
+   const driveFolderId = IS_DEV_ENVIRONMENT ? "1VTNEIDrISs5pdqKfqDkY4F69G3nLkF2w" : "19siBoAY6IQJfr1OEFOsZRWFkdqyjcWzn";
+
+   const driveFileId = await uploadFileToDriveWithClient({
+      file,
+      driveFolderId,
+   });
+
+   const speakerSlidesFile = await createSpeakerSlidesFileRecord({
+      conference: conference.id,
+      congress: conference.congress,
+      fileName,
+      fileSizeInMb: file.size / 1024 / 1024,
+      googleDriveFolderId: driveFolderId,
+      googleDriveFileId: driveFileId,
+   });
+
+   return speakerSlidesFile;
 }
 
 export async function getSpeakerSlidesFileByConferenceId(conferenceId: CongressConferenceRecord["id"]) {
@@ -32,6 +68,28 @@ export async function getSpeakerSlidesFileByConferenceId(conferenceId: CongressC
    const speakerSlidesFile = await getSingleDBRecord<SpeakerSlidesFile>("SPEAKER_SLIDES_FILES", filter);
 
    return speakerSlidesFile;
+}
+
+export async function getSpeakerSlidesFilesByConferenceId(conferenceId: CongressConferenceRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      conference = {:conferenceId}
+   `,
+      {
+         organizationId: organization.id,
+         conferenceId,
+      },
+   );
+
+   const speakerSlidesFiles = await getFullDBRecordsList<SpeakerSlidesFile>("SPEAKER_SLIDES_FILES", {
+      filter,
+      sort: "-created",
+   });
+
+   return speakerSlidesFiles;
 }
 
 export async function getAllSpeakerSlidesFilesByCongressId(congressId: CongressRecord["id"]) {
