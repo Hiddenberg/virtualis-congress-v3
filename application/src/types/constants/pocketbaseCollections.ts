@@ -38,6 +38,7 @@ const PB_COLLECTIONS = {
    SIMPLE_RECORDING_LIVESTREAMS: "simple_recording__livestreams",
    SIMPLE_RECORDING_PRESENTATIONS: "simple_recording__presentations",
    SIMPLE_RECORDING_TRACKED_EMAILS: "simple_recording__tracked_emails",
+   SPEAKER_SLIDES_FILES: "speaker__slides_files",
    ORGANIZATIONS: "organizations",
    ORGANIZATION_STRIPE_CREDENTIALS: "organization__stripe_credentials",
    OTP_CODES: "otp__codes",
