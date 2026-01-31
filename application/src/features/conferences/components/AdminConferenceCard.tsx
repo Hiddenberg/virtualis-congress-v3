@@ -1,3 +1,4 @@
+import { format } from "@formkit/tempo";
 import {
    ArrowRightIcon,
    CheckCircleIcon,
@@ -189,16 +190,43 @@ export async function ConferenceSpeakerSlidesSection({ conferenceId }: { confere
          }
          icon={<FileTextIcon className="w-4 h-4 text-gray-600" />}
       >
-         {currentFile ? (
+         {!currentFile ? (
             <p>No hay presentaciones asignadas a esta conferencia</p>
          ) : (
-            <ul className="space-y-1">
-               {conferenceSlidesFiles.map((file) => (
-                  <li key={file.id} className="flex items-center gap-2 text-gray-700 text-sm">
-                     <span className="bg-blue-400 rounded-full w-1.5 h-1.5" />
-                     <span className="truncate">{file.fileName}</span>
-                  </li>
-               ))}
+            <ul className="space-y-2">
+               {conferenceSlidesFiles.map((file, index) => {
+                  const isLatest = index === 0;
+                  const formattedDate = format({
+                     date: file.created,
+                     format: "DD MMMM YYYY, hh:mm A",
+                     tz: "America/Mexico_City",
+                     locale: "es-MX",
+                  });
+
+                  return (
+                     <li
+                        key={file.id}
+                        className={`flex flex-col gap-1 p-2 rounded-md transition-colors ${
+                           isLatest ? "bg-blue-50 ring-1 ring-blue-200" : ""
+                        }`}
+                     >
+                        <div className="flex items-center gap-2">
+                           <span className={`rounded-full w-1.5 h-1.5 shrink-0 ${isLatest ? "bg-blue-500" : "bg-blue-400"}`} />
+                           <span className={`truncate text-sm ${isLatest ? "font-semibold text-gray-900" : "text-gray-700"}`}>
+                              {file.fileName}
+                           </span>
+                           {isLatest && (
+                              <span className="bg-blue-100 px-1.5 py-0.5 rounded font-medium text-blue-700 text-xs whitespace-nowrap shrink-0">
+                                 Más reciente
+                              </span>
+                           )}
+                        </div>
+                        <div className="flex items-center gap-2 ml-3.5">
+                           <span className="text-gray-500 text-xs">Subido: {formattedDate}</span>
+                        </div>
+                     </li>
+                  );
+               })}
             </ul>
          )}
       </SubCard>
@@ -480,10 +508,10 @@ function GenericSubCardSkeleton({ title, Icon }: { title: string; Icon: LucideIc
 
 export default function AdminConferenceCard({
    conference,
-   presentation,
+   // presentation,
 }: {
    conference: CongressConferenceRecord;
-   presentation?: PresentationRecord;
+   // presentation?: PresentationRecord;
 }) {
    const requiresRecording = conference.conferenceType === "pre-recorded" || conference.conferenceType === "simulated_livestream";
    const requiresLivestream = conference.conferenceType === "in-person" || conference.conferenceType === "livestream";

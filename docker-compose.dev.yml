@@ -5,6 +5,7 @@ services:
       - 8080:8080
     volumes:
       - ./database/:/db/
+    restart: always
 
   virtualis-congress-v3-dev:
     image: oven/bun
@@ -14,3 +15,4 @@ services:
     command: bun run dev
     ports:
      - 3000:3000
+    restart: always

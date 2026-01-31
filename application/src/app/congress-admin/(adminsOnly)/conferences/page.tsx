@@ -2,14 +2,14 @@ import { Calendar, Plus } from "lucide-react";
 import Link from "next/link";
 import AdminConferenceCard from "@/features/conferences/components/AdminConferenceCard";
 import AdminConferencesBrowser from "@/features/conferences/components/AdminConferencesBrowser";
-import { getAllConferencePresentations } from "@/features/conferences/services/conferencePresentationsServices";
+// import { getAllConferencePresentations } from "@/features/conferences/services/conferencePresentationsServices";
 import { getAllCongressConferences } from "@/features/conferences/services/conferenceServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 
 export default async function ConferencesPage() {
    const congress = await getLatestCongress();
    const conferences = await getAllCongressConferences(congress.id);
-   const conferencePresentations = await getAllConferencePresentations();
+   // const conferencePresentations = await getAllConferencePresentations();
 
    return (
       <div className="p-6">
@@ -45,15 +45,15 @@ export default async function ConferencesPage() {
          ) : (
             <AdminConferencesBrowser conferences={conferences}>
                {conferences.map((conference) => {
-                  const conferencePresentation = conferencePresentations.find(
-                     (presentation) => presentation.conference === conference.id,
-                  );
+                  // const conferencePresentation = conferencePresentations.find(
+                  //    (presentation) => presentation.conference === conference.id,
+                  // );
 
                   return (
                      <AdminConferenceCard
                         key={conference.id}
                         conference={conference}
-                        presentation={conferencePresentation?.presentation}
+                        // presentation={conferencePresentation?.presentation}
                      />
                   );
                })}
