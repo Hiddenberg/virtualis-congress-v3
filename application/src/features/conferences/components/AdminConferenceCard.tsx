@@ -24,6 +24,7 @@ import { getAllQuestionPollsForConference } from "@/features/conferences/service
 import { getConferenceRecordings } from "@/features/conferences/services/conferenceRecordingsServices";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import { getSpeakerSlidesFilesByConferenceId } from "@/features/speakerSlidesV2/services/speakerSlidesFilesServices";
 import { formatVideoTime } from "@/utils/recorderUtils";
 import { getSpeakerPresentationRecordingByConferenceId } from "../services/conferenceSpeakerPresentationRecordingServices";
 import ConferenceSchedule from "./adminConferenceCard/ConferenceSchedule";
@@ -169,6 +170,37 @@ export async function ConferencePresentationSection({
          }
       >
          <p className="text-emerald-900 truncate">{presentation.name}</p>
+      </SubCard>
+   );
+}
+
+export async function ConferenceSpeakerSlidesSection({ conferenceId }: { conferenceId: string }) {
+   const conferenceSlidesFiles = await getSpeakerSlidesFilesByConferenceId(conferenceId);
+
+   const currentFile = conferenceSlidesFiles[0];
+
+   return (
+      <SubCard
+         title="Presentaciones"
+         footer={
+            <LinkButton href={`/congress-admin/conferences/${conferenceId}/speaker-slides-files`} variant="blue">
+               Administrar presentaciones <ArrowRightIcon className="w-4 h-4" />
+            </LinkButton>
+         }
+         icon={<FileTextIcon className="w-4 h-4 text-gray-600" />}
+      >
+         {currentFile ? (
+            <p>No hay presentaciones asignadas a esta conferencia</p>
+         ) : (
+            <ul className="space-y-1">
+               {conferenceSlidesFiles.map((file) => (
+                  <li key={file.id} className="flex items-center gap-2 text-gray-700 text-sm">
+                     <span className="bg-blue-400 rounded-full w-1.5 h-1.5" />
+                     <span className="truncate">{file.fileName}</span>
+                  </li>
+               ))}
+            </ul>
+         )}
       </SubCard>
    );
 }
@@ -466,18 +498,24 @@ export default function AdminConferenceCard({
                <Suspense fallback={<GenericSubCardSkeleton title="Ponentes" Icon={UsersIcon} />}>
                   <ConferenceSpeakersSection conferenceId={conference.id} />
                </Suspense>
-               <ConferenceQuestionPollsSection conferenceId={conference.id} />
-               <ConferencePresentationSection presentation={presentation} conferenceId={conference.id} />
+               {/* <ConferenceQuestionPollsSection conferenceId={conference.id} /> */}
+               {conference.conferenceType === "in-person" && (
+                  <Suspense fallback={<GenericSubCardSkeleton title="Presentaciones" Icon={FileTextIcon} />}>
+                     <ConferenceSpeakerSlidesSection conferenceId={conference.id} />
+                  </Suspense>
+               )}
                {requiresRecording && (
                   <Suspense fallback={<GenericSubCardSkeleton title="Grabaciones" Icon={FilmIcon} />}>
                      <ConferenceRecordingsSection conferenceId={conference.id} />
                   </Suspense>
                )}
                {requiresLivestream && <ConferenceLivestreamSection conference={conference} />}
-               <ConferenceQnASection conferenceId={conference.id} />
-               <Suspense fallback={<GenericSubCardSkeleton title="Presentación del ponente" Icon={FilmIcon} />}>
-                  <SpeakerPresentationRecordingSection conferenceId={conference.id} />
-               </Suspense>
+               {conference.conferenceType !== "in-person" && <ConferenceQnASection conferenceId={conference.id} />}
+               {conference.conferenceType !== "in-person" && (
+                  <Suspense fallback={<GenericSubCardSkeleton title="Presentación del ponente" Icon={FilmIcon} />}>
+                     <SpeakerPresentationRecordingSection conferenceId={conference.id} />
+                  </Suspense>
+               )}
             </div>
          ) : (
             <div className="mt-4">
