@@ -1,6 +1,6 @@
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { LinkButton } from "@/components/global/Buttons";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
@@ -46,13 +46,14 @@ export default async function SpeakerSlidesUploadPage({ params }: { params: Prom
    return (
       <div className="bg-gray-50 px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
          <div className="mx-auto max-w-4xl">
-            <Link
+            <LinkButton
                href="/speakers/slides"
+               variant="secondary"
                className="inline-flex items-center gap-2 mb-6 text-gray-600 hover:text-gray-900 transition-colors"
             >
                <ArrowLeft className="w-4 h-4" />
                Volver a la lista de conferencias
-            </Link>
+            </LinkButton>
 
             <SpeakerSlidesUploadForm
                conferenceId={conferenceId}

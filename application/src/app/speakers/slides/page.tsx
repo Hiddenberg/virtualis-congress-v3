@@ -13,7 +13,7 @@ export default async function PresentationUploadPage() {
             <div className="mb-8">
                <h1 className="mb-2 font-bold text-gray-900 md:text-3xl text-4xl">{congress.title}</h1>
                <p className="text-gray-600 text-lg">
-                  Gestión de Presentaciones - Sube o reemplaza las presentaciones para tu conferencias
+                  Gestión de Presentaciones - Sube o reemplaza las presentaciones para tu conferencia
                </p>
             </div>
 
