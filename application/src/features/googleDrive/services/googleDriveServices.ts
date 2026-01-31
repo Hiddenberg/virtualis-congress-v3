@@ -6,6 +6,8 @@ import { Readable } from "node:stream";
 /**
  * Creates a fetch-like adapter using axios for the Google Drive API client
  */
+
+// biome-ignore lint/correctness/noUnusedVariables: probably will be used later
 function createAxiosFetchAdapter(): typeof fetch {
    return async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
       // Convert RequestInfo | URL to string
@@ -124,7 +126,7 @@ export async function uploadFileToDriveWithClient({ file, driveFolderId }: { fil
          },
       },
       {
-         fetchImplementation: createAxiosFetchAdapter(),
+         fetchImplementation: globalThis.fetch,
       },
    );
 
