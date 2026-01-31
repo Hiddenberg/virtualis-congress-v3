@@ -2,13 +2,27 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
+import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { SpeakerSlidesUploadForm } from "@/features/speakerSlidesV2/components/SpeakerSlidesUploadForm";
 import { getSpeakerSlidesFilesByConferenceId } from "@/features/speakerSlidesV2/services/speakerSlidesFilesServices";
+
+function getSpeakerDisplayName(speaker: { displayName: string; academicTitle?: string }) {
+   if (speaker.academicTitle) {
+      return `${speaker.academicTitle} ${speaker.displayName}`;
+   }
+   return speaker.displayName;
+}
 
 export default async function SpeakerSlidesUploadPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
-   const conference = await getConferenceById(conferenceId);
+   const [conference, congress, speakers] = await Promise.all([
+      getConferenceById(conferenceId),
+      getLatestCongress(),
+      getConferenceSpeakers(conferenceId),
+   ]);
+
    if (!conference) {
       return (
          <div className="bg-gray-50 px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
@@ -27,6 +41,8 @@ export default async function SpeakerSlidesUploadPage({ params }: { params: Prom
       redirect(`/speakers/slides/${conferenceId}/replace`);
    }
 
+   const speakerNames = speakers.map((speaker) => getSpeakerDisplayName(speaker));
+
    return (
       <div className="bg-gray-50 px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
          <div className="mx-auto max-w-4xl">
@@ -38,7 +54,12 @@ export default async function SpeakerSlidesUploadPage({ params }: { params: Prom
                Volver a la lista de conferencias
             </Link>
 
-            <SpeakerSlidesUploadForm conferenceId={conferenceId} conferenceTitle={conference.title} />
+            <SpeakerSlidesUploadForm
+               conferenceId={conferenceId}
+               conferenceTitle={conference.title}
+               congressTitle={congress.title}
+               speakerNames={speakerNames}
+            />
          </div>
       </div>
    );
