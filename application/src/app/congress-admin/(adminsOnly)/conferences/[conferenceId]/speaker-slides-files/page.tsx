@@ -1,5 +1,5 @@
 import { format } from "@formkit/tempo";
-import { ExternalLink, FileTextIcon } from "lucide-react";
+import { ExternalLink, FileTextIcon, PlusIcon } from "lucide-react";
 import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
 import { LinkButton } from "@/components/global/Buttons";
 import GoBackButton from "@/components/global/GoBackButton";
@@ -23,20 +23,22 @@ function SpeakerSlidesFileListItem({ file, isLatest }: { file: SpeakerSlidesFile
             isLatest ? "border-blue-300 ring-2 ring-blue-100" : "border-gray-200"
          }`}
       >
-         <div className="flex items-center gap-4 flex-1 min-w-0">
-            <div className={`flex justify-center items-center rounded-lg w-12 h-12 shrink-0 ${isLatest ? "bg-blue-50" : "bg-gray-50"}`}>
+         <div className="flex flex-1 items-center gap-4 min-w-0">
+            <div
+               className={`flex justify-center items-center rounded-lg w-12 h-12 shrink-0 ${isLatest ? "bg-blue-50" : "bg-gray-50"}`}
+            >
                <FileTextIcon className={`w-6 h-6 ${isLatest ? "text-blue-600" : "text-gray-600"}`} />
             </div>
             <div className="flex-1 min-w-0">
                <div className="flex items-center gap-2 mb-1">
                   <h3 className="font-semibold text-gray-900 text-base truncate">{file.fileName}</h3>
                   {isLatest && (
-                     <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-md font-medium text-xs whitespace-nowrap">
+                     <span className="bg-blue-100 px-2 py-0.5 rounded-md font-medium text-blue-700 text-xs whitespace-nowrap">
                         Más reciente
                      </span>
                   )}
                </div>
-               <div className="flex items-center gap-4 flex-wrap">
+               <div className="flex flex-wrap items-center gap-4">
                   <p className="text-gray-500 text-sm">Tamaño: {file.fileSizeInMb} MB</p>
                   <span className="text-gray-400">•</span>
                   <p className="text-gray-500 text-sm">Subido: {formattedDate}</p>
@@ -74,9 +76,9 @@ export default async function SpeakerSlidesFilesPage({ params }: { params: Promi
       <div>
          <GoBackButton backURL="/congress-admin/conferences" backButtonText="Volver a conferencias" className="mb-4" />
          <AdminSubPageHeader
-            title="Archivos de Presentaciones"
+            title={`Presentaciones de la conferencia "${conference.title}"`}
             Icon={FileTextIcon}
-            description={`Archivos de presentaciones para "${conference.title}"`}
+            description={`Archivos subidos para esta conferencia`}
          />
 
          {speakerSlidesFiles.length > 0 ? (
@@ -96,6 +98,11 @@ export default async function SpeakerSlidesFilesPage({ params }: { params: Promi
                      No se han subido archivos de presentaciones para esta conferencia aún.
                   </p>
                </div>
+
+               <LinkButton href={`/speakers/slides/${conferenceId}/upload`} target="_blank" className="mx-auto" variant="blue">
+                  <PlusIcon className="w-4 h-4" />
+                  Subir archivo para esta conferencia
+               </LinkButton>
             </div>
          )}
       </div>
