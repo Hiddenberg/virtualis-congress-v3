@@ -11,11 +11,7 @@ function getSpeakerDisplayName(speaker: { displayName: string; academicTitle?: s
    return speaker.displayName;
 }
 
-export default async function SpeakerSlidesUploadConfirmationPage({
-   params,
-}: {
-   params: Promise<{ conferenceId: string }>;
-}) {
+export default async function SpeakerSlidesUploadConfirmationPage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
    const [conference, congress, speakers] = await Promise.all([
@@ -58,16 +54,15 @@ export default async function SpeakerSlidesUploadConfirmationPage({
 
                <div className="mb-6 text-center">
                   <h1 className="mb-4 font-bold text-gray-900 text-2xl md:text-3xl">¡Presentación subida exitosamente!</h1>
-                  <p className="text-gray-600">
-                     Tu archivo ha sido subido correctamente y está disponible para la conferencia.
-                  </p>
+                  <p className="text-gray-600">Tu archivo ha sido subido correctamente y está disponible para la conferencia.</p>
                </div>
 
                <div className="bg-blue-50 p-5 rounded-lg border border-blue-200 mb-6">
                   <h3 className="mb-4 font-bold text-gray-900 text-lg">{conference.title}</h3>
                   <div className="space-y-2">
                      <div>
-                        <span className="font-semibold text-gray-700">Congreso:</span> <span className="text-gray-900">{congress.title}</span>
+                        <span className="font-semibold text-gray-700">Congreso:</span>{" "}
+                        <span className="text-gray-900">{congress.title}</span>
                      </div>
                      {speakerNames.length > 0 && (
                         <div>

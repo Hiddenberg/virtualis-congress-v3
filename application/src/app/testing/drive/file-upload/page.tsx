@@ -37,9 +37,7 @@ export default function FileUploadPage() {
                }}
             />
          ) : (
-            <div className="text-center py-8 text-gray-500">
-               Please enter a Drive Folder ID to start uploading files.
-            </div>
+            <div className="text-center py-8 text-gray-500">Please enter a Drive Folder ID to start uploading files.</div>
          )}
       </div>
    );

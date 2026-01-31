@@ -39,9 +39,7 @@ export function ConferenceList({ conferencesWithSpeakers, speakerSlidesFiles }: 
       const query = searchQuery.toLowerCase();
       return conferencesWithFileStatus.filter((item) => {
          const conferenceTitleMatch = item.conference.title.toLowerCase().includes(query);
-         const speakerNameMatch = item.speakers.some((speaker) =>
-            getSpeakerDisplayName(speaker).toLowerCase().includes(query),
-         );
+         const speakerNameMatch = item.speakers.some((speaker) => getSpeakerDisplayName(speaker).toLowerCase().includes(query));
          return conferenceTitleMatch || speakerNameMatch;
       });
    }, [conferencesWithFileStatus, searchQuery]);
@@ -53,7 +51,9 @@ export function ConferenceList({ conferencesWithSpeakers, speakerSlidesFiles }: 
          {filteredConferences.length === 0 ? (
             <div className="bg-white shadow-sm p-10 border border-gray-300 border-dashed rounded-xl text-center">
                <p className="text-gray-600">
-                  {searchQuery ? "No se encontraron conferencias que coincidan con la búsqueda" : "No hay conferencias disponibles"}
+                  {searchQuery
+                     ? "No se encontraron conferencias que coincidan con la búsqueda"
+                     : "No hay conferencias disponibles"}
                </p>
             </div>
          ) : (
