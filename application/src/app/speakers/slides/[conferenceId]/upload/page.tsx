@@ -1,5 +1,8 @@
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
+import { SpeakerSlidesUploadForm } from "@/features/speakerSlidesV2/components/SpeakerSlidesUploadForm";
 import { getSpeakerSlidesFilesByConferenceId } from "@/features/speakerSlidesV2/services/speakerSlidesFilesServices";
 
 export default async function SpeakerSlidesUploadPage({ params }: { params: Promise<{ conferenceId: string }> }) {
@@ -8,8 +11,12 @@ export default async function SpeakerSlidesUploadPage({ params }: { params: Prom
    const conference = await getConferenceById(conferenceId);
    if (!conference) {
       return (
-         <div className="p-6">
-            <h1 className="font-bold text-gray-900 text-2xl">Conferencia no encontrada</h1>
+         <div className="bg-gray-50 px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
+            <div className="mx-auto max-w-4xl">
+               <div className="bg-white p-6 border border-gray-200 rounded-xl">
+                  <h1 className="font-bold text-gray-900 text-2xl">Conferencia no encontrada</h1>
+               </div>
+            </div>
          </div>
       );
    }
@@ -20,5 +27,19 @@ export default async function SpeakerSlidesUploadPage({ params }: { params: Prom
       redirect(`/speakers/slides/${conferenceId}/replace`);
    }
 
-   return <div>UploadPresentationPage</div>;
+   return (
+      <div className="bg-gray-50 px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
+         <div className="mx-auto max-w-4xl">
+            <Link
+               href="/speakers/slides"
+               className="inline-flex items-center gap-2 mb-6 text-gray-600 hover:text-gray-900 transition-colors"
+            >
+               <ArrowLeft className="w-4 h-4" />
+               Volver a la lista de conferencias
+            </Link>
+
+            <SpeakerSlidesUploadForm conferenceId={conferenceId} conferenceTitle={conference.title} />
+         </div>
+      </div>
+   );
 }

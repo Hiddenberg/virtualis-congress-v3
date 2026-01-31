@@ -39,11 +39,13 @@ export async function uploadSpeakerSlidesFile({
       driveFolderId,
    });
 
+   const fileSizeInMb = Number((file.size / 1024 / 1024).toFixed(2));
+
    const speakerSlidesFile = await createSpeakerSlidesFileRecord({
       conference: conference.id,
       congress: conference.congress,
       fileName,
-      fileSizeInMb: file.size / 1024 / 1024,
+      fileSizeInMb,
       googleDriveFolderId: driveFolderId,
       googleDriveFileId: driveFileId,
    });
