@@ -1,7 +1,4 @@
-import {
-   ensureConferenceLivestream,
-   getConferenceLivestreamSession,
-} from "@/features/conferences/services/conferenceLivestreamsServices";
+import { ensureConferenceLivestream } from "@/features/conferences/services/conferenceLivestreamsServices";
 import { getConferencePresentation } from "@/features/conferences/services/conferencePresentationsServices";
 import { getConferenceQnASession } from "@/features/conferences/services/conferenceQnASessionsServices";
 import { getActiveQuestionPollForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
@@ -34,16 +31,7 @@ export default async function ConferenceLivestreamTransmissionPage({ params }: {
       );
    }
 
-   await ensureConferenceLivestream(conferenceId);
-
-   const livestreamSession = await getConferenceLivestreamSession(conferenceId);
-   if (!livestreamSession) {
-      return (
-         <div>
-            <h1>Sesión de transmisión no encontrada</h1>
-         </div>
-      );
-   }
+   const livestreamSession = await ensureConferenceLivestream(conferenceId);
 
    const userid = await getLoggedInUserId();
    const user = await getUserById(userid ?? "");
@@ -62,10 +50,11 @@ export default async function ConferenceLivestreamTransmissionPage({ params }: {
       );
    }
 
-   const qnaSession = await getConferenceQnASession(conferenceId);
-   const conferencePresentation = await getConferencePresentation(conferenceId);
-
-   const activeConferenceQuestionPoll = await getActiveQuestionPollForConference(conferenceId);
+   const [qnaSession, conferencePresentation, activeConferenceQuestionPoll] = await Promise.all([
+      getConferenceQnASession(conferenceId),
+      getConferencePresentation(conferenceId),
+      getActiveQuestionPollForConference(conferenceId),
+   ]);
 
    return (
       <LivestreamTransmissionInterface
