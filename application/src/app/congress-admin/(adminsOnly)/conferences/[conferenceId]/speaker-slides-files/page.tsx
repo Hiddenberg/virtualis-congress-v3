@@ -4,6 +4,7 @@ import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
 import { LinkButton } from "@/components/global/Buttons";
 import GoBackButton from "@/components/global/GoBackButton";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
+import DeleteSpeakerSlidesFileButton from "@/features/speakerSlidesV2/components/DeleteSpeakerSlidesFileButton";
 import { getSpeakerSlidesFilesByConferenceId } from "@/features/speakerSlidesV2/services/speakerSlidesFilesServices";
 import type { SpeakerSlidesFileRecord } from "@/features/speakerSlidesV2/types/speakerSlidesTypes";
 
@@ -45,11 +46,12 @@ function SpeakerSlidesFileListItem({ file, isLatest }: { file: SpeakerSlidesFile
                </div>
             </div>
          </div>
-         <div className="shrink-0">
+         <div className="shrink-0 *:w-full flex flex-col gap-2">
             <LinkButton href={googleDriveUrl} target="_blank" variant="blue" className="whitespace-nowrap">
                <ExternalLink className="w-4 h-4" />
                Abrir en Google Drive
             </LinkButton>
+            <DeleteSpeakerSlidesFileButton fileId={file.id} />
          </div>
       </div>
    );
@@ -79,6 +81,12 @@ export default async function SpeakerSlidesFilesPage({ params }: { params: Promi
             title={`Presentaciones de la conferencia "${conference.title}"`}
             Icon={FileTextIcon}
             description={`Archivos subidos para esta conferencia`}
+            sideElement={
+               <LinkButton href={`/speakers/slides/${conferenceId}/upload`} target="_blank" className="mx-auto" variant="blue">
+                  <PlusIcon className="w-4 h-4" />
+                  Subir archivo para esta conferencia
+               </LinkButton>
+            }
          />
 
          {speakerSlidesFiles.length > 0 ? (
@@ -98,11 +106,6 @@ export default async function SpeakerSlidesFilesPage({ params }: { params: Promi
                      No se han subido archivos de presentaciones para esta conferencia aún.
                   </p>
                </div>
-
-               <LinkButton href={`/speakers/slides/${conferenceId}/upload`} target="_blank" className="mx-auto" variant="blue">
-                  <PlusIcon className="w-4 h-4" />
-                  Subir archivo para esta conferencia
-               </LinkButton>
             </div>
          )}
       </div>

@@ -136,3 +136,18 @@ export async function uploadFileToDriveWithClient({ file, driveFolderId }: { fil
 
    return result.data.id;
 }
+
+export async function deleteFileFromDrive(driveFileId: string) {
+   const drive = await getDriveServerClient();
+
+   const result = await drive.files.delete(
+      {
+         fileId: driveFileId,
+      },
+      {
+         fetchImplementation: globalThis.fetch,
+      },
+   );
+
+   return result.data;
+}
