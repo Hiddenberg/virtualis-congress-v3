@@ -1,6 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getConferenceLivestreamRecordByLivestreamSessionId } from "@/features/conferences/services/conferenceLivestreamsServices";
+import { getConferenceById, updateConference } from "@/features/conferences/services/conferenceServices";
+import { updateCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
 import { prepareZoomSessionLiveStream, startZoomSessionLiveStream, stopZoomSessionLiveStream } from "@/libs/zoomVideoSDKAPI";
 import { MUX_RTMP_URL } from "../constants/livestreamConstants";
 import {
@@ -118,6 +121,32 @@ export async function startLivestreamAction({
       await updateLivestreamSession(livestreamSession.id, {
          status: "streaming",
       });
+
+      // Flow for a congress conference livestream
+      const conferenceLivestream = await getConferenceLivestreamRecordByLivestreamSessionId(livestreamSession.id);
+      if (conferenceLivestream) {
+         const conference = await getConferenceById(conferenceLivestream.conference);
+
+         if (!conference) {
+            return {
+               success: false,
+               errorMessage: "[startLivestreamAction] No se encontró la conferencia para el webinar seleccionado",
+            };
+         }
+
+         // Update the conference status
+         await updateConference(conference.id, {
+            status: "active",
+         });
+
+         // if the conference is in person, update the congress in person state
+         if (conference.conferenceType === "in-person") {
+            await updateCongressInPersonState({
+               activeConference: conference.id,
+               status: "active",
+            });
+         }
+      }
 
       return {
          success: true,
@@ -244,6 +273,31 @@ export async function stopLivestreamAction({
          attendantStatus: "ended",
       });
       await completeMuxLivestream(livestreamSession.id);
+
+      // Flow for a congress conference livestream
+      const conferenceLivestreamRecord = await getConferenceLivestreamRecordByLivestreamSessionId(livestreamSession.id);
+      if (conferenceLivestreamRecord) {
+         const conference = await getConferenceById(conferenceLivestreamRecord.conference);
+         if (!conference) {
+            return {
+               success: false,
+               errorMessage: "[stopLivestreamAction] No se encontró la conferencia para el webinar seleccionado",
+            };
+         }
+
+         // Update the conference status
+         await updateConference(conference.id, {
+            status: "finished",
+         });
+
+         // if the conference is in person, update the congress in person state
+         if (conference.conferenceType === "in-person") {
+            await updateCongressInPersonState({
+               activeConference: null,
+               status: "standby",
+            });
+         }
+      }
 
       return {
          success: true,

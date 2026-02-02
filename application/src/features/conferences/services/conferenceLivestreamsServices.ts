@@ -29,6 +29,24 @@ export async function getConferenceLivestreamSession(conferenceId: CongressConfe
    return link?.expand.livestreamSession ?? null;
 }
 
+export async function getConferenceLivestreamRecordByLivestreamSessionId(livestreamSessionId: LivestreamSessionRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const filter = pbFilter(
+      `organization = {:organizationId} && congress = {:congressId} && livestreamSession = {:livestreamSessionId}`,
+      {
+         organizationId: organization.id,
+         congressId: congress.id,
+         livestreamSessionId,
+      },
+   );
+
+   const link = await getSingleDBRecord<ConferenceLivestreamRecord>("CONFERENCE_LIVESTREAMS", filter);
+
+   return link;
+}
+
 export async function ensureConferenceLivestream(conferenceId: CongressConferenceRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
