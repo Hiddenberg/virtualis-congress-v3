@@ -3,6 +3,7 @@ import { getLatestCongress } from "@/features/congresses/services/congressServic
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import "server-only";
+import type { CongressInPersonState } from "../types/congressInPersonState";
 
 export async function ensuredCongressInPersonState() {
    const organization = await getOrganizationFromSubdomain();
@@ -34,6 +35,12 @@ export async function ensuredCongressInPersonState() {
 
    return createdState;
 }
+
+// export async function setCongressInPersonStateSelectedConference(conferenceId: CongressConferenceRecord["id"]) {
+//    await updateCongressInPersonState({
+//       selectedConference: conferenceId,
+//    });
+// }
 
 export async function markConferenceAsStarted(conferenceId: CongressConferenceRecord["id"]) {
    await updateConference(conferenceId, {

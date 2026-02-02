@@ -1,19 +1,21 @@
-import Link from "next/link";
-import AdminConferenceCard from "@/features/conferences/components/AdminConferenceCard";
-import { getAllQuestionPollsForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
+// import { getAllQuestionPollsForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
-import FinishConferenceButton from "@/features/congressDirector/components/FinishConferenceButton";
-import QuestionPollControls from "@/features/congressDirector/components/QuestionPollControls";
+// import QuestionPollControls from "@/features/congressDirector/components/QuestionPollControls";
 import StandbyButton from "@/features/congressDirector/components/StandbyButton";
-import StartConferenceButton from "@/features/congressDirector/components/StartConferenceButton";
 import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
 
 export default async function CongressDirectorConferencePage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
-   const conference = await getConferenceById(conferenceId);
-   const inPersonState = await ensuredCongressInPersonState();
-   const polls = await getAllQuestionPollsForConference(conferenceId);
+   const [
+      conference,
+      inPersonState,
+      // polls
+   ] = await Promise.all([
+      getConferenceById(conferenceId),
+      ensuredCongressInPersonState(),
+      // getAllQuestionPollsForConference(conferenceId),
+   ]);
 
    if (!conference) {
       return (
@@ -23,25 +25,25 @@ export default async function CongressDirectorConferencePage({ params }: { param
       );
    }
 
-   const editConferenceLink = `/congress-admin/conferences/${conferenceId}/edit`;
-   const conferenceLivestreamLink = `/congress-admin/conferences/${conferenceId}/livestream`;
-   const conferenceQnaLink = `/congress-admin/conferences/${conferenceId}/qna`;
-   const conferencePresentationLink = `/congress-admin/conferences/${conferenceId}/presentation`;
-   const conferenceQuestionPollLink = `/congress-admin/conferences/${conferenceId}/question-polls`;
-   const conferenceRecordingLink = `/congress-admin/conferences/${conferenceId}/recordings`;
+   // const editConferenceLink = `/congress-admin/conferences/${conferenceId}/edit`;
+   // const conferenceLivestreamLink = `/congress-admin/conferences/${conferenceId}/livestream`;
+   // const conferenceQnaLink = `/congress-admin/conferences/${conferenceId}/qna`;
+   // const conferencePresentationLink = `/congress-admin/conferences/${conferenceId}/presentation`;
+   // const conferenceQuestionPollLink = `/congress-admin/conferences/${conferenceId}/question-polls`;
+   // const conferenceRecordingLink = `/congress-admin/conferences/${conferenceId}/recordings`;
 
    return (
       <div className="space-y-4">
          <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200">
             <div className="flex flex-col gap-2">
                <div className="flex flex-wrap items-center gap-2">
-                  {conference.status !== "active" && conference.status !== "canceled" && (
+                  {/* {conference.status !== "active" && conference.status !== "canceled" && (
                      <StartConferenceButton conferenceId={conference.id} />
-                  )}
-                  {conference.status === "active" && <FinishConferenceButton conferenceId={conference.id} />}
+                  )} */}
+                  {/* {conference.status === "active" && <FinishConferenceButton conferenceId={conference.id} />} */}
                   <StandbyButton isInitiallyStandby={inPersonState.status === "standby"} />
                </div>
-               <div className="flex flex-wrap items-center gap-2">
+               {/* <div className="flex flex-wrap items-center gap-2">
                   <Link
                      target="_blank"
                      href={editConferenceLink}
@@ -88,15 +90,15 @@ export default async function CongressDirectorConferencePage({ params }: { param
                         Grabaciones
                      </Link>
                   )}
-               </div>
+               </div> */}
             </div>
          </section>
 
-         <section>
+         {/* <section>
             <AdminConferenceCard conference={conference} />
-         </section>
+         </section> */}
 
-         {polls.length > 0 && (
+         {/* {polls.length > 0 && (
             <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200">
                <h2 className="font-semibold text-gray-900 text-base">Encuestas</h2>
                <div className="space-y-3 mt-3">
@@ -114,7 +116,7 @@ export default async function CongressDirectorConferencePage({ params }: { param
                   ))}
                </div>
             </section>
-         )}
+         )} */}
       </div>
    );
 }
