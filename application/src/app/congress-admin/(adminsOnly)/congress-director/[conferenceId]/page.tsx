@@ -1,21 +1,14 @@
 // import { getAllQuestionPollsForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
-import { getConferenceById } from "@/features/conferences/services/conferenceServices";
+
 // import QuestionPollControls from "@/features/congressDirector/components/QuestionPollControls";
-import StandbyButton from "@/features/congressDirector/components/StandbyButton";
-import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
+import { ConferenceBadges, ConferenceCardHeader } from "@/features/conferences/components/AdminConferenceCard";
+import ConferenceSchedule from "@/features/conferences/components/adminConferenceCard/ConferenceSchedule";
+import { getConferenceById } from "@/features/conferences/services/conferenceServices";
 
 export default async function CongressDirectorConferencePage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
 
-   const [
-      conference,
-      inPersonState,
-      // polls
-   ] = await Promise.all([
-      getConferenceById(conferenceId),
-      ensuredCongressInPersonState(),
-      // getAllQuestionPollsForConference(conferenceId),
-   ]);
+   const conference = await getConferenceById(conferenceId);
 
    if (!conference) {
       return (
@@ -35,63 +28,9 @@ export default async function CongressDirectorConferencePage({ params }: { param
    return (
       <div className="space-y-4">
          <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200">
-            <div className="flex flex-col gap-2">
-               <div className="flex flex-wrap items-center gap-2">
-                  {/* {conference.status !== "active" && conference.status !== "canceled" && (
-                     <StartConferenceButton conferenceId={conference.id} />
-                  )} */}
-                  {/* {conference.status === "active" && <FinishConferenceButton conferenceId={conference.id} />} */}
-                  <StandbyButton isInitiallyStandby={inPersonState.status === "standby"} />
-               </div>
-               {/* <div className="flex flex-wrap items-center gap-2">
-                  <Link
-                     target="_blank"
-                     href={editConferenceLink}
-                     className="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-md font-medium text-gray-900 text-sm transition-colors"
-                  >
-                     Editar
-                  </Link>
-                  {conference.conferenceType !== "pre-recorded" && conference.conferenceType !== "simulated_livestream" && (
-                     <Link
-                        target="_blank"
-                        href={conferenceLivestreamLink}
-                        className="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-md font-medium text-gray-900 text-sm transition-colors"
-                     >
-                        Transmisión
-                     </Link>
-                  )}
-                  <Link
-                     target="_blank"
-                     href={conferenceQnaLink}
-                     className="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-md font-medium text-gray-900 text-sm transition-colors"
-                  >
-                     QnA
-                  </Link>
-                  <Link
-                     target="_blank"
-                     href={conferencePresentationLink}
-                     className="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-md font-medium text-gray-900 text-sm transition-colors"
-                  >
-                     Presentación
-                  </Link>
-                  <Link
-                     target="_blank"
-                     href={conferenceQuestionPollLink}
-                     className="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-md font-medium text-gray-900 text-sm transition-colors"
-                  >
-                     Encuestas
-                  </Link>
-                  {(conference.conferenceType === "pre-recorded" || conference.conferenceType === "simulated_livestream") && (
-                     <Link
-                        target="_blank"
-                        href={conferenceRecordingLink}
-                        className="bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-md font-medium text-gray-900 text-sm transition-colors"
-                     >
-                        Grabaciones
-                     </Link>
-                  )}
-               </div> */}
-            </div>
+            <ConferenceCardHeader conference={conference} />
+            <ConferenceSchedule startTime={conference.startTime} endTime={conference.endTime} />
+            <ConferenceBadges conference={conference} />
          </section>
 
          {/* <section>
