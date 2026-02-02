@@ -54,9 +54,19 @@ export default function PaidUsersList({ registrationsDetails, payments }: PaidUs
       });
 
    const sorted = [...paidUsers].sort((a, b) => {
-      const aName = a.user.name?.toLowerCase() ?? "";
-      const bName = b.user.name?.toLowerCase() ?? "";
-      return aName.localeCompare(bName);
+      const paymentA = paymentsByUserId.get(a.user.id);
+      const paymentB = paymentsByUserId.get(b.user.id);
+
+      const dateA = paymentA ? (paymentA.fulfilledAt ?? paymentA.created) : "";
+      const dateB = paymentB ? (paymentB.fulfilledAt ?? paymentB.created) : "";
+
+      // Sort by payment date descending (most recent first)
+      // If no payment date, put at the end
+      if (!dateA && !dateB) return 0;
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+
+      return new Date(dateB).getTime() - new Date(dateA).getTime();
    });
 
    return (
