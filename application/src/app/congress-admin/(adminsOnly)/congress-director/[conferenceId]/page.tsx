@@ -1,7 +1,9 @@
 // import { getAllQuestionPollsForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
 
+import { ArrowRightIcon } from "lucide-react";
 // import QuestionPollControls from "@/features/congressDirector/components/QuestionPollControls";
 // import { LinkButton } from "@/components/global/Buttons";
+import { LinkButton } from "@/components/global/Buttons";
 import { ConferenceBadges, ConferenceCardHeader } from "@/features/conferences/components/AdminConferenceCard";
 import ConferenceSchedule from "@/features/conferences/components/adminConferenceCard/ConferenceSchedule";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
@@ -29,17 +31,22 @@ export default async function CongressDirectorConferencePage({ params }: { param
 
    return (
       <div className="space-y-4">
-         <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200">
+         <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200 flex justify-between items-start">
             <div>
                <ConferenceCardHeader conference={conference} />
                <ConferenceSchedule startTime={conference.startTime} endTime={conference.endTime} />
                <ConferenceBadges conference={conference} />
             </div>
-            {/* <div>
-               <LinkButton href={`/congress-admin/conferences/${conferenceId}/edit`} variant="primary" className="text-sm">
-                  Editar conferencia
+            <div>
+               <LinkButton
+                  target="_blank"
+                  href={`/live-transmission/${conferenceId}/conference?ishost=true`}
+                  variant="blue"
+                  className="text-sm"
+               >
+                  Ir a la transmisión en vivo <ArrowRightIcon className="w-4 h-4" />
                </LinkButton>
-            </div> */}
+            </div>
          </section>
 
          <ConferencePresentationSlidesSection conferenceId={conferenceId} />
