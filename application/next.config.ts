@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
       },
       proxyClientMaxBodySize: "100mb",
    },
+   serverExternalPackages: ["prettier", "prettier/plugins/html"],
 };
 
 export default nextConfig;

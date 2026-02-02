@@ -1,9 +1,11 @@
 // import { getAllQuestionPollsForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
 
 // import QuestionPollControls from "@/features/congressDirector/components/QuestionPollControls";
+// import { LinkButton } from "@/components/global/Buttons";
 import { ConferenceBadges, ConferenceCardHeader } from "@/features/conferences/components/AdminConferenceCard";
 import ConferenceSchedule from "@/features/conferences/components/adminConferenceCard/ConferenceSchedule";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
+import ConferencePresentationSlidesSection from "@/features/congressDirector/components/ConferencePresentationSlidesSection";
 
 export default async function CongressDirectorConferencePage({ params }: { params: Promise<{ conferenceId: string }> }) {
    const { conferenceId } = await params;
@@ -28,10 +30,19 @@ export default async function CongressDirectorConferencePage({ params }: { param
    return (
       <div className="space-y-4">
          <section className="bg-white p-5 rounded-xl ring-1 ring-gray-200">
-            <ConferenceCardHeader conference={conference} />
-            <ConferenceSchedule startTime={conference.startTime} endTime={conference.endTime} />
-            <ConferenceBadges conference={conference} />
+            <div>
+               <ConferenceCardHeader conference={conference} />
+               <ConferenceSchedule startTime={conference.startTime} endTime={conference.endTime} />
+               <ConferenceBadges conference={conference} />
+            </div>
+            {/* <div>
+               <LinkButton href={`/congress-admin/conferences/${conferenceId}/edit`} variant="primary" className="text-sm">
+                  Editar conferencia
+               </LinkButton>
+            </div> */}
          </section>
+
+         <ConferencePresentationSlidesSection conferenceId={conferenceId} />
 
          {/* <section>
             <AdminConferenceCard conference={conference} />
