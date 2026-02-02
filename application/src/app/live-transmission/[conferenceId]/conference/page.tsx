@@ -1,4 +1,7 @@
-import { getConferenceLivestreamSession } from "@/features/conferences/services/conferenceLivestreamsServices";
+import {
+   ensureConferenceLivestream,
+   getConferenceLivestreamSession,
+} from "@/features/conferences/services/conferenceLivestreamsServices";
 import { getConferencePresentation } from "@/features/conferences/services/conferencePresentationsServices";
 import { getConferenceQnASession } from "@/features/conferences/services/conferenceQnASessionsServices";
 import { getActiveQuestionPollForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
@@ -30,6 +33,8 @@ export default async function ConferenceLivestreamTransmissionPage({ params }: {
          </div>
       );
    }
+
+   await ensureConferenceLivestream(conferenceId);
 
    const livestreamSession = await getConferenceLivestreamSession(conferenceId);
    if (!livestreamSession) {
