@@ -145,14 +145,21 @@ export async function registerManualPaymentAction(form: ManualPaymentFormData): 
                hasAccessToRecordings: true,
             } satisfies Partial<CongressRegistration>);
 
-            // Update user payment record
+            // Create new user payment record if the user is only paying for recordings access
             const recordingsPriceInCents = recordingsPrice.priceAmount * 100;
-            const userPaymentAmountInCents = userPayment.totalAmount ?? 0;
-            const newTotalAmountInCents = userPaymentAmountInCents + recordingsPriceInCents;
-
-            recordingsOnlyBatch.collection(PB_COLLECTIONS.USER_PAYMENTS).update(userPayment.id, {
-               totalAmount: newTotalAmountInCents,
-            } satisfies Partial<UserPayment>);
+            const recordingsPaymentId = generateRandomId();
+            recordingsOnlyBatch.collection(PB_COLLECTIONS.USER_PAYMENTS).create({
+               id: recordingsPaymentId,
+               organization: organization.id,
+               user: form.userId,
+               totalAmount: recordingsPriceInCents,
+               checkoutSessionStatus: "complete",
+               fulfilledSuccessfully: true,
+               stripeCheckoutSessionId: "manual-payment",
+               currency: "mxn",
+               paymentMethod: "cash",
+               fulfilledAt: new Date().toISOString(),
+            } satisfies UserPayment & { id: string });
 
             await recordingsOnlyBatch.send();
 
@@ -164,9 +171,11 @@ export async function registerManualPaymentAction(form: ManualPaymentFormData): 
                successMessage: "Se ha brindado acceso a las grabaciones al usuario exitosamente",
             };
          }
+
          return {
             success: false,
-            errorMessage: "El usuario ya ha pagado para el congreso, por favor actualice la página para ver los cambios",
+            errorMessage:
+               "El usuario ya ha pagado para el congreso y ya tiene acceso a las grabaciones, por favor actualice la página para ver los cambios",
          };
       }
 
