@@ -65,9 +65,9 @@ function LiveTransmissionHeader({ isQna, conference }: { isQna: boolean; confere
                Ver conferencia
             </LinkButton>
 
-            <LinkButton target="_blank" href={`/live-transmission/${conference.id}/speaker-view/QnA`} variant="white">
-               Ver sesión de preguntas
-            </LinkButton>
+               {/* <LinkButton target="_blank" href={`/live-transmission/${conference.id}/speaker-view/QnA`} variant="white">
+                  Ver sesión de preguntas
+               </LinkButton> */}
          </div>
       </div>
    );
