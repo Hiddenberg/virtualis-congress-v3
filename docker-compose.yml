@@ -4,6 +4,9 @@ services:
       context: ./database
       platforms:
         - linux/arm64
+      tags:
+        - hiddenberg/virtualis-congress-v3-db:latest
+    image: hiddenberg/virtualis-congress-v3-db:latest
     volumes:
       - ./database/:/db/
     networks:
@@ -15,6 +18,9 @@ services:
       context: ./application
       platforms:
         - linux/arm64
+      tags:
+        - hiddenberg/virtualis-congress-v3:latest
+    image: hiddenberg/virtualis-congress-v3:latest
     networks:
       - proxynetwork
     restart: always
