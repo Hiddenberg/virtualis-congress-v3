@@ -7,12 +7,14 @@ import { getLatestCongress } from "@/features/congresses/services/congressServic
 import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
 
 export default async function CongressDirectorLayout({ children }: { children: React.ReactNode }) {
-   const congress = await getLatestCongress();
+   const [congress, activeNext, inPersonState] = await Promise.all([
+      getLatestCongress(),
+      getActiveAndNextConferences(),
+      ensuredCongressInPersonState(),
+   ]);
    const allCongressConferences = await getAllCongressConferences(congress.id);
-   const activeNext = await getActiveAndNextConferences();
    const activeConference = activeNext.activeConference;
    const nextConference = activeNext.nextConference;
-   const inPersonState = await ensuredCongressInPersonState();
 
    return (
       <div className="gap-4 grid grid-cols-1 lg:grid-cols-[320px_1fr]">

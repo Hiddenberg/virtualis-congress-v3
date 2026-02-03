@@ -88,7 +88,9 @@ export default async function ProjectionScreenPage() {
                   </div>
 
                   {/* conference title */}
-                  {/* <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">{conference?.title}</div> */}
+                  <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">
+                     {activeConference.title}
+                  </div>
 
                   {/* bottom widgets */}
                   {/* <div className="gap-4 grid grid-cols-2">
