@@ -1,6 +1,9 @@
 services:
   virtualis-congress-v3-db:
-    build: ./database
+    build:
+      context: ./database
+      platforms:
+        - linux/arm64
     volumes:
       - ./database/:/db/
     networks:
@@ -8,7 +11,10 @@ services:
     restart: always
 
   virtualis-congress-v3:
-    build: ./application
+    build:
+      context: ./application
+      platforms:
+        - linux/arm64
     networks:
       - proxynetwork
     restart: always
