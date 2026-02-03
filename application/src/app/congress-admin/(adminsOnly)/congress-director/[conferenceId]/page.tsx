@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "lucide-react";
 // import QuestionPollControls from "@/features/congressDirector/components/QuestionPollControls";
 // import { LinkButton } from "@/components/global/Buttons";
 import { LinkButton } from "@/components/global/Buttons";
-import { ConferenceBadges, ConferenceCardHeader } from "@/features/conferences/components/AdminConferenceCard";
+import { ConferenceCardHeader } from "@/features/conferences/components/AdminConferenceCard";
 import ConferenceSchedule from "@/features/conferences/components/adminConferenceCard/ConferenceSchedule";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
 import ConferencePresentationSlidesSection from "@/features/congressDirector/components/ConferencePresentationSlidesSection";
@@ -35,7 +35,7 @@ export default async function CongressDirectorConferencePage({ params }: { param
             <div>
                <ConferenceCardHeader conference={conference} />
                <ConferenceSchedule startTime={conference.startTime} endTime={conference.endTime} />
-               <ConferenceBadges conference={conference} />
+               {/* <ConferenceBadges conference={conference} /> */}
             </div>
             <div>
                <LinkButton

@@ -69,11 +69,11 @@ export default async function CongressDirectorLayout({ children }: { children: R
                   <h1 className="font-semibold text-gray-900 text-xl">Director del congreso</h1>
                   <p className="text-gray-600 text-sm">Gestiona el estado de las conferencias</p>
                </div>
-               {activeConference && (
+               {/* {activeConference && (
                   <span className="bg-green-50 px-2.5 py-1 rounded-md ring-1 ring-green-200 font-medium text-green-800 text-xs">
                      En curso
                   </span>
-               )}
+               )} */}
             </div>
             {children}
          </main>
