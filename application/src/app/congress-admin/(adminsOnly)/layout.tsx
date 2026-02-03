@@ -9,7 +9,7 @@ export default async function CongressAdminLayout({ children }: { children: Reac
    }
 
    return (
-      <div className="mx-auto px-4 py-4 border border-x max-w-7xl min-h-screen">
+      <div className="mx-auto px-4 py-4 border border-x max-w-7xl min-h-dvh">
          <GoBackButton backButtonText="Volver al panel de administración" backURL="/congress-admin" className="mb-4" />
          {children}
       </div>

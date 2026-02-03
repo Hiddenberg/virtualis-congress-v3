@@ -1,4 +1,6 @@
+import { VideoIcon } from "lucide-react";
 import Link from "next/link";
+import { LinkButton } from "@/components/global/Buttons";
 import { getAllCongressConferences } from "@/features/conferences/services/conferenceServices";
 import DirectorSidebarList from "@/features/congressDirector/components/DirectorSidebarList";
 import StandbyButton from "@/features/congressDirector/components/StandbyButton";
@@ -69,6 +71,10 @@ export default async function CongressDirectorLayout({ children }: { children: R
                   <h1 className="font-semibold text-gray-900 text-xl">Director del congreso</h1>
                   <p className="text-gray-600 text-sm">Gestiona el estado de las conferencias</p>
                </div>
+               <LinkButton href="/congress-admin/camera-call" variant="blue" className="text-sm">
+                  <VideoIcon className="w-4 h-4" />
+                  Ir a la llamada de cámara
+               </LinkButton>
                {/* {activeConference && (
                   <span className="bg-green-50 px-2.5 py-1 rounded-md ring-1 ring-green-200 font-medium text-green-800 text-xs">
                      En curso
