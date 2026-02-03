@@ -2,11 +2,11 @@
 
 import { format } from "@formkit/tempo";
 import { Calendar, Clock, QrCode, Users } from "lucide-react";
-import Image from "next/image";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import FixedScaleStage from "./FixedScaleStage";
+import LobbyQrCodeWidget from "./LobbyQrCodeWidget";
 
 export default async function StandbyScreen({
    nextConference,
@@ -19,9 +19,6 @@ export default async function StandbyScreen({
 }) {
    const conferenceSpeakers = await getConferenceSpeakers(nextConference?.id ?? "");
    const conferenceSpeaker = conferenceSpeakers[0] ?? null;
-   const platformQrURL = "https://res.cloudinary.com/dnx2lg7vb/image/upload/v1757052238/qr-code_1_mpdft8.webp";
-
-   const congressVideoUrl = "/CMIMCC/videos/video-presentacion.webm";
 
    return (
       <div className="top-0 left-0 fixed bg-[url(https://res.cloudinary.com/dnx2lg7vb/image/upload/v1756937736/Cmim_background_t4ej4c.webp)] bg-cover bg-center p-4 w-dvw min-h-dvh">
@@ -33,14 +30,8 @@ export default async function StandbyScreen({
                   maxWidth: 1400,
                }}
             >
-               <div className="flex items-center gap-3 md:gap-4 col-span-12 md:col-span-3">
-                  <Image
-                     width={414}
-                     height={156}
-                     src={organization.logoURL ?? ""}
-                     alt={`${organization.name} logo`}
-                     className="w-36 md:w-48 h-auto"
-                  />
+               <div className="flex items-center gap-3 md:gap-4 col-span-12 md:col-span-3 *:h-28 *:w-auto *:object-contain *:rounded-lg *:bg-white">
+                  <img src={organization.logoURL ?? ""} alt={`${organization.name} logo`} />
                </div>
                <div className="col-span-12 md:col-span-6">
                   <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">
@@ -83,7 +74,7 @@ export default async function StandbyScreen({
                            <div className="p-8">
                               {/* Vertical congress video */}
                               <div className="relative flex justify-center mb-6">
-                                 <div className="relative bg-black shadow-lg border border-slate-200 rounded-2xl w-[320px] aspect-9/16 overflow-hidden">
+                                 {/* <div className="relative bg-black shadow-lg border border-slate-200 rounded-2xl w-[320px] aspect-9/16 overflow-hidden">
                                     <video
                                        src={congressVideoUrl}
                                        className="absolute inset-0 w-full h-full object-cover"
@@ -92,7 +83,7 @@ export default async function StandbyScreen({
                                        loop
                                        playsInline
                                     />
-                                 </div>
+                                 </div> */}
                               </div>
                               <div className="space-y-6">
                                  {/* Date and time with icon */}
@@ -154,7 +145,7 @@ export default async function StandbyScreen({
                         </div>
 
                         <div className="flex justify-center">
-                           <img src={platformQrURL} alt="Plataforma QR" className="rounded-lg size-72 object-contain" />
+                           <LobbyQrCodeWidget />
                         </div>
 
                         <div className="bg-blue-50 px-4 py-3 rounded-xl">

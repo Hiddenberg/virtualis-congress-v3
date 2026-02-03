@@ -132,7 +132,7 @@ const hybridCongressSections: AdminLink[] = [
    {
       title: "Pantalla de Proyección",
       description: "Vista optimizada para proyectar la transmisión en pantalla",
-      href: "/projection-screen",
+      href: "/projection-screen-v2",
       icon: BarChart3,
       color: "bg-rose-500",
       lightColor: "bg-rose-50",
