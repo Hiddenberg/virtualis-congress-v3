@@ -25,7 +25,6 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 
 export default async function LobbyPage() {
-   console.time("LobbyPage");
    const [userId, organization, congress, programConferencesWithSpeakersAndDurations] = await Promise.all([
       getLoggedInUserId(),
       getOrganizationFromSubdomain(),
@@ -37,7 +36,7 @@ export default async function LobbyPage() {
       redirect("/registration-confirmed");
    }
    const hasAccessToRecordings = await checkIfUserHasAccessToRecordings(userId ?? "", congress.id);
-   console.timeEnd("LobbyPage");
+
    if (isBefore(new Date(), congress.startDate)) {
       return (
          <div className="flex flex-col justify-center items-center p-4 md:p-8 min-h-[calc(100vh-200px)]">
