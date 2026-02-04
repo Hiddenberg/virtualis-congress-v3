@@ -7,7 +7,7 @@ import DirectorSidebarList from "@/features/congressDirector/components/Director
 import StandbyButton from "@/features/congressDirector/components/StandbyButton";
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
+import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonStateServices";
 
 export default async function CongressDirectorLayout({ children }: { children: React.ReactNode }) {
    const [congress, activeNext, inPersonState] = await Promise.all([

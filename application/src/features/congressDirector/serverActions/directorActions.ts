@@ -7,7 +7,7 @@ import {
    standbyCongress,
    startConferenceOrSwitch,
 } from "@/features/congressDirector/services/congressDirectorServices";
-import { setCongressInPersonStatus } from "@/features/congressInPersonState/services/congressInPersonState";
+import { setCongressInPersonStatus } from "@/features/congressInPersonState/services/congressInPersonStateServices";
 import { setQuestionPollStatus } from "@/features/questionPolls/services/questionPollServices";
 
 export async function startConferenceAction(conferenceId: string) {

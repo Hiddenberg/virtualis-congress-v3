@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getConferenceLivestreamRecordByLivestreamSessionId } from "@/features/conferences/services/conferenceLivestreamsServices";
 import { getConferenceById, updateConference } from "@/features/conferences/services/conferenceServices";
-import { updateCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
+import { updateCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonStateServices";
 import { prepareZoomSessionLiveStream, startZoomSessionLiveStream, stopZoomSessionLiveStream } from "@/libs/zoomVideoSDKAPI";
 import { MUX_RTMP_URL } from "../constants/livestreamConstants";
 import {

@@ -9,7 +9,7 @@ import { getConferenceById } from "@/features/conferences/services/conferenceSer
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
+import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonStateServices";
 import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import { ZoomSessionProvider } from "@/features/livestreams/contexts/ZoomSessionContext";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";

@@ -10,7 +10,7 @@ import {
    markConferenceAsFinished,
    markConferenceAsStarted,
    setCongressInPersonStateToStandby,
-} from "@/features/congressInPersonState/services/congressInPersonState";
+} from "@/features/congressInPersonState/services/congressInPersonStateServices";
 
 export interface ActiveAndNextConferenceResult {
    activeConference: CongressConferenceRecord | null;

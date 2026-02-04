@@ -2,7 +2,7 @@ import ConferenceCountdown from "@/features/conferences/components/ConferenceCou
 import { getConferenceLivestreamSession } from "@/features/conferences/services/conferenceLivestreamsServices";
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
+import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonStateServices";
 import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import { ZoomSessionProvider } from "@/features/livestreams/contexts/ZoomSessionContext";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";

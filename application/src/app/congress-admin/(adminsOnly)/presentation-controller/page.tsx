@@ -1,6 +1,6 @@
 import { AlertCircle, PresentationIcon } from "lucide-react";
 import { getConferencePresentation } from "@/features/conferences/services/conferencePresentationsServices";
-import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
+import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonStateServices";
 import RealtimePresentationController from "@/features/pptPresentations/components/realtime/RealtimePresentationController";
 
 export default async function PresentationControllerPage() {
