@@ -7,6 +7,7 @@ import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import FixedScaleStage from "./FixedScaleStage";
 import LobbyQrCodeWidget from "./LobbyQrCodeWidget";
+import RealtimeProjectionRefresher from "./RealtimeProjectionRefresher";
 
 export default async function StandbyScreen({
    nextConference,
@@ -22,6 +23,7 @@ export default async function StandbyScreen({
 
    return (
       <div className="top-0 left-0 fixed bg-[url(https://res.cloudinary.com/dnx2lg7vb/image/upload/v1756937736/Cmim_background_t4ej4c.webp)] bg-cover bg-center p-4 w-dvw min-h-dvh">
+         <RealtimeProjectionRefresher congressId={congress.id} />
          <FixedScaleStage baseWidth={1400} baseHeight={880} className="mx-auto">
             {/* header */}
             <div
