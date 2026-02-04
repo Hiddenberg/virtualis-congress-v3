@@ -14,6 +14,7 @@ import RecordingInvitationTemplate from "@/features/emails/templates/RecordingIn
 import RecordingReminder from "@/features/emails/templates/RecordingReminder";
 import RecordingsReadyTemplate from "@/features/emails/templates/RecordingsReadyTemplate";
 import SpeakerCertificateTemplate from "@/features/emails/templates/SpeakerCertificateTemplate";
+import SpeakerPresentationUploadReminderTemplate from "@/features/emails/templates/SpeakerPresentationUploadReminderTemplate";
 
 const emailTemplatesMap: Record<string, React.ReactNode> = {
    "account-created": AccountCreatedTemplate({
@@ -108,6 +109,14 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
       conferenceTitle: "Conference Title",
       accessLink: "https://cmimcostachiapas.virtualis.app/lobby",
       organizationName: "CMIM",
+   }),
+   "speaker-presentation-upload-reminder": SpeakerPresentationUploadReminderTemplate({
+      speakerName: "John Doe",
+      conferenceTitle: "Conference Title",
+      uploadLink: "https://cmimcostachiapas.virtualis.app/lobby",
+      organizationName: "CMIM",
+      deadlineDate: "2025-09-18",
+      conferenceDate: "2025-09-19",
    }),
 } as const;
 
