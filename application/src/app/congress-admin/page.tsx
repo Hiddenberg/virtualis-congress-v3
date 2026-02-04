@@ -117,15 +117,6 @@ const adminSections: AdminLink[] = [
    //    textColor: "text-pink-600",
    //    disabled: true,
    // },
-   // {
-   //    title: "Mensajes de Inauguración",
-   //    description: "Configurar mensajes de apertura y bienvenida",
-   //    href: "/congress-admin/inauguration-messages",
-   //    icon: MessageSquare,
-   //    color: "bg-cyan-500",
-   //    lightColor: "bg-cyan-50",
-   //    textColor: "text-cyan-600"
-   // },
 ];
 
 const hybridCongressSections: AdminLink[] = [
