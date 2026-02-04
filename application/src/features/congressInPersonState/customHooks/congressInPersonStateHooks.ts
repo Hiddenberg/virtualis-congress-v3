@@ -51,7 +51,6 @@ export function useRealtimeCongressInPersonState({ congressId }: { congressId: C
                .subscribe<CongressInPersonStateRecord>(inPersonState.id, (event) => {
                   if (event.action === "update") {
                      setCongressInPersonState(event.record);
-                     toast.success("Estado de la conferencia actualizado");
                   }
                });
 

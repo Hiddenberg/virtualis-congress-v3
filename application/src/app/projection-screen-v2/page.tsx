@@ -7,6 +7,7 @@ import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZ
 import { ZoomSessionProvider } from "@/features/livestreams/contexts/ZoomSessionContext";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import FixedScaleStage from "@/features/projectionScreen/components/FixedScaleStage";
+import RealtimeProjectionRefresher from "@/features/projectionScreen/components/RealtimeProjectionRefresher";
 import StandbyScreen from "@/features/projectionScreen/components/StandbyScreen";
 
 export default async function ProjectionScreenPage() {
@@ -41,6 +42,7 @@ export default async function ProjectionScreenPage() {
 
    return (
       <div className="top-0 left-0 fixed bg-[url(https://res.cloudinary.com/dnx2lg7vb/image/upload/v1756937736/Cmim_background_t4ej4c.webp)] bg-cover bg-center p-4 w-dvw min-h-dvh">
+         <RealtimeProjectionRefresher congressId={congress.id} />
          <FixedScaleStage baseWidth={1400} baseHeight={880} className="mx-auto">
             {/* header */}
             <div
