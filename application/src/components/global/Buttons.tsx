@@ -18,7 +18,7 @@ const variantClasses = {
    purpleDark: "bg-indigo-600 hover:bg-indigo-700 text-white",
    amber: "bg-amber-500 hover:bg-amber-600 text-white",
    golden:
-      "bg-gradient-to-b from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-600 text-white transition-all duration-500",
+      "bg-linear-to-b from-yellow-400 to-amber-500 hover:from-yellow-300 hover:to-amber-600 text-white transition-all duration-500",
    none: "",
 };
 const loadingClasses = "animate-pulse cursor-not-allowed";

@@ -24,7 +24,7 @@ export default function RightPanel() {
 
          <div className="mb-4">
             <div className="mt-2 border border-gray-200 rounded-xl overflow-hidden">
-               <div className="bg-[url('https://res.cloudinary.com/dnx2lg7vb/image/upload/v1759195525/8176c0e4-4e47-4d31-a0aa-78a40fdb404e.webp')] bg-cover bg-center w-full aspect-[4/5]" />
+               <div className="bg-[url('https://res.cloudinary.com/dnx2lg7vb/image/upload/v1759195525/8176c0e4-4e47-4d31-a0aa-78a40fdb404e.webp')] bg-cover bg-center w-full aspect-4/5" />
             </div>
          </div>
 

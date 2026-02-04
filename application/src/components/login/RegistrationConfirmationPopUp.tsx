@@ -24,7 +24,7 @@ export function RegistrationConfirmationPopUp() {
                </p>
             </div>
             <PartyPopper className="w-12 h-12 text-yellow-400" />
-            <Button variant="dark" onClick={() => setShowPopUp(false)} className="hover:!bg-gray-700 mt-4">
+            <Button variant="dark" onClick={() => setShowPopUp(false)} className="hover:bg-gray-700! mt-4">
                Entendido
             </Button>
          </div>

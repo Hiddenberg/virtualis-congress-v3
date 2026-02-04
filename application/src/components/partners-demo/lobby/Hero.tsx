@@ -73,7 +73,7 @@ export default function Hero({ eventName, congressTitle, congressSubtitle }: Her
                   unoptimized
                />
 
-               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
                <div className="right-4 bottom-4 left-4 z-10 absolute text-white">
                   <h2 className="drop-shadow font-semibold text-2xl md:text-3xl">{congressTitle}</h2>

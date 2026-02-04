@@ -14,7 +14,7 @@ function RecordingsHeader() {
 
 export default function RecordingsLayout({ children }: { children: React.ReactNode }) {
    return (
-      <div className="mx-auto max-w-screen-2xl min-h-dvh">
+      <div className="mx-auto max-w-(--breakpoint-2xl) min-h-dvh">
          <RecordingsHeader />
          {children}
       </div>

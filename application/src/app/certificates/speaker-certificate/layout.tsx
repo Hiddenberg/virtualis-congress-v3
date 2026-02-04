@@ -6,7 +6,7 @@ import MobileMenuToggle from "../(withAccount)/MobileMenuToggle";
 
 export default async function CertificatesLayout({ children }: { children: React.ReactNode }) {
    return (
-      <div className="flex md:flex-row flex-col mx-auto max-w-screen-2xl h-full min-h-screen">
+      <div className="flex md:flex-row flex-col mx-auto max-w-(--breakpoint-2xl) h-full min-h-screen">
          {/* Mobile Menu Button - Only visible on mobile */}
          <div className="md:hidden flex justify-between items-center bg-linear-to-br from-[#DEEDFD] to-[#F1EAFB] p-4">
             <div className="flex items-center">

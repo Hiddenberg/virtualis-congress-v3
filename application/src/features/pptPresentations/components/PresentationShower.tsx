@@ -110,7 +110,7 @@ export default function PresentationViewer({ presentationSlides }: { presentatio
                         alt={`Miniatura ${index + 1}`}
                         className="w-24 h-16 object-cover"
                      />
-                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+                     <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
                         <span className="bottom-1 left-1 absolute font-medium text-white text-xs">{index + 1}</span>
                      </div>
                      {index === currentSlide && (

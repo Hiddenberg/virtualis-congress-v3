@@ -12,7 +12,7 @@ export function LogoSection() {
       <div className="flex md:flex-row justify-between items-center md:mb-8 py-8">
          <Image className="w-48 object-contain" src={ACPLogoImage} alt="Logo Medicina" />
          {/* <ChangeLenguaje /> */}
-         {/* <LinkButton target="_blank" href="https://wa.me/5619920940?text=Hola, necesito ayuda con mi registro al congreso" className="!px-4 !py-2">
+         {/* <LinkButton target="_blank" href="https://wa.me/5619920940?text=Hola, necesito ayuda con mi registro al congreso" className="px-4! py-2!">
             <span className="hidden md:inline-block">Ayuda / Help / Ajuda</span>
             <HelpCircle className="size-5" />
          </LinkButton> */}

@@ -44,7 +44,7 @@ function ConferenceCard({ conference, colorIndex }: { conference: LobbyConferenc
       <Link
          key={conference.id}
          href={`/conference/${conference.id}`}
-         className={`${CONFERENCE_COLORS[colorIndex]} rounded-lg p-3 sm:p-4 shadow relative overflow-hidden transition-all hover:shadow-md flex-grow basis-full sm:basis-[calc(50%-0.5rem)] lg:basis-80`}
+         className={`${CONFERENCE_COLORS[colorIndex]} rounded-lg p-3 sm:p-4 shadow relative overflow-hidden transition-all hover:shadow-md grow basis-full sm:basis-[calc(50%-0.5rem)] lg:basis-80`}
       >
          {isConferenceActive && (
             <div className="top-0 right-0 absolute bg-green-500 px-2 py-1 rounded-bl font-semibold text-white text-xs">

@@ -26,7 +26,7 @@ export default function CertificatesBanner() {
                      <LinkButton
                         href="/certificates"
                         variant="primary"
-                        className="inline-flex items-center gap-2 !bg-purple-600 hover:!bg-purple-700 text-white"
+                        className="inline-flex items-center gap-2 bg-purple-600! hover:bg-purple-700! text-white"
                      >
                         <ExternalLink className="size-4" />
                         Solicitar mi certificado

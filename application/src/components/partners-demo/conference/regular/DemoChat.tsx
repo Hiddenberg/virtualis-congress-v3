@@ -73,7 +73,7 @@ export default function DemoChat() {
                      <div className={`mb-0.5 text-[11px] ${m.isOwn ? "text-white/80" : "text-gray-600"}`}>
                         {m.user} · {m.timestamp}
                      </div>
-                     <div className="break-words whitespace-pre-wrap">{m.content}</div>
+                     <div className="wrap-break-word whitespace-pre-wrap">{m.content}</div>
                   </div>
                </div>
             ))}

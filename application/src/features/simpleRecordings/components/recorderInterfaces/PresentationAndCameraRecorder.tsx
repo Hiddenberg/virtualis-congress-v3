@@ -39,33 +39,33 @@ export default function PresentationAndCameraRecorder({
    return (
       <PresentationRecorderProvider presentationId={recordingPresentation.id}>
          <PresentationDrawingProvider presentationId={recordingPresentation.id}>
-            <div className="!bg-gray-100 !min-h-screen">
-               <div className="!mx-auto !p-4 !container">
-                  <div className="!space-y-4 !bg-white !shadow-lg !mb-6 !p-6 !rounded-2xl">
-                     <div className="!flex !justify-between !items-center">
+            <div className="bg-gray-100! min-h-screen!">
+               <div className="mx-auto! p-4! container!">
+                  <div className="space-y-4! bg-white! shadow-lg! mb-6! p-6! rounded-2xl!">
+                     <div className="flex! justify-between! items-center!">
                         <div>
-                           <h2 className="!font-bold !text-gray-900 !text-2xl">Grabando: {sessionTitle}</h2>
+                           <h2 className="font-bold! text-gray-900! text-2xl!">Grabando: {sessionTitle}</h2>
                         </div>
 
                         <DeleteRecordingPresentationWPopupButton recordingId={recordingId} />
 
-                        <div className="!flex !items-center !gap-2 !text-sm">
+                        <div className="flex! items-center! gap-2! text-sm!">
                            <div
-                              className={`!w-3 !h-3 !rounded-full ${presentationHasVideo ? "!bg-orange-400" : "!bg-green-400"}`}
+                              className={`w-3! h-3! rounded-full! ${presentationHasVideo ? "bg-orange-400!" : "bg-green-400!"}`}
                            />
-                           <span className="!text-gray-600">
+                           <span className="text-gray-600!">
                               {presentationHasVideo ? "Diapositiva con videos" : "Diapositiva estática"}
                            </span>
                         </div>
                      </div>
 
-                     <div className="!top-0 !z-10 !sticky !flex !justify-center !mt-6 !w-max">
+                     <div className="top-0! z-10! sticky! flex! justify-center! mt-6! w-max!">
                         {!zoomIsLoading && <RecordingLivestreamControlButtons sessionTitle={sessionTitle} />}
                      </div>
 
-                     <div className="!space-y-4">
+                     <div className="space-y-4!">
                         <DynamicZoomCallInterface
-                           className="!mx-auto !rounded-2xl !max-w-80"
+                           className="mx-auto! rounded-2xl! max-w-80!"
                            initialUsername={username}
                            setIsLoading={setZoomIsLoading}
                            isHostByDefault={true}

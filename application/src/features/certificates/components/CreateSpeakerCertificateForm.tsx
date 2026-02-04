@@ -124,7 +124,7 @@ export default function CreateSpeakerCertificateForm({
                   />,
                );
             }}
-            className="!bg-purple-400 hover:!bg-purple-500 mx-auto mb-4 text-white"
+            className="bg-purple-400! hover:bg-purple-500! mx-auto mb-4 text-white"
          >
             <PencilIcon className="mr-2 size-4" />
             Editar nombre

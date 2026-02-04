@@ -75,7 +75,7 @@ export default function RemindersComponent() {
                      <div className="font-bold text-2xl">{reminder.date.split(" ")[0]}</div>
                      <div className="text-gray-500 text-sm">{reminder.date.split(" ")[1]}</div>
                   </div>
-                  <div className="flex-grow ml-4">
+                  <div className="grow ml-4">
                      <h3 className="font-medium text-sm">{reminder.title}</h3>
                      <div className="inline-flex items-center bg-primary mt-1 px-2.5 py-0.5 rounded-full font-medium text-primary-foreground text-xs">
                         <Clock className="mr-1 w-3 h-3" />

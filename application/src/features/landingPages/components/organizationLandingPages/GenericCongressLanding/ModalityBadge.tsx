@@ -17,21 +17,21 @@ interface ModalityBadgeColorClasses {
 
 const colorClasses: Record<CongressLandingConfiguration["colorScheme"], ModalityBadgeColorClasses> = {
    green: {
-      badgeBgClass: "bg-gradient-to-r from-green-50/30 via-emerald-50/30 to-green-50/30",
+      badgeBgClass: "bg-linear-to-r from-green-50/30 via-emerald-50/30 to-green-50/30",
       badgeBorderClass: "border-green-200/50",
       badgeTextClass: "text-green-50",
       badgeIconClass: "text-green-100",
       badgeGlowClass: "shadow-[0_0_15px_rgba(34,197,94,0.4)]",
    },
    blue: {
-      badgeBgClass: "bg-gradient-to-r from-cyan-50/30 via-blue-50/30 to-cyan-50/30",
+      badgeBgClass: "bg-linear-to-r from-cyan-50/30 via-blue-50/30 to-cyan-50/30",
       badgeBorderClass: "border-cyan-200/50",
       badgeTextClass: "text-cyan-50",
       badgeIconClass: "text-cyan-100",
       badgeGlowClass: "shadow-[0_0_15px_rgba(6,182,212,0.4)]",
    },
    purple: {
-      badgeBgClass: "bg-gradient-to-r from-purple-50/30 via-indigo-50/30 to-purple-50/30",
+      badgeBgClass: "bg-linear-to-r from-purple-50/30 via-indigo-50/30 to-purple-50/30",
       badgeBorderClass: "border-purple-200/50",
       badgeTextClass: "text-purple-50",
       badgeIconClass: "text-purple-100",

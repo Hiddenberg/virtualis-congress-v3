@@ -17,7 +17,7 @@ export default function NoRecordingsAccessCard() {
 
             <div className="flex justify-center">
                <div className="w-full sm:w-80">
-                  <BuyRecordingsButton className="!bg-blue-600 hover:!bg-blue-700" />
+                  <BuyRecordingsButton className="bg-blue-600! hover:bg-blue-700!" />
                </div>
             </div>
 

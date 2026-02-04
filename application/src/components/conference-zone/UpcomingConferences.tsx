@@ -45,7 +45,7 @@ function EventCard({ event }: { event: Event }) {
             <div className="font-bold text-3xl">{event.date}</div>
             <div className="text-gray-500 text-sm">{event.month}</div>
          </div>
-         <div className="flex-grow">
+         <div className="grow">
             <h3 className="font-semibold text-lg">{event.title}</h3>
             <div className="flex items-center bg-green-600 mt-1 px-3 py-1 rounded-full w-fit text-white text-sm">
                <Clock className="mr-1 w-4 h-4" />

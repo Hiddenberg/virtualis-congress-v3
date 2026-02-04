@@ -17,7 +17,7 @@ function SessionCard({ title, viewers }: SessionCardProps) {
             height={90}
             className="w-30 h-20 object-cover overflow-hidden round-lg"
          />
-         <div className="flex-grow p-4">
+         <div className="grow p-4">
             <h3 className="mb-2 font-semibold text-sm">{title}</h3>
             <div className="flex items-center bg-yellow-400 px-2 py-1 rounded-full w-fit font-semibold text-yellow-800 text-xs">
                <Eye className="mr-1 w-3 h-3" />

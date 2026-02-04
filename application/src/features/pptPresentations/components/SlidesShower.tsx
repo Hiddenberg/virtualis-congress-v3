@@ -141,7 +141,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                   {/* <Button
                      onClick={() => setShowThumbnails(!showThumbnails)}
                      variant="outline"
-                     className="!px-3 !py-2"
+                     className="px-3! py-2!"
                      title="Mostrar/ocultar miniaturas"
                   >
                      <Grid3X3 className="w-4 h-4" />
@@ -152,7 +152,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                      {/* <Button
                         onClick={zoomOut}
                         variant="none"
-                        className="hover:bg-gray-100 !px-2 !py-1"
+                        className="hover:bg-gray-100 px-2! py-1!"
                         disabled={zoom <= 0.5}
                      >
                         <ZoomOut className="w-4 h-4" />
@@ -161,7 +161,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                      {/* <Button
                         onClick={zoomIn}
                         variant="none"
-                        className="hover:bg-gray-100 !px-2 !py-1"
+                        className="hover:bg-gray-100 px-2! py-1!"
                         disabled={zoom >= 3}
                      >
                         <ZoomIn className="w-4 h-4" />
@@ -169,7 +169,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                      {/* <Button
                         onClick={resetZoom}
                         variant="none"
-                        className="hover:bg-gray-100 !px-2 !py-1"
+                        className="hover:bg-gray-100 px-2! py-1!"
                         title="Restablecer zoom"
                      >
                         <RotateCcw className="w-4 h-4" />
@@ -180,7 +180,7 @@ export default function SlidesShower({ slideImages }: SlidesShowerProps) {
                   {/* <Button
                      onClick={toggleFullscreen}
                      variant="outline"
-                     className="!px-3 !py-2"
+                     className="px-3! py-2!"
                      title={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
                   >
                      {isFullscreen ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}

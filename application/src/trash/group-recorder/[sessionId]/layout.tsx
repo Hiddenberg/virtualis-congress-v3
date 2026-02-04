@@ -13,7 +13,7 @@
 
 //    return (
 //       <GroupRecorderContextWrapper>
-//          <div className="bg-gray-50 mx-auto px-10 py-6 border-x max-w-screen-xl min-h-screen">
+//          <div className="bg-gray-50 mx-auto px-10 py-6 border-x max-w-(--breakpoint-xl) min-h-screen">
 //             {children}
 //          </div>
 //       </GroupRecorderContextWrapper>

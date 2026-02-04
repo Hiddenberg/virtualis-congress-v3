@@ -25,7 +25,7 @@ function BackButton({ onClick }: { onClick: () => void }) {
       <Button
          onClick={onClick}
          variant="outline"
-         className="hover:!bg-gray-50 !px-3 sm:!px-4 !py-1.5 sm:!py-2 !border-gray-300 !text-gray-600 hover:!text-gray-800 !text-sm sm:!text-base"
+         className="hover:bg-gray-50! px-3! sm:px-4! py-1.5! sm:py-2! border-gray-300! text-gray-600! hover:text-gray-800! text-sm! sm:text-base!"
       >
          <ArrowLeftIcon className="w-3 sm:w-4 h-3 sm:h-4" />
          Volver
@@ -174,7 +174,7 @@ function ValidateACPIDForm({
                   onClick={handleValidateACPID}
                   loading={isSubmitting}
                   disabled={!acpID?.trim()}
-                  className="!px-4 sm:!px-6 !py-2.5 sm:!py-3 w-full !font-semibold !text-sm sm:!text-base"
+                  className="px-4! sm:px-6! py-2.5! sm:py-3! w-full font-semibold! text-sm! sm:text-base!"
                   variant="primary"
                >
                   {isSubmitting ? "Verificando..." : "Verificar Afiliación"}
@@ -308,7 +308,7 @@ function UploadACPIDScreenshotForm({ setFormStage }: { setFormStage: (stage: For
                   <img src={exampleScreenshotURL} alt="Ejemplo de captura" className="rounded-lg w-full h-auto" />
                </div>
                <div className="bg-white mt-3 sm:mt-4 p-2 sm:p-3 border border-blue-200 rounded-lg">
-                  <p className="text-blue-700 text-xs break-words">
+                  <p className="text-blue-700 text-xs wrap-break-word">
                      <strong>URL de tu cuenta ACP:</strong>{" "}
                      <a
                         href={acpURL}
@@ -352,7 +352,9 @@ function UploadACPIDScreenshotForm({ setFormStage }: { setFormStage: (stage: For
                               <CheckCircleIcon className="w-5 sm:w-6 h-5 sm:h-6 text-green-600" />
                            </div>
                            <div>
-                              <p className="font-medium text-green-800 text-sm sm:text-base break-words">{selectedFile.name}</p>
+                              <p className="font-medium text-green-800 text-sm sm:text-base wrap-break-word">
+                                 {selectedFile.name}
+                              </p>
                               <p className="text-green-600 text-xs sm:text-sm">
                                  {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                               </p>
@@ -378,7 +380,7 @@ function UploadACPIDScreenshotForm({ setFormStage }: { setFormStage: (stage: For
                   disabled={!selectedFile}
                   onClick={handleUploadACPIScreenshot}
                   loading={isSubmitting}
-                  className="!px-4 sm:!px-6 !py-2.5 sm:!py-3 w-full !font-semibold !text-sm sm:!text-base"
+                  className="px-4! sm:px-6! py-2.5! sm:py-3! w-full font-semibold! text-sm! sm:text-base!"
                   variant="primary"
                >
                   {isSubmitting ? "Subiendo captura..." : "Subir captura"}
@@ -540,7 +542,7 @@ function SelectACPAffiliatedRoleForm({
                disabled={!selectedRole}
                loading={isSubmitting}
                onClick={handleGetAffiliatedRolePrice}
-               className="!px-4 sm:!px-6 !py-2.5 sm:!py-3 w-full !font-semibold !text-sm sm:!text-base"
+               className="px-4! sm:px-6! py-2.5! sm:py-3! w-full font-semibold! text-sm! sm:text-base!"
                variant="primary"
             >
                {isSubmitting ? "Procesando..." : "Continuar"}
@@ -711,7 +713,7 @@ function SelectNoAffiliatedRoleForm({ setFormStage }: { setFormStage: (stage: Fo
                onClick={handleGetNonAffiliatedRolePrice}
                loading={isSubmitting}
                disabled={!selectedRole}
-               className="!px-4 sm:!px-6 !py-2.5 sm:!py-3 w-full !font-semibold !text-sm sm:!text-base"
+               className="px-4! sm:px-6! py-2.5! sm:py-3! w-full font-semibold! text-sm! sm:text-base!"
                variant="primary"
             >
                {isSubmitting ? "Procesando..." : "Continuar"}
@@ -837,7 +839,9 @@ function UploadStudentProofForm({ setFormStage }: { setFormStage: (stage: FormSt
                               <CheckCircleIcon className="w-5 sm:w-6 h-5 sm:h-6 text-green-600" />
                            </div>
                            <div>
-                              <p className="font-medium text-green-800 text-sm sm:text-base break-words">{selectedFile.name}</p>
+                              <p className="font-medium text-green-800 text-sm sm:text-base wrap-break-word">
+                                 {selectedFile.name}
+                              </p>
                               <p className="text-green-600 text-xs sm:text-sm">
                                  {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                               </p>
@@ -863,7 +867,7 @@ function UploadStudentProofForm({ setFormStage }: { setFormStage: (stage: FormSt
                   disabled={!selectedFile}
                   onClick={handleUploadACPIScreenshot}
                   loading={isSubmitting}
-                  className="!px-4 sm:!px-6 !py-2.5 sm:!py-3 w-full !font-semibold !text-sm sm:!text-base"
+                  className="px-4! sm:px-6! py-2.5! sm:py-3! w-full font-semibold! text-sm! sm:text-base!"
                   variant="primary"
                >
                   {isSubmitting ? "Subiendo comprobante..." : "Subir comprobante"}

@@ -43,7 +43,7 @@ function ConferenceNotification({ conferenceTitle, conferenceId }: ConferenceNot
                </p>
             </div>
 
-            <Button onClick={handleGoToConference} variant="green" className="!px-3 !py-2 !w-full text-sm">
+            <Button onClick={handleGoToConference} variant="green" className="px-3! py-2! w-full! text-sm">
                Ir a la conferencia
                <ArrowRightIcon className="size-4" />
             </Button>

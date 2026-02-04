@@ -22,7 +22,7 @@ export default function EventInfoCard() {
                <p className="font-bold text-4xl">+24 Horas</p>
             </div>
 
-            <div className="hidden sm:block col-span-2 bg-white/20 w-full h-[1px]" />
+            <div className="hidden sm:block col-span-2 bg-white/20 w-full h-px" />
 
             {/* Participants Section */}
             <div className="flex flex-col items-start space-y-2">

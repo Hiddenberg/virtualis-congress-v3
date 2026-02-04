@@ -150,7 +150,7 @@ export default function QnASessionsList({ livestreamSessions }: { livestreamSess
                            <div className="bg-gray-50 px-3 py-2 border-gray-200 border-r">
                               <span className="font-medium text-gray-600 text-sm">Link de Host:</span>
                            </div>
-                           <div className="flex-grow bg-white px-3 py-2">
+                           <div className="grow bg-white px-3 py-2">
                               <code className="font-mono text-gray-800 text-sm">
                                  https://acp-congress.virtualis.app/QnA-transmission/
                                  {session.conferenceId}?ishost=true
@@ -175,7 +175,7 @@ export default function QnASessionsList({ livestreamSessions }: { livestreamSess
                            <div className="bg-gray-50 px-3 py-2 border-gray-200 border-r">
                               <span className="font-medium text-gray-600 text-sm">Link de conferencista:</span>
                            </div>
-                           <div className="flex-grow bg-white px-3 py-2">
+                           <div className="grow bg-white px-3 py-2">
                               <code className="font-mono text-gray-800 text-sm">
                                  https://acp-congress.virtualis.app/QnA-transmission/
                                  {session.conferenceId}

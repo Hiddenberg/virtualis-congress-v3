@@ -73,8 +73,8 @@ export default function TutorialSlider({ title, steps, onFinish, lastButtonText 
                   )}
                </div>
                {/* Image */}
-               <div className="relative bg-gray-50 !shadow-lg mx-auto !border !border-gray-500 rounded-xl sm:rounded-2xl w-full overflow-hidden">
-                  <span className="top-0 !left-[50%] absolute bg-red-500 px-2 py-1 rounded-b-lg text-white text-xs sm:text-sm !-translate-x-1/2">
+               <div className="relative bg-gray-50 shadow-lg! mx-auto border! border-gray-500! rounded-xl sm:rounded-2xl w-full overflow-hidden">
+                  <span className="top-0 left-[50%]! absolute bg-red-500 px-2 py-1 rounded-b-lg text-white text-xs sm:text-sm -translate-x-1/2!">
                      Imagen de ejemplo
                   </span>
                   <img
@@ -91,7 +91,7 @@ export default function TutorialSlider({ title, steps, onFinish, lastButtonText 
                   variant="secondary"
                   onClick={previousStep}
                   disabled={isFirstStep}
-                  className="!gap-1 !px-3 sm:!px-4 !py-1.5 sm:!py-2 !text-sm sm:!text-base"
+                  className="gap-1! px-3! sm:px-4! py-1.5! sm:py-2! text-sm! sm:text-base!"
                >
                   <ChevronLeft className="w-4 sm:w-5 h-4 sm:h-5" />
                   Anterior
@@ -116,7 +116,7 @@ export default function TutorialSlider({ title, steps, onFinish, lastButtonText 
                <Button
                   variant="blue"
                   onClick={nextStep}
-                  className="!gap-1 !px-3 sm:!px-4 !py-1.5 sm:!py-2 !text-sm sm:!text-base"
+                  className="gap-1! px-3! sm:px-4! py-1.5! sm:py-2! text-sm! sm:text-base!"
                >
                   {isLastStep ? lastButtonText || "Continuar" : "Siguiente"}
                   {!isLastStep && <ChevronRight className="w-4 sm:w-5 h-4 sm:h-5" />}

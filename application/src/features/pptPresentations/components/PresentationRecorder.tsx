@@ -81,7 +81,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
    const currentSlideImage = presentationSlides[currentSlide];
 
    return (
-      <div className={`bg-white rounded-2xl shadow-xl !border !border-gray-200 overflow-hidden max-w-[150dvh] mx-auto`}>
+      <div className={`bg-white rounded-2xl shadow-xl border! border-gray-200! overflow-hidden max-w-[150dvh] mx-auto`}>
          {/* Header with controls */}
          <div className="bg-gray-50 p-4 border-gray-200 border-b">
             <div className="flex justify-between items-center">
@@ -92,7 +92,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
                   </span>
                </div>
 
-               <div className="flex items-center gap-2 min-h-[1.5rem]">
+               <div className="flex items-center gap-2 min-h-6">
                   <button
                      type="button"
                      onClick={() => drawing?.setDrawingMode(!drawing?.isDrawingMode)}
@@ -185,7 +185,7 @@ export default function PresentationRecorder({ presentationSlides }: { presentat
                         alt={`Miniatura ${index + 1}`}
                         className="w-24 h-16 object-cover"
                      />
-                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
+                     <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity">
                         <span className="bottom-1 left-1 absolute font-medium text-white text-xs">{index + 1}</span>
                      </div>
                      {index === currentSlide && (

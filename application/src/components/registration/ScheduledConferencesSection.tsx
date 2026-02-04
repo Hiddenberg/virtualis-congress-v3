@@ -68,7 +68,7 @@ export default function ScheduledConferencesSection({ congressDates, conferences
                </div>
             </div>
 
-            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 h-[30rem] overflow-y-auto">
+            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 h-120 overflow-y-auto">
                {selectedDayConferences.length > 0 ? (
                   selectedDayConferences.map((conference, index) => {
                      const durationMinutes = getDurationInMinutes(conference.startTime, conference.endTime);

@@ -93,14 +93,14 @@ function BooleanInput({ checkboxInput: booleanInput }: { checkboxInput: BooleanI
    return (
       <div className="flex gap-2">
          <Button
-            className={`!py-1 !px-6 ${booleanInput.value === true ? "!bg-yellow-400" : ""}`}
+            className={`py-1! px-6! ${booleanInput.value === true ? "bg-yellow-400!" : ""}`}
             onClick={() => updateInputValue(booleanInput.name, true)}
             variant="secondary"
          >
             Sí
          </Button>
          <Button
-            className={`!py-1 !px-6 ${booleanInput.value === false ? "!bg-yellow-400" : ""}`}
+            className={`py-1! px-6! ${booleanInput.value === false ? "bg-yellow-400!" : ""}`}
             onClick={() => updateInputValue(booleanInput.name, false)}
             variant="secondary"
          >

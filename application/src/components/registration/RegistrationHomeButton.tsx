@@ -16,7 +16,7 @@ export default function RegistrationHomeButton() {
             </LinkButton>
          ) : (
             <>
-               <LinkButton className="!bg-green-400 hover:!bg-green-500 mx-auto px-20 w-max text-[1.5rem]" href="/login">
+               <LinkButton className="bg-green-400! hover:bg-green-500! mx-auto px-20 w-max text-[1.5rem]" href="/login">
                   Ya me registré al Congreso
                </LinkButton>
                <LinkButton className="mx-auto px-20 w-80 text-xl" href="/registro/formulario">

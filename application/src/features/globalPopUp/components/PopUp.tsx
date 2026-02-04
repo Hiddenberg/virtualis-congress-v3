@@ -10,8 +10,8 @@ interface PopUpProps {
 
 export default function PopUp({ children, onClose, options }: PopUpProps) {
    return (
-      <div className="z-50 fixed inset-0 flex justify-center items-center bg-black/50 !m-0">
-         <div className="relative bg-white shadow-lg p-6 rounded-lg w-full max-w-screen-xl max-h-[90vh] overflow-y-auto">
+      <div className="z-50 fixed inset-0 flex justify-center items-center bg-black/50 m-0!">
+         <div className="relative bg-white shadow-lg p-6 rounded-lg w-full max-w-(--breakpoint-xl) max-h-[90vh] overflow-y-auto">
             {options?.hasCloseButton !== false && (
                <button
                   type="button"

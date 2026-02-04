@@ -157,7 +157,7 @@ export default function HeroSection({ organization, userId, congress, conference
                         )}
                         {/* <Link
                            href="#program-schedule"
-                           className="flex justify-center items-center gap-2 hover:bg-white backdrop-blur-sm px-8 py-4 border-2 border-white/80 rounded-full !w-full md:!w-max font-bold text-white hover:text-blue-900 text-lg transition-all duration-300"
+                           className="flex justify-center items-center gap-2 hover:bg-white backdrop-blur-sm px-8 py-4 border-2 border-white/80 rounded-full w-full! md:w-max! font-bold text-white hover:text-blue-900 text-lg transition-all duration-300"
                         >
                            <Calendar className="w-5 h-5" /> Ver programa
                         </Link> */}

@@ -2,7 +2,7 @@ import CSVUploadForm from "@/components/congress-admin/update-database/CSVUpload
 
 export default function UpdateDatabasePage() {
    return (
-      <div className="mx-auto max-w-screen-xl">
+      <div className="mx-auto max-w-(--breakpoint-xl)">
          <h1 className="font-bold text-3xl text-center">Update Database</h1>
 
          <CSVUploadForm />

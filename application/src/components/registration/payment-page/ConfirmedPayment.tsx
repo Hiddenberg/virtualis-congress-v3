@@ -106,7 +106,7 @@ const ActionButtons: React.FC<{ config: StatusConfig }> = ({ config }) => {
                href="https://wa.me/5619920940?text=Hola, necesito ayuda con el pago de mi congreso"
                target="_blank"
                variant="primary"
-               className="!bg-blue-400 hover:!bg-blue-500 mx-auto w-3/4 text-white">
+               className="bg-blue-400! hover:bg-blue-500! mx-auto w-3/4 text-white">
                Contactar Soporte
                <LifeBuoy className="ml-2 size-5" />
             </LinkButton>

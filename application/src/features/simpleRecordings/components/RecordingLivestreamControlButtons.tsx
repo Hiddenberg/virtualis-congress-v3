@@ -64,12 +64,12 @@ function StartRecordingButton({
    return (
       <Button
          variant="none"
-         className="!flex !justify-center !items-center !gap-3 !bg-linear-to-r !from-green-500 hover:!from-green-600 !to-green-600 hover:!to-green-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+         className="flex! justify-center! items-center! gap-3! bg-linear-to-r! from-green-500! hover:from-green-600! to-green-600! hover:to-green-700! shadow-lg! hover:shadow-xl! px-6! py-3! border-0! rounded-xl! min-w-[160px]! font-semibold! text-white! hover:scale-105! active:scale-95! transition-all! duration-200! transform!"
          loading={starting}
          onClick={handleStartRecording}
       >
-         <VideoIcon className="!size-5" />
-         <span className="!font-medium !text-sm">Iniciar grabación</span>
+         <VideoIcon className="size-5!" />
+         <span className="font-medium! text-sm!">Iniciar grabación</span>
       </Button>
    );
 }
@@ -129,12 +129,12 @@ function StopRecordingButton({ handleBeforeUnload }: { handleBeforeUnload: (e: B
    return (
       <Button
          variant="none"
-         className="!flex !justify-center !items-center !gap-3 !bg-linear-to-r !from-red-500 hover:!from-red-600 !to-red-600 hover:!to-red-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+         className="flex! justify-center! items-center! gap-3! bg-linear-to-r! from-red-500! hover:from-red-600! to-red-600! hover:to-red-700! shadow-lg! hover:shadow-xl! px-6! py-3! border-0! rounded-xl! min-w-[160px]! font-semibold! text-white! hover:scale-105! active:scale-95! transition-all! duration-200! transform!"
          loading={stopping}
          onClick={handleStopRecording}
       >
-         <StopCircleIcon className="!size-5" />
-         <span className="!font-medium !text-sm">Detener grabación</span>
+         <StopCircleIcon className="size-5!" />
+         <span className="font-medium! text-sm!">Detener grabación</span>
       </Button>
    );
 }
@@ -179,11 +179,11 @@ function ResumeRecordingButton({
    return (
       <Button
          variant="none"
-         className="!flex !justify-center !items-center !gap-3 !bg-linear-to-r !from-green-500 hover:!from-green-600 !to-green-600 hover:!to-green-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 !transform"
+         className="flex! justify-center! items-center! gap-3! bg-linear-to-r! from-green-500! hover:from-green-600! to-green-600! hover:to-green-700! shadow-lg! hover:shadow-xl! px-6! py-3! border-0! rounded-xl! min-w-[160px]! font-semibold! text-white! hover:scale-105! active:scale-95! transition-all! duration-200! transform!"
          onClick={handleResumeRecording}
       >
-         <PlayIcon className="!size-5" />
-         <span className="!font-medium !text-sm">Reanudar grabación</span>
+         <PlayIcon className="size-5!" />
+         <span className="font-medium! text-sm!">Reanudar grabación</span>
       </Button>
    );
 }
@@ -199,8 +199,8 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
 
    if (livestreamStatus === "preparing" || livestreamStatus === "scheduled") {
       return (
-         <div className="!flex !flex-col !items-center !gap-2">
-            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">Listo para comenzar</div>
+         <div className="flex! flex-col! items-center! gap-2!">
+            <div className="font-medium! text-gray-600! text-xs! uppercase! tracking-wide!">Listo para comenzar</div>
             <StartRecordingButton sessionTitle={sessionTitle} handleBeforeUnload={handleBeforeUnloadRef.current} />
          </div>
       );
@@ -209,9 +209,9 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
    if (livestreamStatus === "streaming") {
       return (
          <div>
-            <div className="!flex !flex-col !items-center !gap-2">
-               <div className="!flex !items-center !gap-2 !font-medium !text-red-600 !text-xs !uppercase !tracking-wide">
-                  <div className="!bg-red-500 !rounded-full !w-2 !h-2 !animate-pulse" />
+            <div className="flex! flex-col! items-center! gap-2!">
+               <div className="flex! items-center! gap-2! font-medium! text-red-600! text-xs! uppercase! tracking-wide!">
+                  <div className="bg-red-500! rounded-full! w-2! h-2! animate-pulse!" />
                   Grabando...
                </div>
                <StopRecordingButton handleBeforeUnload={handleBeforeUnloadRef.current} />
@@ -222,8 +222,8 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
 
    if (livestreamStatus === "paused") {
       return (
-         <div className="!flex !flex-col !items-center !gap-2">
-            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">Grabación pausada</div>
+         <div className="flex! flex-col! items-center! gap-2!">
+            <div className="font-medium! text-gray-600! text-xs! uppercase! tracking-wide!">Grabación pausada</div>
             <ResumeRecordingButton handleBeforeUnload={handleBeforeUnloadRef.current} sessionTitle={sessionTitle} />
          </div>
       );
@@ -231,16 +231,16 @@ function RecordingButtonSelector({ sessionTitle }: { sessionTitle: string }) {
 
    if (livestreamStatus === "ended") {
       return (
-         <div className="!flex !flex-col !items-center !gap-2">
-            <div className="!font-medium !text-gray-600 !text-xs !uppercase !tracking-wide">Grabación terminada</div>
+         <div className="flex! flex-col! items-center! gap-2!">
+            <div className="font-medium! text-gray-600! text-xs! uppercase! tracking-wide!">Grabación terminada</div>
          </div>
       );
    }
 
    // If the livestream status is not "preparing", "scheduled", "streaming", or "paused", return the following:
    return (
-      <div className="!flex !flex-col !items-center !gap-2 !py-4">
-         <div className="!font-medium !text-gray-500 !text-xs !uppercase !tracking-wide">
+      <div className="flex! flex-col! items-center! gap-2! py-4!">
+         <div className="font-medium! text-gray-500! text-xs! uppercase! tracking-wide!">
             Estado: Grabación terminada, ya puedes cerrar la página
          </div>
       </div>
@@ -253,7 +253,7 @@ export default function RecordingLivestreamControlButtons({ sessionTitle }: { se
    if (!sessionId) {
       return (
          <div>
-            <p className="!font-medium !text-red-600 !text-xs !uppercase !tracking-wide">
+            <p className="font-medium! text-red-600! text-xs! uppercase! tracking-wide!">
                Ocurrió un error al obtener el estado de la grabación
             </p>
             <Button
@@ -269,7 +269,7 @@ export default function RecordingLivestreamControlButtons({ sessionTitle }: { se
    }
 
    return (
-      <div className="!flex !justify-center !items-center !gap-4 !bg-white/90 !shadow-lg !backdrop-blur-sm !p-4 !border !border-gray-200/50 !rounded-2xl">
+      <div className="flex! justify-center! items-center! gap-4! bg-white/90! shadow-lg! backdrop-blur-sm! p-4! border! border-gray-200/50! rounded-2xl!">
          {/* Status indicator when no action is available */}
          <RecordingButtonSelector sessionTitle={sessionTitle} />
       </div>

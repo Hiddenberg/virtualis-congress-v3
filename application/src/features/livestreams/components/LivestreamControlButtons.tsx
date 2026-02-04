@@ -136,7 +136,7 @@ export function StopLiveStreamButton({
    return (
       <Button
          variant="destructive"
-         className="justify-center! items-center! gap-3! !bg-linear-to-r !from-red-500 hover:!from-red-600 !to-red-600 hover:!to-red-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 flex! !transform"
+         className="justify-center! items-center! gap-3! bg-linear-to-r! from-red-500! hover:from-red-600! to-red-600! hover:to-red-700! shadow-lg! hover:shadow-xl! px-6! py-3! border-0! rounded-xl! min-w-[160px]! font-semibold! text-white! hover:scale-105! active:scale-95! transition-all! duration-200! flex! transform!"
          loading={isLoading}
          disabled={!zoomSessionId || isLoading}
          onClick={handleStopLiveStream}

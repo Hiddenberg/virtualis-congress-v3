@@ -77,7 +77,7 @@ export default async function RecordingSavedPage({ params }: { params: Promise<{
                         <div>
                            <h3 className="font-semibold text-amber-900">Gracias por tu participación como ponente</h3>
                            <p className="text-amber-700 text-sm">Puedes obtener tu certificado de participación</p>
-                           <LinkButton href="/certificates/speaker-certificate" variant="golden" className="mt-2 !text-lg">
+                           <LinkButton href="/certificates/speaker-certificate" variant="golden" className="mt-2 text-lg!">
                               <AwardIcon className="size-4" />
                               Obtener mi certificado
                            </LinkButton>

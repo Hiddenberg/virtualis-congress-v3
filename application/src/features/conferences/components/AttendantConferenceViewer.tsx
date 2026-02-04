@@ -121,7 +121,7 @@ export default function AttendantConferenceViewer({
             createPortal(
                <div className="z-50 fixed inset-0 bg-black/50 backdrop-blur-[2px]">
                   <div className="md:top-6 md:right-6 md:bottom-6 md:absolute md:w-[380px]">
-                     <div className="bg-white md:shadow-2xl p-3 md:p-4 md:rounded-2xl rounded-t-2xl h-[100dvh] md:h-full overflow-auto md:overflow-hidden">
+                     <div className="bg-white md:shadow-2xl p-3 md:p-4 md:rounded-2xl rounded-t-2xl h-dvh md:h-full overflow-auto md:overflow-hidden">
                         <div className="flex justify-between items-center mb-3">
                            <div className="flex items-center gap-2">
                               {activeOverlay === "chat" && <MessageSquareText className="w-4 h-4 text-gray-700" />}

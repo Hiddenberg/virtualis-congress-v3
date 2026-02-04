@@ -9,8 +9,8 @@ interface PopUpProps {
 
 export default function PopUp({ children, onClose, canBeClosed = true }: PopUpProps) {
    return (
-      <div className="z-50 fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 !m-0">
-         <div className="relative bg-white shadow-lg mx-4 md:mx-8 p-3 sm:p-4 md:p-6 rounded-lg w-full max-w-[95%] sm:max-w-[90%] md:max-w-screen-lg lg:max-w-screen-xl max-h-[90vh] overflow-y-auto">
+      <div className="z-50 fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 m-0!">
+         <div className="relative bg-white shadow-lg mx-4 md:mx-8 p-3 sm:p-4 md:p-6 rounded-lg w-full max-w-[95%] sm:max-w-[90%] md:max-w-(--breakpoint-lg) lg:max-w-(--breakpoint-xl) max-h-[90vh] overflow-y-auto">
             {canBeClosed && (
                <button
                   type="button"

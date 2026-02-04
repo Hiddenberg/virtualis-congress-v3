@@ -74,7 +74,7 @@ export default function HGEAPaymentForm() {
                variant="none"
                onClick={handleProceed}
                loading={isLoading}
-               className="bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl !w-full font-bold text-white text-base sm:text-lg transition-all duration-300"
+               className="bg-linear-to-r from-blue-600 hover:from-blue-700 to-blue-700 hover:to-blue-800 shadow-lg hover:shadow-xl px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl w-full! font-bold text-white text-base sm:text-lg transition-all duration-300"
             >
                {isLoading ? "Procesando Pago..." : "Proceder al Pago"}
             </Button>

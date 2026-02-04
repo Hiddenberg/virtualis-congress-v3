@@ -34,7 +34,7 @@ export default function BuyRecordingsCard({ priceId }: BuyRecordingsCardProps) {
                </div> */}
             </div>
 
-            <BuyRecordingsButton priceId={priceId} className="!bg-blue-600 hover:!bg-blue-700 mx-auto" />
+            <BuyRecordingsButton priceId={priceId} className="bg-blue-600! hover:bg-blue-700! mx-auto" />
 
             <p className="mt-4 text-slate-500 text-sm text-center">
                Recibirás un correo con el acceso una vez confirmado el pago.
