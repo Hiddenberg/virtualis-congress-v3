@@ -20,15 +20,15 @@ interface SpeakerSlidesReplaceFormProps {
    acceptedFileTypes?: string[];
 }
 
-const DEFAULT_MAX_FILE_SIZE_MB = 100;
-const DEFAULT_ACCEPTED_FILE_TYPES = [
-   "application/pdf",
-   "application/vnd.ms-powerpoint",
-   "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-   ".pdf",
-   ".ppt",
-   ".pptx",
-];
+const DEFAULT_MAX_FILE_SIZE_MB = 90;
+// const DEFAULT_ACCEPTED_FILE_TYPES = [
+//    "application/pdf",
+//    "application/vnd.ms-powerpoint",
+//    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+//    ".pdf",
+//    ".ppt",
+//    ".pptx",
+// ];
 
 function formatDate(date: string) {
    return format({
@@ -129,7 +129,7 @@ export function SpeakerSlidesReplaceForm({
    speakerNames,
    currentFile,
    maxFileSizeMB = DEFAULT_MAX_FILE_SIZE_MB,
-   acceptedFileTypes = DEFAULT_ACCEPTED_FILE_TYPES,
+   // acceptedFileTypes = DEFAULT_ACCEPTED_FILE_TYPES,
 }: SpeakerSlidesReplaceFormProps) {
    const [selectedFile, setSelectedFile] = useState<File | null>(null);
    const [dragActive, setDragActive] = useState(false);
@@ -157,15 +157,15 @@ export function SpeakerSlidesReplaceForm({
          return false;
       }
 
-      const fileExtension = `.${file.name.split(".").pop()?.toLowerCase()}`;
-      const isValidType = acceptedFileTypes.some(
-         (type) => file.type === type || fileExtension === type || file.type.includes(type.replace(".", "")),
-      );
+      // const fileExtension = `.${file.name.split(".").pop()?.toLowerCase()}`;
+      // const isValidType = acceptedFileTypes.some(
+      //    (type) => file.type === type || fileExtension === type || file.type.includes(type.replace(".", "")),
+      // );
 
-      if (!isValidType) {
-         setError("Tipo de archivo no válido. Se aceptan archivos PDF, PPT y PPTX.");
-         return false;
-      }
+      // if (!isValidType) {
+      //    setError("Tipo de archivo no válido. Se aceptan archivos PDF, PPT y PPTX.");
+      //    return false;
+      // }
 
       return true;
    };
@@ -346,7 +346,7 @@ export function SpeakerSlidesReplaceForm({
                   onChange={handleFileSelected}
                   className="hidden"
                   disabled={isUploading}
-                  accept={acceptedFileTypes.filter((type) => type.startsWith(".")).join(",")}
+                  // accept={acceptedFileTypes.filter((type) => type.startsWith(".")).join(",")}
                />
 
                {selectedFile ? (

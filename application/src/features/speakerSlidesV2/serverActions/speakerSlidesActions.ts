@@ -8,7 +8,7 @@ export async function deleteSpeakerSlidesFileAction(fileId: string): Promise<Bac
    try {
       // Check if the user is authorized to delete the file
       const userId = await getLoggedInUserId();
-      const isAuthorized = await checkUserAuthorization(userId ?? "", ["admin"]);
+      const isAuthorized = await checkUserAuthorization(userId ?? "", ["admin", "super_admin"]);
       if (!isAuthorized) {
          return {
             success: false,
