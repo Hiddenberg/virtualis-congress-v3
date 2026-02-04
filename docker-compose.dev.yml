@@ -1,6 +1,8 @@
 services:
-  virtualis-congress-v3-db:
-    build: ./database
+  virtualis-congress-v3-db-dev:
+    build:
+      context: ./database
+      dockerfile: Dockerfile.dev
     ports:
       - 8080:8080
     volumes:
