@@ -3,9 +3,9 @@ import { getConferenceLivestreamSession } from "@/features/conferences/services/
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonStateServices";
-import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import { ZoomSessionProvider } from "@/features/livestreams/contexts/ZoomSessionContext";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import DynamicProjectionScreenCallInterface from "@/features/projectionScreen/components/DynamicProjectionScreenCallInterface";
 import FixedScaleStage from "@/features/projectionScreen/components/FixedScaleStage";
 import RealtimeProjectionRefresher from "@/features/projectionScreen/components/RealtimeProjectionRefresher";
 import StandbyScreen from "@/features/projectionScreen/components/StandbyScreen";
@@ -82,7 +82,7 @@ export default async function ProjectionScreenPage() {
                   >
                      {/* <span className="font-medium text-white/90 text-lg md:text-xl">Presentación / Video</span> */}
                      <ZoomSessionProvider sessionName={`${activeConference.title}-conf`} sessionKey={livestreamSession.id}>
-                        <DynamicZoomCallInterface initialUsername="Pantalla Proyección" className="-mt-10! w-full" />
+                        <DynamicProjectionScreenCallInterface initialUsername="Pantalla Proyección" className="-mt-10! w-full" />
                      </ZoomSessionProvider>
                   </div>
 
