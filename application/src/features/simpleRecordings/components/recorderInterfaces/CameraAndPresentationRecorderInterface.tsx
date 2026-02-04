@@ -161,10 +161,10 @@ export default function CameraAndPresentationRecorderInterface({
                               setSelectedPresentationOption("no_videos");
                               setPresentationHasVideo(false);
                            }}
-                           className={`!flex items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
+                           className={`flex! items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
                               selectedPresentationOption === "no_videos"
                                  ? "border-blue-500! bg-blue-50!"
-                                 : "border-gray-200! bg-white! hover:border-blue-300! hover:!bg-blue-25"
+                                 : "border-gray-200! bg-white! hover:border-blue-300! hover:bg-blue-25!"
                            }`}
                         >
                            <div
@@ -192,10 +192,10 @@ export default function CameraAndPresentationRecorderInterface({
                               setSelectedPresentationOption("si_videos");
                               setPresentationHasVideo(true);
                            }}
-                           className={`!flex items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
+                           className={`flex! items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
                               selectedPresentationOption === "si_videos"
                                  ? "border-green-500! bg-green-50!"
-                                 : "border-gray-200! bg-white! hover:border-green-300! hover:!bg-green-25"
+                                 : "border-gray-200! bg-white! hover:border-green-300! hover:bg-green-25!"
                            }`}
                         >
                            <div
@@ -223,10 +223,10 @@ export default function CameraAndPresentationRecorderInterface({
                               setSelectedPresentationOption("no_ppt");
                               setPresentationHasVideo(true);
                            }}
-                           className={`!flex items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
+                           className={`flex! items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
                               selectedPresentationOption === "no_ppt"
                                  ? "border-purple-500! bg-purple-50!"
-                                 : "border-gray-200! bg-white! hover:border-purple-300! hover:!bg-purple-25"
+                                 : "border-gray-200! bg-white! hover:border-purple-300! hover:bg-purple-25!"
                            }`}
                         >
                            <div
@@ -254,10 +254,10 @@ export default function CameraAndPresentationRecorderInterface({
                               setSelectedPresentationOption("zoom_video");
                               setPresentationHasVideo(true);
                            }}
-                           className={`!flex items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
+                           className={`flex! items-center! gap-4! p-4! border-2! rounded-xl! transition-all! duration-200! ${
                               selectedPresentationOption === "zoom_video"
                                  ? "border-sky-500! bg-sky-50!"
-                                 : "border-gray-200! bg-white! hover:border-sky-300! hover:!bg-sky-25"
+                                 : "border-gray-200! bg-white! hover:border-sky-300! hover:bg-sky-25!"
                            }`}
                         >
                            <div
