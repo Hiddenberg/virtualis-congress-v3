@@ -8,6 +8,7 @@ import {
 } from "@/features/platformSync/serverActions/recordingsSyncActions";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import SuperAdminToolCard from "@/features/superAdminTools/components/SuperAdminToolCard";
+import { sendSpeakerPresentationUploadReminderEmailToAllSpeakersAction } from "@/features/superAdminTools/serverActions/massEmailsActions";
 import {
    migrateAllRecordingEmailsAction,
    sendAboutToStartEventEmailToAllUsersAction,
@@ -91,6 +92,11 @@ export default async function CongressAdminSynchPage() {
                action={sendOnDemandReminderEmailsToAllUsersWithoutPaymentsAction}
                buttonText="Enviar correo de recordatorio de congreso 'on demand' a usuarios sin pagos"
                description="Esta acción enviará un correo de recordatorio de que tienen las grabaciones bajo demanda a todos los usuarios sin pagos."
+            />
+            <SuperAdminToolCard
+               action={sendSpeakerPresentationUploadReminderEmailToAllSpeakersAction}
+               buttonText="Enviar correo de recordatorio de subida de presentación a todos los ponentes"
+               description="Esta acción enviará un correo de recordatorio a los ponentes de todas las conferencias en vivo o presenciales de que deben subir su presentación para todas las conferencias del congreso actual."
             />
          </div>
       </div>
