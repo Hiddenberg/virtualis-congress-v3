@@ -30,7 +30,7 @@ export default async function StandbyScreen({
                   maxWidth: 1400,
                }}
             >
-               <div className="flex items-center gap-3 md:gap-4 col-span-12 md:col-span-3 *:h-28 *:w-auto *:object-contain *:rounded-lg *:bg-white">
+               <div className="flex items-center gap-3 md:gap-4 col-span-12 md:col-span-3 *:bg-white *:rounded-lg *:w-auto *:h-28 *:object-contain">
                   <img src={organization.logoURL ?? ""} alt={`${organization.name} logo`} />
                </div>
                <div className="col-span-12 md:col-span-6">
@@ -54,7 +54,7 @@ export default async function StandbyScreen({
             >
                {/* Left: Enhanced next conference card */}
                <div className="col-span-8">
-                  <div className="bg-white shadow-xl border border-slate-200/60 rounded-3xl h-[750px] overflow-hidden">
+                  <div className="bg-white shadow-xl border border-slate-200/60 rounded-3xl h-[700px] overflow-hidden">
                      {nextConference ? (
                         <div>
                            {/* Card header with modern status badge */}
