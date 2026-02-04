@@ -1,5 +1,6 @@
 import { RecordModel } from "pocketbase";
 import { AcademicTitle } from "@/data/utils";
+import { UserRecord } from "@/features/users/types/userTypes";
 
 interface SpeakerData {
    organization: OrganizationRecord["id"];

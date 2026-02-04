@@ -1,4 +1,4 @@
-import { format } from "@formkit/tempo";
+import { addDay, format } from "@formkit/tempo";
 import { render } from "@react-email/components";
 import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { getAllCongressConferences, getConferenceById } from "@/features/conferences/services/conferenceServices";
@@ -30,6 +30,7 @@ import RecordingInvitationTemplate from "../templates/RecordingInvitationTemplat
 import RecordingReminder from "../templates/RecordingReminder";
 import RecordingsReadyTemplate from "../templates/RecordingsReadyTemplate";
 import SpeakerCertificateTemplate from "../templates/SpeakerCertificateTemplate";
+import SpeakerPresentationUploadReminderTemplate from "../templates/SpeakerPresentationUploadReminderTemplate";
 /**
  * Sends a notification email to the specified recipient
  *
@@ -63,7 +64,7 @@ export async function sendNotificationEmail(senderAlias: string, to: string, sub
    }
 }
 
-async function sendEmailToAllUserEmails({
+async function sendEmailToAllEmailsOfTheUser({
    user,
    senderAlias,
    to,
@@ -108,7 +109,7 @@ export async function sendRecordingsAvailableEmail(userId: string) {
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
@@ -158,7 +159,7 @@ export async function sendPlatformRegistrationConfirmationEmail(userId: string) 
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
@@ -507,7 +508,7 @@ export async function sendNonPayersCongressInvitationEmail(userId: string) {
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
@@ -550,7 +551,7 @@ export async function sendAboutToStartEventEmail(userId: string) {
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
@@ -629,7 +630,7 @@ export async function sendNewEventDayAboutToStartEmail(userId: string, eventDayN
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
@@ -668,7 +669,7 @@ export async function sendEventFinishedEmail(userId: string) {
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
@@ -711,7 +712,7 @@ export async function sendSpeakerCertificateEmail({
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: email,
@@ -748,11 +749,73 @@ export async function sendOnDemandReminderEmail({ userId, bannerImageUrl }: { us
       }),
    );
 
-   await sendEmailToAllUserEmails({
+   await sendEmailToAllEmailsOfTheUser({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
       subject: `¡${congress.title} ya está disponible bajo demanda!`,
+      template,
+   });
+}
+
+export async function sendSpeakerPresentationUploadReminderEmail({
+   userId,
+   conferenceId,
+}: {
+   userId: string;
+   conferenceId: string;
+}) {
+   const user = await getUserById(userId);
+   if (!user) {
+      throw new Error("[EmailSendingServices] User not found");
+   }
+
+   const organization = await getOrganizationFromSubdomain();
+   if (!organization) {
+      throw new Error("[EmailSendingServices] Organization not found");
+   }
+
+   const conference = await getConferenceById(conferenceId);
+   if (!conference) {
+      throw new Error("[EmailSendingServices] Conference not found");
+   }
+
+   if (conference.conferenceType !== "in-person" && conference.conferenceType !== "livestream") {
+      throw new Error("[EmailSendingServices] Conference is not a live conference this should not apply");
+   }
+
+   const organizationBaseUrl = await getOrganizationBaseUrl();
+
+   const formattedConferenceDate = format({
+      date: conference.startTime,
+      format: "DD/MMM/YYYY",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   });
+
+   const formattedDeadlineDate = format({
+      date: addDay(conference.startTime, -1),
+      format: "DD/MMM/YYYY",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   });
+
+   const template = await render(
+      SpeakerPresentationUploadReminderTemplate({
+         speakerName: user.name,
+         conferenceTitle: conference.title,
+         uploadLink: `${organizationBaseUrl}/speakers/slides/${conference.id}/upload`,
+         organizationName: organization.name,
+         deadlineDate: formattedDeadlineDate,
+         conferenceDate: formattedConferenceDate,
+      }),
+   );
+
+   await sendEmailToAllEmailsOfTheUser({
+      user,
+      senderAlias: `${organization.name} | Virtualis Congress`,
+      to: user.email,
+      subject: `¡Recuerda subir la presentación para tu conferencia: ${conference.title}!`,
       template,
    });
 }

@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
-import { listDriveFiles } from "@/features/googleDrive/services/googleDriveServices";
+import { sendSpeakerPresentationUploadReminderEmail } from "@/features/emails/services/emailSendingServices";
 
 export async function GET() {
-   const files = await listDriveFiles();
+   await sendSpeakerPresentationUploadReminderEmail({
+      conferenceId: "g0ld47offitmm09",
+      userId: "y4o0tufpt2wr4q8",
+   });
    return NextResponse.json({
-      files,
+      message: "Hello World",
    });
 }

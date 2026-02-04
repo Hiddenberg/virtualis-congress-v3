@@ -89,22 +89,22 @@ export default function SpeakerPresentationUploadReminderTemplate({
                      <Section style={instructionsContainerStyle}>
                         <Text style={instructionItemStyle}>
                            <span style={instructionBulletStyle}>1.</span>
+                           Asegúrate de que tu presentación (PowerPoint, PDF u otro formato compatible) esté completa y lista para
+                           el día del evento
+                        </Text>
+                        <Text style={instructionItemStyle}>
+                           <span style={instructionBulletStyle}>2.</span>
                            Haz clic en el botón de arriba o visita el enlace proporcionado
                         </Text>
 
                         <Text style={instructionItemStyle}>
-                           <span style={instructionBulletStyle}>2.</span>
+                           <span style={instructionBulletStyle}>3.</span>
                            Selecciona tu archivo de presentación (PowerPoint, PDF u otro formato compatible)
                         </Text>
 
                         <Text style={instructionItemStyle}>
-                           <span style={instructionBulletStyle}>3.</span>
-                           Espera a que se procese y verifica que se haya subido correctamente
-                        </Text>
-
-                        <Text style={instructionItemStyle}>
                            <span style={instructionBulletStyle}>4.</span>
-                           Asegúrate de que tu presentación esté completa y lista para el día del evento
+                           Espera a que se procese y verifica que se haya subido correctamente
                         </Text>
                      </Section>
                   </Section>
