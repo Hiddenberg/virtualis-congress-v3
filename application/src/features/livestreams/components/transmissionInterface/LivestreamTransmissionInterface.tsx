@@ -9,8 +9,8 @@ import type { UserRecord } from "@/features/users/types/userTypes";
 import { RealtimeLivestreamStatusProvider } from "../../contexts/RealtimeLivestreamStatusProvider";
 import { ZoomSessionProvider } from "../../contexts/ZoomSessionContext";
 import CollapsibleGuestLink from "../CollapsibleGuestLink";
+import DynamicZoomCallInterface from "../DynamicZoomCallInterface";
 import { LivestreamControlButtons } from "../LivestreamControlButtons";
-import ZoomCallInterface from "../ZoomCallInterface";
 
 function GoToQnASessionSection({
    qnaSession,
@@ -37,7 +37,7 @@ function GoToQnASessionSection({
 function LiveTransmissionHeader({ isQna, conference }: { isQna: boolean; conference: CongressConferenceRecord }) {
    return (
       <div
-         className={`bg-linear-to-r flex justify-between items-center shadow-lg mb-6 p-2 px-4 rounded-2xl ${isQna ? "from-green-600 to-green-700" : "from-blue-600 to-blue-700"}`}
+         className={`bg-linear-to-r! flex justify-between items-center shadow-lg mb-6 p-2 px-4 rounded-2xl ${isQna ? "from-green-600 to-green-700" : "from-blue-600 to-blue-700"}`}
       >
          <div className="flex items-center gap-3">
             <div className={`p-3 rounded-xl ${isQna ? "bg-green-500" : "bg-blue-500"}`}>
@@ -134,7 +134,7 @@ export default function LivestreamTransmissionInterface({
                            </div>
                         ) : (
                            <div className="rounded-xl w-full overflow-hidden">
-                              <ZoomCallInterface initialUsername={user?.name} allowScreenShare />
+                              <DynamicZoomCallInterface initialUsername={user?.name} allowScreenShare />
                            </div>
                         )}
                      </div>
@@ -155,7 +155,7 @@ export default function LivestreamTransmissionInterface({
                   {/* Sidebar */}
                   <div className="space-y-6">
                      {conferencePresentation && !conferencePresentation.hasVideo && (
-                        <ZoomCallInterface initialUsername={user?.name} />
+                        <DynamicZoomCallInterface initialUsername={user?.name} />
                      )}
                      {/* Guest Link Section */}
                      {userIsAdmin && <CollapsibleGuestLink streamingRoute={`/live-transmission/${conferenceId}/conference`} />}

@@ -43,7 +43,7 @@ export function StartLiveStreamButton({
 
    return (
       <Button
-         className={`p-2! border! border-green-600! bg-green-600! hover:bg-green-700! text-white! font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-3 ${isLoading ? "opacity-50 cursor-not-allowed animate-pulse" : ""}`}
+         className={`p-2! border! border-green-600! bg-green-600! hover:bg-green-700! text-white! font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-3 ${isLoading ? "opacity-50 animate-pulse cursor-not-allowed" : ""}`}
          disabled={!zoomSessionId || isLoading}
          onClick={handleStartLiveStream}
       >
@@ -83,7 +83,7 @@ export function ResumeLiveStreamButton({
    return (
       <Button
          variant="none"
-         className={`bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-3 ${isLoading ? "opacity-50 cursor-not-allowed animate-pulse" : ""}`}
+         className={`bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-3 ${isLoading ? "opacity-50 animate-pulse cursor-not-allowed" : ""}`}
          disabled={isLoading}
          onClick={handleResumeLiveStream}
       >
@@ -134,7 +134,13 @@ export function StopLiveStreamButton({
    };
 
    return (
-      <Button variant="destructive" loading={isLoading} disabled={!zoomSessionId || isLoading} onClick={handleStopLiveStream}>
+      <Button
+         variant="destructive"
+         className="justify-center! items-center! gap-3! !bg-linear-to-r !from-red-500 hover:!from-red-600 !to-red-600 hover:!to-red-700 !shadow-lg hover:!shadow-xl !px-6 !py-3 !border-0 !rounded-xl !min-w-[160px] !font-semibold !text-white hover:!scale-105 active:!scale-95 !transition-all !duration-200 flex! !transform"
+         loading={isLoading}
+         disabled={!zoomSessionId || isLoading}
+         onClick={handleStopLiveStream}
+      >
          <StopCircle className="w-5 h-5" />
          {isLoading ? "Deteniendo..." : "Detener Transmisión"}
       </Button>

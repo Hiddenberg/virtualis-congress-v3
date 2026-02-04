@@ -5,7 +5,7 @@ import { ArrowLeftIcon, ArrowRight, CheckCircle2, FileText, User, Video } from "
 import { useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
-import ZoomCallInterface from "@/features/livestreams/components/ZoomCallInterface";
+import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import UploadPresentationForm from "@/features/pptPresentations/components/UploadPresentationForm";
 import { linkRecordingWithPresentationAction } from "../../serverActions/recordingPresentationsActions";
 import RecordingLivestreamControlButtons from "../RecordingLivestreamControlButtons";
@@ -369,7 +369,7 @@ export default function CameraAndPresentationRecorderInterface({
                <div className="!flex !justify-center !mt-6">
                   <RecordingLivestreamControlButtons sessionTitle={sessionTitle} />
                </div>
-               <ZoomCallInterface
+               <DynamicZoomCallInterface
                   initialUsername={username}
                   allowScreenShare={presentationHasVideo === true}
                   className="!w-auto !max-h-[80dvh]"

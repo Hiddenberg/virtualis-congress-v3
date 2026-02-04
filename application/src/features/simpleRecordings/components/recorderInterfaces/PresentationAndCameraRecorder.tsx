@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ZoomCallInterface from "@/features/livestreams/components/ZoomCallInterface";
+import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import { useZoomSession } from "@/features/livestreams/contexts/ZoomSessionContext";
 import PresentationRecorder from "@/features/pptPresentations/components/PresentationRecorder";
 import { PresentationDrawingProvider } from "@/features/pptPresentations/contexts/PresentationDrawingContext";
@@ -64,7 +64,7 @@ export default function PresentationAndCameraRecorder({
                      </div>
 
                      <div className="!space-y-4">
-                        <ZoomCallInterface
+                        <DynamicZoomCallInterface
                            className="!mx-auto !rounded-2xl !max-w-80"
                            initialUsername={username}
                            setIsLoading={setZoomIsLoading}

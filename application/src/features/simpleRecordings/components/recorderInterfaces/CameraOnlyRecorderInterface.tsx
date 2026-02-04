@@ -2,7 +2,7 @@
 import { ArrowRight, User } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/global/Buttons";
-import ZoomCallInterface from "@/features/livestreams/components/ZoomCallInterface";
+import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import RecordingLivestreamControlButtons from "../RecordingLivestreamControlButtons";
 
 export default function CameraOnlyRecorderInterface({ sessionTitle }: { sessionTitle: string }) {
@@ -57,7 +57,7 @@ export default function CameraOnlyRecorderInterface({ sessionTitle }: { sessionT
          <div>
             <h1 className="!mb-4 !font-bold !text-gray-900 !text-2xl">{sessionTitle}</h1>
             <RecordingLivestreamControlButtons sessionTitle={sessionTitle} />
-            <ZoomCallInterface initialUsername={username} allowScreenShare={true} isHostByDefault={true} />
+            <DynamicZoomCallInterface initialUsername={username} allowScreenShare={true} isHostByDefault={true} />
          </div>
       );
    }

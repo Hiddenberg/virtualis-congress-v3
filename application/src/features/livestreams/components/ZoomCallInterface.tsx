@@ -4,11 +4,11 @@ import uiToolkit, { type SuspensionViewValue } from "@zoom/videosdk-ui-toolkit";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+// import "@/app/zoomStyles.css";
+import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
+import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
 import { useZoomSession } from "../contexts/ZoomSessionContext";
 import { getZoomTokenAction } from "../serverActions/ZoomSessionActions";
-
-import "@/app/zoomStyles.css";
-import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
 
 function UsernameInput({ onUserNameSubmit }: { onUserNameSubmit: (username: string) => void }) {
    const [username, _setUsername] = useState<string>("");
@@ -50,8 +50,10 @@ export default function ZoomCallInterface({
    const sessionJoinedRef = useRef(false);
    const { setSessionId, sessionName, sessionKey } = useZoomSession();
 
-   const isHostParam = useSearchParams().get("ishost");
-   const isHost = isHostByDefault === true ? true : isHostParam === "true";
+   const isHostParam1 = useSearchParams().get("ishost");
+   const isHostParam2 = useSearchParams().get("ishost");
+
+   const isHost = isHostByDefault === true ? true : isHostParam1 === "true" || isHostParam2 === "true";
 
    console.log("isHost", isHost);
 
@@ -149,7 +151,7 @@ export default function ZoomCallInterface({
                   enableEmoji: false,
                },
                users: {
-                  enable: false,
+                  enable: isHost,
                },
             },
          });

@@ -10,7 +10,7 @@ import { getConferenceSpeakers } from "@/features/conferences/services/conferenc
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonState";
-import ZoomCallInterface from "@/features/livestreams/components/ZoomCallInterface";
+import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import { ZoomSessionProvider } from "@/features/livestreams/contexts/ZoomSessionContext";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import RealtimePresentationViewer from "@/features/pptPresentations/components/realtime/RealtimePresentationViewer";
@@ -101,7 +101,7 @@ export default async function ProjectionScreenPage() {
                            sessionName={`${conference.title}-qna`}
                            sessionKey={conferenceQnaLivestreamSession.id}
                         >
-                           <ZoomCallInterface initialUsername="Pantalla Proyección" className="w-full" />
+                           <DynamicZoomCallInterface initialUsername="Pantalla Proyección" className="w-full" />
                         </ZoomSessionProvider>
                      </div>
 
@@ -319,7 +319,7 @@ export default async function ProjectionScreenPage() {
                      >
                         {/* <span className="font-medium text-white/90 text-lg md:text-xl">Presentación / Video</span> */}
                         <ZoomSessionProvider sessionName={`${conference.title}-conf`} sessionKey={livestreamSession.id}>
-                           <ZoomCallInterface initialUsername="Pantalla Proyección" className="w-full" />
+                           <DynamicZoomCallInterface initialUsername="Pantalla Proyección" className="w-full" />
                         </ZoomSessionProvider>
                      </div>
 

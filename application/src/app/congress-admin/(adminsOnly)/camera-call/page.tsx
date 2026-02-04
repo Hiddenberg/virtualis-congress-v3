@@ -1,6 +1,6 @@
 import { getConferenceLivestreamSession } from "@/features/conferences/services/conferenceLivestreamsServices";
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
-import ZoomCallInterface from "@/features/livestreams/components/ZoomCallInterface";
+import DynamicZoomCallInterface from "@/features/livestreams/components/DynamicZoomCallInterface";
 import { ZoomSessionProvider } from "@/features/livestreams/contexts/ZoomSessionContext";
 
 export default async function CongressDirectorCameraCallPage() {
@@ -20,7 +20,7 @@ export default async function CongressDirectorCameraCallPage() {
          <h1>Llamada de cámara para {activeConference.title}</h1>
 
          <ZoomSessionProvider sessionName={`${activeConference.title}-conf`} sessionKey={livestreamSession.id}>
-            <ZoomCallInterface initialUsername="Dispositivo camara" className="w-full" />
+            <DynamicZoomCallInterface initialUsername="Dispositivo camara" className="w-full" />
          </ZoomSessionProvider>
       </div>
    );
