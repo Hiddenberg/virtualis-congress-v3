@@ -1,5 +1,6 @@
 import ConferenceCountdown from "@/features/conferences/components/ConferenceCountdown";
 import { getConferenceLivestreamSession } from "@/features/conferences/services/conferenceLivestreamsServices";
+import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { ensuredCongressInPersonState } from "@/features/congressInPersonState/services/congressInPersonStateServices";
@@ -9,6 +10,7 @@ import DynamicProjectionScreenCallInterface from "@/features/projectionScreen/co
 import FixedScaleStage from "@/features/projectionScreen/components/FixedScaleStage";
 import RealtimeProjectionRefresher from "@/features/projectionScreen/components/RealtimeProjectionRefresher";
 import StandbyScreen from "@/features/projectionScreen/components/StandbyScreen";
+import type { SpeakerDataRecord } from "@/types/congress";
 
 export default async function ProjectionScreenPage() {
    const congressInPersonState = await ensuredCongressInPersonState();
@@ -30,7 +32,10 @@ export default async function ProjectionScreenPage() {
       );
    }
 
-   const livestreamSession = await getConferenceLivestreamSession(activeConference.id);
+   const [livestreamSession, conferenceSpeakers] = await Promise.all([
+      getConferenceLivestreamSession(activeConference.id),
+      getConferenceSpeakers(activeConference.id),
+   ]);
 
    if (!livestreamSession) {
       return (
@@ -41,11 +46,12 @@ export default async function ProjectionScreenPage() {
    }
 
    const BASE_WIDTH = 1200;
+   const BASE_HEIGHT = 900;
 
    return (
       <div className="top-0 left-0 fixed bg-[url(https://res.cloudinary.com/dnx2lg7vb/image/upload/v1756937736/Cmim_background_t4ej4c.webp)] bg-cover bg-center p-4 w-dvw min-h-dvh">
          <RealtimeProjectionRefresher congressId={congress.id} />
-         <FixedScaleStage baseWidth={BASE_WIDTH} baseHeight={880} className="mx-auto">
+         <FixedScaleStage baseWidth={BASE_WIDTH} baseHeight={BASE_HEIGHT} className="mx-auto">
             {/* header */}
             <div
                className="items-center gap-4 grid grid-cols-12 mx-auto mb-4"
@@ -89,6 +95,17 @@ export default async function ProjectionScreenPage() {
                   <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">
                      {activeConference.title}
                   </div>
+
+                  {/* speaker name */}
+                  {conferenceSpeakers.length > 0 && (
+                     <div className="flex justify-center items-center bg-slate-50/70 shadow-sm border border-slate-300 rounded-xl h-10 font-medium text-slate-700 text-base">
+                        {conferenceSpeakers
+                           .map((speaker: SpeakerDataRecord) =>
+                              speaker.academicTitle ? `${speaker.academicTitle} ${speaker.displayName}` : speaker.displayName,
+                           )
+                           .join(", ")}
+                     </div>
+                  )}
 
                   {/* bottom widgets */}
                   {/* <div className="gap-4 grid grid-cols-2">
