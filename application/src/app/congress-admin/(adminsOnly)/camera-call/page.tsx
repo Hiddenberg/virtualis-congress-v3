@@ -36,7 +36,7 @@ export default async function CongressDirectorCameraCallPage() {
          <h1>Llamada de cámara para {activeConference.title}</h1>
 
          <ZoomSessionProvider sessionName={`${activeConference.title}-conf`} sessionKey={livestreamSession.id}>
-            <DynamicZoomCallInterface initialUsername="Dispositivo camara" className="w-full" />
+            <DynamicZoomCallInterface initialUsername="Dispositivo camara" className="w-full" isHostByDefault={true} />
          </ZoomSessionProvider>
       </div>
    );

@@ -4,7 +4,7 @@ import { LinkIcon } from "lucide-react";
 import { CopyButton } from "@/components/global/Buttons";
 
 export default function CopyCameraCallLinkButton() {
-   const cameraCallUrl = `${window.location.origin}/congress-admin/camera-call`;
+   const cameraCallUrl = `${window.location.origin}/congress-admin/camera-call?ishost=true`;
 
    return (
       <div className="space-y-2">

@@ -73,7 +73,7 @@ export default async function CongressDirectorLayout({ children }: { children: R
                   <p className="text-gray-600 text-sm">Gestiona el estado de las conferencias</p>
                </div>
                <div className="flex flex-col gap-3">
-                  <LinkButton href="/congress-admin/camera-call" target="_blank" variant="blue" className="text-sm">
+                  <LinkButton href="/congress-admin/camera-call?ishost=true" target="_blank" variant="blue" className="text-sm">
                      Ir a la llamada de cámara
                      <ExternalLinkIcon className="w-4 h-4" />
                   </LinkButton>
