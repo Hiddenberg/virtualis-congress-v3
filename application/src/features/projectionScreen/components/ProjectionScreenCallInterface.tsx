@@ -32,6 +32,7 @@ export default function ProjectionScreenCallInterface({
    const { sessionName, sessionKey } = useZoomSession();
    const hasJoinedRef = useRef(false);
    const hasSpotlightRef = useRef(false);
+   const isInMeetingRef = useRef(false);
    type ZoomClient = ReturnType<typeof ZoomVideo.createClient>;
    type ZoomMediaStream = ReturnType<ZoomClient["getMediaStream"]>;
    const zoomClientRef = useRef<ZoomClient | null>(null);
@@ -228,6 +229,7 @@ export default function ProjectionScreenCallInterface({
             zoomClient.on("user-removed", handleUserRemoved);
 
             await zoomClient.join(sessionName, token, userName);
+            isInMeetingRef.current = true;
             mediaStreamRef.current = zoomClient.getMediaStream();
             const someoneIsSharing = mediaStreamRef.current.getShareUserList().length > 0;
             const spotlightedUsersList = mediaStreamRef.current.getSpotlightedUserList();
@@ -252,6 +254,16 @@ export default function ProjectionScreenCallInterface({
                }
             });
          } catch (error) {
+            if (
+               typeof error === "object" &&
+               error !== null &&
+               "type" in error &&
+               "reason" in error &&
+               error.type === "OPERATION_CANCELLED" &&
+               error.reason === "LEAVING_MEETING"
+            ) {
+               return;
+            }
             console.error("[ProjectionScreen] Error joining session", error);
             setErrorMessage("No se pudo conectar a la sesión de Zoom.");
          }
@@ -259,15 +271,11 @@ export default function ProjectionScreenCallInterface({
 
       void joinSession();
 
-      const handlePageHide = () => {
-         void zoomClientRef.current?.leave();
-      };
-
-      window.addEventListener("pagehide", handlePageHide);
-
       return () => {
-         window.removeEventListener("pagehide", handlePageHide);
-         zoomClientRef.current?.leave();
+         if (isInMeetingRef.current) {
+            void zoomClientRef.current?.leave();
+         }
+         isInMeetingRef.current = false;
          zoomClientRef.current?.off("peer-video-state-change", handlePeerVideoStateChange);
          zoomClientRef.current?.off("active-share-change", handleActiveShareChange);
          zoomClientRef.current?.off("video-active-change", handleVideoActiveChange);
