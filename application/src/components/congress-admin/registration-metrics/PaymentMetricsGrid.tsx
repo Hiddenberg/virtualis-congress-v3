@@ -29,8 +29,13 @@ export default function PaymentMetricsGrid({
    // registrations,
    payments,
 }: PaymentMetricsGridProps) {
-   const successfulPayments = payments.filter((payment) => payment.fulfilledSuccessfully);
-   const failedPayments = payments.filter((payment) => !payment.fulfilledSuccessfully);
+   const isCashPayment = (payment: UserPaymentRecord) => (payment.paymentMethod ?? "").toLowerCase() === "cash";
+   const manualPayments = payments.filter(isCashPayment);
+   const stripePayments = payments.filter((payment) => !isCashPayment(payment));
+
+   const successfulPayments = stripePayments.filter((payment) => payment.fulfilledSuccessfully);
+   const failedPayments = stripePayments.filter((payment) => !payment.fulfilledSuccessfully);
+   const successfulManualPayments = manualPayments.filter((payment) => payment.fulfilledSuccessfully);
 
    const avgPaymentAmount =
       successfulPayments.length > 0
@@ -51,6 +56,31 @@ export default function PaymentMetricsGrid({
       ["N/A", 0],
    );
 
+   const manualTotalsByCurrency = successfulManualPayments.reduce(
+      (acc, payment) => {
+         const key = (payment.currency ?? "sin-moneda").toLowerCase();
+         acc[key] = (acc[key] ?? 0) + (payment.totalAmount || 0);
+         return acc;
+      },
+      {} as Record<string, number>,
+   );
+
+   const formatMoney = (amountCents: number, currencyKey: string) => {
+      const amount = amountCents / 100;
+      const isUnknown = currencyKey === "sin-moneda";
+      const code = isUnknown ? undefined : currencyKey.toUpperCase();
+      try {
+         if (!code) throw new Error("no-code");
+         return new Intl.NumberFormat(undefined, {
+            style: "currency",
+            currency: code,
+            maximumFractionDigits: 2,
+         }).format(amount);
+      } catch {
+         return `$${amount.toFixed(2)}`;
+      }
+   };
+
    return (
       <div className="bg-white shadow-sm border border-gray-200 rounded-xl">
          <div className="p-6 border-gray-200 border-b">
@@ -59,7 +89,7 @@ export default function PaymentMetricsGrid({
          </div>
 
          <div className="p-6">
-            <div className="gap-6 grid grid-cols-1 md:grid-cols-3">
+            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                {/* Average Payment */}
                <div className="flex items-center space-x-4 bg-green-50 p-4 rounded-lg">
                   <div className="bg-green-100 p-2 rounded-lg">
@@ -83,6 +113,28 @@ export default function PaymentMetricsGrid({
                   </div>
                </div>
 
+               {/* Manual Payments */}
+               <div className="flex items-center space-x-4 bg-emerald-50 p-4 rounded-lg">
+                  <div className="bg-emerald-100 p-2 rounded-lg">
+                     <CreditCard className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div className="min-w-0">
+                     <p className="font-medium text-gray-600 text-sm">Pagos Registrados manualmente</p>
+                     <p className="font-bold text-gray-900 text-2xl">{successfulManualPayments.length}</p>
+                     <div className="space-y-1 mt-1">
+                        {Object.keys(manualTotalsByCurrency)
+                           .sort()
+                           .map((cur) => (
+                              <div key={cur} className="text-gray-500 text-sm">
+                                 {cur === "sin-moneda" ? "Sin moneda" : cur.toUpperCase()}:{" "}
+                                 {formatMoney(manualTotalsByCurrency[cur], cur)}
+                              </div>
+                           ))}
+                        {Object.keys(manualTotalsByCurrency).length === 0 && <div className="text-gray-500 text-sm">$0.00</div>}
+                     </div>
+                  </div>
+               </div>
+
                {/* Failed Payments */}
                <div className="flex items-center space-x-4 bg-red-50 p-4 rounded-lg">
                   <div className="bg-red-100 p-2 rounded-lg">
@@ -92,7 +144,8 @@ export default function PaymentMetricsGrid({
                      <p className="font-medium text-gray-600 text-sm">Pagos Fallidos</p>
                      <p className="font-bold text-gray-900 text-2xl">{failedPayments.length}</p>
                      <p className="text-gray-500 text-sm">
-                        {payments.length > 0 ? Math.round((failedPayments.length / payments.length) * 100) : 0}% del total
+                        {stripePayments.length > 0 ? Math.round((failedPayments.length / stripePayments.length) * 100) : 0}% del
+                        total
                      </p>
                   </div>
                </div>

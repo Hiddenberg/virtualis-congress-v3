@@ -27,6 +27,9 @@ interface RegistrationOverviewProps {
 
 export default function RegistrationOverview({ registrations, payments }: RegistrationOverviewProps) {
    const totalRegistrations = registrations.length;
+   const isCashPayment = (payment: UserPaymentRecord) => (payment.paymentMethod ?? "").toLowerCase() === "cash";
+   const manualPayments = payments.filter(isCashPayment);
+   const stripePayments = payments.filter((payment) => !isCashPayment(payment));
 
    // Create a map of payments by ID for quick lookup
    const paymentsMap = new Map(payments.map((payment) => [payment.id, payment]));
@@ -53,7 +56,7 @@ export default function RegistrationOverview({ registrations, payments }: Regist
 
    // Group successful payments by currency (lowercase like "mxn", "usd").
    // Currency is optional; group missing as "sin-moneda".
-   const revenueByCurrency = payments
+   const revenueByCurrency = stripePayments
       .filter((payment) => payment.fulfilledSuccessfully && (payment.totalAmount ?? 0) > 0)
       .reduce(
          (acc, payment) => {
@@ -63,6 +66,33 @@ export default function RegistrationOverview({ registrations, payments }: Regist
          },
          {} as Record<string, number>,
       );
+
+   const manualRevenueByCurrency = manualPayments
+      .filter((payment) => payment.fulfilledSuccessfully && (payment.totalAmount ?? 0) > 0)
+      .reduce(
+         (acc, payment) => {
+            const key = (payment.currency ?? "sin-moneda").toLowerCase();
+            acc[key] = (acc[key] ?? 0) + (payment.totalAmount || 0);
+            return acc;
+         },
+         {} as Record<string, number>,
+      );
+
+   const incomeTotalsByCurrency = [
+      ...new Set([...Object.keys(revenueByCurrency), ...Object.keys(manualRevenueByCurrency)]),
+   ].reduce(
+      (acc, key) => {
+         const stripe = revenueByCurrency[key] ?? 0;
+         const manual = manualRevenueByCurrency[key] ?? 0;
+         acc[key] = {
+            stripe,
+            manual,
+            total: stripe + manual,
+         };
+         return acc;
+      },
+      {} as Record<string, { stripe: number; manual: number; total: number }>,
+   );
 
    const formatMoney = (amountCents: number, currencyKey: string) => {
       const amount = (amountCents ?? 0) / 100;
@@ -103,11 +133,11 @@ export default function RegistrationOverview({ registrations, payments }: Regist
       },
       // Render currency-separated totals inside this stat card
       {
-         title: "Ingresos Totales",
+         title: "Ingresos",
          icon: DollarSign,
          color: "bg-purple-50 text-purple-600",
          bgColor: "bg-purple-500",
-         currencyTotals: revenueByCurrency,
+         incomeTotals: incomeTotalsByCurrency,
       },
       {
          title: "Registrados que aun no pagan",
@@ -134,14 +164,18 @@ export default function RegistrationOverview({ registrations, payments }: Regist
       currencyTotals: Record<string, number>;
    }
 
+   interface IncomeTotalsStat extends BaseStat {
+      incomeTotals: Record<string, { stripe: number; manual: number; total: number }>;
+   }
+
    interface PaymentBreakdownStat extends BaseStat {
       paymentBreakdown: Record<string, number>;
    }
 
-   type StatItem = ValueStat | CurrencyTotalsStat | PaymentBreakdownStat;
+   type StatItem = ValueStat | CurrencyTotalsStat | IncomeTotalsStat | PaymentBreakdownStat;
 
    return (
-      <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
          {stats.map((stat) => (
             <div key={stat.title} className="bg-white shadow-sm p-6 border border-gray-200 rounded-xl">
                <div className="flex justify-between items-center">
@@ -165,6 +199,36 @@ export default function RegistrationOverview({ registrations, payments }: Regist
                                  </div>
                               ))}
                            {Object.keys(stat.currencyTotals).length === 0 && (
+                              <p className="font-bold text-gray-900 text-3xl">$0.00</p>
+                           )}
+                        </div>
+                     )}
+                     {"incomeTotals" in stat && (
+                        <div className="mt-2 divide-y divide-gray-100">
+                           {Object.keys(stat.incomeTotals)
+                              .sort()
+                              .map((cur) => (
+                                 <div key={cur} className="py-2">
+                                    <div className="flex flex-col justify-between text-gray-500 text-xs">
+                                       <span className="font-semibold text-gray-900 text-sm">Desde la plataforma:</span>
+                                       <span>{formatMoney(stat.incomeTotals[cur].stripe, cur)}</span>
+                                    </div>
+                                    <div className="flex flex-col justify-between text-gray-500 text-xs">
+                                       <span className="font-semibold text-gray-900 text-sm">Registrados Manualmente:</span>
+                                       <span>{formatMoney(stat.incomeTotals[cur].manual, cur)}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center gap-3 mt-2">
+                                       <span className="font-semibold text-gray-900 text-lg">Total:</span>
+                                       <span className="font-semibold text-gray-900 text-lg">
+                                          {formatMoney(stat.incomeTotals[cur].total, cur)}
+                                       </span>
+                                       <span className="bg-purple-100 px-2 py-0.5 rounded font-medium text-purple-700 text-xs">
+                                          {cur === "sin-moneda" ? "Sin moneda" : cur.toUpperCase()}
+                                       </span>
+                                    </div>
+                                 </div>
+                              ))}
+                           {Object.keys(stat.incomeTotals).length === 0 && (
                               <p className="font-bold text-gray-900 text-3xl">$0.00</p>
                            )}
                         </div>

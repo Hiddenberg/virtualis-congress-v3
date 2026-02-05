@@ -29,7 +29,11 @@ export default function DetailedMetricsGrid({ registrations, payments }: Detaile
    const regularRegistrations = registrations.filter((reg) => reg.registrationType === "regular");
    const courtesyRegistrations = registrations.filter((reg) => reg.registrationType === "courtesy");
 
-   const successfulPayments = payments.filter((payment) => payment.fulfilledSuccessfully);
+   const isCashPayment = (payment: UserPaymentRecord) => (payment.paymentMethod ?? "").toLowerCase() === "cash";
+   const manualPayments = payments.filter(isCashPayment);
+   const stripePayments = payments.filter((payment) => !isCashPayment(payment));
+
+   const successfulPayments = stripePayments.filter((payment) => payment.fulfilledSuccessfully);
    // Group by currency (lowercase; optional). Missing currency grouped as "sin-moneda".
    const sumsByCurrency = successfulPayments.reduce(
       (acc, payment) => {
@@ -47,6 +51,17 @@ export default function DetailedMetricsGrid({ registrations, payments }: Detaile
       {} as Record<string, { revenue: number; discount: number }>,
    );
    const totalDiscount = Object.values(sumsByCurrency).reduce((sum, v) => sum + v.discount, 0);
+
+   const manualSumsByCurrency = manualPayments
+      .filter((payment) => payment.fulfilledSuccessfully)
+      .reduce(
+         (acc, payment) => {
+            const key = (payment.currency ?? "sin-moneda").toLowerCase();
+            acc[key] = (acc[key] ?? 0) + (payment.totalAmount || 0);
+            return acc;
+         },
+         {} as Record<string, number>,
+      );
 
    const recentPayments = successfulPayments.filter((payment) => {
       const paymentDate = new Date(payment.fulfilledAt || payment.created);
@@ -116,9 +131,9 @@ export default function DetailedMetricsGrid({ registrations, payments }: Detaile
             </div>
 
             {/* Summary Section */}
-            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 mt-8">
+            <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8">
                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="mb-2 font-semibold text-gray-900 text-lg">Resumen de Ingresos</h3>
+                  <h3 className="mb-2 font-semibold text-gray-900 text-lg">Resumen de Ingresos desde la plataforma</h3>
                   <div className="space-y-3">
                      {Object.keys(sumsByCurrency)
                         .sort()
@@ -155,6 +170,27 @@ export default function DetailedMetricsGrid({ registrations, payments }: Detaile
                         })}
                      {Object.keys(sumsByCurrency).length === 0 && (
                         <div className="text-gray-600 text-sm">Sin ingresos registrados</div>
+                     )}
+                  </div>
+               </div>
+
+               <div className="bg-gray-50 p-4 rounded-lg">
+                  <h3 className="mb-2 font-semibold text-gray-900 text-lg">Pagos Registrados manualmente</h3>
+                  <div className="space-y-2">
+                     {Object.keys(manualSumsByCurrency)
+                        .sort()
+                        .map((cur) => {
+                           const amount = manualSumsByCurrency[cur] / 100;
+                           const label = cur === "sin-moneda" ? "Sin moneda" : cur.toUpperCase();
+                           return (
+                              <div key={cur} className="flex justify-between text-sm">
+                                 <span className="text-gray-600">{label}:</span>
+                                 <span className="font-medium">${amount.toFixed(2)}</span>
+                              </div>
+                           );
+                        })}
+                     {Object.keys(manualSumsByCurrency).length === 0 && (
+                        <div className="text-gray-600 text-sm">Sin pagos manuales</div>
                      )}
                   </div>
                </div>
