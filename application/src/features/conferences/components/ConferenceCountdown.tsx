@@ -44,9 +44,9 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
    const isFinished = remainingMs <= 0;
 
    return (
-      <div className="bg-white shadow-sm p-4 border border-blue-100 rounded-xl w-full text-center">
+      <div className="bg-white shadow-sm p-4 py-2 border border-blue-100 rounded-xl w-full text-center">
          <div className="font-medium text-slate-500 text-xs uppercase tracking-wide">Tiempo restante</div>
-         <div className="mt-1 font-mono font-semibold tabular-nums text-blue-700 text-5xl">{formatRemaining(remainingMs)}</div>
+         <div className="mt-1 font-mono font-semibold tabular-nums text-blue-700 text-4xl">{formatRemaining(remainingMs)}</div>
          {isFinished && <div className="mt-2 font-medium text-rose-600 text-xs">Finalizado</div>}
       </div>
    );

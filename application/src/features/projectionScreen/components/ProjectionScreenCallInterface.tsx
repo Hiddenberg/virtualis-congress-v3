@@ -1,6 +1,6 @@
 "use client";
 
-import ZoomVideo, { ShareStatus, VideoQuality } from "@zoom/videosdk";
+import ZoomVideo, { VideoQuality } from "@zoom/videosdk";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useZoomSession } from "@/features/livestreams/contexts/ZoomSessionContext";
 import { getZoomTokenAction } from "@/features/livestreams/serverActions/ZoomSessionActions";
@@ -15,6 +15,10 @@ interface VideoActiveChangePayload {
    userId?: number;
 }
 
+interface VideoSpotlightChangePayload {
+   spotlightList: Array<{ userId: number }>;
+}
+
 export default function ProjectionScreenCallInterface({
    initialUsername,
    className,
@@ -27,6 +31,7 @@ export default function ProjectionScreenCallInterface({
    const [errorMessage, setErrorMessage] = useState<string | null>(null);
    const { sessionName, sessionKey } = useZoomSession();
    const hasJoinedRef = useRef(false);
+   const hasSpotlightRef = useRef(false);
    type ZoomClient = ReturnType<typeof ZoomVideo.createClient>;
    type ZoomMediaStream = ReturnType<ZoomClient["getMediaStream"]>;
    const zoomClientRef = useRef<ZoomClient | null>(null);
@@ -80,6 +85,18 @@ export default function ProjectionScreenCallInterface({
          syncLayout();
       },
       [syncLayout],
+   );
+
+   const ensureUserVideoAttached = useCallback(
+      async (userId: number | null) => {
+         if (!userId) return;
+         try {
+            await attachUserVideo(userId);
+         } catch (error) {
+            console.warn("[ProjectionScreen] Unable to attach user video", error);
+         }
+      },
+      [attachUserVideo],
    );
 
    const detachUserVideo = useCallback(
@@ -136,15 +153,36 @@ export default function ProjectionScreenCallInterface({
    );
 
    const handleVideoActiveChange = useCallback((payload: VideoActiveChangePayload) => {
+      if (hasSpotlightRef.current) return;
       const activeId = payload.activeUsers?.[0] ?? payload.userId ?? null;
       setSpotlightUserId(activeId);
    }, []);
+
+   const handleVideoSpotlightChange = useCallback(
+      (payload: VideoSpotlightChangePayload) => {
+         const spotlightId = payload.spotlightList[0]?.userId ?? null;
+         hasSpotlightRef.current = payload.spotlightList.length > 0;
+         setSpotlightUserId(spotlightId);
+         void ensureUserVideoAttached(spotlightId);
+      },
+      [ensureUserVideoAttached],
+   );
 
    const handleUserRemoved = useCallback(
       ({ userId }: { userId: number }) => {
          void detachUserVideo(userId);
       },
       [detachUserVideo],
+   );
+
+   const handleUserUpdated = useCallback(
+      (payload: Array<{ userId: number; bVideoOn?: boolean }>) => {
+         if (!spotlightUserId) return;
+         const spotlightUser = payload.find((user) => user.userId === spotlightUserId);
+         if (!spotlightUser?.bVideoOn) return;
+         void ensureUserVideoAttached(spotlightUserId);
+      },
+      [ensureUserVideoAttached, spotlightUserId],
    );
 
    useEffect(() => {
@@ -185,11 +223,15 @@ export default function ProjectionScreenCallInterface({
             zoomClient.on("peer-video-state-change", handlePeerVideoStateChange);
             zoomClient.on("active-share-change", handleActiveShareChange);
             zoomClient.on("video-active-change", handleVideoActiveChange);
+            zoomClient.on("video-spotlight-change", handleVideoSpotlightChange);
+            zoomClient.on("user-updated", handleUserUpdated);
             zoomClient.on("user-removed", handleUserRemoved);
 
             await zoomClient.join(sessionName, token, userName);
             mediaStreamRef.current = zoomClient.getMediaStream();
             const someoneIsSharing = mediaStreamRef.current.getShareUserList().length > 0;
+            const spotlightedUsersList = mediaStreamRef.current.getSpotlightedUserList();
+            const someoneHasSpotlight = spotlightedUsersList.length > 0;
             if (someoneIsSharing) {
                const activeShareUserId = mediaStreamRef.current.getActiveShareUserId();
                const fallbackShareUserId = mediaStreamRef.current.getShareUserList()[0]?.userId;
@@ -197,6 +239,11 @@ export default function ProjectionScreenCallInterface({
                if (shareUserId) {
                   await startShareViewForUserId(shareUserId);
                }
+            } else if (someoneHasSpotlight) {
+               hasSpotlightRef.current = true;
+               const spotlightId = spotlightedUsersList[0]?.userId ?? null;
+               setSpotlightUserId(spotlightId);
+               await ensureUserVideoAttached(spotlightId);
             }
 
             zoomClient.getAllUser().forEach((user) => {
@@ -224,6 +271,8 @@ export default function ProjectionScreenCallInterface({
          zoomClientRef.current?.off("peer-video-state-change", handlePeerVideoStateChange);
          zoomClientRef.current?.off("active-share-change", handleActiveShareChange);
          zoomClientRef.current?.off("video-active-change", handleVideoActiveChange);
+         zoomClientRef.current?.off("video-spotlight-change", handleVideoSpotlightChange);
+         zoomClientRef.current?.off("user-updated", handleUserUpdated);
          zoomClientRef.current?.off("user-removed", handleUserRemoved);
          videoElementsRef.current.forEach((element) => {
             element.remove();
@@ -237,12 +286,19 @@ export default function ProjectionScreenCallInterface({
       handleActiveShareChange,
       handlePeerVideoStateChange,
       handleUserRemoved,
+      handleUserUpdated,
       handleVideoActiveChange,
+      handleVideoSpotlightChange,
+      ensureUserVideoAttached,
       sessionKey,
       sessionName,
       startShareViewForUserId,
       userName,
    ]);
+
+   useEffect(() => {
+      void ensureUserVideoAttached(spotlightUserId);
+   }, [ensureUserVideoAttached, spotlightUserId]);
 
    useEffect(() => {
       syncLayout();
@@ -251,20 +307,27 @@ export default function ProjectionScreenCallInterface({
    const showGrid = !isSharing && !spotlightUserId;
    const showSpotlight = !isSharing && !!spotlightUserId;
 
+   console.log("[ProjectionScreen] show grid", showGrid);
+   console.log("[ProjectionScreen] show spotlight", showSpotlight);
+
    return (
       <div className={`relative w-full h-full ${className}`}>
          <canvas ref={shareViewRef} className={`w-full h-full ${isSharing ? "block" : "hidden"}`} />
-         <div
-            ref={spotlightContainerRef}
-            className={`w-full h-full ${showSpotlight ? "flex" : "hidden"} items-center justify-center`}
-         />
-         <div
-            ref={gridContainerRef}
-            className={`w-full h-full ${showGrid ? "grid" : "hidden"} gap-3`}
-            style={{
-               gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            }}
-         />
+         {/* @ts-expect-error custom element from Zoom SDK */}
+         <video-player-container className={`w-full h-full ${isSharing ? "hidden" : "block"}`}>
+            <div
+               ref={spotlightContainerRef}
+               className={`w-full h-full ${showSpotlight ? "flex" : "hidden"} items-center justify-center`}
+            />
+            <div
+               ref={gridContainerRef}
+               className={`w-full h-full ${showGrid ? "grid" : "hidden"} gap-3`}
+               style={{
+                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+               }}
+            />
+            {/* @ts-expect-error custom element from Zoom SDK */}
+         </video-player-container>
          {errorMessage && (
             <div className="absolute inset-0 flex justify-center items-center bg-black/70 font-semibold text-white text-lg">
                {errorMessage}
