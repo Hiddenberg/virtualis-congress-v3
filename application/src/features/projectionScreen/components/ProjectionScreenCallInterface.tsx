@@ -1,6 +1,6 @@
 "use client";
 
-import ZoomVideo, { VideoQuality } from "@zoom/videosdk";
+import ZoomVideo, { ShareStatus, VideoQuality } from "@zoom/videosdk";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useZoomSession } from "@/features/livestreams/contexts/ZoomSessionContext";
 import { getZoomTokenAction } from "@/features/livestreams/serverActions/ZoomSessionActions";
@@ -97,6 +97,22 @@ export default function ProjectionScreenCallInterface({
       [spotlightUserId],
    );
 
+   const startShareViewForUserId = useCallback(async (userId: number) => {
+      const mediaStream = mediaStreamRef.current;
+      if (!mediaStream || !shareViewRef.current) return;
+      setIsSharing(true);
+      setSpotlightUserId(null);
+      await mediaStream.startShareView(shareViewRef.current, userId);
+   }, []);
+
+   const stopShareView = useCallback(() => {
+      const mediaStream = mediaStreamRef.current;
+      if (!mediaStream) return;
+      setIsSharing(false);
+      void mediaStream.stopShareView();
+      syncLayout();
+   }, [syncLayout]);
+
    const handlePeerVideoStateChange = useCallback(
       ({ action, userId }: { action: "Start" | "Stop"; userId: number }) => {
          if (action === "Start") {
@@ -110,19 +126,13 @@ export default function ProjectionScreenCallInterface({
 
    const handleActiveShareChange = useCallback(
       ({ state, userId }: ActiveShareChangePayload) => {
-         const mediaStream = mediaStreamRef.current;
-         if (!mediaStream || !shareViewRef.current) return;
          if (state === "Active") {
-            setIsSharing(true);
-            setSpotlightUserId(null);
-            void mediaStream.startShareView(shareViewRef.current, userId);
+            void startShareViewForUserId(userId);
             return;
          }
-         setIsSharing(false);
-         void mediaStream.stopShareView();
-         syncLayout();
+         stopShareView();
       },
-      [syncLayout],
+      [startShareViewForUserId, stopShareView],
    );
 
    const handleVideoActiveChange = useCallback((payload: VideoActiveChangePayload) => {
@@ -179,6 +189,15 @@ export default function ProjectionScreenCallInterface({
 
             await zoomClient.join(sessionName, token, userName);
             mediaStreamRef.current = zoomClient.getMediaStream();
+            const someoneIsSharing = mediaStreamRef.current.getShareUserList().length > 0;
+            if (someoneIsSharing) {
+               const activeShareUserId = mediaStreamRef.current.getActiveShareUserId();
+               const fallbackShareUserId = mediaStreamRef.current.getShareUserList()[0]?.userId;
+               const shareUserId = activeShareUserId || fallbackShareUserId;
+               if (shareUserId) {
+                  await startShareViewForUserId(shareUserId);
+               }
+            }
 
             zoomClient.getAllUser().forEach((user) => {
                if (user.bVideoOn) {
@@ -221,6 +240,7 @@ export default function ProjectionScreenCallInterface({
       handleVideoActiveChange,
       sessionKey,
       sessionName,
+      startShareViewForUserId,
       userName,
    ]);
 
