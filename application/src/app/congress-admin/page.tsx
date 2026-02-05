@@ -63,6 +63,15 @@ const adminSections: AdminLink[] = [
       textColor: "text-purple-600",
    },
    {
+      title: "Usuarios Registrados",
+      description: "Buscar y editar usuarios registrados en la plataforma",
+      href: "/congress-admin/users",
+      icon: UsersIcon,
+      color: "bg-indigo-500",
+      lightColor: "bg-indigo-50",
+      textColor: "text-indigo-600",
+   },
+   {
       title: "Conferencias",
       description: "Administrar conferencias del congreso, horarios y contenido",
       href: "/congress-admin/conferences",

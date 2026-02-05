@@ -5,6 +5,7 @@ import {
    createDBRecord,
    deleteDBRecord,
    getFullDBRecordsList,
+   getPaginatedDBRecordsList,
    getSingleDBRecord,
    pbFilter,
    updateDBRecord,
@@ -111,6 +112,42 @@ export async function getAllOrganizationUsers() {
       filter,
    });
    return users;
+}
+
+export async function searchOrganizationUsers(query: string, limit = 25) {
+   const organization = await getOrganizationFromSubdomain();
+   if (!organization) {
+      throw new Error("[searchOrganizationUsers] Organization not found");
+   }
+
+   const normalizedQuery = query.trim().toLowerCase();
+   if (!normalizedQuery) {
+      return [];
+   }
+
+   const filter = pbFilter(
+      `
+         organization = {:organizationId} &&
+         role != "super_admin" &&
+         (
+            name:lower ~ {:normalizedQuery} ||
+            email:lower ~ {:normalizedQuery} ||
+            additionalEmail1:lower ~ {:normalizedQuery} ||
+            additionalEmail2:lower ~ {:normalizedQuery}
+         )
+      `,
+      {
+         organizationId: organization.id,
+         normalizedQuery,
+      },
+   );
+
+   const users = await getPaginatedDBRecordsList<User>("USERS", 1, limit, {
+      filter,
+      sort: "-created",
+   });
+
+   return users.items;
 }
 
 export async function checkIfUserExists(email: string) {

@@ -11,9 +11,11 @@ import {
    getUserByEmail,
    getUserById,
    type NewUserData,
+   searchOrganizationUsers,
    updateUser,
 } from "@/features/users/services/userServices";
-import type { RoleType, User } from "../types/userTypes";
+import { checkAuthorizedUserFromServer } from "@/services/authServices";
+import type { RoleType, User, UserRecord } from "../types/userTypes";
 
 export async function getUserByIdAction(userId: string) {
    try {
@@ -67,6 +69,140 @@ export async function getAllUsersAction() {
          };
       }
       throw error;
+   }
+}
+
+export async function searchOrganizationUsersAction(query: string): Promise<BackendResponse<{ users: UserRecord[] }>> {
+   try {
+      const isUserAuthorized = await checkAuthorizedUserFromServer(["admin", "super_admin"]);
+      if (!isUserAuthorized) {
+         return {
+            success: false,
+            errorMessage: "No tienes permisos para buscar usuarios",
+         };
+      }
+
+      const users = await searchOrganizationUsers(query);
+      return {
+         success: true,
+         data: {
+            users,
+         },
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "Error desconocido",
+      };
+   }
+}
+
+export interface AdminUserProfileFormData {
+   userId: string;
+   name: string;
+   email: string;
+   role: RoleType;
+   phoneNumber?: string;
+   dateOfBirth?: string;
+   additionalEmail1?: string;
+   additionalEmail2?: string;
+}
+
+export async function updateUserProfileAction(
+   form: AdminUserProfileFormData,
+): Promise<BackendResponse<{ userUpdated: UserRecord }>> {
+   try {
+      const isUserAuthorized = await checkAuthorizedUserFromServer(["admin", "super_admin"]);
+      if (!isUserAuthorized) {
+         return {
+            success: false,
+            errorMessage: "No tienes permisos para actualizar usuarios",
+         };
+      }
+
+      const existingUser = await getUserById(form.userId);
+      if (!existingUser) {
+         return {
+            success: false,
+            errorMessage: "Usuario no encontrado",
+         };
+      }
+
+      if (existingUser.role === "super_admin") {
+         return {
+            success: false,
+            errorMessage: "No se puede actualizar el perfil de un super admin",
+         };
+      }
+
+      if (form.role === "super_admin") {
+         return {
+            success: false,
+            errorMessage: "No puedes asignar el rol super admin desde esta pantalla",
+         };
+      }
+
+      const normalizedEmail = form.email.toLowerCase().trim();
+      const normalizedAdditionalEmail1 = form.additionalEmail1?.toLowerCase().trim();
+      const normalizedAdditionalEmail2 = form.additionalEmail2?.toLowerCase().trim();
+
+      const emailsToCheck = [normalizedEmail, normalizedAdditionalEmail1, normalizedAdditionalEmail2].filter(
+         (email): email is string => Boolean(email),
+      );
+
+      const uniqueEmails = new Set(emailsToCheck);
+      if (uniqueEmails.size !== emailsToCheck.length) {
+         return {
+            success: false,
+            errorMessage: "Los correos no pueden repetirse entre sí",
+         };
+      }
+
+      for (const email of emailsToCheck) {
+         const userWithEmail = await getUserByEmail(email);
+         if (userWithEmail && userWithEmail.id !== form.userId) {
+            return {
+               success: false,
+               errorMessage: `El correo ${email} ya está registrado en la plataforma`,
+            };
+         }
+      }
+
+      const userUpdated = await updateUser(form.userId, {
+         name: form.name.trim(),
+         email: normalizedEmail,
+         role: form.role,
+         phoneNumber: form.phoneNumber?.trim() || undefined,
+         dateOfBirth: form.dateOfBirth?.trim() || undefined,
+         additionalEmail1: normalizedAdditionalEmail1 || undefined,
+         additionalEmail2: normalizedAdditionalEmail2 || undefined,
+      });
+
+      revalidatePath("/congress-admin/users", "page");
+
+      return {
+         success: true,
+         data: {
+            userUpdated,
+         },
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "Error desconocido",
+      };
    }
 }
 
