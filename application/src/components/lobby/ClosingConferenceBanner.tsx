@@ -10,7 +10,7 @@ export default async function ClosingConferenceBanner() {
       return null;
    }
 
-   const closingConference = await getConferenceById("1pu5kqd5vujlab3");
+   const closingConference = await getConferenceById("g0ld47offitmm09");
 
    if (!closingConference) {
       return null;

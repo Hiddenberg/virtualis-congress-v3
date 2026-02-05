@@ -5,22 +5,15 @@ import {
 } from "lucide-react";
 import { redirect } from "next/navigation";
 import { LinkButton } from "@/components/global/Buttons";
-import ClosingConferenceBanner from "@/components/lobby/ClosingConferenceBanner";
 import CongressEndedBanner from "@/components/lobby/CongressEndedBanner";
 import CountdownCard from "@/components/lobby/CountdownCard";
 import DayCompletedBanner from "@/components/lobby/DayCompletedBanner";
 import DynamicConferenceProgram from "@/components/lobby/DynamicConferenceProgram";
 import LobbyConferencesPreview from "@/components/lobby/LobbyConferencesPreview";
-import SecondDayBanner from "@/components/lobby/SecondDayBanner";
 import { getAllProgramConferencesWithSpeakersAndDurations } from "@/features/conferences/aggregators/conferenceAggregators";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
 import { checkIfUserHasAccessToRecordings } from "@/features/organizationPayments/services/userPurchaseServices";
-import OrganizationSpecificComponent from "@/features/organizations/components/OrganizationSpecificComponent";
-import {
-   ClosingVideoBanner,
-   InaugurationVideoBanner,
-} from "@/features/organizations/organizationSpecifics/HGEA/data/components/HGEALobbyVideoComponents";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 
@@ -65,10 +58,6 @@ export default async function LobbyPage() {
          {congress.status === "finished" ? (
             <div>
                <CongressEndedBanner congress={congress} hasAccessToRecordings={hasAccessToRecordings} />
-
-               <OrganizationSpecificComponent organizationShortID="HGEA">
-                  <ClosingVideoBanner playbackId="nqg1GwpfTcggcS3Yn2UXbA4MIBAmP5rJvHXk4PkRiXs" />
-               </OrganizationSpecificComponent>
             </div>
          ) : (
             <div className="mb-8 text-center">
@@ -87,18 +76,9 @@ export default async function LobbyPage() {
                   </p>
                </div>
 
-               <OrganizationSpecificComponent organizationShortID="ACP-MX">
-                  <ClosingConferenceBanner />
-               </OrganizationSpecificComponent>
+               {/* <ClosingConferenceBanner /> */}
 
-               <OrganizationSpecificComponent organizationShortID="HGEA">
-                  {organization.shortID === "HGEA" &&
-                     (congress.showEndOfDayMessage ? <DayCompletedBanner /> : <SecondDayBanner congressDayNumber={3} />)}
-               </OrganizationSpecificComponent>
-
-               <OrganizationSpecificComponent organizationShortID="ACP-MX">
-                  <InaugurationVideoBanner playbackId="h00D6JrqlVF2eXWcktGg7qH6BGPa1KjKKtoATTAN8Qzo" />
-               </OrganizationSpecificComponent>
+               {congress.showEndOfDayMessage && <DayCompletedBanner />}
             </div>
          )}
          <DynamicConferenceProgram allCongressConferencesWithSpeakersAndDurations={programConferencesWithSpeakersAndDurations} />
