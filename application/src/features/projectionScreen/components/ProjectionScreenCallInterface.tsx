@@ -221,14 +221,14 @@ export default function ProjectionScreenCallInterface({
                return;
             }
 
-            await zoomClient.join(sessionName, token, userName);
-
             zoomClient.on("peer-video-state-change", handlePeerVideoStateChange);
             zoomClient.on("active-share-change", handleActiveShareChange);
             zoomClient.on("video-active-change", handleVideoActiveChange);
             zoomClient.on("video-spotlight-change", handleVideoSpotlightChange);
             zoomClient.on("user-updated", handleUserUpdated);
             zoomClient.on("user-removed", handleUserRemoved);
+
+            await zoomClient.join(sessionName, token, userName);
 
             isInMeetingRef.current = true;
             mediaStreamRef.current = zoomClient.getMediaStream();
@@ -250,21 +250,32 @@ export default function ProjectionScreenCallInterface({
                const activeShareUserId = mediaStreamRef.current.getActiveShareUserId();
                const fallbackShareUserId = mediaStreamRef.current.getShareUserList()[0]?.userId;
                const shareUserId = activeShareUserId || fallbackShareUserId;
+               console.log("[ProjectionScreen] shareUserId found", shareUserId);
                if (shareUserId) {
+                  console.log("[ProjectionScreen] starting share view for user id", shareUserId);
                   await startShareViewForUserId(shareUserId);
+                  console.log("[ProjectionScreen] share view for user id", shareUserId, "started");
+               } else {
+                  console.warn("[ProjectionScreen] no share user id found, someoneIsSharing is true but no share user id");
                }
             } else if (someoneHasSpotlight) {
+               console.log("[ProjectionScreen] someoneHasSpotlight is true, starting spotlight");
                hasSpotlightRef.current = true;
                const spotlightId = spotlightedUsersList[0]?.userId ?? null;
+               console.log("[ProjectionScreen] spotlightId found after getSpotlightedUserList", spotlightId);
                setSpotlightUserId(spotlightId);
+               console.log("[ProjectionScreen] starting spotlight for user id", spotlightId);
                await ensureUserVideoAttached(spotlightId);
+               console.log("[ProjectionScreen] spotlight for user id", spotlightId, "attached");
             } else {
                console.warn("[ProjectionScreen] No one is sharing or spotlighting");
             }
 
+            console.log("[ProjectionScreen] attaching all users videos");
             zoomClient.getAllUser().forEach((user) => {
                if (user.bVideoOn) {
                   void attachUserVideo(user.userId);
+                  console.log("[ProjectionScreen] attached video for user id", user.userId);
                }
             });
          } catch (error) {
