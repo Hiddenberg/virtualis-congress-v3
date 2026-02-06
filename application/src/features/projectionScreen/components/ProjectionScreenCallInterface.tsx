@@ -90,6 +90,7 @@ export default function ProjectionScreenCallInterface({
 
    const ensureUserVideoAttached = useCallback(
       async (userId: number | null) => {
+         console.log("[ensureUserVideoAttached] ensuring user video attached for user id", userId);
          if (!userId) return;
          try {
             await attachUserVideo(userId);
@@ -102,6 +103,7 @@ export default function ProjectionScreenCallInterface({
 
    const detachUserVideo = useCallback(
       async (userId: number) => {
+         console.log("[detachUserVideo] detaching user video for user id", userId);
          if (!mediaStreamRef.current) return;
          const element = videoElementsRef.current.get(userId);
          if (!element) return;
@@ -116,36 +118,49 @@ export default function ProjectionScreenCallInterface({
    );
 
    const startShareViewForUserId = useCallback(async (userId: number) => {
+      console.log("[startShareViewForUserId] starting share view for user id", userId);
       const mediaStream = mediaStreamRef.current;
-      if (!mediaStream || !shareViewRef.current) return;
+      if (!mediaStream) {
+         console.error("[startShareViewForUserId] media stream is null");
+         return;
+      }
+      if (!shareViewRef.current) {
+         console.error("[startShareViewForUserId] share view ref is null");
+         return;
+      }
       setIsSharing(true);
       setSpotlightUserId(null);
+      console.log("[startShareViewForUserId] starting share view for user id", userId);
       await mediaStream.startShareView(shareViewRef.current, userId);
+      console.log("[startShareViewForUserId] share view for user id", userId, "started");
    }, []);
 
    const stopShareView = useCallback(() => {
+      console.log("[stopShareView] stopping share view");
       const mediaStream = mediaStreamRef.current;
       if (!mediaStream) return;
       setIsSharing(false);
-      void mediaStream.stopShareView();
+      mediaStream.stopShareView();
       syncLayout();
    }, [syncLayout]);
 
    const handlePeerVideoStateChange = useCallback(
       ({ action, userId }: { action: "Start" | "Stop"; userId: number }) => {
+         console.log("[handlePeerVideoStateChange] peer video state change", action, userId);
          if (action === "Start") {
-            void attachUserVideo(userId);
+            attachUserVideo(userId);
             return;
          }
-         void detachUserVideo(userId);
+         detachUserVideo(userId);
       },
       [attachUserVideo, detachUserVideo],
    );
 
    const handleActiveShareChange = useCallback(
       ({ state, userId }: ActiveShareChangePayload) => {
+         console.log("[handleActiveShareChange] active share change", state, userId);
          if (state === "Active") {
-            void startShareViewForUserId(userId);
+            startShareViewForUserId(userId);
             return;
          }
          stopShareView();
@@ -154,6 +169,7 @@ export default function ProjectionScreenCallInterface({
    );
 
    const handleVideoActiveChange = useCallback((payload: VideoActiveChangePayload) => {
+      console.log("[handleVideoActiveChange] video active change", payload);
       if (hasSpotlightRef.current) return;
       const activeId = payload.activeUsers?.[0] ?? payload.userId ?? null;
       setSpotlightUserId(activeId);
@@ -161,27 +177,30 @@ export default function ProjectionScreenCallInterface({
 
    const handleVideoSpotlightChange = useCallback(
       (payload: VideoSpotlightChangePayload) => {
+         console.log("[handleVideoSpotlightChange] video spotlight change", payload);
          const spotlightId = payload.spotlightList[0]?.userId ?? null;
          hasSpotlightRef.current = payload.spotlightList.length > 0;
          setSpotlightUserId(spotlightId);
-         void ensureUserVideoAttached(spotlightId);
+         ensureUserVideoAttached(spotlightId);
       },
       [ensureUserVideoAttached],
    );
 
    const handleUserRemoved = useCallback(
       ({ userId }: { userId: number }) => {
-         void detachUserVideo(userId);
+         console.log("[handleUserRemoved] user removed", userId);
+         detachUserVideo(userId);
       },
       [detachUserVideo],
    );
 
    const handleUserUpdated = useCallback(
       (payload: Array<{ userId: number; bVideoOn?: boolean }>) => {
+         console.log("[handleUserUpdated] user updated", payload);
          if (!spotlightUserId) return;
          const spotlightUser = payload.find((user) => user.userId === spotlightUserId);
          if (!spotlightUser?.bVideoOn) return;
-         void ensureUserVideoAttached(spotlightUserId);
+         ensureUserVideoAttached(spotlightUserId);
       },
       [ensureUserVideoAttached, spotlightUserId],
    );
@@ -228,7 +247,9 @@ export default function ProjectionScreenCallInterface({
             zoomClient.on("user-updated", handleUserUpdated);
             zoomClient.on("user-removed", handleUserRemoved);
 
+            console.log("[ProjectionScreen] joining session");
             await zoomClient.join(sessionName, token, userName);
+            console.log("[ProjectionScreen] session joined");
 
             isInMeetingRef.current = true;
             mediaStreamRef.current = zoomClient.getMediaStream();
@@ -274,7 +295,7 @@ export default function ProjectionScreenCallInterface({
             console.log("[ProjectionScreen] attaching all users videos");
             zoomClient.getAllUser().forEach((user) => {
                if (user.bVideoOn) {
-                  void attachUserVideo(user.userId);
+                  attachUserVideo(user.userId);
                   console.log("[ProjectionScreen] attached video for user id", user.userId);
                }
             });
@@ -295,11 +316,13 @@ export default function ProjectionScreenCallInterface({
          }
       };
 
-      void joinSession();
+      console.log("[ProjectionScreen] running joining session");
+      joinSession();
+      console.log("[ProjectionScreen] joining session done");
 
       return () => {
          if (isInMeetingRef.current) {
-            void zoomClientRef.current?.leave();
+            zoomClientRef.current?.leave();
          }
          isInMeetingRef.current = false;
          zoomClientRef.current?.off("peer-video-state-change", handlePeerVideoStateChange);
@@ -331,7 +354,7 @@ export default function ProjectionScreenCallInterface({
    ]);
 
    useEffect(() => {
-      void ensureUserVideoAttached(spotlightUserId);
+      ensureUserVideoAttached(spotlightUserId);
    }, [ensureUserVideoAttached, spotlightUserId]);
 
    useEffect(() => {
