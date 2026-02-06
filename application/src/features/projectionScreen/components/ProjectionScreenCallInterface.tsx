@@ -221,6 +221,8 @@ export default function ProjectionScreenCallInterface({
                return;
             }
 
+            await zoomClient.join(sessionName, token, userName);
+
             zoomClient.on("peer-video-state-change", handlePeerVideoStateChange);
             zoomClient.on("active-share-change", handleActiveShareChange);
             zoomClient.on("video-active-change", handleVideoActiveChange);
@@ -228,12 +230,22 @@ export default function ProjectionScreenCallInterface({
             zoomClient.on("user-updated", handleUserUpdated);
             zoomClient.on("user-removed", handleUserRemoved);
 
-            await zoomClient.join(sessionName, token, userName);
             isInMeetingRef.current = true;
             mediaStreamRef.current = zoomClient.getMediaStream();
-            const someoneIsSharing = mediaStreamRef.current.getShareUserList().length > 0;
+            const activeShareUserId = mediaStreamRef.current.getActiveShareUserId();
+            const someoneIsSharing = mediaStreamRef.current.getShareUserList().length > 0 || activeShareUserId !== 0;
             const spotlightedUsersList = mediaStreamRef.current.getSpotlightedUserList();
             const someoneHasSpotlight = spotlightedUsersList.length > 0;
+            console.log("[ProjectionScreen] ------------------------------ zoom details START ------------------------------");
+            console.log("[ProjectionScreen] sessionName", sessionName);
+            console.log("[ProjectionScreen] userName", userName);
+            console.log("[ProjectionScreen] sessionKey", sessionKey);
+            console.log("[ProjectionScreen] someoneIsSharing", someoneIsSharing);
+            console.log("[ProjectionScreen] someoneHasSpotlight", someoneHasSpotlight);
+            console.log("[ProjectionScreen] activeShareUserId", activeShareUserId);
+            console.log("[ProjectionScreen] shareUserList", mediaStreamRef.current.getShareUserList());
+            console.log("[ProjectionScreen] spotlightedUsersList", spotlightedUsersList);
+            console.log("[ProjectionScreen] ------------------------------ zoom details END ------------------------------");
             if (someoneIsSharing) {
                const activeShareUserId = mediaStreamRef.current.getActiveShareUserId();
                const fallbackShareUserId = mediaStreamRef.current.getShareUserList()[0]?.userId;
@@ -246,6 +258,8 @@ export default function ProjectionScreenCallInterface({
                const spotlightId = spotlightedUsersList[0]?.userId ?? null;
                setSpotlightUserId(spotlightId);
                await ensureUserVideoAttached(spotlightId);
+            } else {
+               console.warn("[ProjectionScreen] No one is sharing or spotlighting");
             }
 
             zoomClient.getAllUser().forEach((user) => {
@@ -262,6 +276,7 @@ export default function ProjectionScreenCallInterface({
                error.type === "OPERATION_CANCELLED" &&
                error.reason === "LEAVING_MEETING"
             ) {
+               console.error("[ProjectionScreen] Error joining session", error);
                return;
             }
             console.error("[ProjectionScreen] Error joining session", error);
