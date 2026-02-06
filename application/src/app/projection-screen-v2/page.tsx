@@ -45,7 +45,7 @@ export default async function ProjectionScreenPage() {
       );
    }
 
-   const BASE_WIDTH = 1200;
+   const BASE_WIDTH = 1400;
    const BASE_HEIGHT = 900;
 
    return (
@@ -53,7 +53,7 @@ export default async function ProjectionScreenPage() {
          <RealtimeProjectionRefresher congressId={congress.id} />
          <FixedScaleStage baseWidth={BASE_WIDTH} baseHeight={BASE_HEIGHT} className="mx-auto">
             {/* header */}
-            <div
+            {/* <div
                className="items-center gap-4 grid grid-cols-12 mx-auto mb-4"
                style={{
                   maxWidth: BASE_WIDTH,
@@ -68,7 +68,7 @@ export default async function ProjectionScreenPage() {
                <div className="col-span-12 md:col-span-3">
                   <ConferenceCountdown conference={activeConference} />
                </div>
-            </div>
+            </div> */}
 
             {/* main content */}
             <div
@@ -83,7 +83,7 @@ export default async function ProjectionScreenPage() {
                   <div
                      className="flex justify-center items-center bg-black/40 shadow-inner border border-slate-300 rounded-2xl overflow-hidden"
                      style={{
-                        height: 620,
+                        height: 750,
                      }}
                   >
                      <ZoomSessionProvider sessionName={`${activeConference.title}-conf`} sessionKey={livestreamSession.id}>
@@ -91,21 +91,31 @@ export default async function ProjectionScreenPage() {
                      </ZoomSessionProvider>
                   </div>
 
-                  {/* conference title */}
-                  <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">
-                     {activeConference.title}
-                  </div>
+                  <div className="gap-4 grid grid-cols-12">
+                     <div className="space-y-2 col-span-12 md:col-span-8">
+                        {/* conference title */}
+                        <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">
+                           {activeConference.title}
+                        </div>
 
-                  {/* speaker name */}
-                  {conferenceSpeakers.length > 0 && (
-                     <div className="flex justify-center items-center bg-slate-50/70 shadow-sm border border-slate-300 rounded-xl h-10 font-medium text-slate-700 text-base">
-                        {conferenceSpeakers
-                           .map((speaker: SpeakerDataRecord) =>
-                              speaker.academicTitle ? `${speaker.academicTitle} ${speaker.displayName}` : speaker.displayName,
-                           )
-                           .join(", ")}
+                        {/* speaker name */}
+                        {conferenceSpeakers.length > 0 && (
+                           <div className="flex justify-center items-center bg-slate-50/70 shadow-sm border border-slate-300 rounded-xl h-10 font-medium text-slate-700 text-base">
+                              {conferenceSpeakers
+                                 .map((speaker: SpeakerDataRecord) =>
+                                    speaker.academicTitle
+                                       ? `${speaker.academicTitle} ${speaker.displayName}`
+                                       : speaker.displayName,
+                                 )
+                                 .join(", ")}
+                           </div>
+                        )}
                      </div>
-                  )}
+
+                     <div className="col-span-12 md:col-span-4">
+                        <ConferenceCountdown conference={activeConference} />
+                     </div>
+                  </div>
 
                   {/* bottom widgets */}
                   {/* <div className="gap-4 grid grid-cols-2">
