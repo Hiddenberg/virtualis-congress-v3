@@ -11,12 +11,22 @@ button {
 
 @theme {
    --animate-appear: appear 0.5s ease-in-out;
+   --animate-countdown-blink: countdown-blink 1.2s infinite;
    @keyframes appear {
       from {
          opacity: 0;
       }
       to {
          opacity: 1;
+      }
+   }
+   @keyframes countdown-blink {
+      0%,
+      100% {
+         color: #b91c1c;
+      }
+      50% {
+         color: #ffffff;
       }
    }
 }

@@ -43,6 +43,7 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
 
    const isFinished = remainingMs <= 0;
    const fiveMinutesMs = 5 * 60 * 1000;
+   const isEndingSoon = remainingMs > 0 && remainingMs <= fiveMinutesMs;
 
    const handleAdjustMinutes = (deltaMs: number) => {
       setRemainingMs((prev) => Math.max(0, prev + deltaMs));
@@ -52,8 +53,10 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
       <div
          className={`group relative p-4 py-2 rounded-xl w-full text-center transition-all duration-300 ${
             isFinished
-               ? "bg-rose-50 shadow-lg border-2 border-rose-300 ring-2 ring-rose-200"
-               : "bg-white shadow-sm border border-blue-100"
+               ? "border-2 bg-red-500 border-rose-300 shadow-lg"
+               : isEndingSoon
+                 ? "bg-orange-50 border-2 border-orange-200 shadow-md"
+                 : "bg-white shadow-sm border border-blue-100"
          }`}
       >
          <button
@@ -64,14 +67,26 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
          >
             -5m
          </button>
-         <div className={`pointer-events-none ${isFinished ? "animate-pulse" : ""}`}>
-            <div className={`font-medium text-xs uppercase tracking-wide ${isFinished ? "text-rose-700" : "text-slate-500"}`}>
+         <div className="pointer-events-none">
+            <div
+               className={`font-medium text-xs uppercase tracking-wide ${
+                  isFinished ? "text-white" : isEndingSoon ? "text-orange-700" : "text-slate-500"
+               }`}
+            >
                Tiempo restante
             </div>
-            <div className={`font-mono font-semibold tabular-nums text-4xl ${isFinished ? "text-rose-600" : "text-blue-700"}`}>
+            <div
+               className={`font-mono font-semibold tabular-nums text-4xl ${
+                  isFinished
+                     ? "text-current animate-countdown-blink"
+                     : isEndingSoon
+                       ? "text-orange-600 animate-pulse"
+                       : "text-blue-700"
+               }`}
+            >
                {formatRemaining(remainingMs)}
             </div>
-            {isFinished && <div className="font-bold text-rose-700 text-sm uppercase tracking-wide">Finalizado</div>}
+            {isFinished && <div className="font-bold text-white text-sm uppercase tracking-wide">Finalizado</div>}
          </div>
          <button
             type="button"
