@@ -213,7 +213,7 @@ export default function DynamicConferenceProgram({
    allCongressConferencesWithSpeakersAndDurations: ConferenceWithSpeakersAndDurations[];
 }) {
    const [currentDateTime, setCurrentDateTime] = useState(new Date());
-   const [showEndedConferences, setShowEndedConferences] = useState(true);
+   const [showEndedConferences, setShowEndedConferences] = useState(false);
 
    // Get unique dates from all conferences
    const uniqueDates = useMemo(() => {
