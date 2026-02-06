@@ -25,15 +25,18 @@ export async function getActiveAndNextConferences(): Promise<ActiveAndNextConfer
    const activeConferenceId = inPersonState.activeConference;
    const activeConference = activeConferenceId ? (allConferences.find((c) => c.id === activeConferenceId) ?? null) : null;
 
-   const now = new Date();
-   const nextConference =
-      allConferences
-         .filter((c) => c.status === "scheduled" && new Date(c.startTime) > now)
-         .sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime())[0] ?? null;
+   const lastFinishedConferenceIndex = allConferences.findLastIndex((c) => c.status === "finished" || c.status === "canceled");
+   const nextConference = lastFinishedConferenceIndex !== -1 ? allConferences[lastFinishedConferenceIndex + 1] : null;
+
+   // const now = new Date();
+   // const nextConference =
+   //    allConferences
+   //       .filter((c) => c.status === "scheduled" && new Date(c.startTime) > now)
+   //       .sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime())[0] ?? null;
 
    return {
       activeConference,
-      nextConference,
+      nextConference: nextConference ?? null,
    };
 }
 
