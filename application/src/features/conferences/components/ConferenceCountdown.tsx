@@ -20,9 +20,9 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
       const intervalId = window.setInterval(() => {
          setRemainingMs((prev) => {
             const next = Math.max(0, prev - 1000);
-            if (next <= 0) {
-               window.clearInterval(intervalId);
-            }
+            // if (next <= 0) {
+            //    window.clearInterval(intervalId);
+            // }
             return next;
          });
       }, 1000);
@@ -49,22 +49,34 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
    };
 
    return (
-      <div className="relative group bg-white shadow-sm p-4 py-2 border border-blue-100 rounded-xl w-full text-center">
+      <div
+         className={`group relative p-4 py-2 rounded-xl w-full text-center transition-all duration-300 ${
+            isFinished
+               ? "bg-rose-50 shadow-lg border-2 border-rose-300 ring-2 ring-rose-200"
+               : "bg-white shadow-sm border border-blue-100"
+         }`}
+      >
          <button
             type="button"
             onClick={() => handleAdjustMinutes(-fiveMinutesMs)}
-            className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-white/95 px-2.5 py-1 text-xs font-semibold text-blue-700 shadow-sm opacity-0 transition duration-200 hover:bg-blue-50 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+            className="top-1/2 left-2 absolute bg-white/95 hover:bg-blue-50 opacity-0 group-hover:opacity-100 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs transition -translate-y-1/2 duration-200 pointer-events-none group-hover:pointer-events-auto"
             aria-label="Reducir 5 minutos"
          >
             -5m
          </button>
-         <div className="font-medium text-slate-500 text-xs uppercase tracking-wide">Tiempo restante</div>
-         <div className="mt-1 font-mono font-semibold tabular-nums text-blue-700 text-4xl">{formatRemaining(remainingMs)}</div>
-         {isFinished && <div className="mt-2 font-medium text-rose-600 text-xs">Finalizado</div>}
+         <div className={`pointer-events-none ${isFinished ? "animate-pulse" : ""}`}>
+            <div className={`font-medium text-xs uppercase tracking-wide ${isFinished ? "text-rose-700" : "text-slate-500"}`}>
+               Tiempo restante
+            </div>
+            <div className={`font-mono font-semibold tabular-nums text-4xl ${isFinished ? "text-rose-600" : "text-blue-700"}`}>
+               {formatRemaining(remainingMs)}
+            </div>
+            {isFinished && <div className="font-bold text-rose-700 text-sm uppercase tracking-wide">Finalizado</div>}
+         </div>
          <button
             type="button"
             onClick={() => handleAdjustMinutes(fiveMinutesMs)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-blue-100 bg-white/95 px-2.5 py-1 text-xs font-semibold text-blue-700 shadow-sm opacity-0 transition duration-200 hover:bg-blue-50 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+            className="top-1/2 right-2 absolute bg-white/95 hover:bg-blue-50 opacity-0 group-hover:opacity-100 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs transition -translate-y-1/2 duration-200 pointer-events-none group-hover:pointer-events-auto"
             aria-label="Añadir 5 minutos"
          >
             +5m
