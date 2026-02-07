@@ -1,21 +1,18 @@
 "use server";
 import { redirect } from "next/navigation";
 import { getRecordingsCongressProductPrices } from "@/features/congresses/services/congressProductPricesServices";
-import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import {
    createUserPaymentRecord,
    ensuredUserStripeCustomer,
 } from "@/features/organizationPayments/services/organizationPaymentsServices";
 import { getOrganizationStripeCredentials } from "@/features/organizationPayments/services/organizationStripeCredentialsServices";
-import { createUserPurchaseRecord } from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationBaseUrl } from "@/features/organizations/services/organizationServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 
 export async function createRecordingsCheckout() {
    const stripe = await getOrganizationStripeInstance();
    const urls = await getOrganizationStripeCredentials();
-   const congress = await getLatestCongress();
 
    if (!urls) {
       throw new Error("No se encontraron las URLs de Stripe para la organización");
@@ -57,14 +54,6 @@ export async function createRecordingsCheckout() {
    if (!stripeCheckoutSession.url) {
       throw new Error("No se pudo crear la sesión de Checkout de Stripe");
    }
-
-   // Grant recordings access to the user
-   await createUserPurchaseRecord({
-      user: userId,
-      congress: congress.id,
-      price: recordingsPrice[0].id,
-      product: recordingsPrice[0].product,
-   });
 
    await createUserPaymentRecord(userId, stripeCheckoutSession.id);
 
