@@ -149,6 +149,8 @@ export default function ProjectionScreenCallInterface({
       console.log("[startShareViewForUserId] starting share view for user id", userId);
       await mediaStream.startShareView(shareViewRef.current, userId);
       console.log("[startShareViewForUserId] share view for user id", userId, "started");
+
+      console.log("testchange");
    }, []);
 
    const stopShareView = useCallback(() => {
