@@ -43,6 +43,7 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
 
    const isFinished = remainingMs <= 0;
    const fiveMinutesMs = 5 * 60 * 1000;
+   const oneMinuteMs = 60 * 1000;
    const isEndingSoon = remainingMs > 0 && remainingMs <= fiveMinutesMs;
 
    const handleAdjustMinutes = (deltaMs: number) => {
@@ -59,14 +60,24 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
                  : "bg-white shadow-sm border border-blue-100"
          }`}
       >
-         <button
-            type="button"
-            onClick={() => handleAdjustMinutes(-fiveMinutesMs)}
-            className="top-1/2 left-2 absolute bg-white/95 hover:bg-blue-50 opacity-0 group-hover:opacity-100 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs transition -translate-y-1/2 duration-200 pointer-events-none group-hover:pointer-events-auto"
-            aria-label="Reducir 5 minutos"
-         >
-            -5m
-         </button>
+         <div className="top-1/2 left-2 absolute flex flex-col gap-1 -translate-y-1/2 opacity-0 transition duration-200 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100">
+            <button
+               type="button"
+               onClick={() => handleAdjustMinutes(-fiveMinutesMs)}
+               className="bg-white/95 hover:bg-blue-50 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs"
+               aria-label="Reducir 5 minutos"
+            >
+               -5m
+            </button>
+            <button
+               type="button"
+               onClick={() => handleAdjustMinutes(-oneMinuteMs)}
+               className="bg-white/95 hover:bg-blue-50 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs"
+               aria-label="Reducir 1 minuto"
+            >
+               -1m
+            </button>
+         </div>
          <div className="pointer-events-none">
             <div
                className={`font-medium text-xs uppercase tracking-wide ${
@@ -88,14 +99,24 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
             </div>
             {isFinished && <div className="font-bold text-white text-sm uppercase tracking-wide">Finalizado</div>}
          </div>
-         <button
-            type="button"
-            onClick={() => handleAdjustMinutes(fiveMinutesMs)}
-            className="top-1/2 right-2 absolute bg-white/95 hover:bg-blue-50 opacity-0 group-hover:opacity-100 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs transition -translate-y-1/2 duration-200 pointer-events-none group-hover:pointer-events-auto"
-            aria-label="Añadir 5 minutos"
-         >
-            +5m
-         </button>
+         <div className="top-1/2 right-2 absolute flex flex-col gap-1 -translate-y-1/2 opacity-0 transition duration-200 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100">
+            <button
+               type="button"
+               onClick={() => handleAdjustMinutes(fiveMinutesMs)}
+               className="bg-white/95 hover:bg-blue-50 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs"
+               aria-label="Añadir 5 minutos"
+            >
+               +5m
+            </button>
+            <button
+               type="button"
+               onClick={() => handleAdjustMinutes(oneMinuteMs)}
+               className="bg-white/95 hover:bg-blue-50 shadow-sm px-2.5 py-1 border border-blue-100 rounded-full font-semibold text-blue-700 text-xs"
+               aria-label="Añadir 1 minuto"
+            >
+               +1m
+            </button>
+         </div>
       </div>
    );
 }
