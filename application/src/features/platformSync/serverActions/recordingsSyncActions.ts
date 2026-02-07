@@ -85,7 +85,10 @@ export async function syncCongressRecordings(): Promise<
          conferenceId: string;
          errorMessage: string;
       }[];
-      skippedRecordings: string[];
+      skippedRecordings: {
+         conferenceId: string;
+         reason: string;
+      }[];
    }>
 > {
    try {
@@ -121,10 +124,21 @@ export async function syncCongressRecordings(): Promise<
          conferenceId: string;
          errorMessage: string;
       }[] = [];
-      const skippedRecordings = [];
+      const skippedRecordings: {
+         conferenceId: string;
+         reason: string;
+      }[] = [];
 
       // Create recordings for each conference
       for (const conference of allConferences) {
+         if (conference.conferenceType === "break") {
+            console.log("Conference is a break, skipping", conference.id);
+            skippedRecordings.push({
+               conferenceId: conference.id,
+               reason: "Conference is a break",
+            });
+            continue;
+         }
          const conferenceRecordingTitle = `[Congress Recording] - ${conference.title}`;
          // Check if the conference recording already exists in the campaign
          const recording = await getSingleDBRecord<SimpleRecordingRecord>(
@@ -144,7 +158,10 @@ export async function syncCongressRecordings(): Promise<
          );
          if (recording) {
             console.log("Recording already exists for conference, skipping", conference.id);
-            skippedRecordings.push(conference.id);
+            skippedRecordings.push({
+               conferenceId: conference.id,
+               reason: "Recording already exists for conference",
+            });
             continue;
          }
 

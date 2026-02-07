@@ -14,7 +14,10 @@ export default function SyncAllCongressRecordings() {
          conferenceId: string;
          errorMessage: string;
       }[];
-      skippedRecordings: string[];
+      skippedRecordings: {
+         conferenceId: string;
+         reason: string;
+      }[];
    } | null>(null);
 
    const handleSync = () => {
