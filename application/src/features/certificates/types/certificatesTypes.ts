@@ -19,6 +19,7 @@ export interface CertificateDesign {
    organization: OrganizationRecord["id"];
    congress: CongressRecord["id"];
    backgroundURL: string;
+   nameWidthPercentage: number;
    nameXPosition: number;
    nameYPosition: number;
    nameColor: string;

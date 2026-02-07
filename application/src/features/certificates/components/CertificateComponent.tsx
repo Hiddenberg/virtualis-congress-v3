@@ -93,9 +93,11 @@ const calculateDynamicScale = (width: number) => {
 function CertificateDesignContainer({
    certificateDesign,
    displayName,
+   isDebug = false,
 }: {
    certificateDesign: CertificateDesign;
    displayName: string;
+   isDebug?: boolean;
 }) {
    // A4 aspect ratio is 1.414 (width:height), but for landscape it's the inverse
    const { containerRef, dimensions } = useAspectRatio(Math.SQRT2);
@@ -201,10 +203,12 @@ function CertificateDesignContainer({
             />
             <div className="absolute inset-0 flex pointer-events-none">
                <div
-                  className="absolute px-4 w-[80%] max-w-[500px] text-center"
+                  className={`absolute px-4 text-center ${isDebug ? "border" : ""}`}
                   style={{
                      top: `${verticalPosition}%`,
                      left: `${horizontalPosition}%`,
+                     width: `${certificateDesign.nameWidthPercentage}%`,
+                     borderColor: "red",
                      transform: `translateY(-${verticalPosition}%) translateX(-${horizontalPosition}%)`,
                   }}
                >
@@ -233,13 +237,15 @@ function CertificateDesignContainer({
 export default function CertificateComponent({
    certificateDesign,
    displayName,
+   isDebug = false,
 }: {
    certificateDesign: CertificateDesign;
    displayName: string;
+   isDebug?: boolean;
 }) {
    return (
       <div className="flex justify-center w-full">
-         <CertificateDesignContainer certificateDesign={certificateDesign} displayName={displayName} />
+         <CertificateDesignContainer isDebug={isDebug} certificateDesign={certificateDesign} displayName={displayName} />
       </div>
    );
 }
