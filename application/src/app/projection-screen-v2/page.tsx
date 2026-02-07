@@ -1,4 +1,6 @@
 import ConferenceCountdown from "@/features/conferences/components/ConferenceCountdown";
+import ConferenceTimeBanner from "@/features/conferences/components/ConferenceTimeBanner";
+import { ConferenceCountdownProvider } from "@/features/conferences/contexts/ConferenceCountdownContext";
 import { getConferenceLivestreamSession } from "@/features/conferences/services/conferenceLivestreamsServices";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getActiveAndNextConferences } from "@/features/congressDirector/services/congressDirectorServices";
@@ -71,62 +73,65 @@ export default async function ProjectionScreenPage() {
             </div> */}
 
             {/* main content */}
-            <div
-               className="gap-4 grid grid-cols-12 mx-auto"
-               style={{
-                  maxWidth: BASE_WIDTH,
-               }}
-            >
-               {/* left side */}
-               <div className="flex flex-col gap-4 col-span-12">
-                  {/* presentation and video player */}
-                  <div
-                     className="flex justify-center items-center bg-black/40 shadow-inner border border-slate-300 rounded-2xl overflow-hidden"
-                     style={{
-                        height: 750,
-                     }}
-                  >
-                     <ZoomSessionProvider sessionName={`${activeConference.title}-conf`} sessionKey={livestreamSession.id}>
-                        <DynamicProjectionScreenCallInterface initialUsername="Pantalla Proyección" className="w-full" />
-                     </ZoomSessionProvider>
-                  </div>
+            <ConferenceCountdownProvider>
+               <div
+                  className="gap-4 grid grid-cols-12 mx-auto"
+                  style={{
+                     maxWidth: BASE_WIDTH,
+                  }}
+               >
+                  {/* left side */}
+                  <div className="flex flex-col gap-4 col-span-12">
+                     {/* presentation and video player */}
+                     <div
+                        className="relative flex justify-center items-center bg-black/40 shadow-inner border border-slate-300 rounded-2xl overflow-hidden"
+                        style={{
+                           height: 750,
+                        }}
+                     >
+                        <ConferenceTimeBanner />
+                        <ZoomSessionProvider sessionName={`${activeConference.title}-conf`} sessionKey={livestreamSession.id}>
+                           <DynamicProjectionScreenCallInterface initialUsername="Pantalla Proyección" className="w-full" />
+                        </ZoomSessionProvider>
+                     </div>
 
-                  <div className="gap-4 grid grid-cols-12">
-                     <div className="space-y-2 col-span-12 md:col-span-8">
-                        {/* conference title */}
-                        <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">
-                           {activeConference.title}
+                     <div className="gap-4 grid grid-cols-12">
+                        <div className="space-y-2 col-span-12 md:col-span-8">
+                           {/* conference title */}
+                           <div className="flex justify-center items-center bg-blue-50/70 shadow-sm border border-slate-300 rounded-xl h-12 font-semibold text-slate-800 text-lg">
+                              {activeConference.title}
+                           </div>
+
+                           {/* speaker name */}
+                           {conferenceSpeakers.length > 0 && (
+                              <div className="flex justify-center items-center bg-slate-50/70 shadow-sm border border-slate-300 rounded-xl h-10 font-medium text-slate-700 text-base">
+                                 {conferenceSpeakers
+                                    .map((speaker: SpeakerDataRecord) =>
+                                       speaker.academicTitle
+                                          ? `${speaker.academicTitle} ${speaker.displayName}`
+                                          : speaker.displayName,
+                                    )
+                                    .join(", ")}
+                              </div>
+                           )}
                         </div>
 
-                        {/* speaker name */}
-                        {conferenceSpeakers.length > 0 && (
-                           <div className="flex justify-center items-center bg-slate-50/70 shadow-sm border border-slate-300 rounded-xl h-10 font-medium text-slate-700 text-base">
-                              {conferenceSpeakers
-                                 .map((speaker: SpeakerDataRecord) =>
-                                    speaker.academicTitle
-                                       ? `${speaker.academicTitle} ${speaker.displayName}`
-                                       : speaker.displayName,
-                                 )
-                                 .join(", ")}
-                           </div>
-                        )}
+                        <div className="col-span-12 md:col-span-4">
+                           <ConferenceCountdown conference={activeConference} />
+                        </div>
                      </div>
 
-                     <div className="col-span-12 md:col-span-4">
-                        <ConferenceCountdown conference={activeConference} />
-                     </div>
+                     {/* bottom widgets */}
+                     {/* <div className="gap-4 grid grid-cols-2">
+                        <SelfContainedRealtimeQuestionPollCompactDisplay conferenceId={activeConferenceId} />
+                        <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800"></div>
+                        <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
+                           <LobbyQrCodeWidget />
+                        </div>
+                     </div> */}
                   </div>
-
-                  {/* bottom widgets */}
-                  {/* <div className="gap-4 grid grid-cols-2">
-                     <SelfContainedRealtimeQuestionPollCompactDisplay conferenceId={activeConferenceId} />
-                     <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800"></div>
-                     <div className="flex justify-center items-center bg-yellow-50/70 shadow-sm border border-slate-300 rounded-2xl min-h-[180px] font-medium text-slate-800">
-                        <LobbyQrCodeWidget />
-                     </div>
-                  </div> */}
                </div>
-            </div>
+            </ConferenceCountdownProvider>
          </FixedScaleStage>
       </div>
    );

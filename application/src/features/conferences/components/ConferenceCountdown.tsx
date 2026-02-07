@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useConferenceCountdownContext } from "@/features/conferences/contexts/ConferenceCountdownContext";
 
 export default function ConferenceCountdown({ conference }: { conference: CongressConferenceRecord }) {
    const startDate = useMemo(() => new Date(conference.startTime), [conference.startTime]);
@@ -11,6 +12,7 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
    const durationMs = useMemo(() => Math.max(0, endMs - startMs), [endMs, startMs]);
 
    const [remainingMs, setRemainingMs] = useState<number>(() => durationMs);
+   const countdownContext = useConferenceCountdownContext();
 
    useEffect(() => {
       // Reset to full duration whenever the conference times change
@@ -49,6 +51,11 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
    const handleAdjustMinutes = (deltaMs: number) => {
       setRemainingMs((prev) => Math.max(0, prev + deltaMs));
    };
+
+   useEffect(() => {
+      if (!countdownContext) return;
+      countdownContext.setIsFinished(isFinished);
+   }, [countdownContext, isFinished]);
 
    return (
       <div
