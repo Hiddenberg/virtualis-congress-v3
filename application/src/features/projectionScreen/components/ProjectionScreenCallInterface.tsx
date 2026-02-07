@@ -29,6 +29,7 @@ export default function ProjectionScreenCallInterface({
    const [isSharing, setIsSharing] = useState(false);
    const [spotlightUserId, setSpotlightUserId] = useState<number | null>(null);
    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+   const [isConnecting, setIsConnecting] = useState(true);
    const { sessionName, sessionKey } = useZoomSession();
    const hasJoinedRef = useRef(false);
    const hasSpotlightRef = useRef(false);
@@ -122,6 +123,21 @@ export default function ProjectionScreenCallInterface({
       const mediaStream = mediaStreamRef.current;
       if (!mediaStream) {
          console.error("[startShareViewForUserId] media stream is null");
+         const newMediaStream = await zoomClientRef.current?.getMediaStream();
+         if (!newMediaStream) {
+            console.error("[startShareViewForUserId] new media couldn't be created");
+            return;
+         }
+         mediaStreamRef.current = newMediaStream;
+
+         if (!shareViewRef.current) {
+            console.error("[startShareViewForUserId] share view ref is null");
+            return;
+         }
+
+         console.log("[startShareViewForUserId] starting share view for user id on second attempt", userId);
+         await newMediaStream.startShareView(shareViewRef.current, userId);
+         console.log("[startShareViewForUserId] share view for user id on second attempt", userId, "started");
          return;
       }
       if (!shareViewRef.current) {
@@ -211,6 +227,7 @@ export default function ProjectionScreenCallInterface({
 
       const joinSession = async () => {
          try {
+            setIsConnecting(true);
             setErrorMessage(null);
             const isCompatible = ZoomVideo.checkSystemRequirements();
             if (!isCompatible) {
@@ -246,6 +263,31 @@ export default function ProjectionScreenCallInterface({
             zoomClient.on("video-spotlight-change", handleVideoSpotlightChange);
             zoomClient.on("user-updated", handleUserUpdated);
             zoomClient.on("user-removed", handleUserRemoved);
+            zoomClient.on("connection-change", async (payload) => {
+               const connectionState = payload.state;
+
+               console.log("[ProjectionScreen] CONNECTION STATE CHANGE", payload);
+
+               switch (connectionState) {
+                  case "Closed":
+                     console.log("[ProjectionScreen] connection changed to closed");
+                     break;
+                  case "Connected": {
+                     console.log("[ProjectionScreen] connection changed to connected");
+                     break;
+                  }
+                  case "Fail":
+                     console.log("[ProjectionScreen] connection changed to fail");
+                     break;
+                  case "Reconnecting":
+                     console.log("[ProjectionScreen] connection changed to reconnecting");
+                     break;
+
+                  default:
+                     console.log("[ProjectionScreen] connection changed to unknown state", connectionState);
+                     break;
+               }
+            });
 
             console.log("[ProjectionScreen] joining session");
             await zoomClient.join(sessionName, token, userName);
@@ -313,6 +355,8 @@ export default function ProjectionScreenCallInterface({
             }
             console.error("[ProjectionScreen] Error joining session", error);
             setErrorMessage("No se pudo conectar a la sesión de Zoom.");
+         } finally {
+            setIsConnecting(false);
          }
       };
 
@@ -385,6 +429,12 @@ export default function ProjectionScreenCallInterface({
             />
             {/* @ts-expect-error custom element from Zoom SDK */}
          </video-player-container>
+         {isConnecting && !errorMessage && (
+            <div className="absolute inset-0 flex flex-col justify-center items-center gap-4 bg-black/70 text-white">
+               <div className="border-4 border-white/40 border-t-white rounded-full w-10 h-10 animate-spin" />
+               <p className="font-semibold text-lg">Conectando a la sesión...</p>
+            </div>
+         )}
          {errorMessage && (
             <div className="absolute inset-0 flex justify-center items-center bg-black/70 font-semibold text-white text-lg">
                {errorMessage}
