@@ -32,7 +32,7 @@ export async function convertPPTToImages(file: File, outputFormat: "png" | "webp
          File: uploadResult,
          ...(outputFormat === "webp" ? webpConfigs : {}),
       },
-      "ppt",
+      "pptx",
    );
    console.log("file converted");
 
