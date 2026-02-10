@@ -22,3 +22,9 @@ export function getPriceColorClasses(index: number) {
    ];
    return colors[index % colors.length];
 }
+
+export function getCurrencyBadgeColor(currency: "mxn" | "usd") {
+   return currency === "mxn"
+      ? { bg: "bg-green-50", text: "text-green-700", ring: "ring-green-600/20" }
+      : { bg: "bg-blue-50", text: "text-blue-700", ring: "ring-blue-600/20" };
+}

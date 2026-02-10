@@ -4,6 +4,7 @@ import type { ProductPriceRecord } from "@/features/congresses/types/congressPro
 import {
    formatPrice,
    getPriceColorClasses,
+   getCurrencyBadgeColor,
 } from "@/features/landingPages/components/organizationLandingPages/GenericCongressLanding/genericPricesSection/utils";
 
 interface OnlinePriceCardProps {
@@ -27,6 +28,7 @@ function CredentialValidationBanner({ credentialValidationInstructions }: { cred
 
 export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) {
    const colors = getPriceColorClasses(index);
+   const currencyColors = getCurrencyBadgeColor(price.currency);
 
    return (
       <Link
@@ -37,8 +39,15 @@ export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) 
             <MonitorIcon className="w-6 h-6 text-white" />
          </div>
          <h3 className="mb-2 font-bold text-gray-900 text-sm text-center leading-tight">{price.name}</h3>
-         <div className={`text-center py-2.5 px-5 rounded-full font-bold ${colors.text} ${colors.bg} mb-2 shadow-sm`}>
-            {formatPrice(price.priceAmount, price.currency)}
+         <div className="flex flex-col items-center gap-2 mb-2">
+            <div className={`text-center py-2.5 px-5 rounded-full font-bold ${colors.text} ${colors.bg} shadow-sm`}>
+               {formatPrice(price.priceAmount, price.currency)}
+            </div>
+            <span
+               className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ring-1 ring-inset ${currencyColors.bg} ${currencyColors.text} ${currencyColors.ring}`}
+            >
+               {price.currency.toUpperCase()}
+            </span>
          </div>
          {price.requiresCredentialValidation && (
             <CredentialValidationBanner credentialValidationInstructions={price.credentialValidationInstructions} />

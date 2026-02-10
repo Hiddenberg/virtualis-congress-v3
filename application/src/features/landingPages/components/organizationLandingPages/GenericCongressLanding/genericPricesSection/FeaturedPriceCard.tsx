@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ShieldCheck } from "lucide-react";
-import { formatPrice } from "./utils";
+import { formatPrice, getCurrencyBadgeColor } from "./utils";
 
 interface FeaturedPriceCardProps {
    priceAmount: number;
@@ -45,6 +45,8 @@ export default function FeaturedPriceCard({
    requiresCredentialValidation,
    credentialValidationInstructions,
 }: FeaturedPriceCardProps) {
+   const currencyColors = getCurrencyBadgeColor(currency);
+
    return (
       <div className="mx-auto max-w-md">
          <div className={`relative bg-linear-to-br ${gradientFrom} ${gradientTo} p-8 border-2 ${borderColor} rounded-2xl`}>
@@ -79,7 +81,14 @@ export default function FeaturedPriceCard({
                >
                   <Icon className="w-8 h-8 text-white" />
                </div>
-               <div className="mb-3 font-bold text-gray-900 text-3xl">{formatPrice(priceAmount, currency)}</div>
+               <div className="flex flex-col items-center gap-2 mb-3">
+                  <div className="font-bold text-gray-900 text-3xl">{formatPrice(priceAmount, currency)}</div>
+                  <span
+                     className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ring-1 ring-inset ${currencyColors.bg} ${currencyColors.text} ${currencyColors.ring}`}
+                  >
+                     {currency.toUpperCase()}
+                  </span>
+               </div>
                <div className={`${titleBgColor} mb-4 px-4 py-2 rounded-full font-semibold ${titleTextColor} text-sm`}>
                   {title}
                </div>

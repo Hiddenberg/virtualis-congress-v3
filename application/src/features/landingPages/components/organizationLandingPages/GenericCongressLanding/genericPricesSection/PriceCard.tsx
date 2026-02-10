@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ShieldCheck } from "lucide-react";
-import { formatPrice, getPriceColorClasses } from "./utils";
+import { formatPrice, getPriceColorClasses, getCurrencyBadgeColor } from "./utils";
 
 function CredentialValidationBanner({ credentialValidationInstructions }: { credentialValidationInstructions?: string }) {
    return (
@@ -42,6 +42,7 @@ export default function PriceCard({
    credentialValidationInstructions,
 }: PriceCardProps) {
    const colors = getPriceColorClasses(index);
+   const currencyColors = getCurrencyBadgeColor(currency);
 
    return (
       <div className="relative flex flex-col items-center bg-white hover:shadow-lg p-6 border-2 border-gray-100 hover:border-gray-200 rounded-2xl transition-all duration-300">
@@ -54,8 +55,15 @@ export default function PriceCard({
             <Icon className="w-6 h-6 text-white" />
          </div>
          <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight">{priceName}</h3>
-         <div className={`text-center py-2 px-4 rounded-full font-semibold ${colors.text} ${colors.bg}`}>
-            {formatPrice(priceAmount, currency)}
+         <div className="flex flex-col items-center gap-2">
+            <div className={`text-center py-2 px-4 rounded-full font-semibold ${colors.text} ${colors.bg}`}>
+               {formatPrice(priceAmount, currency)}
+            </div>
+            <span
+               className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ring-1 ring-inset ${currencyColors.bg} ${currencyColors.text} ${currencyColors.ring}`}
+            >
+               {currency.toUpperCase()}
+            </span>
          </div>
          {description && <p className="mt-2 text-gray-500 text-xs text-center">{description}</p>}
          {footer && <div className="mt-3">{footer}</div>}
