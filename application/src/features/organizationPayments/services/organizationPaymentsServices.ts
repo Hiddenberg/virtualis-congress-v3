@@ -295,6 +295,11 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
       throw new Error(`[fulfillCongressRegistrationV3] No line items found for checkout session ${checkoutSessionId}`);
    }
 
+   // TODO: Record/save fulfillment status for this
+   // Checkout Session
+   // PENDING: check if this could be removed
+   const userCongressRegistration = await getCongressRegistrationByUserId(userPayment.user);
+
    // TODO: Create user purchases for the line items
    for (const item of lineItems.data) {
       const stripeProductId = item.price?.product;
@@ -337,19 +342,20 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
          product: congressProduct.id,
          price: congressProductPrice.id,
       });
-   }
 
-   // TODO: Record/save fulfillment status for this
-   // Checkout Session
-   // PENDING: check if this could be removed
-   const userCongressRegistration = await getCongressRegistrationByUserId(userPayment.user);
-   if (!userCongressRegistration) {
-      console.error(`[fulfillCongressRegistrationV3] User congress registration not found for user ${userPayment.user}`);
-   } else {
-      await updateCongressRegistration(userCongressRegistration.id, {
-         paymentConfirmed: true,
-         payment: userPayment.id,
-      });
+      // Check if this can be removed
+      if (userCongressRegistration) {
+         const isCongressAccessProduct =
+            congressProduct.productType === "congress_in_person_access" ||
+            congressProduct.productType === "congress_online_access";
+         const userPurchasedAccessToRecordings =
+            congressProductPrice.includesRecordings || congressProduct.productType === "congress_recordings";
+         await updateCongressRegistration(userCongressRegistration.id, {
+            hasAccessToRecordings: userPurchasedAccessToRecordings,
+            paymentConfirmed: isCongressAccessProduct ? true : undefined,
+            payment: isCongressAccessProduct ? userPayment.id : undefined,
+         });
+      }
    }
 
    await updateUserPaymentRecord(userPayment.id, {
