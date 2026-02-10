@@ -22,14 +22,14 @@ export default async function inPersonPricesPage() {
    }
 
    return (
-      <div className="relative min-h-dvh bg-linear-to-br from-green-50 via-white to-emerald-50">
+      <div className="relative bg-linear-to-br from-green-50 via-white to-emerald-50 min-h-dvh">
          {/* Background decoration */}
          <div className="absolute inset-0 opacity-20 overflow-hidden pointer-events-none">
-            <div className="absolute top-10 right-10 w-72 h-72 bg-green-300 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-72 h-72 bg-emerald-300 rounded-full blur-3xl" />
+            <div className="top-10 right-10 absolute bg-green-300 blur-3xl rounded-full w-72 h-72" />
+            <div className="bottom-10 left-10 absolute bg-emerald-300 blur-3xl rounded-full w-72 h-72" />
          </div>
 
-         <div className="relative z-10 mx-auto p-4 sm:p-6 md:p-8 max-w-6xl min-h-dvh">
+         <div className="z-10 relative mx-auto p-4 sm:p-6 md:p-8 max-w-6xl min-h-dvh">
             {congressModality === "hybrid" && (
                <div className="mb-6">
                   <GoBackButton backURL="/payment" backButtonText="Volver a la selección de modalidad" />
@@ -37,6 +37,8 @@ export default async function inPersonPricesPage() {
             )}
 
             <InPersonPricesHeader congressTitle={congress.title} />
+
+            <GoBackButton className="mb-6" backURL="/" backButtonText="Volver a la página principal" />
 
             {congress.congressLocation && <InPersonLocationCard location={congress.congressLocation} />}
 
