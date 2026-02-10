@@ -28,21 +28,17 @@ export default async function PayPricePage({ params }: { params: Promise<{ price
 
    const recordingsPrices = await getRecordingsCongressProductPrices();
 
-   if (recordingsPrices.length === 0) {
-      throw new Error("Recordings prices not found");
-   }
-
    const recordingsPrice = recordingsPrices[0];
 
    return (
-      <div className="relative min-h-dvh bg-linear-to-br from-gray-50 via-white to-gray-50">
+      <div className="relative bg-linear-to-br from-gray-50 via-white to-gray-50 min-h-dvh">
          {/* Background decoration */}
          <div className="absolute inset-0 opacity-20 overflow-hidden pointer-events-none">
-            <div className="absolute top-20 left-20 w-96 h-96 bg-blue-200 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-200 rounded-full blur-3xl" />
+            <div className="top-20 left-20 absolute bg-blue-200 blur-3xl rounded-full w-96 h-96" />
+            <div className="right-20 bottom-20 absolute bg-purple-200 blur-3xl rounded-full w-96 h-96" />
          </div>
 
-         <div className="relative z-10 mx-auto p-4 sm:p-6 md:p-8 max-w-6xl min-h-dvh">
+         <div className="z-10 relative mx-auto p-4 sm:p-6 md:p-8 max-w-6xl min-h-dvh">
             <div className="mb-6">
                <GoBackButton backButtonText="Volver a la lista de precios" />
             </div>
