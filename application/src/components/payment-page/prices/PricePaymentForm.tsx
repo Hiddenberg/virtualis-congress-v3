@@ -7,6 +7,7 @@ import { Button } from "@/components/global/Buttons";
 import { obtainPriceStripeCheckoutUrlAction } from "@/features/congresses/serverActions/congressProductsActions";
 import type { ProductPriceRecord } from "@/features/congresses/types/congressProductPricesTypes";
 import { formatPrice } from "@/features/landingPages/components/organizationLandingPages/GenericCongressLanding/genericPricesSection/utils";
+import RecordingsIncludedBanner from "./RecordingsIncludedBanner";
 
 interface PricePaymentFormProps {
    price: ProductPriceRecord;
@@ -105,8 +106,11 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
 
    return (
       <div className="space-y-6 sm:space-y-8 mx-auto max-w-3xl">
+         {/* Recordings Included Banner */}
+         {price.includesRecordings && <RecordingsIncludedBanner />}
+
          {/* Recordings Add-on Section */}
-         {recordingsPrice && (
+         {recordingsPrice && !price.includesRecordings && (
             <div
                className={`bg-white shadow-md p-6 sm:p-8 border-2 rounded-xl sm:rounded-2xl transition-all duration-300 ${
                   includeRecordings
