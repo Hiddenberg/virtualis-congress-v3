@@ -66,6 +66,7 @@ function groupConferencesByDate(conferences: CongressConferenceRecord[]): DateGr
       } else if (isTomorrow) {
          label = "Mañana";
       } else {
+         // biome-ignore lint/style/useTemplate: false positive
          const dateObj = new Date(date + "T00:00:00");
          label = format({
             date: dateObj,

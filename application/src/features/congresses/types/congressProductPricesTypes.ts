@@ -13,6 +13,7 @@ export interface ProductPrice {
    requiresCredentialValidation: boolean;
    credentialValidationInstructions?: string;
    archived: boolean;
+   includesRecordings: boolean;
 }
 
 export type ProductPriceRecord = DBRecordItem<ProductPrice>;

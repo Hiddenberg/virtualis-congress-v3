@@ -3,8 +3,8 @@ import Link from "next/link";
 import type { ProductPriceRecord } from "@/features/congresses/types/congressProductPricesTypes";
 import {
    formatPrice,
-   getPriceColorClasses,
    getCurrencyBadgeColor,
+   getPriceColorClasses,
 } from "@/features/landingPages/components/organizationLandingPages/GenericCongressLanding/genericPricesSection/utils";
 
 interface OnlinePriceCardProps {

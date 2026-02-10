@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import { ShieldCheck } from "lucide-react";
-import { formatPrice, getPriceColorClasses, getCurrencyBadgeColor } from "./utils";
+import { formatPrice, getCurrencyBadgeColor, getPriceColorClasses } from "./utils";
 
 function CredentialValidationBanner({ credentialValidationInstructions }: { credentialValidationInstructions?: string }) {
    return (

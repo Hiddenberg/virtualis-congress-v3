@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, DollarSignIcon, InfoIcon, ShieldCheckIcon } from "lucide-react";
+import { AlertCircle, DollarSignIcon, InfoIcon, PlayIcon, ShieldCheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
@@ -32,6 +32,7 @@ const productPriceSchema = z.object({
          message: "Las instrucciones no pueden exceder 500 caracteres",
       })
       .optional(),
+   includesRecordings: z.boolean().default(false),
 });
 
 type FormErrors = Partial<Record<keyof NewProductPriceData, string>>;
@@ -72,6 +73,7 @@ export default function ProductPriceForm({ productId }: { productId: CongressPro
       priceAmount: 0,
       requiresCredentialValidation: false,
       credentialValidationInstructions: "",
+      includesRecordings: false,
       product: productId,
    });
    const router = useRouter();
@@ -141,6 +143,7 @@ export default function ProductPriceForm({ productId }: { productId: CongressPro
             priceAmount: result.data.priceAmount,
             requiresCredentialValidation: result.data.requiresCredentialValidation,
             credentialValidationInstructions: result.data.credentialValidationInstructions,
+            includesRecordings: result.data.includesRecordings,
             product: productId,
          };
 
@@ -203,7 +206,28 @@ export default function ProductPriceForm({ productId }: { productId: CongressPro
                </FormField>
             </div>
 
-            <div className="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+            <div className="bg-gray-50 p-4 border border-gray-200 rounded-lg space-y-4">
+               <FormField
+                  label="Incluye grabaciones"
+                  name="includesRecordings"
+                  description="Si está habilitado, este precio incluirá automáticamente el acceso a las grabaciones del congreso"
+               >
+                  <div className="flex items-center gap-3">
+                     <input
+                        id="includesRecordings"
+                        name="includesRecordings"
+                        type="checkbox"
+                        checked={priceFormData.includesRecordings}
+                        onChange={handleChange}
+                        className="border-gray-300 rounded focus:ring-2 focus:ring-blue-500 w-4 h-4 text-blue-600"
+                     />
+                     <label htmlFor="includesRecordings" className="flex items-center gap-2 text-gray-700 text-sm cursor-pointer">
+                        <PlayIcon className="w-4 h-4 text-gray-500" />
+                        Incluye acceso a grabaciones
+                     </label>
+                  </div>
+               </FormField>
+
                <FormField
                   label="Validación de credenciales"
                   name="requiresCredentialValidation"
