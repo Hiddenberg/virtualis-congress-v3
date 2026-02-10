@@ -121,7 +121,7 @@ export async function checkIfUserHasAccessToRecordings(userId: string, congressI
       organization = {:organizationId} &&
       congress = {:congressId} &&
       user = {:userId} &&
-      product.productType = "congress_recordings"
+      (product.productType = "congress_recordings" || price.includesRecordings = true)
    `,
       {
          organizationId: organization.id,
