@@ -15,7 +15,7 @@ export default function OnlinePricesGrid({ prices }: OnlinePricesGridProps) {
    }
 
    return (
-      <div className="flex flex-wrap *:flex-1 justify-center gap-6 *:min-w-90 lg:*:max-w-1/3">
+      <div className="flex flex-wrap *:flex-1 justify-center gap-6 *:min-w-80 lg:*:max-w-1/3">
          {prices.map((price, index) => (
             <OnlinePriceCard key={price.id} price={price} index={index} />
          ))}
