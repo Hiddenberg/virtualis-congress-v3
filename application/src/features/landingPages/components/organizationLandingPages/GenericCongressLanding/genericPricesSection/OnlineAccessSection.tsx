@@ -35,6 +35,7 @@ export default function OnlineAccessSection({ product }: OnlineAccessSectionProp
                backgroundDecorationColor="text-pink-600"
                requiresCredentialValidation={product.prices[0].requiresCredentialValidation}
                credentialValidationInstructions={product.prices[0].credentialValidationInstructions}
+               includesRecordings={product.prices[0].includesRecordings}
             />
          ) : (
             <div className="flex flex-wrap *:flex-1 justify-center gap-6 *:min-w-90 lg:*:max-w-1/3">
@@ -48,6 +49,7 @@ export default function OnlineAccessSection({ product }: OnlineAccessSectionProp
                      index={index}
                      requiresCredentialValidation={price.requiresCredentialValidation}
                      credentialValidationInstructions={price.credentialValidationInstructions}
+                     includesRecordings={price.includesRecordings}
                   />
                ))}
             </div>

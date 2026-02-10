@@ -37,6 +37,7 @@ export default function InPersonAccessSection({ congress, product }: InPersonAcc
                dotColor="bg-blue-400"
                requiresCredentialValidation={product.prices[0].requiresCredentialValidation}
                credentialValidationInstructions={product.prices[0].credentialValidationInstructions}
+               includesRecordings={product.prices[0].includesRecordings}
                footer={
                   <div className="bg-cyan-50 p-3 border border-cyan-200 rounded-lg">
                      <p className="flex items-center gap-2 font-medium text-cyan-800 text-xs">
@@ -58,6 +59,7 @@ export default function InPersonAccessSection({ congress, product }: InPersonAcc
                      index={index}
                      requiresCredentialValidation={price.requiresCredentialValidation}
                      credentialValidationInstructions={price.credentialValidationInstructions}
+                     includesRecordings={price.includesRecordings}
                      footer={
                         <div className="flex items-center gap-1 text-gray-500 text-xs">
                            <MonitorIcon className="size-3" />

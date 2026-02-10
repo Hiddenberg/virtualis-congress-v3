@@ -1,4 +1,4 @@
-import { ChevronRightIcon, MonitorIcon, ShieldCheck } from "lucide-react";
+import { ChevronRightIcon, MonitorIcon, PlayIcon, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import type { ProductPriceRecord } from "@/features/congresses/types/congressProductPricesTypes";
 import {
@@ -39,6 +39,12 @@ export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) 
             <MonitorIcon className="w-6 h-6 text-white" />
          </div>
          <h3 className="mb-2 font-bold text-gray-900 text-sm text-center leading-tight">{price.name}</h3>
+         {price.includesRecordings && (
+            <div className="mb-2 inline-flex items-center gap-1.5 bg-purple-50 px-2.5 py-1 rounded-md ring-1 ring-purple-600/20 ring-inset font-medium text-purple-700 text-xs">
+               <PlayIcon className="w-3 h-3" />
+               Incluye grabaciones
+            </div>
+         )}
          <div className="flex flex-col items-center gap-2 mb-2">
             <div className={`text-center py-2.5 px-5 rounded-full font-bold ${colors.text} ${colors.bg} shadow-sm`}>
                {formatPrice(price.priceAmount, price.currency)}

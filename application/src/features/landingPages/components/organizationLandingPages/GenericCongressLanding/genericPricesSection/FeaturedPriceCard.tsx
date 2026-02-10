@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { ShieldCheck } from "lucide-react";
+import { PlayIcon, ShieldCheck } from "lucide-react";
 import { formatPrice, getCurrencyBadgeColor } from "./utils";
 
 interface FeaturedPriceCardProps {
@@ -22,6 +22,7 @@ interface FeaturedPriceCardProps {
    backgroundDecorationColor?: string;
    requiresCredentialValidation?: boolean;
    credentialValidationInstructions?: string;
+   includesRecordings?: boolean;
 }
 
 export default function FeaturedPriceCard({
@@ -44,6 +45,7 @@ export default function FeaturedPriceCard({
    backgroundDecorationColor,
    requiresCredentialValidation,
    credentialValidationInstructions,
+   includesRecordings,
 }: FeaturedPriceCardProps) {
    const currencyColors = getCurrencyBadgeColor(currency);
 
@@ -81,6 +83,12 @@ export default function FeaturedPriceCard({
                >
                   <Icon className="w-8 h-8 text-white" />
                </div>
+               {includesRecordings && (
+                  <div className="mb-3 inline-flex items-center gap-1.5 bg-purple-50 px-2.5 py-1 rounded-md ring-1 ring-purple-600/20 ring-inset font-medium text-purple-700 text-xs">
+                     <PlayIcon className="w-3 h-3" />
+                     Incluye grabaciones
+                  </div>
+               )}
                <div className="flex flex-col items-center gap-2 mb-3">
                   <div className="font-bold text-gray-900 text-3xl">{formatPrice(priceAmount, currency)}</div>
                   <span

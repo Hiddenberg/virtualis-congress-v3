@@ -27,6 +27,7 @@ export default function RecordingsSection({ product }: RecordingsSectionProps) {
                   description={product.product.description}
                   requiresCredentialValidation={price.requiresCredentialValidation}
                   credentialValidationInstructions={price.credentialValidationInstructions}
+                  includesRecordings={price.includesRecordings}
                   footer={<p className="text-gray-500 text-xs text-center">Se suma a cualquier modalidad</p>}
                />
             ))}

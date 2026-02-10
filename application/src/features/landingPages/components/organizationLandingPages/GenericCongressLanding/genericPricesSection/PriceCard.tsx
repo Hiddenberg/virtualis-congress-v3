@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { ShieldCheck } from "lucide-react";
+import { PlayIcon, ShieldCheck } from "lucide-react";
 import { formatPrice, getCurrencyBadgeColor, getPriceColorClasses } from "./utils";
 
 function CredentialValidationBanner({ credentialValidationInstructions }: { credentialValidationInstructions?: string }) {
@@ -27,6 +27,7 @@ interface PriceCardProps {
    footer?: React.ReactNode;
    requiresCredentialValidation?: boolean;
    credentialValidationInstructions?: string;
+   includesRecordings?: boolean;
 }
 
 export default function PriceCard({
@@ -40,6 +41,7 @@ export default function PriceCard({
    footer,
    requiresCredentialValidation,
    credentialValidationInstructions,
+   includesRecordings,
 }: PriceCardProps) {
    const colors = getPriceColorClasses(index);
    const currencyColors = getCurrencyBadgeColor(currency);
@@ -55,6 +57,12 @@ export default function PriceCard({
             <Icon className="w-6 h-6 text-white" />
          </div>
          <h3 className="mb-2 font-bold text-gray-900 text-sm leading-tight">{priceName}</h3>
+         {includesRecordings && (
+            <div className="mb-2 inline-flex items-center gap-1.5 bg-purple-50 px-2.5 py-1 rounded-md ring-1 ring-purple-600/20 ring-inset font-medium text-purple-700 text-xs">
+               <PlayIcon className="w-3 h-3" />
+               Incluye grabaciones
+            </div>
+         )}
          <div className="flex flex-col items-center gap-2">
             <div className={`text-center py-2 px-4 rounded-full font-semibold ${colors.text} ${colors.bg}`}>
                {formatPrice(priceAmount, currency)}

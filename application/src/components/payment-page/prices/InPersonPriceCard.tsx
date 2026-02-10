@@ -1,8 +1,9 @@
-import { ChevronRightIcon, ShieldCheck, UsersIcon } from "lucide-react";
+import { ChevronRightIcon, PlayIcon, ShieldCheck, UsersIcon } from "lucide-react";
 import Link from "next/link";
 import type { ProductPriceRecord } from "@/features/congresses/types/congressProductPricesTypes";
 import {
    formatPrice,
+   getCurrencyBadgeColor,
    getPriceColorClasses,
 } from "@/features/landingPages/components/organizationLandingPages/GenericCongressLanding/genericPricesSection/utils";
 
@@ -27,6 +28,7 @@ function CredentialValidationBanner({ credentialValidationInstructions }: { cred
 
 export default function InPersonPriceCard({ price, index }: InPersonPriceCardProps) {
    const colors = getPriceColorClasses(index);
+   const currencyColors = getCurrencyBadgeColor(price.currency);
 
    return (
       <Link
@@ -37,8 +39,21 @@ export default function InPersonPriceCard({ price, index }: InPersonPriceCardPro
             <UsersIcon className="w-6 h-6 text-white" />
          </div>
          <h3 className="mb-2 font-bold text-gray-900 text-sm text-center leading-tight">{price.name}</h3>
-         <div className={`text-center py-2.5 px-5 rounded-full font-bold ${colors.text} ${colors.bg} mb-2 shadow-sm`}>
-            {formatPrice(price.priceAmount, price.currency)}
+         {price.includesRecordings && (
+            <div className="mb-2 inline-flex items-center gap-1.5 bg-purple-50 px-2.5 py-1 rounded-md ring-1 ring-purple-600/20 ring-inset font-medium text-purple-700 text-xs">
+               <PlayIcon className="w-3 h-3" />
+               Incluye grabaciones
+            </div>
+         )}
+         <div className="flex flex-col items-center gap-2 mb-2">
+            <div className={`text-center py-2.5 px-5 rounded-full font-bold ${colors.text} ${colors.bg} shadow-sm`}>
+               {formatPrice(price.priceAmount, price.currency)}
+            </div>
+            <span
+               className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium ring-1 ring-inset ${currencyColors.bg} ${currencyColors.text} ${currencyColors.ring}`}
+            >
+               {price.currency.toUpperCase()}
+            </span>
          </div>
          {price.requiresCredentialValidation && (
             <CredentialValidationBanner credentialValidationInstructions={price.credentialValidationInstructions} />

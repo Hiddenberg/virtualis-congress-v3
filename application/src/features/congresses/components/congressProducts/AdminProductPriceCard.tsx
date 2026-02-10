@@ -1,4 +1,4 @@
-import { CheckCircleIcon, HashIcon, InfoIcon, ShieldCheckIcon } from "lucide-react";
+import { CheckCircleIcon, HashIcon, InfoIcon, PlayIcon, ShieldCheckIcon } from "lucide-react";
 import type { ProductPriceRecord } from "../../types/congressProductPricesTypes";
 import ToggleArchiveProductPriceButton from "./ToggleArchiveProductPriceButton";
 
@@ -57,7 +57,13 @@ export default function AdminProductPriceCard({ price }: { price: ProductPriceRe
          </div>
 
          <div className="flex flex-col gap-3 mb-4">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+               {price.includesRecordings && (
+                  <div className="inline-flex items-center gap-1.5 bg-purple-50 px-2.5 py-1 rounded-md ring-1 ring-purple-600/20 ring-inset font-medium text-purple-700 text-xs">
+                     <PlayIcon className="w-3 h-3" />
+                     Incluye grabaciones
+                  </div>
+               )}
                {price.requiresCredentialValidation ? (
                   <div className="inline-flex items-center gap-1.5 bg-amber-50 px-2.5 py-1 rounded-md ring-1 ring-amber-600/20 ring-inset font-medium text-amber-700 text-xs">
                      <ShieldCheckIcon className="w-3 h-3" />
