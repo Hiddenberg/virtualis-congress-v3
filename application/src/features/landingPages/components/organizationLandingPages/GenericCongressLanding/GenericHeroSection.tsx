@@ -135,7 +135,9 @@ export default function GenericHeroSection({
                         <span className={colors.heroTextAccentClass}>{congress.title}</span>
                      </h1>
                      {landingConfiguration.heroDescription && (
-                        <p className={`max-w-xl text-lg ${colors.heroSecondaryTextClass}`}>{landingConfiguration.heroDescription}</p>
+                        <p className={`max-w-xl text-lg ${colors.heroSecondaryTextClass}`}>
+                           {landingConfiguration.heroDescription}
+                        </p>
                      )}
                      {/* <div className="gap-3 grid sm:grid-cols-3">
                         <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
