@@ -31,11 +31,11 @@ const colorClasses: Record<CongressLandingConfiguration["colorScheme"], Modality
       badgeGlowClass: "shadow-[0_0_15px_rgba(6,182,212,0.4)]",
    },
    purple: {
-      badgeBgClass: "bg-linear-to-r from-purple-50/30 via-indigo-50/30 to-purple-50/30",
-      badgeBorderClass: "border-purple-200/50",
-      badgeTextClass: "text-purple-50",
-      badgeIconClass: "text-purple-100",
-      badgeGlowClass: "shadow-[0_0_15px_rgba(168,85,247,0.4)]",
+      badgeBgClass: "bg-linear-to-r from-[#e0cff0]/30 via-[#663399]/20 to-[#e0cff0]/30",
+      badgeBorderClass: "border-[#e0cff0]/50",
+      badgeTextClass: "text-[#e0cff0]",
+      badgeIconClass: "text-[#e0cff0]",
+      badgeGlowClass: "shadow-[0_0_15px_rgba(102,51,153,0.4)]",
    },
 };
 

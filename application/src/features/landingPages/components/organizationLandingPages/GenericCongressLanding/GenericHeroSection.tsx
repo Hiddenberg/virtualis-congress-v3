@@ -25,6 +25,9 @@ interface HeroSectionColorClasses {
    heroBgClass: string;
    heroTextAccentClass: string;
    heroButtonTextAccentClass: string;
+   heroIconAccentClass: string;
+   heroSecondaryTextClass: string;
+   heroButtonHoverClass: string;
 }
 
 const colorClasses: Record<CongressLandingConfiguration["colorScheme"], HeroSectionColorClasses> = {
@@ -32,16 +35,25 @@ const colorClasses: Record<CongressLandingConfiguration["colorScheme"], HeroSect
       heroBgClass: "bg-linear-to-br from-green-800 via-green-600 to-green-400",
       heroTextAccentClass: "text-lime-100",
       heroButtonTextAccentClass: "text-lime-900",
+      heroIconAccentClass: "text-lime-200",
+      heroSecondaryTextClass: "text-lime-100",
+      heroButtonHoverClass: "hover:bg-lime-50",
    },
    blue: {
       heroBgClass: "bg-linear-to-br from-blue-800 via-blue-700 to-cyan-600",
       heroTextAccentClass: "text-cyan-200",
       heroButtonTextAccentClass: "text-blue-900",
+      heroIconAccentClass: "text-cyan-200",
+      heroSecondaryTextClass: "text-cyan-100",
+      heroButtonHoverClass: "hover:bg-cyan-50",
    },
    purple: {
-      heroBgClass: "bg-linear-to-br from-purple-600 via-purple-400 to-purple-400",
-      heroTextAccentClass: "text-indigo-200",
-      heroButtonTextAccentClass: "text-purple-900",
+      heroBgClass: "bg-linear-to-br from-[#3a1050] via-[#663399] to-[#e0cff0]",
+      heroTextAccentClass: "text-[#e0cff0]",
+      heroButtonTextAccentClass: "text-[#3a1050]",
+      heroIconAccentClass: "text-[#e0cff0]",
+      heroSecondaryTextClass: "text-[#e0cff0]/90",
+      heroButtonHoverClass: "hover:bg-[#e0cff0]/20",
    },
 };
 
@@ -102,9 +114,10 @@ export default function GenericHeroSection({
    });
 
    // const totalConferences = conferences.length;
+   const colors = colorClasses[color];
 
    return (
-      <section className={`relative flex items-center min-h-dvh ${colorClasses[color].heroBgClass}`}>
+      <section className={`relative flex items-center min-h-dvh ${colors.heroBgClass}`}>
          {/* Background accents */}
          <HeroAccents />
 
@@ -119,10 +132,10 @@ export default function GenericHeroSection({
                      <h1 className="font-bold text-4xl lg:text-5xl leading-tight">
                         <span className="text-white">Bienvenidos al evento:</span>
                         <br />
-                        <span className={colorClasses[color].heroTextAccentClass}>{congress.title}</span>
+                        <span className={colors.heroTextAccentClass}>{congress.title}</span>
                      </h1>
                      {landingConfiguration.heroDescription && (
-                        <p className="max-w-xl text-blue-100 text-lg">{landingConfiguration.heroDescription}</p>
+                        <p className={`max-w-xl text-lg ${colors.heroSecondaryTextClass}`}>{landingConfiguration.heroDescription}</p>
                      )}
                      {/* <div className="gap-3 grid sm:grid-cols-3">
                         <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
@@ -146,7 +159,7 @@ export default function GenericHeroSection({
                   <div className="gap-4 grid grid-cols-2">
                      <div className="bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
                         <div className="flex items-center gap-2 mb-1">
-                           <CalendarDaysIcon className="w-4 h-4 text-cyan-200" />
+                           <CalendarDaysIcon className={`w-4 h-4 ${colors.heroIconAccentClass}`} />
                            <span className="font-semibold text-white text-xl">Fechas</span>
                         </div>
                         <div className="capitalize">
@@ -155,18 +168,18 @@ export default function GenericHeroSection({
                      </div>
                      <div className="bg-white/10 backdrop-blur-sm p-4 border border-white/20 rounded-xl">
                         <span className="flex items-center gap-2 mb-1 font-bold text-white text-xl">
-                           <FilmIcon className="size-4 text-cyan-200" /> Grabaciones
+                           <FilmIcon className={`size-4 ${colors.heroIconAccentClass}`} /> Grabaciones
                         </span>
                         <div className="font-medium">A demanda por 3 meses</div>
                      </div>
                      {congress.modality === "hybrid" && congress.congressLocation && (
                         <div className="col-span-2 bg-white/10 backdrop-blur-sm p-3 border border-white/20 rounded-xl">
                            <div className="flex items-center gap-2 mb-1">
-                              <MapPinIcon className="w-4 h-4 text-cyan-200" />
+                              <MapPinIcon className={`w-4 h-4 ${colors.heroIconAccentClass}`} />
                               <span className="font-semibold text-white text-xl">Ubicación</span>
                            </div>
-                           <div className="mb-2 text-cyan-100">{congress.congressLocation}</div>
-                           <div className="flex items-center gap-1 text-cyan-200 text-sm">
+                           <div className={`mb-2 ${colors.heroSecondaryTextClass}`}>{congress.congressLocation}</div>
+                           <div className={`flex items-center gap-1 text-sm ${colors.heroIconAccentClass}`}>
                               <MonitorIcon className="size-4" />
                               <span className="font-bold">También disponible en línea</span>
                            </div>
@@ -180,19 +193,19 @@ export default function GenericHeroSection({
                         {!userId && (
                            <Link
                               href="/signup"
-                              className={`bg-white hover:bg-cyan-50 shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold  text-lg text-center hover:scale-105 transition-all duration-300 transform ${colorClasses[color].heroButtonTextAccentClass}`}
+                              className={`bg-white shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold text-lg text-center hover:scale-105 transition-all duration-300 transform ${colors.heroButtonTextAccentClass} ${colors.heroButtonHoverClass}`}
                            >
                               Inscribirme ahora
                            </Link>
                         )}
                         <Link
                            href="/lobby"
-                           className={`flex justify-center items-center gap-2 bg-white hover:bg-cyan-50 shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold text-lg text-center hover:scale-105 transition-all duration-300 transform ${colorClasses[color].heroButtonTextAccentClass}`}
+                           className={`flex justify-center items-center gap-2 bg-white shadow-xl hover:shadow-2xl px-8 py-4 rounded-full font-bold text-lg text-center hover:scale-105 transition-all duration-300 transform ${colors.heroButtonTextAccentClass} ${colors.heroButtonHoverClass}`}
                         >
                            <DoorOpenIcon className="w-5 h-5" /> Entrar con mi cuenta
                         </Link>
                      </div>
-                     <p className="flex items-center gap-2 text-cyan-100 text-sm">
+                     <p className={`flex items-center gap-2 text-sm ${colors.heroSecondaryTextClass}`}>
                         <PlayIcon className="w-4 h-4" /> Acceso desde web y móvil
                      </p>
                   </div>
