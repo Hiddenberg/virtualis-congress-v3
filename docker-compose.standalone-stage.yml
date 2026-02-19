@@ -1,0 +1,33 @@
+services:
+  virtualis-congress-v3-db-standalone-stage:
+    build:
+      context: ./database
+      tags:
+        - hiddenberg/virtualis-congress-v3-db:standalone-stage
+    image: hiddenberg/virtualis-congress-v3-db:standalone-stage
+    volumes:
+      - ./database/:/db/
+    networks:
+      - proxynetwork
+    restart: always
+    ports:
+      - 8080:8080
+
+  virtualis-congress-v3-standalone-stage:
+    build:
+      context: ./application
+      tags:
+        - hiddenberg/virtualis-congress-v3:standalone-stage
+    image: hiddenberg/virtualis-congress-v3:standalone-stage
+    networks:
+      - proxynetwork
+    restart: always
+    environment:
+      - POCKETBASE_SERVER_URL=http://virtualis-congress-v3-db-standalone-stage:8080
+      - NEXT_PUBLIC_POCKETBASE_URL=http://virtualis-congress-v3-db-standalone-stage:8080
+    ports:
+      - 3000:3000
+
+networks:
+  proxynetwork:
+    external: true

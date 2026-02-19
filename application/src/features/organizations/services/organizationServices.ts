@@ -10,11 +10,14 @@ async function getSubDomain() {
    const headersList = await headers();
    const host = headersList.get("host");
 
-   if (isDevEnvironment) {
-      return host?.split(".")[0] ?? null;
+   if (!host) {
+      throw new Error("No host header found");
    }
 
-   const subdomain = host?.split(isDevEnvironment ? ".localhost" : ".virtualis.app")[0];
+   const hostName = host.includes("localhost") ? ".localhost" : ".virtualis.app";
+
+   const subdomain = host.split(hostName)[0];
+
    return subdomain ?? null;
 }
 

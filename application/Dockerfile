@@ -31,17 +31,10 @@ RUN bun run build
 FROM base AS release
 
 # copy next.js files
-COPY --from=builder --chown=bun:bun /app/.next .next
-COPY --from=builder --chown=bun:bun /app/public public
-COPY --from=builder --chown=bun:bun /app/next.config.ts ./next.config.ts
-COPY --from=builder --chown=bun:bun /app/.env .env
-COPY --from=builder --chown=bun:bun /app/.env.production .env.production
-
-# copy production dependencies
-COPY --from=builder --chown=bun:bun /app/package.json .
-COPY --from=prod-installer --chown=bun:bun /temp/prod/node_modules node_modules
+COPY --from=builder --chown=bun:bun /app/.next/standalone ./
+COPY --from=builder --chown=bun:bun /app/.next/static ./.next/static
 
 # run the app
 USER bun
 EXPOSE 3000/tcp
-CMD ["bun", "run", "start"]
+CMD ["bun", "server.js"]
