@@ -1,6 +1,7 @@
 import { render } from "@react-email/render";
 import Link from "next/link";
 import AboutToStartEventTemplate from "@/features/emails/templates/AboutToStartEventTemplate";
+import ACPWIMRecordingInvitationTemplate from "@/features/emails/templates/ACPWIMRecordingInvitationTemplate";
 import AccountCreatedTemplate from "@/features/emails/templates/AccountCreatedTemplate";
 import EventFinishedTemplate from "@/features/emails/templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "@/features/emails/templates/IphoneIssueSolvedTemplate";
@@ -117,6 +118,14 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
       organizationName: "CMIM",
       deadlineDate: "2025-09-18",
       conferenceDate: "2025-09-19",
+   }),
+   "acp-wim-recording-invitation": ACPWIMRecordingInvitationTemplate({
+      inviteeName: "María",
+      recordingTitle: "Avances en la atención integral de la salud de la mujer",
+      recordingLink: "https://recording.com",
+      trackingUrl: "https://tracking.com",
+      organizationName: "ACP México Chapter",
+      maxDeadline: "15 de marzo de 2026",
    }),
 } as const;
 

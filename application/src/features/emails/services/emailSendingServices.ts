@@ -17,6 +17,7 @@ import type { UserRecord } from "@/features/users/types/userTypes";
 import transporter from "@/libs/nodeMailer";
 import SENDER_EMAILS from "../constants/emailConstants";
 import AboutToStartEventTemplate from "../templates/AboutToStartEventTemplate";
+import ACPWIMRecordingInvitationTemplate from "../templates/ACPWIMRecordingInvitationTemplate";
 import AccountCreatedTemplate from "../templates/AccountCreatedTemplate";
 import EventFinishedTemplate from "../templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "../templates/IphoneIssueSolvedTemplate";
@@ -352,16 +353,26 @@ export async function sendRecordingInvitationEmail(recordingId: string, maxDeadl
       : `https://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}`;
    const trackingUrl = `${baseTrackingUrl}/api/email-track/${trackedEmailRecord.id}`;
 
-   const template = await render(
-      RecordingInvitationTemplate({
-         inviteeName: simpleRecording.recorderName.split(" ")[0],
-         recordingTitle: simpleRecording.title,
-         recordingLink,
-         trackingUrl,
-         organizationName: organization.name,
-         maxDeadline,
-      }),
-   );
+   const templateComponent =
+      organization.shortID === "acp-wim"
+         ? ACPWIMRecordingInvitationTemplate({
+              inviteeName: simpleRecording.recorderName.split(" ")[0],
+              recordingTitle: simpleRecording.title,
+              recordingLink,
+              trackingUrl,
+              organizationName: organization.name,
+              maxDeadline,
+           })
+         : RecordingInvitationTemplate({
+              inviteeName: simpleRecording.recorderName.split(" ")[0],
+              recordingTitle: simpleRecording.title,
+              recordingLink,
+              trackingUrl,
+              organizationName: organization.name,
+              maxDeadline,
+           });
+
+   const template = await render(templateComponent);
 
    try {
       await sendNotificationEmail(
