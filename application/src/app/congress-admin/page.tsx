@@ -72,15 +72,6 @@ const adminSections: AdminLink[] = [
       textColor: "text-indigo-600",
    },
    {
-      title: "Conferencias",
-      description: "Administrar conferencias del congreso, horarios y contenido",
-      href: "/congress-admin/conferences",
-      icon: Calendar,
-      color: "bg-blue-500",
-      lightColor: "bg-blue-50",
-      textColor: "text-blue-600",
-   },
-   {
       title: "Precios y Productos de Congreso",
       description: "Agregar, editar y administrar precios y productos de congreso",
       href: "/congress-admin/products",
@@ -137,6 +128,15 @@ const hybridCongressSections: AdminLink[] = [
       color: "bg-amber-500",
       lightColor: "bg-amber-50",
       textColor: "text-amber-600",
+   },
+   {
+      title: "Conferencias",
+      description: "Administrar conferencias del congreso, horarios y contenido",
+      href: "/congress-admin/conferences",
+      icon: Calendar,
+      color: "bg-blue-500",
+      lightColor: "bg-blue-50",
+      textColor: "text-blue-600",
    },
    {
       title: "Pantalla de Proyección",
