@@ -1,5 +1,5 @@
 import MuxPlayer from "@mux/mux-player-react/lazy";
-import { ArrowRightIcon, ClockIcon, LinkIcon, MailIcon, PhoneIcon, UserIcon } from "lucide-react";
+import { ArrowRightIcon, CheckCircleIcon, ClockIcon, LinkIcon, MailIcon, PhoneIcon, UserIcon } from "lucide-react";
 import { CopyButton, LinkButton } from "@/components/global/Buttons";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import PresentationAndVideoPlayer from "@/features/pptPresentations/components/PresentationAndVideoPlayer";
@@ -11,6 +11,7 @@ import { getRecordingPresentationByRecordingId } from "../services/recordingPres
 import { getRecordingTrackedEmails, type RecordingTrackedEmailWithType } from "../services/recordingTrackedEmailsServices";
 import { getRecordingLink } from "../utils/recordingUtils";
 import EmailStatusItem from "./EmailStatusItem";
+import MarkManuallyContactedButton from "./MarkManuallyContactedButton";
 import RecordingActions from "./RecordingActions";
 import RecordingStatusBadge from "./RecordingStatusBadge";
 import SendRecordingInvitationButton from "./SendRecordingInvitationButton";
@@ -114,6 +115,16 @@ async function EmailStatusSectionNew({ recording }: { recording: SimpleRecording
                No hay un correo electrónico registrado para esta grabación, por favor comparta el enlace de grabación directamente
                con el ponente.
             </p>
+            <div className="mt-3 pt-3 border-t border-red-200/60 flex items-center gap-2">
+               {recording.manuallyContacted ? (
+                  <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-green-200 bg-green-50 text-green-700 text-sm font-medium">
+                     <CheckCircleIcon className="size-4 shrink-0" />
+                     <span>Ponente contactado manualmente</span>
+                  </div>
+               ) : (
+                  <MarkManuallyContactedButton recordingId={recording.id} />
+               )}
+            </div>
          </div>
       );
    }
