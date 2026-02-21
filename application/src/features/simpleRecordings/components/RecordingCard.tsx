@@ -109,8 +109,8 @@ async function EmailStatusSectionNew({ recording }: { recording: SimpleRecording
 
    if (!hasValidEmail) {
       return (
-         <div className="bg-yellow-50 mb-3 p-3 border border-yellow-200 rounded-lg">
-            <p className="font-semibold text-yellow-700 text-sm">
+         <div className="bg-red-50 mb-3 p-3 border border-red-200 rounded-lg">
+            <p className="font-semibold text-red-700 text-sm">
                No hay un correo electrónico registrado para esta grabación, por favor comparta el enlace de grabación directamente
                con el ponente.
             </p>

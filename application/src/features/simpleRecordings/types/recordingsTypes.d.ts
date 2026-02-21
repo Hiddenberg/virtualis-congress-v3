@@ -20,6 +20,7 @@ interface SimpleRecording {
    muxDownloadURL?: string;
    errorMessage?: string;
    durationSeconds: number;
+   manuallyContacted?: boolean;
 }
 type SimpleRecordingRecord = DBRecordItem<SimpleRecording>;
 
