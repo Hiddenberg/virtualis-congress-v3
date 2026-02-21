@@ -105,6 +105,19 @@ async function EmailStatusSectionNew({ recording }: { recording: SimpleRecording
 
    const emailsNotSent = recordingTrackedEmails.length === 0;
 
+   const hasValidEmail = recorderEmail !== "automated@recording.com";
+
+   if (!hasValidEmail) {
+      return (
+         <div className="bg-yellow-50 mb-3 p-3 border border-yellow-200 rounded-lg">
+            <p className="font-semibold text-yellow-700 text-sm">
+               No hay un correo electrónico registrado para esta grabación, por favor comparta el enlace de grabación directamente
+               con el ponente.
+            </p>
+         </div>
+      );
+   }
+
    return (
       <div className={`border border-gray-200 bg-gray-50 rounded-lg p-3 mb-3`}>
          <div className="flex justify-between items-start mb-2">
@@ -178,6 +191,8 @@ export default async function RecordingCard({ recording, organization }: Recordi
    const isAdmin = await checkAuthorizedUserFromServer(["super_admin", "admin"]);
    const recorderPhone = isAdmin ? (await getUserByEmail(recording.recorderEmail))?.phoneNumber : undefined;
 
+   const recorderName = recording.recorderName === "Automated Recording" ? "Ponente no asignado" : recording.recorderName;
+
    return (
       <div className="flex flex-col bg-white shadow-sm hover:shadow-lg p-4 border border-gray-200 rounded-xl h-full transition-all duration-200">
          <div className="pb-3">
@@ -196,7 +211,7 @@ export default async function RecordingCard({ recording, organization }: Recordi
 
             <div className="flex items-center gap-2 mt-1 text-gray-600 text-sm">
                <UserIcon className="size-4 text-gray-400" />
-               <span>Grabado por: {recording.recorderName}</span>
+               <span>Grabado por: {recorderName}</span>
             </div>
 
             <div className="flex items-center gap-2 mt-1 text-gray-600 text-sm">
