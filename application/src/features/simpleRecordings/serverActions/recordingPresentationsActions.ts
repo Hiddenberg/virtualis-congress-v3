@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createRecordingPresentation, deleteRecordingPresentation } from "../services/recordingPresentationsServices";
+import type { SimpleRecordingRecord } from "../types/recordingsTypes";
 
 export async function linkRecordingWithPresentationAction({
    recordingId,

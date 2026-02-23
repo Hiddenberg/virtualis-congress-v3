@@ -6,6 +6,7 @@ import { useZoomSession } from "@/features/livestreams/contexts/ZoomSessionConte
 import PresentationRecorder from "@/features/pptPresentations/components/PresentationRecorder";
 import { PresentationDrawingProvider } from "@/features/pptPresentations/contexts/PresentationDrawingContext";
 import { PresentationRecorderProvider } from "@/features/pptPresentations/contexts/PresentationRecorderContext";
+import type { SimpleRecordingRecord } from "../../types/recordingsTypes";
 import DeleteRecordingPresentationWPopupButton from "../DeleteRecordingPresentationWPopupButton";
 import RecordingLivestreamControlButtons from "../RecordingLivestreamControlButtons";
 
@@ -42,14 +43,14 @@ export default function PresentationAndCameraRecorder({
             <div className="bg-gray-100! min-h-screen!">
                <div className="mx-auto! p-4! container!">
                   <div className="space-y-4! bg-white! shadow-lg! mb-6! p-6! rounded-2xl!">
-                     <div className="flex! justify-between! items-center!">
+                     <div className="justify-between! items-center! flex!">
                         <div>
-                           <h2 className="font-bold! text-gray-900! text-2xl!">Grabando: {sessionTitle}</h2>
+                           <h2 className="font-bold! text-2xl! text-gray-900!">Grabando: {sessionTitle}</h2>
                         </div>
 
                         <DeleteRecordingPresentationWPopupButton recordingId={recordingId} />
 
-                        <div className="flex! items-center! gap-2! text-sm!">
+                        <div className="items-center! gap-2! text-sm! flex!">
                            <div
                               className={`w-3! h-3! rounded-full! ${presentationHasVideo ? "bg-orange-400!" : "bg-green-400!"}`}
                            />
@@ -59,7 +60,7 @@ export default function PresentationAndCameraRecorder({
                         </div>
                      </div>
 
-                     <div className="top-0! z-10! sticky! flex! justify-center! mt-6! w-max!">
+                     <div className="top-0! z-10! justify-center! mt-6! w-max! sticky! flex!">
                         {!zoomIsLoading && <RecordingLivestreamControlButtons sessionTitle={sessionTitle} />}
                      </div>
 

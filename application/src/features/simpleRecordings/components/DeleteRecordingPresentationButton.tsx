@@ -5,6 +5,7 @@ import { useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { deleteRecordingPresentationAction } from "../serverActions/recordingPresentationsActions";
+import type { SimpleRecordingRecord } from "../types/recordingsTypes";
 
 export default function DeleteRecordingPresentationButton({ recordingId }: { recordingId: SimpleRecordingRecord["id"] }) {
    const [isDeleting, startTransition] = useTransition();

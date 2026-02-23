@@ -1,4 +1,5 @@
 import { CheckCircle, Clock, Settings, Upload, Video, XCircle } from "lucide-react";
+import type { SimpleRecording } from "../types/recordingsTypes";
 
 interface RecordingStatusBadgeProps {
    status: SimpleRecording["status"];

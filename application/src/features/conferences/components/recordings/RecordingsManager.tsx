@@ -5,6 +5,7 @@ import {
    getAllCampaignRecordings,
    getAllSimpleRecordingCampaigns,
 } from "@/features/simpleRecordings/services/recordingCampaignsServices";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import CampaignRecordingsLinker from "./campaigns/CampaignRecordingsLinker";
 
 export default async function RecordingsManager({ conferenceId }: { conferenceId: CongressConferenceRecord["id"] }) {

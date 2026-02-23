@@ -13,6 +13,7 @@ import {
    // CopyButton,
    LinkButton,
 } from "@/components/global/Buttons";
+import type { SimpleRecordingRecord } from "../types/recordingsTypes";
 import DeleteRecordingButton from "./DeleteRecordingButton";
 
 interface RecordingActionsProps {

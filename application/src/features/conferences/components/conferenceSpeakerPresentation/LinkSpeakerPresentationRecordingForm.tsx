@@ -5,6 +5,11 @@ import { useParams, useRouter } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
+import type {
+   SimpleRecording,
+   SimpleRecordingCampaignRecord,
+   SimpleRecordingRecord,
+} from "@/features/simpleRecordings/types/recordingsTypes";
 import { linkSpeakerPresentationRecordingAction } from "../../actions/conferenceSpeakerPresentationRecordingActions";
 
 export default function LinkSpeakerPresentationRecordingForm({
@@ -37,7 +42,7 @@ export default function LinkSpeakerPresentationRecordingForm({
       }
       if (normalizedQuery.length > 0) {
          list = list.filter(
-            (r) => r.title.toLowerCase().includes(normalizedQuery) || r.recorderName.toLowerCase().includes(normalizedQuery),
+            (r) => r.title.toLowerCase().includes(normalizedQuery) || r.recorderName?.toLowerCase().includes(normalizedQuery),
          );
       }
       // sort: ready first, then by title for nicer UX

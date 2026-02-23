@@ -10,7 +10,6 @@ import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAu
 import SuperAdminToolCard from "@/features/superAdminTools/components/SuperAdminToolCard";
 import { sendSpeakerPresentationUploadReminderEmailToAllSpeakersAction } from "@/features/superAdminTools/serverActions/massEmailsActions";
 import {
-   migrateAllRecordingEmailsAction,
    sendAboutToStartEventEmailToAllUsersAction,
    sendCongressInvitationEmailsToNonPayersAction,
    sendEventFinishedEmailToAllUsersAction,
@@ -42,14 +41,11 @@ export default async function CongressAdminSynchPage() {
             <SuperAdminToolCard
                action={scheduleAllConferencePresentationRecordingsAction}
                buttonText="Schedule All Conference Presentation Recordings"
+               description="Esta acción programará todas las grabaciones para que los coordinadores graben la presentación de CV de los ponentes, esto solo aplica a conferencias simuladas en vivo."
             />
             <DeleteRecordingsCampagin />
          </div>
          <div className="gap-4 grid grid-cols-2">
-            <SuperAdminToolCard
-               action={migrateAllRecordingEmailsAction}
-               buttonText="Migrar correos de invitación de grabaciones"
-            />
             <SuperAdminToolCard
                action={testSendCongressInvitationEmailToNonPayerAction}
                buttonText="Enviar correo de prueba a usuarios sin pagos"

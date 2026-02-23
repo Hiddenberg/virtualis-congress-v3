@@ -1,4 +1,5 @@
 import { CheckCircleIcon, ClockIcon, TrendingUpIcon, VideoIcon } from "lucide-react";
+import type { SimpleRecording } from "../types/recordingsTypes";
 
 export default function AllRecordingsStatusBar({ allRecordings }: { allRecordings: SimpleRecording[] }) {
    const completedRecordings = allRecordings.filter((recording) => recording.status === "ready");

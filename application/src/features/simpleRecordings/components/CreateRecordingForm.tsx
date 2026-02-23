@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import { Button } from "@/components/global/Buttons";
 import { scheduleRecordingAction } from "@/features/simpleRecordings/serverActions/recordingsActions";
+import type { SimpleRecording } from "../types/recordingsTypes";
 
 interface RecordingForm {
    title: string;

@@ -3,6 +3,7 @@ import { createMuxLivestream } from "@/features/livestreams/services/muxLivestre
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
+import type { SimpleRecordingLivestream, SimpleRecordingRecord } from "../types/recordingsTypes";
 
 export async function createRecordingLivestream(simpleRecordingId: SimpleRecordingRecord["id"]) {
    const livestreamSession = await createLivestreamSession();

@@ -1,4 +1,5 @@
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 
 export interface ConferenceSpeakerPresentationRecording {
    organization: OrganizationRecord["id"];

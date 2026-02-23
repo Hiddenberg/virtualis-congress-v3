@@ -14,6 +14,7 @@ import {
    sendCampaignRecordingInvitations,
    updateSimpleRecording,
 } from "../services/recordingsServices";
+import type { SimpleRecording } from "../types/recordingsTypes";
 
 interface ScheduleRecordingActionProps {
    title: string;

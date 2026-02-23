@@ -2,6 +2,7 @@ import type { TrackedEmailRecord } from "@/features/trackedEmails/types/trackedE
 import { createDBRecord, getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { SimpleRecordingRecord } from "../types/recordingsTypes";
 import type { RecordingTrackedEmail } from "../types/recordingTrackedEmailTypes";
 
 export async function createRecordingTrackedEmailRecord({

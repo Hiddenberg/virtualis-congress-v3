@@ -31,6 +31,7 @@ import {
    updateSimpleRecording,
    updateSimpleRecordingDuration,
 } from "@/features/simpleRecordings/services/recordingsServices";
+import type { SimpleRecordingCampaignRecord, SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getUserById } from "@/features/users/services/userServices";
 import { deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import { getMuxAssetDuration } from "@/services/muxServices";
@@ -98,7 +99,7 @@ export async function syncCongressRecordings(): Promise<
 
       const campaginTitle = `[Congress Recordings] - ${congress.title}`;
       // Check if the campagin exists
-      let congressRecordingsCampaign = await getSingleDBRecord<SimpleRecordingCampaign>(
+      let congressRecordingsCampaign = await getSingleDBRecord<SimpleRecordingCampaignRecord>(
          "SIMPLE_RECORDING_CAMPAIGNS",
          pbFilter(
             `
@@ -475,7 +476,7 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
          }
       }
 
-      console.log("Recordings created", createdRecordings);
+      console.log("CV Presentation Recordings created", createdRecordings);
 
       return {
          success: true,

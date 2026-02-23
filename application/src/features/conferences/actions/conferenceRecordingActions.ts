@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import { linkRecordingToConference, unlinkRecordingFromConference } from "../services/conferenceRecordingsServices";
 

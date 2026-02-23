@@ -1,5 +1,6 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import "server-only";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
 

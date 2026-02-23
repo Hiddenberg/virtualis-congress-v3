@@ -1,6 +1,7 @@
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import "server-only";
+import type { SimpleRecording, SimpleRecordingCampaign } from "../types/recordingsTypes";
 
 export async function createRecordingCampaign(title: string, description: string) {
    const organization = await getOrganizationFromSubdomain();

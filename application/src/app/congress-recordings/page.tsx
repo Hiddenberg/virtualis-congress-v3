@@ -9,6 +9,7 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import NoRecordingsAccessCard from "@/features/recordings/components/NoRecordingsAccessCard";
 import RecordingsByDateAccordion from "@/features/recordings/components/RecordingsByDateAccordion";
 import RecordingsComingSoonBanner from "@/features/recordings/components/RecordingsComingSoonBanner";
+import type { SimpleRecording } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 

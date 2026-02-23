@@ -1,4 +1,5 @@
 import { addSecond } from "@formkit/tempo";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 
 export interface SimuliveData {
    startDateTime: string;

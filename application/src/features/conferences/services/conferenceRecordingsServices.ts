@@ -2,6 +2,7 @@ import "server-only";
 
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 
 export async function linkRecordingToConference({

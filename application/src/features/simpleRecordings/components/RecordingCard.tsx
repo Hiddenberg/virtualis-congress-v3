@@ -9,6 +9,7 @@ import { getUserByEmail } from "@/features/users/services/userServices";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import { getRecordingPresentationByRecordingId } from "../services/recordingPresentationsServices";
 import { getRecordingTrackedEmails, type RecordingTrackedEmailWithType } from "../services/recordingTrackedEmailsServices";
+import type { SimpleRecordingRecord } from "../types/recordingsTypes";
 import { getRecordingLink } from "../utils/recordingUtils";
 import EmailStatusItem from "./EmailStatusItem";
 import MarkManuallyContactedButton from "./MarkManuallyContactedButton";
@@ -26,7 +27,7 @@ async function EmailStatusSectionNew({ recording }: { recording: SimpleRecording
 
    const emailsNotSent = recordingTrackedEmails.length === 0;
 
-   const hasValidEmail = recorderEmail !== "automated@recording.com";
+   const hasValidEmail = recorderEmail && recorderEmail !== "automated@recording.com";
 
    if (!hasValidEmail) {
       return (
@@ -120,9 +121,12 @@ export default async function RecordingCard({ recording, organization }: Recordi
    const presentationSlides = await getPresentationSlidesById(recordingPresentation?.id || "");
    const presentationRecording = await getPresentationRecordingByPresentationId(recordingPresentation?.id || "");
    const isAdmin = await checkAuthorizedUserFromServer(["super_admin", "admin"]);
-   const recorderPhone = isAdmin ? (await getUserByEmail(recording.recorderEmail))?.phoneNumber : undefined;
+   const recorderPhone = isAdmin ? (await getUserByEmail(recording.recorderEmail ?? ""))?.phoneNumber : undefined;
 
-   const recorderName = recording.recorderName === "Automated Recording" ? "Ponente no asignado" : recording.recorderName;
+   const recorderName =
+      !recording.recorderName || recording.recorderName === "Automated Recording"
+         ? "Ponente no asignado"
+         : recording.recorderName;
 
    return (
       <div className="flex flex-col bg-white shadow-sm hover:shadow-lg p-4 border border-gray-200 rounded-xl h-full transition-all duration-200">

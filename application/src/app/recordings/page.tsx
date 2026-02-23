@@ -14,6 +14,7 @@ import { LinkButton } from "@/components/global/Buttons";
 import GoBackButton from "@/components/global/GoBackButton";
 import { getAllSimpleRecordingCampaigns } from "@/features/simpleRecordings/services/recordingCampaignsServices";
 import { getAllSimpleRecordings } from "@/features/simpleRecordings/services/recordingsServices";
+import type { SimpleRecordingCampaignRecord, SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { checkUserAuthorization, getUserById } from "@/features/users/services/userServices";
 
@@ -24,7 +25,7 @@ function CampaignCard({
    completedCount,
    pendingCount,
 }: {
-   campaign: SimpleRecordingCampaign & { id: string };
+   campaign: SimpleRecordingCampaignRecord;
    recordingsCount: number;
    completedCount: number;
    pendingCount: number;
@@ -141,8 +142,8 @@ function CampaignOverview({
    campaigns,
    allRecordings,
 }: {
-   campaigns: (SimpleRecordingCampaign & { id: string })[];
-   allRecordings: SimpleRecording[];
+   campaigns: SimpleRecordingCampaignRecord[];
+   allRecordings: SimpleRecordingRecord[];
 }) {
    const totalRecordings = allRecordings.length;
    const completedRecordings = allRecordings.filter((r) => r.status === "ready").length;

@@ -25,6 +25,7 @@ import { getAllQuestionPollsForConference } from "@/features/conferences/service
 import { getConferenceRecordings } from "@/features/conferences/services/conferenceRecordingsServices";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { SimpleRecording, SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getSpeakerSlidesFilesByConferenceId } from "@/features/speakerSlidesV2/services/speakerSlidesFilesServices";
 import { formatVideoTime } from "@/utils/recorderUtils";
 import { getSpeakerPresentationRecordingByConferenceId } from "../services/conferenceSpeakerPresentationRecordingServices";
@@ -233,7 +234,7 @@ export async function ConferenceSpeakerSlidesSection({ conferenceId }: { confere
    );
 }
 
-function LinkedRecordingSummaryCard({ recording }: { recording: SimpleRecording }) {
+function LinkedRecordingSummaryCard({ recording }: { recording: SimpleRecordingRecord }) {
    const statusConfig: Record<SimpleRecording["status"], { color: string; bgColor: string; label: string }> = {
       ready: {
          color: "text-green-600",

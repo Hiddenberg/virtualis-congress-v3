@@ -2,6 +2,7 @@ import { CoffeeIcon, Home, MessageSquareOff } from "lucide-react";
 import { LinkButton } from "@/components/global/Buttons";
 import LivestreamStagesWrapper from "@/features/livestreams/components/userView/LivestreamStagesWrapper";
 import { RealtimeLivestreamStatusProvider } from "@/features/livestreams/contexts/RealtimeLivestreamStatusProvider";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import SimuliveStagesWrapper from "@/features/simulive/components/SimuliveStagesWrapper";
 
 type ConferenceTransmissionType = "live" | "pre-recorded" | "break" | "unknown";

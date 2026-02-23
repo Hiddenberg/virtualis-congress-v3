@@ -1,11 +1,12 @@
 "use server";
 
 import { createRecordingCampaign } from "@/features/simpleRecordings/services/recordingCampaignsServices";
+import type { SimpleRecordingCampaignRecord } from "../types/recordingsTypes";
 
 export async function createRecordingCampaignAction(
    title: string,
    description: string,
-): Promise<BackendResponse<SimpleRecordingCampaign>> {
+): Promise<BackendResponse<SimpleRecordingCampaignRecord>> {
    try {
       const campaignCreated = await createRecordingCampaign(title, description);
 

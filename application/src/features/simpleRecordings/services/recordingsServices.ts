@@ -12,6 +12,7 @@ import { sendRecordingInvitationEmail } from "@/features/emails/services/emailSe
 import { deleteLivestreamSessionResources } from "@/features/livestreams/services/livestreamSessionServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getAllCampaignRecordings } from "@/features/simpleRecordings/services/recordingCampaignsServices";
+import type { SimpleRecording, SimpleRecordingCampaignRecord, SimpleRecordingRecord } from "../types/recordingsTypes";
 import { getRecordingLivestreamSessionByRecordingId } from "./recordingLivestreamServices";
 
 export async function createRecordingRecord(recording: SimpleRecording) {

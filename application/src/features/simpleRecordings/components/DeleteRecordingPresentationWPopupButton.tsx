@@ -3,6 +3,7 @@
 import { AlertTriangle, TrashIcon } from "lucide-react";
 import { Button } from "@/components/global/Buttons";
 import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
+import type { SimpleRecordingRecord } from "../types/recordingsTypes";
 import DeleteRecordingPresentationButton from "./DeleteRecordingPresentationButton";
 
 function DeletePresentationPopup({ recordingId }: { recordingId: SimpleRecordingRecord["id"] }) {

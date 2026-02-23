@@ -17,6 +17,7 @@ import {
    getAllCampaignRecordings,
    getRecordingsCampaignById,
 } from "@/features/simpleRecordings/services/recordingCampaignsServices";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 
 // Campaign Statistics Component
 function CampaignStats({ recordings }: { recordings: SimpleRecordingRecord[] }) {

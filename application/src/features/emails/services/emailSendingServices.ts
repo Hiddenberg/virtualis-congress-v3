@@ -10,6 +10,7 @@ import {
 import { getOrganizationBaseUrl, getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getSimpleRecordingById } from "@/features/simpleRecordings/services/recordingsServices";
 import { createRecordingTrackedEmailRecord } from "@/features/simpleRecordings/services/recordingTrackedEmailsServices";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getRecordingLink } from "@/features/simpleRecordings/utils/recordingUtils";
 import { createTrackedEmailRecord, updateTrackedEmailRecord } from "@/features/trackedEmails/services/trackedEmailServices";
 import { getUserByEmail, getUserById } from "@/features/users/services/userServices";
@@ -327,8 +328,11 @@ export async function sendRecordingInvitationEmail(recordingId: string, maxDeadl
    const simpleRecording = await getSimpleRecordingById(recordingId);
 
    if (!simpleRecording) {
-      console.error("[Recordings Services] Simple recording not found", recordingId);
-      return;
+      throw new Error(`[Recordings Services] Simple recording not found with id ${recordingId}`);
+   }
+
+   if (!simpleRecording.recorderEmail) {
+      throw new Error(`[Recordings Services] Simple recording recorder email not found for recording id ${recordingId}`);
    }
 
    const emailSubject = `Invitación para grabar ${simpleRecording.title}`;
@@ -353,10 +357,12 @@ export async function sendRecordingInvitationEmail(recordingId: string, maxDeadl
       : `https://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}`;
    const trackingUrl = `${baseTrackingUrl}/api/email-track/${trackedEmailRecord.id}`;
 
+   const inviteeName = simpleRecording.recorderName?.split(" ")[0] ?? "";
+
    const templateComponent =
       organization.shortID === "acp-wim"
          ? ACPWIMRecordingInvitationTemplate({
-              inviteeName: simpleRecording.recorderName.split(" ")[0],
+              inviteeName: inviteeName,
               recordingTitle: simpleRecording.title,
               recordingLink,
               trackingUrl,
@@ -364,7 +370,7 @@ export async function sendRecordingInvitationEmail(recordingId: string, maxDeadl
               maxDeadline,
            })
          : RecordingInvitationTemplate({
-              inviteeName: simpleRecording.recorderName.split(" ")[0],
+              inviteeName: inviteeName,
               recordingTitle: simpleRecording.title,
               recordingLink,
               trackingUrl,
@@ -411,6 +417,10 @@ export async function sendRecordingReminderEmail(recordingId: SimpleRecordingRec
       throw new Error("[Recordings Services] Recording not found");
    }
 
+   if (!recording.recorderEmail) {
+      throw new Error(`[Recordings Services] Simple recording recorder email not found for recording id ${recordingId}`);
+   }
+
    const emailSubject = `Recordatorio de entrega de grabación | ${recording.title}`;
    const recordingURL = getRecordingLink(recording.id, organization);
 
@@ -434,7 +444,7 @@ export async function sendRecordingReminderEmail(recordingId: SimpleRecordingRec
       RecordingReminder({
          organizationName: organization.name,
          conferenceTitle: recording.title,
-         speakerName: recording.recorderName,
+         speakerName: recording.recorderName ?? "",
          recordingUrl: recordingURL,
          trackingUrl,
       }),

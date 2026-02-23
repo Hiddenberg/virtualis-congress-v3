@@ -8,6 +8,7 @@ import {
    linkRecordingToConferenceAction,
    unlinkRecordingFromConferenceAction,
 } from "@/features/conferences/actions/conferenceRecordingActions";
+import type { SimpleRecordingCampaignRecord, SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 
 interface Props {
    conferenceId: CongressConferenceRecord["id"];
@@ -47,8 +48,8 @@ export default function CampaignRecordingsLinker({
       return activeRecordings.filter(
          (r) =>
             r.title.toLowerCase().includes(q) ||
-            r.recorderName.toLowerCase().includes(q) ||
-            r.recorderEmail.toLowerCase().includes(q),
+            r.recorderName?.toLowerCase().includes(q) ||
+            r.recorderEmail?.toLowerCase().includes(q),
       );
    }, [activeRecordings, query]);
 

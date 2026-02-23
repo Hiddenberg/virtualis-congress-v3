@@ -5,6 +5,7 @@ import {
    getPresentationRecordingByPresentationId,
 } from "@/features/pptPresentations/services/presentationRecordingServices";
 import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
+import type { SimpleRecordingRecord } from "../types/recordingsTypes";
 
 export async function createRecordingPresentation(
    recordingId: SimpleRecordingRecord["id"],

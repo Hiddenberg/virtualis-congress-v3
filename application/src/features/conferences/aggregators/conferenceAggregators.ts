@@ -1,6 +1,7 @@
 import { addSecond } from "@formkit/tempo";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import type { SpeakerDataRecord } from "@/types/congress";
 import { getAllProgramConferences } from "../services/conferenceServices";
