@@ -17,86 +17,6 @@ import RecordingStatusBadge from "./RecordingStatusBadge";
 import SendRecordingInvitationButton from "./SendRecordingInvitationButton";
 import SendRecordingReminderButton from "./SendRecordingReminderButton";
 
-// function EmailStatusSectionOld ({ recording }: {
-//    recording: SimpleRecordingRecord
-// }) {
-//    const recorderEmail = recording.recorderEmail
-//    const invitationEmailStatus = recording.invitationEmailStatus
-
-//    // Email status configuration
-//    const emailStatusConfig = {
-//       not_sent: {
-//          label: "No enviado",
-//          icon: ClockIcon,
-//          color: "text-gray-600",
-//          bgColor: "bg-gray-50",
-//          borderColor: "border-gray-200"
-//       },
-//       sent: {
-//          label: "Enviado",
-//          icon: CheckCircleIcon,
-//          color: "text-blue-600",
-//          bgColor: "bg-blue-50",
-//          borderColor: "border-blue-200"
-//       },
-//       opened: {
-//          label: "Abierto",
-//          icon: CheckCircleIcon,
-//          color: "text-green-600",
-//          bgColor: "bg-green-50",
-//          borderColor: "border-green-200"
-//       },
-//       error: {
-//          label: "Error",
-//          icon: XCircleIcon,
-//          color: "text-red-600",
-//          bgColor: "bg-red-50",
-//          borderColor: "border-red-200"
-//       }
-//    }
-
-//    const emailStatus = emailStatusConfig[invitationEmailStatus]
-//    return (
-//       <div className={`${emailStatus.bgColor} border ${emailStatus.borderColor} rounded-lg p-3 mb-3`}>
-//          <div className="flex justify-between items-start mb-2">
-//             <div className="flex items-center gap-2">
-//                <MailIcon className="size-4 text-gray-400" />
-//                <span className="font-medium text-gray-700 text-sm">Estado del correo</span>
-//             </div>
-//             <div className="flex flex-col items-center gap-1">
-//                <div className="flex items-center gap-1">
-//                   <emailStatus.icon className={`size-4 ${emailStatus.color}`} />
-//                   <span className={`text-sm font-medium ${emailStatus.color}`}>
-//                      {emailStatus.label}
-//                   </span>
-//                </div>
-//                {
-//                   recording.invitationEmailOpenedAt && (
-//                      <span className="text-gray-500 text-xs">
-//                         {format({
-//                            date: recording.invitationEmailOpenedAt,
-//                            format: "DD/MM/YYYY hh:mm A",
-//                            locale: "es-MX",
-//                            tz: "America/Mexico_City"
-//                         })}
-//                      </span>
-//                   )
-//                }
-//             </div>
-//          </div>
-
-//          <div className="mb-3 text-gray-600 text-xs">
-//             <span className="font-medium">Correo:</span> {recorderEmail}
-//          </div>
-
-//          {/* Send Invitation Button - Only show if not sent and scheduled */}
-//          {invitationEmailStatus === "not_sent" && recording.status === "scheduled" && (
-//             <SendRecordingInvitationButton recordingId={recording.id} />
-//          )}
-//       </div>
-//    )
-// }
-
 async function EmailStatusSectionNew({ recording }: { recording: SimpleRecordingRecord }) {
    const recorderEmail = recording.recorderEmail;
 
@@ -115,9 +35,9 @@ async function EmailStatusSectionNew({ recording }: { recording: SimpleRecording
                No hay un correo electrónico registrado para esta grabación, por favor comparta el enlace de grabación directamente
                con el ponente.
             </p>
-            <div className="mt-3 pt-3 border-t border-red-200/60 flex items-center gap-2">
+            <div className="flex items-center gap-2 mt-3 pt-3 border-red-200/60 border-t">
                {recording.manuallyContacted ? (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-green-200 bg-green-50 text-green-700 text-sm font-medium">
+                  <div className="flex items-center gap-1.5 bg-green-50 px-2.5 py-1.5 border border-green-200 rounded-md font-medium text-green-700 text-sm">
                      <CheckCircleIcon className="size-4 shrink-0" />
                      <span>Ponente contactado manualmente</span>
                   </div>
