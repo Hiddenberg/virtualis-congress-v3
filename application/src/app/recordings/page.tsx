@@ -257,7 +257,7 @@ export default async function RecordingsPage() {
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
          {(user.role === "admin" || user.role === "super_admin") && (
             <div className="mb-8">
-               <GoBackButton />
+               <GoBackButton backButtonText="Volver al panel de administración" backURL="/congress-admin" />
             </div>
          )}
 
