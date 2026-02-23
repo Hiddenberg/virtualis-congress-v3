@@ -4,6 +4,7 @@ import { getConferenceLivestreamSession } from "@/features/conferences/services/
 import { getConferencePresentation } from "@/features/conferences/services/conferencePresentationsServices";
 import { getConferenceRecording, linkRecordingToConference } from "@/features/conferences/services/conferenceRecordingsServices";
 import { getAllCongressConferences, getAllProgramConferences } from "@/features/conferences/services/conferenceServices";
+import { linkSpeakerPresentationRecordingToConference } from "@/features/conferences/services/conferenceSpeakerPresentationRecordingServices";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
@@ -463,10 +464,16 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
             // Create the recording livestream
             await createRecordingLivestream(createdRecording.id);
 
-            console.log("Recording created for conference", conference.id);
+            // link the presentation recording to the conference
+            await linkSpeakerPresentationRecordingToConference({
+               conferenceId: conference.id,
+               recordingId: createdRecording.id,
+            });
+
+            console.log("CV Presentation Recording created for conference", conference.id);
             createdRecordings.push(createdRecording.id);
          } catch (error) {
-            console.error("Error creating recording for conference", conference.id, error);
+            console.error("Error creating CV Presentation Recording for conference", conference.id, error);
             failedRecordings.push({
                conferenceId: conference.id,
                errorMessage: error instanceof Error ? error.message : "Unknown error",

@@ -465,7 +465,7 @@ export async function SpeakerPresentationRecordingSection({ conferenceId }: { co
 
    return (
       <SubCard
-         title="Presentación del ponente"
+         title="Video presentación del ponente"
          icon={<FilmIcon className="w-4 h-4 text-gray-600" />}
          badge={recording ? getStatusBadge(recording.status) : undefined}
          footer={
