@@ -3,6 +3,7 @@ import Link from "next/link";
 import AboutToStartEventTemplate from "@/features/emails/templates/AboutToStartEventTemplate";
 import ACPWIMRecordingInvitationTemplate from "@/features/emails/templates/ACPWIMRecordingInvitationTemplate";
 import AccountCreatedTemplate from "@/features/emails/templates/AccountCreatedTemplate";
+import CoordinatorCVRecordingInvitation from "@/features/emails/templates/CoordinatorCVRecordingInvitation";
 import EventFinishedTemplate from "@/features/emails/templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "@/features/emails/templates/IphoneIssueSolvedTemplate";
 import NewEventDayAboutToStartEmailTemplate from "@/features/emails/templates/NewEventDayAboutToStart";
@@ -126,6 +127,14 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
       trackingUrl: "https://tracking.com",
       organizationName: "ACP México Chapter",
       maxDeadline: "15 de marzo de 2026",
+   }),
+   "coordinator-cv-recording-invitation": CoordinatorCVRecordingInvitation({
+      congressTitle: "Congreso Virtualis",
+      conferenceTitle: "Conference Title",
+      speakerName: "John Doe",
+      coordinatorName: "John Doe",
+      recordingUrl: "https://recording.com",
+      trackingUrl: "https://tracking.com",
    }),
 } as const;
 
