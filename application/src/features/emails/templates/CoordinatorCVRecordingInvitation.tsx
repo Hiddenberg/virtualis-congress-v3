@@ -9,7 +9,7 @@ interface CoordinatorCVRecordingInvitationProps {
    trackingUrl: string;
 }
 
-export default function CoordinatorCVRecordingInvitation({
+export default function CoordinatorCVRecordingInvitationTemplate({
    congressTitle,
    conferenceTitle,
    speakerName,

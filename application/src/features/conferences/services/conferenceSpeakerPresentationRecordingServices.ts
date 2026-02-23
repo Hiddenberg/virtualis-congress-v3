@@ -52,6 +52,28 @@ export async function getSpeakerPresentationRecordingByConferenceId(conferenceId
    return speakerPresentationRecording?.expand.recording ?? null;
 }
 
+export async function getConferenceSpeakerPresentationRecordingRecordByRecordingId(recordingId: SimpleRecordingRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      recording = {:recordingId}
+      `,
+      {
+         organizationId: organization.id,
+         recordingId,
+      },
+   );
+
+   const speakerPresentationRecording = await getSingleDBRecord<ConferenceSpeakerPresentationRecording>(
+      "CONFERENCE_SPEAKER_PRESENTATION_RECORDINGS",
+      filter,
+   );
+
+   return speakerPresentationRecording;
+}
+
 export async function unlinkSpeakerPresentationRecordingFromConference({
    conferenceId,
 }: {

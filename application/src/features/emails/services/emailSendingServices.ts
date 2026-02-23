@@ -2,6 +2,8 @@ import { addDay, format } from "@formkit/tempo";
 import { render } from "@react-email/components";
 import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { getAllCongressConferences, getConferenceById } from "@/features/conferences/services/conferenceServices";
+import { getConferenceSpeakerPresentationRecordingRecordByRecordingId } from "@/features/conferences/services/conferenceSpeakerPresentationRecordingServices";
+import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
    checkIfUserHasAccessToRecordings,
@@ -20,6 +22,7 @@ import SENDER_EMAILS from "../constants/emailConstants";
 import AboutToStartEventTemplate from "../templates/AboutToStartEventTemplate";
 import ACPWIMRecordingInvitationTemplate from "../templates/ACPWIMRecordingInvitationTemplate";
 import AccountCreatedTemplate from "../templates/AccountCreatedTemplate";
+import CoordinatorCVRecordingInvitationTemplate from "../templates/CoordinatorCVRecordingInvitation";
 import EventFinishedTemplate from "../templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "../templates/IphoneIssueSolvedTemplate";
 import NewEventDayAboutToStartEmailTemplate from "../templates/NewEventDayAboutToStart";
@@ -407,6 +410,72 @@ export async function sendRecordingInvitationEmail(recordingId: string, maxDeadl
          });
       }
    }
+}
+
+export async function sendCoordinatorCVRecordingInvitationEmail(recordingId: string) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const recording = await getSimpleRecordingById(recordingId);
+   if (!recording) {
+      throw new Error("[Recordings Services] Recording not found");
+   }
+
+   if (!recording.recorderEmail) {
+      throw new Error(`[Recordings Services] Simple recording recorder email not found for recording id ${recordingId}`);
+   }
+
+   const conferenceSpeakerPresentationRecording = await getConferenceSpeakerPresentationRecordingRecordByRecordingId(recordingId);
+   if (!conferenceSpeakerPresentationRecording) {
+      throw new Error("[Recordings Services] Conference speaker presentation recording not found");
+   }
+
+   const conference = await getConferenceById(conferenceSpeakerPresentationRecording.conference);
+   if (!conference) {
+      throw new Error("[Recordings Services] Conference not found");
+   }
+
+   const conferenceSpeakers = await getConferenceSpeakers(conference.id);
+   if (!conferenceSpeakers) {
+      throw new Error("[Recordings Services] Speaker name not found");
+   }
+
+   const speakerName = conferenceSpeakers.map((speaker) => speaker.displayName).join(", ");
+
+   const coordinatorName = recording.recorderName ?? "Coordinador";
+
+   const emailSubject = `Invitación para grabar la presentación de la conferencia | ${conference.title}`;
+
+   const trackedEmailRecord = await createTrackedEmailRecord({
+      sentTo: recording.recorderEmail,
+      subject: emailSubject,
+   });
+
+   const baseTrackingUrl = IS_DEV_ENVIRONMENT
+      ? `https://verified-properly-cheetah.ngrok-free.app`
+      : `https://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}`;
+   const trackingUrl = `${baseTrackingUrl}/api/email-track/${trackedEmailRecord.id}`;
+
+   const recordingURL = getRecordingLink(recording.id, organization);
+
+   const template = await render(
+      CoordinatorCVRecordingInvitationTemplate({
+         congressTitle: conference.congress.title,
+         conferenceTitle: conference.title,
+         speakerName: speakerName,
+         coordinatorName: coordinatorName,
+         recordingUrl: recordingURL,
+         trackingUrl,
+      }),
+   );
+
+   await sendNotificationEmail(`${organization.name} | Virtualis Congress`, recording.recorderEmail, emailSubject, template);
+   await updateTrackedEmailRecord({
+      trackedEmailId: trackedEmailRecord.id,
+      updatedData: {
+         status: "sent",
+         sentAt: new Date().toISOString(),
+      },
+   });
 }
 
 export async function sendRecordingReminderEmail(recordingId: SimpleRecordingRecord["id"]) {
