@@ -100,6 +100,35 @@ export async function updateRecordingAction(
    }
 }
 
+export async function updateRecordingDetailsAction(
+   recordingId: string,
+   campaignId: string,
+   details: Pick<SimpleRecording, "title" | "recorderName" | "recorderEmail" | "recordingType">,
+): Promise<BackendResponse<SimpleRecording>> {
+   try {
+      const updatedRecording = await updateSimpleRecording(recordingId, details);
+
+      revalidatePath("/recordings");
+      revalidatePath(`/recordings/campaign/${campaignId}`);
+
+      return {
+         success: true,
+         data: updatedRecording,
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "An unknown error occurred",
+      };
+   }
+}
+
 export async function completeRecordingUploadAction(recordingId: string, muxUploadId: string): Promise<BackendResponse<null>> {
    try {
       // get the mux asset and playback Id

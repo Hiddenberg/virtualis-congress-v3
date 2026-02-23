@@ -2,8 +2,8 @@
 
 import {
    DownloadIcon,
+   EditIcon,
    EyeIcon,
-   // LinkIcon,
    MoreVerticalIcon,
    UploadIcon,
 } from "lucide-react";
@@ -55,8 +55,13 @@ export default function RecordingActions({
          {/* More Actions Dropdown */}
          {showMoreActions && (
             <div className="top-full right-0 z-10 absolute bg-white shadow-lg mt-2 border border-gray-200 rounded-lg w-64">
-               <div className="space-y-2 p-3">
-                  <span className="text-gray-600 text-sm">Id: {recording.id}</span>
+               <div className="space-y-2 p-3 *:w-full">
+                  <span className="font-semibold text-gray-600 text-sm">Id: {recording.id}</span>
+
+                  <LinkButton variant="blue" href={`/recordings/recording/${recording.id}/edit`}>
+                     <EditIcon className="size-4" />
+                     Editar detalles
+                  </LinkButton>
 
                   {/* Upload Video Section */}
                   {recording.status !== "processing" && !recording.muxPlaybackId && (
@@ -66,17 +71,15 @@ export default function RecordingActions({
                      </LinkButton>
                   )}
 
-                  <LinkButton href={`/recordings/record/${recording.id}/review`} variant="blue" className="w-full text-sm">
-                     <EyeIcon className="size-4" />
-                     Ir a revisión
-                  </LinkButton>
+                  {(recording.status === "ready" || recording.status === "reviewing") && (
+                     <LinkButton href={`/recordings/record/${recording.id}/review`} variant="blue" className="w-full text-sm">
+                        <EyeIcon className="size-4" />
+                        Ir a revisión
+                     </LinkButton>
+                  )}
 
                   {/* Delete Section */}
-                  {recording.status !== "processing" && (
-                     <div className="pt-2">
-                        <DeleteRecordingButton recordingId={recording.id} />
-                     </div>
-                  )}
+                  {recording.status !== "processing" && <DeleteRecordingButton recordingId={recording.id} />}
                </div>
             </div>
          )}
