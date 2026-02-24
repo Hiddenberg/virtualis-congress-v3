@@ -160,7 +160,9 @@ export default async function CampaignPage({ params }: { params: Promise<{ campa
       );
    }
 
-   const pendingInvites = campaignRecordings.filter((r) => r.invitationEmailStatus === "not_sent").length;
+   const pendingInvites = campaignRecordings.filter(
+      (r) => r.invitationEmailStatus === "not_sent" && r.recorderEmail && r.recorderEmail !== "automated@recording.com",
+   ).length;
 
    return (
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">

@@ -4,13 +4,13 @@ import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platf
 import { getAllCongressConferences, getConferenceById } from "@/features/conferences/services/conferenceServices";
 import { getConferenceSpeakerPresentationRecordingRecordByRecordingId } from "@/features/conferences/services/conferenceSpeakerPresentationRecordingServices";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
-import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { getCongressById, getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
    checkIfUserHasAccessToRecordings,
    getUserPurchasedModality,
 } from "@/features/organizationPayments/services/userPurchaseServices";
 import { getOrganizationBaseUrl, getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { getSimpleRecordingById } from "@/features/simpleRecordings/services/recordingsServices";
+import { getSimpleRecordingById, updateSimpleRecording } from "@/features/simpleRecordings/services/recordingsServices";
 import { createRecordingTrackedEmailRecord } from "@/features/simpleRecordings/services/recordingTrackedEmailsServices";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getRecordingLink } from "@/features/simpleRecordings/utils/recordingUtils";
@@ -398,6 +398,10 @@ export async function sendRecordingInvitationEmail(recordingId: string, maxDeadl
             sentAt: new Date().toISOString(),
          },
       });
+
+      await updateSimpleRecording(recordingId, {
+         invitationEmailStatus: "sent",
+      });
    } catch (error) {
       console.error("[Recordings Services] Error sending recording invitation email", error);
       if (error instanceof Error) {
@@ -439,6 +443,8 @@ export async function sendCoordinatorCVRecordingInvitationEmail(recordingId: str
       throw new Error("[Recordings Services] Speaker name not found");
    }
 
+   const congress = await getCongressById(conference.congress);
+
    const speakerName = conferenceSpeakers.map((speaker) => speaker.displayName).join(", ");
 
    const coordinatorName = recording.recorderName ?? "Coordinador";
@@ -450,6 +456,12 @@ export async function sendCoordinatorCVRecordingInvitationEmail(recordingId: str
       subject: emailSubject,
    });
 
+   await createRecordingTrackedEmailRecord({
+      recordingId: recording.id,
+      trackedEmailId: trackedEmailRecord.id,
+      type: "invitation",
+   });
+
    const baseTrackingUrl = IS_DEV_ENVIRONMENT
       ? `https://verified-properly-cheetah.ngrok-free.app`
       : `https://${organization.subdomain}.${PLATFORM_BASE_DOMAIN}`;
@@ -459,7 +471,7 @@ export async function sendCoordinatorCVRecordingInvitationEmail(recordingId: str
 
    const template = await render(
       CoordinatorCVRecordingInvitationTemplate({
-         congressTitle: conference.congress.title,
+         congressTitle: congress?.title ?? "",
          conferenceTitle: conference.title,
          speakerName: speakerName,
          coordinatorName: coordinatorName,
@@ -475,6 +487,10 @@ export async function sendCoordinatorCVRecordingInvitationEmail(recordingId: str
          status: "sent",
          sentAt: new Date().toISOString(),
       },
+   });
+
+   await updateSimpleRecording(recordingId, {
+      invitationEmailStatus: "sent",
    });
 }
 

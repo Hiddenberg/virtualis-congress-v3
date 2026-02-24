@@ -1,10 +1,15 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { sendRecordingInvitationEmail, sendRecordingReminderEmail } from "@/features/emails/services/emailSendingServices";
+import {
+   sendCoordinatorCVRecordingInvitationEmail,
+   sendRecordingInvitationEmail,
+   sendRecordingReminderEmail,
+} from "@/features/emails/services/emailSendingServices";
 import { updateLivestreamSession } from "@/features/livestreams/services/livestreamSessionServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createMuxStaticRendition, deleteMuxAsset, getMuxAssetByUploadId } from "@/services/muxServices";
+import { getRecordingsCampaignById } from "../services/recordingCampaignsServices";
 import { createRecordingLivestream, getRecordingLivestreamSessionByRecordingId } from "../services/recordingLivestreamServices";
 import { deletePresentationRecordingForRecording } from "../services/recordingPresentationsServices";
 import {
@@ -205,7 +210,28 @@ export async function sendRecordingInvitationEmailAction(
    maxDeadline?: string,
 ): Promise<BackendResponse<null>> {
    try {
-      await sendRecordingInvitationEmail(recordingId, maxDeadline);
+      const recording = await getSimpleRecordingById(recordingId);
+      if (!recording) {
+         return {
+            success: false,
+            errorMessage: "[SendRecordingInvitationEmailAction] Recording not found",
+         };
+      }
+
+      const recordingCampaign = await getRecordingsCampaignById(recording.campaign);
+      if (!recordingCampaign) {
+         return {
+            success: false,
+            errorMessage: "[SendRecordingInvitationEmailAction] Recording campaign not found",
+         };
+      }
+
+      // REFACTOR: The campaign should have a type field to determine the type of recordings
+      if (recordingCampaign.title.startsWith("Presentaciones del congreso:")) {
+         await sendCoordinatorCVRecordingInvitationEmail(recordingId);
+      } else {
+         await sendRecordingInvitationEmail(recordingId, maxDeadline);
+      }
 
       revalidatePath("/recordings/campaign/[campaignId]", "page");
 

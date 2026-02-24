@@ -8,10 +8,16 @@ import {
 } from "@/libs/pbServerClientNew";
 import { deleteMuxAsset } from "@/services/muxServices";
 import "server-only";
-import { sendRecordingInvitationEmail } from "@/features/emails/services/emailSendingServices";
+import {
+   sendCoordinatorCVRecordingInvitationEmail,
+   sendRecordingInvitationEmail,
+} from "@/features/emails/services/emailSendingServices";
 import { deleteLivestreamSessionResources } from "@/features/livestreams/services/livestreamSessionServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { getAllCampaignRecordings } from "@/features/simpleRecordings/services/recordingCampaignsServices";
+import {
+   getAllCampaignRecordings,
+   getRecordingsCampaignById,
+} from "@/features/simpleRecordings/services/recordingCampaignsServices";
 import type { SimpleRecording, SimpleRecordingCampaignRecord, SimpleRecordingRecord } from "../types/recordingsTypes";
 import { getRecordingLivestreamSessionByRecordingId } from "./recordingLivestreamServices";
 
@@ -144,14 +150,28 @@ export async function deleteRecording(recordingId: string) {
 }
 
 export async function sendCampaignRecordingInvitations(campaignId: string) {
+   const recordingsCampaign = await getRecordingsCampaignById(campaignId);
+   if (!recordingsCampaign) {
+      throw new Error("[sendCampaignRecordingInvitations] Recordings campaign not found");
+   }
+
    const campaignRecordings = await getAllCampaignRecordings(campaignId);
 
-   const recordingsToSend = campaignRecordings.filter((recording) => recording.invitationEmailStatus === "not_sent");
+   const recordingsToSend = campaignRecordings.filter(
+      (recording) =>
+         recording.invitationEmailStatus === "not_sent" &&
+         recording.recorderEmail &&
+         recording.recorderEmail !== "automated@recording.com",
+   );
 
    let sent = 0;
    for (const recording of recordingsToSend) {
       try {
-         await sendRecordingInvitationEmail(recording.id);
+         if (recordingsCampaign.title.startsWith("Presentaciones del congreso:")) {
+            await sendCoordinatorCVRecordingInvitationEmail(recording.id);
+         } else {
+            await sendRecordingInvitationEmail(recording.id);
+         }
          await updateSimpleRecording(recording.id, {
             invitationEmailStatus: "sent",
          });
