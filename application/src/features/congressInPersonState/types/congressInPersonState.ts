@@ -1,3 +1,4 @@
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 

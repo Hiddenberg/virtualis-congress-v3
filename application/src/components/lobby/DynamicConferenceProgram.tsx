@@ -5,6 +5,7 @@ import { Calendar, ChevronDown, ChevronUp, Clock, Coffee, Mic2, Play, Users, Vid
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LinkButton } from "@/components/global/Buttons";
 import type { ConferenceWithSpeakersAndDurations } from "@/features/conferences/aggregators/conferenceAggregators";
+import type { CongressConference } from "@/features/conferences/types/conferenceTypes";
 
 // Types for conference types
 

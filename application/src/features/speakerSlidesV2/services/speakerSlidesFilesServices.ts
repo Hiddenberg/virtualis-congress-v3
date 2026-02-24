@@ -3,6 +3,7 @@ import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord
 import "server-only";
 import { IS_DEV_ENVIRONMENT } from "@/data/constants/platformConstants";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import { deleteFileFromDrive, uploadFileToDriveWithClient } from "@/features/googleDrive/services/googleDriveServices";
 import type { NewSpeakerSlidesFileData, SpeakerSlidesFile, SpeakerSlidesFileRecord } from "../types/speakerSlidesTypes";

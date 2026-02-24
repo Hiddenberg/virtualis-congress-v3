@@ -8,6 +8,7 @@ import {
    unlinkRecordingFromConferenceAction,
 } from "@/features/conferences/actions/conferenceRecordingActions";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
+import type { CongressConferenceRecord } from "../../types/conferenceTypes";
 
 interface Props {
    conferenceId: CongressConferenceRecord["id"];

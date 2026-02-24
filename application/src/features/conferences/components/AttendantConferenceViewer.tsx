@@ -9,6 +9,7 @@ import ChatComponent from "@/features/chats/components/ChatComponent";
 import SelfContainedPresentationShower from "@/features/pptPresentations/components/SelfContainedPresentationShower";
 import SelfContainedRaltimeQuestionPollWidget from "@/features/questionPolls/components/realtime/SelfContainedRaltimeQuestionPollWidget";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 import SmartConferenceVideoPlayerSelector from "./SmartConferenceVideoSection";
 
 interface AttendantConferenceViewerProps {

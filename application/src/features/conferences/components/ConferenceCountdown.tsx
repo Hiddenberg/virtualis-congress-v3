@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useConferenceCountdownContext } from "@/features/conferences/contexts/ConferenceCountdownContext";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export default function ConferenceCountdown({ conference }: { conference: CongressConferenceRecord }) {
    const startDate = useMemo(() => new Date(conference.startTime), [conference.startTime]);
@@ -67,7 +68,7 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
                  : "bg-white shadow-sm border border-blue-100"
          }`}
       >
-         <div className="top-1/2 left-2 absolute flex flex-col gap-1 -translate-y-1/2 opacity-0 transition duration-200 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100">
+         <div className="top-1/2 left-2 absolute flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition -translate-y-1/2 duration-200 pointer-events-none group-hover:pointer-events-auto">
             <button
                type="button"
                onClick={() => handleAdjustMinutes(-fiveMinutesMs)}
@@ -106,7 +107,7 @@ export default function ConferenceCountdown({ conference }: { conference: Congre
             </div>
             {isFinished && <div className="font-bold text-white text-sm uppercase tracking-wide">Finalizado</div>}
          </div>
-         <div className="top-1/2 right-2 absolute flex flex-col gap-1 -translate-y-1/2 opacity-0 transition duration-200 pointer-events-none group-hover:pointer-events-auto group-hover:opacity-100">
+         <div className="top-1/2 right-2 absolute flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition -translate-y-1/2 duration-200 pointer-events-none group-hover:pointer-events-auto">
             <button
                type="button"
                onClick={() => handleAdjustMinutes(fiveMinutesMs)}

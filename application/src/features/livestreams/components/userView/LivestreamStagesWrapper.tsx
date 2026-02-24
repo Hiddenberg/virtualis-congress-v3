@@ -7,6 +7,7 @@ import AboutToStartLiveScreen from "@/components/conferenceStageScreens/AboutToS
 import ConferenceFinishedScreen from "@/components/conferenceStageScreens/ConferenceFinishedScreen";
 import PausedLivestreamScreen from "@/components/conferenceStageScreens/PausedLivestreamScreen";
 import WaitingToStartScreen from "@/components/conferenceStageScreens/WaitingToStartScreen";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import { useRealtimeLivestreamStatusContext } from "../../contexts/RealtimeLivestreamStatusProvider";
 import LivestreamVideoAndPresentationPlayer from "./LivestreamVideoAndPresentationPlayer";
 import LivestreamVideoPlayer from "./LivestreamVideoPlayer";

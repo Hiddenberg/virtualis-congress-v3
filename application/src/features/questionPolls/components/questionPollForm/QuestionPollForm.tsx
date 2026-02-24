@@ -3,6 +3,7 @@
 import { Plus, Trash2 } from "lucide-react";
 import { nanoid } from "nanoid";
 import { useState } from "react";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import { createQuestionPollAndLinkToConferenceAction } from "@/features/questionPolls/serverActions/questionPollActions";
 
 export default function QuestionPollForm({ conferenceId }: { conferenceId: CongressConferenceRecord["id"] }) {

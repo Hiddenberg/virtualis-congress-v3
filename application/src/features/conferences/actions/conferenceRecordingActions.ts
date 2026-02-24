@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import { linkRecordingToConference, unlinkRecordingFromConference } from "../services/conferenceRecordingsServices";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function linkRecordingToConferenceAction({
    conferenceId,

@@ -5,6 +5,7 @@ import { useTransition } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { unlinkSpeakerPresentationRecordingFromConferenceAction } from "../../actions/conferenceSpeakerPresentationRecordingActions";
+import type { CongressConferenceRecord } from "../../types/conferenceTypes";
 
 export default function UnlinkSpeakerPresentationRecordingButton({
    conferenceId,

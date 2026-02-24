@@ -3,6 +3,7 @@
 import { format } from "@formkit/tempo";
 import { Calendar, Clock, QrCode, Users } from "lucide-react";
 import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
 import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
 import FixedScaleStage from "./FixedScaleStage";

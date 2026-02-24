@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import ConferenceFinishedScreen from "@/components/conferenceStageScreens/ConferenceFinishedScreen";
 import WaitingToStartScreen from "@/components/conferenceStageScreens/WaitingToStartScreen";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { getSimuliveVariables, type SimuliveData } from "../utils/simulivePlayerUtils";
 import PresentationAndVideoSimulivePlayer from "./PresentationAndVideoSimulivePlayer";

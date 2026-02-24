@@ -2,6 +2,7 @@ import "server-only";
 
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function linkQuestionPollToConference(
    conferenceId: CongressConferenceRecord["id"],

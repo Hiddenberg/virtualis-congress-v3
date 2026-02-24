@@ -1,4 +1,5 @@
 import { CheckCircle, CircleDot, CircleSlash } from "lucide-react";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import DeleteQuestionPollButton from "@/features/questionPolls/components/admin/actions/DeleteQuestionPollButton";
 
 export default function QuestionPollCard({

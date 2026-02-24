@@ -1,4 +1,5 @@
 import { Award, User, Users, Video } from "lucide-react";
+import type { CongressConference } from "@/features/conferences/types/conferenceTypes";
 
 interface ConferenceTypeSelectorProps {
    value: CongressConference["conferenceType"];

@@ -4,6 +4,7 @@ import {
    getConferenceById,
    updateConference,
 } from "@/features/conferences/services/conferenceServices";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
    ensuredCongressInPersonState,

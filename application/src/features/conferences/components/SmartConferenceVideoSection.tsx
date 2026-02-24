@@ -4,6 +4,7 @@ import LivestreamStagesWrapper from "@/features/livestreams/components/userView/
 import { RealtimeLivestreamStatusProvider } from "@/features/livestreams/contexts/RealtimeLivestreamStatusProvider";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import SimuliveStagesWrapper from "@/features/simulive/components/SimuliveStagesWrapper";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 type ConferenceTransmissionType = "live" | "pre-recorded" | "break" | "unknown";
 function getConferenceType(conference: CongressConferenceRecord): ConferenceTransmissionType {

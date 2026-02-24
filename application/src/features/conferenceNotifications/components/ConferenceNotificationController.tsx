@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import backendFetcher from "@/features/backendFetcher/utils/backendFetcher";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 
 interface ConferenceNotificationProps {
    conferenceTitle: string;

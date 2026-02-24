@@ -2,6 +2,7 @@
 
 import { Trash2 } from "lucide-react";
 import { useTransition } from "react";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import { deleteQuestionPollAction } from "@/features/questionPolls/serverActions/questionPollActions";
 
 export default function DeleteQuestionPollButton({

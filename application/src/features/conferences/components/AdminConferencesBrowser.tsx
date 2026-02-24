@@ -4,6 +4,7 @@ import { format } from "@formkit/tempo";
 import { Search } from "lucide-react";
 import { nanoid } from "nanoid";
 import { Children, useMemo, useState } from "react";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 interface AdminConferencesBrowserProps {
    conferences: CongressConferenceRecord[];

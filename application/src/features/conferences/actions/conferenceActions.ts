@@ -9,6 +9,7 @@ import {
 } from "@/features/conferences/services/conferenceServices";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
 import { deleteAllVideoAssetsForRecording } from "@/services/videoAssetsServices";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function createConferenceAction(
    newConferenceData: NewConferenceData,

@@ -57,11 +57,7 @@ export default async function EditRecordingPage({ params }: { params: Promise<{ 
                <div>
                   <p className="font-medium text-blue-900 text-sm">Editando grabación:</p>
                   <p className="font-semibold text-blue-700">{recording.title}</p>
-                  {campaign && (
-                     <p className="text-blue-600 text-xs mt-1">
-                        Campaña: {campaign.title}
-                     </p>
-                  )}
+                  {campaign && <p className="text-blue-600 text-xs mt-1">Campaña: {campaign.title}</p>}
                </div>
             </div>
          </div>

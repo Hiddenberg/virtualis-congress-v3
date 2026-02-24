@@ -4,6 +4,7 @@ import { getLatestCongress } from "@/features/congresses/services/congressServic
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function linkRecordingToConference({
    conferenceId,

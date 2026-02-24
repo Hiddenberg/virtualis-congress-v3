@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import { getConferencePresentation } from "@/features/conferences/services/conferencePresentationsServices";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import PresentationAndVideoPlayer from "@/features/pptPresentations/components/PresentationAndVideoPlayer";
 import { getPresentationRecordingByPresentationId } from "@/features/pptPresentations/services/presentationRecordingServices";
 import { getPresentationSlidesById } from "@/features/pptPresentations/services/presentationServices";

@@ -1,6 +1,7 @@
 import "server-only";
 
 import { getAllQuestionPollsForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import QuestionPollCard from "@/features/questionPolls/components/admin/QuestionPollCard";
 import { getQuestionPollOptions } from "@/features/questionPolls/services/questionPollServices";
 

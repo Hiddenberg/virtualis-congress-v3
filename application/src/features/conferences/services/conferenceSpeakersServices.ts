@@ -3,6 +3,7 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { SpeakerDataRecord } from "@/types/congress";
 import "server-only";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function linkSpeakerToConference({
    speakerId,

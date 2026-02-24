@@ -8,6 +8,7 @@ import {
    linkRecordingToConferenceAction,
    unlinkRecordingFromConferenceAction,
 } from "@/features/conferences/actions/conferenceRecordingActions";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import type { SimpleRecordingCampaignRecord, SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 
 interface Props {

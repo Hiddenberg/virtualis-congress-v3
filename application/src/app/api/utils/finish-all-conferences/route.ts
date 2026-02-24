@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import type { RecordModel } from "pocketbase";
 import { TEMP_CONSTANTS } from "@/data/tempConstants";
+import type { CongressConference, CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import pbServerClient from "@/libs/pbServerClient";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 
 export async function GET() {
    const conferences = await pbServerClient
       .collection(PB_COLLECTIONS.CONGRESS_CONFERENCES)
-      .getFullList<CongressConference & RecordModel>({
+      .getFullList<CongressConferenceRecord>({
          filter: `congress = "${TEMP_CONSTANTS.CONGRESS_ID}"`,
       });
 

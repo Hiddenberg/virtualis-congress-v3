@@ -1,12 +1,6 @@
 "use client";
 
-import {
-   DownloadIcon,
-   EditIcon,
-   EyeIcon,
-   MoreVerticalIcon,
-   UploadIcon,
-} from "lucide-react";
+import { DownloadIcon, EditIcon, EyeIcon, MoreVerticalIcon, UploadIcon } from "lucide-react";
 import { useState } from "react";
 import {
    Button,

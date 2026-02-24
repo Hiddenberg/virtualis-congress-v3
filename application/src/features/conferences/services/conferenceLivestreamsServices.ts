@@ -5,6 +5,7 @@ import { createLivestreamSession } from "@/features/livestreams/services/livestr
 import { createMuxLivestream } from "@/features/livestreams/services/muxLivestreamServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function getConferenceLivestreamSession(conferenceId: CongressConferenceRecord["id"]) {
    const organization = await getOrganizationFromSubdomain();

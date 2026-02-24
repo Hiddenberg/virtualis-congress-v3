@@ -2,6 +2,7 @@
 
 import { useTransition } from "react";
 import { Button } from "@/components/global/Buttons";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import { setQuestionPollStatusAction } from "@/features/congressDirector/serverActions/directorActions";
 
 export default function QuestionPollControls({

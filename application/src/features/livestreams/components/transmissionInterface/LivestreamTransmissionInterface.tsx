@@ -2,6 +2,7 @@ import { BarChart3, EyeIcon, MessageCircleIcon, MessageCircleQuestionIcon, Users
 import { LinkButton } from "@/components/global/Buttons";
 import ChatComponent from "@/features/chats/components/ChatComponent";
 import GoToQnaButton from "@/features/conferences/components/GoToQnaButton";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import LivestreamPresentationRecorderWrapper from "@/features/pptPresentations/components/realtime/LivestreamPresentationRecorderWrapper";
 import RealtimePresentationController from "@/features/pptPresentations/components/realtime/RealtimePresentationController";
 import SelfContainedRealtimeQuestionPollDisplay from "@/features/questionPolls/components/realtime/SelfContainedRealtimeQuestionPollDisplay";

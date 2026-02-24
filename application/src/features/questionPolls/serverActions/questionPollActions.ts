@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { linkQuestionPollToConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createQuestionPoll, submitQuestionPollAnswer } from "@/features/questionPolls/services/questionPollServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";

@@ -14,6 +14,7 @@ import {
 } from "@/libs/pbServerClientNew";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import { getAllSpeakerPhoneNumbers } from "../../users/speakers/services/speakerServices";
+import type { CongressConference } from "../types/conferenceTypes";
 
 export type NewConferenceData = Omit<CongressConference, "organization" | "congress" | "status">;
 export async function createConference({ title, shortDescription, startTime, endTime, conferenceType }: NewConferenceData) {

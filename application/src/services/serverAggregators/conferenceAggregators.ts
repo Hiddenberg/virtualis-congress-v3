@@ -1,4 +1,5 @@
 import { ClientResponseError, type RecordModel } from "pocketbase";
+import type { CongressConference } from "@/features/conferences/types/conferenceTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
 import pbServerClient from "@/libs/pbServerClient";

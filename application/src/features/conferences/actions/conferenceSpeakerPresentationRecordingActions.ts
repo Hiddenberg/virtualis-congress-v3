@@ -6,6 +6,7 @@ import {
    linkSpeakerPresentationRecordingToConference,
    unlinkSpeakerPresentationRecordingFromConference,
 } from "../services/conferenceSpeakerPresentationRecordingServices";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function linkSpeakerPresentationRecordingAction({
    conferenceId,

@@ -5,6 +5,7 @@ import { EyeIcon, EyeOffIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
+import type { CongressConference, CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 
 const statusBadgeClasses: Record<CongressConference["status"], string> = {
    scheduled: "bg-blue-100 text-blue-700 ring-blue-200",

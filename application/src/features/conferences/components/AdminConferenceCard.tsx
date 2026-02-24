@@ -29,6 +29,7 @@ import type { SimpleRecording, SimpleRecordingRecord } from "@/features/simpleRe
 import { getSpeakerSlidesFilesByConferenceId } from "@/features/speakerSlidesV2/services/speakerSlidesFilesServices";
 import { formatVideoTime } from "@/utils/recorderUtils";
 import { getSpeakerPresentationRecordingByConferenceId } from "../services/conferenceSpeakerPresentationRecordingServices";
+import type { CongressConference, CongressConferenceRecord } from "../types/conferenceTypes";
 import ConferenceSchedule from "./adminConferenceCard/ConferenceSchedule";
 import SubCard from "./adminConferenceCard/SubCard";
 import DeleteConferenceButton from "./DeleteConferenceButton";

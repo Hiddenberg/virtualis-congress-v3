@@ -6,6 +6,7 @@ import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
 import type { SpeakerDataRecord } from "@/types/congress";
 import { getAllProgramConferences } from "../services/conferenceServices";
 import type { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export interface ConferenceWithSpeakers {
    conference: CongressConferenceRecord;

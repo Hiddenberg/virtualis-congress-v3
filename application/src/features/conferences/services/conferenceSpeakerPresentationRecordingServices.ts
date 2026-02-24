@@ -3,6 +3,7 @@ import "server-only";
 import type { SimpleRecordingRecord } from "@/features/simpleRecordings/types/recordingsTypes";
 import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { ConferenceSpeakerPresentationRecording } from "../types/conferenceSpeakerPresentationRecordingTypes";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function linkSpeakerPresentationRecordingToConference({
    conferenceId,

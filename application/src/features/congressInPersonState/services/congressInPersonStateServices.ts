@@ -3,6 +3,7 @@ import { getLatestCongress } from "@/features/congresses/services/congressServic
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import "server-only";
+import type { CongressConferenceRecord } from "@/features/conferences/types/conferenceTypes";
 import type { CongressInPersonState } from "../types/congressInPersonState";
 
 export async function ensuredCongressInPersonState() {

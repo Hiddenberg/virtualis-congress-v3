@@ -6,6 +6,7 @@ import {
    removeConferenceQnASession,
 } from "@/features/conferences/services/conferenceQnASessionsServices";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
+import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
 export async function enableConferenceQnAAction({
    conferenceId,

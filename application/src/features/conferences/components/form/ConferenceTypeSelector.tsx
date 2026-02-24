@@ -1,6 +1,7 @@
 "use client";
 
 import Select from "react-select";
+import type { CongressConference } from "../../types/conferenceTypes";
 
 interface Option {
    value: CongressConference["conferenceType"];
