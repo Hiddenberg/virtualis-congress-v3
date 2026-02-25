@@ -1,9 +1,8 @@
-import type { RecordModel } from "pocketbase";
 import CourtesyInvitationsTable from "@/components/congress-admin/courtesy-invitations/CourtesyInvitationsTable";
-import type { CourtesyInvitation } from "@/types/congress";
+import type { CourtesyInvitationRecord } from "@/features/courtesyInvitations/types/courtesyInvitationTypes";
 
 export default async function CourtesyInvitationsPage() {
-   const invitations: (CourtesyInvitation & RecordModel)[] = [];
+   const invitations: CourtesyInvitationRecord[] = [];
    return (
       <div className="flex flex-col justify-center items-center">
          <h1 className="font-bold text-3xl">Courtesy Invitations</h1>

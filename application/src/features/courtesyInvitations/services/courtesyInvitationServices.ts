@@ -5,10 +5,10 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import type { UserRecord } from "@/features/users/types/userTypes";
 import pbServerClient from "@/libs/pbServerClient";
 import { getFullDBRecordsList, pbFilter } from "@/libs/pbServerClientNew";
-import type { CourtesyInvitation } from "@/types/congress";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
-import { createStripePromotionCode } from "./stripeServices";
-import { setRegistrationAsCourtesyGuest } from "./userRegistrationServices";
+import { createStripePromotionCode } from "../../../services/stripeServices";
+import { setRegistrationAsCourtesyGuest } from "../../../services/userRegistrationServices";
+import type { CourtesyInvitation } from "../types/courtesyInvitationTypes";
 
 export async function getAllCourtesyInvitations() {
    const organization = await getOrganizationFromSubdomain();

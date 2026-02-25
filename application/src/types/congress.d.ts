@@ -42,16 +42,6 @@ interface UserStripeData {
 //    status: string
 // }
 
-interface CourtesyInvitation {
-   organization: (Organization & RecordModel)["id"];
-   congress: (Congress & RecordModel)["id"];
-   stripePromotionCode: string;
-   used: boolean;
-   userWhoRedeemed?: (User & RecordModel)["id"];
-   sentTo?: string;
-   redeemedAt?: string;
-}
-
 interface ConferenceRecording {
    organization: (Organization & RecordModel)["id"];
    conference: (CongressConference & RecordModel)["id"];

@@ -1,11 +1,10 @@
 "use client";
 
 import { CheckCircle, Clock, Copy, Download, Search } from "lucide-react";
-import type { RecordModel } from "pocketbase";
 import { useMemo, useState } from "react";
-import type { CourtesyInvitation } from "@/types/congress";
+import type { CourtesyInvitationRecord } from "@/features/courtesyInvitations/types/courtesyInvitationTypes";
 
-const CourtesyInvitationsTable = ({ invitations }: { invitations: (CourtesyInvitation & RecordModel)[] }) => {
+const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvitationRecord[] }) => {
    const [searchTerm, setSearchTerm] = useState("");
    const [filter, setFilter] = useState<"all" | "used" | "unused">("all");
    const [copiedCode, setCopiedCode] = useState<string | null>(null);
