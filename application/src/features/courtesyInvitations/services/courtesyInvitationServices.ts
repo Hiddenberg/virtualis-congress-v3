@@ -1,11 +1,11 @@
 import "server-only";
 import { COURTESY_STRIPE_COUPON_ID } from "@/data/constants/platformConstants";
-import { sendCourtesyInvitationEmail } from "@/features/emails/services/emailSendingServices";
 import {
    getCongressRegistrationByUserId,
    updateCongressRegistration,
 } from "@/features/congresses/services/congressRegistrationServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { sendCourtesyInvitationEmail } from "@/features/emails/services/emailSendingServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
@@ -106,10 +106,18 @@ export async function createSingleCourtesyInvitationAndSendEmail({
    return courtesyInvitation;
 }
 
-export async function getCourtesyInvitationByStryipePromoCode(stripePromotionCode: string) {
-   const filter = pbFilter(`stripePromotionCode = {:stripePromotionCode}`, {
-      stripePromotionCode,
-   });
+export async function getCourtesyInvitationByStripePromoCode(stripePromotionCode: string) {
+   const organization = await getOrganizationFromSubdomain();
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      stripePromotionCode = {:stripePromotionCode}
+      `,
+      {
+         organizationId: organization.id,
+         stripePromotionCode,
+      },
+   );
    const courtesyInvitationCode = await getSingleDBRecord<CourtesyInvitation>("COURTESY_INVITATIONS", filter);
 
    return courtesyInvitationCode;
@@ -131,7 +139,7 @@ export async function updateCourtesyInvitationRecord({
 }
 
 export async function redeemCourtesyInvitationCode(stripePromotionCode: string, user: UserRecord) {
-   const courtesyInvitation = await getCourtesyInvitationByStryipePromoCode(stripePromotionCode);
+   const courtesyInvitation = await getCourtesyInvitationByStripePromoCode(stripePromotionCode);
    if (!courtesyInvitation) {
       throw new Error(
          `[Redeem Courtesy Invitation Code] Courtesy invitation not found with stripe promotion code ${stripePromotionCode}`,

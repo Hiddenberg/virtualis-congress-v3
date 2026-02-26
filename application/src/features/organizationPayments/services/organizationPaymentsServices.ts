@@ -7,6 +7,10 @@ import {
    updateCongressRegistration,
 } from "@/features/congresses/services/congressRegistrationServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import {
+   getCourtesyInvitationByStripePromoCode,
+   updateCourtesyInvitationRecord,
+} from "@/features/courtesyInvitations/services/courtesyInvitationServices";
 import { sendPaymentConfirmationEmail } from "@/features/emails/services/emailSendingServices";
 import { getUserById } from "@/features/users/services/userServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
@@ -14,7 +18,6 @@ import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, upda
 import type { UserStripeData } from "@/types/congress";
 import { getOrganizationStripeInstance } from "../lib/stripe";
 import { createUserPurchaseRecord, getUserPurchaseByProductType } from "./userPurchaseServices";
-import { getPromotionCodesUsedInCheckoutSession } from "@/services/stripeServices";
 
 export async function getUserStripeCustomerId(userId: string) {
    const organization = await getOrganizationFromSubdomain();
@@ -282,7 +285,7 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
 
    // Retrieve the Checkout Session from the API with line_items expanded
    const checkoutSession = await stripe.checkout.sessions.retrieve(checkoutSessionId, {
-      expand: ["line_items", "customer"],
+      expand: ["line_items", "customer", "discounts.promotion_code"],
    });
    // Check the Checkout Session's payment_status property
    // to determine if fulfillment should be performed
@@ -300,6 +303,9 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
    // Checkout Session
    // PENDING: check if this could be removed
    const userCongressRegistration = await getCongressRegistrationByUserId(userPayment.user);
+   if (!userCongressRegistration) {
+      throw new Error(`[fulfillCongressRegistrationV3] User congress registration not found for user ${userPayment.user}`);
+   }
 
    // TODO: Create user purchases for the line items
    for (const item of lineItems.data) {
@@ -359,6 +365,38 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
       }
    }
 
+   // Check if there were promotion codes used
+   if (checkoutSession.discounts && checkoutSession.discounts.length > 0) {
+      for (const discount of checkoutSession.discounts) {
+         const stripePromotionCodeObject = discount.promotion_code;
+         if (!stripePromotionCodeObject) {
+            console.error(`[fulfillCongressRegistrationV3] No promotion code found for discount ${discount}`);
+            continue;
+         }
+         if (typeof stripePromotionCodeObject === "string") {
+            console.error(`[fulfillCongressRegistrationV3] Promotion code is not an object for discount ${discount}`);
+            continue;
+         }
+
+         const promotionCode = stripePromotionCodeObject.code;
+
+         const courtesyInvitation = await getCourtesyInvitationByStripePromoCode(promotionCode);
+         if (!courtesyInvitation) {
+            console.error(`[fulfillCongressRegistrationV3] Courtesy invitation not found for promotion code ${promotionCode}`);
+            continue;
+         }
+
+         await updateCourtesyInvitationRecord({
+            courtesyInvitationId: courtesyInvitation.id,
+            updatedData: { used: true, redeemedAt: new Date().toISOString(), userWhoRedeemed: userPayment.user },
+         });
+
+         await updateCongressRegistration(userCongressRegistration.id, {
+            registrationType: "courtesy",
+         });
+      }
+   }
+
    await updateUserPaymentRecord(userPayment.id, {
       fulfilledSuccessfully: true,
       fulfilledAt: new Date().toISOString(),
@@ -366,7 +404,7 @@ export async function fulfillCongressRegistrationV3(checkoutSessionId: string) {
       currency: checkoutSession.currency ?? undefined,
       totalAmount: checkoutSession.amount_total ?? 0,
       paymentMethod: await getPaymentMethod(checkoutSession.payment_intent?.toString() ?? undefined),
-      discount: checkoutSession.total_details?.breakdown?.discounts?.reduce((acc, discount) => acc + discount.amount, 0) ?? 0,
+      discount: checkoutSession.total_details?.amount_discount ?? 0,
    });
 
    await sendPaymentConfirmationEmail(userPayment.user);
