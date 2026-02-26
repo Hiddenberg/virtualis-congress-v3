@@ -16,7 +16,6 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
 
          const matchesSearch =
             invitation.stripePromotionCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            invitation.congress.toLowerCase().includes(searchTerm.toLowerCase()) ||
             invitation.sentTo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             invitation.userWhoRedeemed?.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -36,7 +35,7 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
 
    const formatDate = (dateString?: string) => {
       if (!dateString) return "-";
-      return new Date(dateString).toLocaleDateString("en-US", {
+      return new Date(dateString).toLocaleDateString("es-ES", {
          year: "numeric",
          month: "short",
          day: "numeric",
@@ -46,11 +45,11 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
    };
 
    const exportToCSV = () => {
-      const headers = ["Promo Code", "Status", "Congress", "Sent To", "Redeemed By", "Redeemed At"];
+      const headers = ["Código promocional", "Estado", "Enviado a", "Canjeado por", "Canjeado el"];
 
       const csvData = filteredInvitations.map((invitation) => [
          invitation.stripePromotionCode,
-         invitation.used ? "Used" : "Pending",
+         invitation.used ? "Usado" : "Pendiente",
          invitation.congress,
          invitation.sentTo || "",
          invitation.userWhoRedeemed || "",
@@ -75,14 +74,12 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
    return (
       <div className="bg-white shadow-md rounded-lg w-full">
          <div className="px-6 py-4 border-b">
-            <h2 className="mb-2 font-bold text-2xl">Courtesy Invitations</h2>
-            <p className="mb-4 text-gray-600">Manage and track promotional codes for congress registrations</p>
             <div className="flex sm:flex-row flex-col gap-4">
                <div className="relative flex-1">
                   <Search className="top-1/2 left-3 absolute text-gray-400 -translate-y-1/2 transform" />
                   <input
                      type="text"
-                     placeholder="Search by code, email, congress..."
+                     placeholder="Buscar por código, email, congreso..."
                      className="py-2 pr-3 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                      value={searchTerm}
                      onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,9 +90,9 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
                   value={filter}
                   onChange={(e) => setFilter(e.target.value as "all" | "used" | "unused")}
                >
-                  <option value="all">All</option>
-                  <option value="used">Used</option>
-                  <option value="unused">Unused</option>
+                  <option value="all">Todos</option>
+                  <option value="used">Usados</option>
+                  <option value="unused">No usados</option>
                </select>
                <button
                   type="button"
@@ -103,7 +100,7 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
                   onClick={exportToCSV}
                >
                   <Download className="w-4 h-4" />
-                  <span className="hidden sm:inline">Export CSV</span>
+                  <span className="hidden sm:inline">Exportar CSV</span>
                </button>
             </div>
          </div>
@@ -112,21 +109,18 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
                <table className="divide-y divide-gray-200 min-w-full">
                   <thead className="bg-gray-50">
                      <tr>
-                        <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">Status</th>
+                        <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">Estado</th>
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
-                           Promo Code
+                           Código promocional
                         </th>
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
-                           Congress
+                           Enviado al correo
                         </th>
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
-                           Sent To
+                           Canjeado por
                         </th>
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
-                           Redeemed By
-                        </th>
-                        <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
-                           Redeemed At
+                           Canjeado el
                         </th>
                      </tr>
                   </thead>
@@ -137,12 +131,12 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
                               {invitation.used ? (
                                  <span className="inline-flex items-center bg-green-100 px-2.5 py-0.5 rounded-full font-medium text-green-800 text-xs">
                                     <CheckCircle className="mr-1 w-4 h-4" />
-                                    Used
+                                    Usado
                                  </span>
                               ) : (
                                  <span className="inline-flex items-center bg-yellow-100 px-2.5 py-0.5 rounded-full font-medium text-yellow-800 text-xs">
                                     <Clock className="mr-1 w-4 h-4" />
-                                    Pending
+                                    Disponible
                                  </span>
                               )}
                            </td>
@@ -153,16 +147,15 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
                                     type="button"
                                     onClick={() => copyPromoCode(invitation.stripePromotionCode)}
                                     className="ml-2 focus:outline-none text-gray-400 hover:text-gray-600"
-                                    aria-label={`Copy promo code ${invitation.stripePromotionCode}`}
+                                    aria-label={`Copiar código promocional ${invitation.stripePromotionCode}`}
                                  >
                                     <Copy className="w-4 h-4" />
                                  </button>
                                  {copiedCode === invitation.stripePromotionCode && (
-                                    <span className="ml-2 text-green-600 text-sm">Copied!</span>
+                                    <span className="ml-2 text-green-600 text-sm">¡Copiado!</span>
                                  )}
                               </div>
                            </td>
-                           <td className="px-6 py-4 whitespace-nowrap">{invitation.congress}</td>
                            <td className="px-6 py-4 whitespace-nowrap">{invitation.sentTo || "-"}</td>
                            <td className="px-6 py-4 whitespace-nowrap">{invitation.userWhoRedeemed || "-"}</td>
                            <td className="px-6 py-4 whitespace-nowrap">{formatDate(invitation.redeemedAt)}</td>
