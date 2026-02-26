@@ -7,32 +7,20 @@ import {
 } from "@/features/staggeredAuth/services/jwtServices";
 
 export async function proxy(request: NextRequest) {
-   // const { pathname } = request.nextUrl;
-
-   // const publicRoutes = [
-   //    "/login",
-   //    "/signup",
-   //    "/refresh-auth",
-   //    "/api/stripe",
-   //    "/api/webhooks"
-   // ]
-
-   // for (const route of publicRoutes) {
-   //    if (pathname.startsWith(route)) {
-   //       return NextResponse.next();
-   //    }
-   // }
-
    const authToken = request.cookies.get("auth_token")?.value;
    const refreshToken = request.cookies.get("refresh_token")?.value;
+   const currentPath = request.nextUrl.pathname;
+
+   const response = NextResponse.next();
+
+   response.headers.set("x-current-path", currentPath);
 
    const isRefreshTokenValid = await verifyRefreshToken(refreshToken ?? "");
    if (!refreshToken || !isRefreshTokenValid) {
-      return NextResponse.next();
+      return response;
    }
 
    const isAuthTokenValid = await verifyUserAuthToken(authToken ?? "");
-   const response = NextResponse.next();
    if (!authToken || !isAuthTokenValid) {
       console.log("[middleware] Auth token is invalid, generating new auth token");
       const userId = getUserIdFromRefreshToken(refreshToken);
