@@ -1,65 +1,15 @@
-import type Stripe from "stripe";
+import Stripe from "stripe";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
-import stripe from "@/libs/stripe";
-
-const STRIPE_SUCCESS_URL = process.env.STRIPE_SUCCESS_URL;
-const STRIPE_CANCEL_URL = process.env.STRIPE_CANCEL_URL;
-
-if (!STRIPE_SUCCESS_URL) {
-   throw new Error("No se encontró la variable de entorno STRIPE_SUCCESS_URL");
-}
-if (!STRIPE_CANCEL_URL) {
-   throw new Error("No se encontró la variable de entorno STRIPE_CANCEL_URL");
-}
-
-export async function createSinglePaymentCheckoutSession(priceId: string) {
-   const checkoutSession = await stripe.checkout.sessions.create({
-      success_url: STRIPE_SUCCESS_URL,
-      cancel_url: STRIPE_CANCEL_URL,
-      line_items: [
-         {
-            price: priceId,
-            quantity: 1,
-         },
-      ],
-      mode: "payment",
-      allow_promotion_codes: true,
-   });
-
-   return checkoutSession;
-}
-
-export async function createBankPaymentCheckoutSession(priceId: string, customerId: string) {
-   const customerObject = await stripe.customers.retrieve(customerId);
-
-   if (customerObject.deleted) {
-      throw new Error("El usuario ha sido eliminado");
-   }
-
-   const checkoutSession = await stripe.checkout.sessions.create({
-      success_url: STRIPE_SUCCESS_URL,
-      cancel_url: STRIPE_CANCEL_URL,
-      line_items: [
-         {
-            price: priceId,
-            quantity: 1,
-         },
-      ],
-      customer: customerId,
-      mode: "payment",
-      allow_promotion_codes: true,
-   });
-
-   return checkoutSession;
-}
 
 export async function checkPaymentStatus(checkoutSession: string) {
+   const stripe = await getOrganizationStripeInstance();
    const paymentSession = await stripe.checkout.sessions.retrieve(checkoutSession);
 
    return paymentSession.payment_status;
 }
 
 export async function createStripeCustomerObject(email: string, fullName: string) {
+   const stripe = await getOrganizationStripeInstance();
    const customer = await stripe.customers.create({
       email: email,
       name: fullName,
@@ -69,6 +19,7 @@ export async function createStripeCustomerObject(email: string, fullName: string
 }
 
 export async function getStripeCustomer(customerId: string) {
+   const stripe = await getOrganizationStripeInstance();
    const customer = await stripe.customers.retrieve(customerId);
 
    return customer;
@@ -78,6 +29,8 @@ export async function getPaymentMethod(checkoutSession: Stripe.Checkout.Session)
    if (!checkoutSession.payment_intent) {
       return "";
    }
+   const stripe = await getOrganizationStripeInstance();
+
    const paymentIntent = await stripe.paymentIntents.retrieve(checkoutSession.payment_intent.toString(), {
       expand: ["payment_method"],
    });
@@ -94,8 +47,46 @@ export async function getPaymentIntentStatus(checkoutSession: Stripe.Checkout.Se
       return "no payment intent";
    }
 
+   const stripe = await getOrganizationStripeInstance();
+
    const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
    return paymentIntent.status;
+}
+
+export async function createStripeCoupon({
+   couponName,
+   stripeCouponId,
+   percentOff,
+   duration,
+}: {
+   couponName: string;
+   stripeCouponId: string;
+   percentOff: number;
+   duration: "once" | "repeating" | "forever";
+}) {
+   const stripe = await getOrganizationStripeInstance();
+   const newCouponObject = await stripe.coupons.create({
+      name: couponName,
+      percent_off: percentOff,
+      duration: duration,
+      id: stripeCouponId,
+   });
+
+   return newCouponObject;
+}
+
+export async function getStripeCouponById(stripeCouponId: string) {
+   try {
+      const stripe = await getOrganizationStripeInstance();
+      const couponObject = await stripe.coupons.retrieve(stripeCouponId);
+      return couponObject;
+   } catch (error) {
+      if (error instanceof Stripe.errors.StripeError && error.statusCode === 404) {
+         console.log(`[getStripeCouponById] Stripe coupon not found with id ${stripeCouponId}`);
+         return null;
+      }
+      throw error;
+   }
 }
 
 export async function createStripePromotionCode(stripeCuponId: string, maxRedemptions: number) {
@@ -111,7 +102,9 @@ export async function createStripePromotionCode(stripeCuponId: string, maxRedemp
    return newPromotionCodeObject.code;
 }
 
-export async function getPromotionCodesUsed(checkoutSession: Stripe.Checkout.Session) {
+export async function getPromotionCodesUsedInCheckoutSession(checkoutSession: Stripe.Checkout.Session) {
+   const stripe = await getOrganizationStripeInstance();
+
    const lineItems = await stripe.checkout.sessions.listLineItems(checkoutSession.id, {
       expand: ["data.discounts"],
    });
