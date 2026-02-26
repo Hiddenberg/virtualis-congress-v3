@@ -14,6 +14,7 @@ import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, upda
 import type { UserStripeData } from "@/types/congress";
 import { getOrganizationStripeInstance } from "../lib/stripe";
 import { createUserPurchaseRecord, getUserPurchaseByProductType } from "./userPurchaseServices";
+import { getPromotionCodesUsedInCheckoutSession } from "@/services/stripeServices";
 
 export async function getUserStripeCustomerId(userId: string) {
    const organization = await getOrganizationFromSubdomain();

@@ -92,7 +92,7 @@ export async function POST(request: Request) {
       const checkoutSession = event.data.object;
       const userPayment = await getUserPaymentRecord(checkoutSession.id);
       if (!userPayment) {
-         console.error(`[Webhook] User payment not found for checkout session ${checkoutSession.id}`);
+         console.error(`[Webhook: checkout.session.expired] User payment not found for checkout session ${checkoutSession.id}`);
          return new Response("Webhook Error: User payment not found", {
             status: 400,
          });
