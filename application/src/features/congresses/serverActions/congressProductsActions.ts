@@ -9,6 +9,7 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { generateRandomId } from "@/features/staggeredAuth/utils/passwordsGenerator";
 import { dbBatch } from "@/libs/pbServerClientNew";
+import { getStripePromotionCodeIdByCode } from "@/services/stripeServices";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import { getCongressProductPriceById, getRecordingsCongressProductPrices } from "../services/congressProductPricesServices";
 import { createDefaultCongressProducts } from "../services/congressProductsServices";
@@ -44,10 +45,12 @@ export async function obtainPriceStripeCheckoutUrlAction({
    priceId,
    credentialFile,
    includeRecordings,
+   promoCode,
 }: {
    priceId: string;
    credentialFile?: File;
    includeRecordings: boolean;
+   promoCode?: string;
 }): Promise<BackendResponse<string>> {
    try {
       const organization = await getOrganizationFromSubdomain();
@@ -120,14 +123,29 @@ export async function obtainPriceStripeCheckoutUrlAction({
       const successURL = `${protocol}${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/payment/prices/${priceId}/payment-succeeded`;
       const cancelURL = `${protocol}${organization.subdomain}.${PLATFORM_BASE_DOMAIN}/payment/prices/${priceId}/payment-canceled`;
 
-      const checkoutSession = await stripe.checkout.sessions.create({
+      let discounts: Stripe.Checkout.SessionCreateParams.Discount[] | undefined;
+      if (promoCode?.trim()) {
+         const promotionCodeId = await getStripePromotionCodeIdByCode(promoCode.trim());
+         if (!promotionCodeId) {
+            return {
+               success: false,
+               errorMessage: "El código de invitación o descuento no es válido o ha expirado",
+            };
+         }
+         discounts = [{ promotion_code: promotionCodeId }];
+      }
+
+      const checkoutSessionParams: Stripe.Checkout.SessionCreateParams = {
          customer: stripeCustomerId,
          line_items: lineItems,
-         allow_promotion_codes: true,
+         allow_promotion_codes: discounts ? undefined : true,
+         discounts: discounts ? discounts : undefined,
          success_url: successURL,
          cancel_url: cancelURL,
          mode: "payment",
-      });
+      };
+
+      const checkoutSession = await stripe.checkout.sessions.create(checkoutSessionParams);
 
       if (!checkoutSession.url) {
          return {

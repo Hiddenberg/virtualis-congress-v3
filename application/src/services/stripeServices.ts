@@ -102,6 +102,21 @@ export async function createStripePromotionCode(stripeCuponId: string, maxRedemp
    return newPromotionCodeObject.code;
 }
 
+export async function getStripePromotionCodeIdByCode(code: string): Promise<string | null> {
+   const stripe = await getOrganizationStripeInstance();
+   const trimmedCode = code.trim();
+   if (!trimmedCode) return null;
+
+   const promotionCodes = await stripe.promotionCodes.list({
+      code: trimmedCode,
+      active: true,
+      limit: 1,
+   });
+
+   const promotionCode = promotionCodes.data[0];
+   return promotionCode?.id ?? null;
+}
+
 export async function getPromotionCodesUsedInCheckoutSession(checkoutSession: Stripe.Checkout.Session) {
    const stripe = await getOrganizationStripeInstance();
 

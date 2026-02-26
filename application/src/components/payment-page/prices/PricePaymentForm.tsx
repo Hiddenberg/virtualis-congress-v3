@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle, FileText, PlayCircle, ShieldCheck, Upload } from "lucide-react";
+import { CheckCircle, FileText, Percent, PlayCircle, ShieldCheck, Tag, Upload, X } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
@@ -18,6 +18,7 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
    const [isLoading, startTransition] = useTransition();
    const [credentialFile, setCredentialFile] = useState<File | null>(null);
    const [includeRecordings, setIncludeRecordings] = useState(false);
+   const [promoCode, setPromoCode] = useState("");
    const [dragActive, setDragActive] = useState(false);
    const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -86,6 +87,7 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
             priceId: price.id,
             credentialFile: credentialFile || undefined,
             includeRecordings: includeRecordings,
+            promoCode: promoCode.trim() || undefined,
          });
 
          toast.dismiss();
@@ -102,12 +104,53 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
 
    const canProceed = !price.requiresCredentialValidation || credentialFile !== null;
 
-   const totalAmount = includeRecordings && recordingsPrice ? price.priceAmount + recordingsPrice.priceAmount : price.priceAmount;
+   const baseAmount = includeRecordings && recordingsPrice ? price.priceAmount + recordingsPrice.priceAmount : price.priceAmount;
+   const totalAmount = baseAmount;
 
    return (
       <div className="space-y-6 sm:space-y-8 mx-auto max-w-3xl">
          {/* Recordings Included Banner */}
          {price.includesRecordings && <RecordingsIncludedBanner />}
+
+         {/* Promo Code / Invitation Code Section */}
+         <div className="bg-white shadow-md backdrop-blur-sm p-6 sm:p-8 border-2 border-gray-200/50 rounded-xl sm:rounded-2xl">
+            <div className="flex items-center gap-3 mb-4">
+               <div className="flex justify-center items-center bg-emerald-100 rounded-full w-10 sm:w-12 h-10 sm:h-12 shrink-0">
+                  <Tag className="w-5 sm:w-6 h-5 sm:h-6 text-emerald-600" />
+               </div>
+               <div>
+                  <h2 className="font-bold text-gray-900 text-lg sm:text-xl">Código de invitación o descuento</h2>
+                  <p className="text-gray-500 text-sm">
+                     Si tienes un código de cortesía o descuento, introdúcelo aquí. Se aplicará al continuar al pago.
+                  </p>
+               </div>
+            </div>
+            <div className="flex gap-2">
+               <input
+                  type="text"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                  placeholder="Ej: INVITACION2024"
+                  className="flex-1 px-4 py-3 border border-gray-300 focus:border-emerald-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-sm uppercase"
+               />
+               {promoCode.trim() ? (
+                  <button
+                     type="button"
+                     onClick={() => setPromoCode("")}
+                     className="hover:bg-gray-100 px-4 py-3 rounded-lg text-gray-500 hover:text-gray-700 transition-colors"
+                     aria-label="Quitar código"
+                  >
+                     <X className="w-5 h-5" />
+                  </button>
+               ) : null}
+            </div>
+            {promoCode.trim() && (
+               <p className="flex items-center gap-1 mt-2 text-emerald-600 text-sm">
+                  <Percent className="w-4 h-4" />
+                  El descuento se aplicará al continuar al pago
+               </p>
+            )}
+         </div>
 
          {/* Recordings Add-on Section */}
          {recordingsPrice && !price.includesRecordings && (
@@ -165,10 +208,10 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
          )}
 
          {/* Price Summary Card */}
-         <div className="bg-white shadow-md p-6 sm:p-8 border-2 border-gray-200/50 rounded-xl sm:rounded-2xl backdrop-blur-sm">
+         <div className="bg-white shadow-md backdrop-blur-sm p-6 sm:p-8 border-2 border-gray-200/50 rounded-xl sm:rounded-2xl">
             <div className="flex items-center gap-3 mb-6">
-               <div className="flex justify-center items-center bg-linear-to-br from-gray-500 to-gray-600 rounded-full w-10 h-10 sm:w-12 sm:h-12 shadow-lg">
-                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+               <div className="flex justify-center items-center bg-linear-to-br from-gray-500 to-gray-600 shadow-lg rounded-full w-10 sm:w-12 h-10 sm:h-12">
+                  <CheckCircle className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
                </div>
                <h2 className="font-bold text-gray-900 text-xl sm:text-2xl">Resumen del pago</h2>
             </div>
@@ -196,9 +239,9 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
 
          {/* Credential Validation Section */}
          {price.requiresCredentialValidation && (
-            <div className="bg-white shadow-md p-6 sm:p-8 border-2 border-amber-200/50 rounded-xl sm:rounded-2xl backdrop-blur-sm">
+            <div className="bg-white shadow-md backdrop-blur-sm p-6 sm:p-8 border-2 border-amber-200/50 rounded-xl sm:rounded-2xl">
                <div className="flex items-start gap-3 mb-6">
-                  <div className="flex justify-center items-center bg-amber-100 rounded-full w-10 sm:w-12 h-10 sm:h-12 shrink-0 shadow-lg shadow-amber-200/50">
+                  <div className="flex justify-center items-center bg-amber-100 shadow-amber-200/50 shadow-lg rounded-full w-10 sm:w-12 h-10 sm:h-12 shrink-0">
                      <ShieldCheck className="w-5 sm:w-6 h-5 sm:h-6 text-amber-600" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -288,7 +331,7 @@ export default function PricePaymentForm({ price, recordingsPrice }: PricePaymen
                onClick={handlePay}
                disabled={!canProceed || isLoading}
                loading={isLoading}
-               className="px-10 py-4 w-full sm:w-auto min-w-[240px] text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+               className="shadow-lg hover:shadow-xl px-10 py-4 w-full sm:w-auto min-w-[240px] text-base sm:text-lg transition-all duration-300"
             >
                {isLoading ? "Procesando..." : "Continuar al pago"}
             </Button>
