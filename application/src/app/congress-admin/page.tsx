@@ -4,6 +4,7 @@ import {
    BarChart3,
    Calendar,
    CreditCard,
+   GiftIcon,
    // GiftIcon,
    GlobeIcon,
    HomeIcon,
@@ -107,16 +108,15 @@ const adminSections: AdminLink[] = [
       lightColor: "bg-orange-50",
       textColor: "text-orange-600",
    },
-   // {
-   //    title: "Invitaciones de Cortesía",
-   //    description: "Administrar invitaciones especiales y códigos de acceso",
-   //    href: "/congress-admin/courtesy-invitations",
-   //    icon: GiftIcon,
-   //    color: "bg-pink-500",
-   //    lightColor: "bg-pink-50",
-   //    textColor: "text-pink-600",
-   //    disabled: true,
-   // },
+   {
+      title: "Invitaciones de Cortesía",
+      description: "Administrar invitaciones especiales y códigos de acceso",
+      href: "/congress-admin/courtesy-invitations",
+      icon: GiftIcon,
+      color: "bg-pink-500",
+      lightColor: "bg-pink-50",
+      textColor: "text-pink-600",
+   },
 ];
 
 const hybridCongressSections: AdminLink[] = [

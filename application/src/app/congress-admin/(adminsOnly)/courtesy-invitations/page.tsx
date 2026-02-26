@@ -5,7 +5,7 @@ export default async function CourtesyInvitationsPage() {
    const invitations: CourtesyInvitationRecord[] = [];
    return (
       <div className="flex flex-col justify-center items-center">
-         <h1 className="font-bold text-3xl">Courtesy Invitations</h1>
+         <h1 className="font-bold text-3xl">Invitaciones de Cortesía</h1>
 
          <CourtesyInvitationsTable invitations={invitations} />
       </div>
