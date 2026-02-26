@@ -17,6 +17,7 @@ import type { UserRecord } from "@/features/users/types/userTypes";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import type { UserStripeData } from "@/types/congress";
 import { getOrganizationStripeInstance } from "../lib/stripe";
+import type { UserPayment, UserPaymentRecord } from "../types/organizationStripeCredentialsTypes";
 import { createUserPurchaseRecord, getUserPurchaseByProductType } from "./userPurchaseServices";
 
 export async function getUserStripeCustomerId(userId: string) {

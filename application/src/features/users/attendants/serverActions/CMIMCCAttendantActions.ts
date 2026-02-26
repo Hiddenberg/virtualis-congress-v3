@@ -3,6 +3,7 @@
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import type { MedicalRole } from "../components/attendantDataForms/CMIMCCAttendantDataForm";
 import { createAttendantData } from "../services/attendantServices";
+import type { AttendantDataRecord } from "../types/attendantTypes";
 
 interface CMIMCCAttendantData {
    medicalRole: MedicalRole["title"];
@@ -10,7 +11,7 @@ interface CMIMCCAttendantData {
 
 export async function submitCMIMCCAttendantDataAction({
    medicalRole,
-}: CMIMCCAttendantData): Promise<BackendResponse<AttendantData>> {
+}: CMIMCCAttendantData): Promise<BackendResponse<AttendantDataRecord>> {
    try {
       const userId = await getLoggedInUserId();
 

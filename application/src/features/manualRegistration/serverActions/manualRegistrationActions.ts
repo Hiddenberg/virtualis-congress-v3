@@ -21,6 +21,7 @@ import {
    getUserPaymentRecordByUserId,
 } from "@/features/organizationPayments/services/organizationPaymentsServices";
 import { checkIfUserHasAccessToRecordings } from "@/features/organizationPayments/services/userPurchaseServices";
+import type { UserPayment } from "@/features/organizationPayments/types/organizationStripeCredentialsTypes";
 import type { UserPurchase } from "@/features/organizationPayments/types/userPurchasesTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { generateRandomId } from "@/features/staggeredAuth/utils/passwordsGenerator";

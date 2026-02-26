@@ -41,9 +41,8 @@ export default function CourtesyInvitationEmailTemplate({
                   <Heading style={messageTitleStyle}>{greeting}</Heading>
 
                   <Text style={introStyle}>
-                     Has sido invitado(a) a participar de forma gratuita en{" "}
-                     <span style={highlightStyle}>{congressTitle}</span>. Te hemos reservado un lugar especial con
-                     acceso completo al congreso.
+                     Has sido invitado(a) a participar de forma gratuita en <span style={highlightStyle}>{congressTitle}</span>.
+                     Te hemos reservado un lugar especial con acceso completo al congreso.
                   </Text>
 
                   {/* Promo Code - Prominent */}
@@ -53,8 +52,7 @@ export default function CourtesyInvitationEmailTemplate({
                         <Text style={codeTextStyle}>{promoCode}</Text>
                      </Section>
                      <Text style={codeHintStyle}>
-                        Guarda este código. Lo necesitarás al momento de completar tu registro para aplicar el 100% de
-                        descuento.
+                        Guarda este código. Lo necesitarás al momento de completar tu registro para aplicar el 100% de descuento.
                      </Text>
                   </Section>
 
@@ -81,8 +79,8 @@ export default function CourtesyInvitationEmailTemplate({
                         Completar mi registro gratuito
                      </Button>
                      <Text style={ctaHelperTextStyle}>
-                        Al llegar al paso de pago, ingresa tu código en el campo &quot;Código promocional&quot; para
-                        obtener tu inscripción sin costo.
+                        Al llegar al paso de pago, ingresa tu código en el campo &quot;Código promocional&quot; para obtener tu
+                        inscripción sin costo.
                      </Text>
                   </Section>
 
@@ -106,8 +104,8 @@ export default function CourtesyInvitationEmailTemplate({
                   <Section style={noteContainerStyle}>
                      <Text style={noteTitleStyle}>⚠️ Importante</Text>
                      <Text style={noteTextStyle}>
-                        Este código es personal e intransferible. Solo puede ser utilizado una vez. Si tienes alguna
-                        duda, contacta a la organización del evento.
+                        Este código es personal e intransferible. Solo puede ser utilizado una vez. Si tienes alguna duda,
+                        contacta a la organización del evento.
                      </Text>
                   </Section>
                </Section>

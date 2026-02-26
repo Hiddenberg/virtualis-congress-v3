@@ -5,6 +5,10 @@ import { useState, useTransition } from "react";
 import toast from "react-hot-toast";
 import { IS_DEV_ENVIRONMENT } from "@/data/constants/platformConstants";
 import { createOrganizationCredentialsAction } from "../serverActions/organizationCredentialsActions";
+import type {
+   NewOrganizationStripeCredentialsData,
+   OrganizationStripeCredentials,
+} from "../types/organizationStripeCredentialsTypes";
 
 export default function CMIMCCCredentialsForm() {
    const [credentialsForm, setCredentialsForm] = useState<NewOrganizationStripeCredentialsData>({

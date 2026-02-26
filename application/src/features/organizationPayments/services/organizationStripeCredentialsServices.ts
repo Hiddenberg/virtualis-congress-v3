@@ -3,6 +3,11 @@ import { createDBRecord, deleteDBRecord, getSingleDBRecord, pbFilter } from "@/l
 import "server-only";
 import Stripe from "stripe";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type {
+   NewOrganizationStripeCredentialsData,
+   OrganizationStripeCredentials,
+   OrganizationStripeCredentialsRecord,
+} from "../types/organizationStripeCredentialsTypes";
 import { decrypt, encrypt } from "../utils/encryptionUtils";
 
 export async function configureOrganizationStripeCredentials(credentials: NewOrganizationStripeCredentialsData) {

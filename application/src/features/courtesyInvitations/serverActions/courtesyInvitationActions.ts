@@ -10,9 +10,7 @@ const MAX_QUANTITY_PER_REQUEST = 50;
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export async function createCourtesyInvitationsAction(
-   quantity: number,
-): Promise<BackendResponse<{ createdCount: number }>> {
+export async function createCourtesyInvitationsAction(quantity: number): Promise<BackendResponse<{ createdCount: number }>> {
    try {
       if (quantity < 1 || quantity > MAX_QUANTITY_PER_REQUEST) {
          return {

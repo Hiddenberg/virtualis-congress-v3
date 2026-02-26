@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { ClientResponseError, type RecordModel } from "pocketbase";
 import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
+import type { UserPaymentRecord } from "@/features/organizationPayments/types/organizationStripeCredentialsTypes";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { createUser, getUserByEmail, getUserById } from "@/features/users/services/userServices";
 import pbServerClient from "@/libs/pbServerClient";
@@ -88,7 +89,7 @@ export async function confirmUserPaymentAction() {
             console.log(`[User Actions] User ${user.id} is not an attendant, checking for payment directly`);
             const userPayment = await pbServerClient
                .collection(PB_COLLECTIONS.USER_PAYMENTS)
-               .getFirstListItem<RecordModel & UserPayment>(`user = "${user.id}"`);
+               .getFirstListItem<UserPaymentRecord>(`user = "${user.id}"`);
 
             if (userPayment) {
                console.log(`[User Actions] User ${user.id} has a payment, allowing access`);

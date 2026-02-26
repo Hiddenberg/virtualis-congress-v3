@@ -1,5 +1,5 @@
 import "server-only";
-import type { RecordModel } from "pocketbase";
+import type { UserPaymentRecord } from "@/features/organizationPayments/types/organizationStripeCredentialsTypes";
 import pbServerClient from "@/libs/pbServerClient";
 // import Stripe from "stripe";
 // import {
@@ -12,7 +12,7 @@ import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 export async function getAllPayments(organizationId: string) {
    const allPaymentsForOrganization = await pbServerClient
       .collection(PB_COLLECTIONS.USER_PAYMENTS)
-      .getFullList<UserPayment & RecordModel>({
+      .getFullList<UserPaymentRecord>({
          filter: `organization.id = "${organizationId}"`,
       });
 

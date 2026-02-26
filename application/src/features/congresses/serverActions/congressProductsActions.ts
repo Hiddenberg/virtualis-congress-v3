@@ -5,6 +5,7 @@ import type Stripe from "stripe";
 import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { getOrganizationStripeInstance } from "@/features/organizationPayments/lib/stripe";
 import { ensuredUserStripeCustomer } from "@/features/organizationPayments/services/organizationPaymentsServices";
+import type { UserPayment } from "@/features/organizationPayments/types/organizationStripeCredentialsTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { generateRandomId } from "@/features/staggeredAuth/utils/passwordsGenerator";

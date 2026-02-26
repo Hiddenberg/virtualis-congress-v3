@@ -2,6 +2,7 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import { createDBRecord, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import "server-only";
 import type { UserRecord } from "../../types/userTypes";
+import type { AdditionalData, AttendantData } from "../types/attendantTypes";
 
 export async function createAttendantData({
    userId,

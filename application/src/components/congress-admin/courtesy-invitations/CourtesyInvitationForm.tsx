@@ -106,9 +106,9 @@ export default function CourtesyInvitationForm() {
                <div>
                   <h3 className="mb-1 font-semibold text-blue-900">¿Qué son las invitaciones de cortesía?</h3>
                   <p className="text-blue-700 text-sm leading-relaxed">
-                     Las invitaciones de cortesía generan códigos promocionales únicos que permiten el registro gratuito
-                     al congreso. Cada código puede ser canjeado por una sola persona. Puedes crear una invitación
-                     individual y enviarla por correo, o generar un lote de códigos para uso posterior.
+                     Las invitaciones de cortesía generan códigos promocionales únicos que permiten el registro gratuito al
+                     congreso. Cada código puede ser canjeado por una sola persona. Puedes crear una invitación individual y
+                     enviarla por correo, o generar un lote de códigos para uso posterior.
                   </p>
                </div>
             </div>
@@ -123,9 +123,7 @@ export default function CourtesyInvitationForm() {
                   setError(null);
                }}
                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-md font-medium text-sm transition-colors ${
-                  mode === "manual"
-                     ? "bg-white text-gray-900 shadow-sm"
-                     : "text-gray-600 hover:text-gray-900"
+                  mode === "manual" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
                }`}
             >
                <MailIcon className="size-4" />
@@ -138,9 +136,7 @@ export default function CourtesyInvitationForm() {
                   setError(null);
                }}
                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-md font-medium text-sm transition-colors ${
-                  mode === "batch"
-                     ? "bg-white text-gray-900 shadow-sm"
-                     : "text-gray-600 hover:text-gray-900"
+                  mode === "batch" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
                }`}
             >
                <UsersIcon className="size-4" />
@@ -157,9 +153,7 @@ export default function CourtesyInvitationForm() {
                      </div>
                      <div>
                         <h2 className="font-semibold text-gray-900 text-xl">Enviar invitación por correo</h2>
-                        <p className="text-gray-500 text-sm">
-                           Crea un código y envíalo automáticamente a la persona invitada
-                        </p>
+                        <p className="text-gray-500 text-sm">Crea un código y envíalo automáticamente a la persona invitada</p>
                      </div>
                   </div>
 
@@ -201,20 +195,10 @@ export default function CourtesyInvitationForm() {
 
                      <div className="pt-4 border-gray-100 border-t">
                         <div className="flex justify-end gap-3">
-                           <Button
-                              variant="secondary"
-                              type="button"
-                              disabled={isCreating}
-                              onClick={() => router.back()}
-                           >
+                           <Button variant="secondary" type="button" disabled={isCreating} onClick={() => router.back()}>
                               Cancelar
                            </Button>
-                           <Button
-                              variant="primary"
-                              type="submit"
-                              loading={isCreating}
-                              disabled={isCreating}
-                           >
+                           <Button variant="primary" type="submit" loading={isCreating} disabled={isCreating}>
                               {isCreating ? "Creando y enviando..." : "Crear y enviar invitación"}
                            </Button>
                         </div>
@@ -229,9 +213,7 @@ export default function CourtesyInvitationForm() {
                      </div>
                      <div>
                         <h2 className="font-semibold text-gray-900 text-xl">Generar lote de invitaciones</h2>
-                        <p className="text-gray-500 text-sm">
-                           Crea múltiples códigos para distribuir manualmente o más adelante
-                        </p>
+                        <p className="text-gray-500 text-sm">Crea múltiples códigos para distribuir manualmente o más adelante</p>
                      </div>
                   </div>
 
@@ -263,20 +245,10 @@ export default function CourtesyInvitationForm() {
 
                      <div className="pt-4 border-gray-100 border-t">
                         <div className="flex justify-end gap-3">
-                           <Button
-                              variant="secondary"
-                              type="button"
-                              disabled={isCreating}
-                              onClick={() => router.back()}
-                           >
+                           <Button variant="secondary" type="button" disabled={isCreating} onClick={() => router.back()}>
                               Cancelar
                            </Button>
-                           <Button
-                              variant="primary"
-                              type="submit"
-                              loading={isCreating}
-                              disabled={isCreating}
-                           >
+                           <Button variant="primary" type="submit" loading={isCreating} disabled={isCreating}>
                               {isCreating ? "Creando invitaciones..." : "Crear invitaciones"}
                            </Button>
                         </div>

@@ -1,8 +1,9 @@
 import { addDay, diffDays, format } from "@formkit/tempo";
-import type { RecordModel } from "pocketbase";
+import type { UserPaymentRecord } from "@/features/organizationPayments/types/organizationStripeCredentialsTypes";
+import type { AttendantDataRecord } from "@/features/users/attendants/types/attendantTypes";
 import type { UserRecord } from "@/features/users/types/userTypes";
 
-export function getAccumulatedGainsPerDay(allPayments: (UserPayment & RecordModel)[]) {
+export function getAccumulatedGainsPerDay(allPayments: UserPaymentRecord[]) {
    const initialDate = format({
       date: addDay(allPayments[0].created, -1),
       format: "YYYY-MM-DD",
@@ -69,7 +70,7 @@ export interface NewRegistrationsData {
    date: string;
    newRegistrations: number;
 }
-export function getNewRegistrationsPerDay(allAttendantsRegistered: (AttendantData & RecordModel)[]) {
+export function getNewRegistrationsPerDay(allAttendantsRegistered: AttendantDataRecord[]) {
    const registrationsPerDay = allAttendantsRegistered.reduce((prev, curr) => {
       const formattedCreationDate = format({
          date: curr.created,
@@ -94,8 +95,8 @@ export function getNewRegistrationsPerDay(allAttendantsRegistered: (AttendantDat
 }
 
 export function getPaymentsCollected(
-   attendatsWithPaymentConfirmedData: (AttendantData & RecordModel & { expand: { user: UserRecord } })[],
-   allPayments: (UserPayment & RecordModel)[],
+   attendatsWithPaymentConfirmedData: (AttendantDataRecord & { expand: { user: UserRecord } })[],
+   allPayments: UserPaymentRecord[],
 ) {
    const usersWithPayments = attendatsWithPaymentConfirmedData.map((attendantData) => {
       const attendantPayment = allPayments.find((attendantPayment) => attendantPayment.user === attendantData.user);

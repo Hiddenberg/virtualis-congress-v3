@@ -1,4 +1,7 @@
-interface OrganizationStripeCredentials {
+import type { OrganizationRecord } from "@/features/organizations/types/organizationTypes";
+import type { UserRecord } from "@/features/users/types/userTypes";
+
+export interface OrganizationStripeCredentials {
    organization: OrganizationRecord["id"];
    environment: "production" | "development";
    apiKey: string;
@@ -8,14 +11,13 @@ interface OrganizationStripeCredentials {
    cancelURL: string;
    returnURL: string;
 }
-type OrganizationStripeCredentialsRecord =
-   DBRecordItem<OrganizationStripeCredentials>;
-type NewOrganizationStripeCredentialsData = Omit<
+export type OrganizationStripeCredentialsRecord = DBRecordItem<OrganizationStripeCredentials>;
+export type NewOrganizationStripeCredentialsData = Omit<
    OrganizationStripeCredentials,
    "organization" | "successURL" | "cancelURL" | "returnURL" | "webhookSecret" | "webhookEndpointURL"
 >;
 
-interface UserPayment {
+export interface UserPayment {
    organization: OrganizationRecord["id"];
    user: UserRecord["id"];
    stripeCheckoutSessionId: string;
@@ -28,4 +30,4 @@ interface UserPayment {
    paymentMethod?: string;
    wasCustomPrice?: boolean; // This is used to indicate that the payment was made with a custom price (manual registration)
 }
-type UserPaymentRecord = DBRecordItem<UserPayment>;
+export type UserPaymentRecord = DBRecordItem<UserPayment>;

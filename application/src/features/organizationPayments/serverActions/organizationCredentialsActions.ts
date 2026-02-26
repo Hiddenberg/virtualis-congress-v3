@@ -7,6 +7,7 @@ import {
    configureOrganizationStripeCredentials,
    deleteOrganizationStripeCredentials,
 } from "../services/organizationStripeCredentialsServices";
+import type { NewOrganizationStripeCredentialsData } from "../types/organizationStripeCredentialsTypes";
 
 export async function createOrganizationCredentialsAction(
    credentials: NewOrganizationStripeCredentialsData,
