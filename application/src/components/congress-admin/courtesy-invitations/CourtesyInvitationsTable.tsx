@@ -35,7 +35,7 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
 
    const formatDate = (dateString?: string) => {
       if (!dateString) return "-";
-      return new Date(dateString).toLocaleDateString("es-ES", {
+      return new Date(dateString).toLocaleDateString("es-MX", {
          year: "numeric",
          month: "short",
          day: "numeric",
