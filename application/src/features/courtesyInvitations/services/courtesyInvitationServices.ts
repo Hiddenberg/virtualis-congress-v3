@@ -1,5 +1,6 @@
 import "server-only";
 import { COURTESY_STRIPE_COUPON_ID } from "@/data/constants/platformConstants";
+import { sendCourtesyInvitationEmail } from "@/features/emails/services/emailSendingServices";
 import {
    getCongressRegistrationByUserId,
    updateCongressRegistration,
@@ -77,6 +78,32 @@ export async function createCourtesyInvitationCode(congressId: string, organizat
    const courtesyInvitationCreated = await createCourtesyInvitationRecord(newCourtesyInvitationCode);
 
    return courtesyInvitationCreated;
+}
+
+export async function createSingleCourtesyInvitationAndSendEmail({
+   email,
+   recipientName,
+}: {
+   email: string;
+   recipientName?: string;
+}) {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const courtesyInvitation = await createCourtesyInvitationCode(congress.id, organization.id);
+
+   await updateCourtesyInvitationRecord({
+      courtesyInvitationId: courtesyInvitation.id,
+      updatedData: { sentTo: email },
+   });
+
+   await sendCourtesyInvitationEmail({
+      to: email,
+      promoCode: courtesyInvitation.stripePromotionCode,
+      recipientName,
+   });
+
+   return courtesyInvitation;
 }
 
 export async function getCourtesyInvitationByStryipePromoCode(stripePromotionCode: string) {

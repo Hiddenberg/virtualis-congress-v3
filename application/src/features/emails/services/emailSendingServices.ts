@@ -23,6 +23,7 @@ import AboutToStartEventTemplate from "../templates/AboutToStartEventTemplate";
 import ACPWIMRecordingInvitationTemplate from "../templates/ACPWIMRecordingInvitationTemplate";
 import AccountCreatedTemplate from "../templates/AccountCreatedTemplate";
 import CoordinatorCVRecordingInvitationTemplate from "../templates/CoordinatorCVRecordingInvitation";
+import CourtesyInvitationEmailTemplate from "../templates/CourtesyInvitationEmailTemplate";
 import EventFinishedTemplate from "../templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "../templates/IphoneIssueSolvedTemplate";
 import NewEventDayAboutToStartEmailTemplate from "../templates/NewEventDayAboutToStart";
@@ -168,7 +169,7 @@ export async function sendPlatformRegistrationConfirmationEmail(userId: string) 
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
-      subject: "¡Tu cuenta ha sido creada exitosamente!",
+      subject: "?Tu cuenta ha sido creada exitosamente!",
       template,
    });
 }
@@ -212,7 +213,7 @@ export async function sendPreCongressInvitationEmail(userId: string, conferenceI
    await sendNotificationEmail(
       `${organization.name} | Virtualis Congress`,
       user.email,
-      "Invitación a la conferencia pre-congreso",
+      "Invitaci?n a la conferencia pre-congreso",
       template,
    );
 }
@@ -252,7 +253,7 @@ export async function sendOTPCodeEmail(email: string, otpCode: string) {
    await sendNotificationEmail(
       `${organization.name} | Virtualis Congress`,
       email,
-      "Código de verificación para Virtualis Congress",
+      "C?digo de verificaci?n para Virtualis Congress",
       template,
    );
 
@@ -303,7 +304,7 @@ export async function sendPaymentConfirmationEmail(userId: UserRecord["id"]) {
    await sendNotificationEmail(
       `${organization.name} | Virtualis Congress`,
       user.email,
-      `Confirmación de pago para ${congress.title}`,
+      `Confirmaci?n de pago para ${congress.title}`,
       template,
    );
 
@@ -311,7 +312,7 @@ export async function sendPaymentConfirmationEmail(userId: UserRecord["id"]) {
       await sendNotificationEmail(
          `${organization.name} | Virtualis Congress`,
          user.additionalEmail1,
-         `Confirmación de pago para ${congress.title}`,
+         `Confirmaci?n de pago para ${congress.title}`,
          template,
       );
    }
@@ -320,7 +321,7 @@ export async function sendPaymentConfirmationEmail(userId: UserRecord["id"]) {
       await sendNotificationEmail(
          `${organization.name} | Virtualis Congress`,
          user.additionalEmail2,
-         `Confirmación de pago para ${congress.title}`,
+         `Confirmaci?n de pago para ${congress.title}`,
          template,
       );
    }
@@ -338,7 +339,7 @@ export async function sendRecordingInvitationEmail(recordingId: string, maxDeadl
       throw new Error(`[Recordings Services] Simple recording recorder email not found for recording id ${recordingId}`);
    }
 
-   const emailSubject = `Invitación para grabar ${simpleRecording.title}`;
+   const emailSubject = `Invitaci?n para grabar ${simpleRecording.title}`;
    const recordingLink = `${getRecordingLink(simpleRecording.id, organization)}`;
 
    const trackedEmailRecord = await createTrackedEmailRecord({
@@ -449,7 +450,7 @@ export async function sendCoordinatorCVRecordingInvitationEmail(recordingId: str
 
    const coordinatorName = recording.recorderName ?? "Coordinador";
 
-   const emailSubject = `Invitación para grabar la presentación de la conferencia | ${conference.title}`;
+   const emailSubject = `Invitaci?n para grabar la presentaci?n de la conferencia | ${conference.title}`;
 
    const trackedEmailRecord = await createTrackedEmailRecord({
       sentTo: recording.recorderEmail,
@@ -506,7 +507,7 @@ export async function sendRecordingReminderEmail(recordingId: SimpleRecordingRec
       throw new Error(`[Recordings Services] Simple recording recorder email not found for recording id ${recordingId}`);
    }
 
-   const emailSubject = `Recordatorio de entrega de grabación | ${recording.title}`;
+   const emailSubject = `Recordatorio de entrega de grabaci?n | ${recording.title}`;
    const recordingURL = getRecordingLink(recording.id, organization);
 
    const trackedEmailRecord = await createTrackedEmailRecord({
@@ -618,9 +619,71 @@ export async function sendNonPayersCongressInvitationEmail(userId: string) {
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
-      subject: `¡Completa tu registro para ${congress.title}!`,
+      subject: `?Completa tu registro para ${congress.title}!`,
       template,
    });
+}
+
+export async function sendCourtesyInvitationEmail({
+   to,
+   promoCode,
+   recipientName,
+}: {
+   to: string;
+   promoCode: string;
+   recipientName?: string;
+}) {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const congressFormattedStartDate = format({
+      date: congress.startDate,
+      format: "DD MMMM",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   });
+
+   const congressFormattedStartTime = format({
+      date: congress.startDate,
+      format: "hh:mm A",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   });
+
+   const congressFormattedEndDate = format({
+      date: congress.finishDate,
+      format: "DD MMMM",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   });
+
+   const congressFormattedEndTime = format({
+      date: congress.finishDate,
+      format: "hh:mm A",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   });
+
+   const organizationBaseUrl = await getOrganizationBaseUrl();
+   const registrationLink = `${organizationBaseUrl}/registro`;
+
+   const template = await render(
+      CourtesyInvitationEmailTemplate({
+         recipientName,
+         promoCode,
+         congressTitle: congress.title,
+         congressFormattedDates: `Del ${congressFormattedStartDate} ${congressFormattedStartTime} al ${congressFormattedEndDate} ${congressFormattedEndTime}`,
+         registrationLink,
+         organizationName: organization.name,
+      }),
+   );
+
+   await sendNotificationEmail(
+      `${organization.name} | Virtualis Congress`,
+      to,
+      `Invitación especial para acceder a ${congress.title}`,
+      template,
+   );
 }
 
 export async function sendAboutToStartEventEmail(userId: string) {
@@ -661,7 +724,7 @@ export async function sendAboutToStartEventEmail(userId: string) {
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
-      subject: `¡${congress.title} está por comenzar!`,
+      subject: `?${congress.title} est? por comenzar!`,
       template,
    });
 }
@@ -696,7 +759,7 @@ export async function sendIphoneIssueSolvedEmail(userId: string) {
    await sendNotificationEmail(
       `${organization.name} | Virtualis Congress`,
       user.email,
-      `¡Problema resuelto! Ya puedes entrar a la plataforma desde dispositivos iPhone`,
+      `?Problema resuelto! Ya puedes entrar a la plataforma desde dispositivos iPhone`,
       template,
    );
 }
@@ -740,7 +803,7 @@ export async function sendNewEventDayAboutToStartEmail(userId: string, eventDayN
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
-      subject: `¡El día ${eventDayNumber} de ${congress.title} está por comenzar!`,
+      subject: `?El d?a ${eventDayNumber} de ${congress.title} est? por comenzar!`,
       template,
    });
 }
@@ -779,7 +842,7 @@ export async function sendEventFinishedEmail(userId: string) {
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
-      subject: `¡${congress.title} fue todo un éxito! Ya puedes acceder a las grabaciones de las conferencias`,
+      subject: `?${congress.title} fue todo un ?xito! Ya puedes acceder a las grabaciones de las conferencias`,
       template,
    });
 }
@@ -822,7 +885,7 @@ export async function sendSpeakerCertificateEmail({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: email,
-      subject: `¡Tu certificado de ponente está disponible!`,
+      subject: `?Tu certificado de ponente est? disponible!`,
       template,
    });
 }
@@ -859,7 +922,7 @@ export async function sendOnDemandReminderEmail({ userId, bannerImageUrl }: { us
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
-      subject: `¡${congress.title} ya está disponible bajo demanda!`,
+      subject: `?${congress.title} ya est? disponible bajo demanda!`,
       template,
    });
 }
@@ -921,7 +984,7 @@ export async function sendSpeakerPresentationUploadReminderEmail({
       user,
       senderAlias: `${organization.name} | Virtualis Congress`,
       to: user.email,
-      subject: `¡Recuerda subir la presentación para tu conferencia: ${conference.title}!`,
+      subject: `?Recuerda subir la presentaci?n para tu conferencia: ${conference.title}!`,
       template,
    });
 }

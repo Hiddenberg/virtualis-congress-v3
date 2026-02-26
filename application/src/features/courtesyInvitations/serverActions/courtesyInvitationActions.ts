@@ -1,9 +1,14 @@
 "use server";
 
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { generateMultipleCourtesyInvitationCodes } from "../services/courtesyInvitationServices";
+import {
+   createSingleCourtesyInvitationAndSendEmail,
+   generateMultipleCourtesyInvitationCodes,
+} from "../services/courtesyInvitationServices";
 
 const MAX_QUANTITY_PER_REQUEST = 50;
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function createCourtesyInvitationsAction(
    quantity: number,
@@ -34,6 +39,53 @@ export async function createCourtesyInvitationsAction(
       return {
          success: false,
          errorMessage: "Error al crear las invitaciones de cortesía",
+      };
+   }
+}
+
+export async function createSingleCourtesyInvitationAndSendEmailAction({
+   email,
+   recipientName,
+}: {
+   email: string;
+   recipientName?: string;
+}): Promise<BackendResponse<{ invitationId: string }>> {
+   try {
+      const trimmedEmail = email.trim().toLowerCase();
+      if (!trimmedEmail) {
+         return {
+            success: false,
+            errorMessage: "El correo electrónico es requerido",
+         };
+      }
+
+      if (!emailRegex.test(trimmedEmail)) {
+         return {
+            success: false,
+            errorMessage: "El correo electrónico no es válido",
+         };
+      }
+
+      const courtesyInvitation = await createSingleCourtesyInvitationAndSendEmail({
+         email: trimmedEmail,
+         recipientName: recipientName?.trim() || undefined,
+      });
+
+      return {
+         success: true,
+         data: { invitationId: courtesyInvitation.id },
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+
+      return {
+         success: false,
+         errorMessage: "Error al crear y enviar la invitación de cortesía",
       };
    }
 }
