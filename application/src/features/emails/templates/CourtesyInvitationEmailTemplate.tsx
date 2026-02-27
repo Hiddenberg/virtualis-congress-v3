@@ -22,7 +22,7 @@ export default function CourtesyInvitationEmailTemplate({
    return (
       <Html lang="es-MX">
          <Head>
-            <title>Invitación de cortesía - {congressTitle}</title>
+            <title>{`Invitación de cortesía - ${congressTitle}`}</title>
          </Head>
          <Preview>
             Tienes una invitación especial para registrarte gratuitamente en {congressTitle}. Tu código: {promoCode}
