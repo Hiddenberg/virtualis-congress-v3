@@ -13,11 +13,11 @@ services:
     restart: always
 
   virtualis-congress-v3-dev:
-    image: oven/bun
+    image: node:lts
     working_dir: /usr/src/app
     volumes:
       - ./application/:/usr/src/app/
-    command: bun run dev
+    command: npm run dev
     ports:
      - 3000:3000
     restart: always
