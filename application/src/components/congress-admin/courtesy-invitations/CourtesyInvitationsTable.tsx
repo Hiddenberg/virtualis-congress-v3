@@ -11,7 +11,17 @@ const CourtesyInvitationsTable = ({
 }) => {
    const [searchTerm, setSearchTerm] = useState("");
    const [filter, setFilter] = useState<"all" | "used" | "unused">("all");
+   const [tagFilter, setTagFilter] = useState<string>("all");
    const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+   const uniqueTags = useMemo(() => {
+      const tags = new Set<string>();
+      invitationsWithUsersNames.forEach((invitation) => {
+         const tag = invitation.courtesyInvitation.tag?.trim();
+         if (tag) tags.add(tag);
+      });
+      return Array.from(tags).sort();
+   }, [invitationsWithUsersNames]);
 
    const filteredInvitations = useMemo(() => {
       return invitationsWithUsersNames.filter((invitation) => {
@@ -20,14 +30,20 @@ const CourtesyInvitationsTable = ({
             (filter === "used" && invitation.courtesyInvitation.used) ||
             (filter === "unused" && !invitation.courtesyInvitation.used);
 
+         const matchesTagFilter =
+            tagFilter === "all" ||
+            invitation.courtesyInvitation.tag?.trim() === tagFilter ||
+            (tagFilter === "empty" && !invitation.courtesyInvitation.tag?.trim());
+
          const matchesSearch =
             invitation.courtesyInvitation.stripePromotionCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
             invitation.courtesyInvitation.sentTo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            invitation.userWhoRedeemed?.toLowerCase().includes(searchTerm.toLowerCase());
+            invitation.userWhoRedeemed?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            invitation.courtesyInvitation.tag?.toLowerCase().includes(searchTerm.toLowerCase());
 
-         return matchesFilter && matchesSearch;
+         return matchesFilter && matchesTagFilter && matchesSearch;
       });
-   }, [searchTerm, filter, invitationsWithUsersNames]);
+   }, [searchTerm, filter, tagFilter, invitationsWithUsersNames]);
 
    const copyPromoCode = (code: string) => {
       navigator.clipboard
@@ -51,12 +67,12 @@ const CourtesyInvitationsTable = ({
    };
 
    const exportToCSV = () => {
-      const headers = ["Código promocional", "Estado", "Enviado a", "Canjeado por", "Canjeado el"];
+      const headers = ["Código promocional", "Estado", "Etiqueta", "Enviado a", "Canjeado por", "Canjeado el"];
 
       const csvData = filteredInvitations.map((invitation) => [
          invitation.courtesyInvitation.stripePromotionCode,
          invitation.courtesyInvitation.used ? "Usado" : "Pendiente",
-         invitation.courtesyInvitation.congress,
+         invitation.courtesyInvitation.tag || "",
          invitation.courtesyInvitation.sentTo || "",
          invitation.userWhoRedeemed || "",
          invitation.courtesyInvitation.redeemedAt ? formatDate(invitation.courtesyInvitation.redeemedAt) : "",
@@ -85,7 +101,7 @@ const CourtesyInvitationsTable = ({
                   <Search className="top-1/2 left-3 absolute text-gray-400 -translate-y-1/2 transform" />
                   <input
                      type="text"
-                     placeholder="Buscar por código, email, congreso..."
+                     placeholder="Buscar por código, email, etiqueta..."
                      className="py-2 pr-3 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                      value={searchTerm}
                      onChange={(e) => setSearchTerm(e.target.value)}
@@ -99,6 +115,19 @@ const CourtesyInvitationsTable = ({
                   <option value="all">Todos</option>
                   <option value="used">Usados</option>
                   <option value="unused">No usados</option>
+               </select>
+               <select
+                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={tagFilter}
+                  onChange={(e) => setTagFilter(e.target.value)}
+               >
+                  <option value="all">Todas las etiquetas</option>
+                  <option value="empty">Sin etiqueta</option>
+                  {uniqueTags.map((tag) => (
+                     <option key={tag} value={tag}>
+                        {tag}
+                     </option>
+                  ))}
                </select>
                <button
                   type="button"
@@ -118,6 +147,9 @@ const CourtesyInvitationsTable = ({
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">Estado</th>
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
                            Código promocional
+                        </th>
+                        <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
+                           Etiqueta
                         </th>
                         <th className="px-6 py-3 font-medium text-gray-500 text-xs text-left uppercase tracking-wider">
                            Enviado al correo
@@ -161,6 +193,15 @@ const CourtesyInvitationsTable = ({
                                     <span className="ml-2 text-green-600 text-sm">¡Copiado!</span>
                                  )}
                               </div>
+                           </td>
+                           <td className="px-6 py-4 whitespace-nowrap">
+                              {invitation.courtesyInvitation.tag?.trim() ? (
+                                 <span className="inline-flex items-center bg-gray-100 px-2.5 py-0.5 rounded-full font-medium text-gray-700 text-xs">
+                                    {invitation.courtesyInvitation.tag}
+                                 </span>
+                              ) : (
+                                 <span className="text-gray-400">-</span>
+                              )}
                            </td>
                            <td className="px-6 py-4 whitespace-nowrap">{invitation.courtesyInvitation.sentTo || "-"}</td>
                            <td className="px-6 py-4 whitespace-nowrap">{invitation.userWhoRedeemed || "-"}</td>

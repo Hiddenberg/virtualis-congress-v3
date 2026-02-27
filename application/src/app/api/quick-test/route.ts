@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getAllCourtesyInvitationsWithUsersNames } from "@/features/courtesyInvitations/services/courtesyInvitationServices";
-import { getCongressUserRegistrationsDetailsOptimized } from "@/features/manualRegistration/services/manualRegistrationServices";
 
 export async function GET() {
    // const congressRegistrationDetails = await getCongressUserRegistrationsDetailsOptimized();
