@@ -1,6 +1,7 @@
 import { format } from "@formkit/tempo";
 import { CheckCircle2, Users, XCircle } from "lucide-react";
 import type { CongressUserRegistrationDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
+import { ExportToCsvButton } from "./ExportToCsvButton";
 
 interface RegisteredPeopleListProps {
    registrationsDetails: CongressUserRegistrationDetails[];
@@ -23,8 +24,11 @@ export default function RegisteredPeopleList({ registrationsDetails }: Registere
                   <h2 className="font-semibold text-gray-900 text-xl">Personas Registradas</h2>
                   <p className="mt-1 text-gray-600">Listado de asistentes al congreso</p>
                </div>
-               <div className="text-gray-600 text-sm">
-                  Total: <span className="font-semibold text-gray-900">{registrationsDetails.length}</span>
+               <div className="flex items-center gap-4">
+                  <div className="text-gray-600 text-sm">
+                     Total: <span className="font-semibold text-gray-900">{registrationsDetails.length}</span>
+                  </div>
+                  <ExportToCsvButton registrationsDetails={registrationsDetails} />
                </div>
             </div>
          </div>
