@@ -1,20 +1,17 @@
 import { format } from "@formkit/tempo";
 import { CheckCircle2, Users, XCircle } from "lucide-react";
-import type { CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
 import type { CongressUserRegistrationDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
-import type { UserRecord } from "@/features/users/types/userTypes";
 
 interface RegisteredPeopleListProps {
-   registrations: CongressRegistrationRecord[];
    registrationsDetails: CongressUserRegistrationDetails[];
 }
 
-export default function RegisteredPeopleList({ registrations, registrationsDetails }: RegisteredPeopleListProps) {
-   const hasAny = registrations.length > 0;
+export default function RegisteredPeopleList({ registrationsDetails }: RegisteredPeopleListProps) {
+   const hasAny = registrationsDetails.length > 0;
 
-   const sorted = [...registrations].sort((a, b) => {
-      const aDate = new Date(a.created).getTime();
-      const bDate = new Date(b.created).getTime();
+   const sorted = [...registrationsDetails].sort((a, b) => {
+      const aDate = new Date(a.congressRegistration.created).getTime();
+      const bDate = new Date(b.congressRegistration.created).getTime();
       return bDate - aDate;
    });
 
@@ -27,7 +24,7 @@ export default function RegisteredPeopleList({ registrations, registrationsDetai
                   <p className="mt-1 text-gray-600">Listado de asistentes al congreso</p>
                </div>
                <div className="text-gray-600 text-sm">
-                  Total: <span className="font-semibold text-gray-900">{registrations.length}</span>
+                  Total: <span className="font-semibold text-gray-900">{registrationsDetails.length}</span>
                </div>
             </div>
          </div>
@@ -80,13 +77,13 @@ export default function RegisteredPeopleList({ registrations, registrationsDetai
                      </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-100">
-                     {sorted.map((reg) => {
-                        const user = (reg as unknown as { expand?: { user?: UserRecord } })?.expand?.user;
+                     {sorted.map((regDetail) => {
+                        const user = regDetail.user;
                         const name = user?.name ?? "—";
                         const email = user?.email ?? "—";
                         const additionalEmails =
                            [user?.additionalEmail1, user?.additionalEmail2].filter(Boolean).join(", ") || "—";
-                        const createdAt = new Date(reg.created);
+                        const createdAt = new Date(regDetail.congressRegistration.created);
                         const createdLabel = format({
                            date: createdAt,
                            format: "DD/MM/YYYY hh:mm A",
@@ -94,12 +91,10 @@ export default function RegisteredPeopleList({ registrations, registrationsDetai
                            tz: "America/Mexico_City",
                         });
 
-                        const registrationDetail = registrationsDetails.find((detail) => detail.user.id === reg.user);
-
-                        const isPaid = registrationDetail?.hasPaid;
+                        const isPaid = regDetail.hasPaid;
 
                         return (
-                           <tr key={reg.id} className="hover:bg-gray-50">
+                           <tr key={regDetail.congressRegistration.id} className="hover:bg-gray-50">
                               <td className="px-6 py-3 whitespace-nowrap">
                                  <div className="font-medium text-gray-900 text-sm">{name}</div>
                               </td>

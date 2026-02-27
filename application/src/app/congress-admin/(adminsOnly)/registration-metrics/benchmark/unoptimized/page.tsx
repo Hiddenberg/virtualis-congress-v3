@@ -4,16 +4,21 @@ import PaidUsersList from "@/components/congress-admin/registration-metrics/Paid
 import PaymentMetricsGrid from "@/components/congress-admin/registration-metrics/PaymentMetricsGrid";
 import RegisteredPeopleList from "@/components/congress-admin/registration-metrics/RegisteredPeopleList";
 import RegistrationOverview from "@/components/congress-admin/registration-metrics/RegistrationOverview";
-import { getCongressUserRegistrationsDetailsOptimized } from "@/features/manualRegistration/services/manualRegistrationServices";
+import { getAllCongressRegistrationsWithUsers } from "@/features/congresses/services/congressRegistrationServices";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { getCongressUserRegistrationsDetails } from "@/features/manualRegistration/services/manualRegistrationServices";
 import { getAllOrganizationCompletedPaymentsWithUsers } from "@/features/organizationPayments/services/organizationPaymentsServices";
 
 export default async function RegistrationMetricsPage() {
-   const [completedPayments, congressRegistrationsDetails] = await Promise.all([
-      getAllOrganizationCompletedPaymentsWithUsers(),
-      getCongressUserRegistrationsDetailsOptimized(),
-   ]);
-   const congressRegistrations = congressRegistrationsDetails.map((detail) => detail.congressRegistration);
+   console.time("getCongressUserRegistrationsDetails");
+   const congress = await getLatestCongress();
 
+   const [congressRegistrations, completedPayments, congressRegistrationsDetails] = await Promise.all([
+      getAllCongressRegistrationsWithUsers(),
+      getAllOrganizationCompletedPaymentsWithUsers(),
+      getCongressUserRegistrationsDetails(congress.id),
+   ]);
+   console.timeEnd("getCongressUserRegistrationsDetails");
    return (
       <div className="bg-gray-50 p-6 min-h-screen">
          <div className="space-y-8 mx-auto max-w-7xl">

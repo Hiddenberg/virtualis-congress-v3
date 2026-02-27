@@ -1,12 +1,16 @@
 import "server-only";
+import { getAllCongressProductsWithPrices } from "@/features/congresses/services/congressProductsServices";
 import { getAllCongressRegistrations } from "@/features/congresses/services/congressRegistrationServices";
 import { getCongressById, getLatestCongress } from "@/features/congresses/services/congressServices";
-import type { AttendanceModality } from "@/features/congresses/types/congressRegistrationTypes";
+import type { ProductPriceRecord } from "@/features/congresses/types/congressProductPricesTypes";
+import type { CongressProductRecord } from "@/features/congresses/types/congressProductsTypes";
+import type { AttendanceModality, CongressRegistrationRecord } from "@/features/congresses/types/congressRegistrationTypes";
 import { confirmUserCongressPayment } from "@/features/organizationPayments/services/organizationPaymentsServices";
 import {
    checkIfUserHasAccessToRecordings,
    getUserPurchasedModality,
 } from "@/features/organizationPayments/services/userPurchaseServices";
+import type { UserPurchaseRecord } from "@/features/organizationPayments/types/userPurchasesTypes";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getUserById } from "@/features/users/services/userServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
@@ -66,6 +70,7 @@ export async function searchUsersRegisteredToCurrentCongress(query: string) {
 }
 
 export interface CongressUserRegistrationDetails {
+   congressRegistration: CongressRegistrationRecord;
    user: UserRecord;
    hasPaid: boolean;
    hasAccessToRecordings: boolean;
@@ -94,6 +99,7 @@ export async function getCongressUserRegistrationsDetails(congressId: string): P
          }
 
          return {
+            congressRegistration: registration,
             user,
             hasPaid,
             hasAccessToRecordings,
@@ -103,4 +109,121 @@ export async function getCongressUserRegistrationsDetails(congressId: string): P
    );
 
    return details;
+}
+
+export async function getCongressUserRegistrationsDetailsOptimized(): Promise<CongressUserRegistrationDetails[]> {
+   const [organization, congress] = await Promise.all([getOrganizationFromSubdomain(), getLatestCongress()]);
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId}
+   `,
+      {
+         organizationId: organization.id,
+         congressId: congress.id,
+      },
+   );
+
+   const [expandedCongressRegistrations, congressProductsWithPrices] = await Promise.all([
+      getFullDBRecordsList<
+         CongressRegistrationRecord & {
+            expand: {
+               user: UserRecord & {
+                  expand?: {
+                     user__purchases_via_user: UserPurchaseRecord[];
+                  };
+               };
+            };
+         }
+      >("CONGRESS_REGISTRATIONS", {
+         filter,
+         expand: "user, user.user__purchases_via_user",
+      }),
+      getAllCongressProductsWithPrices(congress.id),
+   ]);
+
+   const congressRegistrationDetails: CongressUserRegistrationDetails[] = expandedCongressRegistrations.map(
+      (expandedRegistration) => {
+         const userRecord: UserRecord = {
+            id: expandedRegistration.expand.user.id,
+            name: expandedRegistration.expand.user.name,
+            email: expandedRegistration.expand.user.email,
+            collectionId: expandedRegistration.expand.user.collectionId,
+            collectionName: expandedRegistration.expand.user.collectionName,
+            created: expandedRegistration.expand.user.created,
+            updated: expandedRegistration.expand.user.updated,
+            organization: expandedRegistration.expand.user.organization,
+            role: expandedRegistration.expand.user.role,
+            dateOfBirth: expandedRegistration.expand.user.dateOfBirth,
+            additionalEmail1: expandedRegistration.expand.user.additionalEmail1,
+            additionalEmail2: expandedRegistration.expand.user.additionalEmail2,
+            phoneNumber: expandedRegistration.expand.user.phoneNumber,
+         };
+
+         const congressRegistrationRecord: CongressRegistrationRecord = {
+            id: expandedRegistration.id,
+            collectionId: expandedRegistration.collectionId,
+            collectionName: expandedRegistration.collectionName,
+            created: expandedRegistration.created,
+            updated: expandedRegistration.updated,
+            organization: expandedRegistration.organization,
+            user: expandedRegistration.user,
+            congress: expandedRegistration.congress,
+            paymentConfirmed: expandedRegistration.paymentConfirmed,
+            payment: expandedRegistration.payment,
+            registrationType: expandedRegistration.registrationType,
+            hasAccessToRecordings: expandedRegistration.hasAccessToRecordings,
+            attendanceModality: expandedRegistration.attendanceModality,
+         };
+
+         const userPurchaseRecords: UserPurchaseRecord[] =
+            expandedRegistration.expand.user.expand?.user__purchases_via_user ?? [];
+
+         const userPurchasedProducts = userPurchaseRecords.reduce((acc, purchase) => {
+            const product = congressProductsWithPrices.find((product) => product.product.id === purchase.product);
+            if (!product) {
+               return acc;
+            }
+
+            acc.push(product.product);
+            return acc;
+         }, [] as CongressProductRecord[]);
+
+         const hasPaid = userPurchasedProducts.some(
+            (product) => product.productType === "congress_online_access" || product.productType === "congress_in_person_access",
+         );
+
+         const hasAccessToRecordings = userPurchaseRecords.some((purchase) => {
+            const purchasedProduct: CongressProductRecord | undefined = congressProductsWithPrices.find(
+               (product) => product.product.id === purchase.product,
+            )?.product;
+            const purchasedPrice: ProductPriceRecord | undefined = congressProductsWithPrices
+               .find((product) => product.product.id === purchase.product)
+               ?.prices.find((price) => price.id === purchase.price);
+
+            return purchasedProduct?.productType === "congress_recordings" || purchasedPrice?.includesRecordings;
+         });
+
+         const attendanceModality = (() => {
+            if (userPurchasedProducts.some((product) => product.productType === "congress_in_person_access")) {
+               return "in-person";
+            } else if (userPurchasedProducts.some((product) => product.productType === "congress_online_access")) {
+               return "virtual";
+            } else {
+               return null;
+            }
+         })();
+
+         return {
+            congressRegistration: congressRegistrationRecord,
+            user: userRecord,
+            hasPaid,
+            hasAccessToRecordings,
+            attendanceModality: attendanceModality ?? undefined,
+         };
+      },
+   );
+
+   return congressRegistrationDetails;
 }

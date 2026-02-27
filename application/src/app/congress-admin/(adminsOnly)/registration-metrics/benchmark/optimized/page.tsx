@@ -8,11 +8,13 @@ import { getCongressUserRegistrationsDetailsOptimized } from "@/features/manualR
 import { getAllOrganizationCompletedPaymentsWithUsers } from "@/features/organizationPayments/services/organizationPaymentsServices";
 
 export default async function RegistrationMetricsPage() {
+   console.time("getCongressUserRegistrationsDetailsOptimized");
    const [completedPayments, congressRegistrationsDetails] = await Promise.all([
       getAllOrganizationCompletedPaymentsWithUsers(),
       getCongressUserRegistrationsDetailsOptimized(),
    ]);
    const congressRegistrations = congressRegistrationsDetails.map((detail) => detail.congressRegistration);
+   console.timeEnd("getCongressUserRegistrationsDetailsOptimized");
 
    return (
       <div className="bg-gray-50 p-6 min-h-screen">
