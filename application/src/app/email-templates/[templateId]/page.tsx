@@ -4,6 +4,7 @@ import AboutToStartEventTemplate from "@/features/emails/templates/AboutToStartE
 import ACPWIMRecordingInvitationTemplate from "@/features/emails/templates/ACPWIMRecordingInvitationTemplate";
 import AccountCreatedTemplate from "@/features/emails/templates/AccountCreatedTemplate";
 import CoordinatorCVRecordingInvitationTemplate from "@/features/emails/templates/CoordinatorCVRecordingInvitation";
+import CourtesyInvitationEmailTemplate from "@/features/emails/templates/CourtesyInvitationEmailTemplate";
 import EventFinishedTemplate from "@/features/emails/templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "@/features/emails/templates/IphoneIssueSolvedTemplate";
 import NewEventDayAboutToStartEmailTemplate from "@/features/emails/templates/NewEventDayAboutToStart";
@@ -135,6 +136,14 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
       coordinatorName: "John Doe",
       recordingUrl: "https://recording.com",
       trackingUrl: "https://tracking.com",
+   }),
+   "courtesy-invitation": CourtesyInvitationEmailTemplate({
+      recipientName: "John Doe",
+      promoCode: "123456",
+      congressTitle: "Congreso Virtualis",
+      congressFormattedDates: "10-12 de septiembre de 2025",
+      registrationLink: "https://cmimcostachiapas.virtualis.app/lobby",
+      organizationName: "CMIM",
    }),
 } as const;
 

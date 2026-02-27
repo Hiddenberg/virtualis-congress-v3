@@ -665,7 +665,7 @@ export async function sendCourtesyInvitationEmail({
    });
 
    const organizationBaseUrl = await getOrganizationBaseUrl();
-   const registrationLink = `${organizationBaseUrl}/registro`;
+   const registrationLink = `${organizationBaseUrl}/lobby`;
 
    const template = await render(
       CourtesyInvitationEmailTemplate({
