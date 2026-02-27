@@ -7,9 +7,15 @@ export interface CourtesyInvitation {
    congress: CongressRecord["id"];
    stripePromotionCode: string;
    used: boolean;
+   tag: string;
    userWhoRedeemed?: UserRecord["id"];
    sentTo?: string;
    redeemedAt?: string;
 }
 
 export type CourtesyInvitationRecord = DBRecordItem<CourtesyInvitation>;
+
+export type CourtesyInvitationWithUsersNames = {
+   courtesyInvitation: CourtesyInvitationRecord;
+   userWhoRedeemed?: UserRecord["name"];
+};

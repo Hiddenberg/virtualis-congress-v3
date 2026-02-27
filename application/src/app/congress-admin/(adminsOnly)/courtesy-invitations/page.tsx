@@ -2,11 +2,12 @@ import { GiftIcon, PlusIcon } from "lucide-react";
 import AdminSubPageHeader from "@/components/congress-admin/AdminSubPageHeader";
 import CourtesyInvitationsTable from "@/components/congress-admin/courtesy-invitations/CourtesyInvitationsTable";
 import { LinkButton } from "@/components/global/Buttons";
-import { getAllCourtesyInvitations } from "@/features/courtesyInvitations/services/courtesyInvitationServices";
-import type { CourtesyInvitationRecord } from "@/features/courtesyInvitations/types/courtesyInvitationTypes";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { getAllCourtesyInvitationsWithUsersNames } from "@/features/courtesyInvitations/services/courtesyInvitationServices";
 
 export default async function CourtesyInvitationsPage() {
-   const invitations: CourtesyInvitationRecord[] = await getAllCourtesyInvitations();
+   const congress = await getLatestCongress();
+   const invitationsWithUsersNames = await getAllCourtesyInvitationsWithUsersNames(congress.id);
 
    return (
       <div>
@@ -22,7 +23,7 @@ export default async function CourtesyInvitationsPage() {
             }
          />
 
-         <CourtesyInvitationsTable invitations={invitations} />
+         <CourtesyInvitationsTable invitationsWithUsersNames={invitationsWithUsersNames} />
       </div>
    );
 }

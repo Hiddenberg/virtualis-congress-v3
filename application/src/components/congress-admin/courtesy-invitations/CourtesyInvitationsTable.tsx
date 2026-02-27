@@ -2,26 +2,32 @@
 
 import { CheckCircle, Clock, Copy, Download, Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import type { CourtesyInvitationRecord } from "@/features/courtesyInvitations/types/courtesyInvitationTypes";
+import type { CourtesyInvitationWithUsersNames } from "@/features/courtesyInvitations/types/courtesyInvitationTypes";
 
-const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvitationRecord[] }) => {
+const CourtesyInvitationsTable = ({
+   invitationsWithUsersNames,
+}: {
+   invitationsWithUsersNames: CourtesyInvitationWithUsersNames[];
+}) => {
    const [searchTerm, setSearchTerm] = useState("");
    const [filter, setFilter] = useState<"all" | "used" | "unused">("all");
    const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
    const filteredInvitations = useMemo(() => {
-      return invitations.filter((invitation) => {
+      return invitationsWithUsersNames.filter((invitation) => {
          const matchesFilter =
-            filter === "all" || (filter === "used" && invitation.used) || (filter === "unused" && !invitation.used);
+            filter === "all" ||
+            (filter === "used" && invitation.courtesyInvitation.used) ||
+            (filter === "unused" && !invitation.courtesyInvitation.used);
 
          const matchesSearch =
-            invitation.stripePromotionCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            invitation.sentTo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            invitation.courtesyInvitation.stripePromotionCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            invitation.courtesyInvitation.sentTo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             invitation.userWhoRedeemed?.toLowerCase().includes(searchTerm.toLowerCase());
 
          return matchesFilter && matchesSearch;
       });
-   }, [searchTerm, filter, invitations]);
+   }, [searchTerm, filter, invitationsWithUsersNames]);
 
    const copyPromoCode = (code: string) => {
       navigator.clipboard
@@ -48,12 +54,12 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
       const headers = ["Código promocional", "Estado", "Enviado a", "Canjeado por", "Canjeado el"];
 
       const csvData = filteredInvitations.map((invitation) => [
-         invitation.stripePromotionCode,
-         invitation.used ? "Usado" : "Pendiente",
-         invitation.congress,
-         invitation.sentTo || "",
+         invitation.courtesyInvitation.stripePromotionCode,
+         invitation.courtesyInvitation.used ? "Usado" : "Pendiente",
+         invitation.courtesyInvitation.congress,
+         invitation.courtesyInvitation.sentTo || "",
          invitation.userWhoRedeemed || "",
-         invitation.redeemedAt ? formatDate(invitation.redeemedAt) : "",
+         invitation.courtesyInvitation.redeemedAt ? formatDate(invitation.courtesyInvitation.redeemedAt) : "",
       ]);
 
       const csvContent = [headers.join(","), ...csvData.map((row) => row.join(","))].join("\n");
@@ -126,9 +132,9 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                      {filteredInvitations.map((invitation) => (
-                        <tr key={invitation.id}>
+                        <tr key={invitation.courtesyInvitation.id}>
                            <td className="px-6 py-4 whitespace-nowrap">
-                              {invitation.used ? (
+                              {invitation.courtesyInvitation.used ? (
                                  <span className="inline-flex items-center bg-green-100 px-2.5 py-0.5 rounded-full font-medium text-green-800 text-xs">
                                     <CheckCircle className="mr-1 w-4 h-4" />
                                     Usado
@@ -142,23 +148,23 @@ const CourtesyInvitationsTable = ({ invitations }: { invitations: CourtesyInvita
                            </td>
                            <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center">
-                                 <span className="font-medium">{invitation.stripePromotionCode}</span>
+                                 <span className="font-medium">{invitation.courtesyInvitation.stripePromotionCode}</span>
                                  <button
                                     type="button"
-                                    onClick={() => copyPromoCode(invitation.stripePromotionCode)}
+                                    onClick={() => copyPromoCode(invitation.courtesyInvitation.stripePromotionCode)}
                                     className="ml-2 focus:outline-none text-gray-400 hover:text-gray-600"
-                                    aria-label={`Copiar código promocional ${invitation.stripePromotionCode}`}
+                                    aria-label={`Copiar código promocional ${invitation.courtesyInvitation.stripePromotionCode}`}
                                  >
                                     <Copy className="w-4 h-4" />
                                  </button>
-                                 {copiedCode === invitation.stripePromotionCode && (
+                                 {copiedCode === invitation.courtesyInvitation.stripePromotionCode && (
                                     <span className="ml-2 text-green-600 text-sm">¡Copiado!</span>
                                  )}
                               </div>
                            </td>
-                           <td className="px-6 py-4 whitespace-nowrap">{invitation.sentTo || "-"}</td>
+                           <td className="px-6 py-4 whitespace-nowrap">{invitation.courtesyInvitation.sentTo || "-"}</td>
                            <td className="px-6 py-4 whitespace-nowrap">{invitation.userWhoRedeemed || "-"}</td>
-                           <td className="px-6 py-4 whitespace-nowrap">{formatDate(invitation.redeemedAt)}</td>
+                           <td className="px-6 py-4 whitespace-nowrap">{formatDate(invitation.courtesyInvitation.redeemedAt)}</td>
                         </tr>
                      ))}
                   </tbody>

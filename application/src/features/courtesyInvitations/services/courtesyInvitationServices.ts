@@ -10,7 +10,11 @@ import { getOrganizationFromSubdomain } from "@/features/organizations/services/
 import type { UserRecord } from "@/features/users/types/userTypes";
 import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
 import { createStripeCoupon, createStripePromotionCode, getStripeCouponById } from "../../../services/stripeServices";
-import type { CourtesyInvitation } from "../types/courtesyInvitationTypes";
+import type {
+   CourtesyInvitation,
+   CourtesyInvitationRecord,
+   CourtesyInvitationWithUsersNames,
+} from "../types/courtesyInvitationTypes";
 
 export async function createCourtesyInvitationRecord(newCourtesyInvitationData: CourtesyInvitation) {
    const newCourtesyInvitationRecord = await createDBRecord<CourtesyInvitation>(
@@ -41,6 +45,59 @@ export async function getAllCourtesyInvitations() {
    return courtesyInvitations;
 }
 
+export async function getAllCourtesyInvitationsWithUsersNames(congressId: string): Promise<CourtesyInvitationWithUsersNames[]> {
+   const organization = await getOrganizationFromSubdomain();
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId}
+   `,
+      {
+         organizationId: organization.id,
+         congressId,
+      },
+   );
+   const expandedCourtesyInvitations = await getFullDBRecordsList<
+      CourtesyInvitation & {
+         expand: {
+            userWhoRedeemed?: {
+               name: UserRecord["name"];
+            };
+         };
+      }
+   >("COURTESY_INVITATIONS", {
+      filter,
+      fields: "*, expand.userWhoRedeemed.name",
+      expand: "userWhoRedeemed",
+   });
+
+   const courtesyInvitationsWithUsers = expandedCourtesyInvitations.map((expandedCourtesyInvitation) => {
+      const userWhoRedeemedName = expandedCourtesyInvitation.expand.userWhoRedeemed?.name;
+      const courtesyInvitation: CourtesyInvitationRecord = {
+         id: expandedCourtesyInvitation.id,
+         collectionId: expandedCourtesyInvitation.collectionId,
+         collectionName: expandedCourtesyInvitation.collectionName,
+         created: expandedCourtesyInvitation.created,
+         updated: expandedCourtesyInvitation.updated,
+         organization: expandedCourtesyInvitation.organization,
+         congress: expandedCourtesyInvitation.congress,
+         stripePromotionCode: expandedCourtesyInvitation.stripePromotionCode,
+         used: expandedCourtesyInvitation.used,
+         tag: expandedCourtesyInvitation.tag,
+         userWhoRedeemed: expandedCourtesyInvitation.userWhoRedeemed,
+         sentTo: expandedCourtesyInvitation.sentTo,
+         redeemedAt: expandedCourtesyInvitation.redeemedAt,
+      };
+
+      return {
+         courtesyInvitation,
+         userWhoRedeemed: userWhoRedeemedName,
+      };
+   });
+
+   return courtesyInvitationsWithUsers;
+}
+
 export async function getCourtesyStripeCoupon() {
    const existingCourtesyCoupon = await getStripeCouponById(COURTESY_STRIPE_COUPON_ID);
    if (existingCourtesyCoupon) {
@@ -57,14 +114,14 @@ export async function getCourtesyStripeCoupon() {
    return newCourtesyCoupon;
 }
 
-export async function generateMultipleCourtesyInvitationCodes(congressId: string, quantity: number) {
+export async function generateMultipleCourtesyInvitationCodes(congressId: string, quantity: number, tag: string = "") {
    const organization = await getOrganizationFromSubdomain();
    for (let i = 0; i < quantity; i++) {
-      await createCourtesyInvitationCode(congressId, organization.id);
+      await createCourtesyInvitationCode(congressId, organization.id, tag);
    }
 }
 
-export async function createCourtesyInvitationCode(congressId: string, organizationId: string) {
+export async function createCourtesyInvitationCode(congressId: string, organizationId: string, tag: string = "") {
    const courtesyStripeCoupon = await getCourtesyStripeCoupon();
    const strypePromotionCode = await createStripePromotionCode(courtesyStripeCoupon.id, 1);
 
@@ -73,12 +130,15 @@ export async function createCourtesyInvitationCode(congressId: string, organizat
       organization: organizationId,
       stripePromotionCode: strypePromotionCode,
       used: false,
+      tag,
    };
 
    const courtesyInvitationCreated = await createCourtesyInvitationRecord(newCourtesyInvitationCode);
 
    return courtesyInvitationCreated;
 }
+
+const PERSONALIZED_INVITATION_TAG = "personalizada";
 
 export async function createSingleCourtesyInvitationAndSendEmail({
    email,
@@ -90,7 +150,7 @@ export async function createSingleCourtesyInvitationAndSendEmail({
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
 
-   const courtesyInvitation = await createCourtesyInvitationCode(congress.id, organization.id);
+   const courtesyInvitation = await createCourtesyInvitationCode(congress.id, organization.id, PERSONALIZED_INVITATION_TAG);
 
    await updateCourtesyInvitationRecord({
       courtesyInvitationId: courtesyInvitation.id,

@@ -21,6 +21,7 @@ export default function CourtesyInvitationForm() {
    const [email, setEmail] = useState("");
    const [recipientName, setRecipientName] = useState("");
    const [quantity, setQuantity] = useState(1);
+   const [tag, setTag] = useState("");
    const [error, setError] = useState<string | null>(null);
    const [isCreating, startTransition] = useTransition();
    const router = useRouter();
@@ -79,7 +80,7 @@ export default function CourtesyInvitationForm() {
       }
 
       startTransition(async () => {
-         const response = await createCourtesyInvitationsAction(quantity);
+         const response = await createCourtesyInvitationsAction(quantity, tag.trim());
 
          if (!response.success) {
             toast.error(response.errorMessage ?? "Error al crear las invitaciones");
@@ -234,6 +235,23 @@ export default function CourtesyInvitationForm() {
                         />
                         <p className="text-gray-500 text-xs">
                            Introduce un número entre {MIN_QUANTITY} y {MAX_QUANTITY}
+                        </p>
+                     </fieldset>
+
+                     <fieldset className="space-y-2">
+                        <label htmlFor="tag" className="block font-medium text-gray-700 text-sm">
+                           Etiqueta (opcional)
+                        </label>
+                        <input
+                           id="tag"
+                           type="text"
+                           value={tag}
+                           onChange={(e) => setTag(e.target.value)}
+                           placeholder="Ej: patrocinadores, prensa, ponentes..."
+                           className="px-3 py-2 border border-gray-300 focus:border-blue-500 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 w-full transition-colors"
+                        />
+                        <p className="text-gray-500 text-xs">
+                           Etiqueta para identificar el origen o destino de estas invitaciones
                         </p>
                      </fieldset>
 
