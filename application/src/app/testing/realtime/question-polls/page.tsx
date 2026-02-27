@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import RealtimeQuestionPollDisplay from "@/features/questionPolls/components/realtime/RealtimeQuestionPollDisplay";
 import RealtimeQuestionPollWidget from "@/features/questionPolls/components/realtime/RealtimeQuestionPollWidget";
 import { RealtimeQuestionPollContextProvider } from "@/features/questionPolls/contexts/RealtimeQuestionPollContext";
@@ -8,6 +9,7 @@ import {
 } from "@/features/questionPolls/services/questionPollServices";
 
 export default async function QuestionPollsPage() {
+   await connection();
    const questionPoll = await getQuestionPollById("8napzu560wosqo3");
    const questionPollOptions = await getQuestionPollOptions(questionPoll?.id ?? "");
    const questionPollAnswers = await getAllQuestionPollAnswers(questionPoll?.id ?? "");
