@@ -45,6 +45,7 @@
       "react-select": "^5.10.2",
       "stripe": "^20.2.0",
       "typescript": "^5.9.3",
+      "ua-parser-js": "^2.0.9",
       "use-sound": "^5.0.0",
       "validator": "^13.15.26",
       "zod": "^4.3.5"

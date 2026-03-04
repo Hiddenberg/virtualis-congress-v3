@@ -5,6 +5,7 @@ const PB_COLLECTIONS = {
    CONGRESSES: "congresses",
    CONGRESS_CONFERENCES: "congress__conferences",
    CONGRESS_REGISTRATIONS: "congress__registrations",
+   CONGRESS_REGISTRATION_ANALYTICS: "congress__registration_analytics",
    CONGRESS_IN_PERSON_STATE: "congress__in_person_state",
    CONGRESS_CERTIFICATE_DESIGNS: "congress__certificate_designs",
    CONGRESS_LANDING_CONFIGURATIONS: "congress__landing_configurations",

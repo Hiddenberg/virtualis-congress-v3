@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
-import { getLatestCongress } from "@/features/congresses/services/congressServices";
-import { getAllCourtesyInvitationsWithUsersNames } from "@/features/courtesyInvitations/services/courtesyInvitationServices";
+import { getUserAgentInfoFromHeaders } from "@/features/uaParser/services/uaParserServices";
+import ipInfo from "@/libs/ipInfo";
 
 export async function GET() {
-   // const congressRegistrationDetails = await getCongressUserRegistrationsDetailsOptimized();
-   const congress = await getLatestCongress();
+   const ipInfoResponse = await ipInfo.lookupIp("162.120.185.226");
+   const uaParserResponse = await getUserAgentInfoFromHeaders();
    return NextResponse.json({
       message: "Hello World",
-      test: await getAllCourtesyInvitationsWithUsersNames(congress.id),
+      ipInfo: ipInfoResponse,
+      uaParserResponse: uaParserResponse,
    });
 }
