@@ -7,6 +7,8 @@ import { redirect } from "next/navigation";
 import LeftBar from "@/components/global/LeftBar";
 import ConferenceNotificationController from "@/features/conferenceNotifications/components/ConferenceNotificationController";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
+import { registerUserRegistrationAnalytics } from "@/features/analytics/registrationAnalytics/services/registrationAnalyticsServices";
+import { getLatestCongress } from "@/features/congresses/services/congressServices";
 
 export default async function MenuLayout({ children }: { children: React.ReactNode }) {
    const headersList = await headers();
@@ -16,6 +18,16 @@ export default async function MenuLayout({ children }: { children: React.ReactNo
 
    if (!user) {
       return redirect(`/login?redirectTo=${currentPath}`);
+   }
+
+   const congress = await getLatestCongress();
+
+   // Register user registration analytics in the background
+   if (user && congress) {
+      registerUserRegistrationAnalytics({
+         congressId: congress.id,
+         userId: user,
+      });
    }
 
    return (

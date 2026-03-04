@@ -1,3 +1,4 @@
+import { registerUserRegistrationAnalytics } from "@/features/analytics/registrationAnalytics/services/registrationAnalyticsServices";
 import { getAllProgramConferencesWithSpeakers } from "@/features/conferences/aggregators/conferenceAggregators";
 import { getCongressLandingConfigurationByCongressId } from "@/features/congresses/services/congressLandingConfigurationServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
@@ -17,6 +18,14 @@ export default async function GenericCongressLandingPage({ organization }: { org
 
    if (!congressLandingConfiguration) {
       throw new Error("Congress landing configuration not found");
+   }
+
+   // Register user registration analytics in the background
+   if (userId && congress) {
+      registerUserRegistrationAnalytics({
+         congressId: congress.id,
+         userId,
+      });
    }
 
    return (
