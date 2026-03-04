@@ -3,11 +3,19 @@ import mux from "@/libs/mux";
 import "server-only";
 
 export async function createMuxStaticRendition(muxAssetId: string) {
+   // Check if the mux asset is already has a static rendition
    const muxAsset = await getMuxAssetById(muxAssetId);
-
    if (!muxAsset) {
       console.error("[createMuxStaticRendition] Error creating mux static rendition", muxAssetId);
       throw new Error("Mux asset not found");
+   }
+
+   console.log("[createMuxStaticRendition] Mux asset", muxAsset);
+
+   const renditionFiles = muxAsset.static_renditions?.files ?? [];
+
+   if (renditionFiles.length > 0) {
+      return;
    }
 
    await mux.video.assets.createStaticRendition(muxAsset.id, {

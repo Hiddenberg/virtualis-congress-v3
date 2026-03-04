@@ -34,6 +34,10 @@ export default async function RecordingSavedPage({ params }: { params: Promise<{
                </div>
                <h1 className="mb-2 font-bold text-white text-3xl">¡Grabación Guardada!</h1>
                <p className="text-green-100 text-lg">Tu video ha sido guardado exitosamente: {recording.title}</p>
+
+               <LinkButton href={`/recordings/record/${recordingId}/review`} variant="blue" className="w-full!">
+                  Revisar grabación Nuevamente
+               </LinkButton>
             </div>
 
             {/* Main content */}

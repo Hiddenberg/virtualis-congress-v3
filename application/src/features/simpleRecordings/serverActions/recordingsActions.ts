@@ -325,7 +325,16 @@ export async function acceptRecordingAction(recordingId: string): Promise<Backen
          };
       }
 
+      if (recording.status === "ready") {
+         return {
+            success: true,
+            data: null,
+         };
+      }
+
       await createMuxStaticRendition(recording.muxAssetId);
+
+      // The status is changed to processing and it's marked as ready once the static rendition is ready
       await updateSimpleRecording(recordingId, {
          status: "processing",
       });

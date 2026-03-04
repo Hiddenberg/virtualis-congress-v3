@@ -279,8 +279,8 @@ export default function RecordingLivestreamControlButtons({ sessionTitle }: { se
 
    return (
       <div className="justify-center! items-center! gap-4! bg-white/90! shadow-lg! backdrop-blur-sm! p-4! border-gray-200/50! rounded-2xl! flex! border!">
-         {/* Status indicator when no action is available */}
          <RecordingButtonSelector sessionTitle={sessionTitle} />
+         <p className="max-w-[140px]! text-red-500! text-xs!">Debes grabar al menos por 15 segundos</p>
       </div>
    );
 }
