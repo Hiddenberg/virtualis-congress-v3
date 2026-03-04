@@ -1,7 +1,6 @@
 "use client";
 
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { CHART_COLORS } from "../utils/registrationAnalyticsUtils";
 
 const TOOLTIP_STYLE = {
    borderRadius: "8px",
@@ -20,10 +19,7 @@ interface AttendanceModalityChartProps {
    totalRegistrations: number;
 }
 
-export default function AttendanceModalityChart({
-   data,
-   totalRegistrations,
-}: AttendanceModalityChartProps) {
+export default function AttendanceModalityChart({ data, totalRegistrations }: AttendanceModalityChartProps) {
    return (
       <ResponsiveContainer width="100%" height="100%">
          <PieChart>
@@ -36,9 +32,7 @@ export default function AttendanceModalityChart({
                paddingAngle={2}
                dataKey="value"
                nameKey="name"
-               label={({ name, percent }) =>
-                  `${name} ${((percent ?? 0) * 100).toFixed(0)}%`
-               }
+               label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
             >
                {data.map((entry) => (
                   <Cell key={entry.name} fill={entry.fill} />

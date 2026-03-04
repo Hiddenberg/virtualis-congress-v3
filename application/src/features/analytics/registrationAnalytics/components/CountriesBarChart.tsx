@@ -1,14 +1,6 @@
 "use client";
 
-import {
-   Bar,
-   BarChart,
-   CartesianGrid,
-   ResponsiveContainer,
-   Tooltip,
-   XAxis,
-   YAxis,
-} from "recharts";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const TOOLTIP_STYLE = {
    borderRadius: "8px",
@@ -27,18 +19,10 @@ interface CountriesBarChartProps {
    barColor?: string;
 }
 
-export default function CountriesBarChart({
-   data,
-   totalCount,
-   barColor = "#8b5cf6",
-}: CountriesBarChartProps) {
+export default function CountriesBarChart({ data, totalCount, barColor = "#8b5cf6" }: CountriesBarChartProps) {
    return (
       <ResponsiveContainer width="100%" height="100%">
-         <BarChart
-            data={data}
-            layout="vertical"
-            margin={{ top: 8, right: 24, left: 60, bottom: 0 }}
-         >
+         <BarChart data={data} layout="vertical" margin={{ top: 8, right: 24, left: 60, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" horizontal={false} />
             <XAxis
                type="number"

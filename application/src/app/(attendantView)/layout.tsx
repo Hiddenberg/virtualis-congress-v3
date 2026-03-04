@@ -5,10 +5,10 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import LeftBar from "@/components/global/LeftBar";
-import ConferenceNotificationController from "@/features/conferenceNotifications/components/ConferenceNotificationController";
-import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { registerUserRegistrationAnalytics } from "@/features/analytics/registrationAnalytics/services/registrationAnalyticsServices";
+import ConferenceNotificationController from "@/features/conferenceNotifications/components/ConferenceNotificationController";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
+import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 
 export default async function MenuLayout({ children }: { children: React.ReactNode }) {
    const headersList = await headers();

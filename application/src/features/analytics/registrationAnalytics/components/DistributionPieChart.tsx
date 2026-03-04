@@ -23,21 +23,9 @@ export default function DistributionPieChart({ data, totalCount }: DistributionP
    return (
       <ResponsiveContainer width="100%" height="100%">
          <PieChart>
-            <Pie
-               data={data}
-               cx="50%"
-               cy="50%"
-               innerRadius={50}
-               outerRadius={85}
-               paddingAngle={2}
-               dataKey="value"
-               nameKey="name"
-            >
+            <Pie data={data} cx="50%" cy="50%" innerRadius={50} outerRadius={85} paddingAngle={2} dataKey="value" nameKey="name">
                {data.map((entry, idx) => (
-                  <Cell
-                     key={entry.name}
-                     fill={CHART_COLORS[idx % CHART_COLORS.length]}
-                  />
+                  <Cell key={entry.name} fill={CHART_COLORS[idx % CHART_COLORS.length]} />
                ))}
             </Pie>
             <Tooltip
