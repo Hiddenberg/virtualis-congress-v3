@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { registerUserRegistrationAnalytics } from "@/features/analytics/registrationAnalytics/services/registrationAnalyticsServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import type { CongressRegistration } from "@/features/congresses/types/congressRegistrationTypes";
 import { sendOTPCodeEmail, sendPlatformRegistrationConfirmationEmail } from "@/features/emails/services/emailSendingServices";
@@ -369,6 +370,11 @@ export async function signupToCongressAction(newUserData: Omit<NewUserData, "rol
       const authData = await createUserAuthData(newUserId);
       await setRefreshTokenCookie(authData.refreshToken);
       await setAuthTokenCookie(authData.authToken);
+
+      await registerUserRegistrationAnalytics({
+         congressId: congress.id,
+         userId: newUserId,
+      });
 
       return {
          success: true,
