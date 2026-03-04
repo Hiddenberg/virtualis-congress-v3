@@ -4,7 +4,7 @@ import { getIpInfoFromHeaders } from "@/features/ipInfo/services/ipInfoServices"
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { getUserAgentInfoFromHeaders } from "@/features/uaParser/services/uaParserServices";
 import type { UserRecord } from "@/features/users/types/userTypes";
-import { createDBRecord, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
+import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { NewRegistrationAnalyticsData, RegistrationAnalytics } from "../types/registrationAnalyticsTypes";
 
 export async function createRegistrationAnalyticsRecord(registrationAnalytics: NewRegistrationAnalyticsData) {
@@ -39,6 +39,27 @@ export async function getRegistrationAnalyticsByCongressAndUserId({
    );
 
    const registrationAnalytics = await getSingleDBRecord<RegistrationAnalytics>("CONGRESS_REGISTRATION_ANALYTICS", filter);
+
+   return registrationAnalytics;
+}
+
+export async function getAllRegistrationAnalyticsByCongressId(congressId: CongressRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId}
+   `,
+      {
+         organizationId: organization.id,
+         congressId,
+      },
+   );
+
+   const registrationAnalytics = await getFullDBRecordsList<RegistrationAnalytics>("CONGRESS_REGISTRATION_ANALYTICS", {
+      filter,
+   });
 
    return registrationAnalytics;
 }
