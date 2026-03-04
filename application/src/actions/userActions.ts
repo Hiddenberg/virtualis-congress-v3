@@ -9,14 +9,7 @@ import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAu
 import { createUser, getUserByEmail, getUserById } from "@/features/users/services/userServices";
 import pbServerClient from "@/libs/pbServerClient";
 import { checkAuthorizedUserFromServer } from "@/services/authServices";
-import { getIpInfoFromHeaders } from "@/services/ipServices";
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
-
-export async function getUserIpInfoAction() {
-   const ipInfoResponse = await getIpInfoFromHeaders();
-
-   return ipInfoResponse;
-}
 
 export async function createNewCoordinatorUserAction({
    coordinatorName,

@@ -27,7 +27,7 @@
         "mime": "^4.1.0",
         "nanoid": "^5.1.6",
         "next": "^16.1.6",
-        "node-ipinfo": "^4.2.0",
+        "node-ipinfo": "^4.3.0",
         "nodemailer": "^7.0.12",
         "openai": "^6.16.0",
         "papaparse": "^5.5.3",
