@@ -92,7 +92,7 @@ export async function registerUserRegistrationAnalytics({
       timeZone: ipInfo?.timezone,
       browser: userAgentInfo?.browser?.name,
       browserVersion: userAgentInfo?.browser?.version,
-      deviceType: userAgentInfo?.device?.type,
+      deviceType: userAgentInfo?.device?.type ?? "PC",
       deviceVendor: userAgentInfo?.device?.vendor,
       devicecModel: userAgentInfo?.device?.model,
       os: userAgentInfo?.os?.name,

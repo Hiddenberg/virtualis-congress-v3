@@ -11,7 +11,7 @@ export default async function RegistrationAnalyticsPage() {
    const congressRegistrationAnalytics = await getAllRegistrationAnalyticsByCongressId(congress.id);
 
    return (
-      <div>
+      <div className="space-y-8 p-6">
          <AdminSubPageHeader
             title="Análiticas de registros al congreso"
             Icon={ChartBarIcon}
