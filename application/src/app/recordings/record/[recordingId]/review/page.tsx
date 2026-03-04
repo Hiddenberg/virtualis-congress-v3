@@ -1,5 +1,6 @@
 import MuxPlayer from "@mux/mux-player-react/lazy";
 import { AlertCircle, Clock, Eye, Play, RotateCcw, Save, Volume2 } from "lucide-react";
+import { LinkButton } from "@/components/global/Buttons";
 import PresentationAndVideoPlayer from "@/features/pptPresentations/components/PresentationAndVideoPlayer";
 import { getPresentationRecordingByPresentationId } from "@/features/pptPresentations/services/presentationRecordingServices";
 import { getPresentationSlidesById } from "@/features/pptPresentations/services/presentationServices";
@@ -21,6 +22,21 @@ export default async function ReviewRecordingPage({ params }: { params: Promise<
                <AlertCircle className="mx-auto mb-4 size-12 text-red-500" />
                <h1 className="mb-2 font-semibold text-gray-900 text-xl">Grabación no encontrada</h1>
                <p className="text-gray-600">La grabación con ID {recordingId} no existe o no tienes permisos para verla.</p>
+            </div>
+         </div>
+      );
+   }
+
+   if (recording.status === "scheduled") {
+      return (
+         <div className="flex justify-center items-center bg-gray-50 p-4 min-h-screen">
+            <div className="bg-white shadow-lg p-8 rounded-xl w-full max-w-md text-center">
+               <Clock className="mx-auto mb-4 size-12 text-amber-500" />
+               <h1 className="mb-2 font-semibold text-gray-900 text-xl">La grabación se programó correctamente</h1>
+               <p className="text-gray-600">Tu grabación se programó correctamente</p>
+               <LinkButton href={`/recordings/record/${recordingId}/`} variant="blue" className="w-full!">
+                  Ir a la grabación
+               </LinkButton>
             </div>
          </div>
       );
