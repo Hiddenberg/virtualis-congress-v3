@@ -43,6 +43,7 @@
       "react-dom": "^19.2.4",
       "react-hot-toast": "^2.6.0",
       "react-select": "^5.10.2",
+      "recharts": "^3.7.0",
       "stripe": "^20.2.0",
       "typescript": "^5.9.3",
       "ua-parser-js": "^2.0.9",
