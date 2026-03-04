@@ -348,9 +348,9 @@ export async function scheduleAllConferenceRecordingsAction(): Promise<BackendRe
                title: conferenceRecordingTitle,
                recorderName: conferenceSpeaker
                   ? `${conferenceSpeaker.academicTitle} ${conferenceSpeaker.displayName}`
-                  : "Automated Recording",
+                  : undefined,
                status: "scheduled",
-               recorderEmail: speakerUser?.email ?? "automated@recording.com",
+               recorderEmail: speakerUser?.email,
                recordingType: "camera_and_presentation",
                invitationEmailStatus: "not_sent",
                durationSeconds: 0,
@@ -420,7 +420,18 @@ export async function scheduleAllConferencePresentationRecordingsAction(): Promi
          errorMessage: string;
       }[] = [];
 
-      for (const conference of allConferences) {
+      const simulatedLivestreamConferences = allConferences.filter(
+         (conference) => conference.conferenceType === "simulated_livestream",
+      );
+
+      if (simulatedLivestreamConferences.length === 0) {
+         return {
+            success: false,
+            errorMessage: "No simulated livestream conferences found",
+         };
+      }
+
+      for (const conference of simulatedLivestreamConferences) {
          try {
             // This applies only to simulated livestreams
             if (conference.conferenceType !== "simulated_livestream") {
