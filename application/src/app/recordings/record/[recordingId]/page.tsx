@@ -22,6 +22,10 @@ export default async function RecordingPage({ params }: { params: Promise<{ reco
       );
    }
 
+   if (recording.status === "error") {
+      return redirect(`/recordings/record/${recordingId}/error`);
+   }
+
    if (recording.status === "reviewing") {
       return redirect(`/recordings/record/${recordingId}/review`);
    }

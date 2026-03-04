@@ -7,6 +7,50 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
 import { acceptRecordingAction, rejectRecordingAction } from "../serverActions/recordingsActions";
 
+export function RecordAgainButton({ buttonText = "Volver a grabar", className }: { buttonText?: string; className?: string }) {
+   const [rejecting, startRejectTransaction] = useTransition();
+   const router = useRouter();
+   const { recordingId } = useParams();
+
+   if (!recordingId || typeof recordingId !== "string") {
+      return (
+         <div className="bg-red-50 p-4 border border-red-200 rounded-lg">
+            <div className="flex items-center gap-2 text-red-800">
+               <AlertTriangle className="size-5" />
+               <span className="font-medium">Error: ID de grabación no encontrado</span>
+            </div>
+         </div>
+      );
+   }
+
+   const handleRecordAgain = () => {
+      // Show confirmation dialog
+      const confirmed = window.confirm(
+         "¿Estás seguro de que quieres volver a grabar? Se eliminará la grabación actual, ESTO NO SE PUEDE DESHACER.",
+      );
+
+      if (!confirmed) return;
+
+      startRejectTransaction(async () => {
+         const rejectResponse = await rejectRecordingAction(recordingId);
+         if (!rejectResponse.success) {
+            toast.error(rejectResponse.errorMessage);
+            return;
+         }
+
+         toast.success("Grabación eliminada correctamente");
+         router.replace(`/recordings/record/${recordingId}/`);
+      });
+   };
+
+   return (
+      <Button onClick={handleRecordAgain} loading={rejecting} variant="destructive" className={`w-full text-sm ${className}`}>
+         <RotateCcw className="size-4" />
+         {rejecting ? "Eliminando grabación..." : buttonText}
+      </Button>
+   );
+}
+
 export function ReviewRecordingButtons() {
    const [accepting, startAcceptTransition] = useTransition();
    const [rejecting, startRejectTransaction] = useTransition();
@@ -65,7 +109,7 @@ export function ReviewRecordingButtons() {
          <Button
             disabled={isLoading}
             onClick={handleAcceptRecording}
-            loading={accepting}
+            loading={accepting || rejecting}
             variant="green"
             className="px-8 py-3 w-full sm:w-auto font-semibold text-xl"
          >
@@ -76,7 +120,7 @@ export function ReviewRecordingButtons() {
          <Button
             disabled={isLoading}
             onClick={handleRecordAgain}
-            loading={rejecting}
+            loading={rejecting || accepting}
             variant="destructive"
             className="px-8 py-3 w-full sm:w-auto font-semibold text-sm"
          >

@@ -359,12 +359,6 @@ export async function rejectRecordingAction(recordingId: string): Promise<Backen
             errorMessage: "[RejectRecordingAction] Recording not found",
          };
       }
-      if (!recording.muxAssetId) {
-         return {
-            success: false,
-            errorMessage: "[RejectRecordingAction] Mux asset not found",
-         };
-      }
 
       await deletePresentationRecordingForRecording(recordingId);
 
@@ -376,7 +370,9 @@ export async function rejectRecordingAction(recordingId: string): Promise<Backen
          };
       }
 
-      await deleteMuxAsset(recording.muxAssetId);
+      if (recording.muxAssetId) {
+         await deleteMuxAsset(recording.muxAssetId);
+      }
       await updateLivestreamSession(recordingLivestreamSession.id, {
          status: "scheduled",
          attendantStatus: "scheduled",
