@@ -6,6 +6,10 @@ import {
 } from "@/features/congresses/services/congressRegistrationServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
+   createSingleCourtesyInvitationAndSendEmail,
+   getCourtesyInvitationBySentToEmail,
+} from "@/features/courtesyInvitations/services/courtesyInvitationServices";
+import {
    sendAboutToStartEventEmail,
    sendEventFinishedEmail,
    sendIphoneIssueSolvedEmail,
@@ -479,6 +483,93 @@ export async function sendOnDemandReminderEmailsToAllUsersWithoutPaymentsAction(
          successMessage: `${usersWithoutPayments.length} users without payments, ${emailsSentArray.length} emails sent, ${emailsErroredArray.length} emails errored`,
          data: {
             emailsSent: emailsSentArray.length,
+            emailsErrored: emailsErroredArray.length,
+            emailErrors: emailsErroredArray,
+         },
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "An unknown error occurred",
+      };
+   }
+}
+
+export async function sendCourtesyInvitationEmailsToAllSpeakersAction(): Promise<BackendResponse<unknown>> {
+   try {
+      await checkIfUserIsSuperAdmin();
+
+      const allSpeakers = await getAllSpeakersDetails();
+
+      const emailsSentArray: {
+         speakerName: string;
+         speakerEmail: string;
+      }[] = [];
+      const emailsSkippedArray: {
+         speakerName: string;
+         speakerEmail: string;
+         reason: string;
+      }[] = [];
+      const emailsErroredArray: EmailError[] = [];
+
+      for (const speakerDetails of allSpeakers) {
+         try {
+            if (!speakerDetails.email) {
+               emailsSkippedArray.push({
+                  speakerName: speakerDetails.name,
+                  speakerEmail: speakerDetails.email || "",
+                  reason: "Speaker email not found",
+               });
+               continue;
+            }
+
+            const existingCourtesyInvitation = await getCourtesyInvitationBySentToEmail(speakerDetails.email);
+            if (existingCourtesyInvitation) {
+               emailsSkippedArray.push({
+                  speakerName: speakerDetails.name,
+                  speakerEmail: speakerDetails.email || "",
+                  reason: "Speaker already has a courtesy invitation",
+               });
+               continue;
+            }
+
+            await createSingleCourtesyInvitationAndSendEmail({
+               email: speakerDetails.email,
+               recipientName: speakerDetails.name,
+               tag: "Invitación de ponente",
+            });
+
+            emailsSentArray.push({
+               speakerEmail: speakerDetails.email,
+               speakerName: speakerDetails.name,
+            });
+         } catch (error) {
+            if (error instanceof Error) {
+               emailsErroredArray.push({
+                  user: speakerDetails.email || "",
+                  errorMessage: error.message,
+               });
+            } else {
+               emailsErroredArray.push({
+                  user: speakerDetails.email || "",
+                  errorMessage: "An unknown error occurred",
+               });
+            }
+         }
+      }
+
+      return {
+         success: true,
+         successMessage: `${allSpeakers.length} speakers, ${emailsSentArray.length} emails sent, ${emailsSkippedArray.length} emails skipped, ${emailsErroredArray.length} emails errored`,
+         data: {
+            emailsSent: emailsSentArray,
+            emailsSkipped: emailsSkippedArray,
             emailsErrored: emailsErroredArray.length,
             emailErrors: emailsErroredArray,
          },

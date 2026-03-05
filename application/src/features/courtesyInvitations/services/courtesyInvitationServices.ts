@@ -17,11 +17,27 @@ import type {
 } from "../types/courtesyInvitationTypes";
 
 export async function createCourtesyInvitationRecord(newCourtesyInvitationData: CourtesyInvitation) {
-   const newCourtesyInvitationRecord = await createDBRecord<CourtesyInvitation>(
-      "COURTESY_INVITATIONS",
-      newCourtesyInvitationData,
-   );
+   const newCourtesyInvitationRecord = await createDBRecord<CourtesyInvitation>("COURTESY_INVITATIONS", {
+      ...newCourtesyInvitationData,
+      sentTo: newCourtesyInvitationData.sentTo?.trim().toLowerCase() ?? undefined,
+   });
    return newCourtesyInvitationRecord;
+}
+
+export async function getCourtesyInvitationBySentToEmail(sentToEmail: string) {
+   const organization = await getOrganizationFromSubdomain();
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      sentTo = {:sentToEmail}
+   `,
+      {
+         organizationId: organization.id,
+         sentToEmail: sentToEmail.trim().toLowerCase(),
+      },
+   );
+   const courtesyInvitation = await getSingleDBRecord<CourtesyInvitation>("COURTESY_INVITATIONS", filter);
+   return courtesyInvitation;
 }
 
 export async function getAllCourtesyInvitations() {
@@ -143,14 +159,20 @@ const PERSONALIZED_INVITATION_TAG = "personalizada";
 export async function createSingleCourtesyInvitationAndSendEmail({
    email,
    recipientName,
+   tag,
 }: {
    email: string;
    recipientName?: string;
+   tag?: string;
 }) {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
 
-   const courtesyInvitation = await createCourtesyInvitationCode(congress.id, organization.id, PERSONALIZED_INVITATION_TAG);
+   const courtesyInvitation = await createCourtesyInvitationCode(
+      congress.id,
+      organization.id,
+      tag ?? PERSONALIZED_INVITATION_TAG,
+   );
 
    await updateCourtesyInvitationRecord({
       courtesyInvitationId: courtesyInvitation.id,

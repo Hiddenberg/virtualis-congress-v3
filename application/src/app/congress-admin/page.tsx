@@ -334,25 +334,6 @@ export default async function CongressAdminPage() {
                </div>
             </div>
          )}
-
-         {/* Quick Stats Section */}
-         {/* <div className="bg-linear-to-br from-gray-50 to-gray-100 mt-12 p-6 rounded-xl">
-            <h2 className="mb-4 font-semibold text-gray-900 text-xl">Vista Rápida</h2>
-            <div className="gap-4 grid grid-cols-1 md:grid-cols-3">
-               <div className="bg-white p-4 rounded-lg text-center">
-                  <div className="mb-1 font-bold text-blue-600 text-2xl">-</div>
-                  <div className="text-gray-600 text-sm">Conferencias Activas</div>
-               </div>
-               <div className="bg-white p-4 rounded-lg text-center">
-                  <div className="mb-1 font-bold text-purple-600 text-2xl">-</div>
-                  <div className="text-gray-600 text-sm">Ponentes Registrados</div>
-               </div>
-               <div className="bg-white p-4 rounded-lg text-center">
-                  <div className="mb-1 font-bold text-green-600 text-2xl">-</div>
-                  <div className="text-gray-600 text-sm">Coordinadores del Equipo</div>
-               </div>
-            </div>
-         </div> */}
       </div>
    );
 }

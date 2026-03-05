@@ -12,6 +12,7 @@ import { sendSpeakerPresentationUploadReminderEmailToAllSpeakersAction } from "@
 import {
    sendAboutToStartEventEmailToAllUsersAction,
    sendCongressInvitationEmailsToNonPayersAction,
+   sendCourtesyInvitationEmailsToAllSpeakersAction,
    sendEventFinishedEmailToAllUsersAction,
    sendIphoneIssueSolvedEmailToAllUsersAction,
    sendNewEventDayAboutToStartEmailToAllUsersAction,
@@ -93,6 +94,12 @@ export default async function CongressAdminSynchPage() {
                action={sendSpeakerPresentationUploadReminderEmailToAllSpeakersAction}
                buttonText="Enviar correo de recordatorio de subida de presentación a todos los ponentes"
                description="Esta acción enviará un correo de recordatorio a los ponentes de todas las conferencias en vivo o presenciales de que deben subir su presentación para todas las conferencias del congreso actual."
+            />
+
+            <SuperAdminToolCard
+               action={sendCourtesyInvitationEmailsToAllSpeakersAction}
+               buttonText="Enviar correos de invitación de cortesía a todos los ponentes"
+               description="Esta acción enviará un correo de invitación de cortesía a todos los ponentes registrados en el congreso actual."
             />
          </div>
       </div>
