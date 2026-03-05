@@ -3,6 +3,7 @@ import {
    ArrowDownUp,
    BarChart3,
    Calendar,
+   ChartBarIcon,
    CreditCard,
    GiftIcon,
    // GiftIcon,
@@ -116,6 +117,15 @@ const adminSections: AdminLink[] = [
       color: "bg-pink-500",
       lightColor: "bg-pink-50",
       textColor: "text-pink-600",
+   },
+   {
+      title: "Analiticas de los registrados",
+      description: "Analizar los datos de los registrados al congreso",
+      href: "/congress-admin/registration-analytics",
+      icon: ChartBarIcon,
+      color: "bg-indigo-500",
+      lightColor: "bg-indigo-50",
+      textColor: "text-indigo-600",
    },
 ];
 
