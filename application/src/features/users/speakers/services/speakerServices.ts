@@ -5,8 +5,43 @@ import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import "server-only";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
-import { createDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter, updateDBRecord } from "@/libs/pbServerClientNew";
+import {
+   createDBRecord,
+   getDBRecordById,
+   getFullDBRecordsList,
+   getSingleDBRecord,
+   pbFilter,
+   updateDBRecord,
+} from "@/libs/pbServerClientNew";
 import type { User, UserRecord } from "../../types/userTypes";
+
+export type SpeakerWithUser = SpeakerDataRecord & {
+   expand?: {
+      user?: UserRecord;
+   };
+};
+
+export async function getSpeakerById(speakerId: string): Promise<SpeakerWithUser | null> {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const record = await getDBRecordById<
+      SpeakerData & {
+         expand?: {
+            user?: UserRecord;
+         };
+      }
+   >("SPEAKERS_DATA", speakerId, {
+      expand: "user",
+   });
+
+   if (!record) return null;
+
+   const isSameOrgAndCongress = record.organization === organization.id && record.congress === congress.id;
+   if (!isSameOrgAndCongress) return null;
+
+   return record as SpeakerWithUser;
+}
 
 export async function getSpeakerDataByUserId(userId: string) {
    const organization = await getOrganizationFromSubdomain();
@@ -58,11 +93,13 @@ export async function getAllSpeakersDetails() {
 
    const pbUrl = process.env.NEXT_PUBLIC_POCKETBASE_URL;
    const speakerDetails = expandedSpeakers.map((expandedSpeaker) => ({
+      id: expandedSpeaker.id,
       name: expandedSpeaker.displayName,
       email: expandedSpeaker.expand.user?.email || undefined,
       bio: expandedSpeaker.bio,
       academicTitle: expandedSpeaker.academicTitle,
       specialityDetails: expandedSpeaker.specialityDetails,
+      phoneNumber: expandedSpeaker.expand.user?.phoneNumber || undefined,
       presentationPhotoUrl:
          typeof expandedSpeaker.presentationPhoto === "string"
             ? `${pbUrl}/api/files/${expandedSpeaker.collectionId}/${expandedSpeaker.id}/${expandedSpeaker.presentationPhoto}`
@@ -187,6 +224,38 @@ export async function linkSpeakerAccount(userId: UserRecord["id"], speakerDataId
    });
 
    return updatedSpeakerData;
+}
+
+export async function unlinkSpeakerAccount(speakerDataId: SpeakerDataRecord["id"]) {
+   const updatedSpeakerData = await updateDBRecord<SpeakerData>("SPEAKERS_DATA", speakerDataId, {
+      user: null as unknown as UserRecord["id"],
+   });
+
+   return updatedSpeakerData;
+}
+
+export interface UpdateSpeakerDataInput {
+   displayName?: string;
+   academicTitle?: SpeakerData["academicTitle"];
+   specialityDetails?: string;
+   bio?: string;
+   presentationPhoto?: File;
+}
+
+export async function updateSpeakerDataRecord(
+   speakerId: SpeakerDataRecord["id"],
+   data: UpdateSpeakerDataInput,
+): Promise<SpeakerDataRecord> {
+   const updatePayload: Partial<SpeakerData> = {};
+
+   if (data.displayName !== undefined) updatePayload.displayName = data.displayName;
+   if (data.academicTitle !== undefined) updatePayload.academicTitle = data.academicTitle;
+   if (data.specialityDetails !== undefined) updatePayload.specialityDetails = data.specialityDetails;
+   if (data.bio !== undefined) updatePayload.bio = data.bio;
+   if (data.presentationPhoto !== undefined) updatePayload.presentationPhoto = data.presentationPhoto;
+
+   const updated = await updateDBRecord<SpeakerData>("SPEAKERS_DATA", speakerId, updatePayload);
+   return updated;
 }
 
 export async function getAllSpeakerPhoneNumbers() {

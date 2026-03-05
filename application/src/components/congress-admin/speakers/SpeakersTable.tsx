@@ -1,10 +1,12 @@
 "use client";
 
-import { ChevronDown, ChevronUp, Download, Mail, Phone, Search } from "lucide-react";
+import { ChevronDown, ChevronUp, Download, Mail, Pencil, Phone, Search } from "lucide-react";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { AcademicTitle } from "@/data/utils";
 
 export interface Speaker {
+   id?: string;
    name: string;
    email?: string;
    bio?: string;
@@ -136,7 +138,7 @@ function TableHeaderCell({
 function EmptyState() {
    return (
       <tr>
-         <td colSpan={6} className="px-6 py-12 text-center">
+         <td colSpan={7} className="px-6 py-12 text-center">
             <div className="flex flex-col justify-center items-center">
                <svg
                   className="mb-4 w-12 h-12 text-gray-300"
@@ -336,7 +338,7 @@ export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, e
                   {filteredAndSortedSpeakers.length > 0 ? (
                      filteredAndSortedSpeakers.map((speaker, index) => (
                         <tr
-                           key={speaker.email || index}
+                           key={speaker.id || speaker.email || index}
                            className="hover:bg-gray-50 transition-colors"
                            onClick={() => onSpeakerSelect?.(speaker)}
                         >
@@ -377,6 +379,18 @@ export function SpeakersTable({ speakers, onSpeakerSelect, searchable = false, e
                               <div className="max-w-xs text-gray-500 text-sm truncate">
                                  {speaker.specialityDetails || <span className="text-gray-400">—</span>}
                               </div>
+                           </td>
+                           <td className="px-4 py-4 whitespace-nowrap">
+                              {speaker.id && (
+                                 <Link
+                                    href={`/congress-admin/speakers/${speaker.id}/edit`}
+                                    className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 text-sm font-medium"
+                                    onClick={(e) => e.stopPropagation()}
+                                 >
+                                    <Pencil size={14} />
+                                    Editar
+                                 </Link>
+                              )}
                            </td>
                         </tr>
                      ))

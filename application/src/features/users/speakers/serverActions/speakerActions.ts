@@ -21,9 +21,13 @@ import { checkIfUserExists, createUser, getUserByEmail } from "../../services/us
 import type { UserRecord } from "../../types/userTypes";
 import {
    createSpeakerDataRecord,
+   getSpeakerById,
    getSpeakerDataByUserId,
    linkSpeakerAccount,
    type NewSpeakerData,
+   type UpdateSpeakerDataInput,
+   unlinkSpeakerAccount,
+   updateSpeakerDataRecord,
 } from "../services/speakerServices";
 
 export async function registerSpeakerFromAdminFormAction(
@@ -154,4 +158,128 @@ export async function registerSpeakerUserAction(
          successMessage: "Conferencista registrado correctamente",
       },
    };
+}
+
+export interface UpdateSpeakerFormData extends UpdateSpeakerDataInput {
+   speakerId: string;
+   linkEmail?: string;
+   unlinkAccount?: boolean;
+}
+
+export async function updateSpeakerAction(formData: UpdateSpeakerFormData): Promise<BackendResponse<SpeakerDataRecord>> {
+   try {
+      const isUserAuthorized = await checkAuthorizedUserFromServer(["admin", "super_admin"]);
+      if (!isUserAuthorized) {
+         return {
+            success: false,
+            errorMessage: "No tienes permisos para actualizar ponentes",
+         };
+      }
+
+      const { speakerId, linkEmail, unlinkAccount, ...speakerData } = formData;
+
+      if (unlinkAccount) {
+         await unlinkSpeakerAccount(speakerId);
+      } else if (linkEmail?.trim()) {
+         const normalizedEmail = linkEmail.toLowerCase().trim();
+         const userExists = await checkIfUserExists(normalizedEmail);
+
+         if (!userExists) {
+            return {
+               success: false,
+               errorMessage: "No existe un usuario con ese correo. Crea primero la cuenta del usuario.",
+            };
+         }
+
+         const user = await getUserByEmail(normalizedEmail);
+         if (!user) {
+            return {
+               success: false,
+               errorMessage: "Usuario no encontrado",
+            };
+         }
+
+         const existingSpeakerForUser = await getSpeakerDataByUserId(user.id);
+         if (existingSpeakerForUser && existingSpeakerForUser.id !== speakerId) {
+            return {
+               success: false,
+               errorMessage: "Este correo ya está vinculado a otro ponente",
+            };
+         }
+
+         if (user.role === "attendant") {
+            await updateUserRole(user.id, "speaker");
+         }
+
+         const userRegistration = await getCongressRegistrationByUserId(user.id);
+         if (!userRegistration) {
+            await registerUserToLatestCongress(user.id);
+         }
+
+         await linkSpeakerAccount(user.id, speakerId);
+      }
+
+      const updatePayload: UpdateSpeakerDataInput = {};
+      if (speakerData.displayName !== undefined) updatePayload.displayName = speakerData.displayName;
+      if (speakerData.academicTitle !== undefined) updatePayload.academicTitle = speakerData.academicTitle;
+      if (speakerData.specialityDetails !== undefined) updatePayload.specialityDetails = speakerData.specialityDetails;
+      if (speakerData.bio !== undefined) updatePayload.bio = speakerData.bio;
+      if (speakerData.presentationPhoto !== undefined) updatePayload.presentationPhoto = speakerData.presentationPhoto;
+
+      if (Object.keys(updatePayload).length > 0) {
+         await updateSpeakerDataRecord(speakerId, updatePayload);
+      }
+
+      revalidatePath("/congress-admin/speakers");
+      revalidatePath(`/congress-admin/speakers/${speakerId}/edit`);
+
+      const updatedSpeaker = await getSpeakerById(speakerId);
+      return {
+         success: true,
+         data: (updatedSpeaker ?? {}) as SpeakerDataRecord,
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "Error al actualizar el ponente",
+      };
+   }
+}
+
+export async function unlinkSpeakerAccountAction(speakerId: string): Promise<BackendResponse<{ success: boolean }>> {
+   try {
+      const isUserAuthorized = await checkAuthorizedUserFromServer(["admin", "super_admin"]);
+      if (!isUserAuthorized) {
+         return {
+            success: false,
+            errorMessage: "No tienes permisos para desvincular cuentas",
+         };
+      }
+
+      await unlinkSpeakerAccount(speakerId);
+      revalidatePath("/congress-admin/speakers");
+      revalidatePath(`/congress-admin/speakers/${speakerId}/edit`);
+
+      return {
+         success: true,
+         data: { success: true },
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      return {
+         success: false,
+         errorMessage: "Error al desvincular la cuenta",
+      };
+   }
 }
