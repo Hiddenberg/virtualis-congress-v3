@@ -15,6 +15,7 @@ import {
 import PB_COLLECTIONS from "@/types/constants/pocketbaseCollections";
 import { getAllSpeakerPhoneNumbers } from "../../users/speakers/services/speakerServices";
 import type { CongressConference } from "../types/conferenceTypes";
+import { getConferenceQnASession } from "./conferenceQnASessionsServices";
 
 export type NewConferenceData = Omit<CongressConference, "organization" | "congress" | "status">;
 export async function createConference({ title, shortDescription, startTime, endTime, conferenceType }: NewConferenceData) {
@@ -206,4 +207,82 @@ export async function deleteConferenceRecord(conferenceId: string) {
 
    await deleteDBRecord("CONGRESS_CONFERENCES", conferenceId);
    console.log(`${conference.title}, id: ${conferenceId} deleted`);
+}
+
+export interface LiveConferenceWithLinks extends CongressConference, RecordModel {
+   hostTransmissionLink: string;
+   inviteeTransmissionLink: string;
+   hostQnALink?: string;
+   inviteeQnALink?: string;
+}
+
+export interface LiveConferencesByDay {
+   date: string;
+   dateLabel: string;
+   conferences: LiveConferenceWithLinks[];
+}
+
+export async function getLiveConferencesGroupedByDay(baseUrl: string): Promise<LiveConferencesByDay[]> {
+   const congress = await getLatestCongress();
+   const allConferences = await getAllCongressConferences(congress.id);
+
+   const liveConferenceTypes = ["in-person", "livestream"] as const;
+   const liveConferences = allConferences.filter((c) =>
+      liveConferenceTypes.includes(c.conferenceType as (typeof liveConferenceTypes)[number]),
+   );
+
+   const conferencesWithLinks: LiveConferenceWithLinks[] = await Promise.all(
+      liveConferences.map(async (conference) => {
+         const conferenceRoute = `live-transmission/${conference.id}/conference`;
+         const qnaRoute = `live-transmission/${conference.id}/qna`;
+
+         const hostTransmissionLink = `${baseUrl}/${conferenceRoute}?ishost=true`;
+         const inviteeTransmissionLink = `${baseUrl}/${conferenceRoute}`;
+
+         const qnaSession = await getConferenceQnASession(conference.id);
+         const hostQnALink = qnaSession ? `${baseUrl}/${qnaRoute}?ishost=true` : undefined;
+         const inviteeQnALink = qnaSession ? `${baseUrl}/${qnaRoute}` : undefined;
+
+         return {
+            ...conference,
+            hostTransmissionLink,
+            inviteeTransmissionLink,
+            hostQnALink,
+            inviteeQnALink,
+         };
+      }),
+   );
+
+   const byDay = new Map<string, LiveConferenceWithLinks[]>();
+
+   for (const conference of conferencesWithLinks) {
+      const dateStr = conference.startTime.includes("T")
+         ? conference.startTime.split("T")[0]
+         : (conference.startTime.split(" ")[0] ?? "");
+      if (!dateStr) continue;
+
+      const existing = byDay.get(dateStr) ?? [];
+      existing.push(conference);
+      byDay.set(dateStr, existing);
+   }
+
+   const sortedDates = Array.from(byDay.keys()).sort();
+
+   return sortedDates.map((date) => {
+      const conferences = byDay.get(date) ?? [];
+      const [year, month, day] = date.split("-");
+      const dateObj = new Date(parseInt(year ?? "0", 10), parseInt(month ?? "1", 10) - 1, parseInt(day ?? "1", 10));
+      const dateLabel = dateObj.toLocaleDateString("es-MX", {
+         weekday: "long",
+         year: "numeric",
+         month: "long",
+         day: "numeric",
+      });
+
+      return {
+         date,
+         dateLabel: dateLabel.charAt(0).toUpperCase() + dateLabel.slice(1),
+         conferences: conferences.sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime()),
+      };
+   });
 }

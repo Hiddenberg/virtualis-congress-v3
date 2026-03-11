@@ -9,6 +9,7 @@ import {
    // GiftIcon,
    GlobeIcon,
    HomeIcon,
+   RadioIcon,
    ShoppingCartIcon,
    UsersIcon,
    VideoIcon,
@@ -108,6 +109,15 @@ const adminSections: AdminLink[] = [
       color: "bg-sky-500",
       lightColor: "bg-orange-50",
       textColor: "text-orange-600",
+   },
+   {
+      title: "Conferencias en vivo",
+      description: "Ver enlaces de transmisión para host e invitados por día",
+      href: "/congress-admin/live-conferences",
+      icon: RadioIcon,
+      color: "bg-rose-500",
+      lightColor: "bg-rose-50",
+      textColor: "text-rose-600",
    },
    {
       title: "Invitaciones de Cortesía",
