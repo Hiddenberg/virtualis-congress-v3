@@ -41,8 +41,8 @@ export default function LiveConferenceSpeakerInvitationTemplate({
                   <Heading style={messageTitleStyle}>¡Hola, {speakerName}!</Heading>
                   <Text style={introStyle}>
                      Te invitamos a unirte a la transmisión en vivo de tu conferencia{" "}
-                     <span style={highlightStyle}>{conferenceTitle}</span>. Utiliza el enlace siguiente para conectarte
-                     como ponente en el momento indicado.
+                     <span style={highlightStyle}>{conferenceTitle}</span>. Utiliza el enlace siguiente para conectarte como
+                     ponente en el momento indicado.
                   </Text>
 
                   {/* Conference Details */}
@@ -114,8 +114,8 @@ export default function LiveConferenceSpeakerInvitationTemplate({
                   <Section style={noteStyle}>
                      <Text style={noteIconStyle}>⚠️</Text>
                      <Text style={noteTextStyle}>
-                        <strong>Importante:</strong> Este enlace es exclusivo para tu conferencia. No lo compartas
-                        públicamente. Si tienes algún problema para conectarte, contacta al equipo organizador.
+                        <strong>Importante:</strong> Este enlace es exclusivo para tu conferencia. No lo compartas públicamente.
+                        Si tienes algún problema para conectarte, contacta al equipo organizador.
                      </Text>
                   </Section>
                </Section>

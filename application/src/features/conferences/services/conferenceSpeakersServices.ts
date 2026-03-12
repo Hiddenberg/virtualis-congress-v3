@@ -1,8 +1,8 @@
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { SpeakerDataRecord } from "@/types/congress";
-import type { UserRecord } from "@/features/users/types/userTypes";
 import "server-only";
 import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
