@@ -97,13 +97,13 @@ export default function ConferenceFinishedScreen({
 
             {!isQna && <GoToQnASection conferenceId={conferenceId} />}
 
-            <Link
+            <a
                href={`/lobby`}
                className="flex justify-center items-center gap-2 bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded-md w-full sm:w-auto text-white transition-colors"
             >
                <Home className="size-5" />
                Ir al lobby
-            </Link>
+            </a>
          </div>
       </div>
    );

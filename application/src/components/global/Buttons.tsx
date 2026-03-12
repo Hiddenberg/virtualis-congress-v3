@@ -1,6 +1,5 @@
 "use client";
 import { Check, Copy } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 
 const baseButtonClassName = `flex items-center justify-center gap-2 w-max rounded-lg px-4 py-2 text-center font-semibold transition-colors disabled:bg-gray-200 disabled:text-gray-500`;
@@ -78,14 +77,9 @@ export function LinkButton({ children, className, href, variant = "primary", tar
    }
 
    return (
-      <Link
-         title={title}
-         href={href}
-         target={target}
-         className={`${baseButtonClassName} ${variantClasses[variant]} ${className}`}
-      >
+      <a title={title} href={href} target={target} className={`${baseButtonClassName} ${variantClasses[variant]} ${className}`}>
          {children}
-      </Link>
+      </a>
    );
 }
 
