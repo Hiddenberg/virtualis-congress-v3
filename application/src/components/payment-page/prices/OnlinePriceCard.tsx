@@ -26,6 +26,16 @@ function CredentialValidationBanner({ credentialValidationInstructions }: { cred
    );
 }
 
+function PromotionCodeHint() {
+   return (
+      <div className="bg-red-50 mt-3 p-2 border border-red-200 rounded-lg w-full">
+         <p className="font-semibold text-red-700 text-xs text-center">
+            Selecciona esta opción si tienes un código de promoción o de invitado
+         </p>
+      </div>
+   );
+}
+
 export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) {
    const colors = getPriceColorClasses(index);
    const currencyColors = getCurrencyBadgeColor(price.currency);
@@ -56,8 +66,10 @@ export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) 
                   {price.currency.toUpperCase()}
                </span>
             </div>
-            {price.requiresCredentialValidation && (
+            {price.requiresCredentialValidation ? (
                <CredentialValidationBanner credentialValidationInstructions={price.credentialValidationInstructions} />
+            ) : (
+               <PromotionCodeHint />
             )}
          </div>
          <div className="flex justify-center items-center gap-2 bg-blue-500 group-hover:bg-blue-600 mt-4 p-2 rounded-lg text-white transition-colors">
