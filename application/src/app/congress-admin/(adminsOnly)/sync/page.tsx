@@ -15,6 +15,7 @@ import {
    sendCourtesyInvitationEmailsToAllSpeakersAction,
    sendEventFinishedEmailToAllUsersAction,
    sendIphoneIssueSolvedEmailToAllUsersAction,
+   sendLiveConferenceSpeakerInvitationEmailsToAllSpeakersAction,
    sendNewEventDayAboutToStartEmailToAllUsersAction,
    sendOnDemandReminderEmailsToAllUsersWithoutPaymentsAction,
    sendSpeakerCertificateEmailToAllSpeakersAction,
@@ -100,6 +101,12 @@ export default async function CongressAdminSynchPage() {
                action={sendCourtesyInvitationEmailsToAllSpeakersAction}
                buttonText="Enviar correos de invitación de cortesía a todos los ponentes"
                description="Esta acción enviará un correo de invitación de cortesía a todos los ponentes registrados en el congreso actual."
+            />
+
+            <SuperAdminToolCard
+               action={sendLiveConferenceSpeakerInvitationEmailsToAllSpeakersAction}
+               buttonText="Enviar correos de invitación a todos los ponentes de las conferencias en vivo"
+               description="Esta acción enviará un correo de invitación a todos los ponentes de todas las conferencias en vivo con el link de invitado para que puedan unirse a la transmisión."
             />
          </div>
       </div>

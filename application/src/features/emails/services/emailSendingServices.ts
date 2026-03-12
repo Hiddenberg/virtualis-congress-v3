@@ -3,7 +3,7 @@ import { render } from "@react-email/components";
 import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { getAllCongressConferences, getConferenceById } from "@/features/conferences/services/conferenceServices";
 import { getConferenceSpeakerPresentationRecordingRecordByRecordingId } from "@/features/conferences/services/conferenceSpeakerPresentationRecordingServices";
-import { getConferenceSpeakers, getConferenceSpeakersWithUser } from "@/features/conferences/services/conferenceSpeakersServices";
+import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getCongressById, getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
    checkIfUserHasAccessToRecordings,
@@ -990,22 +990,28 @@ export async function sendSpeakerPresentationUploadReminderEmail({
    });
 }
 
-export async function sendLiveConferenceSpeakerInvitationEmail(conferenceId: string) {
+export async function sendLiveConferenceSpeakerInvitationEmail({
+   conferenceId,
+   userId,
+}: {
+   conferenceId: string;
+   userId: string;
+}) {
    const organization = await getOrganizationFromSubdomain();
    const congress = await getLatestCongress();
    const conference = await getConferenceById(conferenceId);
+   const user = await getUserById(userId);
 
    if (!conference) {
       throw new Error("[EmailSendingServices] Conference not found");
    }
 
-   if (conference.conferenceType !== "in-person" && conference.conferenceType !== "livestream") {
-      throw new Error("[EmailSendingServices] Conference is not a live conference");
+   if (!user) {
+      throw new Error("[EmailSendingServices] User not found");
    }
 
-   const speakersWithUser = await getConferenceSpeakersWithUser(conferenceId);
-   if (speakersWithUser.length === 0) {
-      return { sentCount: 0, message: "No speakers with linked accounts found for this conference" };
+   if (conference.conferenceType !== "in-person" && conference.conferenceType !== "livestream") {
+      throw new Error("[EmailSendingServices] Conference is not a live conference");
    }
 
    const organizationBaseUrl = await getOrganizationBaseUrl();
@@ -1030,32 +1036,23 @@ export async function sendLiveConferenceSpeakerInvitationEmail(conferenceId: str
       tz: "America/Mexico_City",
    })}`;
 
-   let sentCount = 0;
-   for (const speaker of speakersWithUser) {
-      const user = speaker.expand.user;
-      const speakerName = speaker.academicTitle ? `${speaker.academicTitle} ${user.name}` : user.name;
+   const template = await render(
+      LiveConferenceSpeakerInvitationTemplate({
+         speakerName: user.name,
+         conferenceTitle: conference.title,
+         conferenceFormattedDate,
+         conferenceFormattedTime,
+         organizationName: organization.name,
+         transmissionLink,
+         congressTitle: congress.title,
+      }),
+   );
 
-      const template = await render(
-         LiveConferenceSpeakerInvitationTemplate({
-            speakerName,
-            conferenceTitle: conference.title,
-            conferenceFormattedDate,
-            conferenceFormattedTime,
-            transmissionLink,
-            organizationName: organization.name,
-            congressTitle: congress.title,
-         }),
-      );
-
-      await sendEmailToAllEmailsOfTheUser({
-         user,
-         senderAlias: `${organization.name} | Virtualis Congress`,
-         to: user.email,
-         subject: `Invitación a transmisión en vivo: ${conference.title}`,
-         template,
-      });
-      sentCount += 1;
-   }
-
-   return { sentCount, message: `Invitation sent to ${sentCount} speaker(s)` };
+   await sendEmailToAllEmailsOfTheUser({
+      user,
+      senderAlias: `${organization.name} | Virtualis Congress`,
+      to: user.email,
+      subject: `Invitación a transmisión en vivo: ${conference.title}`,
+      template,
+   });
 }

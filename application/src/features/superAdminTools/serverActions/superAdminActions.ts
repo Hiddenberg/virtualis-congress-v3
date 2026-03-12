@@ -1,5 +1,7 @@
 "use server";
 
+import { getAllLiveConferences } from "@/features/conferences/services/conferenceServices";
+import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
 import {
    getAllCongressRegistrations,
    getAllCongressRegistrationsWithUsers,
@@ -13,6 +15,7 @@ import {
    sendAboutToStartEventEmail,
    sendEventFinishedEmail,
    sendIphoneIssueSolvedEmail,
+   sendLiveConferenceSpeakerInvitationEmail,
    sendNewEventDayAboutToStartEmail,
    sendNonPayersCongressInvitationEmail,
    sendOnDemandReminderEmail,
@@ -581,6 +584,105 @@ export async function sendCourtesyInvitationEmailsToAllSpeakersAction(): Promise
             errorMessage: error.message,
          };
       }
+      return {
+         success: false,
+         errorMessage: "An unknown error occurred",
+      };
+   }
+}
+
+export async function sendLiveConferenceSpeakerInvitationEmailsToAllSpeakersAction(): Promise<BackendResponse<unknown>> {
+   try {
+      const congress = await getLatestCongress();
+      const liveConferences = await getAllLiveConferences(congress.id);
+
+      const emailsSentArray: {
+         conferenceId: string;
+         conferenceTitle: string;
+         userId: string;
+      }[] = [];
+      const emailsSkippedArray: {
+         conferenceId: string;
+         conferenceTitle: string;
+         reason: string;
+      }[] = [];
+      const emailsErroredArray: EmailError[] = [];
+
+      for (const conference of liveConferences) {
+         try {
+            if (conference.conferenceType !== "in-person" && conference.conferenceType !== "livestream") {
+               emailsSkippedArray.push({
+                  conferenceId: conference.id,
+                  conferenceTitle: conference.title,
+                  reason: "Conference is not a live conference",
+               });
+               continue;
+            }
+
+            const conferenceSpeakers = await getConferenceSpeakers(conference.id);
+            if (conferenceSpeakers.length === 0) {
+               emailsSkippedArray.push({
+                  conferenceId: conference.id,
+                  conferenceTitle: conference.title,
+                  reason: "No speakers found for the conference",
+               });
+               continue;
+            }
+
+            for (const speaker of conferenceSpeakers) {
+               if (!speaker.user) {
+                  emailsSkippedArray.push({
+                     conferenceId: conference.id,
+                     conferenceTitle: conference.title,
+                     reason: `Speaker ${speaker.displayName} has no user account associated`,
+                  });
+                  continue;
+               }
+
+               await sendLiveConferenceSpeakerInvitationEmail({
+                  conferenceId: conference.id,
+                  userId: speaker.user,
+               });
+
+               emailsSentArray.push({
+                  conferenceId: conference.id,
+                  conferenceTitle: conference.title,
+                  userId: speaker.user,
+               });
+            }
+         } catch (error) {
+            if (error instanceof Error) {
+               emailsErroredArray.push({
+                  user: "Unknown",
+                  errorMessage: error.message,
+               });
+            } else {
+               emailsErroredArray.push({
+                  user: "Unknown",
+                  errorMessage: "An unknown error occurred",
+               });
+            }
+         }
+      }
+
+      return {
+         success: true,
+         successMessage: `${liveConferences.length} live conferences, ${emailsSentArray.length} emails sent, ${emailsSkippedArray.length} emails skipped, ${emailsErroredArray.length} emails errored`,
+         data: {
+            emailsSent: emailsSentArray,
+            emailsSkipped: emailsSkippedArray,
+            emailsErrored: emailsErroredArray.length,
+            emailErrors: emailsErroredArray,
+         },
+      };
+   } catch (error) {
+      if (error instanceof Error) {
+         return {
+            success: false,
+            errorMessage: error.message,
+         };
+      }
+      console.error("[sendLiveConferenceSpeakerInvitationEmailsToAllSpeakersAction] An unknown error occurred", error);
       return {
          success: false,
          errorMessage: "An unknown error occurred",

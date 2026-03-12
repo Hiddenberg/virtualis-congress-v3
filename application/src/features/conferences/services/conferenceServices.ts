@@ -145,6 +145,24 @@ export async function getAllCongressConferences(congressId: string) {
    return allCongressConferences;
 }
 
+export async function getAllLiveConferences(congressId: string) {
+   const filter = pbFilter(
+      `
+      congress = {:congressId} &&
+      conferenceType = "in-person" || conferenceType = "livestream"
+      `,
+      {
+         congressId,
+      },
+   );
+
+   const liveConferences = await getFullDBRecordsList<CongressConference>("CONGRESS_CONFERENCES", {
+      filter,
+   });
+
+   return liveConferences;
+}
+
 export async function getIndividualConferencesWithSpeakerEmails(congressId: string) {
    const filter = `congress = "${congressId}" && conferenceType = "individual"`;
    const expandedIndividualConferences = await pbServerClient
