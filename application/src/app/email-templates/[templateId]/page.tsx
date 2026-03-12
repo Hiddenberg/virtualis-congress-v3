@@ -7,6 +7,7 @@ import CoordinatorCVRecordingInvitationTemplate from "@/features/emails/template
 import CourtesyInvitationEmailTemplate from "@/features/emails/templates/CourtesyInvitationEmailTemplate";
 import EventFinishedTemplate from "@/features/emails/templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "@/features/emails/templates/IphoneIssueSolvedTemplate";
+import LiveConferenceSpeakerInvitationTemplate from "@/features/emails/templates/LiveConferenceSpeakerInvitationTemplate";
 import NewEventDayAboutToStartEmailTemplate from "@/features/emails/templates/NewEventDayAboutToStart";
 import NonPayersCongressInvitationTemplate from "@/features/emails/templates/NonPayersCongressInvitation";
 import OnDemandReminderTemplate from "@/features/emails/templates/OnDemandReminderTemplate";
@@ -143,6 +144,14 @@ const emailTemplatesMap: Record<string, React.ReactNode> = {
       congressTitle: "Congreso Virtualis",
       congressFormattedDates: "10-12 de septiembre de 2025",
       registrationLink: "https://cmimcostachiapas.virtualis.app/lobby",
+      organizationName: "CMIM",
+   }),
+   "live-conference-speaker-invitation": LiveConferenceSpeakerInvitationTemplate({
+      speakerName: "John Doe",
+      conferenceTitle: "Conference Title",
+      conferenceFormattedDate: "10-12 de septiembre de 2025",
+      conferenceFormattedTime: "10:00 AM - 11:00 AM",
+      transmissionLink: "https://cmimcostachiapas.virtualis.app/lobby",
       organizationName: "CMIM",
    }),
 } as const;

@@ -2,6 +2,7 @@ import { getLatestCongress } from "@/features/congresses/services/congressServic
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import { createDBRecord, deleteDBRecord, getFullDBRecordsList, getSingleDBRecord, pbFilter } from "@/libs/pbServerClientNew";
 import type { SpeakerDataRecord } from "@/types/congress";
+import type { UserRecord } from "@/features/users/types/userTypes";
 import "server-only";
 import type { CongressConferenceRecord } from "../types/conferenceTypes";
 
@@ -54,6 +55,43 @@ export async function getConferenceSpeakers(conferenceId: CongressConferenceReco
    });
 
    return conferenceSpeakers.map((conferenceSpeaker) => conferenceSpeaker.expand.speaker);
+}
+
+export async function getConferenceSpeakersWithUser(conferenceId: CongressConferenceRecord["id"]) {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+
+   const filter = pbFilter(
+      `
+      organization = {:organizationId} &&
+      congress = {:congressId} &&
+      conference = {:conferenceId}
+   `,
+      {
+         organizationId: organization.id,
+         congressId: congress.id,
+         conferenceId,
+      },
+   );
+
+   const conferenceSpeakers = await getFullDBRecordsList<
+      ConferenceSpeaker & {
+         expand: {
+            speaker: SpeakerDataRecord & {
+               expand?: { user: UserRecord };
+            };
+         };
+      }
+   >("CONFERENCE_SPEAKERS", {
+      filter,
+      expand: "speaker, speaker.user",
+   });
+
+   return conferenceSpeakers
+      .map((cs) => cs.expand.speaker)
+      .filter((speaker) => speaker.expand?.user != null) as (SpeakerDataRecord & {
+      expand: { user: UserRecord };
+   })[];
 }
 
 export async function unlinkSpeakerFromConference({

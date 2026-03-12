@@ -3,7 +3,7 @@ import { render } from "@react-email/components";
 import { IS_DEV_ENVIRONMENT, PLATFORM_BASE_DOMAIN } from "@/data/constants/platformConstants";
 import { getAllCongressConferences, getConferenceById } from "@/features/conferences/services/conferenceServices";
 import { getConferenceSpeakerPresentationRecordingRecordByRecordingId } from "@/features/conferences/services/conferenceSpeakerPresentationRecordingServices";
-import { getConferenceSpeakers } from "@/features/conferences/services/conferenceSpeakersServices";
+import { getConferenceSpeakers, getConferenceSpeakersWithUser } from "@/features/conferences/services/conferenceSpeakersServices";
 import { getCongressById, getLatestCongress } from "@/features/congresses/services/congressServices";
 import {
    checkIfUserHasAccessToRecordings,
@@ -26,6 +26,7 @@ import CoordinatorCVRecordingInvitationTemplate from "../templates/CoordinatorCV
 import CourtesyInvitationEmailTemplate from "../templates/CourtesyInvitationEmailTemplate";
 import EventFinishedTemplate from "../templates/EventFinishedTemplate";
 import IphoneIssueSolvedTemplate from "../templates/IphoneIssueSolvedTemplate";
+import LiveConferenceSpeakerInvitationTemplate from "../templates/LiveConferenceSpeakerInvitationTemplate";
 import NewEventDayAboutToStartEmailTemplate from "../templates/NewEventDayAboutToStart";
 import NonPayersCongressInvitationTemplate from "../templates/NonPayersCongressInvitation";
 import OnDemandReminderTemplate from "../templates/OnDemandReminderTemplate";
@@ -987,4 +988,74 @@ export async function sendSpeakerPresentationUploadReminderEmail({
       subject: `Recuerda subir la presentación para tu conferencia: ${conference.title}!`,
       template,
    });
+}
+
+export async function sendLiveConferenceSpeakerInvitationEmail(conferenceId: string) {
+   const organization = await getOrganizationFromSubdomain();
+   const congress = await getLatestCongress();
+   const conference = await getConferenceById(conferenceId);
+
+   if (!conference) {
+      throw new Error("[EmailSendingServices] Conference not found");
+   }
+
+   if (conference.conferenceType !== "in-person" && conference.conferenceType !== "livestream") {
+      throw new Error("[EmailSendingServices] Conference is not a live conference");
+   }
+
+   const speakersWithUser = await getConferenceSpeakersWithUser(conferenceId);
+   if (speakersWithUser.length === 0) {
+      return { sentCount: 0, message: "No speakers with linked accounts found for this conference" };
+   }
+
+   const organizationBaseUrl = await getOrganizationBaseUrl();
+   const transmissionLink = `${organizationBaseUrl}/live-transmission/${conferenceId}/conference`;
+
+   const conferenceFormattedDate = format({
+      date: conference.startTime,
+      format: "DD MMMM YYYY",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   });
+
+   const conferenceFormattedTime = `${format({
+      date: conference.startTime,
+      format: "hh:mm A",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   })} - ${format({
+      date: conference.endTime,
+      format: "hh:mm A",
+      locale: "es-MX",
+      tz: "America/Mexico_City",
+   })}`;
+
+   let sentCount = 0;
+   for (const speaker of speakersWithUser) {
+      const user = speaker.expand.user;
+      const speakerName = speaker.academicTitle ? `${speaker.academicTitle} ${user.name}` : user.name;
+
+      const template = await render(
+         LiveConferenceSpeakerInvitationTemplate({
+            speakerName,
+            conferenceTitle: conference.title,
+            conferenceFormattedDate,
+            conferenceFormattedTime,
+            transmissionLink,
+            organizationName: organization.name,
+            congressTitle: congress.title,
+         }),
+      );
+
+      await sendEmailToAllEmailsOfTheUser({
+         user,
+         senderAlias: `${organization.name} | Virtualis Congress`,
+         to: user.email,
+         subject: `Invitación a transmisión en vivo: ${conference.title}`,
+         template,
+      });
+      sentCount += 1;
+   }
+
+   return { sentCount, message: `Invitation sent to ${sentCount} speaker(s)` };
 }
