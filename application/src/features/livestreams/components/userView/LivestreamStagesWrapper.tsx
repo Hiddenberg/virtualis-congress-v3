@@ -64,8 +64,6 @@ export default function LivestreamStagesWrapper({
       return selectStatus();
    });
 
-   console.log("currentStage", currentStage);
-
    useEffect(() => {
       setCurrentStage(selectStatus());
    }, [selectStatus]);

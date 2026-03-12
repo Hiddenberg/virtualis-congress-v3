@@ -21,26 +21,29 @@ export default function WaitingToStartScreen({
 }: WaitingToStartScreenProps) {
    const startDate = useMemo(() => new Date(startTime), [startTime]);
 
-   const offsetMs = useMemo(() => {
-      if (typeof serverTimeOffsetMs === "number") return serverTimeOffsetMs;
-      if (serverTime) {
+   // Compute offset once on mount - using ref prevents effect thrashing from offsetMs changing
+   const offsetMsRef = useRef<number | null>(null);
+   if (offsetMsRef.current === null) {
+      if (typeof serverTimeOffsetMs === "number") {
+         offsetMsRef.current = serverTimeOffsetMs;
+      } else if (serverTime) {
          const serverTimeDate = new Date(serverTime);
-         const serverMs = serverTimeDate.getTime();
-         const clientMs = Date.now();
-         return serverMs - clientMs;
+         offsetMsRef.current = serverTimeDate.getTime() - Date.now();
+      } else {
+         offsetMsRef.current = 0;
       }
-      return 0;
-   }, [serverTime, serverTimeOffsetMs]);
+   }
+   const offsetMs = offsetMsRef.current;
 
    const [now, setNow] = useState<Date>(() => new Date(Date.now() + offsetMs));
    const hasFiredTimeoutRef = useRef(false);
 
    useEffect(() => {
       const id = setInterval(() => {
-         setNow(new Date(Date.now() + offsetMs));
+         setNow(new Date(Date.now() + (offsetMsRef.current ?? 0)));
       }, 1000);
       return () => clearInterval(id);
-   }, [offsetMs]);
+   }, []);
 
    const remainingSeconds = Math.max(0, Math.floor((startDate.getTime() - now.getTime()) / 1000));
 
