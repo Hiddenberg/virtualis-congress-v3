@@ -1,35 +1,76 @@
 "use client";
 
 import uiToolkit, { type SuspensionViewValue } from "@zoom/videosdk-ui-toolkit";
+import { User } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 // import "@/app/zoomStyles.css";
 import "@zoom/videosdk-ui-toolkit/dist/videosdk-ui-toolkit.css";
+import { Button } from "@/components/global/Buttons";
 import { useGlobalPopUpContext } from "@/features/globalPopUp/context/GlobalPopUpContext";
 import { useZoomSession } from "../contexts/ZoomSessionContext";
 import { getZoomTokenAction } from "../serverActions/ZoomSessionActions";
 
 function UsernameInput({ onUserNameSubmit }: { onUserNameSubmit: (username: string) => void }) {
-   const [username, _setUsername] = useState<string>("");
-   const [_errorMessage, setErrorMessage] = useState<string | null>(null);
+   const [username, setUsername] = useState<string>("");
+   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
    const { closePopUp } = useGlobalPopUpContext();
 
-   const _handleUserNameSubmit = (event?: React.FormEvent) => {
+   const handleUserNameSubmit = (event?: React.FormEvent) => {
       event?.preventDefault();
       const trimmedUserName = username.trim();
       if (trimmedUserName.length < 2) {
-         setErrorMessage("Por favor ingresa tu nombre");
+         setErrorMessage("Por favor ingresa tu nombre (mínimo 2 caracteres)");
          return;
       }
       onUserNameSubmit(trimmedUserName);
       closePopUp();
    };
 
-   const _isDisabled = username.trim().length < 2;
+   const isDisabled = username.trim().length < 2;
 
-   return <div>test</div>;
+   return (
+      <div className="flex-col! gap-6! flex!">
+         <div className="text-center!">
+            <div className="justify-center! items-center! bg-blue-100! mx-auto! mb-4! p-3! rounded-full! w-16! h-16! flex!">
+               <User className="size-10! text-blue-600!" />
+            </div>
+            <h3 className="mb-2! font-bold! text-2xl! text-gray-900!">¡Bienvenido!</h3>
+            <p className="text-gray-600! leading-relaxed!">Ingresa tu nombre para unirte a la transmisión en vivo</p>
+         </div>
+
+         <form onSubmit={handleUserNameSubmit} className="flex-col! gap-6! flex!">
+            <div className="items-center! relative! flex!">
+               <div className="left-3! text-gray-400! absolute!">
+                  <User size={20} />
+               </div>
+               <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => {
+                     setUsername(e.target.value);
+                     setErrorMessage(null);
+                  }}
+                  placeholder="Tu nombre"
+                  className="py-4! pr-4! pl-12! border-2! border-gray-200! !focus:border-blue-500 rounded-xl! !focus:outline-none !focus:ring-2 !focus:ring-blue-500 w-full! text-base! transition-all!"
+               />
+            </div>
+
+            {errorMessage && <p className="text-red-600! text-sm!">{errorMessage}</p>}
+
+            <Button
+               type="submit"
+               variant="blue"
+               disabled={isDisabled}
+               className="justify-center! items-center! bg-blue-500! hover:bg-blue-600! py-4! rounded-xl! w-full! font-semibold! text-lg! text-white! transition-all! duration-300! flex!"
+            >
+               Unirse a la transmisión
+            </Button>
+         </form>
+      </div>
+   );
 }
 
 export default function ZoomCallInterface({
@@ -63,11 +104,12 @@ export default function ZoomCallInterface({
       if (sessionJoinedRef.current) return; // If the session is already joined, don't join again
 
       const initiZoom = async () => {
-         setIsLoading?.(true);
          if (!userName) {
+            setIsLoading?.(false);
             showInPopUp(<UsernameInput onUserNameSubmit={setUserName} />);
             return;
          }
+         setIsLoading?.(true);
 
          const { errorMessage, token } = await getZoomTokenAction(
             sessionName,

@@ -3,8 +3,6 @@ import { getConferencePresentation } from "@/features/conferences/services/confe
 import { getConferenceQnASession } from "@/features/conferences/services/conferenceQnASessionsServices";
 import { getActiveQuestionPollForConference } from "@/features/conferences/services/conferenceQuestionPollsServices";
 import { getConferenceById } from "@/features/conferences/services/conferenceServices";
-import AdminScheduledPage from "@/features/livestreams/components/AdminScheduledPage";
-import GuestScheduledPage from "@/features/livestreams/components/GuestScheduledPage";
 import LivestreamTransmissionInterface from "@/features/livestreams/components/transmissionInterface/LivestreamTransmissionInterface";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import { getUserById } from "@/features/users/services/userServices";
@@ -37,18 +35,18 @@ export default async function ConferenceLivestreamTransmissionPage({ params }: {
    const user = await getUserById(userid ?? "");
    const userIsAdmin = user?.role === "admin" || user?.role === "super_admin";
 
-   if (livestreamSession.status === "scheduled") {
-      if (userIsAdmin) {
-         return <AdminScheduledPage livestreamSessionId={livestreamSession.id} isQnASession={false} />;
-      }
-      return (
-         <GuestScheduledPage
-            startTime={conference.startTime}
-            title={conference.title}
-            description={conference.shortDescription}
-         />
-      );
-   }
+   // if (livestreamSession.status === "scheduled") {
+   //    if (userIsAdmin) {
+   //       return <AdminScheduledPage livestreamSessionId={livestreamSession.id} isQnASession={false} />;
+   //    }
+   //    return (
+   //       <GuestScheduledPage
+   //          startTime={conference.startTime}
+   //          title={conference.title}
+   //          description={conference.shortDescription}
+   //       />
+   //    );
+   // }
 
    const [qnaSession, conferencePresentation, activeConferenceQuestionPoll] = await Promise.all([
       getConferenceQnASession(conferenceId),
