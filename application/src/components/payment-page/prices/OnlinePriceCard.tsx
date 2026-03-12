@@ -60,7 +60,7 @@ export default function OnlinePriceCard({ price, index }: OnlinePriceCardProps) 
                <CredentialValidationBanner credentialValidationInstructions={price.credentialValidationInstructions} />
             )}
          </div>
-         <div className="flex justify-center items-center gap-2 mt-4 text-gray-600 group-hover:text-gray-900 transition-colors">
+         <div className="flex justify-center items-center gap-2 bg-blue-500 group-hover:bg-blue-600 mt-4 p-2 rounded-lg text-white transition-colors">
             <span className="font-semibold text-sm">Seleccionar</span>
             <ChevronRightIcon className="w-4 h-4" />
          </div>

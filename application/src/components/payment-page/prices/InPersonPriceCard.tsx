@@ -33,14 +33,14 @@ export default function InPersonPriceCard({ price, index }: InPersonPriceCardPro
    return (
       <Link
          href={`/payment/prices/${price.id}/pay`}
-         className="group relative flex flex-col items-center bg-white hover:shadow-xl p-6 border-2 border-gray-100 hover:border-green-300 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+         className="group relative flex flex-col items-center bg-white hover:shadow-xl p-6 border-2 border-gray-100 hover:border-green-300 rounded-2xl transition-all hover:-translate-y-1 duration-300"
       >
          <div className={`w-12 h-12 bg-linear-to-br ${colors.gradient} rounded-full flex items-center justify-center mb-4`}>
             <UsersIcon className="w-6 h-6 text-white" />
          </div>
          <h3 className="mb-2 font-bold text-gray-900 text-sm text-center leading-tight">{price.name}</h3>
          {price.includesRecordings && (
-            <div className="mb-2 inline-flex items-center gap-1.5 bg-purple-50 px-2.5 py-1 rounded-md ring-1 ring-purple-600/20 ring-inset font-medium text-purple-700 text-xs">
+            <div className="inline-flex items-center gap-1.5 bg-purple-50 mb-2 px-2.5 py-1 rounded-md ring-1 ring-purple-600/20 ring-inset font-medium text-purple-700 text-xs">
                <PlayIcon className="w-3 h-3" />
                Incluye grabaciones
             </div>
@@ -58,7 +58,7 @@ export default function InPersonPriceCard({ price, index }: InPersonPriceCardPro
          {price.requiresCredentialValidation && (
             <CredentialValidationBanner credentialValidationInstructions={price.credentialValidationInstructions} />
          )}
-         <div className="flex justify-center items-center gap-2 mt-4 text-gray-600 group-hover:text-gray-900 transition-colors">
+         <div className="flex justify-center items-center gap-2 bg-blue-500 group-hover:bg-blue-600 mt-4 p-2 rounded-lg text-white transition-colors">
             <span className="font-semibold text-sm">Seleccionar</span>
             <ChevronRightIcon className="w-4 h-4" />
          </div>
