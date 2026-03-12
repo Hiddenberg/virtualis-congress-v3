@@ -106,7 +106,9 @@ export default function ZoomCallInterface({
       const initiZoom = async () => {
          if (!userName) {
             setIsLoading?.(false);
-            showInPopUp(<UsernameInput onUserNameSubmit={setUserName} />);
+            showInPopUp(<UsernameInput onUserNameSubmit={setUserName} />, {
+               hasCloseButton: false,
+            });
             return;
          }
          setIsLoading?.(true);
