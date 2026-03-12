@@ -3,7 +3,11 @@ import Image from "next/image";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 
-export default async function MainHeader() {
+interface MainHeaderProps {
+   rightSection?: React.ReactNode;
+}
+
+export default async function MainHeader({ rightSection }: MainHeaderProps) {
    const organization = await getOrganizationFromSubdomain();
    const currentCongress = await getLatestCongress();
    return (
@@ -34,6 +38,7 @@ export default async function MainHeader() {
 
          {/* Mobile event info */}
          <div className={`flex md:hidden flex-col items-center space-y-4 py-4 w-full`}>
+            {rightSection && <div className="flex justify-center w-full">{rightSection}</div>}
             <div className="flex flex-col justify-center items-center px-4 w-full">
                <div className="bg-white shadow-sm border border-slate-200 rounded-xl w-full max-w-sm overflow-hidden">
                   <div className="bg-slate-50 px-4 py-2 border-slate-200 border-b">
@@ -64,10 +69,8 @@ export default async function MainHeader() {
             </div>
          </div>
 
-         {/* Desktop/Tablet right section - reserved for future use */}
-         <div className="hidden md:flex items-center space-x-2 lg:space-x-4 w-auto lg:w-48">
-            {/* Future: Help button, user menu, etc. */}
-         </div>
+         {/* Desktop/Tablet right section */}
+         <div className="hidden md:flex items-center justify-end space-x-2 lg:space-x-4 w-auto lg:w-48">{rightSection}</div>
       </header>
    );
 }

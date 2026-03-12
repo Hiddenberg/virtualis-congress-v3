@@ -1,4 +1,5 @@
 import SponsorCarousel from "@/components/conference-zone/SponsorCarousel";
+import ConferenceReloadButton from "@/components/global/ConferenceReloadButton";
 import MainHeader from "@/components/global/MainHeader";
 import { getExpandedConferenceById } from "@/features/conferences/services/conferenceServices";
 import OrganizationSpecificComponent from "@/features/organizations/components/OrganizationSpecificComponent";
@@ -35,7 +36,7 @@ export default async function AttendantConferenceLayout({
          <div className="flex lg:flex-row flex-col">
             <div className={`w-full ${backgroundImage}`}>
                <div>
-                  <MainHeader />
+                  <MainHeader rightSection={<ConferenceReloadButton />} />
                </div>
                {children}
                {/* <div className="md:hidden block">
