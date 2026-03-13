@@ -189,9 +189,9 @@ export function LivestreamControlButtons({
    }
 
    return (
-      <div className="flex justify-between items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
          {/* Control Buttons */}
-         <div className="flex items-center gap-4">
+         <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-4 flex-wrap">
             {isHost ? (
                <div>
                   {(livestreamStatus === "preparing" || livestreamStatus === "scheduled" || livestreamStatus === "ended") && (
@@ -220,7 +220,7 @@ export function LivestreamControlButtons({
          </div>
 
          {/* Status Display */}
-         <div className="flex items-center self-center gap-3">
+         <div className="flex items-center justify-center sm:justify-end gap-3">
             <div className="bg-stone-100 p-2 rounded-lg">
                <div className={statusColorMap[livestreamStatus]}>{statusIconMap[livestreamStatus]}</div>
             </div>
@@ -230,7 +230,7 @@ export function LivestreamControlButtons({
             </div>
          </div>
 
-         <div className="bg-stone-200 w-40" />
+         <div className="hidden sm:block bg-stone-200 w-40 shrink-0" />
       </div>
    );
 }
