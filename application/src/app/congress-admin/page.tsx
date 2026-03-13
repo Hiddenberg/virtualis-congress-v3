@@ -1,12 +1,11 @@
 import { format } from "@formkit/tempo";
 import {
-   ArrowDownUp,
-   BarChart3,
-   Calendar,
+   ArrowDownUpIcon,
+   BarChart3Icon,
+   CalendarIcon,
    ChartBarIcon,
    CreditCard,
    GiftIcon,
-   // GiftIcon,
    GlobeIcon,
    HomeIcon,
    RadioIcon,
@@ -87,7 +86,7 @@ const adminSections: AdminLink[] = [
       title: "Estadísticas de Conferencias",
       description: "Panel de análisis y estadísticas",
       href: "/congress-admin/registration-metrics",
-      icon: BarChart3,
+      icon: BarChart3Icon,
       color: "bg-indigo-500",
       lightColor: "bg-indigo-50",
       textColor: "text-indigo-600",
@@ -144,7 +143,7 @@ const hybridCongressSections: AdminLink[] = [
       title: "Director del Congreso",
       description: "Herramientas para dirigir el congreso en tiempo real",
       href: "/congress-admin/congress-director",
-      icon: Calendar,
+      icon: CalendarIcon,
       color: "bg-amber-500",
       lightColor: "bg-amber-50",
       textColor: "text-amber-600",
@@ -153,7 +152,7 @@ const hybridCongressSections: AdminLink[] = [
       title: "Pantalla de Proyección",
       description: "Vista optimizada para proyectar la transmisión en pantalla",
       href: "/projection-screen-v2",
-      icon: BarChart3,
+      icon: BarChart3Icon,
       color: "bg-rose-500",
       lightColor: "bg-rose-50",
       textColor: "text-rose-600",
@@ -174,7 +173,7 @@ const superAdminSections: AdminLink[] = [
       title: "Funciones de Sincronización",
       description: "Funciones de sincronización de la plataforma",
       href: "/congress-admin/sync",
-      icon: ArrowDownUp,
+      icon: ArrowDownUpIcon,
       color: "bg-blue-500",
       lightColor: "bg-blue-50",
       textColor: "text-blue-600",
@@ -183,7 +182,7 @@ const superAdminSections: AdminLink[] = [
       title: "Conferencias",
       description: "Administrar conferencias del congreso, horarios y contenido",
       href: "/congress-admin/conferences",
-      icon: Calendar,
+      icon: CalendarIcon,
       color: "bg-blue-500",
       lightColor: "bg-blue-50",
       textColor: "text-blue-600",
@@ -256,7 +255,7 @@ function CongressInformationHeader({ congress }: { congress: CongressRecord }) {
                <h2 className="mb-3 font-bold text-gray-900 text-xl">{congress.title}</h2>
                <div className="flex flex-wrap items-center gap-4">
                   <div className="flex items-center gap-2 text-gray-700">
-                     <Calendar className="w-5 h-5 text-blue-600" />
+                     <CalendarIcon className="w-5 h-5 text-blue-600" />
                      <div className="flex sm:flex-row flex-col sm:items-center sm:gap-2">
                         <span className="font-medium text-sm">
                            {format({

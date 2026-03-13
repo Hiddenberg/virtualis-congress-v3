@@ -6,7 +6,6 @@ export interface ConferenceRoom {
    congress: CongressRecord["id"];
    name: string;
    description?: string;
-   capacity: number;
 }
 
 export type ConferenceRoomRecord = DBRecordItem<ConferenceRoom>;
