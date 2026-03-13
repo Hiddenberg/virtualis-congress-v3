@@ -1,6 +1,6 @@
-import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import "server-only";
 import type { CongressRecord } from "@/features/congresses/types/congressTypes";
+import { getOrganizationFromSubdomain } from "@/features/organizations/services/organizationServices";
 import {
    createDBRecord,
    deleteDBRecord,
@@ -55,6 +55,7 @@ export async function getAllCongressConferenceRooms(congressId: CongressRecord["
 
    const conferenceRooms = await getFullDBRecordsList<ConferenceRoom>("CONFERENCE_ROOMS", {
       filter,
+      sort: "name",
    });
 
    return conferenceRooms;
@@ -64,12 +65,11 @@ export async function updateConferenceRoomRecord(
    conferenceRoomId: ConferenceRoomRecord["id"],
    updatedConferenceRoomData: Partial<ConferenceRoom>,
 ) {
-   const organization = await getOrganizationFromSubdomain();
-
-   const updatedConferenceRoomRecord = await updateDBRecord<ConferenceRoom>("CONFERENCE_ROOMS", conferenceRoomId, {
-      organization: organization.id,
-      ...updatedConferenceRoomData,
-   });
+   const updatedConferenceRoomRecord = await updateDBRecord<ConferenceRoom>(
+      "CONFERENCE_ROOMS",
+      conferenceRoomId,
+      updatedConferenceRoomData,
+   );
 
    return updatedConferenceRoomRecord;
 }

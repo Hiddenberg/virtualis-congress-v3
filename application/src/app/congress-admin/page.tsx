@@ -8,6 +8,7 @@ import {
    GiftIcon,
    GlobeIcon,
    HomeIcon,
+   LayoutGridIcon,
    RadioIcon,
    ShoppingCartIcon,
    UsersIcon,
@@ -117,6 +118,15 @@ const adminSections: AdminLink[] = [
       color: "bg-rose-500",
       lightColor: "bg-rose-50",
       textColor: "text-rose-600",
+   },
+   {
+      title: "Salas de conferencia",
+      description: "Crear, editar y organizar las salas donde ocurren conferencias simultáneas",
+      href: "/congress-admin/conference-rooms",
+      icon: LayoutGridIcon,
+      color: "bg-cyan-500",
+      lightColor: "bg-cyan-50",
+      textColor: "text-cyan-600",
    },
    {
       title: "Invitaciones de Cortesía",
