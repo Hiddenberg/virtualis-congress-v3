@@ -9,4 +9,4 @@ export interface ConferenceRoom {
 }
 
 export type ConferenceRoomRecord = DBRecordItem<ConferenceRoom>;
-export type NewConferenceRoomData = Omit<ConferenceRoom, "organization">;
+export type NewConferenceRoomData = Omit<ConferenceRoom, "organization" | "congress">;

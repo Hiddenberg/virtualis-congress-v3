@@ -5,15 +5,7 @@ import ConferenceRoomsBrowser from "@/features/conferenceRooms/components/Confer
 import { getAllCongressConferenceRooms } from "@/features/conferenceRooms/services/conferenceRoomsServices";
 import { getLatestCongress } from "@/features/congresses/services/congressServices";
 
-function SummaryCard({
-   label,
-   value,
-   description,
-}: {
-   label: string;
-   value: number;
-   description: string;
-}) {
+function SummaryCard({ label, value, description }: { label: string; value: number; description: string }) {
    return (
       <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
          <p className="text-gray-500 text-xs uppercase tracking-[0.16em]">{label}</p>
@@ -27,7 +19,9 @@ export default async function ConferenceRoomsPage() {
    const congress = await getLatestCongress();
    const conferenceRooms = await getAllCongressConferenceRooms(congress.id);
 
-   const roomsWithDescriptionCount = conferenceRooms.filter((conferenceRoom) => Boolean(conferenceRoom.description?.trim())).length;
+   const roomsWithDescriptionCount = conferenceRooms.filter((conferenceRoom) =>
+      Boolean(conferenceRoom.description?.trim()),
+   ).length;
    const roomsWithoutDescriptionCount = conferenceRooms.length - roomsWithDescriptionCount;
 
    return (
@@ -41,7 +35,8 @@ export default async function ConferenceRoomsPage() {
                   </div>
                   <h1 className="mt-4 mb-3 font-bold text-4xl text-gray-900">Salas de conferencia</h1>
                   <p className="max-w-2xl text-gray-600 leading-relaxed">
-                     Organiza mejor tu evento creando salas para separar conferencias simultáneas, mantener el programa claro y preparar la experiencia multi-room que quieres construir.
+                     Organiza mejor tu evento creando salas para separar conferencias simultáneas, mantener el programa claro y
+                     preparar la experiencia multi-room que quieres construir.
                   </p>
                   <p className="mt-4 text-blue-700 text-sm">
                      Congreso activo: <span className="font-semibold">{congress.title}</span>
@@ -85,7 +80,8 @@ export default async function ConferenceRoomsPage() {
                </div>
                <h2 className="mt-5 font-semibold text-gray-900 text-2xl">Aún no hay salas registradas</h2>
                <p className="mx-auto mt-3 max-w-2xl text-gray-600 leading-relaxed">
-                  Crea tu primera sala para empezar a estructurar el congreso por espacios. Esto te ayudará a preparar mejor sesiones simultáneas y una navegación más clara para asistentes y organizadores.
+                  Crea tu primera sala para empezar a estructurar el congreso por espacios. Esto te ayudará a preparar mejor
+                  sesiones simultáneas y una navegación más clara para asistentes y organizadores.
                </p>
                <Link
                   href="/congress-admin/conference-rooms/create"

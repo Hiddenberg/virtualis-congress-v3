@@ -153,7 +153,9 @@ export default function ConferenceRoomForm({ mode, conferenceRoom }: ConferenceR
                      </div>
                      <div>
                         <h2 className="font-semibold text-gray-900 text-lg">Información de la sala</h2>
-                        <p className="text-gray-600 text-sm">Define cómo se mostrará esta sala a los administradores y asistentes.</p>
+                        <p className="text-gray-600 text-sm">
+                           Define cómo se mostrará esta sala a los administradores y asistentes.
+                        </p>
                      </div>
                   </div>
                </div>
@@ -197,7 +199,8 @@ export default function ConferenceRoomForm({ mode, conferenceRoom }: ConferenceR
                      />
                      <div className="mt-2 flex justify-between gap-4 text-xs">
                         <span className={formErrors.description ? "text-red-600" : "text-gray-500"}>
-                           {formErrors.description ?? "Opcional. Ayuda a diferenciar salas cuando haya varias conferencias simultáneas."}
+                           {formErrors.description ??
+                              "Opcional. Ayuda a diferenciar salas cuando haya varias conferencias simultáneas."}
                         </span>
                         <span className="text-gray-400">{formData.description.length}/240</span>
                      </div>
@@ -235,13 +238,9 @@ export default function ConferenceRoomForm({ mode, conferenceRoom }: ConferenceR
                      <div className="flex items-start justify-between gap-3">
                         <div>
                            <p className="mb-1 text-blue-100 text-xs uppercase tracking-[0.18em]">Sala</p>
-                           <h3 className="font-semibold text-xl">
-                              {formData.name.trim() || "Nombre de la sala"}
-                           </h3>
+                           <h3 className="font-semibold text-xl">{formData.name.trim() || "Nombre de la sala"}</h3>
                         </div>
-                        <div className="rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-200 text-xs">
-                           Lista para usarse
-                        </div>
+                        <div className="rounded-full bg-emerald-400/15 px-3 py-1 text-emerald-200 text-xs">Lista para usarse</div>
                      </div>
                      <p className="mt-4 text-sm text-slate-200 leading-relaxed">
                         {formData.description.trim() || "La descripción aparecerá aquí para darle más contexto a esta sala."}
@@ -261,9 +260,18 @@ export default function ConferenceRoomForm({ mode, conferenceRoom }: ConferenceR
                   </div>
 
                   <div className="space-y-3 text-gray-700 text-sm leading-relaxed">
-                     <p>Usa nombres consistentes como “Auditorio A”, “Sala 1” o “Cardio 101” para que los asistentes identifiquen rápidamente dónde ocurre cada sesión.</p>
-                     <p>Si varias salas se parecen entre sí, agrega una descripción breve para indicar la temática, ubicación o tipo de audiencia esperada.</p>
-                     <p>Cuando conectes las conferencias con salas, una nomenclatura clara hará mucho más fácil mostrar sesiones simultáneas en el lobby y en el panel de administración.</p>
+                     <p>
+                        Usa nombres consistentes como “Auditorio A”, “Sala 1” o “Cardio 101” para que los asistentes identifiquen
+                        rápidamente dónde ocurre cada sesión.
+                     </p>
+                     <p>
+                        Si varias salas se parecen entre sí, agrega una descripción breve para indicar la temática, ubicación o
+                        tipo de audiencia esperada.
+                     </p>
+                     <p>
+                        Cuando conectes las conferencias con salas, una nomenclatura clara hará mucho más fácil mostrar sesiones
+                        simultáneas en el lobby y en el panel de administración.
+                     </p>
                   </div>
                </section>
             </aside>

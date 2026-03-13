@@ -1,7 +1,7 @@
 "use client";
 
-import { Children, useMemo, useState } from "react";
 import { Search } from "lucide-react";
+import { Children, useMemo, useState } from "react";
 import type { ConferenceRoomRecord } from "../types/conferenceRoomsTypes";
 
 interface ConferenceRoomsBrowserProps {
@@ -36,7 +36,9 @@ export default function ConferenceRoomsBrowser({ conferenceRooms, children }: Co
          <div className="flex lg:flex-row flex-col lg:justify-between lg:items-center gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
             <div>
                <p className="font-semibold text-gray-900 text-base">Explora las salas creadas</p>
-               <p className="text-gray-600 text-sm">Busca por nombre o descripción para encontrar rápidamente la sala que necesitas editar.</p>
+               <p className="text-gray-600 text-sm">
+                  Busca por nombre o descripción para encontrar rápidamente la sala que necesitas editar.
+               </p>
             </div>
 
             <div className="flex sm:flex-row flex-col sm:items-center gap-3 lg:min-w-[420px]">
@@ -60,7 +62,9 @@ export default function ConferenceRoomsBrowser({ conferenceRooms, children }: Co
          {visibleCount === 0 ? (
             <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-10 text-center shadow-sm">
                <p className="font-medium text-gray-900">No hay salas que coincidan con tu búsqueda</p>
-               <p className="mt-2 text-gray-600 text-sm">Prueba con otro nombre o limpia el filtro para ver todas las opciones.</p>
+               <p className="mt-2 text-gray-600 text-sm">
+                  Prueba con otro nombre o limpia el filtro para ver todas las opciones.
+               </p>
             </div>
          ) : (
             <div className="grid gap-6 grid-cols-1 xl:grid-cols-2">

@@ -33,7 +33,8 @@ export default function ConferenceRoomCard({ conferenceRoom }: { conferenceRoom:
 
          <div className="px-5 py-5">
             <p className="min-h-16 text-gray-600 text-sm leading-relaxed">
-               {conferenceRoom.description?.trim() || "Sin descripción. Añade una breve explicación para identificar mejor esta sala dentro del programa."}
+               {conferenceRoom.description?.trim() ||
+                  "Sin descripción. Añade una breve explicación para identificar mejor esta sala dentro del programa."}
             </p>
 
             <div className="mt-5 grid gap-3 sm:grid-cols-2">

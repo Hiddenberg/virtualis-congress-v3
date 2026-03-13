@@ -25,8 +25,8 @@ export async function createConferenceRoomAction(
    try {
       const congress = await getLatestCongress();
       const newConferenceRoom = await createConferenceRoomRecord({
-         ...newConferenceRoomData,
-         congress: congress.id,
+         newConferenceRoomData,
+         congressId: congress.id,
       });
 
       revalidatePath("/congress-admin");

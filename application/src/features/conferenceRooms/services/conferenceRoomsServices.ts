@@ -11,12 +11,19 @@ import {
 } from "@/libs/pbServerClientNew";
 import type { ConferenceRoom, ConferenceRoomRecord, NewConferenceRoomData } from "../types/conferenceRoomsTypes";
 
-export async function createConferenceRoomRecord(newConferenceRoomData: NewConferenceRoomData) {
+export async function createConferenceRoomRecord({
+   newConferenceRoomData,
+   congressId,
+}: {
+   newConferenceRoomData: NewConferenceRoomData;
+   congressId: CongressRecord["id"];
+}) {
    const organization = await getOrganizationFromSubdomain();
 
    const newConferenceRoomRecord = await createDBRecord<ConferenceRoom>("CONFERENCE_ROOMS", {
-      organization: organization.id,
       ...newConferenceRoomData,
+      organization: organization.id,
+      congress: congressId,
    });
 
    return newConferenceRoomRecord;
