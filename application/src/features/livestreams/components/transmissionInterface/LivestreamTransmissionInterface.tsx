@@ -22,14 +22,14 @@ function GoToQnASessionSection({
 }) {
    if (qnaSession) {
       return (
-         <div className="flex justify-center mb-4 w-full">
+         <div className="hidden sm:flex justify-center mb-4 w-full">
             <GoToQnaButton conferenceId={conferenceId} />
          </div>
       );
    }
 
    return (
-      <div className="flex justify-center mb-4 w-full">
+      <div className="hidden sm:flex justify-center mb-4 w-full">
          <p className="text-gray-500 text-sm">No hay sesión de preguntas y respuestas preparada para esta conferencia</p>
       </div>
    );
@@ -57,7 +57,7 @@ function LiveTransmissionHeader({ isQna, conference }: { isQna: boolean; confere
                <h1 className="font-bold text-white text-lg sm:text-2xl wrap-break-word capitalize">{conference.title}</h1>
             </div>
          </div>
-         <div className="flex flex-col gap-2 p-2 border-white! rounded-lg w-full sm:w-auto *:w-full sm:min-w-[200px] border! shrink-0">
+         <div className="hidden md:flex flex-col gap-2 p-2 border-white! rounded-lg w-full sm:w-auto *:w-full sm:min-w-[200px] border! shrink-0">
             <div className="flex justify-center items-center gap-2">
                <EyeIcon className="w-5 sm:w-6 h-5 sm:h-6 text-white shrink-0" />
                <p className="font-semibold text-white text-xs sm:text-sm">Ver como asistente</p>
@@ -104,11 +104,24 @@ export default function LivestreamTransmissionInterface({
 
             <ZoomSessionProvider sessionName={`${conference.title}-conf`} sessionKey={livestreamSession.id}>
                {/* Control Buttons Section */}
-               <div className="bg-white shadow-lg mb-4 sm:mb-6 p-4 sm:p-6 border border-gray-200 rounded-2xl">
+               <div className="hidden sm:block bg-white shadow-lg mb-4 sm:mb-6 p-4 sm:p-6 border border-gray-200 rounded-2xl">
                   <RealtimeLivestreamStatusProvider livestreamSession={livestreamSession}>
                      {!isQna && <GoToQnASessionSection qnaSession={qnaSession} conferenceId={conferenceId} />}
                      <LivestreamControlButtons sessionTitle={conference.title} livestreamSessionId={livestreamSession.id} />
                   </RealtimeLivestreamStatusProvider>
+               </div>
+
+               {/* Mobile hint: contract button for mic/camera */}
+               <div className="md:hidden flex flex-col items-start gap-3 bg-orange-100! mb-4 p-3 border-orange-400! rounded-xl border!">
+                  <p className="pt-1 text-gray-700 text-sm">
+                     Haz clic en el botón que se ve así <span className="font-bold text-medium">en la parte de abajo</span> para
+                     poder activar tu <span className="text-red-500!">cámara y micrófono</span>.
+                  </p>
+                  <img
+                     src="https://res.cloudinary.com/dnx2lg7vb/image/upload/v1773420190/e4c3aa8e-0962-4335-8770-fda5e7dbb349.webp"
+                     alt="Botón para expandir controles"
+                     className="border-2! border-orange-400! rounded-full w-full object-contain overflow-hidden shrink-0"
+                  />
                </div>
 
                {/* Main Content Area */}
