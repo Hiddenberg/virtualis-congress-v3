@@ -17,6 +17,7 @@ const PB_COLLECTIONS = {
    CONFERENCE_SPEAKERS: "conference__speakers",
    CONFERENCE_QUESTION_POLLS: "conference__question_polls",
    CONFERENCE_RECORDINGS: "conference__recordings",
+   CONFERENCE_ROOMS: "conference_rooms",
    CONFERENCE_LIVESTREAMS: "conference__livestreams",
    CONFERENCE_QNA_SESSIONS: "conference__qna_sessions",
    FULFILLMENT_ERRORS: "fulfillment_errors",
