@@ -115,7 +115,7 @@ export function StopLiveStreamButton({
 
       toast.loading("Deteniendo transmisión, esto puede tardar unos segundos...");
       startTransition(async () => {
-         await new Promise((resolve) => setTimeout(resolve, 35000));
+         await new Promise((resolve) => setTimeout(resolve, 25000));
 
          const stopResponse = await stopLivestreamAction({
             livestreamSessionId,
