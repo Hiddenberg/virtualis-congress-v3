@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/global/Buttons";
-import { syncCongressRecordings } from "../serverActions/recordingsSyncActions";
+import { syncCongressRecordingsAction } from "../serverActions/recordingsSyncActions";
 
 export default function SyncAllCongressRecordings() {
    const [isLoading, startTransition] = useTransition();
@@ -22,7 +22,7 @@ export default function SyncAllCongressRecordings() {
 
    const handleSync = () => {
       startTransition(async () => {
-         const result = await syncCongressRecordings();
+         const result = await syncCongressRecordingsAction();
          if (result.success) {
             setResult(result.data);
          } else {

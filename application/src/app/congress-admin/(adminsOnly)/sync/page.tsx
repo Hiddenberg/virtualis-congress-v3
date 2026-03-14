@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import DeleteRecordingsCampagin from "@/features/platformSync/components/DeleteRecordingsCampagin";
-import SyncAllCongressRecordings from "@/features/platformSync/components/SyncAllCongressRecordings";
 import SyncRecordingDurationsButton from "@/features/platformSync/components/SyncRecordingDurationsButton";
 import {
    scheduleAllConferencePresentationRecordingsAction,
    scheduleAllConferenceRecordingsAction,
+   syncCongressRecordingsAction,
 } from "@/features/platformSync/serverActions/recordingsSyncActions";
 import { getLoggedInUserId } from "@/features/staggeredAuth/services/staggeredAuthServices";
 import SuperAdminToolCard from "@/features/superAdminTools/components/SuperAdminToolCard";
@@ -36,7 +36,12 @@ export default async function CongressAdminSynchPage() {
          <h1>Synch</h1>
          <div className="gap-4 grid grid-cols-1 md:grid-cols-2 *:bg-gray-100 mb-4 *:p-4 *:rounded-md">
             <SyncRecordingDurationsButton />
-            <SyncAllCongressRecordings />
+            {/* <SyncAllCongressRecordings /> */}
+            <SuperAdminToolCard
+               action={syncCongressRecordingsAction}
+               buttonText="Sync All Congress Recordings"
+               description="Esta acción creará las grabaciones para todas las conferencias del congreso actual para mostrarlas en la sección de grabaciones del congreso."
+            />
             {/* <ScheduleAllConferenceRecordings /> */}
             <SuperAdminToolCard action={scheduleAllConferenceRecordingsAction} buttonText="Schedule All Conference Recordings" />
             {/* <ScheduleAllConferencePresentationRecordings /> */}
