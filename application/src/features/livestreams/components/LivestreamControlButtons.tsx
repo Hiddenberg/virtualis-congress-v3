@@ -115,7 +115,7 @@ export function StopLiveStreamButton({
 
       toast.loading("Deteniendo transmisión, esto puede tardar unos segundos...");
       startTransition(async () => {
-         await new Promise((resolve) => setTimeout(resolve, 10000));
+         await new Promise((resolve) => setTimeout(resolve, 25000));
 
          const stopResponse = await stopLivestreamAction({
             livestreamSessionId,
@@ -189,9 +189,9 @@ export function LivestreamControlButtons({
    }
 
    return (
-      <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+      <div className="flex sm:flex-row flex-col justify-between items-stretch sm:items-center gap-4">
          {/* Control Buttons */}
-         <div className="flex items-center justify-center sm:justify-start gap-2 sm:gap-4 flex-wrap">
+         <div className="flex flex-wrap justify-center sm:justify-start items-center gap-2 sm:gap-4">
             {isHost ? (
                <div>
                   {(livestreamStatus === "preparing" || livestreamStatus === "scheduled" || livestreamStatus === "ended") && (
@@ -220,7 +220,7 @@ export function LivestreamControlButtons({
          </div>
 
          {/* Status Display */}
-         <div className="flex items-center justify-center sm:justify-end gap-3">
+         <div className="flex justify-center sm:justify-end items-center gap-3">
             <div className="bg-stone-100 p-2 rounded-lg">
                <div className={statusColorMap[livestreamStatus]}>{statusIconMap[livestreamStatus]}</div>
             </div>

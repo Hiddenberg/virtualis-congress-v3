@@ -63,7 +63,7 @@ export default async function CongressRecordingsPage() {
       `
       organization = {:organizationId} &&
       status = "ready" &&
-      (campaign.title = "[Congress Recordings] - ${congress.title}" || campaign.title = "Conferencias del congreso: ${congress.title}")
+      (campaign.title = "[Congress Recordings] - ${congress.title}")
    `,
       {
          organizationId: organization.id,

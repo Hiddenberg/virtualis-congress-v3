@@ -56,7 +56,7 @@ export default function AttendantConferenceViewer({
       () => [
          {
             key: "chat" as const,
-            label: "Enviar mensaje",
+            label: "Enviar mensaje/pregunta",
             icon: MessageSquareText,
             onClick: () => setActiveOverlay("chat"),
          },

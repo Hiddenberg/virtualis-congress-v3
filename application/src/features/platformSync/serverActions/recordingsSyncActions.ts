@@ -79,8 +79,9 @@ export async function ensureAllRecordingsHaveDuration(): Promise<
    };
 }
 
-export async function syncCongressRecordings(): Promise<
+export async function syncCongressRecordingsAction(): Promise<
    BackendResponse<{
+      successMessage: string;
       createdRecordings: string[];
       copiedRecordings: string[];
       failedRecordings: {
@@ -250,14 +251,12 @@ export async function syncCongressRecordings(): Promise<
          }
       }
 
-      console.log("Recordings created", createdRecordings);
-      console.log("Recordings copied", copiedRecordings);
-      console.log("Recordings failed", failedRecordings);
-      console.log("Recordings skipped", skippedRecordings);
+      const successMessage = `Recordings created: ${createdRecordings.length}, copied: ${copiedRecordings.length}, failed: ${failedRecordings.length}, skipped: ${skippedRecordings.length}`;
 
       return {
          success: true,
          data: {
+            successMessage,
             createdRecordings,
             copiedRecordings,
             failedRecordings,
